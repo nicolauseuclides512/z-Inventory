@@ -1,0 +1,176 @@
+<template>
+  <div class="clearfix" v-if="pageContext.count > 0">
+    <div class="pr-20 pull-left" style="padding: 26px 0 0 15px;">
+      <small class="text-muted">
+        Show
+        {{
+          pageContext.current_page == 1
+            ? 1
+            : pageContext.current_page * pageContext.per_page - pageContext.per_page + 1
+        }}
+        to
+        {{
+          pageContext.current_page == pageContext.last_page
+            ? pageContext.total
+            : pageContext.current_page * pageContext.per_page
+        }}
+        of {{ pageContext.total }} total entries
+
+        &mdash;
+
+        <select id="pagination-per-page" v-model="per_page" @change="updatePerPage" title="Per page">
+          <option :value="10">10</option>
+          <option :value="15">15</option>
+          <option :value="30">30</option>
+          <option :value="60">60</option>
+          <option :value="100">100</option>
+        </select>
+
+        per page
+
+      </small>
+    </div>
+    <div class="pr-20 pull-right">
+
+      <ul class="pagination m-b-5">
+
+        <li>
+          <button type="button"
+                  id="pagination-prev"
+                  :class="{ btn: true, 'btn-primary': pageContext.prev_page_url, 'btn-default': !pageContext.prev_page_url }"
+                  :disabled="!pageContext.prev_page_url"
+                  @click="prev">
+            <i class="fa fa-arrow-left" v-show="!loadingPrev"></i>
+            <i class="fa fa-circle-o-notch fa-spin" v-show="loadingPrev"></i>
+          </button>
+        </li>
+
+        <li>
+          <button type="button"
+                  id="pagination-next"
+                  :class="{ btn: true, 'btn-primary': pageContext.next_page_url, 'btn-default': !pageContext.next_page_url }"
+                  :disabled="!pageContext.next_page_url"
+                  @click="next">
+            <i class="fa fa-arrow-right" v-show="!loadingNext"></i>
+            <i class="fa fa-circle-o-notch fa-spin" v-show="loadingNext"></i>
+          </button>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</template>
+
+<script>
+  import Vue from 'vue'
+  import axios from 'axios'
+  import {responseOk, swal_success, swal_error} from "src/helpers";
+
+  export default {
+
+    props: {
+      pageContext: {
+        type: Object,
+        required: true
+      },
+      result: {
+        type: Array,
+        required: true
+      }
+    },
+
+
+    data() {
+      return {
+        per_page: 15,
+        loading: false,
+        loadingNext: false,
+        loadingPrev: false,
+      }
+    },
+
+
+    methods: {
+
+
+      updatePerPage() {
+        this.loading = true
+
+        const url = this.pageContext.current_page_url
+          .replace(/(?:per_page=)(\d+)/, `per_page=${this.per_page}`)
+          .replace(/(?:page=)(\d+)/, 'page=1')
+
+        axios.get(url)
+          .then(res => {
+            if (!responseOk(res.data.code)) {
+              this.loading = false
+              return swal_error(res)
+            }
+
+            this.$emit('updated', res.data)
+
+            this.loading = false
+
+          }).catch(err => {
+            this.loading = false
+            return swal_error(err.response)
+          })
+      },
+
+
+      /**
+       * Get previous page
+       */
+      prev() {
+
+        this.loadingPrev = true
+
+        axios.get(this.pageContext.prev_page_url)
+          .then(res => {
+            if (!responseOk(res.data.code)) {
+              this.loadingPrev = false
+              return swal_error(res)
+            }
+
+            this.$emit('updated', res.data)
+
+            this.loadingPrev = false
+
+          }).catch(err => {
+            this.loadingPrev = false
+            return swal_error(err.response)
+          })
+
+      },
+
+
+      /**
+       * Get next page
+       */
+      next() {
+
+        this.loadingNext = true
+
+        axios.get(this.pageContext.next_page_url)
+          .then(res => {
+            if (!responseOk(res.data.code)) {
+              this.loadingNext = false
+              return swal_error(res)
+            }
+
+            this.$emit('updated', res.data)
+
+            this.loadingNext = false
+
+          }).catch(err => {
+            this.loadingNext = false
+            return swal_error(err.response)
+          })
+
+      },
+
+
+    },
+  }
+</script>

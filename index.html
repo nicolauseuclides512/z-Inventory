@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+  <title>Zuragan - Administration Page</title>
+
+  <link rel="stylesheet" href="/static/css/core.min.css">
+  <link rel="stylesheet" href="/static/css/custom.min.css">
+  <link rel="stylesheet" href="//unpkg.com/flatpickr@3.0.5-1/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="//unpkg.com/sweetalert2@6.6.2/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://unpkg.com/respond.js@1.4.2/dest/respond.min.js"></script>
+  <![endif]-->
+
+  <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+  <link rel="icon" type="image/png" href="/static/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/img/icons/favicon-16x16.png">
+  <!--[if IE]><link rel="shortcut icon" href="/static/img/icons/favicon.ico"><![endif]-->
+  <!-- Add to home screen for Android and modern mobile browsers -->
+  <link rel="manifest" href="/static/manifest.json">
+  <meta name="theme-color" content="#4DBA87">
+
+  <!-- Add to home screen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="zuragan">
+  <link rel="apple-touch-icon" href="/static/img/icons/apple-touch-icon-152x152.png">
+  <!-- Add to home screen for Windows -->
+  <meta name="msapplication-TileImage" content="/static/img/icons/msapplication-icon-144x144.png">
+  <meta name="msapplication-TileColor" content="#000000">
+  <% for (var chunk of webpack.chunks) {
+      for (var file of chunk.files) {
+        if (file.match(/\.(js|css)$/)) { %>
+  <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>"><% }}} %>
+
+  <style>
+    html, body {
+      height: 100%;
+    }
+    #app {
+      background: #ebeef0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="text-center">
+      <strong>Zuragan</strong><br>
+      <small>Please wait...</small>
+    </div>
+  </div>
+  <!-- Todo: only include in production -->
+  <%= htmlWebpackPlugin.options.serviceWorkerLoader %>
+  <!-- built files will be auto injected -->
+
+  <script src="//cdn.polyfill.io/v2/polyfill.min.js" crossorigin="anonymous"></script>
+  <script src="//code.jquery.com/jquery-3.2.1.js" crossorigin="anonymous"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.js" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js" crossorigin="anonymous"></script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-104614950-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+</body>
+</html>
