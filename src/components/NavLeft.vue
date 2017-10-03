@@ -30,10 +30,10 @@
           <router-link tag="li" :to="{ name: 'item.index' }">
             <a class="waves-effect waves-light">Item List</a>
           </router-link>
-          <router-link tag="li" :to="{ name: 'item.index' }">
+          <router-link tag="li" :to="{ name: 'stock_adjustment.index' }">
             <a class="waves-effect waves-light">Stock Adjustment</a>
           </router-link>
-          <router-link tag="li" :to="{ name: 'item.index' }">
+          <router-link tag="li" :to="{ name: 'stock_summary.index' }">
             <a class="waves-effect waves-light">Stock Summary</a>
           </router-link>
         </dropdown-menu>

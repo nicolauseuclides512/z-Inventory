@@ -88,6 +88,29 @@ export default [
         component: resolve => require(['./components/Inventory/Collection/Edit'], resolve),
       },
 
+      {
+        path: '/items/stock_adjustment',
+        name: 'stock_adjustment.index',
+        component: resolve => require(['./components/Inventory/StockAdjusment/Index'], resolve),
+      },
+
+      {
+        path: '/items/stock-adjustment/:id/edit',
+        name: 'stock_adjustment.edit',
+        component: resolve => require(['./components/Inventory/StockAdjusment/Edit'], resolve),
+      },
+
+      {
+        path: '/items/stock_summary',
+        name: 'stock_summary.index',
+        component: resolve => require(['./components/Inventory/StockSummary/Index'], resolve),
+      },
+
+      {
+        path: '/items/stock-summary/:id/edit',
+        name: 'stock_summary.edit',
+        component: resolve => require(['./components/Inventory/StockSummary/Edit'], resolve),
+      },
 
       /**
        * Discount
