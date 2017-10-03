@@ -26,24 +26,17 @@
         <!---->
         <!--</dropdown-menu>-->
 
-        <!--<dropdown-menu title="Items" icon="ion-folder">-->
-          <!--<router-link tag="li" :to="{ name: 'item.index' }">-->
-            <!--<a class="waves-effect waves-light">Item List</a>-->
-          <!--</router-link>-->
-          <!--<router-link tag="li" :to="{ name: 'item.index' }">-->
-            <!--<a class="waves-effect waves-light">Stock Adjustment</a>-->
-          <!--</router-link>-->
-          <!--<router-link tag="li" :to="{ name: 'item.index' }">-->
-            <!--<a class="waves-effect waves-light">Stock Summary</a>-->
-          <!--</router-link>-->
-        <!--</dropdown-menu>-->
-
-        <router-link id="nev-left-items" tag="li" :to="{ name: 'item.index' }">
-          <a class="waves-effect waves-light">
-            <i class="ion-folder"></i>
-            Items
-          </a>
-        </router-link>
+        <dropdown-menu title="Items" icon="ion-folder">
+          <router-link tag="li" :to="{ name: 'item.index' }">
+            <a class="waves-effect waves-light">Item List</a>
+          </router-link>
+          <router-link tag="li" :to="{ name: 'item.index' }">
+            <a class="waves-effect waves-light">Stock Adjustment</a>
+          </router-link>
+          <router-link tag="li" :to="{ name: 'item.index' }">
+            <a class="waves-effect waves-light">Stock Summary</a>
+          </router-link>
+        </dropdown-menu>
 
         <li>
           <router-link id="nev-left-contacts" :to="{ name: 'contact.index' }" class="waves-effect waves-light">
