@@ -17,6 +17,11 @@
                 Store Details
               </a>
             </li>
+            <li :class="{ active: currentView === 'SalesChannel' }">
+              <a href="javascript:void(0);" @click="changeView('SalesChannel')">
+                Sales Channel
+              </a>
+            </li>
             <!--<li :class="{ active: currentView === 'checkout' }">-->
               <!--<a href="javascript:void(0);" @click="changeView('checkout')">-->
                 <!--Checkout-->
@@ -74,6 +79,7 @@
 
   import OrganizationProfile from './OrganizationProfile';
   import StoreDetail from './StoreDetail';
+  import SalesChannel from './SalesChannel';
   import Shipping from './Shipping';
   import Payment from './Payment';
 //  import Checkout from './Checkout';
