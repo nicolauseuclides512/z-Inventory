@@ -95,9 +95,15 @@ export default [
       },
 
       {
-        path: '/items/stock-adjustment/:id/edit',
+        path: '/items/stock_adjustment/create',
+        name: 'stock_adjustment.create',
+        component: resolve => require(['./components/Inventory/StockAdjusment/Form'], resolve),
+      },
+
+      {
+        path: '/items/stock_adjustment/:id/edit',
         name: 'stock_adjustment.edit',
-        component: resolve => require(['./components/Inventory/StockAdjusment/Edit'], resolve),
+        component: resolve => require(['./components/Inventory/StockAdjusment/Form'], resolve),
       },
 
       {
