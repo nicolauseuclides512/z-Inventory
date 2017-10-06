@@ -185,76 +185,76 @@
                 <!--</div>-->
 
               </div>
-              <!--<div class="col-md-6">-->
-                <!--<p class="m-b-30" style="display: inline-block;color: #aaa;">Shipping Address</p>-->
+              <div class="col-md-6">
+                <p class="m-b-30" style="display: inline-block;color: #aaa;">Shipping Address</p>
 
-                <!--<a href="javascript:void(0);" @click="copyBillingAddress" class="pull-right">-->
-                  <!--<i class="ion-arrow-down-a"></i>-->
-                  <!--Copy Billing Address-->
-                <!--</a>-->
+                <a href="javascript:void(0);" @click="copyBillingAddress" class="pull-right">
+                  <i class="ion-arrow-down-a"></i>
+                  Copy Billing Address
+                </a>
+
+                <div class="form-group form-general m-b-20">
+                  <label class="col-md-4 control-label text-left">Country</label>
+                  <div class="col-md-7">
+                    <select id="shipping_country_id" v-model="shipping_country_id" class="form-control">
+                      <option :value="0" hidden disabled>Select Country</option>
+                      <option v-for="c in shippingCountryList" :value="c.id">{{ c.name }}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group form-general m-b-20">
+                  <label class="col-md-4 control-label text-left">Province</label>
+                  <div class="col-md-7">
+                    <select id="shipping_province_id" v-model="shipping_province_id" class="form-control" @change="updateShippingDistrictList" :disabled="!shippingProvinceList.length > 0">
+                      <option :value="0" hidden disabled>Select Province</option>
+                      <option v-for="c in shippingProvinceList" :value="c.id">{{ c.name }}</option>
+                    </select>
+                  </div>
+                </div>
 
                 <!--<div class="form-group form-general m-b-20">-->
-                  <!--<label class="col-md-4 control-label text-left">Country</label>-->
+                  <!--<label class="col-md-4 control-label text-left">District</label>-->
                   <!--<div class="col-md-7">-->
-                    <!--<select id="shipping_country_id" v-model="shipping_country_id" class="form-control">-->
-                      <!--<option :value="0" hidden disabled>Select Country</option>-->
-                      <!--<option v-for="c in shippingCountryList" :value="c.id">{{ c.name }}</option>-->
+                    <!--<select id="shipping_district_id" v-model="shipping_district_id" class="form-control" @change="updateShippingRegionList" :disabled="!shippingDistrictList.length > 0">-->
+                      <!--<option :value="0" hidden disabled>Select District</option>-->
+                      <!--<option v-for="d in shippingDistrictList" :value="d.id">{{ d.name }}</option>-->
                     <!--</select>-->
                   <!--</div>-->
                 <!--</div>-->
 
                 <!--<div class="form-group form-general m-b-20">-->
-                  <!--<label class="col-md-4 control-label text-left">Province</label>-->
+                  <!--<label class="col-md-4 control-label text-left">Region</label>-->
                   <!--<div class="col-md-7">-->
-                    <!--<select id="shipping_province_id" v-model="shipping_province_id" class="form-control" @change="updateShippingDistrictList" :disabled="!shippingProvinceList.length > 0">-->
-                      <!--<option :value="0" hidden disabled>Select Province</option>-->
-                      <!--<option v-for="c in shippingProvinceList" :value="c.id">{{ c.name }}</option>-->
+                    <!--<select id="shipping_region_id" v-model="shipping_region_id" class="form-control" :disabled="!shippingRegionList.length > 0">-->
+                      <!--<option :value="0" hidden disabled>Select Region</option>-->
+                      <!--<option v-for="r in shippingRegionList" :value="r.id">{{ r.name }}</option>-->
                     <!--</select>-->
                   <!--</div>-->
                 <!--</div>-->
 
-                <!--&lt;!&ndash;<div class="form-group form-general m-b-20">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<label class="col-md-4 control-label text-left">District</label>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="col-md-7">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<select id="shipping_district_id" v-model="shipping_district_id" class="form-control" @change="updateShippingRegionList" :disabled="!shippingDistrictList.length > 0">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<option :value="0" hidden disabled>Select District</option>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<option v-for="d in shippingDistrictList" :value="d.id">{{ d.name }}</option>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <div class="form-group form-general m-b-20">
+                  <label class="col-md-4 control-label text-left">Street</label>
+                  <div class="col-md-7">
+                    <textarea class="form-control" rows="2" id="shipping_address" v-model="shipping_address"></textarea>
+                  </div>
+                </div>
 
-                <!--&lt;!&ndash;<div class="form-group form-general m-b-20">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<label class="col-md-4 control-label text-left">Region</label>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="col-md-7">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<select id="shipping_region_id" v-model="shipping_region_id" class="form-control" :disabled="!shippingRegionList.length > 0">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<option :value="0" hidden disabled>Select Region</option>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<option v-for="r in shippingRegionList" :value="r.id">{{ r.name }}</option>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <div class="form-group form-general m-b-20">
+                  <label class="col-md-4 control-label text-left">Zip Code</label>
+                  <div class="col-md-7">
+                    <input type="text" class="form-control" placeholder="" maxlength="5" id="shipping_zip" v-model="shipping_zip">
+                  </div>
+                </div>
 
                 <!--<div class="form-group form-general m-b-20">-->
-                  <!--<label class="col-md-4 control-label text-left">Street</label>-->
+                  <!--<label class="col-md-4 control-label text-left">Fax</label>-->
                   <!--<div class="col-md-7">-->
-                    <!--<textarea class="form-control" rows="2" id="shipping_address" v-model="shipping_address"></textarea>-->
+                    <!--<input type="text" class="form-control" placeholder="" maxlength="20" id="shipping_fax" v-model="shipping_fax">-->
                   <!--</div>-->
                 <!--</div>-->
 
-                <!--<div class="form-group form-general m-b-20">-->
-                  <!--<label class="col-md-4 control-label text-left">Zip Code</label>-->
-                  <!--<div class="col-md-7">-->
-                    <!--<input type="text" class="form-control" placeholder="" maxlength="5" id="shipping_zip" v-model="shipping_zip">-->
-                  <!--</div>-->
-                <!--</div>-->
-
-                <!--&lt;!&ndash;<div class="form-group form-general m-b-20">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<label class="col-md-4 control-label text-left">Fax</label>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="col-md-7">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<input type="text" class="form-control" placeholder="" maxlength="20" id="shipping_fax" v-model="shipping_fax">&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-              <!--</div>-->
+              </div>
             </div>
 
             <div v-show="currentTab == 'notes'">
