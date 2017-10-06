@@ -96,8 +96,8 @@ const actions = {
       commit('CURRENCY', res.data.data.currency_id)
       commit('TIMEZONE', res.data.data.timezone_id)
       commit('IMAGE_LOGO', res.data.data.logo)
-      commit('IMAGE_LOGO_SMALL', res.data.data.multi_res_logo.small)
-      commit('IMAGE_LOGO_MEDIUM', res.data.data.multi_res_logo.medium)
+      commit('IMAGE_LOGO_SMALL', res.data.data.multi_res_logo ? res.data.data.multi_res_logo.small : null)
+      commit('IMAGE_LOGO_MEDIUM', res.data.data.multi_res_logo ? res.data.data.multi_res_logo.medium : null)
       commit('ORGANIZATION_STATUS', res.data.data.status)
 
       commit('PRIMARY_CONTACT', res.data.data.primary_contact)
