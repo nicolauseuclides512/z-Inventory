@@ -120,9 +120,9 @@
 					      								<div class="pull-left">
 					      									<span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status }}</span>
 					      									<span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span>
-					      									<!--<span class="text-muted">/</span>-->
-					      									<!--<span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'" style="font-size: 10px;">{{ sale.shipment_status }}</span>-->
-					      									<!--<span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span>-->
+					      									<span class="text-muted">/</span>
+					      									<span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'" style="font-size: 10px;">{{ sale.shipment_status }}</span>
+					      									<span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span>
 					      								</div>
 					      								<div class="pull-right">
 					      									{{ sale.total | money }}
