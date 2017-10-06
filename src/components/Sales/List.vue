@@ -30,12 +30,12 @@
             <li :class="{ active: filter == 'overdue' }">
               <a href="javascript:void(0);" @click="changeFilter({ filter: 'overdue' })">Overdue</a>
             </li>
-            <!--<li :class="{ active: filter == 'shipped' }">
+            <li :class="{ active: filter == 'shipped' }">
               <a href="javascript:void(0);" @click="changeFilter({ filter: 'shipped' })">Shipped</a>
-            </li>-->
-            <!--<li :class="{ active: filter == 'not_yet_shipped' }">
+            </li>
+            <li :class="{ active: filter == 'not_yet_shipped' }">
               <a href="javascript:void(0);" @click="changeFilter({ filter: 'not_yet_shipped' })">Not shipped</a>
-            </li>-->
+            </li>
             <li :class="{ active: filter == 'void' }">
               <a href="javascript:void(0);" @click="changeFilter({ filter: 'void' })">Void</a>
             </li>
