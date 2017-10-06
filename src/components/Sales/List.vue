@@ -212,7 +212,11 @@
                               </a>
                             </li>
                             <!--<li><a href="javascript:void(0);">Email Invoice</a></li>-->
-                            <!--<li v-if="sale.shipment_status === 'NOT_YET_SHIPPED'"><a href="javascript:void(0);" @click="gotoDetailShipment(sale)">Record Shipment</a></li>-->
+                            <li v-if="sale.shipment_status === 'NOT_YET_SHIPPED'">
+                              <a href="javascript:void(0);" @click="gotoDetailShipment(sale)">
+                                Record Shipment
+                              </a>
+                            </li>
                           </ul>
                         </td>
                       </tr>
