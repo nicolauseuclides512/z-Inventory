@@ -310,13 +310,13 @@ const actions = {
       }
 
       const res = await axios.post('contacts', data)
-      if (!responseOk(res.data.code)) return swal_error(res)
       swal_success(res)
+      return res
 
     } catch (err) {
       console.error(err)
       if (err.hasOwnProperty('response')) {
-        swal_error(res.response)
+        swal_error(err.response)
       }
     }
   },
