@@ -27,11 +27,11 @@
                 <!--Checkout-->
               <!--</a>-->
             <!--</li>-->
-            <!--<li :class="{ active: currentView === 'Shipping' }">-->
-              <!--<a href="javascript:void(0);" @click="changeView('Shipping')">-->
-                <!--Shipment-->
-              <!--</a>-->
-            <!--</li>-->
+            <li :class="{ active: currentView === 'Shipping' }">
+              <a href="javascript:void(0);" @click="changeView('Shipping')">
+                Shipment
+              </a>
+            </li>
             <li :class="{ active: currentView === 'Payment' }">
               <a href="javascript:void(0);" @click="changeView('Payment')">
                 Payment Setting
