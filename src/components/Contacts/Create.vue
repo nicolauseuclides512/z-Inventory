@@ -514,7 +514,7 @@
        */
       async save() {
         await store.dispatch('contactForm/create')
-//        this.$router.push('/contacts')
+        this.$router.push('/contacts')
       },
 
       changeTab(name) {
