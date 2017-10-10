@@ -182,38 +182,60 @@
                 </h3>
                 <div class="pull-right">
 
-                  <button
-                    @click="showModalPayment()"
-                    class="btn btn-default waves-effect waves-light m-b-5"
-                    data-toggle="dropdown"
-                    aria-expanded="false"
-                    v-if="salesOrder.invoice_status !== 'VOID'"
-                    :disabled="salesOrder.invoice_status === 'PAID'"
-                  >
-                    Record Payment
-                  </button>
+                  <div class="dropdown pull-left" style="margin-right: 10px;">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                      Record
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                      <li>
+                        <a
+                          @click="showModalPayment()"
+                          data-toggle="dropdown"
+                          aria-expanded="false"
+                          v-if="salesOrder.invoice_status !== 'VOID'"
+                          :disabled="salesOrder.invoice_status === 'PAID'"
+                        >
+                          Payment
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          @click="showModalShipment()"
+                          data-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Shipment
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
 
+                  <div class="pull-left" style="margin-right: 10px;">
+                    <router-link
+                      :to="{ name: 'sales.edit', param: { id: salesOrder.sales_order_id } }"
+                      v-if="salesOrder.invoice_status !== 'VOID'"
+                      class="btn btn-default waves-effect waves-light m-b-5"
+                    >
+                      Edit
+                    </router-link>
+                  </div>
 
-                  <router-link
-                    :to="{ name: 'sales.edit', param: { id: salesOrder.sales_order_id } }"
-                    v-if="salesOrder.invoice_status !== 'VOID'"
-                    class="btn btn-default waves-effect waves-light m-b-5"
-                  >
-                    Edit
-                  </router-link>
+                  <div class="pull-left" style="margin-right: 10px;">
+                    <button
+                      @click="cancelSalesOrder(salesOrder)"
+                      class="btn btn-default waves-effect waves-light m-b-5"
+                      v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'"
+                    >
+                      Void
+                    </button>
+                  </div>
 
-                  <button
-                    @click="cancelSalesOrder(salesOrder)"
-                    class="btn btn-default waves-effect waves-light m-b-5"
-                    v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'"
-                  >
-                    Void
-                  </button>
-
-
-                  <a href="javascript:void(0);" id="close-btn" class="close-btn" @click="closeDetail">
-                    <i class="ion-android-close"></i>
-                  </a>
+                  <div class="pull-left" style="margin-right: 10px;">
+                    <a href="javascript:void(0);" id="close-btn" class="close-btn" @click="closeDetail">
+                      <i class="ion-android-close"></i>
+                    </a>
+                  </div>
                 </div>
 
               </div>
