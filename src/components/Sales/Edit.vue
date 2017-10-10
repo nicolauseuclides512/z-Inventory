@@ -153,6 +153,18 @@
             <td colspan="4" class="text-right">{{ tax_value | money }}</td>
           </tr>
           <tr class="total text-bold">
+            <td class="">Shipping Charge</td>
+            <td class="">
+              <select class="form-control">
+                <option value=""></option>
+                <option value=""></option>
+              </select>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr class="total text-bold">
             <td colspan="3">
               <input
                 v-model.trim="form.adjustment_name"
