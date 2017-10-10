@@ -64,7 +64,9 @@ const mutations = {
   INVOICE_LIST(state, payload) { state.salesList = payload },
   PAYMENT_LIST(state, payload) { state.paymentList = payload },
   CHECKED_LIST(state, payload) { state.checkedList = payload },
-  SHIPMENT_LIST(state, payload) { state.shipmentList = payload },
+  SHIPMENT_LIST(state, payload) {
+    state.shipmentList = Array.isArray(payload) ? payload : []
+  },
   CARRIER_LIST(state, payload) { state.carrierList = payload },
   PAYMENT_METHOD_LIST(state, payload) { state.payment_method_list = payload },
   PAYMENT_METHOD_DETAIL_LIST(state, payload) { state.paymentMethodDetailList = payload },
