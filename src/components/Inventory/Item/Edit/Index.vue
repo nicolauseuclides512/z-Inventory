@@ -81,6 +81,7 @@
 
     data() {
       return {
+        dirtyForm: false,
 
         default_weight_unit: 'gram',
         show_variant: true,
@@ -187,7 +188,19 @@
       },
     },
 
+    beforeRouteLeave(to, from, next) {
+      if (this.dirtyForm) {
+        const leave = confirm('Are you sure leave this page?')
+        if (!leave) return next(false)
+      }
+      return next()
+    },
+
     mounted() {
+      $('input').on('change', (event) => {
+        this.dirtyForm = true
+      })
+
       const item_id = this.$route.params.id
       store.dispatch('itemForm/edit', item_id)
     },
