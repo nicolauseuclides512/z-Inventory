@@ -102,10 +102,10 @@
                 <td colspan="4">Sub Total</td>
                 <td colspan="2">{{ value.sub_total | money }}</td>
               </tr>
-              <!--<tr class="sub-total">-->
-                <!--<td colspan="5">Shipping Charge</td>-->
-                <!--<td>{{ value.shipping_charge | money }}</td>-->
-              <!--</tr>-->
+              <tr class="sub-total">
+                <td colspan="5">Shipping Charge</td>
+                <td>{{ value.shipping_charge | money }}</td>
+              </tr>
               <tr class="sub-total">
                 <td colspan="4"><strong>Tax</strong></td>
                 <td colspan="1"><strong>10%</strong></td>
