@@ -353,6 +353,7 @@
 
     data () {
       return {
+        dirtyForm: false,
         ui: {
           adjustment_edit: false,
           invalidInvoiceEmail: false,
@@ -407,6 +408,20 @@
           details: [],
         }),
       }
+    },
+
+    beforeRouteLeave(to, from, next) {
+      if (this.dirtyForm) {
+        const leave = confirm('Are you sure leave this page?')
+        if (!leave) return next(false)
+      }
+      return next()
+    },
+
+    updated() {
+      $('input, textarea').on('change', (event) => {
+        this.dirtyForm = true
+      })
     },
 
     mounted () {
