@@ -310,6 +310,7 @@
 
     data() {
       return {
+        dirtyForm: false,
         // options: {},
         saving: false,
         currentTab: 'address',
@@ -497,8 +498,20 @@
       },
     },
 
+    beforeRouteLeave(to, from, next) {
+      if (this.dirtyForm) {
+        const leave = confirm('Are you sure leave this page?')
+        if (!leave) return next(false)
+      }
+      return next()
+    },
+
 
     mounted() {
+      $('input').on('change', (event) => {
+        this.dirtyForm = true
+      })
+
       this.$refs.firstName.focus()
 
       const contactId = this.$route.params.id
