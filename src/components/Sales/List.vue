@@ -168,7 +168,10 @@
                             {{ sale.contact.display_name }}
                           </router-link>
                         </td>
-                        <td>{{ sale.sales_order_status }}</td>
+                        <td>
+                          {{ sale.sales_order_status.toLowerCase().replace(/_/g, ' ') | capitalize }}
+                          {{ sale.shipment_status.toLowerCase().replace(/_/g, ' ') | capitalize }}
+                        </td>
                         <td>{{ sale.total | money }}</td>
                         <td>
                           <div v-if="sale.invoice_status === 'PAID'">
