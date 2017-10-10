@@ -203,11 +203,11 @@
 								<span class="hidden-xs">INVOICE</span>
 							</a>
 						</li>
-						<!--<li :class="{ tab: true, active: currentTab == 'shipment' }">-->
-						<!--<a href="javascript:void(0);" @click="switchTab('shipment')">-->
-						<!--<span class="hidden-xs">SHIPMENT</span>-->
-						<!--</a>-->
-						<!--</li>-->
+            <li :class="{ tab: true, active: currentTab == 'shipment' }">
+              <a href="javascript:void(0);" @click="switchTab('shipment')">
+                <span class="hidden-xs">SHIPMENT</span>
+              </a>
+            </li>
 					</ul>
 
 					<div class="tab-content p-0 tab-content-clear tab-content--contact">
