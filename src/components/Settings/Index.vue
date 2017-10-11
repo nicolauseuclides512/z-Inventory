@@ -94,6 +94,7 @@
       StoreDetail,
       Shipping,
       Payment,
+      SalesChannel,
 //      Checkout,
 //      Tax,
 //      Notification,
