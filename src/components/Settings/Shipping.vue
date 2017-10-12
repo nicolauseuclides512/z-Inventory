@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <div class="container setting-page-right-content">
+      <div class="container setting-page-right-content bg-white">
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12 p-b-20">
             <div class="form-horizontal form-shipping">
@@ -69,7 +69,7 @@
           </div>
         </div>
       </div>
-      <div class="container p-b-10 m-b-20">
+      <div class="container p-b-10 m-b-20 bg-white">
         <div class="row">
           <div class="col-md-12 text-center">
             <button type="button" class="btn btn-info waves-effect waves-light" @click="save">Save</button>
