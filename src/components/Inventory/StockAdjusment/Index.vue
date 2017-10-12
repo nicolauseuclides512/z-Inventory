@@ -68,7 +68,7 @@
                     </td>
                     <td>{{ item.stock_adjustment_number }}</td>
                     <td>#{{ item.reference_number }}</td>
-                    <td>{{ item.status }}</td>
+                    <td>{{ item.item_name }}</td>
                     <td>{{ item.reason }}</td>
                     <td>{{ item.adjust_qty }}</td>
                     <td>{{ item.on_hand_qty }}</td>
