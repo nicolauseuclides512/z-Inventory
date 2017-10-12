@@ -64,7 +64,7 @@
                   <tbody>
                   <tr v-for="item in list.items">
                     <td align="right">
-                      <router-link :to="{ name: 'stock_adjustment.edit', params: { id: item.item_id } }">
+                      <router-link :to="{ name: 'stock_adjustment.edit', params: { id: item.stock_adjustment_id } }">
                         {{ item.stock_adjustment_date | date('short') }}
                       </router-link>
                     </td>
