@@ -17,20 +17,36 @@
                 <div class="form-horizontal">
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left">Adjustment ID</label>
-                    <div class="col-md-2">
-                      <input type="text" disabled="true" placeholder="" class="form-control">
+                    <div class="col-md-3">
+                      <input v-model="form.adjustment_id" disabled required type="text" placeholder="" class="form-control">
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left">Adjustment Date</label>
-                    <div class="col-md-2">
-                      <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="adjustmentdatepicker">
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-fw fa-calendar"></i>
+                        </span>
+                        <input
+                          v-model="form.stock_adjustment_date"
+                          type="text"
+                          required
+                          class="form-control bg-white"
+                          placeholder="yyyy-mm-dd"
+                          id="adjustment_date_picker"
+                        />
+                      </div>
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left">Reference Number</label>
-                    <div class="col-md-2">
-                      <input type="text" placeholder="#779001" class="form-control">
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-fw fa-hashtag"></i></span>
+                        <input v-model="form.reference_number" type="text" placeholder="779001" class="form-control"
+                               id="reference_number">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -60,14 +76,14 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr v-for="item in items">
+                              <tr v-for="item in list.items">
                                 <td>{{ item.item_id }}</td>
                                 <td>
                                   <div class="col-md-12 pl-pr-0">
                                     <select class="form-control">
-                                      <option>Products 1</option>
-                                      <option selected="true">Products 2</option>
-                                      <option>Products 3</option>
+                                      <!--<option v-for="item in list.items" :value="">-->
+                                        <!--{{ item.name }}-->
+                                      <!--</option>-->
                                     </select>
                                   </div>
                                 </td>
@@ -103,7 +119,9 @@
                               </tr>
                               <tr>
                                 <td colspan="2">
-                                  <button type="button" @click="addNew" class="btn btn-primary">+ Add another line</button>
+                                  <button type="button" @click="addNew" class="btn-link">
+                                    + Add another line
+                                  </button>
                                 </td>
                               </tr>
                               </tbody>
@@ -145,6 +163,9 @@
 
 <script>
   import Axios from 'axios'
+  import Form from 'src/helpers/Form'
+  import flatpickr from 'flatpickr'
+  import Str from '@/helpers/Str'
 
   export default {
     name: 'StockAdjustmentForm',
@@ -152,13 +173,32 @@
     data () {
       return {
         list: {
+          items: [],
           reasons: [],
         },
+        form: new Form({
+          adjustment_id: Str.random(),
+          stock_adjustment_date: new Date().toISOString().substr(0, 10),
+          reference_number: '',
+          is_applied: false,
+          is_void: false,
+          details: [{
+            item_id: null,
+            reason_id: null,
+            database_qty: null,
+            adjust_qty: null,
+            on_hand_qty: null,
+          }],
+        }),
       }
     },
 
     mounted () {
       this.initialize()
+
+      $('#adjustment_date_picker').flatpickr({
+        altInput: true,
+      })
     },
 
     methods: {
@@ -168,11 +208,9 @@
         this.list.reasons = res.data.data.reasons
       },
 
-      addNew() {
-        this.items.push({
-
-        })
-      }
+      addNew () {
+        this.list.items.push({})
+      },
     },
   }
 </script>
