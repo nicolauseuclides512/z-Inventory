@@ -50,6 +50,18 @@
                       </div>
                     </div>
                   </div>
+                  <div class="form-group form-general m-b-20">
+                    <label for="notes" class="col-md-2 control-label text-left">Notes</label>
+                    <div class="col-md-6">
+                      <textarea
+                        v-model="form.notes"
+                        class="form-control"
+                        id="notes"
+                        title="notes"
+                        style="height: 120px;"
+                      ></textarea>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -197,6 +209,7 @@
           reference_number: '',
           is_applied: false,
           is_void: false,
+          notes: '',
           details: [{
             item_id: null,
             reason_id: null,
