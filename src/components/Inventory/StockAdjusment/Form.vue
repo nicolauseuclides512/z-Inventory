@@ -287,6 +287,7 @@
             stock_adjustment_date: this.form.stock_adjustment_date,
             reference_number: this.form.reference_number,
             notes: this.form.notes,
+            details: this.form.details,
           }
 
           if (ev.target.dataset.type === 'save-as-draft') {
