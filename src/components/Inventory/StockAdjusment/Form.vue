@@ -93,7 +93,7 @@
                                 <td>{{ detail.item_id }}</td>
                                 <td>
                                   <div class="col-md-12 pl-pr-0">
-                                    <select class="form-control" v-model="detail.item_id">
+                                    <select class="form-control" v-model="detail.item_id" required title="Item name">
                                       <option v-for="item in list.items" :value="item.item_id">
                                         {{ item.item_name }}
                                       </option>
@@ -107,6 +107,8 @@
                                   <input
                                     v-model="detail.adjust_qty"
                                     @keyup="changeOnHandValue(detail)"
+                                    required
+                                    title="Adjustment quantity"
                                     class="vertical-spin form-control"
                                     type="number"
                                     name="vertical-spin"
@@ -117,6 +119,8 @@
                                   <input
                                     v-model.number="detail.on_hand_qty"
                                     @keyup="changeAdjustValue(detail)"
+                                    required
+                                    title="On hand quantity"
                                     class="vertical-spin form-control"
                                     type="number"
                                     name="vertical-spin"
@@ -124,7 +128,7 @@
                                     data-bts-button-up-class="btn btn-primary">
                                 </td>
                                 <td>
-                                  <select class="form-control" v-model="detail.reason_id">
+                                  <select required title="Reason" class="form-control" v-model="detail.reason_id">
                                     <option v-for="reason in list.reasons" :value="reason.reason_id">
                                       {{ reason.reason }}
                                     </option>
