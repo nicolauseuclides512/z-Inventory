@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form method="POST">
+    <form method="POST" @submit.prevent>
       <div class="content full-width sahito-user bgr-white">
         <div class="container">
           <div class="container full-width-header bt-1 p-b-10 m-b-20">
@@ -158,13 +158,23 @@
               <div class="col-md-6 text-right">
                 <div class="col-md-6 col-md-offset-6">
                   <div class="btn-group dropup">
-                    <button @click="saveAsDraft" type="button" class="btn btn-primary waves-effect waves-light">
+                    <button @click="save($event)" data-type="save-as-draft" type="submit" class="btn btn-primary waves-effect waves-light">
                       Save as Draft
                     </button>
                     <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light"
                             data-toggle="dropdown" aria-expanded="false"><i class="caret"></i></button>
                     <ul class="dropdown-menu" role="menu">
-                      <li><a @click="saveAndClose" href="javascript:void(0)">Save and Close</a></li>
+                      <li>
+                        <button
+                          @click="save($event)"
+                          type="submit"
+                          class="btn"
+                          style="background: none; border: none; box-shadow: none;"
+                          data-type="save-and-close"
+                        >
+                          Save and Close
+                        </button>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -182,6 +192,7 @@
   import Form from 'src/helpers/Form'
   import flatpickr from 'flatpickr'
   import Str from '@/helpers/Str'
+  import { Alert } from 'src/helpers'
 
   export default {
     name: 'StockAdjustmentForm',
@@ -269,23 +280,28 @@
         this.form.details.push({})
       },
 
-      async saveAsDraft () {
+      async save (ev) {
         try {
-          this.form.is_applied = false
-          this.form.is_void = false
-          const res = await Axios.post(`stock_adjustments`, this.form)
-        }
-        catch (err) {
-          console.error(err)
-        }
-      },
+          const data = {
+            stock_adjustment_id: this.form.stock_adjustment_id,
+            stock_adjustment_date: this.form.stock_adjustment_date,
+            reference_number: this.form.reference_number,
+            notes: this.form.notes,
+          }
 
-      async saveAndClose () {
-        try {
-          this.form.is_applied = true
-          this.form.is_void = false
-          const res = await Axios.post(`stock_adjustments`, this.form)
-          console.log(_.cloneDeep(res.data))
+          if (ev.target.dataset.type === 'save-as-draft') {
+            data.is_applied = true
+            data.is_void = false
+          } else {
+            data.is_applied = true
+            data.is_void = false
+          }
+
+          const res = await Axios.post(`stock_adjustments`, data)
+
+          Alert.success('Stock adjustment has been added')
+
+          this.$router.push({ name: 'stock_adjustment.index' })
         }
         catch (err) {
           console.error(err)
