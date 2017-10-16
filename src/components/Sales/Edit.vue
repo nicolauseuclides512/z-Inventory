@@ -562,6 +562,8 @@
             await axios.get(`sales_orders/${sales_order_id}/invoices/${invoice_id}/mark_as_sent`)
           }
 
+          this.dirtyForm = false
+
           switch (evt.target.dataset.value) {
 
             case 'save_and_send_invoice':

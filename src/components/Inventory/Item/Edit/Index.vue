@@ -239,6 +239,7 @@
 
         if (clickedButton === 'save') {
           await store.dispatch('itemForm/update', item_id)
+          this.dirtyForm = false
           this.$router.push({name: 'item.index'})
         }
       },

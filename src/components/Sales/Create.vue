@@ -505,6 +505,8 @@
           const sales_order_id = res.data.data.sales_order_id
           const invoice_id = res.data.data.invoices[0].invoice_id
 
+          this.dirtyForm = false
+
           switch (evt.target.dataset.value) {
 
             case 'save_and_send_invoice':

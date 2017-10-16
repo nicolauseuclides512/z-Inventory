@@ -522,6 +522,7 @@
        */
       async save() {
         await store.dispatch('contactForm/create')
+        this.dirtyForm = false
         this.$router.push('/contacts')
       },
 

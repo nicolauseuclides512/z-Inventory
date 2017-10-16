@@ -528,6 +528,7 @@
        */
       save() {
         store.dispatch('contactForm/update', this.$route.params.id)
+        this.dirtyForm = false
       },
 
       changeTab(name) {
