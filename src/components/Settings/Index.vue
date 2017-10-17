@@ -22,6 +22,11 @@
                 Sales Channel
               </a>
             </li>
+            <li :class="{ active: currentView === 'Adjustment' }">
+              <a href="javascript:void(0);" @click="changeView('Adjustment')">
+                Adjustment Settings
+              </a>
+            </li>
             <!--<li :class="{ active: currentView === 'checkout' }">-->
               <!--<a href="javascript:void(0);" @click="changeView('checkout')">-->
                 <!--Checkout-->
@@ -80,6 +85,7 @@
   import OrganizationProfile from './OrganizationProfile';
   import StoreDetail from './StoreDetail';
   import SalesChannel from './SalesChannel';
+  import Adjustment from './Adjustment';
   import Shipping from './Shipping';
   import Payment from './Payment';
 //  import Checkout from './Checkout';
@@ -95,6 +101,7 @@
       Shipping,
       Payment,
       SalesChannel,
+      Adjustment,
 //      Checkout,
 //      Tax,
 //      Notification,
