@@ -46,6 +46,10 @@ axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 axios.interceptors.response.use((response) => response, async (error) => {
+  if(!navigator.onLine) {
+    Alert.error('Your browser can not connect to the server. Please check the internet connection.')
+  }
+
   if (error.response.data.message === 'Unauthenticated.' && error.status !== 200 && error.config && !error.config.__isRetryRequest) {
     await axios.post('logout')
     // Force user to logout
