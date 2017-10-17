@@ -194,7 +194,14 @@
       async get_my_banks() {
         const response = await Axios.get(`settings/edit`);
         const payment_methods = response.data.data.settings['web.payments']
-        const my_banks = payment_methods.find(method => method.mode_name === 'Bank Transfer')
+
+        let my_banks = []
+
+        if (payment_methods && Array.isArray(payment_methods)) {
+          my_banks = payment_methods.find(method => method.mode_name === 'Bank Transfer')
+        } else {
+          return
+        }
 
         if (my_banks !== undefined && my_banks.details.length > 0) {
           this.list.my_banks = my_banks.details;
@@ -309,6 +316,8 @@
       async get_checked_payment_methods() {
         const res = await Axios.get(`settings/edit`);
         const payments = res.data.data.settings['web.payments'];
+
+        if (!payments) return
 
         const self = this;
 
