@@ -24,16 +24,33 @@
                     <div class="col-md-4">
 
                       <div v-if="!uploading && !removing">
-                        <div action="#" class="custom-dropzone">
-                          <div class="message" v-show="!form.image_logo_medium">Click here to select new image logo
+                        <div class="custom-dropzone">
+                          <div class="message" v-show="!image_logo_medium">
+                            Click here to select new image logo
                           </div>
-                          <img :src="form.image_logo_medium" alt="" v-if="form.image_logo_medium" class=""
-                               style="width: auto; height: auto; max-width: 240px; max-height: 100px;">
-                          <input ref="logo" @change="uploadLogo" name="file" type="file" accept="image/*"
-                                 style="opacity: 0;" v-if="!form.image_logo_medium">
+                          <img
+                            v-if="image_logo_medium"
+                            :src="image_logo_medium"
+                            alt=""
+                            class=""
+                            style="width: auto; height: auto; max-width: 240px; max-height: 100px;"
+                          />
+                          <input
+                            v-if="!image_logo_medium"
+                            ref="logo"
+                            @change="uploadLogo"
+                            name="file"
+                            type="file"
+                            accept="image/*"
+                            style="opacity: 0;"
+                          />
                         </div>
-                        <a @click="removeLogo" v-show="form.image_logo_medium" href="javascript:void(0)"
-                           style="display: block; padding: 5px 10px; text-align: center; background: #515151; color: white; font-size: 12px;">
+                        <a
+                          @click="removeLogo"
+                          v-show="image_logo_medium"
+                          href="javascript:void(0)"
+                          style="display: block; padding: 5px 10px; text-align: center; background: #515151; color: white; font-size: 12px;"
+                        >
                           Remove logo
                         </a>
                       </div>
@@ -176,6 +193,7 @@
         },
         primary_contact_email: '',
         primary_contact_issues_count: 0,
+        image_logo_medium: '',
         list: {
           country_list: [],
           province_list: [],
@@ -195,7 +213,6 @@
           fax: '',
           currency_id: '',
           timezone_id: '',
-          image_logo_medium: '',
           organization_status: '',
         }),
       }
@@ -209,6 +226,8 @@
 
         const res = await Axios.get(`organizations/${organization_id}`)
 
+        this.image_logo_medium = res.data.data.logo
+
         this.form.name = res.data.data.name
         this.form.portal = res.data.data.portal
         this.form.country_id = res.data.data.country_id
@@ -221,7 +240,6 @@
         this.form.fax = res.data.data.fax
         this.form.currency_id = res.data.data.currency_id
         this.form.timezone_id = res.data.data.timezone_id
-        this.form.image_logo_medium = res.data.data.image_logo_medium
         this.form.organization_status = res.data.data.organization_status
         this.primary_contact_email = res.data.data.primary_contact ? res.data.data.primary_contact.email : ''
 
@@ -300,22 +318,21 @@
         try {
           this.uploading = true
           const image = this.$refs.logo.files[0]
-          const form = new FormData()
-          form.append('logo', image)
+          const formData = new FormData()
+          formData.append('logo', image)
 
-          const res = await axios.post(`organizations/${orgId}/upload_logo`, form)
-          if (!responseOk(res.data.code)) {
-            this.uploading = false
-            return swal_error(res)
-          }
+          const organization_id = Cookie.get('organization_id')
+          const res = await Axios.post(`organizations/${organization_id}/upload_logo`, formData)
 
-          store.commit('settings/organization/IMAGE_LOGO_MEDIUM', res.data.data.logo)
-          swal_success(res)
+          this.uploading = false
+          this.image_logo_medium = res.data.data.logo
+
           this.uploading = false
 
-        } catch (err) {
+        }
+        catch (err) {
+          console.error(err)
           this.uploading = false
-          swal_error(err.response)
         }
       },
 
@@ -326,16 +343,13 @@
       async removeLogo () {
         try {
           this.removing = true
-          const res = await axios.delete(`organizations/${orgId}/remove_logo`)
-          if (!responseOk(res.data.code)) {
-            this.removing = false
-            return swal_error(res)
-          }
-
-          store.commit('settings/organization/IMAGE_LOGO_MEDIUM', null)
-          swal_success(res)
+          const res = await Axios.delete(`organizations/${orgId}/remove_logo`)
+          this.image_logo_medium = null
           this.removing = false
-        } catch (err) {
+          swal_success(res)
+        }
+        catch (err) {
+          console.error(err)
           this.removing = false
           swal_error(err.response)
         }
