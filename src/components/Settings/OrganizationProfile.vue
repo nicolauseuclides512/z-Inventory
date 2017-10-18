@@ -25,11 +25,14 @@
 
                       <div v-if="!uploading && !removing">
                         <div action="#" class="custom-dropzone">
-                          <div class="message" v-show="!image_logo_medium">Click here to select new image logo</div>
-                          <img :src="image_logo_medium" alt="" v-if="image_logo_medium" class="" style="width: auto; height: auto; max-width: 240px; max-height: 100px;">
-                          <input ref="logo" @change="uploadLogo" name="file" type="file" accept="image/*" style="opacity: 0;" v-if="!image_logo_medium">
+                          <div class="message" v-show="!form.image_logo_medium">Click here to select new image logo
+                          </div>
+                          <img :src="form.image_logo_medium" alt="" v-if="form.image_logo_medium" class=""
+                               style="width: auto; height: auto; max-width: 240px; max-height: 100px;">
+                          <input ref="logo" @change="uploadLogo" name="file" type="file" accept="image/*"
+                                 style="opacity: 0;" v-if="!form.image_logo_medium">
                         </div>
-                        <a @click="removeLogo" v-show="image_logo_medium" href="javascript:void(0)"
+                        <a @click="removeLogo" v-show="form.image_logo_medium" href="javascript:void(0)"
                            style="display: block; padding: 5px 10px; text-align: center; background: #515151; color: white; font-size: 12px;">
                           Remove logo
                         </a>
@@ -48,102 +51,78 @@
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-3 control-label text-left">Business Name</label>
                     <div class="col-md-5">
-                      <input type="text" id="name" v-model.trim="name" class="form-control" placeholder="" required>
+                      <input type="text" id="name" v-model.trim="form.name" class="form-control" placeholder=""
+                             required>
                     </div>
                   </div>
-                  <!--<div class="form-group form-general m-b-20">-->
-                    <!--<label class="col-md-3 control-label text-left">Portal Name</label>-->
-                    <!--<div class="col-md-5">-->
-                      <!--<div class="input-group">-->
-                        <!--<input type="text" id="portal" v-model.trim="portal" class="form-control" placeholder="" required>-->
-                        <!--<span class="input-group-addon">.zuragan.com</span>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</div>-->
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-3 control-label text-left">Phone</label>
                     <div class="col-md-5">
-                      <input type="text" id="phone" v-model.trim="phone" class="form-control" placeholder="">
+                      <input type="text" id="phone" v-model.trim="form.phone" class="form-control" placeholder="">
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-3 control-label text-left">Email</label>
                     <div class="col-md-5 primary-contact">
-                      <div class="row">
-                        <!--<div class="col-md-5 primary-contact--name" v-if="primary_contact">-->
-                        <div class="col-md-5 primary-contact--name" v-if="primary_contact">
-                          <!--<h5>{{ primary_contact.name }}</h5>-->
-                          <p>{{ primary_contact.email }}</p>
-                        </div>
-                        <div class="col-md-5 primary-contact--mail">
-                          <!--<a href="javascript:void(0)" data-toggle="modal" data-target="#configure_email">-->
-                          <!--Configure Email-->
-                          <!--</a>-->
-                          <p v-show="primary_contact_issues_count">
-                            <span class="ion-alert-circled"></span>
-                            {{ primary_contact_issues_count }} email need to be configure
-                          </p>
-                        </div>
-                      </div>
+                      {{ primary_contact_email }}
                     </div>
                   </div>
-                  <!--<div class="form-group form-general m-b-20">-->
-                    <!--<label class="col-md-3 control-label text-left">Domain Name</label>-->
-                    <!--<div class="col-md-10">-->
-                      <!--<input type="text" class="form-control" placeholder="">-->
-                    <!--</div>-->
-                  <!--</div>-->
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-3 control-label text-left">Company Address</label>
                     <div class="col-md-5">
-                      <select v-model.trim="country_id" @change="updateProvinceList" id="country" class="form-control" data-placeholder="Country" title="Country">
+                      <select v-model.trim="form.country_id" @change="onCountryChange" id="country"
+                              class="form-control" data-placeholder="Country" title="Country">
                         <option value="" disabled hidden>-- Select your country --</option>
-                        <option v-for="country in countryList" :value="country.id">{{ country.name }}</option>
+                        <option v-for="country in list.country_list" :value="country.id">{{ country.name }}</option>
                       </select>
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
                     <div class="col-md-5 col-md-offset-3">
-                      <select v-model.trim="province_id" @change="updateDistrictList" id="province" class="form-control" data-placeholder="Province" title="Province">
+                      <select v-model.trim="form.province_id" @change="onProvinceChange" id="province"
+                              class="form-control" data-placeholder="Province" title="Province">
                         <option value="" disabled hidden>-- Select your province --</option>
-                        <option v-for="p in provinceList" :value="p.id">{{ p.name }}</option>
+                        <option v-for="p in list.province_list" :value="p.id">{{ p.name }}</option>
                       </select>
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
                     <div class="col-md-5 col-md-offset-3">
-                      <select v-model.trim="district_id" @change="updateRegionList" id="district" class="form-control" data-placeholder="District" title="District">
+                      <select v-model.trim="form.district_id" @change="onDistrictChange" id="district"
+                              class="form-control" data-placeholder="District" title="District">
                         <option value="" disabled hidden>-- Select your district --</option>
-                        <option v-for="d in districtList" :value="d.id">{{ d.name }}</option>
+                        <option v-for="d in list.district_list" :value="d.id">{{ d.name }}</option>
                       </select>
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
                     <div class="col-md-5 col-md-offset-3">
-                      <select v-model.trim="region_id" id="region" class="form-control" data-placeholder="Region" title="Region">
+                      <select v-model.trim="form.region_id" id="region" class="form-control" data-placeholder="Region"
+                              title="Region">
                         <option value="" disabled hidden>-- Select your region --</option>
-                        <option v-for="r in regionList" :value="r.id">{{ r.name }}</option>
+                        <option v-for="r in list.region_list" :value="r.id">{{ r.name }}</option>
                       </select>
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-3 control-label text-left">Address</label>
                     <div class="col-md-5">
-                      <textarea id="address" v-model.trim="address" style="min-width: 100%; max-width: 100%;" class="form-control" placeholder="" rows="3">{{address}}</textarea>
+                      <textarea
+                        id="address"
+                        v-model.trim="form.address"
+                        style="min-width: 100%; max-width: 100%;"
+                        class="form-control"
+                        placeholder="" rows="3"
+                      ></textarea>
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-3 control-label text-left">Zip/Postal Code</label>
                     <div class="col-md-5">
-                      <input type="text" id="zip" v-model.trim="zip" class="form-control" placeholder="" maxlength="5" />
+                      <input type="text" id="zip" v-model.trim="form.zip" class="form-control" placeholder=""
+                             maxlength="5"/>
                     </div>
                   </div>
-                  <!--<div class="form-group form-general m-b-20">-->
-                    <!--<label class="col-md-3 control-label text-left">Fax</label>-->
-                    <!--<div class="col-md-5">-->
-                      <!--<input type="text" id="fax" v-model.trim="fax" class="form-control" placeholder="">-->
-                    <!--</div>-->
-                  <!--</div>-->
                 </div>
               </div>
             </div>
@@ -161,120 +140,6 @@
         </div>
       </form>
 
-
-      <!-- Modal dialog -->
-      <div id="configure_email" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-           aria-hidden="true" style="display: none">
-        <div class="modal-dialog sahito-modal modal-lg">
-          <div class="modal-content p-0">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4>Organization Contacts</h4>
-            </div>
-            <div class="modal-body">
-
-              <div v-if="contactList">
-
-                <div class="row">
-                  <div class="col-xs-3"><strong>Name</strong></div>
-                  <div class="col-xs-3"><strong>Email</strong></div>
-                  <div class="col-xs-3"></div>
-                  <div class="col-xs-3"></div>
-                </div>
-
-                <hr>
-
-                <div v-for="(contact, index) in contactList">
-                  <div class="row contact-row">
-                    <div class="col-xs-3">
-                      <label v-show="!contact.editable" for="editedContactName">{{ contact.name }}</label>
-                      <input type="text"
-                             id="editedContactName"
-                             v-model.trim="editedContactName"
-                             v-show="contact.editable"
-                             class="form-control"
-                      />
-                    </div>
-                    <div class="col-xs-3">
-                      <span class="text-muted">
-                        {{ contact.email }}
-                        <i v-show="!contact.verified_at" class="ion-alert-circled"></i>
-                      </span>
-                    </div>
-                    <div class="col-xs-3 show_button">
-                      <span v-show="contact.is_primary" class="label label-success">Primary</span>
-
-                      <a @click="setAsPrimary(contact)" v-show="!contact.is_primary && contact.verified_at" href="javascript:void(0)" style="color: #337ab7;">
-                        Set as primary
-                      </a>
-
-                      <a v-show="!contact.verified_at && !contact.is_primary" @click="resendVerificationToken(contact)"
-                         href="javascript:void(0)" style="color: #337ab7;"
-                      >
-                        Resend Verification Email
-                      </a>
-                    </div>
-                    <div class="col-xs-3 text-right">
-                      <div v-show="!contact.editable">
-                        <a @click="editAdditionalContact(contact)" href="javascript:void(0)" class="btn-link"><i class="fa fa-pencil"></i></a>
-                        <a @click="remove(contact)" href="javascript:void(0)" class="btn-link"><i class="ion-trash-b"></i></a>
-                      </div>
-                      <div v-show="contact.editable">
-                        <button type="submit" @click="updateContact(contact)" class="btn btn-primary">Update</button>
-                        <button type="button" @click="cancelEditAdditionalContact(contact)" class="btn btn-default">
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <hr>
-                </div>
-              </div>
-              <div class="lead text-muted text-center" v-else>
-                You don't have any contacts yet.
-              </div>
-
-
-              <!-- New contact -->
-              <div v-if="showNewContactForm">
-                <fieldset>
-                  <legend class="text-muted">Additional Contact</legend>
-
-                  <form method="POST" @submit.prevent="saveAdditionalContact" class="form">
-
-                    <div class="form-group col-xs-4">
-                      <label for="new_contact_name">Name</label>
-                      <input type="text" v-model.trim="newContactName" id="new_contact_name" name="name" class="form-control" required>
-                    </div>
-                    <div class="form-group col-xs-4">
-                      <label for="new_contact_email">Email</label>
-                      <input type="email" v-model.trim="newContactEmail" id="new_contact_email" name="email" class="form-control" required>
-                    </div>
-                    <div class="form-group col-xs-2">
-                      <label>&nbsp;</label>
-                      <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-                    </div>
-                    <div class="form-group col-xs-2">
-                      <label>&nbsp;</label>
-                      <button type="button" @click="cancelAdditionalContact" class="btn btn-default btn-block">Cancel
-                      </button>
-                    </div>
-                  </form>
-                </fieldset>
-              </div>
-              <div v-else>
-                <a @click="addAdditionalContact" href="javascript:void(0)" style="line-height: 4;">
-                  <i class="ion-plus-round"></i> Add Additional Contact
-                </a>
-              </div>
-            </div>
-            <div class="modal-footer p-15 text-center">
-              <button type="button" class="btn btn-info waves-effect waves-light m-t-15">Save</button>
-              <button type="button" class="btn btn-default waves-effect m-t-15" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
   </section>
@@ -283,20 +148,18 @@
 
 <script>
   import Vue from 'vue'
-  import axios from 'axios'
+  import Axios from 'axios'
   import Cookie from 'js-cookie'
-  import store from 'src/store'
-  import { regional } from 'src/mixins'
+  import Form from 'src/helpers/Form'
   import { responseOk, swal_error, swal_success } from 'src/helpers'
+  import Regional from 'src/helpers/regional'
 
   const orgId = Cookie.get('organization_id')
 
   export default {
     name: 'OrganizationProfile',
 
-    mixins: [regional],
-
-    data() {
+    data () {
       return {
         loading: false,
         uploading: false,
@@ -311,229 +174,124 @@
           email: '',
           show: false,
         },
+        primary_contact_email: '',
         primary_contact_issues_count: 0,
+        list: {
+          country_list: [],
+          province_list: [],
+          district_list: [],
+          region_list: [],
+        },
+        form: new Form({
+          name: '',
+          portal: '',
+          country_id: '',
+          province_id: '',
+          district_id: '',
+          region_id: '',
+          address: '',
+          zip: '',
+          phone: '',
+          fax: '',
+          currency_id: '',
+          timezone_id: '',
+          image_logo_medium: '',
+          organization_status: '',
+        }),
       }
+
     },
 
-    computed: {
-      name: {
-        get() { return store.state.settings.organization.name },
-        set(value) { store.commit('settings/organization/NAME', value) }
-      },
-      portal: {
-        get() { return store.state.settings.organization.portal },
-        set(value) { store.commit('settings/organization/PORTAL', value) }
-      },
-      country_id: {
-        get() { return store.state.settings.organization.country_id },
-        set(value) { store.commit('settings/organization/COUNTRY', value) }
-      },
-      province_id: {
-        get() { return store.state.settings.organization.province_id },
-        set(value) { store.commit('settings/organization/PROVINCE', value) }
-      },
-      district_id: {
-        get() { return store.state.settings.organization.district_id },
-        set(value) { store.commit('settings/organization/DISTRICT', value) }
-      },
-      region_id: {
-        get() { return store.state.settings.organization.region_id },
-        set(value) { store.commit('settings/organization/REGION', value) }
-      },
-      address: {
-        get() { return store.state.settings.organization.address },
-        set(value) { store.commit('settings/organization/ADDRESS', value) }
-      },
-      zip: {
-        get() { return store.state.settings.organization.zip },
-        set(value) { store.commit('settings/organization/ZIP', value) }
-      },
-      phone: {
-        get() { return store.state.settings.organization.phone },
-        set(value) { store.commit('settings/organization/PHONE', value) }
-      },
-      fax: {
-        get() { return store.state.settings.organization.fax },
-        set(value) { store.commit('settings/organization/FAX', value) }
-      },
-      currency_id: {
-        get() { return store.state.settings.organization.currency_id },
-        set(value) { store.commit('settings/organization/CURRENCY_ID', value) }
-      },
-      timezone_id: {
-        get() { return store.state.settings.organization.timezone_id },
-        set(value) { store.commit('settings/organization/TIMEZONE_ID', value) }
-      },
-      image_logo_medium: {
-        get() { return store.state.settings.organization.image_logo_medium },
-        set(value) { store.commit('settings/organization/IMAGE_LOGO', value) }
-      },
-      organization_status: {
-        get() { return store.state.settings.organization.organization_status },
-        set(value) { store.commit('settings/organization/ORGANIZATION_STATUS', value) }
-      },
-      primary_contact() { return store.state.settings.organization.primary_contact },
-      contactList() { return store.state.settings.primary_contact.contactList },
-      countryList: {
-        get() { return store.state.settings.organization.countryList },
-        set(value) { store.commit('settings/organization/COUNTRY_LIST', value) }
-      },
-      provinceList: {
-        get() { return store.state.settings.organization.provinceList },
-        set(value) { store.commit('settings/organization/PROVINCE_LIST', value) }
-      },
-      districtList: {
-        get() { return store.state.settings.organization.districtList },
-        set(value) { store.commit('settings/organization/DISTRICT_LIST', value) }
-      },
-      regionList: {
-        get() { return store.state.settings.organization.regionList },
-        set(value) { store.commit('settings/organization/REGION_LIST', value) }
-      },
-      showNewContactForm() { return store.state.settings.primary_contact.showNewContactForm },
-      newContactName: {
-        get() { return store.state.settings.primary_contact.newContactName },
-        set(value) { store.commit('settings/primary_contact/NEW_CONTACT_NAME', value) }
-      },
-      newContactEmail: {
-        get() { return store.state.settings.primary_contact.newContactEmail },
-        set(value) { store.commit('settings/primary_contact/NEW_CONTACT_EMAIL', value) }
-      },
-      editedContactName: {
-        get() { return store.state.settings.primary_contact.editedContactName },
-        set(value) { store.commit('settings/primary_contact/EDITED_CONTACT', value) }
-      }
-    },
 
-    mounted() {
-      this.getCountryList()
-      this.getOrganizationProfile()
-//      this.getContacts()
+    async mounted () {
+      try {
+        const organization_id = Cookie.get('organization_id')
+
+        const res = await Axios.get(`organizations/${organization_id}`)
+
+        this.form.name = res.data.data.name
+        this.form.portal = res.data.data.portal
+        this.form.country_id = res.data.data.country_id
+        this.form.province_id = res.data.data.province_id
+        this.form.district_id = res.data.data.district_id
+        this.form.region_id = res.data.data.region_id
+        this.form.address = res.data.data.address
+        this.form.zip = res.data.data.zip
+        this.form.phone = res.data.data.phone
+        this.form.fax = res.data.data.fax
+        this.form.currency_id = res.data.data.currency_id
+        this.form.timezone_id = res.data.data.timezone_id
+        this.form.image_logo_medium = res.data.data.image_logo_medium
+        this.form.organization_status = res.data.data.organization_status
+        this.primary_contact_email = res.data.data.primary_contact ? res.data.data.primary_contact.email : ''
+
+
+        const countries = await Regional.countryList()
+        this.list.country_list = countries.filter(country => country.name === 'Indonesia')
+        const indonesia = countries.find(country => country.name === 'Indonesia')
+
+        this.list.province_list = await Regional.provinceList(indonesia.id)
+
+        if (this.form.province_id) {
+          this.list.district_list = await Regional.districtList(this.form.province_id)
+        }
+
+        if (this.form.district_id) {
+          this.list.region_list = await Regional.regionList(this.form.district_id)
+        }
+      }
+      catch (err) {
+        console.error(err)
+      }
     },
 
 
     methods: {
 
-      /**
-       * Get list of countries
-       */
-      getCountryList() {
-        store.dispatch('settings/organization/updateCountryList')
+      resetForm () {
+        this.form.reset()
       },
-
-      /**
-       * Update Province list
-       */
-      updateProvinceList(country_id) {
-        store.dispatch('settings/organization/updateProvinceList', country_id)
-      },
-
-
-      /**
-       * Update District list
-       */
-      updateDistrictList() {
-        store.dispatch('settings/organization/updateDistrictList')
-      },
-
-
-      /**
-       * Update Region list
-       */
-      updateRegionList(district_id) {
-        store.dispatch('settings/organization/updateRegionList', district_id)
-      },
-
 
       /**
        * Save organization profile
        */
-      save() {
-        store.dispatch('settings/organization/save')
+      async save () {
+        try {
+          const data = {
+            name: this.form.name,
+            phone: '' + this.form.phone,
+            country_id: this.form.country_id,
+            province_id: this.form.province_id,
+            district_id: this.form.district_id,
+            region_id: this.form.region_id,
+            address: '' + this.form.address,
+            zip: '' + this.form.zip,
+          }
+
+          const organization_id = Cookie.get('organization_id')
+          const res = await Axios.put(`organizations/${organization_id}`, data)
+          swal_success(res)
+        }
+        catch (err) {
+          console.error(err)
+          swal_error(err.response)
+        }
       },
 
-
-      /**
-       * Add additional contact
-       */
-      addAdditionalContact() {
-        store.commit('settings/primary_contact/SHOW_NEW_CONTACT_FORM', true)
-        store.commit('settings/primary_contact/NEW_CONTACT_NAME', '')
-        store.commit('settings/primary_contact/NEW_CONTACT_EMAIL', '')
+      async onCountryChange () {
+        this.list.province_list = await Regional.provinceList(this.form.country_id)
+        this.list.district_list = []
+        this.list.region_list = []
       },
 
-
-      /**
-       * Save additional contact
-       */
-      saveAdditionalContact() {
-        store.dispatch('settings/primary_contact/addContact')
+      async onProvinceChange () {
+        this.list.district_list = await Regional.districtList(this.form.province_id)
+        this.list.region_list = []
       },
 
-
-      /**
-       * Set a contact to editable
-       * @param  {Object} contact
-       */
-      editAdditionalContact(contact) {
-        store.commit('settings/primary_contact/EDIT_CONTACT', { contact, editable: true })
+      async onDistrictChange () {
+        this.list.region_list = await Regional.regionList(this.form.district_id)
       },
-
-
-      updateContact(contact) {
-        store.dispatch('settings/primary_contact/updateContact', contact)
-      },
-
-
-      /**
-       * Set a contact to editable
-       * @param  {Object} contact
-       */
-      cancelEditAdditionalContact(contact) {
-        store.commit('settings/primary_contact/EDIT_CONTACT', { contact, editable: false })
-      },
-
-
-      /**
-       * Cancel/hide addtional contact form
-       */
-      cancelAdditionalContact() {
-        store.commit('settings/primary_contact/SHOW_NEW_CONTACT_FORM', false)
-      },
-
-
-      /**
-       * Remove contact from list
-       * @param  {Object} contact
-       */
-      remove(contact) {
-        store.dispatch('settings/primary_contact/removeContact', contact)
-      },
-
-
-      getContacts() {
-        axios.get(`organizations/${orgId}/contacts`).then(res => {
-          if (!responseOk(res.data.code)) return swal_error(res)
-
-//            // let baru = _.map(res.data.data, (item, index) => {
-//            //   // item.push({ editable: false })
-//            //   console.log(item['editable'] = false)
-//            // })
-//            // console.log(baru)
-
-//            // Store original contact list
-//            // this.originalContactList = res.data.data
-          }).catch(err => swal_error(err.response))
-      },
-
-
-      /**
-       * Get current organization profile
-       */
-      getOrganizationProfile() {
-        //
-      },
-
 
       /**
        * Upload logo
@@ -583,32 +341,6 @@
         }
       },
 
-
-      /**
-       * Set as primary contact
-       * @param  {Object} contact
-       */
-      setAsPrimary(contact) {
-        store.dispatch('settings/primary_contact/setPrimaryContact', contact)
-      },
-
-
-      /**
-       * TODO: Belum ada endpoint
-       * Resend verification token
-       * @param  {Object} contact
-       */
-      resendVerificationToken(contact) {
-        store.dispatch('settings/primary_contact/sendVerification', contact)
-      },
-
-
-      /**
-       * Reset to original form state
-       */
-      resetForm() {
-        store.dispatch('settings/initialize')
-      },
 
     },
 
