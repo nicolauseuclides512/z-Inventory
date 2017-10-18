@@ -7,40 +7,40 @@
         <nav class="setting-page-left" id="setting-page-left" data-spy="affix">
           <ul id="sahito-page-left-list" class="nav">
 
-            <li :class="{ active: currentView === 'OrganizationProfile' || currentView.name === 'OrganizationProfile' }">
-              <a href="javascript:void(0);" @click="changeView('OrganizationProfile')">
+            <li :class="{ active: $route.name === 'settings' }">
+              <router-link :to="{ name: 'settings' }">
                 Company Profile
-              </a>
+              </router-link>
             </li>
-            <li :class="{ active: currentView === 'StoreDetail' }">
-              <a href="javascript:void(0);" @click="changeView('StoreDetail')">
+            <li :class="{ active: $route.name === 'settings.store_detail' }">
+              <router-link :to="{ name: 'settings.store_detail' }">
                 Store Details
-              </a>
+              </router-link>
             </li>
-            <li :class="{ active: currentView === 'SalesChannel' }">
-              <a href="javascript:void(0);" @click="changeView('SalesChannel')">
+            <li :class="{ active: $route.name === 'settings.sales_channel' }">
+              <router-link :to="{ name: 'settings.sales_channel' }">
                 Sales Channel
-              </a>
+              </router-link>
             </li>
-            <li :class="{ active: currentView === 'Adjustment' }">
-              <a href="javascript:void(0);" @click="changeView('Adjustment')">
+            <li :class="{ active: $route.name === 'settings.adjustment' }">
+              <router-link :to="{ name: 'settings.adjustment' }">
                 Adjustment Settings
-              </a>
+              </router-link>
             </li>
             <!--<li :class="{ active: currentView === 'checkout' }">-->
               <!--<a href="javascript:void(0);" @click="changeView('checkout')">-->
                 <!--Checkout-->
               <!--</a>-->
             <!--</li>-->
-            <li :class="{ active: currentView === 'Shipping' }">
-              <a href="javascript:void(0);" @click="changeView('Shipping')">
+            <li :class="{ active: $route.name === 'settings.shipment' }">
+              <router-link :to="{ name: 'settings.shipment' }">
                 Shipment
-              </a>
+              </router-link>
             </li>
-            <li :class="{ active: currentView === 'Payment' }">
-              <a href="javascript:void(0);" @click="changeView('Payment')">
-                Payment Setting
-              </a>
+            <li :class="{ active: $route.name === 'settings.payment' }">
+              <router-link :to="{ name: 'settings.payment' }">
+                Payment Settings
+              </router-link>
             </li>
             <!--<li :class="{ active: currentView === 'Notifications' }">-->
               <!--<a href="javascript:void(0);" @click="changeView('Notifications')">-->
@@ -62,7 +62,9 @@
 
     <div class="setting-page-right">
 
-      <component :is="currentView"></component>
+      <router-view></router-view>
+
+      <!--<component :is="currentView"></component>-->
 
       <!--<organization-profile></organization-profile>-->
       <!--<store-detail></store-detail>-->
