@@ -143,25 +143,25 @@
                   </div>
                 </div>
 
-                <!--<div class="form-group form-general m-b-20">-->
-                  <!--<label class="col-md-4 control-label text-left">District</label>-->
-                  <!--<div class="col-md-7">-->
-                    <!--<select id="billing_district_id" v-model="billing_district_id" class="form-control" @change="updateBillingRegionList" :disabled="!billingDistrictList.length > 0">-->
-                      <!--<option :value="0" hidden disabled>Select District</option>-->
-                      <!--<option v-for="d in billingDistrictList" :value="d.id">{{ d.name }}</option>-->
-                    <!--</select>-->
-                  <!--</div>-->
-                <!--</div>-->
+                <div class="form-group form-general m-b-20">
+                  <label class="col-md-4 control-label text-left">District</label>
+                  <div class="col-md-7">
+                    <select id="billing_district_id" v-model="billing_district_id" class="form-control" @change="updateBillingRegionList" :disabled="!billingDistrictList.length > 0">
+                      <option :value="0" hidden disabled>Select District</option>
+                      <option v-for="d in billingDistrictList" :value="d.id">{{ d.name }}</option>
+                    </select>
+                  </div>
+                </div>
 
-                <!--<div class="form-group form-general m-b-20">-->
-                  <!--<label class="col-md-4 control-label text-left">Region</label>-->
-                  <!--<div class="col-md-7">-->
-                    <!--<select id="billing_region_id" v-model="billing_region_id" class="form-control" :disabled="!billingRegionList.length > 0">-->
-                      <!--<option :value="0" hidden disabled>Select Region</option>-->
-                      <!--<option v-for="r in billingRegionList" :value="r.id">{{ r.name }}</option>-->
-                    <!--</select>-->
-                  <!--</div>-->
-                <!--</div>-->
+                <div class="form-group form-general m-b-20">
+                  <label class="col-md-4 control-label text-left">Region</label>
+                  <div class="col-md-7">
+                    <select id="billing_region_id" v-model="billing_region_id" class="form-control" :disabled="!billingRegionList.length > 0">
+                      <option :value="0" hidden disabled>Select Region</option>
+                      <option v-for="r in billingRegionList" :value="r.id">{{ r.name }}</option>
+                    </select>
+                  </div>
+                </div>
 
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Street</label>
@@ -213,25 +213,25 @@
                   </div>
                 </div>
 
-                <!--<div class="form-group form-general m-b-20">-->
-                  <!--<label class="col-md-4 control-label text-left">District</label>-->
-                  <!--<div class="col-md-7">-->
-                    <!--<select id="shipping_district_id" v-model="shipping_district_id" class="form-control" @change="updateShippingRegionList" :disabled="!shippingDistrictList.length > 0">-->
-                      <!--<option :value="0" hidden disabled>Select District</option>-->
-                      <!--<option v-for="d in shippingDistrictList" :value="d.id">{{ d.name }}</option>-->
-                    <!--</select>-->
-                  <!--</div>-->
-                <!--</div>-->
+                <div class="form-group form-general m-b-20">
+                  <label class="col-md-4 control-label text-left">District</label>
+                  <div class="col-md-7">
+                    <select id="shipping_district_id" v-model="shipping_district_id" class="form-control" @change="updateShippingRegionList" :disabled="!shippingDistrictList.length > 0">
+                      <option :value="0" hidden disabled>Select District</option>
+                      <option v-for="d in shippingDistrictList" :value="d.id">{{ d.name }}</option>
+                    </select>
+                  </div>
+                </div>
 
-                <!--<div class="form-group form-general m-b-20">-->
-                  <!--<label class="col-md-4 control-label text-left">Region</label>-->
-                  <!--<div class="col-md-7">-->
-                    <!--<select id="shipping_region_id" v-model="shipping_region_id" class="form-control" :disabled="!shippingRegionList.length > 0">-->
-                      <!--<option :value="0" hidden disabled>Select Region</option>-->
-                      <!--<option v-for="r in shippingRegionList" :value="r.id">{{ r.name }}</option>-->
-                    <!--</select>-->
-                  <!--</div>-->
-                <!--</div>-->
+                <div class="form-group form-general m-b-20">
+                  <label class="col-md-4 control-label text-left">Region</label>
+                  <div class="col-md-7">
+                    <select id="shipping_region_id" v-model="shipping_region_id" class="form-control" :disabled="!shippingRegionList.length > 0">
+                      <option :value="0" hidden disabled>Select Region</option>
+                      <option v-for="r in shippingRegionList" :value="r.id">{{ r.name }}</option>
+                    </select>
+                  </div>
+                </div>
 
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Street</label>
