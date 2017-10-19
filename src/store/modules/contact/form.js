@@ -444,6 +444,7 @@ const actions = {
         commit('FIRST_NAME', res.data.data.contact.first_name)
         commit('LAST_NAME', res.data.data.contact.last_name)
         commit('DISPLAY_NAME', res.data.data.contact.display_name)
+        commit('DISPLAY_CODE', res.data.data.contact.display_code)
         commit('EMAIL', res.data.data.contact.email)
         commit('PHONE', res.data.data.contact.phone)
         commit('MOBILE', res.data.data.contact.mobile)
