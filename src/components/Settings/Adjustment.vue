@@ -14,7 +14,8 @@
         </div>
         <div class="form-group">
           <div class="input-group col-xs-5">
-            <input v-model="form.name" type="text" class="form-control" placeholder="Example: Stolen items">
+            <input v-model="form.reason" @keyup.enter="add" type="text" class="form-control"
+                   placeholder="Example: Stolen items">
             <div class="input-group-btn">
               <button @click="add" class="btn btn-primary">Add</button>
             </div>
@@ -60,33 +61,36 @@
 
     data () {
       return {
-        reasons: [
-          {id: 1, name: 'Stolen items'},
-        ],
+        reasons: [],
         form: new Form({
-          name: '',
+          category_code: 'ADJ',
+          reason: '',
         }),
       }
     },
 
     async mounted () {
-      try {
-        const res = await Axios.get(``)
-        this.reasons = res.data.data
-      }
-      catch (err) {
-        console.error(err)
-      }
+      this.getList()
     },
 
     methods: {
+
+      async getList () {
+        try {
+          const res = await Axios.get(`reasons`)
+          this.reasons = res.data.data
+        }
+        catch (err) {
+          console.error(err)
+        }
+      },
+
       async add () {
         try {
-          const res = await Axios.post(``, this.form)
-
-          this.reasons.push(this.form)
-
-          this.form.name = ''
+          const res = await Axios.post(`reasons`, this.form)
+          this.getList()
+          this.form.reason = ''
+          Alert.success(`New reason has been added`)
         }
         catch (err) {
           console.error(err)
@@ -95,11 +99,11 @@
 
       async remove (reason) {
         try {
-          const res = await Axios.delete(``)
-
-          const index = this.reasons.indexOf(reason)
-          this.reasons.splice(index, 1)
-
+          Alert.confirm(`Are you sure want to delete this reason?`, async () => {
+            const res = await Axios.delete(`reasons/${reason.reason_id}`)
+            this.getList()
+            Alert.success(`Reason has been deleted`)
+          })
         }
         catch (err) {
           console.error(err)
