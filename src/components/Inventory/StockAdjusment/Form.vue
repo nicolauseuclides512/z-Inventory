@@ -256,8 +256,8 @@
     methods: {
 
       async initialize () {
-        const res = await Axios.get(`stock_adjustments/create`)
-        this.list.reasons = res.data.data.reasons
+        const res = await Axios.get(`reasons`)
+        this.list.reasons = res.data.data
       },
 
       async getItems () {
