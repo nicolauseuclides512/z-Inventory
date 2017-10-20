@@ -229,9 +229,40 @@ export default [
     children: [
       {
         path: '/',
-        name: 'settings',
         component: resolve => require(['./components/Settings/Index'], resolve),
-      }
+        children: [
+          {
+            path: '/',
+            name: 'settings',
+            component: resolve => require(['./components/Settings/OrganizationProfile'], resolve),
+          },
+          {
+            path: '/settings/store_detail',
+            name: 'settings.store_detail',
+            component: resolve => require(['./components/Settings/StoreDetail'], resolve),
+          },
+          {
+            path: '/settings/sales_channel',
+            name: 'settings.sales_channel',
+            component: resolve => require(['./components/Settings/SalesChannel'], resolve),
+          },
+          {
+            path: '/settings/adjustment',
+            name: 'settings.adjustment',
+            component: resolve => require(['./components/Settings/Adjustment'], resolve),
+          },
+          {
+            path: '/settings/shipment',
+            name: 'settings.shipment',
+            component: resolve => require(['./components/Settings/Shipping'], resolve),
+          },
+          {
+            path: '/settings/payment',
+            name: 'settings.payment',
+            component: resolve => require(['./components/Settings/Payment'], resolve),
+          },
+        ]
+      },
     ]
   },
 
