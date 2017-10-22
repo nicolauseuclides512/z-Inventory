@@ -82,6 +82,15 @@
         },
         form: new Form({
           carrier_ids: [],
+
+          from: '',
+          address: '',
+          country_id: '',
+          province_id: '',
+          district_id: '',
+          region_id: '',
+          zip_code: '',
+          phone_number: '',
         }),
       }
     },
@@ -107,6 +116,17 @@
         let carrier_ids_string = res.data.data.settings['web.shipping.carrier_ids']
         carrier_ids_string = carrier_ids_string.replace('[', '').replace(']', '')
         this.form.carrier_ids = carrier_ids_string.split(',')
+
+
+        // Set the values, we need to make sure everything is not empty
+        this.form.phone_number = res.data.data.settings['web.shipping.phone_number']
+        this.form.address = res.data.data.settings['web.shipping.address']
+        this.form.zip_code = res.data.data.settings['web.shipping.zip_code']
+
+        this.form.country_id = res.data.data.settings['web.shipping.country']
+        this.form.province_id = res.data.data.settings['web.shipping.province']
+        this.form.district_id = res.data.data.settings['web.shipping.district']
+        this.form.region_id = res.data.data.settings['web.shipping.region']
       }
       catch (err) {
         console.error(err)
@@ -117,6 +137,16 @@
 
       async save () {
         try {
+          // If empty, don't allow to save
+          if (!this.form.phone_number || !this.form.address || !this.form.zip_code
+            || !this.form.country_id || !this.form.province_id || !this.form.district_id
+            || !this.form.region_id)
+          {
+            Alert.error('You should fill all shipping address come from.')
+            return
+          }
+
+
           const data = {
             settings: {
               'web.shipping.carrier_ids': '[' + this.form.carrier_ids.join(',') + ']',
