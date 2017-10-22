@@ -19,15 +19,12 @@
           </div>
         </div>
 
-        <p>{{ address }}</p>
-        <p>{{ region ? region.region_name : '' }}</p>
-        <p>{{ district ? district.district_name : '' }}</p>
-        <p>
-          <span>{{ province ? province.province_name : '' }}</span>
-          <span>{{ zip_code }}</span>
-        </p>
-        <p>{{ country ? country.country_name : '' }}</p>
-        <p v-show="phone_number">Phone: {{ phone_number }}</p>
+        <div>{{ address }}</div>
+        <div>{{ region ? region.name : '' }}</div>
+        <div>{{ district ? district.name : '' }}, {{ province ? province.name : '' }}</div>
+        <div>{{ country ? country.name : '' }}</div>
+        <div>{{ zip_code }}</div>
+        <div>Phone: {{ phone_number }}</div>
       </div>
     </div>
   </div>
