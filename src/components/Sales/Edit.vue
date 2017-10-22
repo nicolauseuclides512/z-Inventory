@@ -611,6 +611,7 @@
       },
 
       async selectContact (contact) {
+        this.dirtyForm = true
         const contact_id = this.form.contact_id = contact.contact_id
         const res = await axios.get(`contacts/${contact_id}`)
         this.selected_contact = res.data.data
@@ -625,6 +626,7 @@
       },
 
       async selectProduct (product) {
+        this.dirtyForm = true
         this.selected_product = product
         Vue.nextTick(() => {
           this.selected_product = null
@@ -691,6 +693,7 @@
        * Adjustment label toggle
        */
       adjustmentEditToggle (show) {
+        this.dirtyForm = true
         this.ui.adjustment_edit = show
       },
 
