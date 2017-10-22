@@ -168,7 +168,7 @@
       filteredOptions() {
         return this.options.filter(item => {
           if (item[this.label]) {
-            return item[this.label].toLowerCase().indexOf(this.search) > -1
+            return item[this.label].toString().toLowerCase().indexOf(this.search) > -1
           }
         })
       },
