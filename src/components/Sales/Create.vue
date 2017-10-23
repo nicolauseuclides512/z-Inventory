@@ -505,6 +505,16 @@
           const sales_order_id = res.data.data.sales_order_id
           const invoice_id = res.data.data.invoices[0].invoice_id
 
+          this.form.billing_region = this.selected_contact.billing_region
+          this.form.billing_district = this.selected_contact.billing_district
+          this.form.billing_province = this.selected_contact.billing_province
+          this.form.billing_country = this.selected_contact.billing_country
+
+          this.form.shipping_region = this.selected_contact.shipping_region
+          this.form.shipping_district = this.selected_contact.shipping_district
+          this.form.shipping_province = this.selected_contact.shipping_province
+          this.form.shipping_country = this.selected_contact.shipping_country
+
           this.dirtyForm = false
 
           switch (evt.target.dataset.value) {

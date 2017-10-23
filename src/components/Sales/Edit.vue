@@ -558,6 +558,16 @@
 
           const invoice_id = res.data.data.invoices[0].invoice_id
 
+          this.form.billing_region = this.selected_contact.billing_region
+          this.form.billing_district = this.selected_contact.billing_district
+          this.form.billing_province = this.selected_contact.billing_province
+          this.form.billing_country = this.selected_contact.billing_country
+
+          this.form.shipping_region = this.selected_contact.shipping_region
+          this.form.shipping_district = this.selected_contact.shipping_district
+          this.form.shipping_province = this.selected_contact.shipping_province
+          this.form.shipping_country = this.selected_contact.shipping_country
+
           if (evt.target.dataset.value !== 'save_as_draft') {
             await axios.get(`sales_orders/${sales_order_id}/invoices/${invoice_id}/mark_as_sent`)
           }
