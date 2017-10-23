@@ -377,6 +377,25 @@ select.select2-dropdown-open {
     font-weight: 400
 }
 
+.toggles-dropship {
+    margin-bottom: 15px
+}
+
+.toggles-dropship .toggle,
+.toggles-dropship label {
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 15px;
+}
+
+.toggles-dropship label {
+    padding-left: 0px;
+    position: relative;
+    min-height: 20px;
+    margin-bottom: 0;
+    font-weight: 400
+}
+
 .help-text {
     font-size: .85em;
     color: #888
@@ -457,6 +476,13 @@ select.select2-dropdown-open {
 .nav-grey li,
 .nav-grey li.active a {
     background-color: #fcfcfc!important
+}
+
+.nav-report li{
+    background-color: #eee;
+}
+.nav-report li.active a {
+    background-color: #dadada!important
 }
 
 .border-chart {
@@ -652,15 +678,16 @@ select.select2-dropdown-open {
 
 .content-page-new-item {
     background: #EEEEEE;
-	padding-top: 90px;
+    padding-top: 90px;
     padding-left: 260px;
+    padding-bottom: 90px;
 }
 
 .content-page .content {
     min-height: 500px;
     /*background: #fff!important;
-	border: 1px solid #ddd*/
-	background: #EEEEEE;
+    border: 1px solid #ddd*/
+    background: #EEEEEE;
 }
 
 .table-div {
@@ -1622,7 +1649,7 @@ select.select2-dropdown-open {
 .sahito-list .sahito-list-item-group .sahito-list-contact-transaction--table tr th.col-checkbox,
 .sahito-list .sahito-list-item-group .sahito-list-discount-list--table tr th.col-checkbox,
 .sahito-list .sahito-list-item-group .sahito-list-item-group--table tr th.col-checkbox {
-    width: 5%;
+    width: auto;
     vertical-align: middle;
     text-align: right;
     padding-bottom: 0
@@ -1815,9 +1842,9 @@ select.select2-dropdown-open {
     margin: 0
 }
 
-.sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr th#icon_collapse,
-.sahito-list .sahito-list-item-group .sahito-list-item-group-list--table tr th#icon_collapse {
-    width: 3%
+.sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr th.col-icon_collapse,
+.sahito-list .sahito-list-item-group .sahito-list-item-group-list--table tr th.col-icon_collapse {
+    width: 20px;
 }
 
 .sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr th#name,
@@ -1863,7 +1890,7 @@ select.select2-dropdown-open {
 
 .sahito-list .sahito-list-contact .sahito-list-item-group-list--table table.list-inner tr td.col-checkbox,
 .sahito-list .sahito-list-item-group .sahito-list-item-group-list--table table.list-inner tr td.col-checkbox {
-    width: 5%;
+    width: 20px;
     vertical-align: middle;
     text-align: right;
     padding-bottom: 0
@@ -1874,26 +1901,26 @@ select.select2-dropdown-open {
     margin: 0
 }
 
-.sahito-list .sahito-list-contact .sahito-list-item-group-list--table table.list-inner tr td#icon_collapse,
-.sahito-list .sahito-list-item-group .sahito-list-item-group-list--table table.list-inner tr td#icon_collapse {
-    width: 3%
+.sahito-list .sahito-list-contact .sahito-list-item-group-list--table table.list-inner tr td.col-icon_collapse,
+.sahito-list .sahito-list-item-group .sahito-list-item-group-list--table table.list-inner tr td.col-icon_collapse {
+    width: 30px;
 }
 
 .sahito-list .sahito-list-contact .sahito-list-item-group-list--table table.list-inner tr td#name,
 .sahito-list .sahito-list-item-group .sahito-list-item-group-list--table table.list-inner tr td#name {
-    width: 37%
+    width: 90px;
 }
 
 .sahito-list .sahito-list-contact .sahito-list-item-group-list--table table.list-inner tr td#price,
 .sahito-list .sahito-list-contact .sahito-list-item-group-list--table table.list-inner tr td#sku,
 .sahito-list .sahito-list-item-group .sahito-list-item-group-list--table table.list-inner tr td#price,
 .sahito-list .sahito-list-item-group .sahito-list-item-group-list--table table.list-inner tr td#sku {
-    width: 15%
+    width: 60px;
 }
 
 .sahito-list .sahito-list-contact .sahito-list-item-group-list--table table.list-inner tr td#available,
 .sahito-list .sahito-list-item-group .sahito-list-item-group-list--table table.list-inner tr td#available {
-    width: 25%
+    width: 20px;
 }
 
 .sahito-list .sahito-list-contact .sahito-list-discount-list--table tr th,
@@ -2176,6 +2203,10 @@ select.select2-dropdown-open {
     height: 35px
 }
 
+.table-bank>tbody>tr:nth-of-type(odd) {
+    background-color: #f9f9f9
+}
+
 .custom-summernote .note-editor .note-toolbar {
     margin: 0;
     padding: 0 5px 5px
@@ -2300,4 +2331,48 @@ h5.title {
 .seo-preview .seo-preview-meta {
     color: #888;
     font-size: .95em
+}
+
+.divider {
+    border-color: #e5e5e5;
+    border-style: solid;
+    border-width: 0 0 1px;
+    height: 10px;
+    line-height: 20px;
+    text-align:center;
+    overflow: visable;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+.divider span {
+    background-color: #FFF;
+    display: inline-block;
+    padding: 0 10px;
+    min-height: 20px;
+    min-width: 10%;
+}
+
+.dropshipto{
+}
+
+.dropshipto p{
+    margin-bottom: 0;
+    color: #aaa;
+    font-size: .83em;
+}
+.dropshipto h3{
+    font-size: 1.3em;
+    margin: 0;
+    color: #555;
+    padding-left: 10px;
+}
+
+.dropshipto h4{
+    font-size: .9em;
+    margin: 0;
+    color: #555;
+    font-weight: 100;
+    line-height: normal;
+    padding-left: 10px;
 }
