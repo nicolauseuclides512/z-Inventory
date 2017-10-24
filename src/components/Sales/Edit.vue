@@ -438,7 +438,7 @@
     },
 
     updated() {
-      $('input, textarea').on('change', (event) => {
+      $('input, textarea, select').on('change', (event) => {
         this.dirtyForm = true
       })
     },
