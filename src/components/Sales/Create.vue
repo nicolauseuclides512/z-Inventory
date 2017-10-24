@@ -23,6 +23,18 @@
             </div>
           </div>
         </div>
+        <div class="col-md-offset-3 col-md-3">
+          <div class="form-group">
+            <label>Sales Channel</label>
+            <div>
+              <select v-model="form.my_sales_channel_id" class="form-control" required>
+                <option v-for="channel in list.channels" :key="channel.id" :value="channel.id">
+                  {{ channel.store_name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="form-group row">
@@ -367,11 +379,13 @@
           weight_unit: [],
           contact_list: [],
           product_list: [],
+          channels: [],
         },
         selected_contact: null,
         selected_product: null,
         tax_included: 1,
         form: new Form({
+          my_sales_channel_id: null,
           invoice_date: dateFormat(new Date(), 'YYYY-MM-DD'),
           due_date: null,
           contact_id: null,
@@ -444,6 +458,14 @@
         await this.fetchContactList()
         await this.fetchProductList()
         await this.fetchTaxSetting()
+
+        this.getSalesChannels()
+      },
+
+      async getSalesChannels () {
+        const res = await axios.get('my_channels')
+        this.list.channels = res.data.data
+        this.form.my_sales_channel_id = this.list.channels[0] ? this.list.channels[0].id : null
       },
 
       dateTime () {
