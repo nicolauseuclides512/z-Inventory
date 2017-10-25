@@ -94,7 +94,7 @@
           <div class="pull-left">
             <a href="javascript:void(0);" @click="printInvoice(43)"
                class="btn btn-default waves-effect waves-light m-b-5">Print Invoice</a>
-            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-light m-b-5">Print Packing</a>
+            <a href="javascript:void(0);" @click="viewShipmentLabels" class="btn btn-default waves-effect waves-light m-b-5">Print Shipment Label</a>
           </div>
           <div class="pull-right pt-10">
             <a href="javascript:void(0);" @click="clearCheckedAll">
@@ -104,6 +104,7 @@
         </div>
       </div>
     </div>
+
     <div class="container p-0">
       <div class="row sahito-list">
         <div class="col-md-12">
@@ -122,7 +123,7 @@
                     <tr>
                       <th class="col-checkbox">
                         <div class="checkbox checkbox-single checkbox-success">
-                          <input type="checkbox" id="all">
+                          <input type="checkbox" v-model="checkedAll" id="all" @click="checkAll">
                           <label></label>
                         </div>
                       </th>
@@ -144,7 +145,7 @@
                       <tr>
                         <td class="col-checkbox">
                           <div class="checkbox checkbox-single checkbox-success">
-                            <input type="checkbox">
+                            <input type="checkbox" v-model="checkedList" :value="sale">
                             <label></label>
                           </div>
                         </td>
@@ -343,6 +344,11 @@
 
   export default {
     name: 'List',
+    data() {
+      return {
+        checkedAll: false
+      }
+    },
 
     components: {
       Pagination,
@@ -400,7 +406,13 @@
       },
 
       salesList: {
-        get () { return store.state.sales.salesList },
+        get () {
+          return _.map(store.state.sales.salesList, function (sale) {
+            sale.checked = false
+            return sale;
+          })
+//          return store.state.sales.salesList
+        },
         set (value) { store.commit('sales/SALES_LIST') },
       },
 
@@ -491,29 +503,73 @@
         pdfWindow.location = fileURL
       },
 
-      checkItem (id) {
-        store.dispatch('sales/markItemAsChecked', id)
+      async viewShipmentLabels() {
+        let me = this;
+
+        let shipmentIds = _.map(me.checkedList, function (o) {
+            return o.shipment_id
+        })
+
+        const pdfWindow = window.open()
+
+        const url = window.BASE_URL + `/sales_orders/shipments/download-labels?ids=` + shipmentIds.join()
+
+        const response = await axios.get(url, {
+          responseType: 'arraybuffer',
+          headers: {
+            'Content-Type': 'application/pdf',
+          },
+        })
+
+        const file = new Blob([response.data], {type: 'application/pdf'})
+        const fileURL = URL.createObjectURL(file)
+        pdfWindow.location = fileURL
+      },
+
+      checkItem(sale) {
+        let me = this;
+        sale.checked = !sale.checked
+
+        if (sale.checked === true) {
+          store.dispatch('sales/markItemAsChecked', sale)
+          console.info(1)
+        } else if (sale.checked === false) {
+          store.dispatch('sales/markItemAsUnChecked', sale)
+          console.info(0)
+        }
+
+        this.checkedAll = false;
       },
 
       /**
        * Check all items
        */
-      checkAll (evt) {
-        if (evt.target.checked) {
-          this.clearCheckedAll()
+      checkAll(evt) {
+        if (!this.checkedAll) {
 //        this.checkedAll = true
           _.each(this.salesList, item => {
-            store.dispatch('sales/markItemAsChecked', item.sales_order_id)
+            item.checked = true
+            store.dispatch('sales/markItemAsChecked', item)
           })
         } else {
+          _.each(this.salesList, item => {
+            item.checked = false
+            store.dispatch('sales/markItemAsUnChecked', item)
+          })
           this.clearCheckedAll()
+          console.info(this.checkedList)
         }
       },
 
       /**
        * Clear all checked items
        */
-      clearCheckedAll () {
+      clearCheckedAll() {
+        this.checkedAll = false
+        _.each(this.salesList, item => {
+          item.checked = false
+          store.dispatch('sales/markItemAsUnChecked', item)
+        })
         store.dispatch('sales/clearAllCheckedItems')
 //      this.checkedAll = false
       },

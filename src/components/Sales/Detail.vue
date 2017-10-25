@@ -96,8 +96,8 @@
                     <a href="javascript:void(0);" class="btn btn-default waves-effect waves-light m-b-5">
                       Print Invoice
                     </a>
-                    <a href="javascript:void(0);" class="btn btn-default waves-effect waves-light m-b-5">
-                      Print Packing
+                    <a href="javascript:void(0);" @click="viewShipmentLabels" class="btn btn-default waves-effect waves-light m-b-5">
+                      Print Shipment Labels
                     </a>
                   </div>
                   <div class="pull-right pt-10">
@@ -119,7 +119,7 @@
                           :class="{ active: sale.sales_order_id == salesOrderItems.sales_order_id }">
                         <td class="col-checkbox">
                           <div class="checkbox checkbox-single checkbox-success">
-                            <input type="checkbox" :value="sale.sales_order_id" v-model="checkedList" title="Check box">
+                            <input type="checkbox" :value="sale" v-model="checkedList" title="Check box">
                             <label></label>
                           </div>
                         </td>
@@ -469,7 +469,12 @@
       },
 
       salesList: {
-        get () { return store.state.sales.salesList },
+        get () {
+          return _.map(store.state.sales.salesList, function (o) {
+            o.checked = false
+            return o
+          })
+        },
         set (value) { store.commit('sales/SALES_LIST', value) },
       },
 
@@ -713,6 +718,32 @@
         iframePrint.src = 'http://sahito.ontelstudio.com:9000/invoices/pdf'
         iframePrint.contentWindow.document.domain = window.HOSTNAME
         iframePrint.contentWindow.print()
+      },
+
+      /**
+       * View Shipment Labels
+       */
+      async viewShipmentLabels() {
+        let me = this;
+
+        let shipmentIds = _.map(me.checkedList, function (o) {
+          return o.shipment_id
+        })
+
+        const pdfWindow = window.open()
+
+        const url = window.BASE_URL + `/sales_orders/shipments/download-labels?ids=` + shipmentIds.join()
+
+        const response = await axios.get(url, {
+          responseType: 'arraybuffer',
+          headers: {
+            'Content-Type': 'application/pdf',
+          },
+        })
+
+        const file = new Blob([response.data], {type: 'application/pdf'})
+        const fileURL = URL.createObjectURL(file)
+        pdfWindow.location = fileURL
       },
 
       /**

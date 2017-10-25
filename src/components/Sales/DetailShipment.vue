@@ -35,13 +35,13 @@
               <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
+              <!--<li>-->
+                <!--<a href="javascript:void(0)" data-toggle="tooltip" data-placement="top">-->
+                  <!--View package list-->
+                <!--</a>-->
+              <!--</li>-->
               <li>
-                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top">
-                  View package list
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top">
+                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" v-on:click="viewShipmentLabels">
                   View shipment label
                 </a>
               </li>
@@ -200,6 +200,9 @@
 </template>
 
 <script>
+
+  import axios from 'axios'
+
   export default {
     name: 'DetailShipment',
 
@@ -213,17 +216,34 @@
       },
     },
 
-    data () {
+    data() {
       return {}
     },
 
     methods: {
-      editShipment () {
+      editShipment() {
         this.$emit('editShipment')
       },
-      deleteShipment () {
+      deleteShipment() {
         this.$emit('deleteShipment')
       },
+      async viewShipmentLabels() {
+        let me = this;
+        const pdfWindow = window.open()
+
+        const url = window.BASE_URL + `/sales_orders/shipments/download-labels?ids=` + me.shipmentList[0].shipment_id
+
+        const response = await axios.get(url, {
+          responseType: 'arraybuffer',
+          headers: {
+            'Content-Type': 'application/pdf',
+          },
+        })
+
+        const file = new Blob([response.data], {type: 'application/pdf'})
+        const fileURL = URL.createObjectURL(file)
+        pdfWindow.location = fileURL
+      }
     },
 
   }
