@@ -296,15 +296,16 @@
       /**
        * Update Province list
        */
-      updateDistrictList () {
-        Regional.districtList(this.form.province_id)
+      async updateDistrictList () {
+        this.list.district_list = await Regional.districtList(this.form.province_id)
+        this.list.region_list = []
       },
 
       /**
        * Update District list
        */
-      updateRegionList () {
-        Regional.regionList(this.form.district_id)
+      async updateRegionList () {
+        this.list.region_list = await Regional.regionList(this.form.district_id)
       },
 
     },
