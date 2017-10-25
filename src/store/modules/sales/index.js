@@ -58,6 +58,17 @@ const mutations = {
 
     state.checkedList.push(payload) // payload: integer
   },
+  UNCHECKED_ITEM(state, payload) {
+    if (Array.isArray(payload)) {
+      state.checkedList = payload
+      return
+    }
+
+    state.checkedList = state.checkedList.filter(function (o) {
+      console.info(o,payload,'delete')
+      return o === payload
+    })
+  },
 }
 
 const actions = {
@@ -229,8 +240,12 @@ const actions = {
   },
 
 
-  markItemAsChecked({commit}, sales_order_id) {
-    commit('CHECKED_ITEM', sales_order_id)
+  markItemAsChecked({commit}, sales_order) {
+    commit('CHECKED_ITEM', sales_order)
+  },
+
+  markItemAsUnChecked({commit}, sales_order) {
+    commit('UNCHECKED_ITEM', sales_order)
   },
 
   clearAllCheckedItems({commit}) {
