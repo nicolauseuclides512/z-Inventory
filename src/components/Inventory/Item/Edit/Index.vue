@@ -10,12 +10,13 @@
       </div>
     </div>
 
-    <info></info>
-    <pricing></pricing>
+    <Info></Info>
+    <Pricing></Pricing>
     <!--<shipping></shipping>-->
     <!--<inventory></inventory>-->
     <!--<group></group>-->
     <!--<seo></seo>-->
+    <Variant></Variant>
 
     <div class="float-save">
       <div class="container">
@@ -71,10 +72,11 @@
     name: 'ItemEdit',
 
     components: {
-      info: require('./Info'),
-      pricing: require('./Pricing'),
-      shipping: require('./Shipping'),
-      inventory: require('./Inventory'),
+      Info: require('./Info'),
+      Pricing: require('./Pricing'),
+      Shipping: require('./Shipping'),
+      Inventory: require('./Inventory'),
+      Variant: require('../Variant'),
 //      group: require('./Group'),
 //      seo: require('./Seo'),
     },

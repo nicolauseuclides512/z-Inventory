@@ -10,12 +10,13 @@
       </div>
     </div>
 
-    <info></info>
-    <pricing></pricing>
-    <!--<shipping></shipping>-->
-    <!--<inventory></inventory>-->
-    <!--<group></group>-->
-    <!--<seo></seo>-->
+    <Info></Info>
+    <Pricing></Pricing>
+    <!--<Shipping></shipping>-->
+    <!--<Inventory></inventory>-->
+    <!--<Group></group>-->
+    <!--<Seo></seo>-->
+    <Variant></Variant>
 
     <div class="float-save">
       <div class="container">
@@ -71,12 +72,13 @@
     name: 'ItemCreate',
 
     components: {
-      info: require('./Info'),
-      pricing: require('./Pricing'),
-      shipping: require('./Shipping'),
-      inventory: require('./Inventory'),
-//      group: require('./Group'),
-//      seo: require('./Seo'),
+      Info: require('./Info'),
+      Pricing: require('./Pricing'),
+      Shipping: require('./Shipping'),
+      Inventory: require('./Inventory'),
+      Variant: require('../Variant'),
+//      Group: require('./Group'),
+//      Seo: require('./Seo'),
     },
 
     data() {
