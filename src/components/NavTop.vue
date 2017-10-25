@@ -3,10 +3,14 @@
     <!-- LOGO -->
     <div class="topbar-left">
       <div class="text-center">
-        <a id="nav-top-logo" href="/" class="logo">
+        <router-link
+          :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}"
+          id="nav-top-logo"
+          class="logo"
+        >
           <img src="/static/images/logo_Zuragan_web.png" height="38" width="38">
           <span>Zuragan</span>
-        </a>
+        </router-link>
       </div>
     </div>
     <!-- Button mobile view to collapse sidebar menu -->
