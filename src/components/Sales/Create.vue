@@ -29,7 +29,7 @@
             <div>
               <select v-model="form.my_sales_channel_id" class="form-control" required>
                 <option v-for="channel in list.channels" :key="channel.id" :value="channel.id">
-                  {{ channel.store_name }}
+                  {{ channel.sales_channel.channel_name }} - {{ channel.store_name }}
                 </option>
               </select>
             </div>
