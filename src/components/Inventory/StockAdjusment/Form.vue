@@ -6,7 +6,8 @@
           <div class="container full-width-header bt-1 p-b-10 m-b-20">
             <div class="row">
               <div class="col-md-12">
-                <h4 class="pull-left page-title">Stock</h4>
+                <h4 class="pull-left page-title" v-if="!form.stock_adjustment_id">Add Stock Adjusment</h4>
+                <h4 class="pull-left page-title" v-if="form.stock_adjustment_id">Edit Stock Adjusment</h4>
               </div>
             </div>
           </div>
@@ -18,8 +19,13 @@
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left">Adjustment ID</label>
                     <div class="col-md-3">
-                      <input v-model="form.stock_adjustment_id" disabled required type="text" placeholder=""
-                             class="form-control">
+                      <input v-model="form.stock_adjustment_id"
+                             disabled
+                             required
+                             type="text"
+                             placeholder=""
+                             class="form-control"
+                      />
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
@@ -108,6 +114,7 @@
                                     v-model="detail.adjust_qty"
                                     @keyup="changeOnHandValue(detail)"
                                     required
+                                    :disabled="!detail.item_id"
                                     title="Adjustment quantity"
                                     class="vertical-spin form-control"
                                     type="number"
@@ -120,6 +127,7 @@
                                     v-model.number="detail.on_hand_qty"
                                     @keyup="changeAdjustValue(detail)"
                                     required
+                                    :disabled="!detail.item_id"
                                     title="On hand quantity"
                                     class="vertical-spin form-control"
                                     type="number"
@@ -128,7 +136,7 @@
                                     data-bts-button-up-class="btn btn-primary">
                                 </td>
                                 <td>
-                                  <select required title="Reason" class="form-control" v-model="detail.reason_id">
+                                  <select required title="Reason" class="form-control" v-model="detail.reason_id" :disabled="!detail.item_id">
                                     <option v-for="reason in list.reasons" :value="reason.reason_id">
                                       {{ reason.reason }}
                                     </option>
@@ -240,7 +248,7 @@
       // Edit mode
       const stockId = this.$route.params.id
       if (!stockId) {
-        this.form.adjustment_id = Str.random()
+        this.form.stock_adjustment_id = Str.random()
       } else {
         this.getDetails(stockId)
       }
