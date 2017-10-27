@@ -9,8 +9,12 @@
           <div class="pull-left">
             <!--<a href="javascript:void(0);" id="mark-as-active" @click="markAsActive" class="btn btn-default waves-effect waves-light m-b-5">Mark as Active</a>-->
             <div class="btn-group">
-              <button class="btn btn-default waves-effect waves-light m-b-5" id="more-actions" data-toggle="dropdown"
-                      aria-expanded="false">
+              <button
+                class="btn btn-default waves-effect waves-light m-b-5"
+                id="more-actions"
+                data-toggle="dropdown"
+                aria-expanded="false"
+              >
                 More Actions <i class="caret"></i>
               </button>
               <ul class="dropdown-menu" role="menu">
@@ -57,13 +61,11 @@
             </button>
             <ul class="dropdown-menu" role="menu" style="top: 35px;">
               <li class="dropdown-header">SORT BY</li>
-              <li :class="{ active: currentSortColumn == 'created_at' }"><a href="javascript:void(0);"
-                                                                            id="sort-by-created"
-                                                                            @click="sortItemsBy('created_at')">Created Time</a>
+              <li :class="{ active: currentSortColumn == 'created_at' }">
+                <a href="javascript:void(0);" id="sort-by-created" @click="sortItemsBy('created_at')">Created Time</a>
               </li>
-              <li :class="{ active: currentSortColumn == 'item_name' }"><a href="javascript:void(0);"
-                                                                           id="sort-by-item_name"
-                                                                           @click="sortItemsBy('item_name')">Name</a>
+              <li :class="{ active: currentSortColumn == 'item_name' }">
+                <a href="javascript:void(0);" id="sort-by-item_name" @click="sortItemsBy('item_name')">Name</a>
               </li>
               <li class="divider"></li>
               <!--<li><a href="javascript:void(0);" id="item-preferences"><i class="md-settings"></i> Item Preferences</a></li>-->
@@ -83,7 +85,7 @@
           <div class="sahito-list-item-group">
 
 
-            <table class="table table-bordered">
+            <table class="table">
               <thead>
               <tr>
                 <th>
@@ -435,6 +437,10 @@
 
 
 <style scoped>
+  tbody {
+    border: 0 !important;
+  }
+
   .table__header {
     font-weight: bold;
     font-size: 0.9em;
