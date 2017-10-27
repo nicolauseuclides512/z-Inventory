@@ -71,8 +71,11 @@
               <!--<li><a href="javascript:void(0);" id="item-preferences"><i class="md-settings"></i> Item Preferences</a></li>-->
               <!--<li><a href="javascript:void(0);" id="pricelist-settings"><i class="md-settings"></i> Pricelist Settings</a></li>-->
               <!--<li class="divider"></li>-->
-              <li><a href="javascript:void(0);" id="refresh-list" @click="refreshList"><i class="md-refresh"></i>
-                Refresh List</a></li>
+              <li>
+                <a href="javascript:void(0);" id="refresh-list" @click="refreshList">
+                  <i class="md-refresh"></i> Refresh List
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -132,8 +135,9 @@
                     </span>
                 </td>
                 <td>
-                  <a :href="'#item_list-' + item.item_id" v-if="item.children.length" @click="expandChildren(item)">
-                    <i class="ion-chevron-right"></i>
+                  <a href="javascript:void(0)" v-if="item.children.length" @click="toggleChildren(item)">
+                    <i class="ion-chevron-right" v-if="!item.expanded"></i>
+                    <i class="ion-chevron-down" v-if="item.expanded"></i>
                   </a>
                 </td>
                 <td>
@@ -169,7 +173,7 @@
                 </td>
               </tr>
 
-              <tr v-for="child in item.children">
+              <tr v-if="item.expanded" v-for="child in item.children">
                 <td class="col-checkbox" style="width: 46px">
                   <div class="checkbox checkbox-single checkbox-success">
                   </div>
@@ -339,8 +343,12 @@
       },
 
 
-      expandChildren (item) {
-        this.itemChildren = item
+      toggleChildren (item) {
+        if (item.hasOwnProperty('expanded')) {
+          return this.$set(item, 'expanded', ! Boolean(item.expanded))
+        }
+
+        this.$set(item, 'expanded', true)
       },
 
 
