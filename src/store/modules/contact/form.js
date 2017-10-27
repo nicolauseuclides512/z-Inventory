@@ -369,7 +369,10 @@ const actions = {
         swal_success(res)
         resolve(res)
       }).catch(err => {
-        swal_error(res.response)
+        console.error(err)
+        if (err && err.hasOwnProperty('response')) {
+          swal_error(res.response)
+        }
         reject(err)
       })
     })
