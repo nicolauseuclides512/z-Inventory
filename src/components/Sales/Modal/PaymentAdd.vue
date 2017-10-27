@@ -188,7 +188,7 @@
               return item.mode_name === 'Bank Transfer'
             })
 
-            if (banks.hasOwnProperty('details')) {
+            if (banks && banks.hasOwnProperty('details')) {
               this.payment_method_details = banks.details
             }
           }
@@ -214,8 +214,8 @@
           // }
 
         } catch (err) {
-          console.error(err)
-          if (err.hasOwnProperty('response')) {
+          console.log(err)
+          if (err && err.hasOwnProperty('response')) {
             swal_error(err.response)
           }
         }
