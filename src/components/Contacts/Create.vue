@@ -12,6 +12,29 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12 p-b-20">
+
+          <div class="form-group form-general m-b-20">
+            <label class="col-md-3 control-label text-left">I am a</label>
+            <div class="col-md-9">
+              <div class="checkbox checkbox-success checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox1" v-model="form.is_customer">
+                <label for="inlineCheckbox1">Customer</label>
+              </div>
+              <div class="checkbox checkbox-success checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2" v-model="form.is_dropshipper">
+                <label for="inlineCheckbox2">Dropshipper</label>
+              </div>
+              <div class="checkbox checkbox-success checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3" v-model="form.is_vendor">
+                <label for="inlineCheckbox3">Vendor</label>
+              </div>
+              <div class="checkbox checkbox-success checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox4" v-model="form.is_reseller">
+                <label for="inlineCheckbox2">Resellers</label>
+              </div>
+            </div>
+          </div>
+
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left">Name</label>
             <div class="col-md-1">
@@ -294,6 +317,7 @@
 <script>
   import store from 'src/store'
   import Vuelist from '../Vuelist'
+  import Form from 'src/helpers/Form'
   import { regional } from '../../mixins.js';
   import { regional as regionalHelper } from 'src/helpers'
   import sharedMethods from './sharedMethods.js'
@@ -314,6 +338,12 @@
         // options: {},
         saving: false,
         currentTab: 'address',
+        form: new Form({
+          is_vendor: false,
+          is_customer: false,
+          is_dropshipper: false,
+          is_reseller: false,
+        })
       };
     },
 
