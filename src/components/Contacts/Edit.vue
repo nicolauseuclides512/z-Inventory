@@ -30,7 +30,7 @@
               </div>
               <div class="checkbox checkbox-success checkbox-inline">
                 <input type="checkbox" id="inlineCheckbox4" v-model="form.is_reseller">
-                <label for="inlineCheckbox2">Resellers</label>
+                <label for="inlineCheckbox4">Resellers</label>
               </div>
             </div>
           </div>
@@ -38,28 +38,32 @@
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left">Name</label>
             <div class="col-md-1">
-              <select id="salutation_id" v-model="salutation_id" class="form-control" title="Salutation">
+              <select id="salutation_id" v-model="form.salutation_id" class="form-control" title="Salutation">
                 <option :value="null"></option>
-                <option v-for="o in salutationList" :value="o.salutation_id">{{ o.name }}</option>
+                <option v-for="salutation in list.salutation_list" :value="salutation.salutation_id">
+                  {{ salutation.name }}
+                </option>
               </select>
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control" placeholder="Name" id="first_name" v-model="first_name" ref="firstName" maxlength="100" required>
+              <input type="text" class="form-control" placeholder="Name" id="first_name" v-model="form.first_name"
+                     ref="firstName" maxlength="100" required>
             </div>
             <!--<div class="col-md-2">-->
-              <!--<input type="text" class="form-control" placeholder="Last Name" id="last_name" v-model="last_name" maxlength="100">-->
+            <!--<input type="text" class="form-control" placeholder="Last Name" id="last_name" v-model="form.last_name" maxlength="100">-->
             <!--</div>-->
           </div>
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left">Company Name</label>
             <div class="col-md-4">
-              <input type="text" class="form-control" placeholder="" maxlength="100" id="company_name" v-model="company_name">
+              <input type="text" class="form-control" placeholder="" maxlength="100" id="company_name"
+                     v-model="form.company_name">
             </div>
           </div>
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left text-danger">Display Name</label>
             <div class="col-md-4">
-              <select id="display_code" v-model="display_code" class="form-control">
+              <select id="display_code" v-model="form.display_code" class="form-control">
                 <!--<option :value="0">{{ displayNameFormat1 }}</option>-->
                 <option :value="1">{{ displayNameFormat2 }}</option>
                 <option :value="2">{{ displayNameFormat3 }}</option>
@@ -69,32 +73,35 @@
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left">Email</label>
             <div class="col-md-4">
-              <input type="email" class="form-control" placeholder="" id="email" v-model="email" maxlength="255">
+              <input type="email" class="form-control" placeholder="" id="email" v-model="form.email" maxlength="255">
             </div>
           </div>
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left">Phone</label>
             <div class="col-md-2">
-              <input type="text" class="form-control" placeholder="Work Phone" maxlength="20" id="phone" v-model="phone">
+              <input type="text" class="form-control" placeholder="Work Phone" maxlength="20" id="phone"
+                     v-model="form.phone">
             </div>
             <div class="col-md-2">
-              <input type="text" class="form-control" placeholder="Mobile" maxlength="20" id="mobile" v-model="mobile">
+              <input type="text" class="form-control" placeholder="Mobile" maxlength="20" id="mobile"
+                     v-model="form.mobile">
             </div>
           </div>
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left">Website</label>
             <div class="col-md-4">
-              <input type="text" class="form-control" placeholder="" maxlength="255" id="website" v-model="website">
+              <input type="text" class="form-control" placeholder="" maxlength="255" id="website"
+                     v-model="form.website">
             </div>
           </div>
           <!--<div class="form-group form-general m-b-20">-->
-            <!--<label class="col-md-3 control-label text-left text-danger">Contact Type</label>-->
-            <!--<div class="col-md-7">-->
-              <!--<div v-for="(type, index) of contactTypeList" class="radio radio-info radio-inline">-->
-                <!--<input type="radio" :id="'customer_type-' + type" :value="index" name="contact-type" id="contact_type" v-model="contact_type" required>-->
-                <!--<label :for="'customer_type-' + type"> {{ type }} </label>-->
-              <!--</div>-->
-            <!--</div>-->
+          <!--<label class="col-md-3 control-label text-left text-danger">Contact Type</label>-->
+          <!--<div class="col-md-7">-->
+          <!--<div v-for="(type, index) of contactTypeList" class="radio radio-info radio-inline">-->
+          <!--<input type="radio" :id="'customer_type-' + type" :value="index" name="contact-type" id="contact_type" v-model="form.contact_type" required>-->
+          <!--<label :for="'customer_type-' + type"> {{ type }} </label>-->
+          <!--</div>-->
+          <!--</div>-->
           <!--</div>-->
         </div>
       </div>
@@ -125,7 +132,7 @@
               <div class="form-group form-general m-b-20">
                 <label class="col-md-3 control-label text-left">Currency</label>
                 <div class="col-md-4">
-                  <select id=currency_id v-model="currency_id" class="select2 form-control">
+                  <select id=currency_id v-model="form.currency_id" class="select2 form-control">
                     <option value=""></option>
                     <option v-for="c in currencyList" :value="c.currency_id">{{ c.name }}</option>
                   </select>
@@ -134,7 +141,7 @@
               <div class="form-group form-general m-b-20">
                 <label class="col-md-3 control-label text-left">Payment Terms</label>
                 <div class="col-md-4">
-                  <select id=payment_term_id v-model="payment_term_id" class="select2 form-control">
+                  <select id=payment_term_id v-model="form.payment_term_id" class="select2 form-control">
                     <option value=""></option>
                     <option v-for="p in paymentTermsList" :value="p.payment_term_id">{{ p.name }}</option>
                   </select>
@@ -149,9 +156,11 @@
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Country</label>
                   <div class="col-md-7">
-                    <select id="billing_country_id" v-model="billing_country_id" class="form-control">
+                    <select id="billing_country_id" v-model="form.billing_country" class="form-control">
                       <option :value="0" hidden disabled>Select Country</option>
-                      <option v-for="c in billingCountryList" :value="c.id">{{ c.name }}</option>
+                      <option v-for="country in list.billing_country_list" :value="country.id" v-text="">
+                        {{ country.name }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -159,9 +168,12 @@
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Province</label>
                   <div class="col-md-7">
-                    <select id="billing_province_id" v-model="billing_province_id" class="form-control" @change="updateBillingDistrictList" :disabled="!billingProvinceList.length > 0">
+                    <select id="billing_province_id" v-model="form.billing_province" class="form-control"
+                            @change="updateBillingDistrictList" :disabled="!list.billing_province_list.length">
                       <option :value="0" hidden disabled>Select Province</option>
-                      <option v-for="p in billingProvinceList" :value="p.id">{{ p.name }}</option>
+                      <option v-for="province in list.billing_province_list" :value="province.id">
+                        {{ province.name }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -169,9 +181,12 @@
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">District</label>
                   <div class="col-md-7">
-                    <select id="billing_district_id" v-model="billing_district_id" class="form-control" @change="updateBillingRegionList" :disabled="!billingDistrictList.length > 0">
+                    <select id="billing_district_id" v-model="form.billing_district" class="form-control"
+                            @change="updateBillingRegionList" :disabled="!list.billing_district_list.length">
                       <option :value="0" hidden disabled>Select District</option>
-                      <option v-for="d in billingDistrictList" :value="d.id">{{ d.name }}</option>
+                      <option v-for="district in list.billing_district_list" :value="district.id">
+                        {{ district.name }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -179,9 +194,10 @@
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Region</label>
                   <div class="col-md-7">
-                    <select id="billing_region_id" v-model="billing_region_id" class="form-control" :disabled="!billingRegionList.length > 0">
+                    <select id="billing_region_id" v-model="form.billing_region" class="form-control"
+                            :disabled="!list.billing_region_list.length">
                       <option :value="0" hidden disabled>Select Region</option>
-                      <option v-for="r in billingRegionList" :value="r.id">{{ r.name }}</option>
+                      <option v-for="region in list.billing_region_list" :value="region.id">{{ region.name }}</option>
                     </select>
                   </div>
                 </div>
@@ -189,22 +205,24 @@
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Street</label>
                   <div class="col-md-7">
-                    <textarea class="form-control" rows="2" id="billing_address" v-model="billing_address"></textarea>
+                    <textarea class="form-control" rows="2" id="billing_address"
+                              v-model="form.billing_address"></textarea>
                   </div>
                 </div>
 
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Zip Code</label>
                   <div class="col-md-7">
-                    <input type="text" class="form-control" placeholder="" maxlength="5" id="billing_zip" v-model="billing_zip">
+                    <input type="text" class="form-control" placeholder="" maxlength="5" id="billing_zip"
+                           v-model="form.billing_zip">
                   </div>
                 </div>
 
                 <!--<div class="form-group form-general m-b-20">-->
-                  <!--<label class="col-md-4 control-label text-left">Fax</label>-->
-                  <!--<div class="col-md-7">-->
-                    <!--<input type="text" class="form-control" placeholder="" maxlength="20" id="billing_fax" v-model="billing_fax">-->
-                  <!--</div>-->
+                <!--<label class="col-md-4 control-label text-left">Fax</label>-->
+                <!--<div class="col-md-7">-->
+                <!--<input type="text" class="form-control" placeholder="" maxlength="20" id="billing_fax" v-model="form.billing_fax">-->
+                <!--</div>-->
                 <!--</div>-->
 
               </div>
@@ -219,9 +237,11 @@
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Country</label>
                   <div class="col-md-7">
-                    <select id="shipping_country_id" v-model="shipping_country_id" class="form-control">
+                    <select id="shipping_country_id" v-model="form.shipping_country" class="form-control">
                       <option :value="0" hidden disabled>Select Country</option>
-                      <option v-for="c in shippingCountryList" :value="c.id">{{ c.name }}</option>
+                      <option v-for="country in list.shipping_country_list" :value="country.id">
+                        {{ country.name }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -229,9 +249,12 @@
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Province</label>
                   <div class="col-md-7">
-                    <select id="shipping_province_id" v-model="shipping_province_id" class="form-control" @change="updateShippingDistrictList" :disabled="!shippingProvinceList.length > 0">
+                    <select id="shipping_province_id" v-model="form.shipping_province" class="form-control"
+                            @change="updateShippingDistrictList" :disabled="!list.shipping_province_list.length">
                       <option :value="0" hidden disabled>Select Province</option>
-                      <option v-for="c in shippingProvinceList" :value="c.id">{{ c.name }}</option>
+                      <option v-for="province in list.shipping_province_list" :value="province.id">
+                        {{ province.name }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -239,9 +262,11 @@
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">District</label>
                   <div class="col-md-7">
-                    <select id="shipping_district_id" v-model="shipping_district_id" class="form-control" @change="updateShippingRegionList" :disabled="!shippingDistrictList.length > 0">
+                    <select id="shipping_district_id" v-model="form.shipping_district" class="form-control"
+                            @change="updateShippingRegionList" :disabled="!list.shipping_district_list.length">
                       <option :value="0" hidden disabled>Select District</option>
-                      <option v-for="d in shippingDistrictList" :value="d.id">{{ d.name }}</option>
+                      <option v-for="district in list.shipping_district_list" :value="district.id">{{ district.name }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -249,9 +274,10 @@
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Region</label>
                   <div class="col-md-7">
-                    <select id="shipping_region_id" v-model="shipping_region_id" class="form-control" :disabled="!shippingRegionList.length > 0">
+                    <select id="shipping_region_id" v-model="form.shipping_region" class="form-control"
+                            :disabled="!list.shipping_region_list.length">
                       <option :value="0" hidden disabled>Select Region</option>
-                      <option v-for="r in shippingRegionList" :value="r.id">{{ r.name }}</option>
+                      <option v-for="region in list.shipping_region_list" :value="region.id">{{ region.name }}</option>
                     </select>
                   </div>
                 </div>
@@ -259,22 +285,24 @@
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Street</label>
                   <div class="col-md-7">
-                    <textarea class="form-control" rows="2" id="shipping_address" v-model="shipping_address"></textarea>
+                    <textarea class="form-control" rows="2" id="shipping_address"
+                              v-model="form.shipping_address"></textarea>
                   </div>
                 </div>
 
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-4 control-label text-left">Zip Code</label>
                   <div class="col-md-7">
-                    <input type="text" class="form-control" placeholder="" maxlength="5" id="shipping_zip" v-model="shipping_zip">
+                    <input type="text" class="form-control" placeholder="" maxlength="5" id="shipping_zip"
+                           v-model="form.shipping_zip">
                   </div>
                 </div>
 
                 <!--<div class="form-group form-general m-b-20">-->
-                  <!--<label class="col-md-4 control-label text-left">Fax</label>-->
-                  <!--<div class="col-md-7">-->
-                    <!--<input type="text" class="form-control" placeholder="" maxlength="20" id="shipping_fax" v-model="shipping_fax">-->
-                  <!--</div>-->
+                <!--<label class="col-md-4 control-label text-left">Fax</label>-->
+                <!--<div class="col-md-7">-->
+                <!--<input type="text" class="form-control" placeholder="" maxlength="20" id="shipping_fax" v-model="form.shipping_fax">-->
+                <!--</div>-->
                 <!--</div>-->
 
               </div>
@@ -283,9 +311,10 @@
             <div v-show="currentTab == 'notes'">
               <div class="col-md-11">
                 <div class="form-group form-general m-b-20">
-                  <label class="control-label text-left">Notes
-                    <span style="color: #aaa">(For Internal Use)</span></label>
-                  <textarea id="notes" v-model="notes" class="form-control m-l-15" rows="4"></textarea>
+                  <label class="control-label text-left">
+                    Notes <span style="color: #aaa">(For Internal Use)</span>
+                  </label>
+                  <textarea id="notes" v-model="form.notes" class="form-control m-l-15" rows="4"></textarea>
                 </div>
               </div>
             </div>
@@ -315,220 +344,111 @@
 </template>
 
 <script>
+  import Axios from 'axios'
   import store from 'src/store'
   import Vuelist from '../Vuelist'
   import Form from 'src/helpers/Form'
-  import { regional } from '../../mixins.js';
-  import { regional as regionalHelper } from 'src/helpers'
   import sharedMethods from './sharedMethods.js'
+  import Salutation from 'src/helpers/Salutation'
+  import Regional from 'src/helpers/regional'
 
   export default {
 
     name: 'Contact-Edit',
 
     components: {
-      Vuelist
+      Vuelist,
     },
 
-    mixins: [ regional ],
-
-    data() {
+    data () {
       return {
         dirtyForm: false,
-        // options: {},
         saving: false,
         currentTab: 'address',
+
+        list: {
+          salutation_list: [],
+          billing_country_list: [],
+          billing_province_list: [],
+          billing_district_list: [],
+          billing_region_list: [],
+          shipping_country_list: [],
+          shipping_province_list: [],
+          shipping_district_list: [],
+          shipping_region_list: [],
+        },
+
         form: new Form({
           is_vendor: false,
           is_customer: false,
           is_dropshipper: false,
           is_reseller: false,
-        })
-      };
+          contact_type: null,
+          salutation_id: null,
+          currency_id: null,
+          payment_term_id: null,
+          first_name: '',
+          last_name: '',
+          display_name: null,
+          display_code: null,
+          email: '',
+          phone: '',
+          mobile: '',
+          website: '',
+          company_title: '',
+          company_name: '',
+          billing_address: '',
+          billing_region: null,
+          billing_district: null,
+          billing_province: null,
+          billing_country: null,
+          billing_zip: '',
+          billing_fax: '',
+          shipping_address: null,
+          shipping_region: null,
+          shipping_district: null,
+          shipping_province: null,
+          shipping_country: null,
+          shipping_zip: '',
+          shipping_fax: '',
+          notes: '',
+          contact_status: 1,
+        }),
+      }
     },
 
 
     computed: {
-      salutationList: {
-        get() { return store.state.contactForm.salutationList },
-        set(value) { store.commit('contactForm/SALUTATION_LIST', value) }
-      },
-      contactTypeList: {
-        get() { return store.state.contactForm.contactTypeList },
-        set(value) { store.commit('contactForm/CONTACT_TYPE_LIST', value) }
-      },
-      billingCountryList: {
-        get() { return store.state.contactForm.billingCountryList },
-        set(value) { store.commit('contactForm/BILLING_COUNTRY_LIST', value) }
-      },
-      billingProvinceList: {
-        get() { return store.state.contactForm.billingProvinceList },
-        set(value) { store.commit('contactForm/BILLING_PROVINCE_LIST', value) }
-      },
-      billingDistrictList: {
-        get() { return store.state.contactForm.billingDistrictList },
-        set(value) { store.commit('contactForm/BILLING_DISTRICT_LIST', value) }
-      },
-      billingRegionList: {
-        get() { return store.state.contactForm.billingRegionList },
-        set(value) { store.commit('contactForm/BILLING_REGION_LIST', value) }
-      },
-      shippingCountryList: {
-        get() { return store.state.contactForm.shippingCountryList },
-        set(value) { store.commit('contactForm/SHIPPING_COUNTRY_LIST', value) }
-      },
-      shippingProvinceList: {
-        get() { return store.state.contactForm.shippingProvinceList },
-        set(value) { store.commit('contactForm/SHIPPING_PROVINCE_LIST', value) }
-      },
-      shippingDistrictList: {
-        get() { return store.state.contactForm.shippingDistrictList },
-        set(value) { store.commit('contactForm/SHIPPING_DISTRICT_LIST', value) }
-      },
-      shippingRegionList: {
-        get() { return store.state.contactForm.shippingRegionList },
-        set(value) { store.commit('contactForm/SHIPPING_REGION_LIST', value) }
+
+      displayNameFormat1 () {
+        const first_name = this.form.first_name ? this.form.first_name : '(First Name)'
+        const last_name = this.form.last_name ? this.form.last_name : '(Last Name)'
+
+        return first_name + ' ' + last_name
       },
 
-      salutation_id: {
-        get() { return store.state.contactForm.salutation_id },
-        set(value) { store.commit('contactForm/SALUTATION_ID', value) }
-      },
-      first_name: {
-        get() { return store.state.contactForm.first_name },
-        set(value) { store.commit('contactForm/FIRST_NAME', value) }
-      },
-      last_name: {
-        get() { return store.state.contactForm.last_name },
-        set(value) { store.commit('contactForm/LAST_NAME', value) }
-      },
-      company_name: {
-        get() { return store.state.contactForm.company_name },
-        set(value) { store.commit('contactForm/COMPANY_NAME', value) }
-      },
-      display_name: {
-        get() { return store.state.contactForm.display_name },
-        set(value) { store.commit('contactForm/DISPLAY_NAME', value) }
-      },
-      display_code: {
-        get() { return store.state.contactForm.display_code },
-        set(value) { store.commit('contactForm/DISPLAY_CODE', value) }
-      },
-      email: {
-        get() { return store.state.contactForm.email },
-        set(value) { store.commit('contactForm/EMAIL', value) }
-      },
-      phone: {
-        get() { return store.state.contactForm.phone },
-        set(value) { store.commit('contactForm/PHONE', value) }
-      },
-      mobile: {
-        get() { return store.state.contactForm.mobile },
-        set(value) { store.commit('contactForm/MOBILE', value) }
-      },
-      website: {
-        get() { return store.state.contactForm.website },
-        set(value) { store.commit('contactForm/WEBSITE', value) }
-      },
-      contact_type: {
-        get() { return store.state.contactForm.contact_type },
-        set(value) { store.commit('contactForm/CONTACT_TYPE', value) }
-      },
-      currency_id: {
-        get() { return store.state.contactForm.currency_id },
-        set(value) { store.commit('contactForm/CURRENCY_ID', value) }
-      },
-      payment_term_id: {
-        get() { return store.state.contactForm.payment_term_id },
-        set(value) { store.commit('contactForm/PAYMENT_TERM_ID', value) }
-      },
-      notes: {
-        get() { return store.state.contactForm.notes },
-        set(value) { store.commit('contactForm/NOTES', value) }
-      },
-      billing_address: {
-        get() { return store.state.contactForm.billing_address },
-        set(value) { store.commit('contactForm/BILLING_ADDRESS', value) }
-      },
-      billing_country_id: {
-        get() { return store.state.contactForm.billing_country_id },
-        set(value) { store.commit('contactForm/BILLING_COUNTRY_ID', value) }
-      },
-      billing_province_id: {
-        get() { return store.state.contactForm.billing_province_id },
-        set(value) { store.commit('contactForm/BILLING_PROVINCE_ID', value) }
-      },
-      billing_district_id: {
-        get() { return store.state.contactForm.billing_district_id },
-        set(value) { store.commit('contactForm/BILLING_DISTRICT_ID', value) }
-      },
-      billing_region_id: {
-        get() { return store.state.contactForm.billing_region_id },
-        set(value) { store.commit('contactForm/BILLING_REGION_ID', value) }
-      },
-      billing_zip: {
-        get() { return store.state.contactForm.billing_zip },
-        set(value) { store.commit('contactForm/BILLING_ZIP', value) }
-      },
-      billing_fax: {
-        get() { return store.state.contactForm.billing_fax },
-        set(value) { store.commit('contactForm/BILLING_FAX', value) }
-      },
-      shipping_address: {
-        get() { return store.state.contactForm.shipping_address },
-        set(value) { store.commit('contactForm/SHIPPING_ADDRESS', value) }
-      },
-      shipping_country_id: {
-        get() { return store.state.contactForm.shipping_country_id },
-        set(value) { store.commit('contactForm/SHIPPING_COUNTRY_ID', value) }
-      },
-      shipping_province_id: {
-        get() { return store.state.contactForm.shipping_province_id },
-        set(value) { store.commit('contactForm/SHIPPING_PROVINCE_ID', value) }
-      },
-      shipping_district_id: {
-        get() { return store.state.contactForm.shipping_district_id },
-        set(value) { store.commit('contactForm/SHIPPING_DISTRICT_ID', value) }
-      },
-      shipping_region_id: {
-        get() { return store.state.contactForm.shipping_region_id },
-        set(value) { store.commit('contactForm/SHIPPING_REGION_ID', value) }
-      },
-      shipping_zip: {
-        get() { return store.state.contactForm.shipping_zip },
-        set(value) { store.commit('contactForm/SHIPPING_ZIP', value) }
-      },
-      shipping_fax: {
-        get() { return store.state.contactForm.shipping_fax },
-        set(value) { store.commit('contactForm/SHIPPING_FAX', value) }
-      },
+      displayNameFormat2 () {
+        let salutation_name = this.list.salutation_list.find(item => item.salutation_id === this.form.salutation_id)
 
-      displayNameFormat1() {
-        const firstName = this.first_name ? this.first_name : '(First Name)';
-        const lastName = this.last_name ? this.last_name : '(Last Name)';
-
-        return firstName + ' ' + lastName
-      },
-      displayNameFormat2() {
-        let salutationName = this.salutationList.find(item => item.salutation_id === this.salutation_id)
-
-        if (!salutationName) {
-          salutationName = ''
+        if (!salutation_name) {
+          salutation_name = ''
         }
 
-        const salutation = salutationName ? salutationName.name : '(Salutation)';
-        const firstName = this.first_name ? this.first_name : '(First Name)';
-        const lastName = this.last_name ? this.last_name : '(Last Name)';
+        const salutation = salutation_name ? salutation_name.name : '(Salutation)'
+        const firstName = this.form.first_name ? this.form.first_name : '(First Name)'
+        const lastName = this.form.last_name ? this.form.last_name : '(Last Name)'
 
 //        return salutation + ' ' + firstName + ' ' + lastName
         return salutation + ' ' + firstName
       },
-      displayNameFormat3() {
-        return this.company_name ? this.company_name : 'Company name'
+
+      displayNameFormat3 () {
+        return this.form.company_name ? this.form.company_name : 'Company name'
       },
+
     },
 
-    beforeRouteLeave(to, from, next) {
+    beforeRouteLeave (to, from, next) {
       if (this.dirtyForm) {
         const leave = confirm('Are you sure leave this page?')
         if (!leave) return next(false)
@@ -537,34 +457,79 @@
     },
 
 
-    mounted() {
+    async mounted () {
       $('input').on('change', (event) => {
         this.dirtyForm = true
       })
 
       this.$refs.firstName.focus()
 
-      const contactId = this.$route.params.id
-
-      store.dispatch('contactForm/initializeEdit', contactId)
-        .then(data => store.dispatch('contactForm/setRegionalId', data))
+      this.init()
     },
 
     methods: {
       ...sharedMethods,
 
+      async init () {
+        const contact_id = this.$route.params.id
+        const res = await Axios.get(`contacts/${contact_id}/edit`)
+        this.form = new Form(res.data.data.contact)
+
+        this.list.salutation_list = await Salutation.get()
+
+        const country_list = await Regional.countryList()
+        this.list.billing_country_list = country_list
+        this.list.shipping_country_list = country_list
+
+        // Set default country is Indonesia
+        country_list.find(country => {
+          if (country.name === 'Indonesia') {
+            this.form.billing_country = country.id
+            this.form.shipping_country = country.id
+          }
+        })
+
+        this.list.billing_province_list = await Regional.provinceList(this.form.billing_country)
+        this.list.shipping_province_list = await Regional.provinceList(this.form.shipping_country)
+
+        this.list.billing_district_list = await Regional.districtList(this.form.billing_province)
+        this.list.shipping_district_list = await Regional.districtList(this.form.shipping_province)
+
+        this.list.billing_region_list = await Regional.regionList(this.form.billing_district)
+        this.list.shipping_region_list = await Regional.regionList(this.form.shipping_district)
+      },
+
       /**
        * Save contact
        */
-      save() {
-        store.dispatch('contactForm/update', this.$route.params.id)
-        this.dirtyForm = false
-      },
+      async save () {
 
-      changeTab(name) {
-        this.currentTab = name
-      }
-    }
+        try {
+          // Display name
+          if (this.form.display_code === 1) {
+            this.form.display_name = this.form.first_name
+          }
+
+          if (this.form.display_code === 2) {
+            this.form.display_name = this.form.company_name
+          }
+
+          const contactId = this.$route.params.id
+
+          const res = await this.form.post(`contacts/${contactId}/update`)
+          swal_success(res)
+
+          this.dirtyForm = false
+        }
+        catch(err) {
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
+        }
+
+      },
+    },
   }
 </script>
 
