@@ -38,7 +38,7 @@
 
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left">Name</label>
-            <div class="col-md-1">
+            <div class="col-md-2">
               <select id="salutation_id" v-model="form.salutation_id" class="form-control" title="Salutation">
                 <option :value="null"></option>
                 <option v-for="salutation in list.salutation_list" :value="salutation.salutation_id">
@@ -46,7 +46,7 @@
                 </option>
               </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <input type="text" class="form-control" placeholder="Name" id="first_name" v-model="form.first_name"
                      ref="firstName" maxlength="100" required>
             </div>
@@ -56,14 +56,14 @@
           </div>
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left">Company Name</label>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <input type="text" class="form-control" placeholder="" maxlength="100" id="company_name"
                      v-model="form.company_name">
             </div>
           </div>
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left text-danger">Display Name</label>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <select id="display_code" v-model="form.display_code" class="form-control">
                 <!--<option :value="0">{{ displayNameFormat1 }}</option>-->
                 <option :value="1">{{ displayNameFormat2 }}</option>
@@ -73,7 +73,7 @@
           </div>
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left">Email</label>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <input type="email" class="form-control" placeholder="" id="email" v-model="form.email" maxlength="255">
               <div v-if="form.errors && form.errors.email" class="alert alert-danger">
                 {{ form.errors && form.errors.email && form.errors.email[0] }}
@@ -82,18 +82,18 @@
           </div>
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left">Phone</label>
-            <div class="col-md-2">
+            <div class="col-md-3">
               <input type="text" class="form-control" placeholder="Work Phone" maxlength="20" id="phone"
                      v-model="form.phone">
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
               <input type="text" class="form-control" placeholder="Mobile" maxlength="20" id="mobile"
                      v-model="form.mobile">
             </div>
           </div>
           <div class="form-group form-general m-b-20">
             <label class="col-md-3 control-label text-left">Website</label>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <input type="text" class="form-control" placeholder="" maxlength="255" id="website"
                      v-model="form.website">
             </div>
