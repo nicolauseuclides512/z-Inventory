@@ -30,13 +30,13 @@ export default [
       {
         path: '/contacts/create',
         name: 'contact.create',
-        component: resolve => require(['./components/Contacts/Create'], resolve),
+        component: resolve => require(['./components/Contacts/Form'], resolve),
       },
 
       {
         path: '/contacts/:id/edit',
         name: 'contact.edit',
-        component: resolve => require(['./components/Contacts/Edit'], resolve),
+        component: resolve => require(['./components/Contacts/Form'], resolve),
       },
 
       {

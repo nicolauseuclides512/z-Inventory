@@ -4,7 +4,8 @@
     <div class="container full-width-header bt-1 p-b-10 m-b-20">
       <div class="row">
         <div class="col-md-12">
-          <h4 class="pull-left page-title">New Contact</h4>
+          <h4 v-if="this.$route.params.id" class="pull-left page-title">Edit Contact</h4>
+          <h4 v-if="!this.$route.params.id" class="pull-left page-title">New Contact</h4>
         </div>
       </div>
     </div>
@@ -74,8 +75,8 @@
             <label class="col-md-3 control-label text-left">Email</label>
             <div class="col-md-4">
               <input type="email" class="form-control" placeholder="" id="email" v-model="form.email" maxlength="255">
-              <div v-if="form.errors.email" class="alert alert-danger">
-                {{ form.errors.email[0] }}
+              <div v-if="form.errors && form.errors.email" class="alert alert-danger">
+                {{ form.errors && form.errors.email && form.errors.email[0] }}
               </div>
             </div>
           </div>
@@ -357,7 +358,7 @@
 
   export default {
 
-    name: 'Contact-Edit',
+    name: 'ContactForm',
 
     components: {
       Vuelist,
@@ -467,14 +468,47 @@
 
       this.$refs.firstName.focus()
 
-      this.init()
+      if (this.$route.params.id) {
+        this.initEdit()
+      } else {
+        this.initCreate()
+      }
     },
 
     methods: {
       ...sharedMethods,
 
-      async init () {
+      async initCreate () {
         const res = await Axios.get(`contacts/create`)
+
+        this.list.salutation_list = await Salutation.get()
+
+        const country_list = await Regional.countryList()
+        this.list.billing_country_list = country_list
+        this.list.shipping_country_list = country_list
+
+        // Set default country is Indonesia
+        country_list.find(country => {
+          if (country.name === 'Indonesia') {
+            this.form.billing_country = country.id
+            this.form.shipping_country = country.id
+          }
+        })
+
+        this.list.billing_province_list = await Regional.provinceList(this.form.billing_country)
+        this.list.shipping_province_list = await Regional.provinceList(this.form.shipping_country)
+
+        this.list.billing_district_list = await Regional.districtList(this.form.billing_province)
+        this.list.shipping_district_list = await Regional.districtList(this.form.shipping_province)
+
+        this.list.billing_region_list = await Regional.regionList(this.form.billing_district)
+        this.list.shipping_region_list = await Regional.regionList(this.form.shipping_district)
+      },
+
+      async initEdit () {
+        const contact_id = this.$route.params.id
+        const res = await Axios.get(`contacts/${contact_id}/edit`)
+        this.form = new Form(res.data.data.contact)
 
         this.list.salutation_list = await Salutation.get()
 
@@ -515,16 +549,30 @@
             this.form.display_name = this.form.company_name
           }
 
-          const res = await this.form.post(`contacts`)
+          let url
+          const contactId = this.$route.params.id
+
+          if (contactId) {
+            url = `contacts/${contactId}/update`
+          } else {
+            url = `contacts`
+          }
+
+          const res = await this.form.post(url)
           swal_success(res)
 
           this.dirtyForm = false
         }
-        catch (err) {
+        catch(err) {
           console.error(err)
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
-            this.form.errors = err.response.data.data.errors
+
+            if (this.$route.params.id) {
+              this.form.errors = err.response.data.data.errors
+            } else {
+              this.form.errors = err.response.data.data
+            }
           }
         }
 
