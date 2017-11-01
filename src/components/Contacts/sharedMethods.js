@@ -67,6 +67,9 @@ export default {
     this.form.shipping_province = this.form.billing_province
     this.form.shipping_district = this.form.billing_district
     this.form.shipping_region = this.form.billing_region
+
+    this.form.shipping_address = this.form.billing_address
+    this.form.shipping_zip = this.form.billing_zip
   },
 
   changeTab (name) {
