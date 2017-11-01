@@ -3,53 +3,73 @@
 // --------------------------------------------------------------
 
 import store from 'src/store'
-import Regional from "../../helpers/regional";
+import Regional from '../../helpers/regional'
 
 export default {
 
-  updateBillingCountryList() {
-    store.commit('contactForm/BILLING_COUNTRY_LIST', this.getCountries())
+  async updateBillingCountryList () {
+    this.list.billing_country_list = await Regional.countryList()
+    this.list.billing_province_list = []
+    this.list.billing_district_list = []
+    this.list.billing_region_list = []
   },
 
-  async updateBillingProvinceList() {
-    const provinceList = await Regional.provinceList(store.state.contactForm.billing_country_id)
-    store.commit('contactForm/BILLING_PROVINCE_LIST', provinceList)
+  async updateBillingProvinceList () {
+    this.list.billing_province_list = await Regional.provinceList(this.form.billing_country)
+    this.list.billing_district_list = []
+    this.list.billing_region_list = []
   },
 
-  async updateBillingDistrictList() {
-    const districtList = await Regional.districtList(store.state.contactForm.billing_province_id)
-    store.commit('contactForm/BILLING_DISTRICT_LIST', districtList)
-    store.commit('contactForm/BILLING_REGION_LIST', [])
+  async updateBillingDistrictList () {
+    this.list.billing_district_list = await Regional.districtList(this.form.billing_province)
+    this.list.billing_region_list = []
   },
 
-  async updateBillingRegionList() {
-    const regionList = await Regional.regionList(store.state.contactForm.billing_district_id)
-    store.commit('contactForm/BILLING_REGION_LIST', regionList)
+  async updateBillingRegionList () {
+    this.list.billing_region_list = await Regional.regionList(this.form.billing_district)
   },
 
   // Shipping
-  updateShippingCountryList() {
-    store.commit('contactForm/SHIPPING_REGION_LIST', this.getCountries())
+  async updateShippingCountryList () {
+    this.list.shipping_country_list = await Regional.countryList()
+    this.list.shipping_province_list = []
+    this.list.shipping_district_list = []
+    this.list.shipping_region_list = []
   },
 
-  async updateShippingProvinceList() {
-    const provinceList = await Regional.provinceList(store.state.contactForm.shipping_country_id)
-    store.commit('contactForm/SHIPPING_REGION_LIST', provinceList)
+  async updateShippingProvinceList () {
+    this.list.shipping_province_list = await Regional.provinceList(this.form.shipping_country)
+    this.list.shipping_district_list = []
+    this.list.shipping_region_list = []
   },
 
-  updateShippingDistrictList() {
-    store.dispatch('contactForm/updateShippingDistrictList')
+  async updateShippingDistrictList () {
+    this.list.shipping_district_list = await Regional.districtList(this.form.shipping_province)
+    this.list.shipping_region_list = []
   },
 
-  async updateShippingRegionList() {
-    const regionList = await Regional.regionList(store.state.contactForm.shipping_district_id)
-    store.commit('contactForm/SHIPPING_REGION_LIST', regionList)
+  async updateShippingRegionList () {
+    this.list.shipping_region_list = await Regional.regionList(this.form.shipping_district)
   },
 
   /**
    * Copy billing address to shipping address
    */
-  copyBillingAddress() {
+  copyBillingAddress () {
     store.dispatch('contactForm/copyBillingAddress')
+
+    this.list.shipping_country_list = this.list.billing_country_list
+    this.list.shipping_province_list = this.list.billing_province_list
+    this.list.shipping_district_list = this.list.billing_district_list
+    this.list.shipping_region_list = this.list.billing_region_list
+
+    this.form.shipping_country = this.form.billing_country
+    this.form.shipping_province = this.form.billing_province
+    this.form.shipping_district = this.form.billing_district
+    this.form.shipping_region = this.form.billing_region
+  },
+
+  changeTab (name) {
+    this.currentTab = name
   },
 }
