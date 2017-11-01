@@ -1,103 +1,90 @@
-import axios from 'axios'
+import Axios from 'axios'
 import Storage from 'store/dist/store.modern'
 
 export default class Regional {
 
-  static countryList() {
-    return new Promise((resolve, reject) => {
+  static async countryList () {
+    try {
+
       if (Storage.get('countries')) {
-        resolve(Storage.get('countries'))
-        return
+        return Storage.get('countries')
       }
 
-      axios.get(`countries/list`).then(res => {
-        Storage.set('countries', res.data.data)
-        resolve(res.data.data)
-      }).catch(err => {
-        reject(err)
-      })
-    })
+      const res = await Axios.get(`countries/list`)
+      Storage.set('countries', res.data.data)
+      return res.data.data
+
+    }
+    catch (err) {
+      console.error(err)
+    }
   }
 
-  static provinceList(country_id) {
-    return new Promise((resolve, reject) => {
+
+  static async provinceList (country_id) {
+    try {
+
       if (Storage.get('provinces') && country_id) {
         const provinceList = Storage.get('provinces')
-        const filteredProvinceList = provinceList.filter(province => {
-          if (province.country_id === country_id) {
-            return province
-          }
-        })
-        resolve(filteredProvinceList)
-        return
+        return provinceList.filter(province => province.country_id === country_id)
       }
 
       if (Storage.get('provinces')) {
-        resolve(Storage.get('provinces'))
-        return
+        return Storage.get('provinces')
       }
 
-      axios.get(`provinces/list`).then(res => {
-        Storage.set('provinces', res.data.data)
-        resolve(res.data.data)
-      }).catch(err => {
-        reject(err)
-      })
-    })
+      const res = await Axios.get(`provinces/list`)
+      Storage.set('provinces', res.data.data)
+      return res.data.data
+
+    }
+    catch (err) {
+      console.error(err)
+    }
   }
 
-  static districtList(province_id) {
-    return new Promise((resolve, reject) => {
+  static async districtList (province_id) {
+    try {
 
       if (Storage.get('districts') && province_id) {
         const districtList = Storage.get('districts')
-        const filteredDistrictList = districtList.filter(district => {
-          if (district.province_id === province_id) {
-            return district
-          }
-        })
-        resolve(filteredDistrictList)
+        return districtList.filter(district => district.province_id === province_id)
       }
 
       if (Storage.get('districts')) {
-        resolve(Storage.get('districts'))
-        return
+        return Storage.get('districts')
       }
 
-      axios.get(`districts/list`).then(res => {
-        Storage.set('districts', res.data.data)
-        resolve(res.data.data)
-      }).catch(err => {
-        reject(err)
-      })
-    })
+      const res = await Axios.get(`districts/list`)
+      Storage.set('districts', res.data.data)
+      return res.data.data
+
+    }
+    catch (err) {
+      console.error(err)
+    }
   }
 
-  static regionList(district_id) {
-    return new Promise((resolve, reject) => {
+  static async regionList (district_id) {
+    try {
 
       if (Storage.get('regions') && district_id) {
         const regionList = Storage.get('regions')
-        const filteredRegionList = regionList.filter(region => {
-          if (region.district_id === district_id) {
-            return region
-          }
-        })
-        resolve(filteredRegionList)
+        return regionList.filter(region => region.district_id === district_id)
       }
 
       if (Storage.get('regions')) {
-        resolve(Storage.get('regions'))
-        return
+        return Storage.get('regions')
       }
 
-      axios.get(`regions/list`).then(res => {
-        Storage.set('regions', res.data.data)
-        resolve(res.data.data)
-      }).catch(err => {
-        reject(err)
-      })
-    })
+      const res = await Axios.get(`regions/list`)
+      Storage.set('regions', res.data.data)
+      return res.data.data
+
+    }
+    catch (err) {
+      console.error(err)
+    }
   }
 
 }
