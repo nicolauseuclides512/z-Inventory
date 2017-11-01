@@ -74,6 +74,9 @@
             <label class="col-md-3 control-label text-left">Email</label>
             <div class="col-md-4">
               <input type="email" class="form-control" placeholder="" id="email" v-model="form.email" maxlength="255">
+              <div v-if="form.errors.email" class="alert alert-danger">
+                {{ form.errors.email[0] }}
+              </div>
             </div>
           </div>
           <div class="form-group form-general m-b-20">
@@ -521,6 +524,7 @@
           console.error(err)
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
+            this.form.errors = err.response.data.data.errors
           }
         }
 
