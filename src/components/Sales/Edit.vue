@@ -55,7 +55,7 @@
             class="fa fa-times"></i></a>
         </div>
         <div class="col-md-1" v-if="!selected_contact">
-          <a href="javascript:window.open('/contacts/create')"><i class="fa fa-plus"></i></a>
+          <a href="javascript:window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>
         </div>
       </div>
 
