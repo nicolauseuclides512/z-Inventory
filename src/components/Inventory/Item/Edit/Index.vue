@@ -10,13 +10,52 @@
       </div>
     </div>
 
-    <Info></Info>
+    <Info
+      :name="form.item_name"
+      @change:name="form.item_name = form.item_name"
+
+      :description="form.description"
+      @change:description="form.description = form.description"
+
+      :sku="form.code_sku"
+      @change:sku="form.code_sku = form.code_sku"
+
+      :price="form.sales_rate"
+      @change:price="form.sales_rate = form.sales_rate"
+    ></Info>
+
     <Pricing></Pricing>
     <!--<shipping></shipping>-->
     <!--<inventory></inventory>-->
     <!--<group></group>-->
     <!--<seo></seo>-->
-    <Variant></Variant>
+    <!--<Variant-->
+    <!--:items="form.children"-->
+    <!--:attributes="form.item_attributes"-->
+    <!--&gt;</Variant>-->
+
+    <VariantEdit
+      :items="form.children"
+    ></VariantEdit>
+
+    <hr>
+
+    <div class="container m-b-20">
+      <div class="row">
+        <div class="col-md-12">
+          <h5 class="title">Syncronization</h5>
+          <div class="form-horizontal">
+            <div class="col-md-12">
+              <div class="form-group form-general m-b-20">
+                <button class="btn btn-default waves-effect" type="button" data-toggle="modal" data-target="#lazada">
+                  Syncronize Stock &amp; Price to Lazada
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="float-save">
       <div class="container">
@@ -64,8 +103,9 @@
 </template>
 
 <script>
-
+  import Axios from 'axios'
   import store from 'src/store'
+  import Form from 'src/helpers/Form'
 
   export default {
 
@@ -77,11 +117,12 @@
       Shipping: require('./Shipping'),
       Inventory: require('./Inventory'),
       Variant: require('../Variant'),
+      VariantEdit: require('../VariantEdit'),
 //      group: require('./Group'),
 //      seo: require('./Seo'),
     },
 
-    data() {
+    data () {
       return {
         dirtyForm: false,
 
@@ -92,17 +133,17 @@
           // { 'name': '', option: '' }
         ],
         item_variants: [
-        // {
-        //   item_name: '',
-        //   item_attributes: {
-        //     color: [ 'red', 'green', 'blue' ],
-        //     size: [ 'S', 'M', 'L', 'XL' ],
-        //   },
-        //   sales_rate: '',
-        //   code_sku: '',
-        //   barcode: '',
-        //   inventory_stock_warning: '',
-        // }
+          // {
+          //   item_name: '',
+          //   item_attributes: {
+          //     color: [ 'red', 'green', 'blue' ],
+          //     size: [ 'S', 'M', 'L', 'XL' ],
+          //   },
+          //   sales_rate: '',
+          //   code_sku: '',
+          //   barcode: '',
+          //   inventory_stock_warning: '',
+          // }
         ],
 
         list: {
@@ -116,7 +157,7 @@
           weight_units: [],
         },
 
-        form: {
+        form: new Form({
 
           // Inventory
           track_inventory: true,
@@ -159,38 +200,38 @@
             // }
           ],
 
-        },
+        }),
       }
     },
 
     computed: {
-      isValidForm() {
+      isValidForm () {
         return Boolean(store.state.itemForm.item_name) && Boolean(store.state.itemForm.sales_rate)
       },
 
       url: {
-        get() { return store.state.itemForm.url },
-        set(value) { store.commit('itemForm/changeUrl', value) }
+        get () { return store.state.itemForm.url },
+        set (value) { store.commit('itemForm/changeUrl', value) },
       },
       accountList: {
-        get() { return store.state.itemForm.accountList },
-        set(value) { store.commit('itemForm/changeAccountList', value) }
+        get () { return store.state.itemForm.accountList },
+        set (value) { store.commit('itemForm/changeAccountList', value) },
       },
       taxList: {
-        get() { return store.state.itemForm.taxList },
-        set(value) { store.commit('itemForm/changeTaxList', value) }
+        get () { return store.state.itemForm.taxList },
+        set (value) { store.commit('itemForm/changeTaxList', value) },
       },
       attributeList: {
-        get() { return store.state.itemForm.attributeList },
-        set(value) { store.commit('itemForm/changeAttributeList', value) }
+        get () { return store.state.itemForm.attributeList },
+        set (value) { store.commit('itemForm/changeAttributeList', value) },
       },
       categoryList: {
-        get() { return store.state.itemForm.categoryList },
-        set(value) { store.commit('itemForm/changeCategoryList', value) }
+        get () { return store.state.itemForm.categoryList },
+        set (value) { store.commit('itemForm/changeCategoryList', value) },
       },
     },
 
-    beforeRouteLeave(to, from, next) {
+    beforeRouteLeave (to, from, next) {
       if (this.dirtyForm) {
         const leave = confirm('Are you sure leave this page?')
         if (!leave) return next(false)
@@ -198,30 +239,35 @@
       return next()
     },
 
-    mounted() {
+    mounted () {
       $('input').on('change', (event) => {
         this.dirtyForm = true
       })
 
-      const item_id = this.$route.params.id
-      store.dispatch('itemForm/edit', item_id)
+      this.init()
     },
 
 
     methods: {
 
+      async init () {
+        const item_id = this.$route.params.id
+        const res = await Axios.get(`items/${item_id}/edit`)
+        this.form = new Form(res.data.data.item)
+      },
+
       /**
        * Save item
        */
-      async save(evt) {
+      async save (evt) {
         if (!store.state.itemForm.item_name) {
           Alert.error('Please fill the item name')
-          return;
+          return
         }
 
         if (!store.state.itemForm.sales_rate) {
           Alert.error('Please fill the price')
-          return;
+          return
         }
 
         const button = evt.target
@@ -250,8 +296,25 @@
       /**
        * Cancel and back to item list
        */
-      cancel() {
+      cancel () {
         this.$router.push('/inventory/items')
+      },
+
+
+      changeName (value) {
+        this.form.item_name = value
+      },
+
+      changeDescription (value) {
+        this.form.description = value
+      },
+
+      changeSKU (value) {
+        this.form.SKU = value
+      },
+
+      changePrice (value) {
+        this.form.sales_rate = value
       },
 
     },
