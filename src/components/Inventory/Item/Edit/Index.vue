@@ -1,4 +1,4 @@
-<template>
+<template xmlns: xmlns:>
 
   <form method="POST" novalidate>
 
@@ -24,8 +24,8 @@
       @change:price="form.sales_rate = form.sales_rate"
     ></Info>
 
-    <Pricing></Pricing>
-    <!--<shipping></shipping>-->
+    <!--<Pricing></Pricing>-->
+    <Shipping></Shipping>
     <!--<inventory></inventory>-->
     <!--<group></group>-->
     <!--<seo></seo>-->
@@ -35,6 +35,7 @@
     <!--&gt;</Variant>-->
 
     <VariantEdit
+      :name="form.item_name"
       :items="form.children"
     ></VariantEdit>
 

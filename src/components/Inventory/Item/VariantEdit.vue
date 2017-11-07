@@ -69,6 +69,10 @@
     name: 'VariantItem',
 
     props: {
+      name: {
+        type: String,
+        default: '',
+      },
       items: {
         type: Array,
         default: [],
@@ -107,7 +111,7 @@
 
       add () {
         const newItem = _.cloneDeep(this.items[0])
-        newItem.item_name = ''
+        newItem.item_name = this.name
         this.items.push(newItem)
       },
 
