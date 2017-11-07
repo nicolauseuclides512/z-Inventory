@@ -17,7 +17,7 @@
       :description="form.description"
       @change:description="form.description = form.description"
 
-      :sku="form.code_sku"
+      :sku="String(form.code_sku)"
       @change:sku="form.code_sku = form.code_sku"
 
       :price="form.sales_rate"
@@ -261,35 +261,41 @@
        * Save item
        */
       async save (evt) {
-        if (!store.state.itemForm.item_name) {
-          Alert.error('Please fill the item name')
-          return
-        }
+        try {
+          if (!this.form.item_name) {
+            Alert.error('Please fill the item name')
+            return
+          }
 
-        if (!store.state.itemForm.sales_rate) {
-          Alert.error('Please fill the price')
-          return
-        }
+          if (!this.form.sales_rate) {
+            Alert.error('Please fill the price')
+            return
+          }
 
-        const button = evt.target
-        const clickedButton = button.dataset.name
+          const button = evt.target
+          const clickedButton = button.dataset.name
 
-        const item_id = this.$route.params.id
+          const item_id = this.$route.params.id
 
-        if (clickedButton === 'save-and-new') {
-          await store.dispatch('itemForm/update', item_id)
-          await store.dispatch('itemForm/clear')
-          await store.dispatch('itemForm/create')
-        }
+          if (clickedButton === 'save-and-new') {
+            const res = await Axios.post(`items/${item_id}/update`, this.form)
+            this.$router.push({name: 'item.create'})
+          }
 
-        if (clickedButton === 'save-and-clone') {
-          await store.dispatch('itemForm/update', item_id)
-        }
+          if (clickedButton === 'save-and-clone') {
+            const res = await Axios.post(`items/${item_id}/update`, this.form)
+          }
 
-        if (clickedButton === 'save') {
-          await store.dispatch('itemForm/update', item_id)
-          this.dirtyForm = false
-          this.$router.push({name: 'item.index'})
+          if (clickedButton === 'save') {
+            const res = await Axios.post(`items/${item_id}/update`, this.form)
+            this.dirtyForm = false
+            this.$router.push({name: 'item.index'})
+          }
+        } catch (err) {
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
         }
       },
 
