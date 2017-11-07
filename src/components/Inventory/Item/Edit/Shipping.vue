@@ -17,12 +17,18 @@
           </div>
           <div class="col-md-6 col-md-offset-1">
             <div class="form-group form-general m-b-20">
-              <label class="col-md-4 control-label text-left">Dimension (cm)</label>
-              <div class="col-md-2 pl-pr-0"><input v-model.number="dimension_l" type="number" min="1" class="form-control" placeholder="L"></div>
-              <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
-              <div class="col-md-2 pl-pr-0"><input v-model.number="dimension_w" type="number" min="1" class="form-control" placeholder="W"></div>
-              <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
-              <div class="col-md-2 pl-pr-0"><input v-model.number="dimension_h" type="number" min="1" class="form-control" placeholder="H"></div>
+              <label class="col-xs-12 col-md-4 control-label text-left">Dimension (cm)</label>
+              <div class="col-xs-2 col-md-2 pl-pr-0">
+                <input v-model.number="dimension_l" type="number" min="1" class="form-control" placeholder="L">
+              </div>
+              <div class="col-xs-2 col-md-1 pl-pr-0 text-center form-custom-link">x</div>
+              <div class="col-xs-2 col-md-2 pl-pr-0">
+                <input v-model.number="dimension_w" type="number" min="1" class="form-control" placeholder="W">
+              </div>
+              <div class="col-xs-2 col-md-1 pl-pr-0 text-center form-custom-link">x</div>
+              <div class="col-xs-2 col-md-2 pl-pr-0">
+                <input v-model.number="dimension_h" type="number" min="1" class="form-control" placeholder="H">
+              </div>
             </div>
             <div class="form-group form-general m-b-20">
               <label class="col-md-4 control-label text-left text-danger">
@@ -52,44 +58,25 @@
 
 <script>
   import store from 'src/store'
+  import Form from 'src/helpers/Form'
 
   export default {
 
-    name: 'ItemCreateShipping',
+    name: 'ItemShipping',
 
-    computed: {
-      uom_id: {
-        get() { return store.state.itemForm.uom_id },
-        set(value) { store.commit('itemForm/UOM_ID', value) }
-      },
-      dimension_l: {
-        get() { return store.state.itemForm.dimension_l },
-        set(value) { store.commit('itemForm/DIMENSION_L', value) }
-      },
-      dimension_w: {
-        get() { return store.state.itemForm.dimension_w },
-        set(value) { store.commit('itemForm/DIMENSION_W', value) }
-      },
-      dimension_h: {
-        get() { return store.state.itemForm.dimension_h },
-        set(value) { store.commit('itemForm/DIMENSION_H', value) }
-      },
-      uomList: {
-        get() { return store.state.itemForm.uomList },
-        set(value) { store.commit('itemForm/UOM_LIST', value) }
-      },
-      weight: {
-        get() { return store.state.itemForm.weight },
-        set(value) { store.commit('itemForm/WEIGHT', value) }
-      },
-      weight_unit: {
-        get() { return store.state.itemForm.weight_unit },
-        set(value) { store.commit('itemForm/WEIGHT_UNIT', value) }
-      },
-      weightUnitList: {
-        get() { return store.state.itemForm.weightUnitList },
-        set(value) { store.commit('itemForm/WEIGHT_UNIT_LIST', value) }
-      },
+    data () {
+      return {
+        form: new Form({
+          uom_id: '',
+          dimension_l: '',
+          dimension_w: '',
+          dimension_h: '',
+          uomList: [],
+          weight: 0,
+          weight_unit: 'gr',
+          weightUnitList: [],
+        }),
+      }
     },
 
   }
