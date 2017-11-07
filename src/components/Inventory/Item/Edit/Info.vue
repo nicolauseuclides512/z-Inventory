@@ -11,11 +11,13 @@
               <!--<div><small class="text-muted">This field is required</small></div>-->
             </label>
             <div class="col-md-9">
-              <input v-model.trim="item_name"
-                     type="text"
-                     class="form-control"
-                     placeholder=""
-                     required
+              <input
+                :value="name"
+                @input="$emit('change:name', name)"
+                type="text"
+                class="form-control"
+                placeholder=""
+                required
               />
               <!--<div v-show="item_name && !item_name.length > 0" class="help-text">Please fill this field</div>-->
                      <!--@keyup="changeInfo('title', $event)"-->
@@ -36,8 +38,54 @@
           <div class="form-group form-general m-b-20">
             <label class="col-md-2 control-label text-left">Description</label>
             <div class="col-md-9 custom-summernote">
-              <textarea class="summernote form-control" v-model="description"></textarea>
+              <textarea
+                :value="description"
+                @input="$emit('change:description', description)"
+                rows="5"
+                class="summernote form-control"
+              ></textarea>
               <!--@keyup="changeInfo('description', $event)"-->
+            </div>
+          </div>
+
+          <div class="form-group form-general m-b-20">
+            <label class="col-md-2 control-label text-left text-danger">
+              SKU
+              <!--<div><small class="text-muted">This field is required</small></div>-->
+            </label>
+            <div class="col-md-3">
+              <input
+                :value="sku"
+                @input="$emit('change:sku', sku)"
+                type="text"
+                class="form-control"
+                placeholder=""
+                required
+              />
+              <!--<div v-show="item_name && !item_name.length > 0" class="help-text">Please fill this field</div>-->
+              <!--@keyup="changeInfo('title', $event)"-->
+            </div>
+          </div>
+
+          <div class="form-group form-general m-b-20">
+            <label class="col-md-2 control-label text-left text-danger">
+              Price
+              <!--<div><small class="text-muted">This field is required</small></div>-->
+            </label>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-addon">Rp</span>
+                <input
+                  :value="price"
+                  @input="$emit('change:price', price)"
+                  type="text"
+                  class="form-control text-right"
+                  placeholder=""
+                  required
+                />
+              </div>
+              <!--<div v-show="item_name && !item_name.length > 0" class="help-text">Please fill this field</div>-->
+              <!--@keyup="changeInfo('title', $event)"-->
             </div>
           </div>
         </div>
@@ -50,33 +98,32 @@
 <script>
   import store from 'src/store'
   import axios from 'axios'
-  import {swal_success} from "../../../../helpers";
+  import {swal_success} from "src/helpers";
 
   export default {
 
-    name: 'ItemCreateInfo',
+    name: 'ItemInfo',
 
     components: {
-      'image-upload': require('../ImageUpload')
+      'ImageUpload': require('../ImageUpload')
     },
 
-    computed: {
-      item_name: {
-        get() { return store.state.itemForm.item_name },
-        set(value) { store.commit('itemForm/ITEM_NAME', value) },
+    props: {
+      name: {
+        type: String,
+        default: ''
       },
       description: {
-        get() { return store.state.itemForm.description },
-        set(value) { store.commit('itemForm/DESCRIPTION', value) },
+        type: String,
+        default: ''
       },
-      images: {
-        get() {
-          if (Array.isArray(store.state.itemForm.images)) {
-            return store.state.itemForm.images
-          }
-          return []
-        },
-        set(value) { store.commit('itemForm/IMAGES', value) },
+      sku: {
+        type: String,
+        default: ''
+      },
+      price: {
+        type: Number,
+        default: 0
       },
     },
 
@@ -92,6 +139,7 @@
 
         store.commit('itemForm/IMAGES', imageList)
       },
+
 
       async addImage(imageData) {
         const item_id = this.$route.params.id
