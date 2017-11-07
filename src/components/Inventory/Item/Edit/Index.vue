@@ -1,4 +1,4 @@
-<template xmlns: xmlns:>
+<template>
 
   <form method="POST" novalidate>
 
