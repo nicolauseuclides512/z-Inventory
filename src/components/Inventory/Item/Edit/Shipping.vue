@@ -9,8 +9,8 @@
             <div class="form-group form-general m-b-20">
               <label class="col-md-6 control-label text-left">UOM</label>
               <div class="col-md-6 pl-pr-0">
-                <select v-model.number="uom_id" id="uom" class="form-control">
-                  <option v-for="u in uomList" :value="u.uom_id">{{ u.name }}</option>
+                <select v-model.number="form.uom_id" id="uom" class="form-control">
+                  <option v-for="u in list.uom_list" :value="u.uom_id">{{ u.name }}</option>
                 </select>
               </div>
             </div>
@@ -19,15 +19,15 @@
             <div class="form-group form-general m-b-20">
               <label class="col-xs-12 col-md-4 control-label text-left">Dimension (cm)</label>
               <div class="col-xs-2 col-md-2 pl-pr-0">
-                <input v-model.number="dimension_l" type="number" min="1" class="form-control" placeholder="L">
+                <input v-model.number="form.dimension_l" type="number" min="1" class="form-control" placeholder="L">
               </div>
               <div class="col-xs-2 col-md-1 pl-pr-0 text-center form-custom-link">x</div>
               <div class="col-xs-2 col-md-2 pl-pr-0">
-                <input v-model.number="dimension_w" type="number" min="1" class="form-control" placeholder="W">
+                <input v-model.number="form.dimension_w" type="number" min="1" class="form-control" placeholder="W">
               </div>
               <div class="col-xs-2 col-md-1 pl-pr-0 text-center form-custom-link">x</div>
               <div class="col-xs-2 col-md-2 pl-pr-0">
-                <input v-model.number="dimension_h" type="number" min="1" class="form-control" placeholder="H">
+                <input v-model.number="form.dimension_h" type="number" min="1" class="form-control" placeholder="H">
               </div>
             </div>
             <div class="form-group form-general m-b-20">
@@ -37,13 +37,13 @@
               </label>
               <div class="col-md-4 pl-pr-0">
                 <div class="input-group">
-                  <input type="number" v-model="weight" min="0" class="form-control" placeholder="" required>
+                  <input type="number" v-model="form.weight" min="0" class="form-control" placeholder="" required>
                   <span class="input-group-addon">gram</span>
                 </div>
               </div>
               <!--<div class="col-md-3 col-md-offset-1 pl-pr-0">-->
-                <!--<select v-model="weight_unit" class="form-control">-->
-                  <!--<option v-for="(name, id) in weightUnitList" :value="id">{{ name }} ({{ id }})</option>-->
+                <!--<select v-model="form.weight_unit" class="form-control">-->
+                  <!--<option v-for="(name, id) in weight_unit_list" :value="id">{{ name }} ({{ id }})</option>-->
                 <!--</select>-->
               <!--</div>-->
 
@@ -66,15 +66,17 @@
 
     data () {
       return {
+        list: {
+          uom_list: [],
+          weight_unit_list: [],
+        },
         form: new Form({
           uom_id: '',
           dimension_l: '',
           dimension_w: '',
           dimension_h: '',
-          uomList: [],
           weight: 0,
           weight_unit: 'gr',
-          weightUnitList: [],
         }),
       }
     },
