@@ -12,16 +12,16 @@
 
     <Info
       :name="form.item_name"
-      @change:name="form.item_name = form.item_name"
+      @change-name="changeName"
 
       :description="form.description"
-      @change:description="form.description = form.description"
+      @change-description="changeDescription"
 
       :sku="String(form.code_sku)"
-      @change:sku="form.code_sku = form.code_sku"
+      @change-sku="changeSKU"
 
       :price="form.sales_rate"
-      @change:price="form.sales_rate = form.sales_rate"
+      @change-price="changePrice"
     ></Info>
 
     <!--<Pricing></Pricing>-->

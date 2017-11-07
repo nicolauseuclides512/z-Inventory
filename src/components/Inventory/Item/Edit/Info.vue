@@ -12,8 +12,9 @@
             </label>
             <div class="col-md-9">
               <input
+                ref="name"
                 :value="name"
-                @input="$emit('change:name', name)"
+                @keyup="changeName"
                 type="text"
                 class="form-control"
                 placeholder=""
@@ -39,8 +40,9 @@
             <label class="col-md-2 control-label text-left">Description</label>
             <div class="col-md-9 custom-summernote">
               <textarea
+                ref="description"
                 :value="description"
-                @input="$emit('change:description', description)"
+                @input="changeDescription"
                 rows="5"
                 class="summernote form-control"
               ></textarea>
@@ -55,8 +57,9 @@
             </label>
             <div class="col-md-3">
               <input
+                ref="sku"
                 :value="sku"
-                @input="$emit('change:sku', sku)"
+                @input="changeSKU"
                 type="text"
                 class="form-control"
                 placeholder=""
@@ -76,8 +79,9 @@
               <div class="input-group">
                 <span class="input-group-addon">Rp</span>
                 <input
+                  ref="price"
                   :value="price"
-                  @input="$emit('change:price', price)"
+                  @input="changePrice"
                   type="text"
                   class="form-control text-right"
                   placeholder=""
@@ -128,6 +132,23 @@
     },
 
     methods: {
+
+      changeName () {
+        this.$emit('change-name', this.$refs.name.value)
+      },
+
+      changeDescription () {
+        this.$emit('change-description', this.$refs.description.value)
+      },
+
+      changeSKU () {
+        this.$emit('change-sku', this.$refs.sku.value)
+      },
+
+      changePrice () {
+        this.$emit('change-price', this.$refs.price.value)
+      },
+
 
       async setAsPrimary(image) {
         const imageList = _.cloneDeep(this.images)
