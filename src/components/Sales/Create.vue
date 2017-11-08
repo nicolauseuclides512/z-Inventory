@@ -57,9 +57,18 @@
         <div class="col-md-1" v-if="!selected_contact">
           <a href="javascript:window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>
         </div>
+
+        <div class="col-md-4" v-if="selected_contact && selected_contact.hasOwnProperty('is_dropshipper') && selected_contact.is_dropshipper">
+          Dropship
+          <toggle-button
+            :sync="true"
+            :labels="true"
+            :value="selected_contact.is_dropshipper && !selected_contact.is_reseller"
+          />
+        </div>
       </div>
 
-      <div class="row" v-if="selected_contact">
+      <div class="row" v-if="selected_contact.hasOwnProperty('contact_id')">
 
         <div class="col-md-4">
           <div class="text-bold">
@@ -96,7 +105,7 @@
 
       <hr>
 
-      <div v-if="selected_contact">
+      <div v-if="selected_contact.hasOwnProperty('contact_id')">
 
         <div class="form-group row">
           <label class="control-label col-md-1">Product</label>
@@ -381,8 +390,8 @@
           product_list: [],
           channels: [],
         },
-        selected_contact: null,
-        selected_product: null,
+        selected_contact: {},
+        selected_product: {},
         tax_included: 1,
         form: new Form({
           my_sales_channel_id: null,
