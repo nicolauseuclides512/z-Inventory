@@ -21,7 +21,10 @@ exports.cssLoaders = function (options) {
   }
 
   var postcssLoader = {
-    loader: 'postcss-loader'
+    loader: 'postcss-loader',
+    options: {
+      sourceMap: 'inline'
+    }
   }
 
   // generate loader string to be used with extract text plugin
