@@ -37,70 +37,115 @@
         </div>
       </div>
 
-      <div class="form-group row">
-        <label class="control-label col-md-1">Customer</label>
-        <div class="col-md-4">
-          <vuelist
-            @change="selectContact"
-            @search="searchContact"
-            :options="list.contact_list"
-            :value="selected_contact && selected_contact.contact_id"
-            placeholder="Search a customer"
-            keyid="contact_id"
-            label="display_name"
-          ></vuelist>
-        </div>
-        <div class="col-md-1" v-if="selected_contact">
-          <a @click="clearSelectedContact" href="javascript:void(0)" class="btn btn-default btn-xs"><i
-            class="fa fa-times"></i></a>
-        </div>
-        <div class="col-md-1" v-if="!selected_contact">
-          <a href="javascript:window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>
+      <div>
+        <div class="form-group row">
+          <label class="control-label col-md-2">Customer:</label>
+          <div class="col-md-4">
+            <vuelist
+              ref="customer"
+              @change="selectContact"
+              @search="searchContact"
+              :options="list.contact_list"
+              :value="selected_contact && selected_contact.contact_id"
+              placeholder="Search a customer"
+              keyid="contact_id"
+              label="display_name"
+            ></vuelist>
+          </div>
+          <div class="col-md-1" v-if="selected_contact">
+            <a @click="clearSelectedContact" href="javascript:void(0)" class="btn btn-default btn-xs"><i
+              class="fa fa-times"></i></a>
+          </div>
+          <div class="col-md-1" v-if="!selected_contact">
+            <a href="javascript:window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>
+          </div>
+
+          <div class="col-md-4" v-if="selected_contact && selected_contact.hasOwnProperty('is_dropshipper') && selected_contact.is_dropshipper">
+            <label>
+              <input type="checkbox" v-model="as_dropshipper" @change="dropshipperShipping">
+              Dropship
+            </label>
+          </div>
         </div>
 
-        <div class="col-md-4" v-if="selected_contact && selected_contact.hasOwnProperty('is_dropshipper') && selected_contact.is_dropshipper">
-          Dropship
-          <toggle-button
-            :sync="true"
-            :labels="true"
-            :value="selected_contact.is_dropshipper && !selected_contact.is_reseller"
-          />
+        <div class="row" v-if="selected_contact && selected_contact.hasOwnProperty('contact_id')">
+
+          <div class="col-md-2"></div>
+          <div class="col-md-4">
+            <div class="text-bold">
+              Billing Address
+              <a href="javascript:void(0)" @click="editSelectedContact">
+                <i class="fa fa-fw fa-pencil"></i>
+              </a>
+            </div>
+            <div v-text="selected_contact.billing_address"></div>
+            <div v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
+            <div v-text="selected_contact.billing_district_detail && selected_contact.billing_district_detail.name"></div>
+            <div v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
+            <div v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
+            <div v-text="selected_contact.billing_zip"></div>
+          </div>
+
+          <div class="col-md-4" v-if="!as_dropshipper">
+            <div class="text-bold">
+              Shipping Address
+              <a href="javascript:void(0)" @click="editSelectedContact">
+                <i class="fa fa-fw fa-pencil"></i>
+              </a>
+            </div>
+            <div v-text="selected_contact.shipping_address"></div>
+            <div v-text="selected_contact.shipping_region_detail && selected_contact.shipping_region_detail.name"></div>
+            <div v-text="selected_contact.shipping_district_detail && selected_contact.shipping_district_detail.name"></div>
+            <div v-text="selected_contact.shipping_province_detail && selected_contact.shipping_province_detail.name"></div>
+            <div v-text="selected_contact.shipping_country_detail && selected_contact.shipping_country_detail.name"></div>
+            <div v-text="selected_contact.shipping_zip"></div>
+          </div>
         </div>
       </div>
 
-      <div class="row" v-if="selected_contact.hasOwnProperty('contact_id')">
-
-        <div class="col-md-4">
-          <div class="text-bold">
-            Billing Address
-            <a href="javascript:void(0)" @click="editSelectedContact">
-              <i class="fa fa-fw fa-pencil"></i>
-            </a>
+      <div v-if="as_dropshipper">
+        <hr>
+        <div class="form-group row">
+          <label class="control-label col-md-2">Dropship to:</label>
+          <div class="col-md-4">
+            <vuelist
+              ref="dropship_contact"
+              @change="selectDropshipContact"
+              @search="searchDropshipContact"
+              :options="list.dropship_contact_list"
+              :value="selected_dropship_contact && selected_dropship_contact.contact_id"
+              placeholder="Dropship to"
+              keyid="contact_id"
+              label="display_name"
+            ></vuelist>
           </div>
-          <div v-text="selected_contact.billing_address"></div>
-          <div v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
-          <div v-text="selected_contact.billing_district_detail && selected_contact.billing_district_detail.name"></div>
-          <div v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
-          <div v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
-          <div v-text="selected_contact.billing_zip"></div>
+          <div class="col-md-1" v-if="selected_dropship_contact">
+            <a @click="clearSelectedDropshipContact" href="javascript:void(0)" class="btn btn-default btn-xs"><i
+              class="fa fa-times"></i></a>
+          </div>
+          <div class="col-md-1" v-if="!selected_dropship_contact">
+            <a href="javascript:window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>
+          </div>
         </div>
 
-        <div class="col-md-4">
-          <div class="text-bold">
-            Shipping Address
-            <a href="javascript:void(0)" @click="editSelectedContact">
-              <i class="fa fa-fw fa-pencil"></i>
-            </a>
+        <div class="row" v-if="selected_dropship_contact.hasOwnProperty('contact_id')">
+
+          <div class="col-md-2"></div>
+          <div class="col-md-4">
+            <div class="text-bold">
+              Shipping Address
+              <a href="javascript:void(0)" @click="editSelectedContact">
+                <i class="fa fa-fw fa-pencil"></i>
+              </a>
+            </div>
+            <div v-text="selected_dropship_contact.shipping_address"></div>
+            <div v-text="selected_dropship_contact.shipping_region_detail && selected_dropship_contact.shipping_region_detail.name"></div>
+            <div v-text="selected_dropship_contact.shipping_district_detail && selected_dropship_contact.shipping_district_detail.name"></div>
+            <div v-text="selected_dropship_contact.shipping_province_detail && selected_dropship_contact.shipping_province_detail.name"></div>
+            <div v-text="selected_dropship_contact.shipping_country_detail && selected_dropship_contact.shipping_country_detail.name"></div>
+            <div v-text="selected_dropship_contact.shipping_zip"></div>
           </div>
-          <div v-text="selected_contact.shipping_address"></div>
-          <div v-text="selected_contact.shipping_region_detail && selected_contact.shipping_region_detail.name"></div>
-          <div v-text="selected_contact.shipping_district_detail && selected_contact.shipping_district_detail.name"></div>
-          <div v-text="selected_contact.shipping_province_detail && selected_contact.shipping_province_detail.name"></div>
-          <div v-text="selected_contact.shipping_country_detail && selected_contact.shipping_country_detail.name"></div>
-          <div v-text="selected_contact.shipping_zip"></div>
         </div>
-
-
       </div>
 
       <hr>
@@ -298,7 +343,7 @@
 </template>
 
 <script>
-  const Flatpickr = require('flatpickr')
+  const Flatpickr = require('flatpickr').default
   import numeral from 'numeral'
   import swal from 'sweetalert2'
   import axios from 'axios'
@@ -378,6 +423,8 @@
 
     data () {
       return {
+        as_dropshipper: false,
+        selected_dropship_contact: {},
         dirtyForm: false,
         ui: {
           adjustment_edit: false,
@@ -387,6 +434,7 @@
           discount_unit: [],
           weight_unit: [],
           contact_list: [],
+          dropship_contact_list: [],
           product_list: [],
           channels: [],
         },
@@ -497,6 +545,7 @@
         })
 
         this.list.contact_list = contact_list_response.data.data
+        this.list.dropship_contact_list = contact_list_response.data.data
       },
 
       async fetchProductList () {
@@ -614,11 +663,27 @@
         this.updateEmail([this.selected_contact.email])
       },
 
+      async selectDropshipContact (contact) {
+        this.dirtyForm = true
+        const contact_id = contact.contact_id
+        const res = await axios.get(`contacts/${contact_id}`)
+        this.selected_dropship_contact = res.data.data
+        this.updateEmail([this.selected_contact.email])
+      },
+
       clearSelectedContact () {
-        this.selected_contact = null
+        this.selected_contact = {}
+      },
+
+      clearSelectedDropshipContact () {
+        this.selected_dropship_contact = {}
       },
 
       searchContact () {
+        //
+      },
+
+      searchDropshipContact () {
         //
       },
 
@@ -736,7 +801,11 @@
         this.form.carrier_name = ''
         this.form.carrier_service = ''
         this.form.details = []
-      }
+      },
+
+      dropshipperShipping () {
+//        if (this.selected_contact && this.selected_contact.hasOwnProperty())
+      },
 
     },
   }
