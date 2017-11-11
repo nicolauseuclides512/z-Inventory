@@ -5,9 +5,9 @@
       <ul>
 
         <!--<li>-->
-          <!--<router-link id="nev-left-dashboard" :to="{ name: 'dashboard' }" class="waves-effect waves-light">-->
-            <!--<i class="md md-home"></i><span> Dashboard </span>-->
-          <!--</router-link>-->
+        <!--<router-link id="nev-left-dashboard" :to="{ name: 'dashboard' }" class="waves-effect waves-light">-->
+        <!--<i class="md md-home"></i><span> Dashboard </span>-->
+        <!--</router-link>-->
         <!--</li>-->
 
         <li class="clearfix">
@@ -52,14 +52,13 @@
         </router-link>
 
         <!--<dropdown-menu id="nav-left-inventories" title="Inventories" icon="ion-folder">-->
-          <!--<router-link id="nev-left-collections" tag="li" :to="{ name: 'collection.index' }">-->
-            <!--<a class="waves-effect waves-light">Collection</a>-->
-          <!--</router-link>-->
-          <!--<router-link id="nev-left-discount" tag="li" :to="{ name: 'discount.index' }">-->
-            <!--<a class="waves-effect waves-light">Discount</a>-->
-          <!--</router-link>-->
+        <!--<router-link id="nev-left-collections" tag="li" :to="{ name: 'collection.index' }">-->
+        <!--<a class="waves-effect waves-light">Collection</a>-->
+        <!--</router-link>-->
+        <!--<router-link id="nev-left-discount" tag="li" :to="{ name: 'discount.index' }">-->
+        <!--<a class="waves-effect waves-light">Discount</a>-->
+        <!--</router-link>-->
         <!--</dropdown-menu>-->
-
 
 
         <router-link id="nev-left-settings" tag="li" :to="{ name: 'settings' }">
@@ -78,9 +77,9 @@
 <script>
   export default {
     components: {
-      'dropdown-menu': require('./Nav/DropdownMenu.vue'),
+      'dropdown-menu': () => import('./Nav/DropdownMenu.vue'),
     },
-  };
+  }
 </script>
 
 <style scoped>

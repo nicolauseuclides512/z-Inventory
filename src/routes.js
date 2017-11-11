@@ -2,14 +2,14 @@ export default [
 
   {
     path: '/',
-    meta: { requiresAuth: true },
-    component: require('./Home'),
+    meta: {requiresAuth: true},
+    component: () => import('./Home'),
     children: [
 
       {
         path: '/',
         name: 'dashboard',
-        component: resolve => require(['./components/Sales/List'], resolve),
+        component: () => import('./components/Sales/List'),
       },
 
       /**
@@ -18,31 +18,31 @@ export default [
       {
         path: '/contacts',
         name: 'contact.index',
-        component: resolve => require(['./components/Contacts/Index'], resolve),
+        component: () => import('./components/Contacts/Index'),
       },
 
       {
         path: '/contacts/:id/detail',
         name: 'contact.show',
-        component: resolve => require(['./components/Contacts/Detail'], resolve),
+        component: () => import('./components/Contacts/Detail'),
       },
 
       {
         path: '/contacts/create',
         name: 'contact.create',
-        component: resolve => require(['./components/Contacts/Form'], resolve),
+        component: () => import('./components/Contacts/Form'),
       },
 
       {
         path: '/contacts/:id/edit',
         name: 'contact.edit',
-        component: resolve => require(['./components/Contacts/Form'], resolve),
+        component: () => import('./components/Contacts/Form'),
       },
 
       {
         path: '/contacts/search',
         name: 'contact.search',
-        component: resolve => require(['./components/Contacts/Search'], resolve),
+        component: () => import('./components/Contacts/Search'),
       },
 
 
@@ -52,19 +52,19 @@ export default [
       {
         path: '/inventory/items',
         name: 'item.index',
-        component: resolve => require(['./components/Inventory/Item/Index'], resolve),
+        component: () => import('./components/Inventory/Item/Index'),
       },
 
       {
         path: '/inventory/items/create',
         name: 'item.create',
-        component: resolve => require(['./components/Inventory/Item/Create/Index'], resolve),
+        component: () => import('./components/Inventory/Item/Create/Index'),
       },
 
       {
         path: '/inventory/items/:id/edit',
         name: 'item.edit',
-        component: resolve => require(['./components/Inventory/Item/Edit/Index'], resolve),
+        component: () => import('./components/Inventory/Item/Edit/Index'),
       },
 
       /**
@@ -73,49 +73,49 @@ export default [
       {
         path: '/inventory/collection',
         name: 'collection.index',
-        component: resolve => require(['./components/Inventory/Collection/Index'], resolve),
+        component: () => import('./components/Inventory/Collection/Index'),
       },
 
       {
         path: '/inventory/collection/create',
         name: 'collection.create',
-        component: resolve => require(['./components/Inventory/Collection/Create'], resolve),
+        component: () => import('./components/Inventory/Collection/Create'),
       },
 
       {
         path: '/inventory/collection/:id/edit',
         name: 'collection.edit',
-        component: resolve => require(['./components/Inventory/Collection/Edit'], resolve),
+        component: () => import('./components/Inventory/Collection/Edit'),
       },
 
       {
         path: '/items/stock_adjustment',
         name: 'stock_adjustment.index',
-        component: resolve => require(['./components/Inventory/StockAdjusment/Index'], resolve),
+        component: () => import('./components/Inventory/StockAdjusment/Index'),
       },
 
       {
         path: '/items/stock_adjustment/create',
         name: 'stock_adjustment.create',
-        component: resolve => require(['./components/Inventory/StockAdjusment/Form'], resolve),
+        component: () => import('./components/Inventory/StockAdjusment/Form'),
       },
 
       {
         path: '/items/stock_adjustment/:id/edit',
         name: 'stock_adjustment.edit',
-        component: resolve => require(['./components/Inventory/StockAdjusment/Form'], resolve),
+        component: () => import('./components/Inventory/StockAdjusment/Form'),
       },
 
       {
         path: '/items/stock_summary',
         name: 'stock_summary.index',
-        component: resolve => require(['./components/Inventory/StockSummary/Index'], resolve),
+        component: () => import('./components/Inventory/StockSummary/Index'),
       },
 
       {
         path: '/items/stock-summary/:id/edit',
         name: 'stock_summary.edit',
-        component: resolve => require(['./components/Inventory/StockSummary/Edit'], resolve),
+        component: () => import('./components/Inventory/StockSummary/Edit'),
       },
 
       /**
@@ -124,19 +124,19 @@ export default [
       {
         path: '/inventory/discount',
         name: 'discount.index',
-        component: resolve => require(['./components/Discount/Index'], resolve),
+        component: import('./components/Discount/Index'),
       },
 
       {
         path: '/discount/add_coupon',
         name: 'discount.add_coupon',
-        component: resolve => require(['./components/Discount/AddCoupon'], resolve),
+        component: import('./components/Discount/AddCoupon'),
       },
 
       {
         path: '/discount/add_promo',
         name: 'discount.add_promo',
-        component: resolve => require(['./components/Discount/AddPromo'], resolve),
+        component: import('./components/Discount/AddPromo'),
       },
 
 
@@ -146,7 +146,7 @@ export default [
       {
         path: '/report',
         name: 'report.index',
-        component: resolve => require(['./components/Report/Index'], resolve),
+        component: () => import('./components/Report/Index'),
       },
 
 
@@ -156,31 +156,43 @@ export default [
       {
         path: '/sales',
         name: 'sales.index',
-        component: resolve => require(['./components/Sales/List'], resolve),
+        component: () => import('./components/Sales/List'),
       },
 
       {
         path: '/sales/create',
         name: 'sales.create',
-        component: resolve => require(['./components/Sales/Create'], resolve),
+        component: () => import('./components/Sales/FormSingle'),
       },
 
       {
-        path: '/sales/:id/edit',
+        path: '/sales/create-variant-item',
+        name: 'sales.create.variant',
+        component: () => import('./components/Sales/FormVariant'),
+      },
+
+      {
+        path: '/sales/edit',
         name: 'sales.edit',
-        component: resolve => require(['./components/Sales/Edit'], resolve),
+        component: () => import('./components/Sales/FormSingle'),
+      },
+
+      {
+        path: '/sales/:id/edit-variant-item',
+        name: 'sales.edit.variant',
+        component: () => import('./components/Sales/FormVariant'),
       },
 
       {
         path: '/sales/:id/detail',
         name: 'sales.detail',
-        component: resolve => require(['./components/Sales/Detail'], resolve),
+        component: () => import('./components/Sales/Detail'),
       },
 
       {
         path: '/sales/:sales_order_id/:invoice_id/email',
         name: 'sales.email',
-        component: resolve => require(['./components/Sales/Email'], resolve),
+        component: () => import('./components/Sales/Email'),
       },
 
 
@@ -190,27 +202,27 @@ export default [
       {
         path: '/users',
         name: 'user.index',
-        component: resolve => require(['./components/Users/UserList'], resolve),
+        component: () => import('./components/Users/UserList'),
       },
 
       {
         path: '/profile',
         name: 'profile',
-        component: resolve => require(['./components/Profile/EditProfile'], resolve),
+        component: () => import('./components/Profile/EditProfile'),
         children: [
           {
             path: '/profile/personal-information',
             name: 'profile.personal-information',
-            component: resolve => require(['./components/Profile/Edit'], resolve),
+            component: () => import('./components/Profile/Edit'),
           },
 
           {
             path: '/profile/change-password',
             name: 'profile.change-password',
-            component: require('./components/Profile/ChangePassword'),
-          }
-        ]
-      }
+            component: () => import('./components/Profile/ChangePassword'),
+          },
+        ],
+      },
 
 
     ],
@@ -224,46 +236,46 @@ export default [
    */
   {
     path: '/settings',
-    meta: { requiresAuth: true },
-    component: resolve => require(['./components/Settings/Layout'], resolve),
+    meta: {requiresAuth: true},
+    component: () => import('./components/Settings/Layout'),
     children: [
       {
         path: '/',
-        component: resolve => require(['./components/Settings/Index'], resolve),
+        component: () => import('./components/Settings/Index'),
         children: [
           {
             path: '/',
             name: 'settings',
-            component: resolve => require(['./components/Settings/OrganizationProfile'], resolve),
+            component: () => import('./components/Settings/OrganizationProfile'),
           },
           {
             path: '/settings/store_detail',
             name: 'settings.store_detail',
-            component: resolve => require(['./components/Settings/StoreDetail'], resolve),
+            component: () => import('./components/Settings/StoreDetail'),
           },
           {
             path: '/settings/sales_channel',
             name: 'settings.sales_channel',
-            component: resolve => require(['./components/Settings/SalesChannel'], resolve),
+            component: () => import('./components/Settings/SalesChannel'),
           },
           {
             path: '/settings/adjustment',
             name: 'settings.adjustment',
-            component: resolve => require(['./components/Settings/Adjustment'], resolve),
+            component: () => import('./components/Settings/Adjustment'),
           },
           {
             path: '/settings/shipment',
             name: 'settings.shipment',
-            component: resolve => require(['./components/Settings/Shipping'], resolve),
+            component: () => import('./components/Settings/Shipping'),
           },
           {
             path: '/settings/payment',
             name: 'settings.payment',
-            component: resolve => require(['./components/Settings/Payment'], resolve),
+            component: () => import('./components/Settings/Payment'),
           },
-        ]
+        ],
       },
-    ]
+    ],
   },
 
 
@@ -275,31 +287,31 @@ export default [
   {
     path: '/login',
     name: 'auth.login',
-    component: resolve => require(['./components/Auth/Login'], resolve)
+    component: () => import('./components/Auth/Login'),
   },
 
   {
     path: '/register',
     name: 'auth.register',
-    component: resolve => require(['./components/Auth/Register'], resolve)
+    component: () => import('./components/Auth/Register'),
   },
 
   {
     path: '/register/thankyou',
     name: 'auth.register.thankyou',
-    component: resolve => require(['./components/Auth/RegisterThankYou'], resolve)
+    component: () => import('./components/Auth/RegisterThankYou'),
   },
 
   {
     path: '/verification',
     name: 'auth.verification',
-    component: resolve => require(['./components/Auth/Verification'], resolve)
+    component: () => import('./components/Auth/Verification'),
   },
 
   {
     path: '/forgot',
     name: 'auth.forgot',
-    component: resolve => require(['./components/Auth/ForgotPassword'], resolve)
+    component: () => import('./components/Auth/ForgotPassword'),
   },
 
 
@@ -308,6 +320,6 @@ export default [
    * 404 not found page
    * --------------------------------------------------
    */
-  { path: '*', component: resolve => require(['./errors/404'], resolve) }
+  {path: '*', component: () => import('./errors/404')},
 
 ]

@@ -4,15 +4,15 @@
       <small class="text-muted">
         Show
         {{
-          pageContext.current_page == 1
-            ? 1
-            : pageContext.current_page * pageContext.per_page - pageContext.per_page + 1
+        pageContext.current_page == 1
+          ? 1
+          : pageContext.current_page * pageContext.per_page - pageContext.per_page + 1
         }}
         to
         {{
-          pageContext.current_page == pageContext.last_page
-            ? pageContext.total
-            : pageContext.current_page * pageContext.per_page
+        pageContext.current_page == pageContext.last_page
+          ? pageContext.total
+          : pageContext.current_page * pageContext.per_page
         }}
         of {{ pageContext.total }} total entries
 
@@ -64,24 +64,26 @@
 
 <script>
   import Vue from 'vue'
-  import axios from 'axios'
-  import {responseOk, swal_success, swal_error} from "src/helpers";
+  import Axios from 'axios'
+  import { responseOk, swal_success, swal_error } from 'src/helpers'
 
   export default {
+
+    name: 'Pagination',
 
     props: {
       pageContext: {
         type: Object,
-        required: true
+        required: true,
       },
       result: {
         type: Array,
-        required: true
-      }
+        required: true,
+      },
     },
 
 
-    data() {
+    data () {
       return {
         per_page: 15,
         loading: false,
@@ -94,53 +96,55 @@
     methods: {
 
 
-      updatePerPage() {
-        this.loading = true
+      async updatePerPage () {
+        try {
+          this.loading = true
 
-        const url = this.pageContext.current_page_url
-          .replace(/(?:per_page=)(\d+)/, `per_page=${this.per_page}`)
-          .replace(/(?:page=)(\d+)/, 'page=1')
+          const url = this.pageContext.current_page_url
+            .replace(/(?:per_page=)(\d+)/, `per_page=${this.per_page}`)
+            .replace(/(?:page=)(\d+)/, 'page=1')
 
-        axios.get(url)
-          .then(res => {
-            if (!responseOk(res.data.code)) {
-              this.loading = false
-              return swal_error(res)
-            }
-
-            this.$emit('updated', res.data)
-
+          const res = await Axios.get(url)
+          if (!responseOk(res.data.code)) {
             this.loading = false
+            return swal_error(res)
+          }
 
-          }).catch(err => {
-            this.loading = false
-            return swal_error(err.response)
-          })
+          this.$emit('updated', res.data)
+
+          this.loading = false
+
+        }
+        catch (err) {
+          this.loading = false
+          return swal_error(err.response)
+        }
       },
 
 
       /**
        * Get previous page
        */
-      prev() {
+      async prev () {
+        try {
 
-        this.loadingPrev = true
+          this.loadingPrev = true
 
-        axios.get(this.pageContext.prev_page_url)
-          .then(res => {
-            if (!responseOk(res.data.code)) {
-              this.loadingPrev = false
-              return swal_error(res)
-            }
-
-            this.$emit('updated', res.data)
-
+          const res = await Axios.get(this.pageContext.prev_page_url)
+          if (!responseOk(res.data.code)) {
             this.loadingPrev = false
+            return swal_error(res)
+          }
 
-          }).catch(err => {
-            this.loadingPrev = false
-            return swal_error(err.response)
-          })
+          this.$emit('updated', res.data)
+
+          this.loadingPrev = false
+
+        }
+        catch (err) {
+          this.loadingPrev = false
+          return swal_error(err.response)
+        }
 
       },
 
@@ -148,25 +152,25 @@
       /**
        * Get next page
        */
-      next() {
+      async next () {
+        try {
+          this.loadingNext = true
 
-        this.loadingNext = true
-
-        axios.get(this.pageContext.next_page_url)
-          .then(res => {
-            if (!responseOk(res.data.code)) {
-              this.loadingNext = false
-              return swal_error(res)
-            }
-
-            this.$emit('updated', res.data)
-
+          const res = await Axios.get(this.pageContext.next_page_url)
+          if (!responseOk(res.data.code)) {
             this.loadingNext = false
+            return swal_error(res)
+          }
 
-          }).catch(err => {
-            this.loadingNext = false
-            return swal_error(err.response)
-          })
+          this.$emit('updated', res.data)
+
+          this.loadingNext = false
+
+        }
+        catch (err) {
+          this.loadingNext = false
+          return swal_error(err.response)
+        }
 
       },
 

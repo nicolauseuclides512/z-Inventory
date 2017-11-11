@@ -34,19 +34,19 @@
                     </div>
                   </div>
                   <!--<div class="form-group form-general m-b-20">-->
-                    <!--<label for="weight" class="col-md-2 control-label text-left">Weight Unit</label>-->
-                    <!--<div class="col-md-6">-->
-                      <!--<div style="padding: 6px 0;">g (gram)</div>-->
-                      <!--<select class="form-control" data-placeholder="Select default weight"-->
-                              <!--id="weight"-->
-                              <!--v-model="weight"-->
-                      <!--&gt;-->
-                        <!--<option value="0" hidden disabled>Select default weight</option>-->
-                        <!--<option v-for="(name, key) in weightList" :value="key">-->
-                          <!--{{ key }} ({{ name }})-->
-                        <!--</option>-->
-                      <!--</select>-->
-                    <!--</div>-->
+                  <!--<label for="weight" class="col-md-2 control-label text-left">Weight Unit</label>-->
+                  <!--<div class="col-md-6">-->
+                  <!--<div style="padding: 6px 0;">g (gram)</div>-->
+                  <!--<select class="form-control" data-placeholder="Select default weight"-->
+                  <!--id="weight"-->
+                  <!--v-model="weight"-->
+                  <!--&gt;-->
+                  <!--<option value="0" hidden disabled>Select default weight</option>-->
+                  <!--<option v-for="(name, key) in weightList" :value="key">-->
+                  <!--{{ key }} ({{ name }})-->
+                  <!--</option>-->
+                  <!--</select>-->
+                  <!--</div>-->
                   <!--</div>-->
                   <div class="form-group form-general m-b-20">
                     <label for="currency_id" class="col-md-2 control-label text-left">Base Currency</label>
@@ -104,48 +104,48 @@
     name: 'StoreDetail',
 
     components: {
-      'tax': require('./Tax'),
+      'tax': () => import('./Tax'),
     },
 
-    data() {
+    data () {
       return {
         loading: false,
-        weight_units: { kg: 'kilogram', gr: 'gram' },
+        weight_units: {kg: 'kilogram', gr: 'gram'},
       }
     },
 
-    mounted() {
+    mounted () {
       //
     },
 
     computed: {
-      timezoneList() {
+      timezoneList () {
         return store.state.settings.store_detail.timezoneList
       },
-      currencyList() {
+      currencyList () {
         return store.state.settings.store_detail.currencyList
       },
-      weightList() {
+      weightList () {
         return store.state.settings.store_detail.weightList
       },
-      languageList() {
+      languageList () {
         return store.state.settings.store_detail.languageList
       },
       timezone_id: {
-        get() { return store.state.settings.store_detail.timezone_id },
-        set(value) { store.commit('settings/store_detail/TIMEZONE', value) }
+        get () { return store.state.settings.store_detail.timezone_id },
+        set (value) { store.commit('settings/store_detail/TIMEZONE', value) },
       },
       weight: {
-        get() { return store.state.settings.store_detail.weight },
-        set(value) { store.commit('settings/store_detail/WEIGHT', value) }
+        get () { return store.state.settings.store_detail.weight },
+        set (value) { store.commit('settings/store_detail/WEIGHT', value) },
       },
       currency_id: {
-        get() { return store.state.settings.store_detail.currency_id },
-        set(value) { store.commit('settings/store_detail/CURRENCY', value) }
+        get () { return store.state.settings.store_detail.currency_id },
+        set (value) { store.commit('settings/store_detail/CURRENCY', value) },
       },
       language_id: {
-        get() { return store.state.settings.store_detail.language_id },
-        set(value) { store.commit('settings/store_detail/LANGUAGE', value) }
+        get () { return store.state.settings.store_detail.language_id },
+        set (value) { store.commit('settings/store_detail/LANGUAGE', value) },
       },
     },
 
@@ -155,7 +155,7 @@
       /**
        * Save
        */
-      save() {
+      save () {
         store.dispatch('settings/store_detail/save')
       },
 
@@ -163,11 +163,11 @@
       /**
        * Reset to original form state
        */
-      resetForm() {
+      resetForm () {
         store.dispatch('settings/initialize')
       },
 
 
-    }
+    },
   }
 </script>

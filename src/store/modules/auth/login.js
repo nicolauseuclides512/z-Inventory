@@ -1,4 +1,4 @@
-import axios from 'axios'
+import Axios from 'axios'
 import { responseOk } from 'src/helpers'
 
 const state = {
@@ -31,7 +31,7 @@ const actions = {
 
     return new Promise ((resolve, reject) => {
 
-      axios.post(`oauth/token`, credentials).then(res => {
+      Axios.post(`oauth/token`, credentials).then(res => {
         if (!responseOk(res.data.code)) {
           return reject(res)
         }

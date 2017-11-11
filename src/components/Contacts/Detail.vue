@@ -75,7 +75,8 @@
             <div class="col-md-12 col-sm-12 col-xs-12" v-show="isChecked" style="display: none;">
               <div class="pull-left">
                 <div class="btn-group">
-                  <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown" aria-expanded="false">
+                  <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown"
+                          aria-expanded="false">
                     More Actions <i class="caret"></i>
                   </button>
                   <ul class="dropdown-menu" role="menu">
@@ -168,10 +169,10 @@
               <div v-if="!currentContact.contact_status">
                 <div class="pull-right">
                   <!--<a href="javascript:void(0);" -->
-                     <!--@click="markAsActive(currentContact.contact_id)"-->
-                     <!--class="btn btn-default waves-effect waves-light m-b-5"-->
+                  <!--@click="markAsActive(currentContact.contact_id)"-->
+                  <!--class="btn btn-default waves-effect waves-light m-b-5"-->
                   <!--&gt;-->
-                    <!--Mark as Active-->
+                  <!--Mark as Active-->
                   <!--</a>-->
                   <a href="javascript:void(0);" @click="destroy(currentContact.contact_id)"
                      class="btn btn-default waves-effect waves-light m-b-5">
@@ -250,26 +251,26 @@
                               <table class="table table-overview">
                                 <tbody>
                                 <!--<tr>-->
-                                  <!--<td rowspan="3" class="receivable">-->
-                                    <!--<h4>Receivables</h4>-->
-                                    <!--<h2 class="text-orange">IDR30,000.00</h2>-->
-                                    <!--<p>Unused Credits: <span class="text-primary">IDR14,157.00</span></p>-->
-                                  <!--</td>-->
-                                  <!--<td class="receivable-list">-->
-                                    <!--Items to be packed-->
-                                    <!--<span class="pull-right text-orange">2.00</span>-->
-                                  <!--</td>-->
+                                <!--<td rowspan="3" class="receivable">-->
+                                <!--<h4>Receivables</h4>-->
+                                <!--<h2 class="text-orange">IDR30,000.00</h2>-->
+                                <!--<p>Unused Credits: <span class="text-primary">IDR14,157.00</span></p>-->
+                                <!--</td>-->
+                                <!--<td class="receivable-list">-->
+                                <!--Items to be packed-->
+                                <!--<span class="pull-right text-orange">2.00</span>-->
+                                <!--</td>-->
                                 <!--</tr>-->
                                 <!--<tr>-->
-                                  <!--<td class="receivable-list">-->
-                                    <!--Items to be shipped-->
-                                    <!--<span class="pull-right text-orange">1.00</span>-->
-                                  <!--</td>-->
+                                <!--<td class="receivable-list">-->
+                                <!--Items to be shipped-->
+                                <!--<span class="pull-right text-orange">1.00</span>-->
+                                <!--</td>-->
                                 <!--</tr>-->
                                 <!--<tr>-->
-                                  <!--<td class="receivable-list">Items to be invoiced <span-->
-                                    <!--class="pull-right text-orange">5.00</span>-->
-                                  <!--</td>-->
+                                <!--<td class="receivable-list">Items to be invoiced <span-->
+                                <!--class="pull-right text-orange">5.00</span>-->
+                                <!--</td>-->
                                 <!--</tr>-->
                                 </tbody>
                               </table>
@@ -304,20 +305,28 @@
                               <div class="col-md-6 br-1">
                                 <h5>BILLING ADDRESS</h5>
                                 <div v-text="currentContact.billing_address"></div>
-                                <div v-text="currentContact.billing_region ? currentContact.billing_region.region_name : ''"></div>
-                                <div v-text="currentContact.billing_district ? currentContact.billing_district.district_name : ''"></div>
-                                <div v-text="currentContact.billing_province ? currentContact.billing_province.province_name : ''"></div>
+                                <div
+                                  v-text="currentContact.billing_region ? currentContact.billing_region.region_name : ''"></div>
+                                <div
+                                  v-text="currentContact.billing_district ? currentContact.billing_district.district_name : ''"></div>
+                                <div
+                                  v-text="currentContact.billing_province ? currentContact.billing_province.province_name : ''"></div>
                                 <span v-text="currentContact.billing_zip"></span>
-                                <div v-text="currentContact.billing_country ? currentContact.billing_country.country_name : ''"></div>
+                                <div
+                                  v-text="currentContact.billing_country ? currentContact.billing_country.country_name : ''"></div>
                               </div>
                               <div class="col-md-6">
                                 <h5>SHIPPING ADDRESS</h5>
                                 <div v-text="currentContact.shipping_address"></div>
-                                <div v-text="currentContact.shipping_region ? currentContact.shipping_region.region_name : ''"></div>
-                                <div v-text="currentContact.shipping_district ? currentContact.shipping_district.district_name : ''"></div>
-                                <div v-text="currentContact.shipping_province ? currentContact.shipping_province.province_name : ''"></div>
+                                <div
+                                  v-text="currentContact.shipping_region ? currentContact.shipping_region.region_name : ''"></div>
+                                <div
+                                  v-text="currentContact.shipping_district ? currentContact.shipping_district.district_name : ''"></div>
+                                <div
+                                  v-text="currentContact.shipping_province ? currentContact.shipping_province.province_name : ''"></div>
                                 <span v-text="currentContact.shipping_zip"></span>
-                                <div v-text="currentContact.shipping_country ? currentContact.shipping_country.country_name : ''"></div>
+                                <div
+                                  v-text="currentContact.shipping_country ? currentContact.shipping_country.country_name : ''"></div>
                               </div>
                             </div>
                           </div>
@@ -465,11 +474,11 @@
     name: 'ContactDetail',
 
     components: {
-      Pagination: require('../Pagination'),
+      Pagination: () => import('../Pagination'),
     },
 
 
-    data() {
+    data () {
       return {
         contacts: [],
         page_context: {},
@@ -479,58 +488,58 @@
         currentSortColumn: 'display_name',
         ascendingSort: true,
         currentFilter: 'all',
-      };
+      }
     },
 
 
     watch: {
-      '$route': 'showDetail'
+      '$route': 'showDetail',
     },
 
 
     computed: {
 
-      isChecked() {
+      isChecked () {
         if (_.isEmpty(this.checkedContacts)) {
-          return false;
+          return false
         }
-        return true;
+        return true
       },
 
-      displayActiveCurrentFilter() {
+      displayActiveCurrentFilter () {
         return this.currentFilter.charAt(0).toUpperCase() + this.currentFilter.slice(1)
-      }
+      },
 
     },
 
 
-    mounted() {
+    mounted () {
       this.getList()
       this.showDetail()
     },
 
 
     methods: {
-      getList(options) {
+      getList (options) {
         const defaultOptions = {
           page: 1,
           per_page: 15,
           sort_column: 'display_name',
           sort_order: 'ASC',
           filter_by: 'all',
-        };
+        }
 
-        options = _.merge(defaultOptions, options);
+        options = _.merge(defaultOptions, options)
 
-        this.$http.get('contacts', { params: options }).then(res => {
-          if ([0, 200, 201].indexOf(res.data.code) === -1) return swal_error(res);
+        this.$http.get('contacts', {params: options}).then(res => {
+          if ([0, 200, 201].indexOf(res.data.code) === -1) return swal_error(res)
 
-          this.contacts = res.data.data;
-          this.page_context = res.data.page_context;
+          this.contacts = res.data.data
+          this.page_context = res.data.page_context
 
         }, res => {
-          return swal_error(res);
-        });
+          return swal_error(res)
+        })
       },
 
 
@@ -538,7 +547,7 @@
        * Show the contact detail
        * @param  {Object} contact
        */
-      showDetail() {
+      showDetail () {
         const contactId = this.$route.params.id
 
         this.$http.get(`contacts/${contactId}`)
@@ -556,25 +565,25 @@
        * Delete multiple contacts
        * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)
        */
-      destroy(ids) {
+      destroy (ids) {
         Alert.confirm({
-          title: "Do you really want to delete this contact(s)?",
-          text: "Please don't delete us :'( ",
+          title: 'Do you really want to delete this contact(s)?',
+          text: 'Please don\'t delete us :\'( ',
         }, () => {
-          const queryString = _.isArray(ids) ? ids.join(',') : ids;
+          const queryString = _.isArray(ids) ? ids.join(',') : ids
 
           this.$http.delete('contacts?ids=' + queryString)
             .then(res => {
               if (res.data.code == 0) {
-                swal_success(res);
-                this.$router.replace({ name: 'contact.index' })
+                swal_success(res)
+                this.$router.replace({name: 'contact.index'})
               } else {
-                swal_error(res);
+                swal_error(res)
               }
             }, res => {
-              swal_error(res);
-            });
-        });
+              swal_error(res)
+            })
+        })
       },
 
 
@@ -582,23 +591,23 @@
        * Mark multiple contacts status to active
        * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)
        */
-      markAsActive(ids) {
-        const payload = _.isArray(ids) ? ids.join(',') : ids;
+      markAsActive (ids) {
+        const payload = _.isArray(ids) ? ids.join(',') : ids
 
-        this.$http.post('contacts/mark_as/active', { ids: payload })
+        this.$http.post('contacts/mark_as/active', {ids: payload})
           .then(res => {
             if (res.data.code == 0) {
-              this.contacts = [];
-              this.getList();
-              this.clearCheckedContacts();
-              this.currentContact.contact_status = true;
-              swal_success(res);
+              this.contacts = []
+              this.getList()
+              this.clearCheckedContacts()
+              this.currentContact.contact_status = true
+              swal_success(res)
             } else {
-              swal_error(res);
+              swal_error(res)
             }
           }, res => {
-            swal_error(res);
-          });
+            swal_error(res)
+          })
       },
 
 
@@ -606,61 +615,61 @@
        * Mark multiple contacts status to inactive
        * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)
        */
-      markAsInactive(ids) {
-        const payload = _.isArray(ids) ? ids.join(',') : ids;
+      markAsInactive (ids) {
+        const payload = _.isArray(ids) ? ids.join(',') : ids
 
-        this.$http.post('contacts/mark_as/inactive', { ids: payload })
+        this.$http.post('contacts/mark_as/inactive', {ids: payload})
           .then(res => {
             if (res.data.code == 0) {
-              this.contacts = [];
-              this.getList();
-              this.clearCheckedContacts();
-              this.currentContact.contact_status = false;
-              swal_success(res);
+              this.contacts = []
+              this.getList()
+              this.clearCheckedContacts()
+              this.currentContact.contact_status = false
+              swal_success(res)
             } else {
-              swal_error(res);
+              swal_error(res)
             }
           }, res => {
-            swal_error(res);
-          });
+            swal_error(res)
+          })
       },
 
 
-      sortContactsBy(column) {
+      sortContactsBy (column) {
         let ascendingSort
 
-        this.currentSortColumn = column;
-        this.ascendingSort = !this.ascendingSort;
+        this.currentSortColumn = column
+        this.ascendingSort = !this.ascendingSort
 
         if (this.ascendingSort) {
-          ascendingSort = 'ASC';
+          ascendingSort = 'ASC'
         } else {
-          ascendingSort = 'DESC';
+          ascendingSort = 'DESC'
         }
 
-        this.getList({ sort_column: column, sort_order: ascendingSort });
+        this.getList({sort_column: column, sort_order: ascendingSort})
       },
 
 
-      filterContact(filter) {
-        this.getList({ filter_by: filter });
-        this.currentFilter = filter;
+      filterContact (filter) {
+        this.getList({filter_by: filter})
+        this.currentFilter = filter
       },
 
 
-      clearCheckedContacts() {
-        $('#checkAll').prop('checked', false);
-        this.checkedAll = false;
-        this.checkedContacts = [];
+      clearCheckedContacts () {
+        $('#checkAll').prop('checked', false)
+        this.checkedAll = false
+        this.checkedContacts = []
       },
 
 
-      updatePagination(data) {
+      updatePagination (data) {
         this.page_context = data.page_context
         this.contacts = data.data
-      }
+      },
 
 
-    }
+    },
   }
 </script>

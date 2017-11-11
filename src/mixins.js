@@ -1,11 +1,11 @@
-import axios from 'axios'
+import Axios from 'axios'
 
 export const filter = {
   computed: {
     lowercase: text => {
       return text.toLowerCase()
-    }
-  }
+    },
+  },
 }
 
 export const regional = {
@@ -16,7 +16,7 @@ export const regional = {
      * Get all countries
      * @return {Array}  List of all countries
      */
-    getCountries() {
+    getCountries () {
 
       // This options is mandatory
       const options = {
@@ -29,7 +29,7 @@ export const regional = {
 
       const result = []
 
-      axios.get('countries', { params: options })
+      Axios.get('countries', {params: options})
         .then(res => {
           if (res.data.code != 0) return swal_error(res)
 
@@ -39,7 +39,7 @@ export const regional = {
 
         }).catch(err => swal_error(err.response))
 
-        return result
+      return result
     },
 
 
@@ -48,7 +48,7 @@ export const regional = {
      * @param  {number} countryId  Country ID
      * @return {Array}  List of provinces
      */
-    getProvinces(countryId) {
+    getProvinces (countryId) {
 
       const options = {
         page: 1,
@@ -60,7 +60,7 @@ export const regional = {
 
       const result = []
 
-      axios.get(`provinces/country/${countryId}`, { params: options })
+      Axios.get(`provinces/country/${countryId}`, {params: options})
         .then(res => {
           if (res.data.code != 0) return swal_error(res)
 
@@ -70,7 +70,7 @@ export const regional = {
 
         }).catch(err => swal_error(err.response))
 
-        return result
+      return result
     },
 
 
@@ -79,7 +79,7 @@ export const regional = {
      * @param  {number} provinceId  Province ID
      * @return {Array}  List of districts
      */
-    getDistricts(provinceId) {
+    getDistricts (provinceId) {
 
       const options = {
         page: 1,
@@ -91,7 +91,7 @@ export const regional = {
 
       const result = []
 
-      axios.get(`districts/province/${provinceId}`, { params: options })
+      Axios.get(`districts/province/${provinceId}`, {params: options})
         .then(res => {
           if (res.data.code != 0) return swal_error(res)
 
@@ -101,7 +101,7 @@ export const regional = {
 
         }).catch(err => swal_error(err.response))
 
-        return result
+      return result
     },
 
 
@@ -110,7 +110,7 @@ export const regional = {
      * @param  {number} districtId  District ID
      * @return {Array}  List of regions
      */
-    getRegions(districtId) {
+    getRegions (districtId) {
 
       const options = {
         page: 1,
@@ -122,7 +122,7 @@ export const regional = {
 
       const result = []
 
-      axios.get(`regions/district/${districtId}`, { params: options })
+      Axios.get(`regions/district/${districtId}`, {params: options})
         .then(res => {
           if (res.data.code != 0) return swal_error(res)
 
@@ -132,10 +132,10 @@ export const regional = {
 
         }).catch(err => swal_error(err.response))
 
-        return result
+      return result
     },
 
-  }
+  },
 
 }
 
@@ -146,7 +146,7 @@ export const timezones = {
      * Get all timezones
      * @return {Array}  List of all timezones
      */
-    getTimezones() {
+    getTimezones () {
 
       // This options is mandatory
       const options = {
@@ -159,7 +159,7 @@ export const timezones = {
 
       const result = []
 
-      axios.get('timezones', { params: options })
+      Axios.get('timezones', {params: options})
         .then(res => {
           if (res.data.code != 0) return swal_error(res)
 
@@ -169,9 +169,9 @@ export const timezones = {
 
         }).catch(err => swal_error(err.response))
 
-        return result
-    }
-  }
+      return result
+    },
+  },
 
 
 }

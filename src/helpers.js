@@ -1,5 +1,5 @@
+import Axios from 'axios'
 import swal from 'sweetalert2'
-import axios from 'axios'
 
 /**
  * Check if response code. If 2xx should return true, else will be false.
@@ -34,54 +34,54 @@ export const Alert = new function () {
   },
 
 
-  /**
-   * Show error "sweet alert"
-   * @param  {String}   message  A message to show
-   * @param  {Function} callback
-   */
-  this.error = (message, callback) => {
+    /**
+     * Show error "sweet alert"
+     * @param  {String}   message  A message to show
+     * @param  {Function} callback
+     */
+    this.error = (message, callback) => {
 
-    swal({
-      title: message,
-      type: 'error',
-      width: 720,
-      showConfirmButton: true,
-    }).catch(swal.noop)
+      swal({
+        title: message,
+        type: 'error',
+        width: 720,
+        showConfirmButton: true,
+      }).catch(swal.noop)
 
-    if (callback && typeof(callback) === 'function') {
-      callback()
+      if (callback && typeof(callback) === 'function') {
+        callback()
+      }
+
+    },
+
+
+    /**
+     * Show confirmation
+     * @param  {String}   message
+     * @param  {Function} callback [description]
+     */
+    this.confirm = (args, callback) => {
+
+      let params
+
+      const defaultOptions = {
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Delete',
+        confirmButtonColor: '#f27474',
+        width: 720,
+      }
+
+      if (typeof(args) === 'string') {
+        params = _.merge(defaultOptions, {title: args})
+      }
+
+      if (typeof(args) === 'object') {
+        params = _.merge(defaultOptions, args)
+      }
+
+      swal(params).then(callback).catch(swal.noop)
     }
-
-  },
-
-
-  /**
-   * Show confirmation
-   * @param  {String}   message
-   * @param  {Function} callback [description]
-   */
-  this.confirm = (args, callback) => {
-
-    let params
-
-    const defaultOptions = {
-      type: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Delete',
-      confirmButtonColor: '#f27474',
-      width: 720,
-    }
-
-    if (typeof(args) === 'string') {
-      params = _.merge(defaultOptions, { title: args })
-    }
-
-    if (typeof(args) === 'object') {
-      params = _.merge(defaultOptions, args)
-    }
-
-    swal(params).then(callback).catch(swal.noop)
-  }
 }
 
 
@@ -139,23 +139,23 @@ export const swal_error = (res) => {
  * @param url
  * @returns {String}
  */
-export function getParameterByName(name, url) {
+export function getParameterByName (name, url) {
   if (!url) {
-    url = window.location.href;
+    url = window.location.href
   }
-  name = name.replace(/[\[\]]/g, '\\$&');
+  name = name.replace(/[\[\]]/g, '\\$&')
   const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-    results = regex.exec(url);
-  if (!results) return null;
-  if (!results[2]) return '';
-  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    results = regex.exec(url)
+  if (!results) return null
+  if (!results[2]) return ''
+  return decodeURIComponent(results[2].replace(/\+/g, ' '))
 }
 
 export const regional = {
 
-  getCountryList() {
+  getCountryList () {
     return new Promise((resolve, reject) => {
-      axios.get('countries', {params: { per_page: 9999, filter: 'active' }}).then(res => {
+      Axios.get('countries', {params: {per_page: 9999, filter: 'active'}}).then(res => {
         resolve(res.data.data)
       }).catch(err => {
         reject(err)
@@ -163,11 +163,11 @@ export const regional = {
     })
   },
 
-  getProvinceList(countryId) {
+  getProvinceList (countryId) {
     return new Promise((resolve, reject) => {
       if (typeof countryId !== 'number') reject('Invalid countryId')
 
-      axios.get(`provinces/countries/${countryId}`).then(res => {
+      Axios.get(`provinces/countries/${countryId}`).then(res => {
         resolve(res.data.data)
       }).catch(err => {
         reject(err)
@@ -175,11 +175,11 @@ export const regional = {
     })
   },
 
-  getDistrictList(provinceId) {
+  getDistrictList (provinceId) {
     return new Promise((resolve, reject) => {
       if (typeof provinceId !== 'number') reject('Invalid provinceId')
 
-      axios.get(`districts/provinces/${provinceId}`).then(res => {
+      Axios.get(`districts/provinces/${provinceId}`).then(res => {
         resolve(res.data.data)
       }).catch(err => {
         reject(err)
@@ -187,11 +187,11 @@ export const regional = {
     })
   },
 
-  getRegionList(districtId) {
+  getRegionList (districtId) {
     return new Promise((resolve, reject) => {
       if (typeof districtId !== 'number') reject('Invalid districtId')
 
-      axios.get(`regions/districts/${districtId}`).then(res => {
+      Axios.get(`regions/districts/${districtId}`).then(res => {
         resolve(res.data.data)
       }).catch(err => {
         reject(err)

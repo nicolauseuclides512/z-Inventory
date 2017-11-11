@@ -8,7 +8,8 @@
 
             <!-- Hide when one or more checkboxes are checked -->
             <div v-show="!isChecked">
-              <a href="javascript:void(0);" id="filter-menu" class="dropdown-toggle pull-left page-title" data-toggle="dropdown" aria-expanded="false">
+              <a href="javascript:void(0);" id="filter-menu" class="dropdown-toggle pull-left page-title"
+                 data-toggle="dropdown" aria-expanded="false">
                 <h4 :title="'Filter by ' + displayActiveCurrentFilter">
                   {{ displayActiveCurrentFilter }} Contacts <span class="caret"></span>
                 </h4>
@@ -22,25 +23,26 @@
                   <a href="javascript:void(0);" id="filter-by-customer" @click="filterContact('customer')">Customers</a>
                 </li>
                 <!--<li :class="{ active: currentFilter == 'vendor' }">-->
-                  <!--<a href="javascript:void(0);" id="filter-by-vendor" @click="filterContact('vendor')">Vendors</a>-->
+                <!--<a href="javascript:void(0);" id="filter-by-vendor" @click="filterContact('vendor')">Vendors</a>-->
                 <!--</li>-->
                 <!--<li :class="{ active: currentFilter == 'dropshipper' }">-->
-                  <!--<a href="javascript:void(0);" id="filter-by-dropshipper" @click="filterContact('dropshipper')">Dropshippers</a>-->
+                <!--<a href="javascript:void(0);" id="filter-by-dropshipper" @click="filterContact('dropshipper')">Dropshippers</a>-->
                 <!--</li>-->
                 <li class="divider"></li>
                 <!--<li :class="{ active: currentFilter == 'active' }">-->
-                  <!--<a href="javascript:void(0);" id="filter-by-active" @click="filterContact('active')">Active</a>-->
+                <!--<a href="javascript:void(0);" id="filter-by-active" @click="filterContact('active')">Active</a>-->
                 <!--</li>-->
                 <!--<li :class="{ active: currentFilter == 'inactive' }">-->
-                  <!--<a href="javascript:void(0);" id="filter-by-inactive" @click="filterContact('inactive')">Inactive</a>-->
+                <!--<a href="javascript:void(0);" id="filter-by-inactive" @click="filterContact('inactive')">Inactive</a>-->
                 <!--</li>-->
               </ul>
               <div class="pull-right">
                 <router-link :to="{ name: 'contact.create' }" href="javascript:void(0);"
-                   class="btn btn-info waves-light m-b-5" id="create-new">
+                             class="btn btn-info waves-light m-b-5" id="create-new">
                   <span>New </span> <i class="ion-plus"></i>
                 </router-link>
-                <button id="sort-menu" class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown" aria-expanded="false">
+                <button id="sort-menu" class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown"
+                        aria-expanded="false">
                   <i class="fa fa-bars"></i>
                 </button>
                 <ul class="dropdown-menu" role="menu" style="top: 35px;">
@@ -73,14 +75,15 @@
             <div class="col-md-12 col-sm-12 col-xs-12" id="mark_active" v-show="isChecked" style="display: none;">
               <div class="pull-left">
                 <!--<a href="javascript:void(0);"-->
-                   <!--id="mark-as-active"-->
-                   <!--class="btn btn-default waves-effect waves-light m-b-5"-->
-                   <!--@click="markAsActive(checkedContacts)"-->
+                <!--id="mark-as-active"-->
+                <!--class="btn btn-default waves-effect waves-light m-b-5"-->
+                <!--@click="markAsActive(checkedContacts)"-->
                 <!--&gt;-->
-                  <!--Mark as Active-->
+                <!--Mark as Active-->
                 <!--</a>-->
                 <div class="btn-group">
-                  <button id="more-actions" class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown" aria-expanded="false">
+                  <button id="more-actions" class="btn btn-default waves-effect waves-light m-b-5"
+                          data-toggle="dropdown" aria-expanded="false">
                     More Actions <i class="caret"></i>
                   </button>
                   <ul class="dropdown-menu" role="menu">
@@ -170,30 +173,30 @@
 
 <script>
 
-  import Axios from 'axios';
+  import Axios from 'axios'
   import { getParameterByName } from 'src/helpers'
   import _ from 'lodash'
-  import {responseOk} from "../../helpers";
-  import Salutation from "../../helpers/Salutation";
+  import { responseOk } from '../../helpers'
+  import Salutation from '../../helpers/Salutation'
 
   export default {
     name: 'ContactList',
 
     components: {
-      Pagination: require('../Pagination'),
+      Pagination: () => import('../Pagination'),
     },
 
     watch: {
       '$route' (to, from) {
         if (to.query.q) {
-          this.getList({ q: to.query.q})
+          this.getList({q: to.query.q})
         } else {
           this.getList()
         }
-      }
+      },
     },
 
-    data() {
+    data () {
       return {
         contacts: [],
         paginate: {},
@@ -203,46 +206,46 @@
         currentSortColumn: 'display_name',
         ascendingSort: true,
         currentFilter: 'all',
-      };
+      }
     },
 
 
-    mounted() {
-      this.getList();
+    mounted () {
+      this.getList()
     },
 
 
     computed: {
 
-      isChecked() {
+      isChecked () {
         if (_.isEmpty(this.checkedContacts)) {
-          return false;
+          return false
         }
-        return true;
+        return true
       },
 
-      displayActiveCurrentFilter() {
+      displayActiveCurrentFilter () {
         return this.currentFilter.charAt(0).toUpperCase() + this.currentFilter.slice(1)
-      }
+      },
 
     },
 
     methods: {
-      checkAll() {
+      checkAll () {
         if (this.checkedAll === false) {
-          this.checkedAll = true;
+          this.checkedAll = true
           _.each(this.contacts, (item, key) => {
-            this.checkedContacts.push(item.contact_id);
-          });
+            this.checkedContacts.push(item.contact_id)
+          })
         } else {
-          this.clearCheckedContacts();
+          this.clearCheckedContacts()
         }
       },
 
-      clearCheckedContacts() {
+      clearCheckedContacts () {
         document.querySelector('#checkAll').checked = false
-        this.checkedAll = false;
-        this.checkedContacts = [];
+        this.checkedAll = false
+        this.checkedContacts = []
       },
 
 
@@ -250,30 +253,30 @@
        * Get contacts
        * @param  {Object} options  Custom options
        */
-      getList(options = {}) {
+      getList (options = {}) {
         const defaultOptions = {
           page: 1,
           per_page: 15,
           sort: 'display_name.asc',
           filter: 'all',
           q: getParameterByName('q'),
-        };
+        }
 
-        options = _.merge(defaultOptions, options);
+        options = _.merge(defaultOptions, options)
 
-        this.$http.get('contacts', { params: options }).then(res => {
-          if (!responseOk(res.data.code)) return swal_error(res);
+        this.$http.get('contacts', {params: options}).then(res => {
+          if (!responseOk(res.data.code)) return swal_error(res)
 
-          this.contacts = res.data.data;
-          this.paginate = res.data.paginate;
+          this.contacts = res.data.data
+          this.paginate = res.data.paginate
 
         }, res => {
-          return swal_error(res);
-        });
+          return swal_error(res)
+        })
       },
 
 
-      refresh() {
+      refresh () {
         this.getList({
           sort: `${this.currentSortColumn}.${this.ascendingSort ? 'asc' : 'desc' }`,
           filter: this.currentFilter,
@@ -285,24 +288,24 @@
        * Delete multiple contacts
        * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)
        */
-      async destroy(ids) {
+      async destroy (ids) {
         Alert.confirm({
-          title: "Do you really want to delete this contact(s)?",
-          text: "Please don't delete us :'( ",
+          title: 'Do you really want to delete this contact(s)?',
+          text: 'Please don\'t delete us :\'( ',
         }, async () => {
-          const queryString = _.isArray(ids) ? ids.join(',') : ids;
+          const queryString = _.isArray(ids) ? ids.join(',') : ids
 
           try {
-            await Axios.delete('contacts?ids=' + queryString);
-            swal_success(res);
-            this.clearCheckedContacts();
-            this.contacts = [];
-            this.getList();
-          } catch(e) {
-            console.error(e);
-            Alert.error('Failed to delete this contact. Delete all sales orders that contain this contact first.');
+            await Axios.delete('contacts?ids=' + queryString)
+            swal_success(res)
+            this.clearCheckedContacts()
+            this.contacts = []
+            this.getList()
+          } catch (e) {
+            console.error(e)
+            Alert.error('Failed to delete this contact. Delete all sales orders that contain this contact first.')
           }
-        });
+        })
       },
 
 
@@ -310,23 +313,23 @@
        * Mark multiple contacts status to active
        * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)
        */
-      markAsActive(ids) {
-        const payload = _.isArray(ids) ? ids.join(',') : ids;
+      markAsActive (ids) {
+        const payload = _.isArray(ids) ? ids.join(',') : ids
 
-        this.$http.post('contacts/mark_as/active', { ids: payload })
+        this.$http.post('contacts/mark_as/active', {ids: payload})
           .then(res => {
             if (responseOk(res.data.code)) {
-              this.contacts = [];
-              this.getList();
-              this.clearCheckedContacts();
-              this.selectedContact.contact_status = true;
-              swal_success(res);
+              this.contacts = []
+              this.getList()
+              this.clearCheckedContacts()
+              this.selectedContact.contact_status = true
+              swal_success(res)
             } else {
-              swal_error(res);
+              swal_error(res)
             }
           }, res => {
-            swal_error(res);
-          });
+            swal_error(res)
+          })
       },
 
 
@@ -334,75 +337,75 @@
        * Mark multiple contacts status to inactive
        * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)
        */
-      markAsInactive(ids) {
-        const payload = _.isArray(ids) ? ids.join(',') : ids;
+      markAsInactive (ids) {
+        const payload = _.isArray(ids) ? ids.join(',') : ids
 
-        this.$http.post('contacts/mark_as/inactive', { ids: payload })
+        this.$http.post('contacts/mark_as/inactive', {ids: payload})
           .then(res => {
             if (responseOk(res.data.code)) {
-              this.contacts = [];
-              this.getList();
-              this.clearCheckedContacts();
-              this.selectedContact.contact_status = false;
-              swal_success(res);
+              this.contacts = []
+              this.getList()
+              this.clearCheckedContacts()
+              this.selectedContact.contact_status = false
+              swal_success(res)
             } else {
-              swal_error(res);
+              swal_error(res)
             }
           }, res => {
-            swal_error(res);
-          });
+            swal_error(res)
+          })
       },
 
 
-      sortContactsBy(column) {
-        this.currentSortColumn = column;
-        this.ascendingSort = !this.ascendingSort;
+      sortContactsBy (column) {
+        this.currentSortColumn = column
+        this.ascendingSort = !this.ascendingSort
 
         let ascendingSort
         if (this.ascendingSort) {
-          ascendingSort = 'asc';
+          ascendingSort = 'asc'
         } else {
-          ascendingSort = 'desc';
+          ascendingSort = 'desc'
         }
 
         this.getList({
           sort: `${column}.${ascendingSort}`,
           filter: this.currentFilter,
-        });
+        })
       },
 
 
-      filterContact(filter) {
-        this.getList({ filter: filter });
-        this.currentFilter = filter;
+      filterContact (filter) {
+        this.getList({filter: filter})
+        this.currentFilter = filter
       },
 
 
-      updatePagination(data) {
+      updatePagination (data) {
         this.paginate = data.paginate
         this.contacts = data.data
-      }
+      },
 
     },
 
     filters: {
-      display_salutation(salutationId) {
+      display_salutation (salutationId) {
         const salutation = Salutation.byId(salutationId)
         if (typeof salutation !== 'undefined') {
           return salutation.name
         }
-      }
+      },
     },
 
     events: {
 
-      listenSearch(search) {
+      listenSearch (search) {
         this.getList({
           q: search.text,
-        });
+        })
       },
 
 
     },
-  };
+  }
 </script>

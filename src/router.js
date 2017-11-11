@@ -1,7 +1,7 @@
+import Axios from 'axios'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
-import axios from 'axios'
 
 Vue.use(VueRouter)
 
@@ -11,9 +11,9 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes,
   mode: 'history',
-  scrollBehavior(to, from, savedPosition) {
-    return savedPosition || { x: 0, y: 0 }
-  }
+  scrollBehavior (to, from, savedPosition) {
+    return savedPosition || {x: 0, y: 0}
+  },
 })
 
 
@@ -25,11 +25,11 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
 
     // Check if user already authenticated
-    if (! Cookie.get('access_token')) {
-      next({ name: 'auth.login', query: { redirect: to.fullPath } })
+    if (!Cookie.get('access_token')) {
+      next({name: 'auth.login', query: {redirect: to.fullPath}})
     }
 
-    axios.defaults.headers.common['X-Header-Organization-Id'] = Cookie.get('organization_id')
+    Axios.defaults.headers.common['X-Header-Organization-Id'] = Cookie.get('organization_id')
 
   }
 

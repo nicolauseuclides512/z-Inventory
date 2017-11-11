@@ -205,8 +205,8 @@
   export default {
 
     components: {
-      'inline-editable': require('../../Helpers/InlineEditable.vue'),
-      Pagination: require('../../Pagination'),
+      'inline-editable': () => import('../../Helpers/InlineEditable.vue'),
+      Pagination: () => import('../../Pagination'),
     },
 
     watch: {
@@ -345,7 +345,7 @@
 
       toggleChildren (item) {
         if (item.hasOwnProperty('expanded')) {
-          return this.$set(item, 'expanded', ! Boolean(item.expanded))
+          return this.$set(item, 'expanded', !Boolean(item.expanded))
         }
 
         this.$set(item, 'expanded', true)

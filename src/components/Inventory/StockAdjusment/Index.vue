@@ -97,7 +97,7 @@
     name: 'StockAdjustmentIndex',
 
     components: {
-      Pagination: require('@/components/Pagination'),
+      Pagination: () => import('@/components/Pagination'),
     },
 
     data () {

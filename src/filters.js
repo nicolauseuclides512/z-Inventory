@@ -1,6 +1,6 @@
-import Vue from 'vue'
 import Accounting from 'accounting'
 import format from 'date-fns/format'
+import Vue from 'vue'
 
 Vue.filter('money', (value, currency = 'IDR', precision = 2, thousand = '.', decimal = ',', format = '%s%v') => {
   if (typeof value === 'number') {

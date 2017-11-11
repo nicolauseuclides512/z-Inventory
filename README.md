@@ -1,6 +1,4 @@
-# sahito-frontend
-
-> Sahito frontend
+# Zuragan Web App
 
 ## Build Setup
 

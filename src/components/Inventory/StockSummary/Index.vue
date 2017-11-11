@@ -85,7 +85,7 @@
     name: 'StockSummaryIndex',
 
     components: {
-      Pagination: require('@/components/Pagination'),
+      Pagination: () => import('@/components/Pagination'),
     },
 
     data () {

@@ -27,21 +27,21 @@
     name: 'Home',
 
     components: {
-      'nav-top': require('./components/NavTop'),
-      'nav-left': require('./components/NavLeft'),
-      'page-title': require('./components/PageTitle'),
+      'nav-top': () => import('./components/NavTop'),
+      'nav-left': () => import('./components/NavLeft'),
+      'page-title': () => import('./components/PageTitle'),
     },
 
     computed: {
-      sidebarEnlarged() {
+      sidebarEnlarged () {
         return store.state.global.sidebarEnlarged
-      }
+      },
     },
 
     events: {
-      listenSearch(search) {
-        this.$broadcast('listenSearch', search);
+      listenSearch (search) {
+        this.$broadcast('listenSearch', search)
       },
-    }
-  };
+    },
+  }
 </script>

@@ -25,21 +25,21 @@
     name: 'Main',
 
     components: {
-      'nav-top': require('components/NavTop.vue'),
-      'nav-left': require('components/NavLeft.vue'),
-      'page-title': require('components/PageTitle.vue'),
+      'nav-top': () => import('components/NavTop.vue'),
+      'nav-left': () => import('components/NavLeft.vue'),
+      'page-title': () => import('components/PageTitle.vue'),
     },
 
-    data() {
+    data () {
       return {
         sidebarEnlarged: true,
-      };
+      }
     },
 
     events: {
-      listenSearch(search) {
-        this.$broadcast('listenSearch', search);
+      listenSearch (search) {
+        this.$broadcast('listenSearch', search)
       },
-    }
-  };
+    },
+  }
 </script>

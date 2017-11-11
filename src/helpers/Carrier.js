@@ -1,8 +1,8 @@
-import axios from 'axios'
+import Axios from 'axios'
 import Storage from 'store/dist/store.modern'
 
 export default class Carrier {
-  static get() {
+  static get () {
     return new Promise((resolve, reject) => {
       if (Storage.get('carriers')) {
         resolve(Storage.get('carriers'))
@@ -10,7 +10,7 @@ export default class Carrier {
       }
 
       // Fetch new data
-      axios.get(`carriers/list`).then(res => {
+      Axios.get(`carriers/list`).then(res => {
         // Clean up data. We don't need any data such as created_at, created_by, updated_at, etc
         const data = _.cloneDeep(res.data.data)
 
