@@ -2,8 +2,11 @@
   <div class="wrapper-page">
     <div class="panel panel-color panel-primary panel-pages panel-sign-in">
       <div class="panel-heading">
-        <div class="bg-overlay"></div>
-        <h3 class="text-center m-t-10 text-white"> Sign In to <strong>Zuragan</strong></h3>
+        <div class="bg-overlay" style="padding-left:15px; padding-top:15px;">
+          <div class="zuragan-logo-login">
+            <img src="/static/images/zuragan_logo_login.png" height="62" width="125">
+          </div>
+        </div>
       </div>
 
 
