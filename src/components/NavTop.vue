@@ -8,7 +8,7 @@
           id="nav-top-logo"
           class="logo"
         >
-          <img src="/static/images/logo_Zuragan_web.png" height="38" width="38">
+          <img src="/static/images/logo_zuragan_web.png" height="38" width="38">
           <span>Zuragan</span>
         </router-link>
       </div>
