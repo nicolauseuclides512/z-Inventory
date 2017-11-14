@@ -54,7 +54,10 @@
           </ul>
           <div class="pull-right">
             <router-link id="create-new-item" :to="{ name: 'item.create' }" class="btn btn-info waves-light m-b-5">
-              <span>New </span> <i class="ion-plus"></i>
+              <span>Create Item</span> <i class="ion-plus"></i>
+            </router-link>
+            <router-link id="create-new-item-variant" :to="{ name: 'item.create_variant' }" class="btn btn-info waves-light m-b-5">
+              <span>Create Variant Item</span> <i class="ion-plus"></i>
             </router-link>
             <button id="more-action-list" class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown">
               <i class="fa fa-bars"></i>
