@@ -58,13 +58,25 @@ export default [
       {
         path: '/inventory/items/create',
         name: 'item.create',
-        component: () => import('./components/Inventory/Item/Create/Index'),
+        component: () => import('./components/Inventory/Item/Form'),
       },
 
       {
         path: '/inventory/items/:id/edit',
         name: 'item.edit',
-        component: () => import('./components/Inventory/Item/Edit/Index'),
+        component: () => import('./components/Inventory/Item/Form'),
+      },
+
+      {
+        path: '/inventory/items/create_variant',
+        name: 'item.create_variant',
+        component: () => import('./components/Inventory/Item/FormVariant'),
+      },
+
+      {
+        path: '/inventory/items/:id/edit_variant',
+        name: 'item.edit_variant',
+        component: () => import('./components/Inventory/Item/FormVariant'),
       },
 
       /**
