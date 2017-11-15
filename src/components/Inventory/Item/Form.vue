@@ -257,7 +257,17 @@
 
     methods: {
       async init () {
-        const res = await Axios.get(`items/create`)
+        const id = this.$route.params.id
+        let res
+        if (id) {
+          res = await Axios.get(`items/${id}/edit`)
+          this.form = res.data.data.item
+          this.form.images = res.data.data.item.item_medias
+        } else {
+          res = await Axios.get(`items/create`)
+          this.form.uom_id = res.data.data.uoms[0].uom_id
+        }
+
         this.list.uoms = res.data.data.uoms
         this.list.accounts = res.data.data.accounts
         this.list.taxes = res.data.data.taxes
@@ -266,8 +276,6 @@
         this.list.weight_units = res.data.data.weight_units
         this.form.default_weight_unit = res.data.data.default_weight_unit
         this.url = res.data.data.url
-
-        this.form.uom_id = this.list.uoms[0].uom_id
       },
 
       async validate () {
