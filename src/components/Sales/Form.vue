@@ -251,7 +251,6 @@
   import swal from 'sweetalert2'
   import axios from 'axios'
   import store from 'src/store'
-  import vSelect from 'vue-select'
   import Vuelist from '../Vuelist'
   import Vuetagger from '../Vuetagger'
   import { responseOk } from 'src/helpers'
@@ -510,8 +509,15 @@
 
           if (!this.form.due_date) this.form.due_date = this.form.invoice_date;
 
-          const sales_order_id = this.$route.params.id
-          const res = await this.form.post(`sales_orders/${sales_order_id}/update`)
+          let res
+          let sales_order_id = this.$route.params.id
+
+          if (sales_order_id) {
+            res = await this.form.post(`sales_orders/${sales_order_id}/update`)
+          } else {
+            res = await this.form.post(`sales_orders`)
+            sales_order_id = res.data.data.sales_order_id
+          }
 
           const invoice_id = res.data.data.invoices[0].invoice_id
 
