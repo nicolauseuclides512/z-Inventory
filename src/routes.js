@@ -174,13 +174,13 @@ export default [
       {
         path: '/sales/create',
         name: 'sales.create',
-        component: () => import('./components/Sales/Create'),
+        component: () => import('./components/Sales/Form'),
       },
 
       {
         path: '/sales/:id/edit',
         name: 'sales.edit',
-        component: () => import('./components/Sales/Edit'),
+        component: () => import('./components/Sales/Form'),
       },
 
       {
