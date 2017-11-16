@@ -27,7 +27,7 @@
     props: {
       value: {
         type: Array,
-        default: []
+        default: () => []
       },
       pattern: {
         type: String,
