@@ -350,7 +350,6 @@
   import swal from 'sweetalert2'
   import axios from 'axios'
   import store from 'src/store'
-  import vSelect from 'vue-select'
   import Vuelist from '../Vuelist'
   import Vuetagger from '../Vuetagger'
   import { responseOk } from 'src/helpers'
