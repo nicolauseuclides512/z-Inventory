@@ -174,25 +174,13 @@ export default [
       {
         path: '/sales/create',
         name: 'sales.create',
-        component: () => import('./components/Sales/FormSingle'),
+        component: () => import('./components/Sales/Create'),
       },
 
       {
-        path: '/sales/create-variant-item',
-        name: 'sales.create.variant',
-        component: () => import('./components/Sales/FormVariant'),
-      },
-
-      {
-        path: '/sales/edit',
+        path: '/sales/:id/edit',
         name: 'sales.edit',
-        component: () => import('./components/Sales/FormSingle'),
-      },
-
-      {
-        path: '/sales/:id/edit-variant-item',
-        name: 'sales.edit.variant',
-        component: () => import('./components/Sales/FormVariant'),
+        component: () => import('./components/Sales/Edit'),
       },
 
       {
