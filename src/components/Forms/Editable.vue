@@ -16,7 +16,7 @@
       <form @submit.prevent method="POST" class="form-inline editableform">
         <div class="form-group">
           <div class="input-group">
-            <input type="text" class="form-control input-sm" style="padding-right: 24px;" :value="newText" v-model="newText">
+            <input type="text" class="form-control input-sm" style="padding-right: 24px;" v-model="newText">
             <div class="input-group-btn">
               <button @click="done" type="submit" :disabled="doneButton" class="btn btn-success btn-sm waves-effect waves-light"><i class="md md-done"></i></button>
               <button @click="cancel" type="button" class="btn btn-default btn-sm waves-effect waves-light"><i class="md md-clear"></i></button>
