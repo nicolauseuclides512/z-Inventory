@@ -48,7 +48,9 @@
                         <button type="button" class="btn btn-info waves-effect waves-light">Add</button>
                       </div>
                       <div class="col-md-1">
-                        <button type="button" class="btn btn-danger btn-custom waves-effect waves-light m-b-5"><i class="md md-delete"></i></button>
+                        <button type="button" @click="hideFirstVariant" class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
+                          <i class="md md-delete"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -69,7 +71,9 @@
                         <button type="button" class="btn btn-info waves-effect waves-light">Add</button>
                       </div>
                       <div class="col-md-1">
-                        <button type="button" class="btn btn-danger btn-custom waves-effect waves-light m-b-5"><i class="md md-delete"></i></button>
+                        <button type="button" @click="hideSecondVariant" class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
+                          <i class="md md-delete"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -90,7 +94,9 @@
                         <button type="button" class="btn btn-info waves-effect waves-light">Add</button>
                       </div>
                       <div class="col-md-1">
-                        <button type="button" class="btn btn-danger btn-custom waves-effect waves-light m-b-5"><i class="md md-delete"></i></button>
+                        <button type="button" @click="hideThirdVariant" class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
+                          <i class="md md-delete"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -199,15 +205,21 @@
       },
 
       hideFirstVariant () {
-        this.firstVariant.show = false
+        Alert.confirm('Are you sure delete this variant?', () => {
+          this.firstVariant.show = false
+        })
       },
 
       hideSecondVariant () {
-        this.secondVariant.show = false
+        Alert.confirm('Are you sure delete this variant?', () => {
+          this.secondVariant.show = false
+        })
       },
 
       hideThirdVariant () {
-        this.thirdVariant.show = false
+        Alert.confirm('Are you sure delete this variant?', () => {
+          this.thirdVariant.show = false
+        })
       },
 
       addMoreVariant () {
