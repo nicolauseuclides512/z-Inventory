@@ -131,13 +131,13 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                        <td><input type="text" class="form-control form-white" value="T-Shirt-XS-White"></td>
-                        <td><input type="text" class="form-control form-white" value="XS" disabled="disabled"></td>
-                        <td><input type="text" class="form-control form-white" value="White" disabled="disabled"></td>
-                        <td><input type="number" class="form-control form-white" value="7"></td>
-                        <td><input type="text" class="form-control form-white" value="SK893002UX"></td>
-                        <td><input type="number" class="form-control form-white" value="45.000"></td>
+                      <tr v-for="v in list.items">
+                        <td><input type="text" class="form-control form-white" v-model="v.item_name"> </td>
+                        <td><input type="text" class="form-control form-white" v-model="v.item_attributes[firstVariant.name]" disabled="disabled"></td>
+                        <td><input type="text" class="form-control form-white" v-model="v.item_attributes[secondVariant.name]" disabled="disabled"></td>
+                        <td><input type="text" class="form-control form-white" v-model="v.item_attributes[thirdVariant.name]" disabled="disabled"></td>
+                        <td><input type="number" class="form-control form-white" v-model="v.code_sku"></td>
+                        <td><input type="text" class="form-control form-white" v-model="v.sales_rate"></td>
                         <td>
                           <button type="button" class="btn btn-danger btn-custom waves-effect">
                             <i class="ion-trash-b"></i>
@@ -167,6 +167,12 @@
       Vuetagger,
     },
 
+    props: {
+      item: {
+        type: Object
+      }
+    },
+
     data () {
       return {
         showVariant: true,
@@ -182,8 +188,13 @@
             flavour: 'Flavour',
             material: 'Material',
           },
+          items: [],
         },
       }
+    },
+
+    mounted () {
+      this.list.items = this.item.children
     },
 
     methods: {

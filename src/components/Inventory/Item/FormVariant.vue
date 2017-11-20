@@ -137,7 +137,7 @@
       </div>
     </div>
 
-    <Variant></Variant>
+    <Variant :item="form"></Variant>
 
     <div class="float-save">
       <div class="container">
@@ -217,6 +217,7 @@
         url: '',
 
         form: new Form({
+          item_id: null,
           item_name: '',
           description: '',
           sales_rate: 0,
