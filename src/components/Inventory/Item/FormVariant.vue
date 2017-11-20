@@ -137,7 +137,11 @@
       </div>
     </div>
 
-    <Variant :item="form"></Variant>
+    <div v-if="form.item_id">
+      <Variant
+        :item="form"
+      ></Variant>
+    </div>
 
     <div class="float-save">
       <div class="container">
