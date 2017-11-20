@@ -139,7 +139,7 @@
                         <td><input type="number" class="form-control form-white" v-model="v.code_sku"></td>
                         <td><input type="text" class="form-control form-white" v-model="v.sales_rate"></td>
                         <td>
-                          <button type="button" class="btn btn-danger btn-custom waves-effect">
+                          <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
                             <i class="ion-trash-b"></i>
                           </button>
                         </td>
@@ -193,8 +193,8 @@
       }
     },
 
-    mounted () {
-      this.list.items = this.item.children
+    async mounted () {
+      this.list.items = await this.item.children
     },
 
     methods: {
@@ -254,6 +254,10 @@
 
       addVariantTypeValue (value) {
         this.list.currentVariantTypes[value.toLowerCase()].values.push('shoet')
+      },
+
+      async removeItem(item) {
+        this.$emit('remove', item)
       },
 
       removeVariant (variant) {
