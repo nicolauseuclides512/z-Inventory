@@ -144,7 +144,10 @@
                   </a>
                 </td>
                 <td>
-                  <router-link :to="{ name: 'item.edit', params: { id: item.item_id } }">
+                  <router-link v-if="item.children.length" :to="{ name: 'item.edit_variant', params: { id: item.item_id } }">
+                    {{ item.item_name }}
+                  </router-link>
+                  <router-link v-if="!item.children.length" :to="{ name: 'item.edit', params: { id: item.item_id } }">
                     {{ item.item_name }}
                   </router-link>
                 </td>
