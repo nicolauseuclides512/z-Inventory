@@ -140,6 +140,7 @@
     <div v-if="form.item_id">
       <Variant
         :item="form"
+        @remove="deleteChildrenItem"
       ></Variant>
     </div>
 
@@ -326,6 +327,12 @@
 
       clearImages (value) {
         this.form.images = []
+      },
+
+      deleteChildrenItem (item) {
+        Alert.confirm('Are you sure want to delete this item?', () => {
+          console.log(_.cloneDeep(item))
+        })
       },
 
     },
