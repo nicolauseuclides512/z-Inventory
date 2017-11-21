@@ -33,7 +33,7 @@
 
               <div v-if="showVariant" id="mark_active">
 
-                <div>
+                <div v-if="firstVariant.show">
                   <div class="form-horizontal p-5">
                     <div class="form-group">
                       <div class="col-md-3">
@@ -45,9 +45,6 @@
                         <Vuetagger :value="firstVariant.values" @change="changeFirstVariantValues"></Vuetagger>
                       </div>
                       <div class="col-md-1">
-                        <button type="button" class="btn btn-info waves-effect waves-light">Add</button>
-                      </div>
-                      <div class="col-md-1">
                         <button type="button" @click="hideFirstVariant" class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
                         </button>
@@ -56,7 +53,7 @@
                   </div>
                 </div>
 
-                <div>
+                <div v-if="secondVariant.show">
                   <div class="form-horizontal p-5">
                     <div class="form-group">
                       <div class="col-md-3">
@@ -68,9 +65,6 @@
                         <Vuetagger :value="secondVariant.values" @change="changeSecondVariantValues"></Vuetagger>
                       </div>
                       <div class="col-md-1">
-                        <button type="button" class="btn btn-info waves-effect waves-light">Add</button>
-                      </div>
-                      <div class="col-md-1">
                         <button type="button" @click="hideSecondVariant" class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
                         </button>
@@ -79,7 +73,7 @@
                   </div>
                 </div>
 
-                <div>
+                <div v-if="thirdVariant.show">
                   <div class="form-horizontal p-5">
                     <div class="form-group">
                       <div class="col-md-3">
@@ -91,15 +85,18 @@
                         <Vuetagger :value="thirdVariant.values" @change="changeThirdVariantValues"></Vuetagger>
                       </div>
                       <div class="col-md-1">
-                        <button type="button" class="btn btn-info waves-effect waves-light">Add</button>
-                      </div>
-                      <div class="col-md-1">
                         <button type="button" @click="hideThirdVariant" class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
                         </button>
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div class="row">
+                  <button type="button" @click="generateVariant" class="btn btn-info waves-effect waves-light">
+                    Generate Variants
+                  </button>
                 </div>
 
 
@@ -160,6 +157,34 @@
 <script>
   import Vuetagger from '../../Vuetagger'
 
+  function cartesianProductOf () {
+    return _.reduce(arguments, function (a, b) {
+      return _.flatten(_.map(a, function (x) {
+        return _.map(b, function (y) {
+          return x.concat([y])
+        })
+      }), true)
+    }, [[]])
+  }
+
+  //  function cartesian () {
+//    let r = [], arg = arguments, max = arg.length - 1
+//
+//    function helper (arr, i) {
+//      for (let j = 0, l = arg[i].length; j < l; j++) {
+//        let a = arr.slice(0) // clone arr
+//        a.push(arg[i][j])
+//        if (i === max)
+//          r.push(a)
+//        else
+//          helper(a, i + 1)
+//      }
+//    }
+//
+//    helper([], 0)
+//    return r
+//  }
+
   export default {
     name: 'VariantItem',
 
@@ -202,6 +227,69 @@
         this.showVariant = !this.showVariant
       },
 
+      generateVariant () {
+        const cartesian = cartesianProductOf(this.firstVariant.values, this.secondVariant.values, this.thirdVariant.values)
+
+        this.list.items = []
+
+        cartesian.map((item) => {
+
+          let string = ''
+
+          for (let i = 0; i < item.length; i++) {
+            string = string + item[i]
+            if (i < item.length - 1) {
+              string = string + '-'
+            }
+          }
+
+          this.list.items.push({
+            item_name: this.item.item_name + ' ' + string,
+            code_sku: this.item.code_sku,
+            sales_rate: this.item.sales_rate,
+            item_id: this.item.item_id,
+            uom_id: this.item.uom_id,
+            tax_id: this.item.tax_id,
+            weight: this.item.weight,
+            weight_unit: this.item.weight_unit,
+            dimension_l: this.item.dimension_l,
+            dimension_w: this.item.dimension_w,
+            dimension_h: this.item.dimension_h,
+            compare_rate: this.item.compare_rate,
+            track_inventory: this.item.track_inventory,
+            inventory_stock: this.item.inventory_stock,
+            inventory_stock_warning: this.item.inventory_stock_warning,
+            item_status: this.item.item_status,
+            category_id: this.item.category_id,
+            organization_id: this.item.organization_id,
+            parent_id: this.item.parent_id,
+            item_attributes: {
+              color: [item[0]],
+              size: [item[1]],
+              material: [item[2]],
+            },
+            description: this.item.description,
+            barcode: this.item.barcode,
+            page_title: this.item.page_title,
+            meta_description: this.item.meta_description,
+            slug: this.item.slug,
+            visibility: [
+              {
+                online_store: this.item.visibility.online_store
+              }
+            ],
+            tags: "computer",
+            item_type: null
+          })
+
+
+
+        })
+
+        const items = [
+
+        ]
+      },
 
       changeFirstVariantValues (values) {
         this.firstVariant.values = values
