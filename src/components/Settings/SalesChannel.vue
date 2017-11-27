@@ -87,46 +87,11 @@
     </div>
 
     <!-- Sync modal -->
-    <div id="lazada" v-if="ui.showSyncModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: block; padding-right: 8px;">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" @click="syncModalToggle" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title">Synchronize to Marketplace</h4>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-12">
-                <h5 class="title"><center>SELLER CENTER LAZADA</center></h5>
-                <div class="form-horizontal">
-                  <form class="form-horizontal m-t-20" action="index.html">
-                    <div class="form-group">
-                      <div class="col-xs-12">
-                        <input class="form-control input-lg" type="email" required="" placeholder="Email to Log in to Lazada">
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <div class="col-xs-12">
-                        <input class="form-control input-lg" type="Key" required="" placeholder="API Key">
-                      </div>
-                    </div>
-
-                    <div class="form-group text-center m-t-30">
-                      <div class="col-xs-12">
-                        <button type="submit" class="btn btn-primary waves-effect waves-light btn-lg m-b-5">Connect</button>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light btn-lg m-b-5">Disconnect</button>
-                        <button type="submit" class="btn btn-default waves-effect waves-light btn-lg m-b-5">Cancel</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <SalesChannelModal
+      v-if="ui.showSyncModal"
+      :show="ui.showSyncModal"
+      @close="ui.showSyncModal = false"
+    ></SalesChannelModal>
 
   </div>
 </template>
@@ -134,9 +99,14 @@
 <script>
   import Axios from 'axios'
   import Form from '@/helpers/Form'
+  import SalesChannelModal from './SalesChannelModal'
 
   export default {
     name: 'SalesChannel',
+
+    components: {
+      SalesChannelModal,
+    },
 
     data () {
       return {
