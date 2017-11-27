@@ -568,6 +568,8 @@
 
           this.dirtyForm = false
           this.saving = false
+
+          this.$router.push({name: 'contact.edit', params: {id: res.data.data.contact_id}})
         }
         catch(err) {
           this.saving = false
