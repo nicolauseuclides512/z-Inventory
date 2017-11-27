@@ -81,6 +81,8 @@
 
     async mounted () {
       const res = await Axios.get('integration/lazada/api-config')
+      this.form.email = res.data.data.email
+      this.form.api_key = res.data.data.api_key
     },
 
     methods: {
