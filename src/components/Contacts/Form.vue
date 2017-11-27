@@ -332,8 +332,11 @@
       <div class="container">
         <div class="clearfix">
           <div class="pull-right">
-            <button type="submit" :disabled="saving" class="btn btn-primary waves-effect waves-light">
+            <button v-if="!saving" type="submit" :disabled="saving" class="btn btn-primary waves-effect waves-light">
               Save
+            </button>
+            <button v-if="saving" type="submit" :disabled="saving" class="btn btn-default waves-effect waves-light">
+              <i class="fa fa-spin fa-spinner"></i> Saving ...
             </button>
           </div>
           <div class="pull-left">
@@ -558,12 +561,16 @@
             url = `contacts`
           }
 
+          this.saving = true
+
           const res = await this.form.post(url)
           swal_success(res)
 
           this.dirtyForm = false
+          this.saving = false
         }
         catch(err) {
+          this.saving = false
           console.error(err)
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
