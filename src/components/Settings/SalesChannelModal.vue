@@ -19,14 +19,24 @@
                 <form class="form-horizontal m-t-20" action="index.html">
                   <div class="form-group">
                     <div class="col-xs-12">
-                      <input class="form-control input-lg" type="email" required=""
-                             placeholder="Email to Log in to Lazada">
+                      <input
+                        v-model="form.email"
+                        type="email"
+                        class="form-control input-lg"
+                        required
+                        placeholder="Email to Log in to Lazada">
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="col-xs-12">
-                      <input class="form-control input-lg" type="Key" required="" placeholder="API Key">
+                      <input
+                        v-model="form.api_key"
+                        type="text"
+                        class="form-control input-lg"
+                        required
+                        placeholder="API Key"
+                      />
                     </div>
                   </div>
 
@@ -92,6 +102,17 @@
 
       async connect () {
         try {
+
+          if (!this.form.email || !this.form.api_key) {
+            Alert.error('Please fill the email and API key')
+            return
+          }
+
+          if (!/\w@.+/.test(this.form.email)) {
+            Alert.error('Invalid email address')
+            return
+          }
+
           const res = this.form.post('integration/lazada/api-config')
           swal_success(res)
           this.close()
