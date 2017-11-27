@@ -184,6 +184,8 @@
         try {
           const res = await Axios.post(`my_channels`, this.form)
           await this.salesChannel()
+          this.form.sales_channel_id = null
+          this.form.store_name = ''
           Alert.success('New channel has been created')
         }
         catch (err) {
