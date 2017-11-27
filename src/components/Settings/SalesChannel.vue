@@ -133,7 +133,9 @@
 
       async salesChannelResource () {
         const res = await Axios.get(`my_channels/create`)
-        this.list.channel_resources = res.data.data.channels
+        const channel_resources = res.data.data.channels
+        const sortedData = _.sortBy(channel_resources, ['channel_name'])
+        this.list.channel_resources = sortedData
       },
 
       async salesChannel (params = {}) {
