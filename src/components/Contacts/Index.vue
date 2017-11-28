@@ -296,7 +296,7 @@
           const queryString = _.isArray(ids) ? ids.join(',') : ids
 
           try {
-            await Axios.delete('contacts?ids=' + queryString)
+            const res = await Axios.delete('contacts?ids=' + queryString)
             swal_success(res)
             this.clearCheckedContacts()
             this.contacts = []
