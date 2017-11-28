@@ -563,7 +563,17 @@
 
           this.saving = true
 
-          const res = await this.form.post(url)
+          const data = _.cloneDeep(this.form)
+          delete data['originalData']
+          delete data['errors']
+
+          // This is weird. But I must convert Boolean to String to make it work.
+          data.is_customer = String(this.form.is_customer)
+          data.is_reseller = String(this.form.is_reseller)
+          data.is_vendor = String(this.form.is_vendor)
+          data.is_dropshipper = String(this.form.is_dropshipper)
+
+          const res = await Axios.post(url, data)
           swal_success(res)
 
           this.dirtyForm = false
