@@ -6,30 +6,30 @@
           <h5 class="title">Variant</h5>
           <div class="form-horizontal">
             <div class="col-md-12">
-              <div class="form-group">
-                <div class="toggles-dropship">
-                  <label>Add Variants?</label>
-                  <div @click="toggleVariant"
-                       class="toggle toggle-default"
-                       id="variant_button"
-                       ref="variant_button"
-                       style="height: 20px; width: 65px;">
-                    <div :class="{ 'toggle-slide': true, active: showVariant }">
-                      <div class="toggle-inner" :style="{ width: '80px', 'margin-left': !showVariant ? '-31px' : 0 }">
-                        <div :class="{ 'toggle-on': true, active: showVariant }"
-                             style="height: 20px; width: 40px; text-align: center; text-indent: -10px; line-height: 20px;">
-                          ON
-                        </div>
-                        <div class="toggle-blob" style="height: 20px; width: 20px; margin-left: -10px;"></div>
-                        <div :class="{ 'toggle-off': true, active: !showVariant }"
-                             style="height: 20px; width: 40px; margin-left: -10px; text-align: center; text-indent: 10px; line-height: 20px;">
-                          OFF
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <!--<div class="form-group">-->
+                <!--<div class="toggles-dropship">-->
+                  <!--<label>Add Variants?</label>-->
+                  <!--<div @click="toggleVariant"-->
+                       <!--class="toggle toggle-default"-->
+                       <!--id="variant_button"-->
+                       <!--ref="variant_button"-->
+                       <!--style="height: 20px; width: 65px;">-->
+                    <!--<div :class="{ 'toggle-slide': true, active: showVariant }">-->
+                      <!--<div class="toggle-inner" :style="{ width: '80px', 'margin-left': !showVariant ? '-31px' : 0 }">-->
+                        <!--<div :class="{ 'toggle-on': true, active: showVariant }"-->
+                             <!--style="height: 20px; width: 40px; text-align: center; text-indent: -10px; line-height: 20px;">-->
+                          <!--ON-->
+                        <!--</div>-->
+                        <!--<div class="toggle-blob" style="height: 20px; width: 20px; margin-left: -10px;"></div>-->
+                        <!--<div :class="{ 'toggle-off': true, active: !showVariant }"-->
+                             <!--style="height: 20px; width: 40px; margin-left: -10px; text-align: center; text-indent: 10px; line-height: 20px;">-->
+                          <!--OFF-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
 
               <div v-if="showVariant" id="mark_active">
 
