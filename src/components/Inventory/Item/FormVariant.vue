@@ -139,9 +139,15 @@
 
     <div v-if="form.item_id">
       <Variant
+        v-if="!$route.params.id"
         :item="form"
         @remove="deleteChildrenItem"
       ></Variant>
+      <VariantList
+        v-if="$route.params.id"
+        :item="form"
+        @remove="deleteChildrenItem"
+      ></VariantList>
     </div>
 
     <div class="float-save">
@@ -189,12 +195,13 @@
   import Form from 'src/helpers/Form'
   import ImageUpload from './ImageUpload'
   import Variant from './Variant'
+  import VariantList from './VariantList'
 
   export default {
     name: 'Form',
 
     components: {
-      ImageUpload, Variant,
+      ImageUpload, Variant, VariantList,
     },
 
     beforeRouteLeave (to, from, next) {
