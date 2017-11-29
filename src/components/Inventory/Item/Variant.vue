@@ -94,6 +94,11 @@
                 </div>
 
                 <div class="row">
+                  <button
+                    v-if="!firstVariant.show || !secondVariant.show || !thirdVariant.show"
+                    type="button" @click="addMoreVariant" class="btn btn-info waves-effect waves-light">
+                    Add more variant
+                  </button>
                   <button type="button" @click="generateVariant" class="btn btn-info waves-effect waves-light">
                     Generate Variants
                   </button>
@@ -119,9 +124,9 @@
                       <thead>
                       <tr>
                         <td>Item Name</td>
-                        <td>{{ firstVariant.name }}</td>
-                        <td>{{ secondVariant.name }}</td>
-                        <td>{{ thirdVariant.name }}</td>
+                        <td v-if="firstVariant.show">{{ firstVariant.name }}</td>
+                        <td v-if="secondVariant.show">{{ secondVariant.name }}</td>
+                        <td v-if="thirdVariant.show">{{ thirdVariant.name }}</td>
                         <td>SKU</td>
                         <td>Price</td>
                         <td></td>
@@ -130,9 +135,9 @@
                       <tbody>
                       <tr v-for="v in list.items">
                         <td><input type="text" class="form-control form-white" v-model="v.item_name"> </td>
-                        <td><input type="text" class="form-control form-white" v-model="v.item_attributes[firstVariant.name]" disabled="disabled"></td>
-                        <td><input type="text" class="form-control form-white" v-model="v.item_attributes[secondVariant.name]" disabled="disabled"></td>
-                        <td><input type="text" class="form-control form-white" v-model="v.item_attributes[thirdVariant.name]" disabled="disabled"></td>
+                        <td v-if="firstVariant.show"><input type="text" class="form-control form-white" v-model="v.item_attributes[firstVariant.name]" disabled="disabled"></td>
+                        <td v-if="secondVariant.show"><input type="text" class="form-control form-white" v-model="v.item_attributes[secondVariant.name]" disabled="disabled"></td>
+                        <td v-if="thirdVariant.show"><input type="text" class="form-control form-white" v-model="v.item_attributes[thirdVariant.name]" disabled="disabled"></td>
                         <td><input type="number" class="form-control form-white" v-model="v.code_sku"></td>
                         <td><input type="text" class="form-control form-white" v-model="v.sales_rate"></td>
                         <td>
@@ -202,9 +207,9 @@
       return {
         showVariant: true,
 
-        firstVariant: { name: 'color', values: ['red', 'green', 'blue'], show: true },
-        secondVariant: { name: 'size', values: ['M', 'L', 'XL'], show: true },
-        thirdVariant: { name: 'material', values: ['Wood', 'Steel'], show: true },
+        firstVariant: { name: 'color', show: true, values: ['red', 'green', 'blue']},
+        secondVariant: { name: 'size', show: true, values: ['s', 'm', 'l', 'xl']},
+        thirdVariant: { name: 'material', show: true, values: ['wood', 'water', 'air', 'fire']},
 
         list: {
           variants: {
@@ -303,27 +308,45 @@
         this.thirdVariant.values = values
       },
 
+
       hideFirstVariant () {
-        Alert.confirm('Are you sure delete this variant?', () => {
-          this.firstVariant.show = false
-        })
+        if (!this.secondVariant.show && !this.thirdVariant.show) {
+          return
+        }
+        this.firstVariant.values = []
+        this.firstVariant.show = false
       },
 
       hideSecondVariant () {
-        Alert.confirm('Are you sure delete this variant?', () => {
-          this.secondVariant.show = false
-        })
+        if (!this.firstVariant.show && !this.thirdVariant.show) {
+          return
+        }
+        this.secondVariant.values = []
+        this.secondVariant.show = false
       },
 
       hideThirdVariant () {
-        Alert.confirm('Are you sure delete this variant?', () => {
-          this.thirdVariant.show = false
-        })
+        if (!this.firstVariant.show && !this.secondVariant.show) {
+          return
+        }
+        this.thirdVariant.values = []
+        this.thirdVariant.show = false
       },
 
       addMoreVariant () {
-        if (this.list.currentVariantTypes.length < 3) {
-          this.list.currentVariantTypes.push({name: '', values: []})
+        if (!this.firstVariant.show) {
+          this.firstVariant.show = true
+          return
+        }
+
+        if (!this.secondVariant.show) {
+          this.secondVariant.show = true
+          return
+        }
+
+        if (!this.thirdVariant.show) {
+          this.thirdVariant.show = true
+          return
         }
       },
 
