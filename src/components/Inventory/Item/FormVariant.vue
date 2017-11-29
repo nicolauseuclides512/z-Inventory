@@ -231,6 +231,7 @@
         form: new Form({
           item_id: null,
           item_name: '',
+          children: [],
           description: '',
           sales_rate: 0,
           compare_rate: 0,
@@ -338,7 +339,8 @@
 
       deleteChildrenItem (item) {
         Alert.confirm('Are you sure want to delete this item?', () => {
-          console.log(_.cloneDeep(item))
+          const index = this.form.children.indexOf(this.form.children)
+          this.form.children.splice(index, 1)
         })
       },
 
