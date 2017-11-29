@@ -247,7 +247,7 @@
             online_store: true,
           },
           tax_id: 1,
-          item_attributes: '',
+          item_attributes: [],
           parent_id: null,
           item_status: '',
           images: [],
