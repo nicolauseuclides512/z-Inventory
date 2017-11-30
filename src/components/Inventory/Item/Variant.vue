@@ -207,9 +207,9 @@
       return {
         showVariant: true,
 
-        firstVariant: { name: 'color', show: true, values: ['red', 'green', 'blue']},
-        secondVariant: { name: 'size', show: true, values: ['s', 'm', 'l', 'xl']},
-        thirdVariant: { name: 'material', show: true, values: ['wood', 'water', 'air', 'fire']},
+        firstVariant: { name: 'color', show: true, values: []},
+        secondVariant: { name: 'size', show: true, values: []},
+        thirdVariant: { name: 'material', show: true, values: []},
 
         list: {
           variants: {
