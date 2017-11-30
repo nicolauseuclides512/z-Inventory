@@ -162,8 +162,8 @@
 <script>
   import Vuetagger from '../../Vuetagger'
 
-  function cartesianProductOf () {
-    return _.reduce(arguments, function (a, b) {
+  function cartesianProductOf (args) {
+    return _.reduce(args, function (a, b) {
       return _.flatten(_.map(a, function (x) {
         return _.map(b, function (y) {
           return x.concat([y])
@@ -233,7 +233,20 @@
       },
 
       generateVariant () {
-        const cartesian = cartesianProductOf(this.firstVariant.values, this.secondVariant.values, this.thirdVariant.values)
+
+        let variants = []
+
+        if (this.firstVariant.values.length && this.firstVariant.show) {
+          variants.push(this.firstVariant.values)
+        }
+        if (this.secondVariant.values.length && this.secondVariant.show) {
+          variants.push(this.secondVariant.values)
+        }
+        if (this.thirdVariant.values.length && this.thirdVariant.show) {
+          variants.push(this.thirdVariant.values)
+        }
+
+        const cartesian = cartesianProductOf(variants)
 
         this.list.items = []
 
@@ -246,6 +259,24 @@
             if (i < item.length - 1) {
               string = string + '-'
             }
+          }
+
+          const firstVariantName = this.firstVariant.name.toLowerCase()
+          const secondVariantName = this.secondVariant.name.toLowerCase()
+          const thirdVariantName = this.thirdVariant.name.toLowerCase()
+
+          const attributes = {}
+
+          if (this.firstVariant.values.length && this.firstVariant.show) {
+            attributes[firstVariantName] = [item[0]]
+          }
+
+          if (this.secondVariant.values.length && this.secondVariant.show) {
+            attributes[secondVariantName] = [item[1]]
+          }
+
+          if (this.thirdVariant.values.length && this.thirdVariant.show) {
+            attributes[thirdVariantName] = [item[2]]
           }
 
           this.list.items.push({
@@ -268,11 +299,7 @@
             category_id: this.item.category_id,
             organization_id: this.item.organization_id,
             parent_id: this.item.parent_id,
-            item_attributes: {
-              color: [item[0]],
-              size: [item[1]],
-              material: [item[2]],
-            },
+            item_attributes: attributes,
             description: this.item.description,
             barcode: this.item.barcode,
             page_title: this.item.page_title,
