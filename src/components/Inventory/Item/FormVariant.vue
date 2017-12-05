@@ -138,16 +138,17 @@
     </div>
 
     <div v-if="form.item_id">
+      <VariantList
+        :item="form"
+        @remove="deleteChildrenItem"
+      ></VariantList>
+    </div>
+    <div v-else>
       <Variant
         v-if="!$route.params.id"
         :item="form"
         @remove="deleteChildrenItem"
       ></Variant>
-      <VariantList
-        v-if="$route.params.id"
-        :item="form"
-        @remove="deleteChildrenItem"
-      ></VariantList>
     </div>
 
     <div class="float-save">
