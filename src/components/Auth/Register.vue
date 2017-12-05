@@ -646,6 +646,7 @@
                 :disabled="loading"
               />
               <div v-if="errors.organization_name" class="help-block alert alert-danger">{{ errors.organization_name }}</div>
+              <div v-if="errors.organization_portal" class="help-block alert alert-danger">{{ errors.organization_portal }}</div>
             </div>
 
             <!--<div class="form-group">-->
@@ -828,6 +829,10 @@
           const res = await store.dispatch('registration/register')
 
           if (!responseOk(res.data.code)) {
+
+            if (res.data.hasOwnProperty('message') && res.data.message.hasOwnProperty('organization_portal')) {
+              this.errors.organization_portal = res.data.message.organization_portal[0]
+            }
 
             if (res.data.hasOwnProperty('message') && res.data.message.hasOwnProperty('organization_name')) {
               this.errors.organization_name = res.data.message.organization_name[0]
