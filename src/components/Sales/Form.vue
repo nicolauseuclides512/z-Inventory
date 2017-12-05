@@ -512,6 +512,12 @@
           let res
           let sales_order_id = this.$route.params.id
 
+          if (evt.target.dataset.value === 'save_as_draft') {
+            this.form.is_draft = 1
+          } else {
+            this.form.is_draft = 0
+          }
+
           if (sales_order_id) {
             res = await this.form.post(`sales_orders/${sales_order_id}/update`)
           } else {
@@ -520,10 +526,6 @@
           }
 
           const invoice_id = res.data.data.invoices[0].invoice_id
-
-          if (evt.target.dataset.value !== 'save_as_draft') {
-            await axios.get(`sales_orders/${sales_order_id}/invoices/${invoice_id}/mark_as_sent`)
-          }
 
           switch (evt.target.dataset.value) {
 
