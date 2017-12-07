@@ -57,12 +57,6 @@ const actions = {
 
     commit('sales/PAYMENT_METHOD_LIST', res.data.data.payment_method, {root: true})
 
-    commit('PAYMENT_METHOD_DETAIL',
-      // state.paymentMethodDetail.filter(item => {
-      //   return item.mode_id === 1
-      // })
-    )
-
     // this.form.payment.currency = res.data.data.currencies.currency_id
     // this.form.payment.amount = res.data.data.total_payment
 
