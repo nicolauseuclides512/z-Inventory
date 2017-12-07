@@ -10,8 +10,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import Select2 from './directives'
-Vue.use(Select2)
+// import Select2 from './directives'
+// Vue.use(Select2)
 
 Vue.config.productionTip = false
 
