@@ -279,7 +279,7 @@
       destroy(user) {
         Alert.confirm({
           title: "Are you sure delete this user?",
-          text: "Please don't delete me :'( ",
+          text: "",
         }, () => {
           const url = BASE_URL + '/user/' + user.user_id;
 

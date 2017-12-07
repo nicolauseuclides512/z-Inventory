@@ -109,7 +109,7 @@ const actions = {
 
     Alert.confirm({
       title: 'Are you sure want to remove this contact?',
-      text: 'Please don\'t delete me :\'( ',
+      text: '',
     }, () => {
       const url = `organizations/${orgId}/contacts/` + contact.id
       axios.delete(url).then(res => {

@@ -103,7 +103,7 @@ const actions = {
 
     Alert.confirm({
       title: 'Are you sure delete this data?',
-      text: 'Please don\'t delete me :\'( ',
+      text: '',
     }, () => {
 
       axios.delete(`settings/payments/remove_detail?id=` + payment_detail.account_id).then(res => {

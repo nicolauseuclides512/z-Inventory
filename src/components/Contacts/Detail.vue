@@ -568,7 +568,7 @@
       destroy (ids) {
         Alert.confirm({
           title: 'Do you really want to delete this contact(s)?',
-          text: 'Please don\'t delete us :\'( ',
+          text: '',
         }, () => {
           const queryString = _.isArray(ids) ? ids.join(',') : ids
 
