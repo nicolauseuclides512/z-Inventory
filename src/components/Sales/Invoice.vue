@@ -215,19 +215,19 @@
 
         const countries = await Regional.countryList();
         const country = await countries.find(item => item.id === res.data.data.country_id);
-        this.company_country = has(country, 'name') ? country.name : '';
+        this.company_country = country && has(country, 'name') ? country.name : '';
 
         const provinces = await Regional.provinceList(res.data.data.country_id);
         const province = await provinces.find(item => item.id === res.data.data.province_id);
-        this.company_province = has(province, 'name') ? province.name : '';
+        this.company_province = province && has(province, 'name') ? province.name : '';
 
         const districts = await Regional.districtList(res.data.data.province_id);
         const district = await districts.find(item => item.id === res.data.data.district_id);
-        this.company_district = has(district, 'name') ? district.name : '';
+        this.company_district = district && has(district, 'name') ? district.name : '';
 
         const regions = await Regional.regionList(res.data.data.district_id);
         const region = await regions.find(item => item.id === res.data.data.region_id);
-        this.company_region = has(region, 'name') ? region.name : '';
+        this.company_region = region && has(region, 'name') ? region.name : '';
       },
 
       async getBuyerinfo() {
