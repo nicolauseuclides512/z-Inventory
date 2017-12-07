@@ -50,7 +50,7 @@
               <label class="col-md-2 control-label text-left text-danger">SKU</label>
               <div class="col-md-3">
                 <input v-model="form.code_sku" type="text" min="0" placeholder="" required="required"
-                       class="form-control">
+                       class="form-control" maxlength="15">
               </div>
             </div>
             <div class="form-group form-general m-b-20">
