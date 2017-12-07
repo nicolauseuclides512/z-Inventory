@@ -1,7 +1,22 @@
 <template>
   <div>
     <!-- Full list -->
-    <div>
+
+    <div v-if="!contacts.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
+      <i class="fa fa-5x fa-address-book"></i>
+      <div class="lead" style="padding: 30px 0 5px;">
+        <small>You haven't made any contact yet. </small><br>
+        Add your first contact!
+      </div>
+      <div>
+        <router-link :to="{ name: 'contact.create' }" href="javascript:void(0);"
+                     class="btn btn-info waves-light m-b-5" id="create-new">
+          <span>New </span> <i class="ion-plus"></i>
+        </router-link>
+      </div>
+    </div>
+
+    <div v-if="contacts.length">
       <div class="container full-width-header bt-1 p-b-10">
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
