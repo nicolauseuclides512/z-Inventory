@@ -26,7 +26,7 @@
         <!---->
         <!--</dropdown-menu>-->
 
-        <dropdown-menu title="Items" icon="ion-folder">
+        <dropdown-menu title="Items" icon="fa fa-archive">
           <router-link tag="li" :to="{ name: 'item.index' }">
             <a class="waves-effect waves-light">Item List</a>
           </router-link>
