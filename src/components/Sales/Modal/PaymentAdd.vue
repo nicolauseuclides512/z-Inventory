@@ -25,7 +25,7 @@
                     <input type="text" v-model="form.date" class="flatpickr">
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group row">
                   <label class="col-md-3 control-label">Payment Mode</label>
                   <div class="col-md-4">
                     <select v-model="form.payment_mode_id" class="form-control"
@@ -35,6 +35,11 @@
                       </option>
                     </select>
                   </div>
+                  <small v-if="!payment_method_list" class="col-md-11 col-md-offset-1 alert-warning" style="padding: 3px;">
+                    You don't have any payment method.
+                    <a href="#" @click.prevent="gotoPaymentSettings">Click here to add a payment method</a>
+                    .
+                  </small>
                 </div>
                 <div class="form-group" v-if="form.payment_mode_id === 1">
                   <label class="col-md-3 control-label">Deposit To</label>
@@ -275,6 +280,12 @@
           this.paymentMethodList_details = details[0]
         }
       },
+
+      gotoPaymentSettings () {
+        $('#payment-modal-add').modal('hide')
+        this.$router.push({ name: 'settings.payment' })
+      }
+
     }
   }
 </script>
