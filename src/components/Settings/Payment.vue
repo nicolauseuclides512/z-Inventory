@@ -69,12 +69,12 @@
                       required
                     />
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-md-12" style="padding-top: 10px;">
                     <button
                       type="submit"
                       class="btn btn-info waves-effect waves-light"
                       :disabled="!account_name"
-                    >Add
+                    > Add
                     </button>
                   </div>
                 </div>
@@ -83,7 +83,7 @@
           </div>
         </div>
 
-        <div>
+        <div v-if="list.my_banks.length">
           <h4>Your current payment method list</h4>
           <div v-for="bank in list.my_banks">
             <div class="row" style="padding: 8px; margin: 4px 0; background: #f9f9f9;">
