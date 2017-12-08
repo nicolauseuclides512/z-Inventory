@@ -212,11 +212,15 @@
         thirdVariant: { name: 'material', show: true, values: []},
 
         list: {
+          // Backend haven't have any asset variant yet
           variants: {
-            size: 'Size',
+            capacity: 'Capacity',
             color: 'Color',
             flavour: 'Flavour',
             material: 'Material',
+            model: 'Model',
+            series: 'Series',
+            size: 'Size',
           },
           items: [],
         },
