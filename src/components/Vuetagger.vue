@@ -93,6 +93,7 @@
         })
 
         if (duplicate) {
+          this.$emit('duplicate', false)
 //          this.$emit('change', false)
           return
         }

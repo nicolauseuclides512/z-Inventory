@@ -42,7 +42,10 @@
                         </select>
                       </div>
                       <div class="col-md-7">
-                        <Vuetagger :value="firstVariant.values" @change="changeFirstVariantValues"></Vuetagger>
+                        <Vuetagger
+                          :value="firstVariant.values"
+                          @change="changeFirstVariantValues"
+                        ></Vuetagger>
                       </div>
                       <div class="col-md-1">
                         <button type="button" @click="hideFirstVariant" class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
