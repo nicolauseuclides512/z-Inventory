@@ -207,7 +207,7 @@
         const orgId = Cookie.get('organization_id');
         const url = `organizations/${orgId}`;
         const res = await Axios.get(url);
-        this.logo = res.data.data.multi_res_logo ? res.data.data.multi_res_logo.small : '';
+        this.logo = res.data.data.multi_res_logo ? res.data.data.multi_res_logo.small : this.logo;
 
         this.company_name = res.data.data.name;
         this.company_address = res.data.data.address;
