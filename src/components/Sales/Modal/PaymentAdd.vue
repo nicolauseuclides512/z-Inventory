@@ -37,11 +37,10 @@
                   </div>
                   <small v-if="!payment_method_list" class="col-md-11 col-md-offset-1 alert-warning" style="padding: 3px;">
                     You don't have any payment method.
-                    <a href="#" @click.prevent="gotoPaymentSettings">Click here to add a payment method</a>
-                    .
+                    <a href="#" @click.prevent="gotoPaymentSettings">Click here to add a payment method</a>.
                   </small>
                 </div>
-                <div class="form-group" v-if="form.payment_mode_id === 1">
+                <div class="form-group row" v-if="form.payment_mode_id === 1">
                   <label class="col-md-3 control-label">Deposit To</label>
                   <div class="col-md-6">
                     <select v-model="form.payment_account_id" class="form-control">
@@ -51,6 +50,10 @@
                       </option>
                     </select>
                   </div>
+                  <small v-if="!payment_method_details.length" class="col-md-11 col-md-offset-1 alert-warning" style="padding: 3px;">
+                    You don't have any bank on the list.
+                    <a href="#" @click.prevent="gotoPaymentSettings">Click here to add a bank</a>.
+                  </small>
                 </div>
                 <div class="form-group">
                   <label class="col-md-3 control-label">Reference#</label>
