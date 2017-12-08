@@ -127,9 +127,9 @@
                       <thead>
                       <tr>
                         <td>Item Name</td>
-                        <td v-if="firstVariant.show">{{ firstVariant.name }}</td>
-                        <td v-if="secondVariant.show">{{ secondVariant.name }}</td>
-                        <td v-if="thirdVariant.show">{{ thirdVariant.name }}</td>
+                        <td v-if="firstVariant.show">{{ firstVariant.name | capitalize }}</td>
+                        <td v-if="secondVariant.show">{{ secondVariant.name | capitalize }}</td>
+                        <td v-if="thirdVariant.show">{{ thirdVariant.name | capitalize }}</td>
                         <td>SKU</td>
                         <td>Price</td>
                         <td></td>
