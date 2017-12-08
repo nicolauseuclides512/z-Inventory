@@ -95,6 +95,8 @@
   import PaymentMethodList from '../../../helpers/PaymentMethodList'
   import Form from '../../../helpers/Form'
 
+  const Flatpickr = require('flatpickr').default
+
   export default {
     name: 'SalesOrderModalPayment',
 
@@ -151,6 +153,13 @@
     mounted() {
       this.initialize()
 //      store.dispatch('sales/payment/getPaymentMethodModeList')
+
+      $('.flatpickr').flatpickr({
+        defaultDate: new Date(),
+        dateFormat: 'Y-m-d',
+        altFormat: 'j M Y',
+        altInput: true,
+      })
     },
 
 

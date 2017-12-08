@@ -59,6 +59,7 @@
   import dateFormat from 'date-fns/format'
   import {responseOk} from "src/helpers";
   import {Alert} from "../../../helpers";
+  const Flatpickr = require('flatpickr').default
 
   export default {
     name: 'SalesOrderModalShipment',
@@ -93,6 +94,13 @@
 
     mounted() {
       this.getCarriers()
+
+      $('.flatpickr').flatpickr({
+        defaultDate: new Date(),
+        dateFormat: 'Y-m-d',
+        altFormat: 'j M Y',
+        altInput: true,
+      })
     },
 
     methods: {

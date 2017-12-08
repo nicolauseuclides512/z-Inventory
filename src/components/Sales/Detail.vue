@@ -395,8 +395,6 @@
   import Pagination from '../Pagination.vue'
   import { swal_success } from 'helpers'
 
-  const Flatpickr = require('flatpickr')
-
   export default {
 
     name: 'Detail',
@@ -444,13 +442,6 @@
 
       // If shipment exists, disable create shipment button
       this.fetchShipmentData()
-
-      // Transform some elements to Flatpickr
-      const dateConfig = {
-        defaultDate: new Date(),
-        dateFormat: 'Y-m-d',
-      }
-      $('.flatpickr').flatpickr(dateConfig)
 
       if (!_.isEmpty(this.$route.query.state) && this.$route.query.state == 'pay') {
         this.showModalPayment()
