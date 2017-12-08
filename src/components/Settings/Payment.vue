@@ -238,8 +238,23 @@
        * @param payment_detail
        */
       async remove(payment_detail) {
-        await store.dispatch('settings/payment/remove', payment_detail)
-        await this.get_my_banks();
+        Alert.confirm({
+          title: 'Are you sure delete this data?',
+          text: '',
+        }, async () => {
+          try {
+            const res = await Axios.delete(`settings/payments/remove_detail?id=${payment_detail.account_id}`)
+
+            const index = this.list.my_banks.indexOf(payment_detail)
+            this.list.my_banks.splice(index, 1)
+
+            await this.get_my_banks();
+            swal_success(res)
+          }
+          catch (err) {
+            console.error(err)
+          }
+        })
       },
 
       /**
