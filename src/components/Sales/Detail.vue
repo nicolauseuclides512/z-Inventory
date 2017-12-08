@@ -3,20 +3,25 @@
     <iframe id="iframe-print" src="about:blank" style="display: none"></iframe>
 
     <!-- Payment Modal -->
-    <payment-add-modal @success="refreshCurrentSalesOrderData"></payment-add-modal>
-    <!--<payment-edit-modal-->
-    <!--:payment="form.payment"-->
-    <!--:payment_method_list="paymentMethodList"-->
-    <!--:payment_method_details="paymentMethodList_details"-->
-    <!--&gt;</payment-edit-modal>-->
-    <!-- \Payment Modal -->
+
+    <PaymentAddModal @success="refreshCurrentSalesOrderData"></PaymentAddModal>
+
+    <!--<PaymentEditModal-->
+      <!--:payment="form.payment"-->
+      <!--:payment_method_list="paymentMethodList"-->
+      <!--:payment_method_details="paymentMethodList_details"-->
+    <!--&gt;</PaymentEditModal>-->
+
+    <!-- END Payment Modal -->
 
     <!-- Shipment Modal -->
-    <shipment-add-modal
+
+    <ShipmentAddModal
       :payment="payment"
-    ></shipment-add-modal>
-    <!--<shipment-edit-modal></shipment-edit-modal>-->
-    <!-- \Shipment Modal -->
+    ></ShipmentAddModal>
+    <!--<ShipmentEditModal></ShipmentEditModal>-->
+
+    <!-- END Shipment Modal -->
 
 
     <div class="loading" v-if="isLoading"><i class="fa fa-spin fa-spinner"></i> Loading...</div>
