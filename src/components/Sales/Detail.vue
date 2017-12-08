@@ -768,7 +768,7 @@
         await store.dispatch('sales/payment/create', sales_order_id)
         const routeOptions = {
           name: 'sales.detail',
-          params: {id: this.$route.params.id},
+          params: {id: sales_order_id},
           query: {state: 'pay'},
         }
         this.$router.push(routeOptions)
