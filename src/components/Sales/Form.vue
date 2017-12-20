@@ -220,11 +220,8 @@
             </router-link>
           </div>
           <div class="col-md-6 text-right">
-            <button type="button" class="btn btn-primary" data-value="save_as_draft"
+            <button type="button" class="btn btn-default" data-value="save_as_draft"
                     @click="save($event)">Save as Draft
-            </button>
-            <button type="button" class="btn btn-primary" data-value="save_then_create_new"
-                    @click="save($event)">Save and New
             </button>
             <div class="btn-group dropup">
               <button type="button" class="btn btn-primary" data-value="save_and_close"
@@ -234,8 +231,9 @@
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">Save then Pay...</a>
-                </li>
+                <li><a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">Save then Pay</a></li>
+                <li><a href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">Save and New</a></li>
+                <li><a href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">Save and Duplicate</a></li>
               </ul>
             </div>
           </div>
