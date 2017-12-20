@@ -107,19 +107,17 @@
 
       <div class="container p-0">
         <div class="row sahito-list">
-          <div class="col-md-12">
-            <div class="sahito-list-item-group">
-
-
-              <table class="table">
+          <div class="col-md-12 p-0">
+            <div class="sahito-list-item-group border-1 table-responsive">
+               <table class="table table-hover default-table sahito-list-contact--table table-striped">
                 <thead>
                 <tr>
-                  <th>
-                  <span class="checkbox checkbox-single checkbox-success">
-                    <input type="checkbox" v-model="checkedAll" @click="checkAll" class="checkbox">
-                    <label></label>
-                  </span>
-                  </th>
+                  <th class="col-checkbox" style="width: 5%">
+                  <div class="checkbox checkbox-single checkbox-success">
+                          <input type="checkbox" id="checkAll" @click="checkAll">
+                          <label></label>
+                        </div>
+                      </th>
                   <th></th>
                   <th>
                     <a href="#" @click="sortItemsBy('item_name')">Name</a>
@@ -228,289 +226,283 @@
 </template>
 
 <script>
-  import { getParameterByName } from 'src/helpers'
+import { getParameterByName } from "src/helpers";
 
-  export default {
+export default {
+  components: {
+    "inline-editable": () => import("../../Helpers/InlineEditable.vue"),
+    Pagination: () => import("../../Pagination")
+  },
 
-    components: {
-      'inline-editable': () => import('../../Helpers/InlineEditable.vue'),
-      Pagination: () => import('../../Pagination'),
-    },
+  watch: {
+    $route(to, from) {
+      if (to.query.q) {
+        this.getList({ q: to.query.q });
+      } else {
+        this.getList();
+      }
+    }
+  },
 
-    watch: {
-      '$route' (to, from) {
-        if (to.query.q) {
-          this.getList({q: to.query.q})
-        } else {
-          this.getList()
-        }
+  data() {
+    return {
+      itemChildren: null,
+      list: {
+        items: []
       },
+      paginate: {},
+      selectedItem: {},
+      checkedAll: false,
+      checkedItems: [],
+      currentSortColumn: "item_name",
+      ascendingSort: true,
+      currentFilter: "status_all"
+    };
+  },
+
+  mounted() {
+    this.getList();
+  },
+
+  computed: {
+    isChecked() {
+      if (_.isEmpty(this.checkedItems)) {
+        return false;
+      }
+      return true;
     },
 
-    data () {
-      return {
-        itemChildren: null,
-        list: {
-          items: [],
-        },
-        paginate: {},
-        selectedItem: {},
-        checkedAll: false,
-        checkedItems: [],
-        currentSortColumn: 'item_name',
-        ascendingSort: true,
-        currentFilter: 'status_all',
+    displayCurrentFilter() {
+      if (this.currentFilter === "status_all") return "All";
+      if (this.currentFilter === "status_active") return "Active";
+      if (this.currentFilter === "status_inactive") return "Inactive";
+    }
+  },
+
+  methods: {
+    /**
+       * Check all items
+       */
+    checkAll() {
+      if (this.checkedItems.length < this.list.items.length) {
+        this.checkedAll = true;
+        this.list.items.map(item => {
+          this.checkedItems.push(item.item_id);
+        });
+      } else {
+        this.checkedAll = false;
+        this.checkedItems = [];
       }
     },
 
-    mounted () {
-      this.getList()
-    },
-
-    computed: {
-      isChecked () {
-        if (_.isEmpty(this.checkedItems)) {
-          return false
-        }
-        return true
-      },
-
-      displayCurrentFilter () {
-        if (this.currentFilter === 'status_all') return 'All'
-        if (this.currentFilter === 'status_active') return 'Active'
-        if (this.currentFilter === 'status_inactive') return 'Inactive'
-      },
-    },
-
-    methods: {
-
-      /**
-       * Check all items
-       */
-      checkAll () {
-        if (this.checkedItems.length < this.list.items.length) {
-          this.checkedAll = true
-          this.list.items.map(item => {
-            this.checkedItems.push(item.item_id)
-          })
-        } else {
-          this.checkedAll = false
-          this.checkedItems = []
-        }
-      },
-
-
-      /**
+    /**
        * Clear all checked items
        */
-      clearCheckedItems () {
-        this.checkedAll = false
-        this.checkedItems = []
-      },
+    clearCheckedItems() {
+      this.checkedAll = false;
+      this.checkedItems = [];
+    },
 
+    refreshList() {
+      this.list.items = [];
+      this.getList({
+        currentFilter: this.currentFilter,
+        sort: `${this.currentSortColumn}.${this.ascendingSort ? "asc" : "desc"}`
+      });
+    },
 
-      refreshList () {
-        this.list.items = []
-        this.getList({
-          currentFilter: this.currentFilter,
-          sort: `${this.currentSortColumn}.${this.ascendingSort ? 'asc' : 'desc' }`,
-        })
-      },
-
-
-      /**
+    /**
        * Get item list
        * @param  {Object} params  Custom query string parameters
        */
-      getList (params) {
-        const defaultParams = {
-          page: 1,
-          per_page: 30,
-          sort: 'item_name.asc',
-          filter_by: 'status_all',
-          q: getParameterByName('q'),
+    getList(params) {
+      const defaultParams = {
+        page: 1,
+        per_page: 30,
+        sort: "item_name.asc",
+        filter_by: "status_all",
+        q: getParameterByName("q")
+      };
+
+      params = _.merge(defaultParams, params);
+
+      this.$http.get("items", { params: params }).then(
+        res => {
+          if ([0, 200, 201].indexOf(res.data.code) === -1)
+            return swal_error(res);
+
+          this.list.items = res.data.data;
+          this.paginate = res.data.paginate;
+        },
+        res => {
+          return swal_error(res);
         }
+      );
+    },
 
-        params = _.merge(defaultParams, params)
-
-        this.$http.get('items', {params: params}).then(res => {
-          if ([0, 200, 201].indexOf(res.data.code) === -1) return swal_error(res)
-
-          this.list.items = res.data.data
-          this.paginate = res.data.paginate
-
-        }, res => {
-          return swal_error(res)
-        })
-      },
-
-
-      /**
+    /**
        * Delete multiple items
        * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)
        */
-      destroy () {
-        Alert.confirm({
-          title: 'Do you really want to delete this item?',
-          text: 'The item will be deleted permanently.',
-        }, () => {
-          const ids = this.checkedItems.join(',')
+    destroy() {
+      Alert.confirm(
+        {
+          title: "Do you really want to delete this item?",
+          text: "The item will be deleted permanently."
+        },
+        () => {
+          const ids = this.checkedItems.join(",");
 
-          this.$http.delete(`items?ids=${ids}`).then(res => {
-            if ([0, 200, 201].indexOf(res.data.code) === -1) return swal_error(res)
+          this.$http.delete(`items?ids=${ids}`).then(
+            res => {
+              if ([0, 200, 201].indexOf(res.data.code) === -1)
+                return swal_error(res);
 
-            this.clearCheckedItems()
-            this.list.items = []
-            this.refreshList()
-            Alert.success(res.data.message)
-
-          }, res => {
-            return swal_error(res)
-          })
-        })
-      },
-
-
-      toggleChildren (item) {
-        if (item.hasOwnProperty('expanded')) {
-          return this.$set(item, 'expanded', !Boolean(item.expanded))
+              this.clearCheckedItems();
+              this.list.items = [];
+              this.refreshList();
+              Alert.success(res.data.message);
+            },
+            res => {
+              return swal_error(res);
+            }
+          );
         }
+      );
+    },
 
-        this.$set(item, 'expanded', true)
-      },
+    toggleChildren(item) {
+      if (item.hasOwnProperty("expanded")) {
+        return this.$set(item, "expanded", !Boolean(item.expanded));
+      }
 
+      this.$set(item, "expanded", true);
+    },
 
-      /**
+    /**
        * Mark all checked items status to active
        */
-      markAsActive () {
-        const payload = this.checkedItems.join(',')
+    markAsActive() {
+      const payload = this.checkedItems.join(",");
 
-        this.$http.post('items/mark_as/active', {ids: payload})
-          .then(res => {
-            if (res.data.code == 0) {
-              this.list.items = []
-              this.getList()
-              this.clearCheckedItems()
-              this.selectedItem.item_status = 1
-              swal_success(res)
-            } else {
-              swal_error(res)
-            }
-          }, res => {
-            swal_error(res)
-          })
-      },
+      this.$http.post("items/mark_as/active", { ids: payload }).then(
+        res => {
+          if (res.data.code == 0) {
+            this.list.items = [];
+            this.getList();
+            this.clearCheckedItems();
+            this.selectedItem.item_status = 1;
+            swal_success(res);
+          } else {
+            swal_error(res);
+          }
+        },
+        res => {
+          swal_error(res);
+        }
+      );
+    },
 
-
-      /**
+    /**
        * Mark multiple items status to inactive
        */
-      markAsInactive () {
-        const payload = this.checkedItems.join(',')
+    markAsInactive() {
+      const payload = this.checkedItems.join(",");
 
-        this.$http.post('items/mark_as/inactive', {ids: payload})
-          .then(res => {
-            if (res.data.code == 0) {
-              this.list.items = []
-              this.getList()
-              this.clearCheckedItems()
-              this.selectedItem.item_status = 0
-              swal_success(res)
-            } else {
-              swal_error(res)
-            }
-          }, res => {
-            swal_error(res)
-          })
-      },
-
-
-      sortItemsBy (column) {
-        let ascendingSort
-
-        this.currentSortColumn = column
-        this.ascendingSort = !this.ascendingSort
-
-        if (this.ascendingSort) {
-          ascendingSort = 'asc'
-        } else {
-          ascendingSort = 'desc'
+      this.$http.post("items/mark_as/inactive", { ids: payload }).then(
+        res => {
+          if (res.data.code == 0) {
+            this.list.items = [];
+            this.getList();
+            this.clearCheckedItems();
+            this.selectedItem.item_status = 0;
+            swal_success(res);
+          } else {
+            swal_error(res);
+          }
+        },
+        res => {
+          swal_error(res);
         }
-
-        this.getList({sort: `${column}.${ascendingSort}`})
-      },
-
-
-      filterItem (filter) {
-        this.getList({filter_by: filter})
-        this.currentFilter = filter
-      },
-
-
-      updatePagination (data) {
-        this.paginate = data.paginate
-        this.list.items = data.data
-      },
-
-
+      );
     },
 
+    sortItemsBy(column) {
+      let ascendingSort;
 
-    events: {
+      this.currentSortColumn = column;
+      this.ascendingSort = !this.ascendingSort;
 
+      if (this.ascendingSort) {
+        ascendingSort = "asc";
+      } else {
+        ascendingSort = "desc";
+      }
 
-      listenSearch (search) {
-        this.getList({
-          q: search.text,
-        })
-      },
-
-
+      this.getList({ sort: `${column}.${ascendingSort}` });
     },
+
+    filterItem(filter) {
+      this.getList({ filter_by: filter });
+      this.currentFilter = filter;
+    },
+
+    updatePagination(data) {
+      this.paginate = data.paginate;
+      this.list.items = data.data;
+    }
+  },
+
+  events: {
+    listenSearch(search) {
+      this.getList({
+        q: search.text
+      });
+    }
   }
+};
 </script>
 
 
 <style scoped>
-  tbody {
-    border: 0 !important;
-  }
+tbody {
+  border: 0 !important;
+}
 
-  .table__header {
-    font-weight: bold;
-    font-size: 0.9em;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 4px 0;
-    color: #666;
-  }
+.table__header {
+  font-weight: bold;
+  font-size: 0.9em;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 4px 0;
+  color: #666;
+}
 
-  .table__body {
-  }
+.table__body {
+}
 
-  .table__item {
-    border-bottom: 1px solid #ddd;
-    padding: 12px 0;
-  }
+.table__item {
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+}
 
-  .table__item--children {
-    border-bottom: 1px solid #ddd;
-    padding: 12px 0 12px;
-  }
+.table__item--children {
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0 12px;
+}
 
-  .table__item--children:first-child {
-    border-top: 1px solid #ddd;
-    margin-top: 40px;
-  }
+.table__item--children:first-child {
+  border-top: 1px solid #ddd;
+  margin-top: 40px;
+}
 
-  [data-toggle="collapse"].collapsed i {
-    transform: rotate(0deg);
-    margin-right: 10px;
-  }
+[data-toggle="collapse"].collapsed i {
+  transform: rotate(0deg);
+  margin-right: 10px;
+}
 
-  [data-toggle="collapse"] i {
-    transform: rotate(90deg);
-    margin-right: 10px;
-  }
+[data-toggle="collapse"] i {
+  transform: rotate(90deg);
+  margin-right: 10px;
+}
 </style>
