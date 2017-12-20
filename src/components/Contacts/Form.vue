@@ -441,7 +441,7 @@
           salutation_name = ''
         }
 
-        const salutation = salutation_name ? salutation_name.name : '(Salutation)'
+        const salutation = salutation_name ? salutation_name.name : ''
         const firstName = this.form.first_name ? this.form.first_name : '(First Name)'
         const lastName = this.form.last_name ? this.form.last_name : '(Last Name)'
 
