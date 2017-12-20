@@ -89,7 +89,7 @@
 
         <div class="col-md-12">
           <div class="border-1 table-responsive mt-20">
-            <table class="table table-hover sahito-invoice-table-inside">
+            <table class="table sahito-invoice-table-inside">
               <thead>
               <tr class="dark-grey-background">
                 <th>#</th>
@@ -120,8 +120,8 @@
                 <td colspan="2">{{ value.sub_total | money }}</td>
               </tr>
               <tr class="sub-total">
-                <td colspan="5">Shipping Charge</td>
-                <td>{{ value.shipping_charge | money }}</td>
+                <td colspan="4">Shipping Charge</td>
+                <td colspan="2">{{ value.shipping_charge | money }}</td>
               </tr>
               <tr class="sub-total">
                 <td colspan="4"><strong>Tax</strong></td>
@@ -134,8 +134,8 @@
                 </td>
               </tr>
               <tr class="sub-total" v-if="value.adjustment_value">
-                <td colspan="4"><strong>{{ value.adjustment_name || 'Adjustment' }}</strong></td>
-                <td colspan="2"><strong>{{ value.adjustment_value | money }}</strong></td>
+                <td colspan="4">{{ value.adjustment_name || 'Adjustment' }}</td>
+                <td colspan="2">{{ value.adjustment_value | money }}</td>
               </tr>
               <tr class="total">
                 <td colspan="4">Total</td>
@@ -145,7 +145,7 @@
                 <td colspan="4">Paid at {{ item.date | date('short') }}</td>
                 <td colspan="2">{{ item.amount | money }}</td>
               </tr>
-              <tr class="text-right">
+              <tr class="text-right" style="border-bottom-color:  white;">
                 <td colspan="2"></td>
                 <td colspan="2" style="background: #f0f0f0;">Balance Due</td>
                 <td colspan="2" style="background: #f0f0f0;">{{ value.balance_due | money }}</td>
