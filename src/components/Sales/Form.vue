@@ -101,7 +101,7 @@
             </td>
 
             <td>
-              <input type="number" v-model.number="product.item_rate" min="0" class="form-control">
+              <input type="number" v-model.number="product.item_rate" min="0" class="form-control no-spin-button">
             </td>
 
             <td>
