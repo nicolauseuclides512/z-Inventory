@@ -254,6 +254,11 @@
                       <span class="hidden-xs">INVOICE</span>
                     </a>
                   </li>
+                  <li :class="{ tab: true, active: currentTab == 'payment' }">
+                    <a href="javascript:void(0);" @click="switchTab('payment')">
+                      <span class="hidden-xs">PAYMENT</span>
+                    </a>
+                  </li>
                   <li :class="{ tab: true, active: currentTab == 'shipment' }">
                     <a href="javascript:void(0);" @click="switchTab('shipment')">
                       <span class="hidden-xs">SHIPMENT</span>
@@ -287,10 +292,25 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="row p-15">
+                        <div v-for="invoice in invoiceList">
+                          <component
+                            :is="invoiceComponent"
+                            :value="invoice"
+                            :sales-order="salesOrder"
+                            :payment-list="paymentList"
+                          ></component>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div :class="{ 'tab-pane': true, active: currentTab == 'payment'}" id="payment" v-if="currentTab == 'payment'">
                       <div class="row p-15">
                         <div class="border-1 table-responsive mt-20">
                           <table class="table table-hover sahito-invoice-table">
-                            <caption><h3>Payment Received</h3></caption>
+                            <caption><h3>Payment Receival</h3></caption>
                             <thead>
                             <tr class="grey-background">
                               <th>Date</th>
@@ -338,19 +358,7 @@
                           </table>
                         </div>
                       </div>
-                      <div class="row p-15">
-                        <div v-for="invoice in invoiceList">
-                          <component
-                            :is="invoiceComponent"
-                            :value="invoice"
-                            :sales-order="salesOrder"
-                            :payment-list="paymentList"
-                          ></component>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-
 
                   <div :class="{ 'tab-pane': true, active: currentTab == 'shipment' }" id="shipment"
                        v-if="currentTab == 'shipment'">
