@@ -49,7 +49,7 @@
                              :value="bank_form.account_name"
                     ></vuelist>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <input
                       type="text"
                       id="account_number"
@@ -69,7 +69,7 @@
                       required
                     />
                   </div>
-                  <div class="col-md-12" style="padding-top: 10px;">
+                  <div class="col-md-1">
                     <button
                       type="submit"
                       class="btn btn-info waves-effect waves-light"
