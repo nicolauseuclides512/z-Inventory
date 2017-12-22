@@ -12,7 +12,7 @@
 
         <li class="clearfix">
           <router-link id="nev-left-contacts" :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}"
-            class="waves-effect waves-light pull-left" style="padding-right: 10px">
+            class="waves-effect waves-light pull-left" style="padding-right: 5px">
             <i class="md md-shopping-cart"></i><span> Sales Orders</span>
           </router-link>
           <router-link :to="{ name: 'sales.create' }" class="waves-effect waves-light pull-right" style="padding: 15px 17px;">
