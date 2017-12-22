@@ -45,8 +45,16 @@ html {
     color: #2FA3E6
 }
 
+.text-black {
+    color: #000000
+}
+
 .text-grey {
     color: #555
+}
+
+.text-light-grey {
+    color: #ddd
 }
 
 .text-small {
