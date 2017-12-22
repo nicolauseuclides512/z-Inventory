@@ -166,48 +166,56 @@
 
         <div class="row m-b-20">
           <div class="col-md-6 pl-pr-0">
+          </div>
+          <div class="col-md-6 pl-pr-0">
             <div class="form-group form-general m-b-20">
               <label class="col-md-3 control-label text-left">Customer Notes</label>
-              <div class="col-md-8 pl-pr-0">
                   <textarea
                     class="form-control"
-                    rows="7"
+                    rows="5"
                     v-model="form.customer_notes"
                     maxlength="500"
                   ></textarea>
                 <div class="">Will be displayed in invoice</div>
                 <div class="help-text">Maximum customer notes characters is 500.</div>
-              </div>
             </div>
+          </div>
+        </div>
+        <div class="row m-b-20">
+          <div class="col-md-6 pl-pr-0">
           </div>
           <div class="col-md-6 pl-pr-0">
             <div class="form-group form-general m-b-20">
-              <label class="col-md-3 control-label text-left">Internal Notes</label>
-              <div class="col-md-8 pl-pr-0">
+              <label class="control-label text-left">Internal Notes</label>
                   <textarea
                     class="form-control"
-                    rows="7"
+                    rows="5"
                     v-model="form.internal_notes"
                     maxlength="500"
                   ></textarea>
                 <div class="">Internal use only. Will not be displayed anywhere.</div>
                 <div class="help-text">Maximum customer notes characters is 500.</div>
-              </div>
             </div>
           </div>
         </div>
 
-        <div class="form-group form-general">
-          <label class="control-label">Invoice Email</label>
-          <span v-if="ui.invalidInvoiceEmail" style="color: red;">( Invalid email address )</span>
-          <div>
-            <vuetagger
-              :value="invoice_emails"
-              @change="updateEmail"
-              pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
-            ></vuetagger>
+         <div class="row m-b-20">
+          <div class="col-md-6 pl-pr-0">
           </div>
-        </div>
+          <div class="col-md-6 pl-pr-0">
+            <div class="form-group form-general">
+              <label class="control-label">Invoice Email</label>
+              <span v-if="ui.invalidInvoiceEmail" style="color: red;">( Invalid email address )</span>
+              <div>
+                <vuetagger
+                  :value="invoice_emails"
+                  @change="updateEmail"
+                  pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
+                ></vuetagger>
+              </div>
+            </div>
+          </div>
+         </div>
 
       </div>
 

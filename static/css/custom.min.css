@@ -1374,7 +1374,7 @@ select.select2-dropdown-open {
 }
 
 .form-general label {
-    padding-left: 15px;
+    padding-left: 0px;
     font-weight: 100
 }
 
