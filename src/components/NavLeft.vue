@@ -13,11 +13,11 @@
         <li class="clearfix">
           <router-link
             :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}"
-            class="waves-effect waves-light pull-left"
+            class="waves-effect waves-light pull-left" style="padding-right: 10px"
           >
             <i class="md-shopping-cart"></i> Sales Orders
           </router-link>
-          <router-link :to="{ name: 'sales.create' }" class="pull-right" style="padding: 15px 13px; margin: 0;">
+          <router-link :to="{ name: 'sales.create' }" class="pull-right" style="padding: 15px 0px;">
             <i class="fa fa-plus"></i>
           </router-link>
         </li>

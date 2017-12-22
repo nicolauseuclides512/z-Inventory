@@ -24033,7 +24033,7 @@ MIT License: https://github.com/driftyco/ionicons
     float: left;
     height: 70px;
     position: relative;
-    width: 160px;
+    width: 200px;
     z-index: 1
 }
 
@@ -24163,7 +24163,7 @@ input.search-bar:-ms-input-placeholder {
 .side-menu {
     bottom: 0;
     top: 0;
-    width: 160px;
+    width: 200px;
     z-index: 2
 }
 
@@ -24288,8 +24288,8 @@ body.fixed-left .side-menu.left {
     display: inline-block;
     font-size: 18px;
     line-height: 17px;
-    margin-left: 3px;
-    margin-right: 15px;
+    margin-left: 9px;
+    margin-right: 9px;
     text-align: center;
     vertical-align: middle;
     width: 20px
