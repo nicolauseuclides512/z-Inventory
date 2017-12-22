@@ -11,14 +11,12 @@
         <!--</li>-->
 
         <li class="clearfix">
-          <router-link
-            :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}"
-            class="waves-effect waves-light pull-left" style="padding-right: 10px"
-          >
-            <i class="md-shopping-cart"></i> Sales Orders
+          <router-link id="nev-left-contacts" :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}"
+            class="waves-effect waves-light pull-left" style="padding-right: 10px">
+            <i class="md md-shopping-cart"></i><span> Sales Orders</span>
           </router-link>
-          <router-link :to="{ name: 'sales.create' }" class="pull-right" style="padding: 15px 0px;">
-            <i class="fa fa-plus"></i>
+          <router-link :to="{ name: 'sales.create' }" class="waves-effect waves-light pull-right" style="padding: 15px 17px;">
+            <span><i class="fa fa-plus"></i></span>
           </router-link>
         </li>
 
@@ -75,21 +73,21 @@
 </template>
 
 <script>
-  export default {
-    components: {
-      'dropdown-menu': () => import('./Nav/DropdownMenu.vue'),
-    },
+export default {
+  components: {
+    "dropdown-menu": () => import("./Nav/DropdownMenu.vue")
   }
+};
 </script>
 
 <style scoped>
-  .router-link-active {
-    background: #272C35;
-    color: #ffffff;
-  }
+.router-link-active {
+  background: #272c35;
+  color: #ffffff;
+}
 
-  .side-menu {
-    position: fixed;
-    z-index: 15;
-  }
+.side-menu {
+  position: fixed;
+  z-index: 15;
+}
 </style>
