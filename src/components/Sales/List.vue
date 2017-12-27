@@ -149,11 +149,12 @@
                         </th>
                         <th>Date</th>
                         <th>Order ID</th>
-                        <th>Ref</th>
-                        <th>Customer </th>
-                        <th class="editable editable-click">Status</th>
-                        <th>Total(IDR)</th>
-                        <th>Paid</th>
+                        <th>Customer</th>
+                        <th>Status </th>
+                        <th>Due Date</th>
+                        <th>Total</th>
+                        <th>Balance Due</th>
+                        <th>Shipment</th>
                         <th>Action</th>
                       </tr>
                       </thead>
@@ -179,30 +180,37 @@
                               {{ sale.sales_order_number }}
                             </a>
                           </td>
-                          <td>{{ sale.reference_number }}</td>
                           <td>
                             <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
-                                         href="javascript:void(0);">
+                              href="javascript:void(0);">
                               {{ sale.contact.display_name }}
                             </router-link>
                           </td>
                           <td>
                             {{ sale.sales_order_status.toLowerCase().replace(/_/g, ' ') | capitalize }}
-                            {{ sale.shipment_status.toLowerCase().replace(/_/g, ' ') | capitalize }}
+                          </td>
+                          <td>
+                            {{ sale.due_date | date('short') }}
                           </td>
                           <td>{{ sale.total | money }}</td>
                           <td>
-                            <div v-if="sale.invoice_status === 'PAID'">
-                              <i class="fa fa-circle text-green" title="Paid"></i>
+                            {{ sale.invoices[0].balance_due | money}}
+                          </td>
+                          <td> 
+                            <div v-if="sale.invoice_status === 'VOID'">
+                              <i class="fa fa-circle text-black"></i>
                             </div>
-                            <div v-if="sale.invoice_status === 'PARTIALLY_PAID'">
-                              <i class="fa fa-adjust text-green" title="Partially Paid"></i>
+                            <div v-else-if="sale.sales_order_status === 'DRAFT'">
+                              <i class="fa fa-circle-o text-light-grey"></i>
                             </div>
-                            <div v-if="sale.invoice_status === 'UNPAID'">
-                              <i class="fa fa-circle-o text-green" title="Unpaid"></i>
+                            <div v-else-if="sale.shipment_status === 'NOT_YET_SHIPPED' && sale.invoice_status === 'OVERDUE'">
+                              <i class="fa fa-circle-o text-danger"></i>
                             </div>
-                            <div v-if="sale.invoice_status === 'OVERDUE'">
-                              <i class="fa fa-circle-o text-danger" title="Overdue"></i>
+                            <div v-else-if="sale.shipment_status === 'NOT_YET_SHIPPED'">
+                              <i class="fa fa-circle-o text-green"></i>
+                            </div>
+                            <div v-else-if="sale.shipment_status === 'SHIPPED'">
+                              <i class="fa fa-circle text-green"></i>
                             </div>
                           </td>
                           <td>
@@ -217,7 +225,7 @@
                                   Edit
                                 </router-link>
                               </li>
-                              <li v-if="sale.invoice_status === 'UNPAID'">
+                              <li v-if="sale.invoice_status === 'UNPAID' || 'OVERDUE'">
                                 <a href="javascript:void(0);" @click="gotoDetailPayment(sale)">
                                   Record Payment
                                 </a>

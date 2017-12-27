@@ -21473,6 +21473,12 @@ MIT License: https://github.com/driftyco/ionicons
 .ion-reply-all,
 .ion-ribbon-a,
 .ion-ribbon-b,
+.ion-ribbon-draft-a, 
+.ion-ribbon-draft-b, 
+.ion-ribbon-overdue-a, 
+.ion-ribbon-overdue-b,
+.ion-ribbon-void-a,
+.ion-ribbon-void-b, 
 .ion-sad,
 .ion-scissors,
 .ion-search,
@@ -24019,15 +24025,16 @@ MIT License: https://github.com/driftyco/ionicons
     position: fixed;
     right: 0;
     top: 0;
-    z-index: 15
+    z-index: 15;
+    height: 50px;
 }
 
 .topbar .topbar-left {
     background-color: #eee;
     float: left;
-    height: 70px;
+    height: 50px;
     position: relative;
-    width: 240px;
+    width: 200px;
     z-index: 1
 }
 
@@ -24036,7 +24043,7 @@ MIT License: https://github.com/driftyco/ionicons
     font-size: 18px;
     font-weight: 700;
     letter-spacing: .05em;
-    line-height: 70px;
+    line-height: 50px;
     text-transform: uppercase
 }
 
@@ -24056,7 +24063,8 @@ MIT License: https://github.com/driftyco/ionicons
     background-color: #fff;
     border-radius: 0;
     border: none;
-    margin-bottom: 0
+    margin-bottom: 0;
+    height: 50px;
 }
 
 .navbar-default .navbar-nav>.open>a,
@@ -24067,7 +24075,7 @@ MIT License: https://github.com/driftyco/ionicons
 
 .nav>li>a {
     color: #333!important;
-    line-height: 70px;
+    line-height: 50px;
     padding: 0 15px;
     position: relative
 }
@@ -24120,7 +24128,8 @@ MIT License: https://github.com/driftyco/ionicons
 .navbar-form {
     border: none;
     box-shadow: none;
-    padding: 0
+    padding: 0;
+    margin: 0;
 }
 
 .search-bar {
@@ -24151,13 +24160,14 @@ input.search-bar:-ms-input-placeholder {
 }
 
 .navbar-nav {
-    margin: 0
+    margin: 0;
+    height: 50px;
 }
 
 .side-menu {
     bottom: 0;
     top: 0;
-    width: 240px;
+    width: 200px;
     z-index: 2
 }
 
@@ -24165,7 +24175,7 @@ input.search-bar:-ms-input-placeholder {
     background: #2D373C;
     box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
     position: absolute;
-    top: 70px
+    top: 50px
 }
 
 body.fixed-left .side-menu.left {
@@ -24178,13 +24188,13 @@ body.fixed-left .side-menu.left {
 }
 
 .content-page {
-    margin-left: 240px;
+    margin-left: 200px;
     overflow: hidden
 }
 
 .content-page>.content {
     margin-bottom: 60px;
-    margin-top: 70px;
+    margin-top: 50px;
     padding: 0px 5px 15px
 }
 
@@ -24193,7 +24203,7 @@ body.fixed-left .side-menu.left {
     border: none;
     color: #888;
     font-size: 21px;
-    line-height: 70px;
+    line-height: 50px;
     padding: 0 15px
 }
 
@@ -24282,8 +24292,8 @@ body.fixed-left .side-menu.left {
     display: inline-block;
     font-size: 18px;
     line-height: 17px;
-    margin-left: 3px;
-    margin-right: 15px;
+    margin-left: 9px;
+    margin-right: 9px;
     text-align: center;
     vertical-align: middle;
     width: 20px

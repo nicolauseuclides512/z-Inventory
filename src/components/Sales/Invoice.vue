@@ -2,7 +2,24 @@
   <div>
 
     <div class="sahito-invoice" v-if="value">
-      <div class="ribbon"><span>{{ value.invoice_status }}</span></div>
+      <div v-if="value.invoice_status === 'DRAFT'">
+        <div class="ribbon-draft"><span>{{ value.invoice_status }}</span></div>
+      </div>
+      <div v-else-if="salesOrder.invoice_status === 'UNPAID'">
+        <div class="ribbon-overdue"><span>{{ value.sales_order.invoice_status }}</span></div>
+      </div>
+      <div v-else-if="value.sales_order.invoice_status === 'OVERDUE'">
+        <div class="ribbon-overdue"><span>{{ value.sales_order.invoice_status }}</span></div>
+      </div>
+      <div v-else-if="value.invoice_status === 'PARTIALLY_PAID'">
+        <div class="ribbon"><span>{{ value.invoice_status }}</span></div>
+      </div>
+      <div v-else-if="value.invoice_status === 'VOID'">
+        <div class="ribbon-void"><span>{{ value.invoice_status }}</span></div>
+      </div>
+      <div v-else>
+        <div class="ribbon"><span>{{ salesOrder.invoice_status }}</span></div>
+      </div>
 
       <div class="row sahito-invoice-content p-15">
         <div class="col-md-4 pt-20">
@@ -72,7 +89,7 @@
 
         <div class="col-md-12">
           <div class="border-1 table-responsive mt-20">
-            <table class="table table-hover sahito-invoice-table-inside">
+            <table class="table sahito-invoice-table-inside">
               <thead>
               <tr class="dark-grey-background">
                 <th>#</th>
@@ -103,8 +120,8 @@
                 <td colspan="2">{{ value.sub_total | money }}</td>
               </tr>
               <tr class="sub-total">
-                <td colspan="5">Shipping Charge</td>
-                <td>{{ value.shipping_charge | money }}</td>
+                <td colspan="4">Shipping Charge</td>
+                <td colspan="2">{{ value.shipping_charge | money }}</td>
               </tr>
               <tr class="sub-total">
                 <td colspan="4"><strong>Tax</strong></td>
@@ -117,8 +134,8 @@
                 </td>
               </tr>
               <tr class="sub-total" v-if="value.adjustment_value">
-                <td colspan="4"><strong>{{ value.adjustment_name || 'Adjustment' }}</strong></td>
-                <td colspan="2"><strong>{{ value.adjustment_value | money }}</strong></td>
+                <td colspan="4">{{ value.adjustment_name || 'Adjustment' }}</td>
+                <td colspan="2">{{ value.adjustment_value | money }}</td>
               </tr>
               <tr class="total">
                 <td colspan="4">Total</td>
@@ -128,7 +145,7 @@
                 <td colspan="4">Paid at {{ item.date | date('short') }}</td>
                 <td colspan="2">{{ item.amount | money }}</td>
               </tr>
-              <tr class="text-right">
+              <tr class="text-right" style="border-bottom-color:  white;">
                 <td colspan="2"></td>
                 <td colspan="2" style="background: #f0f0f0;">Balance Due</td>
                 <td colspan="2" style="background: #f0f0f0;">{{ value.balance_due | money }}</td>
@@ -149,123 +166,149 @@
 </template>
 
 <script>
-  import Axios from 'axios';
-  import Regional from 'helpers/regional';
-  import has from 'has'
+import Axios from "axios";
+import Regional from "helpers/regional";
+import has from "has";
 
-  export default {
+export default {
+  name: "Invoice",
 
-    name: 'Invoice',
+  props: {
+    value: {
+      type: [Object, Array],
+      required: true
+    },
+    salesOrder: {
+      type: [Object, Array],
+      required: true
+    },
+    paymentList: {
+      type: [Object, Array],
+      required: true
+    }
+  },
 
-    props: {
-      value: {
-        type: [Object, Array],
-        required: true
-      },
-      salesOrder: {
-        type: [Object, Array],
-        required: true
-      },
-      paymentList: {
-        type: [Object, Array],
-        required: true
-      }
+  data() {
+    return {
+      invoice: {},
+      logo: "http://placehold.it/250?text=No+Logo",
+
+      company_name: "",
+      company_address: "",
+      company_zip: "",
+      company_country: "",
+      company_province: "",
+      company_district: "",
+      company_region: "",
+
+      buyer_name: "",
+      buyer_address: "",
+      buyer_region: "",
+      buyer_district: "",
+      buyer_province: "",
+      buyer_zip: "",
+      buyer_country: ""
+    };
+  },
+
+  mounted() {
+    this.getOrganizationInfo();
+    this.getBuyerinfo();
+  },
+
+  methods: {
+    async getOrganizationInfo() {
+      const orgId = Cookie.get("organization_id");
+      const url = `organizations/${orgId}`;
+      const res = await Axios.get(url);
+      this.logo = res.data.data.multi_res_logo
+        ? res.data.data.multi_res_logo.small
+        : this.logo;
+
+      this.company_name = res.data.data.name;
+      this.company_address = res.data.data.address;
+      this.company_zip = res.data.data.zip;
+
+      const countries = await Regional.countryList();
+      const country = await countries.find(
+        item => item.id === res.data.data.country_id
+      );
+      this.company_country =
+        country && has(country, "name") ? country.name : "";
+
+      const provinces = await Regional.provinceList(res.data.data.country_id);
+      const province = await provinces.find(
+        item => item.id === res.data.data.province_id
+      );
+      this.company_province =
+        province && has(province, "name") ? province.name : "";
+
+      const districts = await Regional.districtList(res.data.data.province_id);
+      const district = await districts.find(
+        item => item.id === res.data.data.district_id
+      );
+      this.company_district =
+        district && has(district, "name") ? district.name : "";
+
+      const regions = await Regional.regionList(res.data.data.district_id);
+      const region = await regions.find(
+        item => item.id === res.data.data.region_id
+      );
+      this.company_region = region && has(region, "name") ? region.name : "";
     },
 
-    data() {
-      return {
-        invoice: {},
-        logo: 'http://placehold.it/250?text=No+Logo',
+    async getBuyerinfo() {
+      this.buyer_name = this.value.contact.display_name;
 
-        company_name: '',
-        company_address: '',
-        company_zip: '',
-        company_country: '',
-        company_province: '',
-        company_district: '',
-        company_region: '',
+      this.buyer_address = this.value.billing_address
+        ? this.value.billing_address
+        : this.value.contact.billing_address;
+      this.buyer_zip = this.value.billing_zip
+        ? this.value.billing_zip
+        : this.value.contact.billing_zip;
 
-        buyer_name: '',
-        buyer_address: '',
-        buyer_region: '',
-        buyer_district: '',
-        buyer_province: '',
-        buyer_zip: '',
-        buyer_country: '',
-      }
-    },
-
-    mounted() {
-      this.getOrganizationInfo();
-      this.getBuyerinfo();
-    },
-
-
-    methods: {
-
-      async getOrganizationInfo() {
-        const orgId = Cookie.get('organization_id');
-        const url = `organizations/${orgId}`;
-        const res = await Axios.get(url);
-        this.logo = res.data.data.multi_res_logo ? res.data.data.multi_res_logo.small : this.logo;
-
-        this.company_name = res.data.data.name;
-        this.company_address = res.data.data.address;
-        this.company_zip = res.data.data.zip;
-
-        const countries = await Regional.countryList();
-        const country = await countries.find(item => item.id === res.data.data.country_id);
-        this.company_country = country && has(country, 'name') ? country.name : '';
-
-        const provinces = await Regional.provinceList(res.data.data.country_id);
-        const province = await provinces.find(item => item.id === res.data.data.province_id);
-        this.company_province = province && has(province, 'name') ? province.name : '';
-
-        const districts = await Regional.districtList(res.data.data.province_id);
-        const district = await districts.find(item => item.id === res.data.data.district_id);
-        this.company_district = district && has(district, 'name') ? district.name : '';
-
-        const regions = await Regional.regionList(res.data.data.district_id);
-        const region = await regions.find(item => item.id === res.data.data.region_id);
-        this.company_region = region && has(region, 'name') ? region.name : '';
-      },
-
-      async getBuyerinfo() {
-        this.buyer_name = this.value.contact.display_name;
-
-        this.buyer_address = this.value.billing_address ? this.value.billing_address : this.value.contact.billing_address;
-        this.buyer_zip = this.value.billing_zip ? this.value.billing_zip : this.value.contact.billing_zip;
-
-        const countries = await Regional.countryList();
-        const buyer_country_id = this.value.billing_country ? this.value.billing_country : this.value.contact.billing_country;
-        if (buyer_country_id) {
-          const country = await countries.find(item => item.id === buyer_country_id);
-          this.buyer_country = has(country, 'name') ? country.name : '';
-        }
-
-        const provinces = await Regional.provinceList(buyer_country_id)
-        const buyer_province_id = this.value.billing_province ? this.value.billing_province : this.value.contact.billing_province;
-        if (buyer_province_id) {
-          const province = await provinces.find(item => item.id === buyer_province_id);
-          this.buyer_province = has(province, 'name') ? province.name : '';
-        }
-
-        const districts = await Regional.districtList(buyer_province_id);
-        const buyer_district_id = this.value.billing_district ? this.value.billing_district : this.value.contact.billing_district;
-        if (buyer_district_id) {
-          const district = await districts.find(item => item.id === buyer_district_id);
-          this.buyer_district = has(district, 'name') ? district.name : '';
-        }
-
-        const regions = await Regional.regionList(buyer_district_id);
-        const buyer_region_id = this.value.billing_region ? this.value.billing_region : this.value.contact.billing_region;
-        if (buyer_region_id) {
-          const region = await regions.find(item => item.id === buyer_region_id);
-          this.buyer_region = has(region, 'name') ? region.name : '';
-        }
+      const countries = await Regional.countryList();
+      const buyer_country_id = this.value.billing_country
+        ? this.value.billing_country
+        : this.value.contact.billing_country;
+      if (buyer_country_id) {
+        const country = await countries.find(
+          item => item.id === buyer_country_id
+        );
+        this.buyer_country = has(country, "name") ? country.name : "";
       }
 
+      const provinces = await Regional.provinceList(buyer_country_id);
+      const buyer_province_id = this.value.billing_province
+        ? this.value.billing_province
+        : this.value.contact.billing_province;
+      if (buyer_province_id) {
+        const province = await provinces.find(
+          item => item.id === buyer_province_id
+        );
+        this.buyer_province = has(province, "name") ? province.name : "";
+      }
 
+      const districts = await Regional.districtList(buyer_province_id);
+      const buyer_district_id = this.value.billing_district
+        ? this.value.billing_district
+        : this.value.contact.billing_district;
+      if (buyer_district_id) {
+        const district = await districts.find(
+          item => item.id === buyer_district_id
+        );
+        this.buyer_district = has(district, "name") ? district.name : "";
+      }
+
+      const regions = await Regional.regionList(buyer_district_id);
+      const buyer_region_id = this.value.billing_region
+        ? this.value.billing_region
+        : this.value.contact.billing_region;
+      if (buyer_region_id) {
+        const region = await regions.find(item => item.id === buyer_region_id);
+        this.buyer_region = has(region, "name") ? region.name : "";
+      }
     }
   }
+};
 </script>

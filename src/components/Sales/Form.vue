@@ -101,7 +101,7 @@
             </td>
 
             <td>
-              <input type="number" v-model.number="product.item_rate" min="0" class="form-control">
+              <input type="number" v-model.number="product.item_rate" min="0" class="form-control no-spin-button">
             </td>
 
             <td>
@@ -166,48 +166,56 @@
 
         <div class="row m-b-20">
           <div class="col-md-6 pl-pr-0">
+          </div>
+          <div class="col-md-6 pl-pr-0">
             <div class="form-group form-general m-b-20">
               <label class="col-md-3 control-label text-left">Customer Notes</label>
-              <div class="col-md-8 pl-pr-0">
                   <textarea
                     class="form-control"
-                    rows="7"
+                    rows="5"
                     v-model="form.customer_notes"
                     maxlength="500"
                   ></textarea>
                 <div class="">Will be displayed in invoice</div>
                 <div class="help-text">Maximum customer notes characters is 500.</div>
-              </div>
             </div>
+          </div>
+        </div>
+        <div class="row m-b-20">
+          <div class="col-md-6 pl-pr-0">
           </div>
           <div class="col-md-6 pl-pr-0">
             <div class="form-group form-general m-b-20">
-              <label class="col-md-3 control-label text-left">Internal Notes</label>
-              <div class="col-md-8 pl-pr-0">
+              <label class="control-label text-left">Internal Notes</label>
                   <textarea
                     class="form-control"
-                    rows="7"
+                    rows="5"
                     v-model="form.internal_notes"
                     maxlength="500"
                   ></textarea>
                 <div class="">Internal use only. Will not be displayed anywhere.</div>
                 <div class="help-text">Maximum customer notes characters is 500.</div>
-              </div>
             </div>
           </div>
         </div>
 
-        <div class="form-group form-general">
-          <label class="control-label">Invoice Email</label>
-          <span v-if="ui.invalidInvoiceEmail" style="color: red;">( Invalid email address )</span>
-          <div>
-            <vuetagger
-              :value="invoice_emails"
-              @change="updateEmail"
-              pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
-            ></vuetagger>
+         <div class="row m-b-20">
+          <div class="col-md-6 pl-pr-0">
           </div>
-        </div>
+          <div class="col-md-6 pl-pr-0">
+            <div class="form-group form-general">
+              <label class="control-label">Invoice Email</label>
+              <span v-if="ui.invalidInvoiceEmail" style="color: red;">( Invalid email address )</span>
+              <div>
+                <vuetagger
+                  :value="invoice_emails"
+                  @change="updateEmail"
+                  pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
+                ></vuetagger>
+              </div>
+            </div>
+          </div>
+         </div>
 
       </div>
 
@@ -220,11 +228,8 @@
             </router-link>
           </div>
           <div class="col-md-6 text-right">
-            <button type="button" class="btn btn-primary" data-value="save_as_draft"
+            <button type="button" class="btn btn-default" data-value="save_as_draft"
                     @click="save($event)">Save as Draft
-            </button>
-            <button type="button" class="btn btn-primary" data-value="save_then_create_new"
-                    @click="save($event)">Save and New
             </button>
             <div class="btn-group dropup">
               <button type="button" class="btn btn-primary" data-value="save_and_close"
@@ -234,8 +239,9 @@
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">Save then Pay...</a>
-                </li>
+                <li><a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">Save then Pay</a></li>
+                <li><a href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">Save and New</a></li>
+                <li><a href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">Save and Duplicate</a></li>
               </ul>
             </div>
           </div>

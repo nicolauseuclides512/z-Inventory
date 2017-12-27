@@ -45,8 +45,16 @@ html {
     color: #2FA3E6
 }
 
+.text-black {
+    color: #000000
+}
+
 .text-grey {
     color: #555
+}
+
+.text-light-grey {
+    color: #ddd
 }
 
 .text-small {
@@ -1004,6 +1012,181 @@ select.select2-dropdown-open {
     border-top: 3px solid #79a70a
 }
 
+.sahito-invoice-pdf .ribbon-draft, 
+.sahito-invoice .ribbon-draft { 
+    position: absolute; 
+    left: -5px; 
+    top: -5px; 
+    z-index: 1; 
+    overflow: hidden; 
+    width: 75px; 
+    height: 75px; 
+    text-align: right 
+} 
+ 
+.sahito-invoice-pdf .ribbon-draft span, 
+.sahito-invoice .ribbon-draft span { 
+    font-size: 10px; 
+    font-weight: 700; 
+    color: #fff; 
+    text-transform: uppercase; 
+    text-align: center; 
+    line-height: 20px; 
+    transform: rotate(-45deg); 
+    -webkit-transform: rotate(-45deg); 
+    width: 100px; 
+    display: block; 
+    background: #cccccc; 
+    background: linear-gradient(#dddddd, #cccccc); 
+    box-shadow: 0 3px 10px -5px #000; 
+    position: absolute; 
+    top: 19px; 
+    left: -21px 
+} 
+ 
+.sahito-invoice-pdf .ribbon-draft span:before, 
+.sahito-invoice .ribbon-draft span:before { 
+    content: ""; 
+    position: absolute; 
+    left: 0; 
+    top: 100%; 
+    z-index: -1; 
+    border-left: 3px solid #cccccc; 
+    border-right: 3px solid transparent; 
+    border-bottom: 3px solid transparent; 
+    border-top: 3px solid #cccccc 
+} 
+ 
+.sahito-invoice-pdf .ribbon-draft span:after, 
+.sahito-invoice .ribbon-draft span:after { 
+    content: ""; 
+    position: absolute; 
+    right: 0; 
+    top: 100%; 
+    z-index: -1; 
+    border-left: 3px solid transparent; 
+    border-right: 3px solid #cccccc; 
+    border-bottom: 3px solid transparent; 
+    border-top: 3px solid #cccccc 
+} 
+ 
+.sahito-invoice-pdf .ribbon-overdue, 
+.sahito-invoice .ribbon-overdue { 
+    position: absolute; 
+    left: -5px; 
+    top: -5px; 
+    z-index: 1; 
+    overflow: hidden; 
+    width: 75px; 
+    height: 75px; 
+    text-align: right 
+} 
+ 
+.sahito-invoice-pdf .ribbon-overdue span, 
+.sahito-invoice .ribbon-overdue span { 
+    font-size: 10px; 
+    font-weight: 700; 
+    color: #fff; 
+    text-transform: uppercase; 
+    text-align: center; 
+    line-height: 20px; 
+    transform: rotate(-45deg); 
+    -webkit-transform: rotate(-45deg); 
+    width: 100px; 
+    display: block; 
+    background: #ff0000; 
+    background: linear-gradient(#ff2626, #ff0000); 
+    box-shadow: 0 3px 10px -5px #000; 
+    position: absolute; 
+    top: 19px; 
+    left: -21px 
+} 
+ 
+.sahito-invoice-pdf .ribbon-overdue span:before, 
+.sahito-invoice .ribbon-overdue span:before { 
+    content: ""; 
+    position: absolute; 
+    left: 0; 
+    top: 100%; 
+    z-index: -1; 
+    border-left: 3px solid #ff0000; 
+    border-right: 3px solid transparent; 
+    border-bottom: 3px solid transparent; 
+    border-top: 3px solid #ff0000 
+} 
+ 
+.sahito-invoice-pdf .ribbon-overdue span:after, 
+.sahito-invoice .ribbon-overdue span:after { 
+    content: ""; 
+    position: absolute; 
+    right: 0; 
+    top: 100%; 
+    z-index: -1; 
+    border-left: 3px solid transparent; 
+    border-right: 3px solid #ff0000; 
+    border-bottom: 3px solid transparent; 
+    border-top: 3px solid #ff0000 
+} 
+
+
+.sahito-invoice-pdf .ribbon-void,
+.sahito-invoice .ribbon-void {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right
+}
+
+.sahito-invoice-pdf .ribbon-void span,
+.sahito-invoice .ribbon-void span {
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    width: 100px;
+    display: block;
+    background: #000000;
+    background: linear-gradient(#000000, #000000);
+    box-shadow: 0 3px 10px -5px #000;
+    position: absolute;
+    top: 19px;
+    left: -21px
+}
+
+.sahito-invoice-pdf .ribbon-void span:before,
+.sahito-invoice .ribbon-void span:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid #000000;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #000000
+}
+
+.sahito-invoice-pdf .ribbon-void span:after,
+.sahito-invoice .ribbon-void span:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid transparent;
+    border-right: 3px solid #000000;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #000000
+}
+
 .sahito-invoice-pdf .sahito-invoice-content .col-md-4 img,
 .sahito-invoice .sahito-invoice-content .col-md-4 img {
     height: 120px;
@@ -1199,7 +1382,7 @@ select.select2-dropdown-open {
 }
 
 .form-general label {
-    padding-left: 15px;
+    padding-left: 0px;
     font-weight: 100
 }
 

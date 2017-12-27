@@ -43,7 +43,7 @@
             <div class="form-group form-general m-b-20">
               <label class="col-md-2 control-label text-left">Description</label>
               <div class="col-md-9 custom-summernote">
-                <textarea v-model="form.description" class="form-control" rows="3"></textarea>
+                <textarea v-model="form.description" class="form-control" rows="3" style="max-width: 796px; max-height: 500px; min-width: 550px; min-height: 110px;" ></textarea>
               </div>
             </div>
             <div class="form-group form-general m-b-20">
