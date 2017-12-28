@@ -30,7 +30,7 @@
         <div class="row">
           <div class="col-md-4 col-sm-4 col-xs-4 left-side">
 
-            <div class="container full-width-header bt-1 p-b-10">
+            <div class="container full-width-header">
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12" v-if="!checkedList.length > 0">
                   <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
@@ -120,8 +120,7 @@
                   <div class="sahito-list-contact table-responsive">
                     <table class="table table-hover default-table sahito-list-contact--table">
                       <tbody>
-                      <tr v-for="(sale, index) in salesList"
-                          :class="{ active: sale.sales_order_id == salesOrderItems.sales_order_id }">
+                      <tr v-for="(sale, index) in salesList":class="{ active: sale.sales_order_id == salesOrderItems.sales_order_id }">
                         <td class="col-checkbox">
                           <div class="checkbox checkbox-single checkbox-success">
                             <input type="checkbox" :value="sale" v-model="checkedList" title="Check box">
@@ -166,7 +165,7 @@
 
           </div>
 
-          <div class="col-md-8 col-sm-8 col-xs-8 right-side">
+          <div class="col-md-8 col-sm-8 col-xs-8 right-side" style="border-left: 1px solid #eee;">
 
             <div class="row" v-if="salesOrder">
               <div class="col-md-12">
@@ -247,7 +246,7 @@
             </div>
 
             <div class="row">
-              <div class="col-md-12 p-0">
+              <div class="col-md-12">
                 <ul class="nav nav-tabs nav-tabs-clear btp-1 nav-justified">
                   <li :class="{ tab: true, active: currentTab == 'invoice' }">
                     <a href="javascript:void(0);" @click="switchTab('invoice')">
