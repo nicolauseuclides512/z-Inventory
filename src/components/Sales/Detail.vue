@@ -247,7 +247,7 @@
 
             <div class="row">
               <div class="col-md-12">
-                <ul class="nav nav-tabs nav-tabs-clear btp-1 nav-justified">
+                <ul class="nav nav-tabs navtab-bg nav-justified">
                   <li :class="{ tab: true, active: currentTab == 'invoice' }">
                     <a href="javascript:void(0);" @click="switchTab('invoice')">
                       <span class="hidden-xs">INVOICE</span>
@@ -1165,7 +1165,7 @@
   .tabs-vertical > li.active > a,
   .tabs-vertical > li.active > a:focus,
   .tabs-vertical > li.active > a:hover {
-    border-bottom: 3px solid #337ab7;
+    border-top: 3px solid #337ab7;
     color: white;
   }
 </style>
