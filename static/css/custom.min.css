@@ -1782,6 +1782,14 @@ select.select2-dropdown-open {
     color: #fff
 }
 
+.light-grey-background {
+    background: #A9A9A9
+}
+
+.light-grey-background th {
+    color: #fff
+}
+
 .sahito-list .sahito-list-contact.border-1,
 .sahito-list .sahito-list-item-group.border-1 {
     border-top: 1px solid #ddd;
