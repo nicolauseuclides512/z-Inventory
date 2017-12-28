@@ -48,7 +48,8 @@
       </div>
 
       <div class="row" v-if="selected_contact">
-        <div class="col-md-4">
+        <div class="col-md-1"></div> 
+        <div class="col-md-3">
           <div class="text-bold">
             Billing Address
             <a href="javascript:void(0)" @click="editSelectedContact">
@@ -59,6 +60,18 @@
           <div v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
           <div v-text="selected_contact.billing_zip"></div>
           <div v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
+        </div>
+                <div class="col-md-4">
+          <div class="text-bold">
+            Shipping Address
+            <a href="javascript:void(0)" @click="editSelectedContact">
+              <i class="fa fa-fw fa-pencil"></i>
+            </a>
+          </div>
+          <div v-text="selected_contact.shipping_address"></div>
+          <div v-text="selected_contact.shipping_province_detail && selected_contact.shipping_province_detail.name"></div>
+          <div v-text="selected_contact.shipping_zip"></div>
+          <div v-text="selected_contact.shipping_country_detail && selected_contact.shipping_country_detail.name"></div>
         </div>
       </div>
 
