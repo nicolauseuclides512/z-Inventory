@@ -128,30 +128,34 @@
                           </div>
                         </td>
                         <td @click="showDetail(sale)" style="cursor: pointer;">
-                          <div>
-                            <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
-                              <span class="text-muted">#</span> <strong>{{ sale.sales_order_number }}</strong>
-                              <span class="text-muted">/</span>
-                              {{ sale.invoice_date | date('short') }}
-                            </a>
-                          </div>
-                          <div style="margin-top: 4px;">
-                            <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
-                              {{ sale.contact.display_name }}
-                            </a>
+                          <div  class="clearfix" style="margin-top: 8px;">
+                            <div class="pull-left">
+                              <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
+                                <strong>{{ sale.contact.display_name }}</strong>
+                              </a>
+                            </div>
+                            <div class="pull-right"> 
+                              {{ sale.total | money }}
+                            </div>
                           </div>
                           <div class="clearfix" style="margin-top: 8px;">
                             <div class="pull-left">
-                              <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status
-                                }}</span>
+                              <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
+                                <span class="text-muted">#</span>{{ sale.sales_order_number }}
+                              </a>
+                            </div>
+                            <div class="pull-right">                  
+                              <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status}}</span>
                               <span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span>
-                              <span class="text-muted">/</span>
-                              <span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'"
-                                    style="font-size: 10px;">{{ sale.shipment_status }}</span>
-                              <span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span>
+                            </div>
+                          </div>
+                          <div class="clearfix" style="margin-top: 8px;">
+                            <div class="pull-left">
+                              {{ sale.invoice_date | date('short') }}
                             </div>
                             <div class="pull-right">
-                              {{ sale.total | money }}
+                              <span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'" style="font-size: 10px;">{{ sale.shipment_status }}</span>
+                              <span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span>
                             </div>
                           </div>
                         </td>
