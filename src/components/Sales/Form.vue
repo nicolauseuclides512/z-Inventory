@@ -186,7 +186,10 @@
           </div>
         </div>
 
-        <hr>
+        <div class="row  m-b-20">
+          <div class="row  m-b-20">
+          </div>
+        </div>
 
         <div class="row m-b-20">
           <div class="col-md-6 pl-pr-0">
