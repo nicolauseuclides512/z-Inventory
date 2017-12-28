@@ -263,24 +263,39 @@
                               <tr>
                                 <td class="col-checkbox">
                                 </td>
-                                <td>
+                                <td style="line-height: 3">
                                   <div v-if="sale.contact">
                                     <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
                                                  href="javascript:void(0);">
-                                      {{ sale.contact.display_name }}
+                                      <div v-if = "sale.contact.first_name != null ">
+                                        Name: {{ sale.contact.first_name }} <br>
+                                      </div>
+                                      <div v-if = "sale.contact.company_name != null ">
+                                        Company: {{ sale.contact.company_name }} <br>
+                                      </div>
+                                      <div v-if = " sale.contact.phone != null">
+                                        Phone Number: {{ sale.contact.phone }} <br>
+                                      </div>
+                                      <div v-if = " sale.contact.mobile != null">
+                                        Work Number: {{ sale.contact.mobile }} <br>
+                                      </div>
+                                      <div v-if = " sale.contact.email != null">
+                                        Email: {{ sale.contact.email }}
+                                      </div>
                                     </router-link>
                                   </div>
                                   <div v-else><span class="text-muted">&mdash;</span></div>
                                 </td>
                                 <td rowspan="3" style="border-left:1px solid #ddd;">
                                   <div class="border-1 table-responsive">
-                                    <table class="table sahito-invoice-table-inside">
+                                    <table class="table sales-order-inner-table">
                                       <thead>
-                                      <tr class="dark-grey-background">
+                                      <tr class="light-grey-background">
                                         <th>Item &amp; Description</th>
                                         <th>Qty</th>
-                                        <th>Disc</th>
-                                        <th>Amount</th>
+                                        <th>Price @</th>
+                                        <th class="text-right">Disc</th>
+                                        <th class="text-right">Amount</th>
                                       </tr>
                                       </thead>
                                       <tbody>
@@ -296,40 +311,41 @@
                                           }}</span>
                                           <span v-else>{{ order.discount_amount_value }}%</span>
                                         </td>
-                                        <td>{{ order.amount | money }}</td>
+                                        <td class="text-right">{{ order.amount | money }}</td>
                                       </tr>
                                       <tr class="sub-total">
-                                        <td colspan="4" class="text-right text-bold">Sub Total</td>
-                                        <td>{{ overview.sub_total | money }}</td>
+                                        <td colspan="3"></td>
+                                        <td colspan="1">Sub Total</td>
+                                        <td class="text-right">{{ overview.sub_total | money }}</td>
                                       </tr>
                                       <!--<tr class="sub-total">-->
                                       <!--<td colspan="4" class="text-right text-bold">Shipment Charge</td>-->
                                       <!--<td>{{ overview.shipping_charge | money }}</td>-->
                                       <!--</tr>-->
                                       <tr class="sub-total">
-                                        <td colspan="4" class="text-right text-bold">
-                                          {{ overview.adjustment_name || 'Adjusment' }}
-                                        </td>
-                                        <td>{{ overview.adjustment_value | money }}</td>
+                                        <td colspan="3" style="border-color: white;">
+                                        <td colspan="1">{{ overview.adjustment_name || 'Adjusment' }}</td>
+                                        <td class="text-right">{{ overview.adjustment_value | money }}</td>
                                       </tr>
                                       <tr class="sub-total">
-                                        <td colspan="4" class="text-right text-bold">Tax</td>
-                                        <td>
+                                        <td colspan="3" style="border-color: white;">
+                                        <td>Tax</td>
+                                        <td class="text-right">
                                           <span v-if="overview.tax === -1">Included</span>
                                           <span v-else>{{ overview.tax | money }}</span>
                                         </td>
                                       </tr>
-                                      <tr class="balance-due" style="background: #f0f0f0;">
-                                        <td colspan="1" class="no-bgr"></td>
-                                        <td colspan="3" class="text-right text-bold">Total</td>
-                                        <td>{{ overview.total | money }}</td>
+                                      <tr class="balance-due">
+                                        <td colspan="3" style="border-color: white;"></td>
+                                        <td class="text-bold"  style="background: #f0f0f0;">Total</td>
+                                        <td class="text-right text-bold" style="background: #f0f0f0; font-color: #000000"">{{ overview.total | money }}</td>
                                       </tr>
                                       </tbody>
                                     </table>
                                   </div>
                                 </td>
                               </tr>
-                              <tr>
+                              <!-- <tr>
                                 <th class="col-checkbox">
                                 </th>
                                 <th>Payment Method</th>
@@ -340,7 +356,7 @@
                                 <td>
                                   <p>Bank Transfer</p>
                                 </td>
-                              </tr>
+                              </tr> -->
                               </tbody>
                             </table>
                           </td>

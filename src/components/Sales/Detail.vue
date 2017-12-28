@@ -30,7 +30,7 @@
         <div class="row">
           <div class="col-md-4 col-sm-4 col-xs-4 left-side">
 
-            <div class="container full-width-header bt-1 p-b-10">
+            <div class="container full-width-header">
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12" v-if="!checkedList.length > 0">
                   <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
@@ -120,8 +120,7 @@
                   <div class="sahito-list-contact table-responsive">
                     <table class="table table-hover default-table sahito-list-contact--table">
                       <tbody>
-                      <tr v-for="(sale, index) in salesList"
-                          :class="{ active: sale.sales_order_id == salesOrderItems.sales_order_id }">
+                      <tr v-for="(sale, index) in salesList":class="{ active: sale.sales_order_id == salesOrderItems.sales_order_id }">
                         <td class="col-checkbox">
                           <div class="checkbox checkbox-single checkbox-success">
                             <input type="checkbox" :value="sale" v-model="checkedList" title="Check box">
@@ -129,30 +128,34 @@
                           </div>
                         </td>
                         <td @click="showDetail(sale)" style="cursor: pointer;">
-                          <div>
-                            <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
-                              <span class="text-muted">#</span> <strong>{{ sale.sales_order_number }}</strong>
-                              <span class="text-muted">/</span>
-                              {{ sale.invoice_date | date('short') }}
-                            </a>
-                          </div>
-                          <div style="margin-top: 4px;">
-                            <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
-                              {{ sale.contact.display_name }}
-                            </a>
+                          <div  class="clearfix" style="margin-top: 8px;">
+                            <div class="pull-left">
+                              <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
+                                <strong>{{ sale.contact.display_name }}</strong>
+                              </a>
+                            </div>
+                            <div class="pull-right"> 
+                              {{ sale.total | money }}
+                            </div>
                           </div>
                           <div class="clearfix" style="margin-top: 8px;">
                             <div class="pull-left">
-                              <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status
-                                }}</span>
+                              <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
+                                <span class="text-muted">#</span>{{ sale.sales_order_number }}
+                              </a>
+                            </div>
+                            <div class="pull-right">                  
+                              <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status}}</span>
                               <span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span>
-                              <span class="text-muted">/</span>
-                              <span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'"
-                                    style="font-size: 10px;">{{ sale.shipment_status }}</span>
-                              <span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span>
+                            </div>
+                          </div>
+                          <div class="clearfix" style="margin-top: 8px;">
+                            <div class="pull-left">
+                              {{ sale.invoice_date | date('short') }}
                             </div>
                             <div class="pull-right">
-                              {{ sale.total | money }}
+                              <span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'" style="font-size: 10px;">{{ sale.shipment_status }}</span>
+                              <span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span>
                             </div>
                           </div>
                         </td>
@@ -166,7 +169,7 @@
 
           </div>
 
-          <div class="col-md-8 col-sm-8 col-xs-8 right-side">
+          <div class="col-md-8 col-sm-8 col-xs-8 right-side" style="border-left: 1px solid #eee;">
 
             <div class="row" v-if="salesOrder">
               <div class="col-md-12">
@@ -247,8 +250,8 @@
             </div>
 
             <div class="row">
-              <div class="col-md-12 p-0">
-                <ul class="nav nav-tabs nav-tabs-clear btp-1 nav-justified">
+              <div class="col-md-12">
+                <ul class="nav nav-tabs navtab-bg nav-justified">
                   <li :class="{ tab: true, active: currentTab == 'invoice' }">
                     <a href="javascript:void(0);" @click="switchTab('invoice')">
                       <span class="hidden-xs">INVOICE</span>
@@ -1166,7 +1169,7 @@
   .tabs-vertical > li.active > a,
   .tabs-vertical > li.active > a:focus,
   .tabs-vertical > li.active > a:hover {
-    border-bottom: 3px solid #337ab7;
+    border-top: 3px solid #337ab7;
     color: white;
   }
 </style>

@@ -5,18 +5,24 @@
       <hr>
 
       <div class="row">
+        <div class="col-md-2"> 
+          <label>Invoice date</label> 
+        </div> 
         <div class="col-md-3">
           <div class="form-group">
-            <label>Invoice date</label>
             <div class="input-group">
               <input v-model="form.invoice_date" required class="flatpickr form-control">
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
             </div>
           </div>
         </div>
+      </div> 
+      <div class="row"> 
+        <div class="col-md-2"> 
+          <label>Due date</label> 
+        </div> 
         <div class="col-md-3">
           <div class="form-group">
-            <label>Due date</label>
             <div class="input-group">
               <input v-model="form.due_date" class="flatpickr form-control">
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -25,8 +31,10 @@
         </div>
       </div>
 
+      <hr>
+
       <div class="form-group row">
-        <label class="control-label col-md-1">Customer</label>
+        <label class="control-label col-md-2">Customer</label>
         <div class="col-md-4">
           <vuelist
             @change="selectContact"
@@ -48,7 +56,8 @@
       </div>
 
       <div class="row" v-if="selected_contact">
-        <div class="col-md-4">
+        <div class="col-md-2"></div> 
+        <div class="col-md-2">
           <div class="text-bold">
             Billing Address
             <a href="javascript:void(0)" @click="editSelectedContact">
@@ -60,6 +69,18 @@
           <div v-text="selected_contact.billing_zip"></div>
           <div v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
         </div>
+        <div class="col-md-4">
+          <div class="text-bold">
+            Shipping Address
+            <a href="javascript:void(0)" @click="editSelectedContact">
+              <i class="fa fa-fw fa-pencil"></i>
+            </a>
+          </div>
+          <div v-text="selected_contact.shipping_address"></div>
+          <div v-text="selected_contact.shipping_province_detail && selected_contact.shipping_province_detail.name"></div>
+          <div v-text="selected_contact.shipping_zip"></div>
+          <div v-text="selected_contact.shipping_country_detail && selected_contact.shipping_country_detail.name"></div>
+        </div>
       </div>
 
       <hr>
@@ -67,7 +88,7 @@
       <div v-if="selected_contact">
 
         <div class="form-group row">
-          <label class="control-label col-md-1">Product</label>
+          <label class="control-label col-md-2">Product</label>
           <div class="col-md-4">
             <vuelist
               @change="selectProduct"
@@ -82,87 +103,93 @@
 
         </div>
 
-        <table class="table default-table">
-          <thead>
-          <tr>
-            <th>Item</th>
-            <th>Qty</th>
-            <th>Rate</th>
-            <th>Discount</th>
-            <th>Amount</th>
-            <th width="1"></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="product in form.details">
-            <td v-text="product.item_name"></td>
-            <td width="90">
-              <input type="number" v-model.number="product.item_quantity" min="1" class="form-control">
-            </td>
+        <div class="row sahito-list">
+          <div class="sahito-list-contact border-1 table-responsive">
+            <table class="table table-hover default-table sahito-list-contact--table table-striped">
+              <thead>
+              <tr style="color: #777">
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Rate</th>
+                <th>Discount</th>
+                <th colspan="2">Amount</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="product in form.details">
+                <td v-text="product.item_name"></td>
+                <td width="90">
+                  <input type="number" v-model.number="product.item_quantity" min="1" class="form-control">
+                </td>
 
-            <td>
-              <input type="number" v-model.number="product.item_rate" min="0" class="form-control no-spin-button">
-            </td>
+                <td>
+                  <input type="number" v-model.number="product.item_rate" min="0" class="form-control no-spin-button">
+                </td>
 
-            <td>
-              <div class="col-md-3">
-                <select v-model="product.discount_amount_type" @change="updateDiscountType(product)"
-                        class="form-control">
-                  <option v-for="value, key in list.discount_unit" :value="key" v-text="value"></option>
-                </select>
-              </div>
-              <div class="col-md-9">
-                <input type="number"
-                       v-model.number="product.discount_amount_value"
-                       @change="updateDiscountValue(product)"
-                       class="form-control">
-              </div>
-            </td>
+                <td>
+                  <div class="col-md-3">
+                    <select v-model="product.discount_amount_type" @change="updateDiscountType(product)"
+                            class="form-control">
+                      <option v-for="value, key in list.discount_unit" :value="key" v-text="value"></option>
+                    </select>
+                  </div>
+                  <div class="col-md-9">
+                    <input type="number"
+                          v-model.number="product.discount_amount_value"
+                          @change="updateDiscountValue(product)"
+                          class="form-control">
+                  </div>
+                </td>
 
-            <td class="text-right">{{ amount(product) | money }}</td>
+                <td class="text-right">{{ amount(product) | money }}</td>
 
-            <td>
-              <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
-                class="ion-close-circled"></i></a>
-            </td>
+                <td>
+                  <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
+                    class="ion-close-circled"></i></a>
+                </td>
 
-          </tr>
-          </tbody>
-          <tfoot>
-          <tr class="total text-bold">
-            <td colspan="4" class="text-right">Sub total</td>
-            <td colspan="4" class="text-right">{{ subtotal | money }}</td>
-          </tr>
-          <tr class="total text-bold">
-            <td colspan="4" class="text-right">PPN 10%</td>
-            <td colspan="4" class="text-right">{{ tax_value | money }}</td>
-          </tr>
-          <tr class="total text-bold">
-            <td colspan="3">
-              <input
-                v-model.trim="form.adjustment_name"
-                type="text"
-                class="form-control form-white"
-                style="max-width: 300px;"
-                placeholder="Adjustment"
-              />
-            </td>
-            <td colspan="3">
-              <div class="input-group pull-right">
-                <span class="input-group-addon">IDR</span>
-                <input type="number" min="0" class="form-control form-white text-right" style="max-width: 100%;"
-                       placeholder="" v-model.number="form.adjustment_value">
-              </div>
-            </td>
-          </tr>
-          <tr class="total text-bold">
-            <td colspan="4" class="text-right">Total</td>
-            <td colspan="4" class="text-right">{{ grandTotal | money }}</td>
-          </tr>
-          </tfoot>
-        </table>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr class="total text-bold">
+                <td colspan="4" class="text-right">Sub total</td>
+                <td colspan="4" class="text-right">{{ subtotal | money }}</td>
+              </tr>
+              <tr class="total text-bold">
+                <td colspan="4" class="text-right">PPN 10%</td>
+                <td colspan="4" class="text-right">{{ tax_value | money }}</td>
+              </tr>
+              <tr class="total text-bold">
+                <td colspan="3">
+                  <input
+                    v-model.trim="form.adjustment_name"
+                    type="text"
+                    class="form-control form-white"
+                    style="max-width: 300px;"
+                    placeholder="Adjustment"
+                  />
+                </td>
+                <td colspan="3">
+                  <div class="input-group pull-right">
+                    <span class="input-group-addon">IDR</span>
+                    <input type="number" min="0" class="form-control form-white text-right" style="max-width: 100%;"
+                          placeholder="" v-model.number="form.adjustment_value">
+                  </div>
+                </td>
+              </tr>
+              <tr class="total text-bold">
+                <td colspan="4" class="text-right">Total</td>
+                <td colspan="4" class="text-right">{{ grandTotal | money }}</td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
 
-        <hr>
+        <div class="row  m-b-20">
+          <div class="row  m-b-20">
+          </div>
+        </div>
 
         <div class="row m-b-20">
           <div class="col-md-6 pl-pr-0">
