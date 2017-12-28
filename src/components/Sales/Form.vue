@@ -5,18 +5,24 @@
       <hr>
 
       <div class="row">
+        <div class="col-md-2"> 
+          <label>Invoice date</label> 
+        </div> 
         <div class="col-md-3">
           <div class="form-group">
-            <label>Invoice date</label>
             <div class="input-group">
               <input v-model="form.invoice_date" required class="flatpickr form-control">
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
             </div>
           </div>
         </div>
+      </div> 
+      <div class="row"> 
+        <div class="col-md-2"> 
+          <label>Due date</label> 
+        </div> 
         <div class="col-md-3">
           <div class="form-group">
-            <label>Due date</label>
             <div class="input-group">
               <input v-model="form.due_date" class="flatpickr form-control">
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -25,8 +31,10 @@
         </div>
       </div>
 
+      <hr>
+
       <div class="form-group row">
-        <label class="control-label col-md-1">Customer</label>
+        <label class="control-label col-md-2">Customer</label>
         <div class="col-md-4">
           <vuelist
             @change="selectContact"
@@ -48,8 +56,8 @@
       </div>
 
       <div class="row" v-if="selected_contact">
-        <div class="col-md-1"></div> 
-        <div class="col-md-3">
+        <div class="col-md-2"></div> 
+        <div class="col-md-2">
           <div class="text-bold">
             Billing Address
             <a href="javascript:void(0)" @click="editSelectedContact">
@@ -61,7 +69,7 @@
           <div v-text="selected_contact.billing_zip"></div>
           <div v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
         </div>
-                <div class="col-md-4">
+        <div class="col-md-4">
           <div class="text-bold">
             Shipping Address
             <a href="javascript:void(0)" @click="editSelectedContact">
@@ -80,7 +88,7 @@
       <div v-if="selected_contact">
 
         <div class="form-group row">
-          <label class="control-label col-md-1">Product</label>
+          <label class="control-label col-md-2">Product</label>
           <div class="col-md-4">
             <vuelist
               @change="selectProduct"
