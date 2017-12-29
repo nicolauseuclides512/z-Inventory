@@ -92,7 +92,7 @@
                 {{ bank.account_holder }} <br>
                 {{ bank.account_number }}
               </div>
-              <div class="col-md-3 text-right">
+              <div class="col-md-3 text-right" style="padding-top: padding-top: 3%;">
                 <button type="button" @click="remove(bank)" class="btn btn-default btn-xs waves-effect">
                   <i class="ion-trash-b"></i>
                 </button>
