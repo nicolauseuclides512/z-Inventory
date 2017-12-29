@@ -144,8 +144,9 @@
                                 <span class="text-muted">#</span>{{ sale.sales_order_number }}
                               </a>
                             </div>
-                            <div class="pull-right">                  
-                              <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status}}</span>
+                            <div class="pull-right">
+                              <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status }}</span>
+                              <span v-else-if="sale.sales_order_status == 'DRAFT'" style="font-size: 10px;">{{ sale.sales_order_status }}</span>
                               <span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span>
                             </div>
                           </div>
