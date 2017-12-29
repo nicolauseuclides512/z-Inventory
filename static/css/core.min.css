@@ -12897,6 +12897,14 @@ a:hover {
     background-color: #ec407a
 }
 
+.label-grey { 
+    background-color: #cccccc 
+} 
+ 
+.label-black { 
+    background-color: #000000 
+} 
+
 .label-inverse {
     background-color: #212121
 }
