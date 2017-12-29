@@ -204,7 +204,7 @@
                           <div class="form-group form-general m-b-5">
                             <label class="col-md-4 control-label text-left">Purchase Cost</label>
                             <div class="col-md-8 pt-7">
-                              <strong>IDR0.00</strong>
+                              <strong>Rp 0</strong>
                             </div>
                           </div>
                           <div class="form-group form-general m-b-5">
@@ -220,7 +220,7 @@
                           <div class="form-group form-general m-b-5">
                             <label class="col-md-4 control-label text-left">Selling Price</label>
                             <div class="col-md-8 pt-7">
-                              <strong>IDR0.00</strong>
+                              <strong>Rp 0</strong>
                             </div>
                           </div>
                           <div class="form-group form-general m-b-5">
@@ -266,7 +266,7 @@
                       <div class="col-md-12">
                         <div class="border-chart">
                           <div class="top-chart text-center">
-                            <p>Sales Order Summary (in IDR)</p>
+                            <p>Sales Order Summary (in Rp)</p>
                           </div>
                           <div class="ct-chart ct-perfect-fifth" id="chart1"></div>
                         </div>

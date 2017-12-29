@@ -7,9 +7,9 @@
         <tr class="dark-grey-background">
           <th id="item">Item & Description</th>
           <th id="qty">Qty</th>
-          <th id="rate">Price @ (IDR)</th>
+          <th id="rate">Price @ (Rp)</th>
           <th id="discount" class="text-right">Disc</th>
-          <th id="amount">Amount (IDR)</th>
+          <th id="amount">Amount (Rp)</th>
         </tr>
       </thead>
       <tbody>
