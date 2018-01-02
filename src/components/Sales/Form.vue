@@ -171,7 +171,7 @@
                 </td>
                 <td colspan="3">
                   <div class="input-group pull-right">
-                    <span class="input-group-addon">IDR</span>
+                    <span class="input-group-addon">Rp</span>
                     <input type="number" min="0" class="form-control form-white text-right" style="max-width: 100%;"
                           placeholder="" v-model.number="form.adjustment_value">
                   </div>

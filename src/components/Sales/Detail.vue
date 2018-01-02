@@ -144,8 +144,9 @@
                                 <span class="text-muted">#</span>{{ sale.sales_order_number }}
                               </a>
                             </div>
-                            <div class="pull-right">                  
-                              <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status}}</span>
+                            <div class="pull-right">
+                              <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status }}</span>
+                              <span v-else-if="sale.sales_order_status == 'DRAFT'" style="font-size: 10px;">{{ sale.sales_order_status }}</span>
                               <span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span>
                             </div>
                           </div>
@@ -177,16 +178,34 @@
                   <span class="text-muted">#</span>
                   <span>{{salesOrder.sales_order_number}}</span>
 
-                  <small class="label label-success" v-if="salesOrder.invoice_status === 'PAID'">
+                  <span v-if="salesOrder.sales_order_status === 'DRAFT'">
+                    <small class="label label-default"> DRAFT </small>
+                  </span>
+                  <span v-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT' && salesOrder.invoice_status === 'UNPAID'">
+                    <small class="label label-danger"> UNPAID </small>
+                  </span>
+                  <span v-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT' && salesOrder.invoice_status === 'PARTIALLY_PAID'">
+                    <small class="label label-success"> PARTIALLY PAID </small>
+                  </span>
+                  <span v-if="salesOrder.sales_order_status === 'AWAITING_SHIPMENT' && salesOrder.invoice_status === 'PAID'">
+                    <small class="label label-success"> PAID </small>
+                  </span>
+                  <span v-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT' && salesOrder.invoice_status === 'OVERDUE'">
+                    <small class="label label-danger"> OVERDUE </small>
+                  </span>
+                  <span v-if="salesOrder.sales_order_status === 'CANCELED' && salesOrder.invoice_status === 'VOID'">
+                    <small class="label label-inverse"> VOID </small>
+                  </span>
+
+                  <!--<small class="label label-success" v-if="salesOrder.invoice_status === 'PAID'">
                     {{ salesOrder.invoice_status }}
                   </small>
                   <small class="label label-danger" v-else>{{ salesOrder.invoice_status }}</small>
                   <small class="label label-primary">
                     {{ salesOrder.invoices[0] ? salesOrder.invoices[0].invoice_status : '' }}
                   </small>
-
-                  <!--<small class="label label-success" v-if="salesOrder.shipment_status === 'SHIPPED'">{{ salesOrder.shipment_status | removeUnderScore }}</small>-->
-                  <!--<small class="label label-danger" v-else>{{ salesOrder.shipment_status | removeUnderScore }}</small>-->
+                  <small class="label label-success" v-if="salesOrder.shipment_status === 'SHIPPED'">{{ salesOrder.shipment_status | removeUnderScore }}</small>
+                  <small class="label label-danger" v-else>{{ salesOrder.shipment_status | removeUnderScore }}</small>-->
                 </h3>
                 <div class="pull-right">
 

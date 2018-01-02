@@ -392,7 +392,7 @@
                                 <td></td>
                                 <td>04 May 2016</td>
                                 <td></td>
-                                <td class="text-right">IDR0.00</td>
+                                <td class="text-right">Rp 0</td>
                                 <td><span class="text-info">Confirmed</span></td>
                               </tr>
                               <tr>
@@ -400,7 +400,7 @@
                                 <td>Test</td>
                                 <td>24 May 2016</td>
                                 <td></td>
-                                <td class="text-right">IDR60,000.00</td>
+                                <td class="text-right">Rp 60,000</td>
                                 <td><span class="text-success">Fulfilled</span></td>
                               </tr>
 
@@ -435,13 +435,13 @@
                               </tr>
                               <tr>
                                 <td>04 May 2016 01:55 PM</td>
-                                <td>Purchase Order of amount IDR120.00 converted as bill 123 - <span
+                                <td>Purchase Order of amount Rp 120 converted as bill 123 - <span
                                   class="recent-user">Shinta Maharkesti</span>
                                 </td>
                               </tr>
                               <tr>
                                 <td>04 May 2016 01:55 PM</td>
-                                <td>Purchase Order of amount IDR120.00 converted as bill 123 - <span
+                                <td>Purchase Order of amount Rp 120 converted as bill 123 - <span
                                   class="recent-user">Shinta Maharkesti</span>
                                 </td>
                               </tr>

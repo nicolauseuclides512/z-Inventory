@@ -2,7 +2,7 @@ import Accounting from 'accounting'
 import format from 'date-fns/format'
 import Vue from 'vue'
 
-Vue.filter('money', (value, currency = 'IDR', precision = 2, thousand = '.', decimal = ',', format = '%s%v') => {
+Vue.filter('money', (value, currency = 'Rp ', precision = 0, thousand = '.', decimal = ',', format = '%s%v') => {
   if (typeof value === 'number') {
     return Accounting.formatMoney(value, currency, precision, thousand, decimal, format)
   }
