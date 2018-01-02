@@ -114,7 +114,6 @@
               </div>
             </div>
 
-            <div class="container p-0">
               <div class="row sahito-list">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="sahito-list-contact table-responsive">
@@ -166,7 +165,6 @@
                   </div>
                 </div>
               </div>
-            </div>
 
           </div>
 
@@ -291,7 +289,6 @@
                 <div class="tab-content p-0 tab-content-clear tab-content--contact">
                   <div :class="{ 'tab-pane': true, active: currentTab == 'invoice' }" id="invoice"
                        v-if="currentTab == 'invoice'">
-                    <div class="container">
                       <div class="row p-20 pb-0">
                         <div class="btn-toolbar" role="toolbar">
                           <div class="btn-group" role="group">
@@ -325,13 +322,12 @@
                           ></component>
                         </div>
                       </div>
-                    </div>
                   </div>
 
                   <div :class="{ 'tab-pane': true, active: currentTab == 'payment'}" id="payment" v-if="currentTab == 'payment'">
                       <div class="row p-15">
                         <div class="border-1 table-responsive mt-20">
-                          <table class="table table-hover sahito-invoice-table">
+                          <table class="table sahito-invoice-table">
                             <caption><h3>Payment Receival</h3></caption>
                             <thead>
                             <tr class="grey-background">

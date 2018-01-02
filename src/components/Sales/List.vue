@@ -174,11 +174,9 @@
                               <i v-else="" class="ion-plus-circled text-green fa-lg"></i>
                             </a>
                           </td>
-                          <td>{{ sale.invoice_date | date('short') }}</td>
-                          <td>
-                            <a href="javascript:void(0);" @click="showDetail(sale)">
+                          <td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.invoice_date | date('short') }}</td>
+                          <td style="cursor: pointer;" @click="showDetail(sale)">
                               {{ sale.sales_order_number }}
-                            </a>
                           </td>
                           <td>
                             <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
@@ -186,17 +184,17 @@
                               {{ sale.contact.display_name }}
                             </router-link>
                           </td>
-                          <td>
+                          <td style="cursor: pointer;" @click="showDetail(sale)">
                             {{ sale.sales_order_status.toLowerCase().replace(/_/g, ' ') | capitalize }}
                           </td>
-                          <td>
+                          <td style="cursor: pointer;" @click="showDetail(sale)">
                             {{ sale.due_date | date('short') }}
                           </td>
-                          <td>{{ sale.total | money }}</td>
-                          <td>
+                          <td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
+                          <td style="cursor: pointer;" @click="showDetail(sale)">
                             {{ sale.invoices[0].balance_due | money}}
                           </td>
-                          <td> 
+                          <td style="cursor: pointer;" @click="showDetail(sale)"> 
                             <div v-if="sale.invoice_status === 'VOID'">
                               <i class="fa fa-circle text-black"></i>
                             </div>
@@ -263,7 +261,7 @@
                               <tr>
                                 <td class="col-checkbox">
                                 </td>
-                                <td style="line-height: 3">
+                                <td style="line-height: 3; width: 250px;">
                                   <div v-if="sale.contact">
                                     <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
                                                  href="javascript:void(0);">

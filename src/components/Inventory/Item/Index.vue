@@ -111,40 +111,40 @@
             <div class="sahito-list-item-group border-1 table-responsive">
                <table class="table table-hover default-table sahito-list-contact--table table-striped">
                 <thead>
-                <tr>
-                  <th class="col-checkbox" style="width: 5%">
-                  <div class="checkbox checkbox-single checkbox-success">
-                          <input type="checkbox" id="checkAll" @click="checkAll">
-                          <label></label>
-                        </div>
-                      </th>
-                  <th></th>
-                  <th>
-                    <a href="#" @click="sortItemsBy('item_name')">Name</a>
-                    <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'item_name'"></i>
-                    <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'item_name'"></i>
-                  </th>
-                  <th class="text-center">
-                    <a href="#" @click="sortItemsBy('description')">SKU</a>
-                    <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'description'"></i>
-                    <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'description'"></i>
-                  </th>
-                  <!--<th>-->
-                  <!--<a href="#" @click="sortItemsBy('description')">Description</a>-->
-                  <!--<i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'description'"></i>-->
-                  <!--<i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'description'"></i>-->
-                  <!--</th>-->
-                  <th>
-                    <a href="#" @click="sortItemsBy('inventory_stock')">Available</a>
-                    <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'inventory_stock'"></i>
-                    <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'inventory_stock'"></i>
-                  </th>
-                  <th class="text-right">
-                    <a href="#" @click="sortItemsBy('sales_rate')">Price</a>
-                    <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'sales_rate'"></i>
-                    <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'sales_rate'"></i>
-                  </th>
-                </tr>
+                  <tr>
+                    <th class="col-checkbox" style="width: 5%">
+                      <div class="checkbox checkbox-single checkbox-success">
+                        <input type="checkbox" id="checkAll" @click="checkAll">
+                        <label></label>
+                      </div>
+                    </th>
+                    <th></th>
+                    <th style="width: 25%">
+                      <a href="#" @click="sortItemsBy('item_name')" >Name</a>
+                      <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'item_name'"></i>
+                      <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'item_name'"></i>
+                    </th>
+                    <th class="text-center" style="width: 10%">
+                      <a href="#" @click="sortItemsBy('description')">SKU</a>
+                      <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'sku'"></i>
+                      <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'sku'"></i>
+                    </th>
+                    <th style="width: 25%">
+                      <a href="#" @click="sortItemsBy('description')">Description</a>
+                      <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'description'"></i>
+                      <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'description'"></i>
+                    </th>
+                    <th class="text-center" style="width: 15%">
+                      <a href="#" @click="sortItemsBy('inventory_stock')" >Stock Available</a>
+                      <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'inventory_stock'"></i>
+                      <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'inventory_stock'"></i>
+                    </th>
+                    <th class="text-right" style="width: 20%">
+                      <a href="#" @click="sortItemsBy('sales_rate')">Price</a>
+                      <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'sales_rate'"></i>
+                      <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'sales_rate'"></i>
+                    </th>
+                  </tr>
                 </thead>
                 <tbody v-for="item in list.items" :key="item.item_id">
                 <tr>
@@ -170,12 +170,12 @@
                       {{ item.item_name }}
                     </router-link>
                   </td>
-                  <!--<td><span v-if="!list.children.length">{{ list.description }}</span></td>-->
                   <td class="text-center">
                     {{ item.code_sku ? item.code_sku : '-' }}
                   </td>
-                  <td>
-                    <span v-if="!item.children.length && item.track_inventory">
+                  <td><span v-if="!item.children.length">{{ item.description }}</span></td>
+                  <td class="text-center">
+                    <span v-if="!item.children.length && !item.track_inventory">
                       <inline-editable
                         :item="item"
                         name="inventory_stock"

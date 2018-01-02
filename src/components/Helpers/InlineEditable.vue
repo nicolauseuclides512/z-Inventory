@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div v-if="!editMode">
+    <div v-if="!editMode" col-sx-12>
       <a href="javascript:;" @click="showInlineEditor($event)">{{ newValue }}</a>
     </div>
 
@@ -9,7 +9,7 @@
 
       <form method="POST" @submit.prevent="save">
 
-        <div class="input-group">
+        <div class="input-group col-sx-12">
           <div v-if="type === 'text'">
             <input type="text" v-model="newValue" class="form-control" min="0" required>
           </div>
