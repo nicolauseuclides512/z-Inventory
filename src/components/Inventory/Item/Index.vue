@@ -129,12 +129,12 @@
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'sku'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'sku'"></i>
                     </th>
-                    <th style="width: 30%">
+                    <th style="width: 25%">
                       <a href="#" @click="sortItemsBy('description')">Description</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'description'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'description'"></i>
                     </th>
-                    <th class="text-center" style="width: 10%">
+                    <th class="text-center" style="width: 15%">
                       <a href="#" @click="sortItemsBy('inventory_stock')" >Stock Available</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'inventory_stock'"></i>
@@ -174,8 +174,8 @@
                     {{ item.code_sku ? item.code_sku : '-' }}
                   </td>
                   <td><span v-if="!item.children.length">{{ item.description }}</span></td>
-                  <td>
-                    <span v-if="!item.children.length && item.track_inventory">
+                  <td class="text-right">
+                    <span v-if="!item.children.length && !item.track_inventory">
                       <inline-editable
                         :item="item"
                         name="inventory_stock"
