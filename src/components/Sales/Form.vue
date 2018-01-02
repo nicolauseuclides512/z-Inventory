@@ -178,8 +178,8 @@
                 </td>
               </tr>
               <tr class="total text-bold">
-                <td colspan="4" class="text-right">Total</td>
-                <td colspan="4" class="text-right">{{ grandTotal | money }}</td>
+                <td colspan="4" class="text-right" style="font-size: 18px">Total</td>
+                <td colspan="4" class="text-right" style="font-size: 18px">{{ grandTotal | money }}</td>
               </tr>
               </tfoot>
             </table>
