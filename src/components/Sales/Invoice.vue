@@ -29,9 +29,9 @@
         <div class="col-md-8 text-right">
           <h1>INVOICE</h1>
           <p class="inv-code">{{ value.invoice_number }}</p>
-          <p class="inv-balance">Balance Due</p>
-          <h4 v-if="value.invoice_status === 'PAID'">0</h4>
-          <h4 v-else>{{ value.balance_due | money }}</h4>
+          <p class="inv-balance" style="font-size: 18px">Balance Due</p>
+          <h4 v-if="value.invoice_status === 'PAID'" style="font-size: 28px">0</h4>
+          <h4 v-else style="font-size: 28px">{{ value.balance_due | money }}</h4>
         </div>
       </div>
       <div class="row sahito-invoice-content p-15" v-if="value.contact">
@@ -116,36 +116,42 @@
                 <td class="text-right">{{ item.amount | money }}</td>
               </tr>
               <tr class="sub-total">
-                <td colspan="4">Sub Total</td>
+                <td colspan="3"></td>
+                <td colspan="1">Sub Total</td>
                 <td colspan="2">{{ value.sub_total | money }}</td>
               </tr>
               <tr class="sub-total">
-                <td colspan="4">Shipping Charge</td>
+                <td colspan="3"></td>
+                <td colspan="1">Shipping Charge</td>
                 <td colspan="2">{{ value.shipping_charge | money }}</td>
               </tr>
               <tr class="sub-total">
-                <td colspan="4">Tax</td>
+                <td colspan="3"></td>
+                <td colspan="1">Tax</td>
                 <td colspan="1">10%</td>
-                <td colspan="2">
+                <td colspan="1">
                     <span v-if="!value.tax">Included</span>
                     <span v-else>{{ value.tax | money }}</span>
                 </td>
               </tr>
               <tr class="sub-total" v-if="value.adjustment_value">
-                <td colspan="4">{{ value.adjustment_name || 'Adjustment' }}</td>
+                <td colspan="3"></td>
+                <td colspan="1">{{ value.adjustment_name || 'Adjustment' }}</td>
                 <td colspan="2">{{ value.adjustment_value | money }}</td>
               </tr>
               <tr class="total">
-                <td colspan="4">Total</td>
+                <td colspan="3"></td>
+                <td colspan="1">Total</td>
                 <td colspan="2">{{ value.total | money }}</td>
               </tr>
               <tr class="text-right" v-for="(item, index) in paymentList">
-                <td colspan="4">Paid at {{ item.date | date('short') }}</td>
+                <td colspan="3"></td>
+                <td colspan="1">Paid at {{ item.date | date('short') }}</td>
                 <td colspan="2">{{ item.amount | money }}</td>
               </tr>
               <tr class="text-right" style="border-bottom-color:  white;">
-                <td colspan="2"></td>
-                <td colspan="2" style="background: #f0f0f0;">Balance Due</td>
+                <td colspan="3"></td>
+                <td colspan="1" style="background: #f0f0f0;">Balance Due</td>
                 <td colspan="2" style="background: #f0f0f0;">{{ value.balance_due | money }}</td>
               </tr>
               </tbody>
