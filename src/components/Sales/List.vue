@@ -263,7 +263,7 @@
                               <tr>
                                 <td class="col-checkbox">
                                 </td>
-                                <td style="line-height: 3">
+                                <td style="line-height: 3; width: 250px;">
                                   <div v-if="sale.contact">
                                     <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
                                                  href="javascript:void(0);">
