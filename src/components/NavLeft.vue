@@ -24,7 +24,7 @@
         <!---->
         <!--</dropdown-menu>-->
 
-        <dropdown-menu title="Items" icon="fa fa-archive">
+        <dropdown-menu title="Items" icon="ion-cube">
           <router-link tag="li" :to="{ name: 'item.index' }">
             <a class="waves-effect waves-light">Item List</a>
           </router-link>
@@ -38,13 +38,13 @@
 
         <li>
           <router-link id="nev-left-contacts" :to="{ name: 'contact.index' }" class="waves-effect waves-light">
-            <i class="md md-perm-contact-cal"></i><span> Contacts </span>
+            <i class="ion-person-stalker"></i><span> Contacts </span>
           </router-link>
         </li>
 
         <router-link id="nev-left-report" tag="li" :to="{ name: 'report.index' }">
           <a class="waves-effect waves-light">
-            <i class="md md-assessment"></i>
+            <i class="ion-stats-bars"></i>
             Report
           </a>
         </router-link>
