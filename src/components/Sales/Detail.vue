@@ -331,7 +331,7 @@
                   <div :class="{ 'tab-pane': true, active: currentTab == 'payment'}" id="payment" v-if="currentTab == 'payment'">
                       <div class="row p-15">
                         <div class="border-1 table-responsive mt-20">
-                          <table class="table table-hover sahito-invoice-table">
+                          <table class="table sahito-invoice-table">
                             <caption><h3>Payment Receival</h3></caption>
                             <thead>
                             <tr class="grey-background">
