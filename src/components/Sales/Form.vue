@@ -95,7 +95,7 @@
               @search="searchProduct"
               :options="list.product_list"
               :value="selected_product"
-              placeholder="Select product"
+              placeholder="Select product here"
               keyid="item_id"
               label="item_name"
             ></vuelist>
