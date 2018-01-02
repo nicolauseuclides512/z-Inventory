@@ -367,10 +367,10 @@
         selected_product: null,
         tax_included: 1,
         form: new Form({
-          invoice_date: dateFormat(new Date(), 'YYYY-MM-DD'),
-          due_date: dateFormat(new Date(), 'YYYY-MM-DD'),
+          invoice_date: dateFormat(new Date(), 'DD MMM YYYY'),
+          due_date: dateFormat(new Date(), 'DD MMM YYYY'),
           contact_id: null,
-          sales_order_date: dateFormat(new Date(), 'YYYY-MM-DD'),
+          sales_order_date: dateFormat(new Date(), 'DD-MMM-YYYY'),
           shipment_date: null,
           carrier_id: null,
           discount_contact_id: null,
@@ -383,7 +383,7 @@
           adjustment_value: 0,
           internal_notes: '',
           customer_notes: '',
-          term_date: dateFormat(new Date(), 'YYYY-MM-DD'),
+          term_date: dateFormat(new Date(), 'DD-MMM-YYYY'),
           invoice_email: '', // foo@example.com,bar@example.com
           billing_address: '',
           billing_region: null,
@@ -486,6 +486,8 @@
         const dateConfig = {
           defaultDate: new Date(),
           dateFormat: 'Y-m-d',
+          altFormat: 'j M Y',
+          altInput: true,
         }
         $('.flatpickr').flatpickr(dateConfig)
       },
