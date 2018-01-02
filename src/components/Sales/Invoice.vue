@@ -124,13 +124,11 @@
                 <td colspan="2">{{ value.shipping_charge | money }}</td>
               </tr>
               <tr class="sub-total">
-                <td colspan="4"><strong>Tax</strong></td>
-                <td colspan="1"><strong>10%</strong></td>
+                <td colspan="4">Tax</td>
+                <td colspan="1">10%</td>
                 <td colspan="2">
-                  <strong>
                     <span v-if="!value.tax">Included</span>
                     <span v-else>{{ value.tax | money }}</span>
-                  </strong>
                 </td>
               </tr>
               <tr class="sub-total" v-if="value.adjustment_value">
