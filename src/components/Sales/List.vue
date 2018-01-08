@@ -144,7 +144,7 @@
                             <label></label>
                           </div>
                         </th>
-                        <th id="icon_collapse">
+                        <th id="icon_collapse" style="padding-top:  15px;padding-bottom:  15px;">
                           <div class="placeholder-collapse"></div>
                         </th>
                         <th>Date</th>
