@@ -213,6 +213,23 @@
           </div>
           <div class="col-md-6 pl-pr-0">
             <div class="form-group form-general m-b-20">
+              <label class="control-label text-left">Terms & Conditions</label>
+                  <textarea
+                    class="form-control"
+                    rows="5"
+                    v-model="form.term_and_condition"
+                    maxlength="500"
+                  ></textarea>
+                <div class="">Internal use only. Will not be displayed anywhere.</div>
+                <div class="help-text">Maximum customer notes characters is 500.</div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-b-20">
+          <div class="col-md-6 pl-pr-0">
+          </div>
+          <div class="col-md-6 pl-pr-0">
+            <div class="form-group form-general m-b-20">
               <label class="control-label text-left">Internal Notes</label>
                   <textarea
                     class="form-control"
@@ -280,424 +297,437 @@
 </template>
 
 <script>
-  const Flatpickr = require('flatpickr')
-  import swal from 'sweetalert2'
-  import axios from 'axios'
-  import store from 'src/store'
-  import Vuelist from '../Vuelist'
-  import Vuetagger from '../Vuetagger'
-  import { responseOk } from 'src/helpers'
-  import Regional from '../../helpers/regional'
-  import Salutation from '../../helpers/Salutation'
-  import Router from 'src/router'
-  import { swal_success } from '../../helpers'
-  import Form from '../../helpers/Form'
-  import dateFormat from 'date-fns/format'
+const Flatpickr = require("flatpickr");
+import swal from "sweetalert2";
+import axios from "axios";
+import store from "src/store";
+import Vuelist from "../Vuelist";
+import Vuetagger from "../Vuetagger";
+import { responseOk } from "src/helpers";
+import Regional from "../../helpers/regional";
+import Salutation from "../../helpers/Salutation";
+import Router from "src/router";
+import { swal_success } from "../../helpers";
+import Form from "../../helpers/Form";
+import dateFormat from "date-fns/format";
 
-  export default {
-    name: 'SalesOrderForm',
+export default {
+  name: "SalesOrderForm",
 
-    components: {
-      Vuelist, Vuetagger,
+  components: {
+    Vuelist,
+    Vuetagger
+  },
+
+  watch: {
+    "form.invoice_date"(val) {
+      this.form.due_date = val;
+    }
+  },
+
+  computed: {
+    subtotal() {
+      let subtotal = 0;
+
+      _.each(this.form.details, item => {
+        subtotal = subtotal + this.amount(item);
+      });
+
+      return subtotal;
     },
 
-    watch: {
-      'form.invoice_date' (val) {
-        this.form.due_date = val
+    tax_value() {
+      // NOTE: The "tax_included" from "Tax Setting", actually a boolean. But server give us 0 or 1.
+      return this.tax_included ? "Included" : this.subtotal * 0.1;
+    },
+
+    grandTotal() {
+      let taxValue = 0;
+      if (_.isNumber(_.toNumber(this.tax_value))) {
+        taxValue = _.toNumber(this.tax_value);
+        // I know this is weird
+        if (isNaN(taxValue)) {
+          taxValue = 0;
+        }
       }
+
+      let adjustmentValue = 0;
+      if (_.isNumber(_.toNumber(this.form.adjustment_value))) {
+        adjustmentValue = _.toNumber(this.form.adjustment_value);
+      }
+
+      return this.subtotal + taxValue + adjustmentValue;
     },
 
-    computed: {
+    invoice_emails() {
+      return this.form.invoice_email
+        ? this.form.invoice_email.split(/\s*,\s*/)
+        : [];
+    }
+  },
 
-      subtotal () {
-        let subtotal = 0
-
-        _.each(this.form.details, item => {
-          subtotal = subtotal + this.amount(item)
-        })
-
-        return subtotal
+  data() {
+    return {
+      ui: {
+        adjustment_edit: false,
+        invalidInvoiceEmail: false
       },
-
-      tax_value () {
-        // NOTE: The "tax_included" from "Tax Setting", actually a boolean. But server give us 0 or 1.
-        return this.tax_included ? 'Included' : this.subtotal * 0.1
+      list: {
+        discount_unit: [],
+        weight_unit: [],
+        contact_list: [],
+        product_list: []
       },
-
-      grandTotal () {
-        let taxValue = 0
-        if (_.isNumber(_.toNumber(this.tax_value))) {
-          taxValue = _.toNumber(this.tax_value)
-          // I know this is weird
-          if (isNaN(taxValue)) {
-            taxValue = 0
-          }
-        }
-
-        let adjustmentValue = 0
-        if (_.isNumber(_.toNumber(this.form.adjustment_value))) {
-          adjustmentValue = _.toNumber(this.form.adjustment_value)
-        }
-
-        return this.subtotal + taxValue + adjustmentValue
-
-      },
-
-      invoice_emails () {
-        return this.form.invoice_email
-          ? this.form.invoice_email.split(/\s*,\s*/)
-          : []
-      },
-
-    },
-
-    data () {
-      return {
-        ui: {
-          adjustment_edit: false,
-          invalidInvoiceEmail: false,
-        },
-        list: {
-          discount_unit: [],
-          weight_unit: [],
-          contact_list: [],
-          product_list: [],
-        },
-        selected_contact: null,
-        selected_product: null,
+      selected_contact: null,
+      selected_product: null,
+      tax_included: 1,
+      form: new Form({
+        invoice_date: dateFormat(new Date(), "DD MMM YYYY"),
+        due_date: dateFormat(new Date(), "DD MMM YYYY"),
+        contact_id: null,
+        sales_order_date: dateFormat(new Date(), "DD-MMM-YYYY"),
+        shipment_date: null,
+        carrier_id: null,
+        discount_contact_id: null,
+        discount_amount_type: "fixed",
+        discount_amount_value: 0,
+        shipping_weight: 1,
+        shipping_weight_unit: "gr",
+        shipping_rate: 0,
+        adjustment_name: "",
+        adjustment_value: 0,
+        internal_notes: "",
+        customer_notes: "",
+        term_and_condition: "",
+        term_date: dateFormat(new Date(), "DD-MMM-YYYY"),
+        invoice_email: "", // foo@example.com,bar@example.com
+        billing_address: "",
+        billing_region: null,
+        billing_district: null,
+        billing_province: null,
+        billing_country: null,
+        billing_zip: null,
+        billing_fax: null,
+        shipping_address: "",
+        shipping_region: null,
+        shipping_district: null,
+        shipping_province: null,
+        shipping_country: null,
+        shipping_zip: null,
+        shipping_fax: null,
         tax_included: 1,
-        form: new Form({
-          invoice_date: dateFormat(new Date(), 'DD MMM YYYY'),
-          due_date: dateFormat(new Date(), 'DD MMM YYYY'),
-          contact_id: null,
-          sales_order_date: dateFormat(new Date(), 'DD-MMM-YYYY'),
-          shipment_date: null,
-          carrier_id: null,
-          discount_contact_id: null,
-          discount_amount_type: 'fixed',
-          discount_amount_value: 0,
-          shipping_weight: 1,
-          shipping_weight_unit: 'gr',
-          shipping_rate: 0,
-          adjustment_name: '',
-          adjustment_value: 0,
-          internal_notes: '',
-          customer_notes: '',
-          term_date: dateFormat(new Date(), 'DD-MMM-YYYY'),
-          invoice_email: '', // foo@example.com,bar@example.com
-          billing_address: '',
-          billing_region: null,
-          billing_district: null,
-          billing_province: null,
-          billing_country: null,
-          billing_zip: null,
-          billing_fax: null,
-          shipping_address: '',
-          shipping_region: null,
-          shipping_district: null,
-          shipping_province: null,
-          shipping_country: null,
-          shipping_zip: null,
-          shipping_fax: null,
-          tax_included: 1,
-          is_draft: 0,
-          carrier_code: '',
-          carrier_name: '',
-          carrier_service: '',
-          details: [],
-        }),
+        is_draft: 0,
+        carrier_code: "",
+        carrier_name: "",
+        carrier_service: "",
+        details: []
+      })
+    };
+  },
+
+  mounted() {
+    this.initialize();
+  },
+
+  methods: {
+    async initialize() {
+      if (this.$route.params.id) {
+        const sales_order_id = this.$route.params.id;
+        const res = await axios.get(`sales_orders/${sales_order_id}/edit`);
+        this.edit(res.data.data.sales_order);
+        this.list.discount_unit = res.data.data.discount_unit;
+        this.list.weight_unit = res.data.data.weight_unit;
+        this.tax_included = res.data.data.tax_included;
+      } else {
+        const res = await axios.get("sales_orders/create");
+        this.list.discount_unit = res.data.data.discount_unit;
+        this.list.weight_unit = res.data.data.weight_unit;
+        this.tax_included = res.data.data.tax_included;
       }
+
+      await this.dateTime();
+      await this.fetchContactList();
+      await this.fetchProductList();
+      await this.fetchTaxSetting();
     },
 
-    mounted () {
-      this.initialize()
+    async edit(sales_order) {
+      this.selectContact(sales_order.contact);
+
+      const res = await axios.get(
+        `sales_orders/${sales_order.sales_order_id}/details`
+      );
+      this.form.details = res.data.data;
+
+      this.form.invoice_date = sales_order.invoice_date
+        ? sales_order.invoice_date.substr(0, 10)
+        : null;
+      this.form.due_date = sales_order.due_date
+        ? sales_order.due_date.substr(0, 10)
+        : null;
+      this.form.contact_id = sales_order.contact_id;
+      this.form.sales_order_date = sales_order.sales_order_date
+        ? sales_order.sales_order_date.substr(0, 10)
+        : null;
+      this.form.shipment_date = sales_order.shipment_date
+        ? sales_order.shipment_date.substr(0, 10)
+        : null;
+      this.form.carrier_id = sales_order.carrier_id;
+      this.form.discount_contact_id = sales_order.discount_contact_id;
+      this.form.discount_amount_type = sales_order.discount_amount_type;
+      this.form.discount_amount_value = sales_order.discount_amount_value;
+      this.form.shipping_weight = sales_order.shipping_weight;
+      this.form.shipping_weight_unit = sales_order.shipping_weight_unit;
+      this.form.shipping_rate = sales_order.shipping_rate;
+      this.form.adjustment_name = sales_order.adjustment_name;
+      this.form.adjustment_value = sales_order.adjustment_value;
+      this.form.internal_notes = sales_order.internal_notes;
+      this.form.customer_notes = sales_order.customer_notes;
+      this.form.term_and_condition = sales_order.term_and_condition;
+      this.form.term_date = sales_order.term_date
+        ? sales_order.term_date.substr(0, 10)
+        : null;
+      this.form.invoice_email = sales_order.invoice_email;
+      this.form.billing_address = sales_order.billing_address;
+      this.form.billing_region = sales_order.billing_region;
+      this.form.billing_district = sales_order.billing_district;
+      this.form.billing_province = sales_order.billing_province;
+      this.form.billing_country = sales_order.billing_country;
+      this.form.billing_zip = sales_order.billing_zip;
+      this.form.billing_fax = sales_order.billing_fax;
+      this.form.shipping_address = sales_order.shipping_address;
+      this.form.shipping_region = sales_order.shipping_region;
+      this.form.shipping_district = sales_order.shipping_district;
+      this.form.shipping_province = sales_order.shipping_province;
+      this.form.shipping_country = sales_order.shipping_country;
+      this.form.shipping_zip = sales_order.shipping_zip;
+      this.form.shipping_fax = sales_order.shipping_fax;
+      this.form.tax_included = sales_order.tax_included;
+      this.form.is_draft = sales_order.is_draft;
+      this.form.carrier_code = sales_order.carrier_code;
+      this.form.carrier_name = sales_order.carrier_name;
+      this.form.carrier_service = sales_order.carrier_service;
     },
 
-    methods: {
+    dateTime() {
+      const dateConfig = {
+        defaultDate: new Date(),
+        dateFormat: "Y-m-d",
+        altFormat: "j M Y",
+        altInput: true
+      };
+      $(".flatpickr").flatpickr(dateConfig);
+    },
 
-      async initialize () {
-        if (this.$route.params.id) {
-          const sales_order_id = this.$route.params.id
-          const res = await axios.get(`sales_orders/${sales_order_id}/edit`)
-          this.edit(res.data.data.sales_order)
-          this.list.discount_unit = res.data.data.discount_unit
-          this.list.weight_unit = res.data.data.weight_unit
-          this.tax_included = res.data.data.tax_included
-        } else {
-          const res = await axios.get('sales_orders/create')
-          this.list.discount_unit = res.data.data.discount_unit
-          this.list.weight_unit = res.data.data.weight_unit
-          this.tax_included = res.data.data.tax_included
+    async fetchContactList() {
+      const contact_list_response = await axios.get("contacts", {
+        params: {
+          page: 1,
+          per_page: 9999,
+          sort: "created_at.desc",
+          filter: "all",
+          q: ""
         }
+      });
 
-        await this.dateTime()
-        await this.fetchContactList()
-        await this.fetchProductList()
-        await this.fetchTaxSetting()
-      },
+      this.list.contact_list = contact_list_response.data.data;
+    },
 
-      async edit (sales_order) {
-        this.selectContact(sales_order.contact)
-
-        const res = await axios.get(`sales_orders/${sales_order.sales_order_id}/details`)
-        this.form.details = res.data.data
-
-        this.form.invoice_date = sales_order.invoice_date ? sales_order.invoice_date.substr(0, 10) : null
-        this.form.due_date = sales_order.due_date ? sales_order.due_date.substr(0, 10) : null
-        this.form.contact_id = sales_order.contact_id
-        this.form.sales_order_date = sales_order.sales_order_date ? sales_order.sales_order_date.substr(0, 10) : null
-        this.form.shipment_date = sales_order.shipment_date ? sales_order.shipment_date.substr(0, 10) : null
-        this.form.carrier_id = sales_order.carrier_id
-        this.form.discount_contact_id = sales_order.discount_contact_id
-        this.form.discount_amount_type = sales_order.discount_amount_type
-        this.form.discount_amount_value = sales_order.discount_amount_value
-        this.form.shipping_weight = sales_order.shipping_weight
-        this.form.shipping_weight_unit = sales_order.shipping_weight_unit
-        this.form.shipping_rate = sales_order.shipping_rate
-        this.form.adjustment_name = sales_order.adjustment_name
-        this.form.adjustment_value = sales_order.adjustment_value
-        this.form.internal_notes = sales_order.internal_notes
-        this.form.customer_notes = sales_order.customer_notes
-        this.form.term_date = sales_order.term_date ? sales_order.term_date.substr(0, 10): null
-        this.form.invoice_email = sales_order.invoice_email
-        this.form.billing_address = sales_order.billing_address
-        this.form.billing_region = sales_order.billing_region
-        this.form.billing_district = sales_order.billing_district
-        this.form.billing_province = sales_order.billing_province
-        this.form.billing_country = sales_order.billing_country
-        this.form.billing_zip = sales_order.billing_zip
-        this.form.billing_fax = sales_order.billing_fax
-        this.form.shipping_address = sales_order.shipping_address
-        this.form.shipping_region = sales_order.shipping_region
-        this.form.shipping_district = sales_order.shipping_district
-        this.form.shipping_province = sales_order.shipping_province
-        this.form.shipping_country = sales_order.shipping_country
-        this.form.shipping_zip = sales_order.shipping_zip
-        this.form.shipping_fax = sales_order.shipping_fax
-        this.form.tax_included = sales_order.tax_included
-        this.form.is_draft = sales_order.is_draft
-        this.form.carrier_code = sales_order.carrier_code
-        this.form.carrier_name = sales_order.carrier_name
-        this.form.carrier_service = sales_order.carrier_service
-
-      },
-
-      dateTime () {
-        const dateConfig = {
-          defaultDate: new Date(),
-          dateFormat: 'Y-m-d',
-          altFormat: 'j M Y',
-          altInput: true,
+    async fetchProductList() {
+      const product_list_response = await axios.get("items", {
+        params: {
+          page: 1,
+          per_page: 9999,
+          sort: "created_at.desc",
+          filter: "all",
+          q: ""
         }
-        $('.flatpickr').flatpickr(dateConfig)
-      },
+      });
 
-      async fetchContactList () {
-        const contact_list_response = await axios.get('contacts', {
-          params: {
-            page: 1,
-            per_page: 9999,
-            sort: 'created_at.desc',
-            filter: 'all',
-            q: '',
-          },
-        })
+      this.list.product_list = product_list_response.data.data;
+    },
 
-        this.list.contact_list = contact_list_response.data.data
-      },
+    async fetchTaxSetting() {},
 
-      async fetchProductList () {
-        const product_list_response = await axios.get('items', {
-          params: {
-            page: 1,
-            per_page: 9999,
-            sort: 'created_at.desc',
-            filter: 'all',
-            q: '',
-          },
-        })
+    async editSelectedContact() {
+      window.open(`/contacts/${this.selected_contact.contact_id}/edit`);
+    },
 
-        this.list.product_list = product_list_response.data.data
-      },
-
-      async fetchTaxSetting () {
-
-      },
-
-      async editSelectedContact() {
-        window.open(`/contacts/${this.selected_contact.contact_id}/edit`)
-      },
-
-      /**
+    /**
        * Invoice email addresses
        */
-      updateEmail (emails) {
-        this.form.invoice_email = emails.join(',')
-      },
+    updateEmail(emails) {
+      this.form.invoice_email = emails.join(",");
+    },
 
-      /**
+    /**
        * Update data "always use draft"m until "marked as sent".
        * That's why there is no "is_draft".
        */
-      async save (evt) {
-        try {
+    async save(evt) {
+      try {
+        if (!this.form.due_date) this.form.due_date = this.form.invoice_date;
 
-          if (!this.form.due_date) this.form.due_date = this.form.invoice_date;
+        let res;
+        let sales_order_id = this.$route.params.id;
 
-          let res
-          let sales_order_id = this.$route.params.id
-
-          if (evt.target.dataset.value === 'save_as_draft') {
-            this.form.is_draft = 1
-          } else {
-            this.form.is_draft = 0
-          }
-
-          if (sales_order_id) {
-            res = await this.form.post(`sales_orders/${sales_order_id}/update`)
-          } else {
-            res = await this.form.post(`sales_orders`)
-            sales_order_id = res.data.data.sales_order_id
-          }
-
-          const invoice_id = res.data.data.invoices[0].invoice_id
-
-          switch (evt.target.dataset.value) {
-
-            case 'save_and_send_invoice':
-              Router.push({
-                name: 'sales.email',
-                params: {
-                  sales_order_id,
-                  invoice_id,
-                },
-                query: {
-                  state: 'send_invoice',
-                },
-              })
-              break
-
-            case 'save_and_pay':
-              Router.push({
-                name: 'sales.detail',
-                params: {
-                  id: sales_order_id,
-                },
-                query: {
-                  state: 'pay',
-                },
-              })
-              break
-
-            case 'save_and_close':
-              Router.push({name: 'sales.detail', params: {id: sales_order_id}})
-              break
-
-            case 'save_then_create_new':
-              Router.replace({name: 'sales.create'})
-              break
-          }
-
-          Alert.success(res.data.message)
-
-        } catch (err) {
-          console.error(err)
-          if (err.hasOwnProperty('response')) {
-            Alert.error(err.response.data.message)
-          }
+        if (evt.target.dataset.value === "save_as_draft") {
+          this.form.is_draft = 1;
+        } else {
+          this.form.is_draft = 0;
         }
-      },
 
-      async selectContact (contact) {
-        const contact_id = this.form.contact_id = contact.contact_id
-        const res = await axios.get(`contacts/${contact_id}`)
-        this.selected_contact = res.data.data
-      },
+        if (sales_order_id) {
+          res = await this.form.post(`sales_orders/${sales_order_id}/update`);
+        } else {
+          res = await this.form.post(`sales_orders`);
+          sales_order_id = res.data.data.sales_order_id;
+        }
 
-      clearSelectedContact () {
-        this.selected_contact = null
-      },
+        const invoice_id = res.data.data.invoices[0].invoice_id;
 
-      searchContact () {
-        //
-      },
+        switch (evt.target.dataset.value) {
+          case "save_and_send_invoice":
+            Router.push({
+              name: "sales.email",
+              params: {
+                sales_order_id,
+                invoice_id
+              },
+              query: {
+                state: "send_invoice"
+              }
+            });
+            break;
 
-      async selectProduct (product) {
-        this.selected_product = product
-        Vue.nextTick(() => {
-          this.selected_product = null
-        })
-        this.form.details.push({
-          item_id: product.item_id,
-          item_name: product.item_name,
-          item_quantity: product.item_quantity || 1,
-          item_rate: product.sales_rate,
-          discount_contact_id: product.discount_contact_id,
-          discount_amount_type: product.discount_amount_type || 'fixed',
-          discount_amount_value: product.discount_amount_value || 0,
-        })
-      },
+          case "save_and_pay":
+            Router.push({
+              name: "sales.detail",
+              params: {
+                id: sales_order_id
+              },
+              query: {
+                state: "pay"
+              }
+            });
+            break;
 
-      removeProduct (product) {
-        const index = this.form.details.indexOf(product)
-        this.form.details.splice(index, 1)
-      },
+          case "save_and_close":
+            Router.push({
+              name: "sales.detail",
+              params: { id: sales_order_id }
+            });
+            break;
 
-      searchProduct () {
-        //
-      },
+          case "save_then_create_new":
+            Router.replace({ name: "sales.create" });
+            break;
+        }
 
-      updateDiscountType (product) {
-        this.amount(product)
-      },
+        Alert.success(res.data.message);
+      } catch (err) {
+        console.error(err);
+        if (err.hasOwnProperty("response")) {
+          Alert.error(err.response.data.message);
+        }
+      }
+    },
 
-      updateDiscountValue (product) {
-        this.amount(product)
-      },
+    async selectContact(contact) {
+      const contact_id = (this.form.contact_id = contact.contact_id);
+      const res = await axios.get(`contacts/${contact_id}`);
+      this.selected_contact = res.data.data;
+    },
 
-      /**
+    clearSelectedContact() {
+      this.selected_contact = null;
+    },
+
+    searchContact() {
+      //
+    },
+
+    async selectProduct(product) {
+      this.selected_product = product;
+      Vue.nextTick(() => {
+        this.selected_product = null;
+      });
+      this.form.details.push({
+        item_id: product.item_id,
+        item_name: product.item_name,
+        item_quantity: product.item_quantity || 1,
+        item_rate: product.sales_rate,
+        discount_contact_id: product.discount_contact_id,
+        discount_amount_type: product.discount_amount_type || "fixed",
+        discount_amount_value: product.discount_amount_value || 0
+      });
+    },
+
+    removeProduct(product) {
+      const index = this.form.details.indexOf(product);
+      this.form.details.splice(index, 1);
+    },
+
+    searchProduct() {
+      //
+    },
+
+    updateDiscountType(product) {
+      this.amount(product);
+    },
+
+    updateDiscountValue(product) {
+      this.amount(product);
+    },
+
+    /**
        * Sales rate + tax
        *
        * @param {Object} item
        * @return {float|int}
        */
-      sales_rate (item) {
-        return item.item_rate ? item.item_rate : item.sales_rate
-      },
+    sales_rate(item) {
+      return item.item_rate ? item.item_rate : item.sales_rate;
+    },
 
-      /**
+    /**
        * Price + discount
        */
-      amount (item) {
-        const sales_rate = this.sales_rate(item)
+    amount(item) {
+      const sales_rate = this.sales_rate(item);
 
-        if (!item.discount_amount_value || !item.discount_amount_type) {
-          return parseFloat(sales_rate) * parseInt(item.item_quantity)
-        }
+      if (!item.discount_amount_value || !item.discount_amount_type) {
+        return parseFloat(sales_rate) * parseInt(item.item_quantity);
+      }
 
-        if (item.discount_amount_type == 'fixed') {
-          return ( parseFloat(sales_rate) - parseFloat(item.discount_amount_value) ) * parseInt(item.item_quantity)
-        }
+      if (item.discount_amount_type == "fixed") {
+        return (
+          (parseFloat(sales_rate) - parseFloat(item.discount_amount_value)) *
+          parseInt(item.item_quantity)
+        );
+      }
 
-        if (item.discount_amount_type == 'percentage') {
-          const discount = parseFloat(sales_rate) * parseFloat(item.discount_amount_value) / 100
-          return ( parseFloat(sales_rate) - discount ) * parseInt(item.item_quantity)
-        }
-      },
+      if (item.discount_amount_type == "percentage") {
+        const discount =
+          parseFloat(sales_rate) * parseFloat(item.discount_amount_value) / 100;
+        return (
+          (parseFloat(sales_rate) - discount) * parseInt(item.item_quantity)
+        );
+      }
+    },
 
-      /**
+    /**
        * Adjustment label toggle
        */
-      adjustmentEditToggle (show) {
-        this.ui.adjustment_edit = show
-      },
-
-    },
+    adjustmentEditToggle(show) {
+      this.ui.adjustment_edit = show;
+    }
   }
+};
 </script>
 
 <style scoped>
-  .flatpickr {
-    background: white;
-  }
+.flatpickr {
+  background: white;
+}
 </style>
