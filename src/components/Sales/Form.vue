@@ -220,7 +220,7 @@
                     v-model="form.term_and_condition"
                     maxlength="500"
                   ></textarea>
-                <div class="">Internal use only. Will not be displayed anywhere.</div>
+                <div class="">Will be displayed in invoice.</div>
                 <div class="help-text">Maximum customer notes characters is 500.</div>
             </div>
           </div>
@@ -698,7 +698,7 @@ export default {
 
       if (!item.discount_amount_value || !item.discount_amount_type) {
         return parseFloat(sales_rate) * parseInt(item.item_quantity);
-      }
+      } 
 
       if (item.discount_amount_type == "fixed") {
         return (
