@@ -22,7 +22,7 @@
                      placeholder="Email"
                      autocomplete="off"
                      autofocus
-                     v-model="username"
+                     v-model="form.username"
               />
             </div>
           </div>
@@ -35,7 +35,7 @@
                      required
                      placeholder="Password"
                      autocomplete="off"
-                     v-model="password"
+                     v-model="form.password"
               />
             </div>
           </div>
@@ -43,7 +43,7 @@
           <div class="form-group">
             <div class="col-xs-6">
               <div class="checkbox checkbox-primary">
-                <input id="remember" type="checkbox" v-model="remember">
+                <input id="remember" type="checkbox" v-model="form.remember">
                 <label for="remember">
                   Remember me
                 </label>
@@ -101,11 +101,14 @@
 <script>
   import axios from 'axios'
   import Cookie from 'js-cookie'
-  import store from 'src/store'
+  import Storage from 'store/dist/store.modern'
   import swal from 'sweetalert2'
-  import PaymentMethodList from "../../helpers/PaymentMethodList"
-  import Carrier from "../../helpers/Carrier";
-  import Regional from "../../helpers/regional";
+  import { responseOk } from '../../helpers'
+  import Carrier from '../../helpers/Carrier'
+  import Form from '../../helpers/Form'
+  import PaymentMethodList from '../../helpers/PaymentMethodList'
+  import Regional from '../../helpers/regional'
+
 
   export default {
     name: 'Login',
@@ -114,92 +117,95 @@
       return {
         notVerified: null,
         loading: false,
+        form: new Form({
+          grant_type: 'password',
+          client_id: 2, // FIXME: Hard coded
+          client_secret: 'beXvmNU9dQS1cN35vmGSSDAfOR8nSVASouE3sVBT', // FIXME: Hard coded
+          username: '',
+          password: '',
+          scope: '',
+          remember: true,
+          application: 'inventory',
+        })
       }
     },
 
-    computed: {
-      username: {
-        get() { return store.state.login.username },
-        set(value) { store.commit('login/USERNAME', value) },
-      },
-      password: {
-        get() { return store.state.login.password },
-        set(value) { store.commit('login/PASSWORD', value) },
-      },
-      remember: {
-        get() { return store.state.login.remember },
-        set(value) { store.commit('login/REMEMBER', value) },
-      },
-    },
-
-    mounted() {
-      store.dispatch('login/clearLoginForm')
-    },
-
     methods: {
-      login() {
-        this.loading = true
 
-        store
-          .dispatch('login/login')
-          .then(res => {
-            if (res.data.data.access_token) {
+      async login () {
 
-              let options = {}
-              if (this.remember) {
-                options.expires = 14
-              }
+        try {
+          this.loading = true
 
-              Cookie.set('token_type', res.data.data.token_type, options)
-              Cookie.set('access_token', res.data.data.access_token, options)
-              Cookie.set('refresh_token', res.data.data.refresh_token, options)
-              Cookie.set('organization_id', res.data.data.organization_id, options)
+          const res = await this.form.post(`oauth/token`)
 
-              axios.defaults.headers.common['Authorization'] = Cookie.get('token_type') + ' ' + Cookie.get('access_token')
-              axios.defaults.headers.common['X-Header-Organization-Id'] = Cookie.get('organization_id')
-
-              // ----------------------------------------------------------------------------------------------------
-              // Cache
-              // ----------------------------------------------------------------------------------------------------
-              this.cacheCarriers()
-              this.cachePaymentMethods()
-              this.cacheRegional()
-
-
-              // ----------------------------------------------------------------------------------------------------
-              // Run setup
-              // ----------------------------------------------------------------------------------------------------
-              axios.get('setup').then(() => {
-                let destination = '/'
-
-                if (this.$route.query.redirect) {
-                  destination = this.$route.query.redirect
-                }
-
-                this.$router.push(destination)
-              })
-
-            } else {
-              swal({
-                title: 'Invalid credentials',
-                type: 'error',
-                showConfirmButton: true,
-              }).catch(swal.noop)
+          if (!responseOk(res.data.code)) {
+            throw {
+              name: 'InvalidCredentials',
+              message: res.data.message,
             }
-            this.loading = false
-          }).catch(err => {
-            this.loading = false
+          }
 
-            if (err.data.message === 'Account not verified.') {
-              this.notVerified = true
-            }
+          let options = {}
 
-            swal({
-              title: err.data.message,
-              type: 'error',
-              showConfirmButton: true,
-            }).catch(swal.noop)
-          })
+          if (this.form.remember) {
+            options.expires = 14
+          }
+
+          Cookie.set('token_type', res.data.data.token_type, options)
+          Cookie.set('access_token', res.data.data.access_token, options)
+          Cookie.set('refresh_token', res.data.data.refresh_token, options)
+          Cookie.set('organization_id', res.data.data.organization_id, options)
+
+          axios.defaults.headers.common['Authorization'] = Cookie.get('token_type') + ' ' + Cookie.get('access_token')
+          axios.defaults.headers.common['X-Header-Organization-Id'] = Cookie.get('organization_id')
+
+          // ----------------------------------------------------------------------------------------------------
+          // Cache
+          // ----------------------------------------------------------------------------------------------------
+
+          // First, clear all caches.
+          Storage.clearAll()
+
+          this.cacheCarriers()
+          this.cachePaymentMethods()
+          this.cacheRegional()
+
+
+          // ----------------------------------------------------------------------------------------------------
+          // Run setup
+          // ----------------------------------------------------------------------------------------------------
+          await axios.get('setup')
+          let destination = '/'
+
+          if (this.$route.query.redirect) {
+            destination = this.$route.query.redirect
+          }
+          this.$router.push(destination)
+
+          this.loading = false
+        }
+        catch (err) {
+          console.error(err)
+
+          if (err.message === 'Account not verified.') {
+            this.notVerified = true
+          }
+
+          if (err.message === 'invalid_credentials') {
+            err.message = 'Invalid credentials'
+          }
+
+          swal({
+            title: err.message,
+            type: 'error',
+            showConfirmButton: true,
+          }).catch(swal.noop)
+
+          this.loading = false
+
+        }
+
       },
 
 
