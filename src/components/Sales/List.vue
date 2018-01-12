@@ -103,7 +103,7 @@
                 <!--<li><a href="javascript:void(0);"><i class="md-file-upload"></i> Export Payments</a></li>-->
                 <!--<li class="divider"></li>-->
                 <!--<li><a href="javascript:void(0);"><i class="fa fa-cog"></i> Invoice Preferences</a></li>-->
-                <li><a href="javascript:void(0);"><i class="md-refresh"></i> Refresh List</a></li>
+                <li><a href="javascript:void(0);" @click="getList"><i class="md-refresh"></i> Refresh List</a></li>
               </ul>
             </div>
           </div>
@@ -194,7 +194,7 @@
                           <td style="cursor: pointer;" @click="showDetail(sale)">
                             {{ sale.invoices[0].balance_due | money}}
                           </td>
-                          <td style="cursor: pointer;" @click="showDetail(sale)"> 
+                          <td style="cursor: pointer;" @click="showDetail(sale)">
                             <div v-if="sale.invoice_status === 'VOID'">
                               <i class="fa fa-circle text-black"></i>
                             </div>
