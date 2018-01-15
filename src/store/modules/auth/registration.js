@@ -30,7 +30,7 @@ const actions = {
         email: state.email,
         password: state.password,
         password_confirmation: state.password_confirmation,
-        application: 'inventory',
+        application_id: 'inventory',
       }
 
       return await axios.post('register', data)

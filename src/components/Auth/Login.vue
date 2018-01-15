@@ -125,7 +125,7 @@
           password: '',
           scope: '',
           remember: true,
-          application: 'inventory',
+          application_id: 'inventory',
         })
       }
     },
