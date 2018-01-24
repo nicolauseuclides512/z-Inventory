@@ -3,7 +3,14 @@
     <form method="POST" @submit.prevent="register">
       <div class="wrapper-page form-horizontal m-t-20">
         <div class="panel panel-color panel-primary panel-pages panel-sign-in">
-          <div class="panel-heading"></div>
+
+          <div class="panel-heading">
+            <div class="bg-overlay" style="padding-left:15px; padding-top:15px;">
+              <div class="zuragan-logo-login">
+                <img src="/static/images/zuragan_logo_login.png" height="62" width="125">
+              </div>
+            </div>
+          </div>
 
           <div class="panel-body">
             <div class="form-group">
