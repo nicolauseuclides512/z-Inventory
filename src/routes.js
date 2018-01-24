@@ -314,6 +314,12 @@ export default [
     component: () => import('./components/Auth/ForgotPassword'),
   },
 
+  {
+    path: '/register/company',
+    name: 'auth.register.company',
+    component: () => import('./components/Auth/RegisterNewCompany')
+  },
+
 
   /**
    * --------------------------------------------------

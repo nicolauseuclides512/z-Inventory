@@ -147,6 +147,16 @@
             }
           }
 
+          if (res.data.message === 'User is not registered on this application.') {
+            this.$router.push({
+              name: 'auth.register.company',
+              query: {
+                email: this.form.username,
+              }
+            })
+            return
+          }
+
           let options = {}
 
           if (this.form.remember) {
