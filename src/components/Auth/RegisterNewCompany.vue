@@ -127,6 +127,7 @@
 
     async mounted () {
       this.form.email = this.$route.query.email
+      this.form.organization_name = this.$route.query.organization_name
     },
 
     methods: {
@@ -157,6 +158,11 @@
 
           if (res.data.message !== 'organization created.') {
             Alert.error(res.data.message)
+            return
+          }
+
+          if (res.data.message === 'organization created.') {
+            Alert.success(res.data.message)
             return
           }
 
