@@ -109,11 +109,14 @@
                                   </div>
                                 </td>
                                 <td align="center">
-                                  {{ detail.database_qty }}
+                                  <span v-if="!$route.params.id">
+                                    <input type="text" v-model.number="detail.database_qty" class="form-control">
+                                  </span>
+                                  <span v-if="$route.params.id">{{ detail.database_qty }}</span>
                                 </td>
                                 <td>
                                   <input
-                                    v-model="detail.adjust_qty"
+                                    v-model.number="detail.adjust_qty"
                                     @keyup="changeOnHandValue(detail)"
                                     required
                                     :disabled="!detail.item_id"
@@ -198,11 +201,10 @@
 </template>
 
 <script>
-  import Axios from 'axios'
-  import Form from 'src/helpers/Form'
-  import flatpickr from 'flatpickr'
   import Str from '@/helpers/Str'
+  import Axios from 'axios'
   import { Alert } from 'src/helpers'
+  import Form from 'src/helpers/Form'
 
   export default {
     name: 'StockAdjustmentForm',
@@ -250,7 +252,7 @@
       // Edit mode
       const stockId = this.$route.params.id
       if (!stockId) {
-        this.form.stock_adjustment_id = Str.random()
+        // this.form.stock_adjustment_id = Str.random()
       } else {
         this.getDetails(stockId)
       }
@@ -320,11 +322,41 @@
       },
 
       changeAdjustValue (detail) {
-        detail.adjust_qty =  parseInt(detail.on_hand_qty) - parseInt(detail.database_qty)
+        let on_hand_qty = 0
+        let database_qty = 0
+
+        if (detail.on_hand_qty) {
+          on_hand_qty = parseInt(detail.on_hand_qty)
+        } else {
+          on_hand_qty = 0
+        }
+
+        if (detail.database_qty) {
+          database_qty = parseInt(detail.database_qty)
+        } else {
+          database_qty = 0
+        }
+
+        detail.adjust_qty = on_hand_qty - database_qty
       },
 
       changeOnHandValue (detail) {
-        detail.on_hand_qty = parseInt(detail.database_qty) + parseInt(detail.adjust_qty)
+        let database_qty = 0
+        let adjust_qty = 0
+
+        if (detail.database_qty) {
+          database_qty = parseInt(detail.database_qty)
+        } else {
+          database_qty = 0
+        }
+
+        if (detail.adjust_qty) {
+          adjust_qty = parseInt(detail.adjust_qty)
+        } else {
+          adjust_qty = 0
+        }
+
+        detail.on_hand_qty = database_qty + adjust_qty
       },
 
     },
