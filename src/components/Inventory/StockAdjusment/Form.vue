@@ -86,6 +86,7 @@
                             <table class="table table-striped">
                               <thead>
                               <tr>
+                                <th>No.</th>
                                 <th>SKU</th>
                                 <th>Item Name</th>
                                 <th>Quantity in Database</th>
@@ -95,7 +96,8 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr v-for="detail in form.details">
+                              <tr v-for="(detail, index) in form.details">
+                                <td>{{ index+1 }}</td>
                                 <td>{{ detail.item_id }}</td>
                                 <td>
                                   <div class="col-md-12 pl-pr-0">
