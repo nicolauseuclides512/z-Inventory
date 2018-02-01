@@ -101,7 +101,7 @@
                                 <td>{{ detail.item_id }}</td>
                                 <td>
                                   <div class="col-md-12 pl-pr-0">
-                                    <select class="form-control" v-model="detail.item_id" required title="Item name">
+                                    <select class="form-control" v-model="detail.item_id" @change="selectItem(detail)" required title="Item name">
                                       <option v-for="item in list.items" :value="item.item_id">
                                         {{ item.item_name }}
                                       </option>
@@ -109,10 +109,7 @@
                                   </div>
                                 </td>
                                 <td align="center">
-                                  <span v-if="!$route.params.id">
-                                    <input type="text" v-model.number="detail.database_qty" class="form-control">
-                                  </span>
-                                  <span v-if="$route.params.id">{{ detail.database_qty }}</span>
+                                  <span>{{ detail.database_qty }}</span>
                                 </td>
                                 <td>
                                   <input
@@ -290,6 +287,11 @@
 
       addNew () {
         this.form.details.push({})
+      },
+
+      async selectItem(item) {
+        const res = await Axios.get(`items/${item.item_id}`)
+        item.database_qty = res.data.data.inventory_stock
       },
 
       async save (ev) {
