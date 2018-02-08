@@ -92,26 +92,26 @@
                 </div>
               </div>
             </div>
-            <div class="form-group form-general m-b-20">
-              <div class="toggles-dropship">
-                <label class="col-md-3 control-label text-left">Syncronize stock to Lazada</label>
-                <input type="checkbox" title="Syncronize stock to Lazada">
-              </div>
-            </div>
+            <!--<div class="form-group form-general m-b-20">-->
+              <!--<div class="toggles-dropship">-->
+                <!--<label class="col-md-3 control-label text-left">Syncronize stock to Lazada</label>-->
+                <!--<input type="checkbox" title="Syncronize stock to Lazada">-->
+              <!--</div>-->
+            <!--</div>-->
 
-            <div>
-              <div class="form-horizontal p-5">
-                <div class="form-group form-general m-b-20">
-                  <div class="col-md-1"></div>
-                  <div class="col-md-3 pl-pr-0">
-                    <input type="text" placeholder="Seller SKU in Lazada" required="required" class="form-control">
-                  </div>
-                  <div class="col-md-1">
-                    <button type="button" class="btn btn-danger btn-custom waves-effect"><i class="ion-trash-b"></i></button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!--<div>-->
+              <!--<div class="form-horizontal p-5">-->
+                <!--<div class="form-group form-general m-b-20">-->
+                  <!--<div class="col-md-1"></div>-->
+                  <!--<div class="col-md-3 pl-pr-0">-->
+                    <!--<input type="text" placeholder="Seller SKU in Lazada" required="required" class="form-control">-->
+                  <!--</div>-->
+                  <!--<div class="col-md-1">-->
+                    <!--<button type="button" class="btn btn-danger btn-custom waves-effect"><i class="ion-trash-b"></i></button>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
 
           </div>
         </div>
