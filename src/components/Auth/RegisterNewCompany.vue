@@ -106,12 +106,6 @@
   export default {
     name: 'RegisterNewCompany',
 
-    watch: {
-      'form.organization_name' (value) {
-        this.form.organization_portal = slugify(value)
-      }
-    },
-
     data () {
       return {
         acceptTerms: false,
@@ -133,6 +127,8 @@
     methods: {
       async register () {
         try {
+          this.form.organization_portal = slugify(this.form.organization_name)
+
           const res = await this.form.post(`register/organization`)
 
           // There's a lot checker because inconsistency and server returns status code 200
@@ -156,17 +152,27 @@
             return
           }
 
-          if (res.data.message !== 'organization created.') {
+          if (res.data.message === 'wrong input password.') {
             Alert.error(res.data.message)
             return
           }
 
-          if (res.data.message === 'organization created.') {
+          if (res.data.message === 'User already registered') {
             Alert.success(res.data.message)
+            this.$router.push({name: 'auth.login'})
             return
           }
 
-          this.$router.push({name: 'auth.login'})
+          if (res.data.code === 200 || res.data.code === 201 || res.data.message === 'organization created.') {
+            Alert.success(res.data.message)
+            this.$router.push({name: 'auth.login'})
+            return
+          }
+
+          // Catch all errors
+          if (res.data.message !== 'organization created.') {
+            console.error(res)
+          }
 
         }
         catch (err) {

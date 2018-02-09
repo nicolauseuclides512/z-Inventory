@@ -850,6 +850,16 @@
             return;
           }
 
+          if (res.data.message === 'User is not registered on this application.') {
+            this.$router.push({
+              name: 'auth.register.company',
+              query: {
+                email: this.email,
+              }
+            })
+            return
+          }
+
           swal_success(res)
           this.$router.push({name: 'auth.register.thankyou'})
 
