@@ -161,7 +161,7 @@
         form: new Form({
 
           // Inventory
-          track_inventory: true,
+          track_inventory: 'true',
           code_sku: null,
           inventory_stock_warning: null,
           inventory_stock: null,
