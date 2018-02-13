@@ -114,7 +114,7 @@
           organization_name: '',
           email: '',
           password: '',
-          application: 'invoice',
+          application: 'inventory',
         })
       }
     },
