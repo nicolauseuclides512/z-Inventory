@@ -3,14 +3,17 @@
     <!-- LOGO -->
     <div class="topbar-left">
       <div class="text-center">
-        <router-link
+        <!--<router-link
           :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}"
           id="nav-top-logo"
           class="logo"
         >
-          <img src="/static/images/logo_zuragan_web.png" height="38" width="38">
-          <span>Zuragan</span>
-        </router-link>
+          <img src="/static/images/zuragan_logo_login.png" height="40">
+          <!--<span>Zuragan</span>
+        </router-link>-->
+        <a id="nav-top-logo" href="/" class="logo">
+          <img src="/static/images/zuragan_logo_login.png" height="40">
+          <span></span></a>
       </div>
     </div>
     <!-- Button mobile view to collapse sidebar menu -->
@@ -19,9 +22,9 @@
         <div class="">
           <div class="pull-left">
 
-            <button id="nav-top-sidebar-toggle" class="button-menu-mobile open-left" @click="sidebarToggle">
+            <!--<button id="nav-top-sidebar-toggle" class="button-menu-mobile open-left" @click="sidebarToggle">
               <i class="fa fa-bars"></i>
-            </button>
+            </button>-->
 
             <span class="clearfix"></span>
           </div>

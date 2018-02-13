@@ -186,7 +186,7 @@
     padding: 4px 20px 4px 5px;
     margin: 0;
     outline: 0;
-    font-family: sans-serif;
+    font-family: 'Proxima Nova', Georgia, sans-serif;
     font-size: 1em;
     border: 1px solid #aaa;
     border-radius: 0;
@@ -2767,7 +2767,7 @@ html {
 }
 
 body {
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family:'Proxima Nova', Georgia, sans-serif;
     font-size: 14px;
     line-height: 1.42857;
     color: #333;
@@ -12578,7 +12578,7 @@ img.fr-view.fr-bordered {
 }
 
 body {
-    font-family: Noto Sans, sans-serif;
+    font-family: 'Proxima Nova', Georgia, sans-serif;
     margin: 0
 }
 
@@ -12600,7 +12600,7 @@ h4,
 h5,
 h6 {
     color: #505458;
-    font-family: Roboto, sans-serif;
+    font-family: 'Proxima Nova', Georgia, sans-serif;
     margin: 10px 0
 }
 
@@ -24037,11 +24037,11 @@ MIT License: https://github.com/driftyco/ionicons
 }
 
 .topbar .topbar-left {
-    background-color: #eee;
+    background-color: #1c8ad9;
     float: left;
     height: 50px;
     position: relative;
-    width: 200px;
+    width: 160px;
     z-index: 1
 }
 
@@ -24174,12 +24174,12 @@ input.search-bar:-ms-input-placeholder {
 .side-menu {
     bottom: 0;
     top: 0;
-    width: 200px;
+    width: 160px;
     z-index: 2
 }
 
 .side-menu.left {
-    background: #2D373C;
+    background: linear-gradient(to bottom, #1c8ad9, #1c8ad9, #7fc7c8);
     box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
     position: absolute;
     top: 50px
@@ -24195,7 +24195,7 @@ body.fixed-left .side-menu.left {
 }
 
 .content-page {
-    margin-left: 200px;
+    margin-left: 160px;
     overflow: hidden
 }
 
@@ -24237,7 +24237,7 @@ body.fixed-left .side-menu.left {
 }
 
 #sidebar-menu {
-    background-color: #2D373C;
+    background-color: transparent;
     padding-bottom: 50px;
     padding-top:50px;
     width: 100%
@@ -24261,7 +24261,7 @@ body.fixed-left .side-menu.left {
 }
 
 #sidebar-menu ul ul a {
-    color: #75798b;
+    color: #FFFFFF;
     display: block;
     padding: 10px 25px 10px 65px
 }
@@ -24279,10 +24279,10 @@ body.fixed-left .side-menu.left {
 }
 
 #sidebar-menu>ul>li>a {
-    color: #D9D9D9;
+    color: #FFFFFF;
     display: block;
     padding: 15px 25px;
-    background: #2D373C
+    background: transparent;
 }
 
 #sidebar-menu>ul>li>a:hover {
@@ -24468,7 +24468,7 @@ body.fixed-left .side-menu.left {
 .user-details .user-info a.dropdown-toggle {
     color: #fff;
     display: block;
-    font-family: Roboto, sans-serif;
+    font-family: 'Proxima Nova', Georgia, sans-serif;
     font-size: 16px;
     font-weight: 600;
     padding-top: 5px
@@ -25460,7 +25460,7 @@ button.confirm {
         display: none!important
     }
     .topbar-left {
-        width: 70px!important
+        width: 70px!important;
     }
     .logo span {
         display: none!important
