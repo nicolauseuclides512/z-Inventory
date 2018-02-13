@@ -68,9 +68,9 @@
                   <td>{{ channel.sales_channel.channel_name }}</td>
                   <td>{{ channel.store_name }}</td>
                   <td>
-                    <div v-if="channel.sales_channel.channel_name.toLowerCase() === 'lazada'">
+                    <!-- <div v-if="channel.sales_channel.channel_name.toLowerCase() === 'lazada'">
                       <button class="btn btn-default waves-effect" @click="syncModalToggle">Syncronize to Lazada</button>
-                    </div>
+                    </div> -->
                   </td>
                   <td>
                     <button @click="remove(channel)" type="button" class="btn btn-default waves-effect">
@@ -135,7 +135,7 @@
         const res = await Axios.get(`my_channels/create`)
         const channel_resources = res.data.data.channels
         const sortedData = _.sortBy(channel_resources, ['channel_name'])
-          .filter(channel => channel.channel_name !== 'Lazada')
+          /*.filter(channel => channel.channel_name !== 'Lazada')*/
         this.list.channel_resources = sortedData
       },
 

@@ -170,7 +170,7 @@
 
         <div class="clearfix">
           <div class="pull-left">
-            <button class="btn btn-default waves-effect" type="button" @click="$router.push({name: 'item.index'})">
+            <button class="btn btn-default waves-effect" type="button" @click="cancel">
               <i class="fa fa-chevron-left"></i> Cancel
             </button>
           </div>
@@ -179,7 +179,7 @@
             <div class="btn-group dropup">
               <button class="btn btn-primary waves-effect waves-light"
                       id="save"
-                      @click="saveType = 'save'"
+                      @click.prevent="save"
                       data-name="save"
               >
                       <!--@click="save"-->
@@ -190,8 +190,8 @@
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
               <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#" id="save-and-new" @click="saveType = 'save-and-new'" data-name="save-and-new">Save and New</a></li>
-                <li><a href="#" id="save-and-clone" @click="saveType = 'save-and-clone'" data-name="save-and-clone">Save and Clone</a>
+                <li><a href="#" id="save-and-new" @click.prevent="save" data-name="save-and-new">Save and New</a></li>
+                <li><a href="#" id="save-and-clone" @click.prevent="save" data-name="save-and-clone">Save and Clone</a>
                 </li>
               </ul>
             </div>
@@ -209,6 +209,7 @@
   import Axios from 'axios'
   import ImageUpload from './ImageUpload'
   import Form from 'src/helpers/Form'
+  import store from 'src/store'
 
   export default {
     name: 'Form',
@@ -217,18 +218,9 @@
       ImageUpload,
     },
 
-    beforeRouteLeave (to, from, next) {
-      if (this.dirtyForm) {
-        const leave = confirm('Are you sure leave this page?')
-        if (!leave) return next(false)
-      }
-      return next()
-    },
-
     data () {
       return {
         dirtyForm: false,
-        saveType: null,
 
         list: {
           uoms: [],
@@ -241,7 +233,7 @@
 
         url: '',
 
-        form: new Form({
+        form: {
           item_name: '',
           description: '',
           sales_rate: 0,
@@ -270,8 +262,16 @@
           parent_id: null,
           item_status: '',
           images: [],
-        }),
+        }
       }
+    },
+
+    beforeRouteLeave (to, from, next) {
+      if (this.dirtyForm) {
+        const leave = confirm('Are you sure leave this page?')
+        if (!leave) return next(false)
+      }
+      return next()
     },
 
     mounted () {
@@ -323,19 +323,26 @@
 
           swal_success(res)
 
+        const button = evt.target
+        const clickedButton = button.dataset.name
+
+        if (clickedButton === 'save-and-new') {
+          await store.dispatch('itemForm/save')
+          await store.dispatch('itemForm/clear')
+          await store.dispatch('itemForm/create')
           this.dirtyForm = false
+        }
 
-          if (this.saveType === 'save') {
-            this.$router.push({name: 'item.index'})
-          }
+        if (clickedButton === 'save-and-clone') {
+          await store.dispatch('itemForm/save')
+          this.dirtyForm = false
+        }
 
-          if (this.saveType === 'save-and-new') {
-            this.form = this.$options.data().form
-          }
-
-          if (this.saveType === 'save-and-clone') {
-
-          }
+        if (clickedButton === 'save') {
+          await store.dispatch('itemForm/save')
+          this.dirtyForm = false
+          this.$router.push({name: 'item.index'})
+        }
         }
         catch (err) {
           console.error(err)
@@ -344,6 +351,10 @@
           }
         }
 
+      },
+
+      cancel() {
+        this.$router.push('/inventory/items')
       },
 
       addImage (value) {
