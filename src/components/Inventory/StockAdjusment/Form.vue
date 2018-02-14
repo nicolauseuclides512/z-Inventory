@@ -1,155 +1,160 @@
 <template>
-  <div>
-    <form method="POST" @submit.prevent>
-      <div class="content full-width sahito-user bgr-white">
-        <div class="container">
-          <div class="container full-width-header bt-1 p-b-10 m-b-20">
-            <div class="row">
-              <div class="col-md-12">
-                <h4 class="pull-left page-title" v-if="!form.stock_adjustment_id">Add Stock Adjusment</h4>
-                <h4 class="pull-left page-title" v-if="form.stock_adjustment_id">Edit Stock Adjusment</h4>
+  <div class="content-page">
+    <div class="content full-width sahito-user bgr-white">
+      <div class="container">
+
+        <form method="POST" @submit.prevent>
+          <div class="content full-width sahito-user bgr-white">
+            <div class="container">
+              <div class="container full-width-header bt-1 p-b-10 m-b-20">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4 class="pull-left page-title" v-if="!form.stock_adjustment_id">Add Stock Adjusment</h4>
+                    <h4 class="pull-left page-title" v-if="form.stock_adjustment_id">Edit Stock Adjusment</h4>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="container bt-1 m-b-20">
-            <div class="row">
-              <div class="col-md-12 p-b-20">
-                <h5 class="title">Info</h5>
-                <div class="form-horizontal">
-                  <div class="form-group form-general m-b-20">
-                    <label class="col-md-2 control-label text-left">Adjustment ID</label>
-                    <div class="col-md-3">
-                      <input v-model="form.stock_adjustment_id"
-                             disabled
-                             required
-                             type="text"
-                             placeholder=""
-                             class="form-control"
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group form-general m-b-20">
-                    <label class="col-md-2 control-label text-left">Adjustment Date</label>
-                    <div class="col-md-3">
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="fa fa-fw fa-calendar"></i>
-                        </span>
-                        <input
-                          v-model="form.stock_adjustment_date"
-                          type="text"
-                          required
-                          class="form-control bg-white"
-                          placeholder="yyyy-mm-dd"
-                          id="adjustment_date_picker"
-                        />
+              <div class="container bt-1 m-b-20">
+                <div class="row">
+                  <div class="col-md-12 p-b-20">
+                    <h5 class="title">Info</h5>
+                    <div class="form-horizontal">
+                      <div class="form-group form-general m-b-20">
+                        <label class="col-md-2 control-label text-left">Adjustment ID</label>
+                        <div class="col-md-3">
+                          <input v-model="form.stock_adjustment_id"
+                                disabled
+                                required
+                                type="text"
+                                placeholder=""
+                                class="form-control"
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="form-group form-general m-b-20">
-                    <label class="col-md-2 control-label text-left">Reference Number</label>
-                    <div class="col-md-3">
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-fw fa-hashtag"></i></span>
-                        <input v-model="form.reference_number" type="text" placeholder="779001" class="form-control"
-                               id="reference_number">
+                      <div class="form-group form-general m-b-20">
+                        <label class="col-md-2 control-label text-left">Adjustment Date</label>
+                        <div class="col-md-3">
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <i class="fa fa-fw fa-calendar"></i>
+                            </span>
+                            <input
+                              v-model="form.stock_adjustment_date"
+                              type="text"
+                              required
+                              class="form-control bg-white"
+                              placeholder="yyyy-mm-dd"
+                              id="adjustment_date_picker"
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="form-group form-general m-b-20">
-                    <label for="notes" class="col-md-2 control-label text-left">Notes</label>
-                    <div class="col-md-6">
-                      <textarea
-                        v-model="form.notes"
-                        class="form-control"
-                        id="notes"
-                        title="notes"
-                        style="height: 120px;"
-                      ></textarea>
+                      <div class="form-group form-general m-b-20">
+                        <label class="col-md-2 control-label text-left">Reference Number</label>
+                        <div class="col-md-3">
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-fw fa-hashtag"></i></span>
+                            <input v-model="form.reference_number" type="text" placeholder="779001" class="form-control"
+                                  id="reference_number">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group form-general m-b-20">
+                        <label for="notes" class="col-md-2 control-label text-left">Notes</label>
+                        <div class="col-md-6">
+                          <textarea
+                            v-model="form.notes"
+                            class="form-control"
+                            id="notes"
+                            title="notes"
+                            style="height: 120px;"
+                          ></textarea>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div class="container bt-1 m-b-20">
-            <div class="row">
-              <div class="col-md-12 p-b-20">
-                <h5 class="title">Adjustment Details</h5>
-                <div class="form-horizontal">
-                  <div class="col-md-12">
-                    <div class="panel panel-default">
-                      <div class="panel-body">
-                        <div class="row">
-                          <div class="col-md-12 col-sm-12 col-xs-12">
-                            <table class="table table-striped">
-                              <thead>
-                              <tr>
-                                <th>No.</th>
-                                <th>SKU</th>
-                                <th>Item Name</th>
-                                <th>Quantity in Database</th>
-                                <th>Adjust</th>
-                                <th>Quantity on Hand</th>
-                                <th>Reason</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr v-for="(detail, index) in form.details">
-                                <td>{{ index+1 }}</td>
-                                <td>{{ detail.item_id }}</td>
-                                <td>
-                                  <div class="col-md-12 pl-pr-0">
-                                    <select class="form-control" v-model="detail.item_id" @change="selectItem(detail)" required title="Item name">
-                                      <option v-for="item in list.items" :value="item.item_id">
-                                        {{ item.item_name }}
-                                      </option>
-                                    </select>
-                                  </div>
-                                </td>
-                                <td align="center">
-                                  <span>{{ detail.database_qty }}</span>
-                                </td>
-                                <td>
-                                  <input
-                                    v-model.number="detail.adjust_qty"
-                                    @keyup="changeOnHandValue(detail)"
-                                    required
-                                    :disabled="!detail.item_id"
-                                    title="Adjustment quantity"
-                                    class="vertical-spin form-control"
-                                    type="number"
-                                    name="vertical-spin"
-                                    data-bts-button-down-class="btn btn-primary"
-                                    data-bts-button-up-class="btn btn-primary">
-                                </td>
-                                <td>
-                                  <input
-                                    v-model.number="detail.on_hand_qty"
-                                    @keyup="changeAdjustValue(detail)"
-                                    required
-                                    :disabled="!detail.item_id"
-                                    title="On hand quantity"
-                                    class="vertical-spin form-control"
-                                    type="number"
-                                    name="vertical-spin"
-                                    data-bts-button-down-class="btn btn-primary"
-                                    data-bts-button-up-class="btn btn-primary">
-                                </td>
-                                <td>
-                                  <select required title="Reason" class="form-control" v-model="detail.reason_id" :disabled="!detail.item_id">
-                                    <option v-for="reason in list.reasons" :value="reason.reason_id">
-                                      {{ reason.reason }}
-                                    </option>
-                                  </select>
-                                </td>
-                              </tr>
-                              </tbody>
-                            </table>
-                            <button type="button" @click="addNew" class="btn-link">
-                              + Add another line
-                            </button>
+              <div class="container bt-1 m-b-20">
+                <div class="row">
+                  <div class="col-md-12 p-b-20">
+                    <h5 class="title">Adjustment Details</h5>
+                    <div class="form-horizontal">
+                      <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-body">
+                            <div class="row">
+                              <div class="col-md-12 col-sm-12 col-xs-12">
+                                <table class="table table-striped">
+                                  <thead>
+                                  <tr>
+                                    <th>No.</th>
+                                    <th>SKU</th>
+                                    <th>Item Name</th>
+                                    <th>Quantity in Database</th>
+                                    <th>Adjust</th>
+                                    <th>Quantity on Hand</th>
+                                    <th>Reason</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr v-for="(detail, index) in form.details">
+                                    <td>{{ index+1 }}</td>
+                                    <td>{{ detail.item_id }}</td>
+                                    <td>
+                                      <div class="col-md-12 pl-pr-0">
+                                        <select class="form-control" v-model="detail.item_id" @change="selectItem(detail)" required title="Item name">
+                                          <option v-for="item in list.items" :value="item.item_id">
+                                            {{ item.item_name }}
+                                          </option>
+                                        </select>
+                                      </div>
+                                    </td>
+                                    <td align="center">
+                                      <span>{{ detail.database_qty }}</span>
+                                    </td>
+                                    <td>
+                                      <input
+                                        v-model.number="detail.adjust_qty"
+                                        @keyup="changeOnHandValue(detail)"
+                                        required
+                                        :disabled="!detail.item_id"
+                                        title="Adjustment quantity"
+                                        class="vertical-spin form-control"
+                                        type="number"
+                                        name="vertical-spin"
+                                        data-bts-button-down-class="btn btn-primary"
+                                        data-bts-button-up-class="btn btn-primary">
+                                    </td>
+                                    <td>
+                                      <input
+                                        v-model.number="detail.on_hand_qty"
+                                        @keyup="changeAdjustValue(detail)"
+                                        required
+                                        :disabled="!detail.item_id"
+                                        title="On hand quantity"
+                                        class="vertical-spin form-control"
+                                        type="number"
+                                        name="vertical-spin"
+                                        data-bts-button-down-class="btn btn-primary"
+                                        data-bts-button-up-class="btn btn-primary">
+                                    </td>
+                                    <td>
+                                      <select required title="Reason" class="form-control" v-model="detail.reason_id" :disabled="!detail.item_id">
+                                        <option v-for="reason in list.reasons" :value="reason.reason_id">
+                                          {{ reason.reason }}
+                                        </option>
+                                      </select>
+                                    </td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                                <button type="button" @click="addNew" class="btn-link">
+                                  + Add another line
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -157,43 +162,44 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div class="float-save">
-            <div class="row">
-              <div class="col-md-6 text-left">
-                <button class="btn btn-default waves-effect" type="button">Cancel</button>
-              </div>
-              <div class="col-md-6 text-right">
-                <div class="col-md-6 col-md-offset-6">
-                  <div class="btn-group dropup">
-                    <button @click="save($event)" data-type="save-as-draft" type="submit" class="btn btn-primary waves-effect waves-light">
-                      Save as Draft
-                    </button>
-                    <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light"
-                            data-toggle="dropdown" aria-expanded="false"><i class="caret"></i></button>
-                    <ul class="dropdown-menu" role="menu">
-                      <li>
-                        <button
-                          @click="save($event)"
-                          type="submit"
-                          class="btn"
-                          style="background: none; border: none; box-shadow: none;"
-                          data-type="save-and-close"
-                        >
-                          Save and Close
+              <div class="float-save">
+                <div class="row">
+                  <div class="col-md-6 text-left">
+                    <button class="btn btn-default waves-effect" type="button">Cancel</button>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <div class="col-md-6 col-md-offset-6">
+                      <div class="btn-group dropup">
+                        <button @click="save($event)" data-type="save-as-draft" type="submit" class="btn btn-primary waves-effect waves-light">
+                          Save as Draft
                         </button>
-                      </li>
-                    </ul>
+                        <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light"
+                                data-toggle="dropdown" aria-expanded="false"><i class="caret"></i></button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li>
+                            <button
+                              @click="save($event)"
+                              type="submit"
+                              class="btn"
+                              style="background: none; border: none; box-shadow: none;"
+                              data-type="save-and-close"
+                            >
+                              Save and Close
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </form>
+
       </div>
-    </form>
+    </div>
   </div>
 </template>
 

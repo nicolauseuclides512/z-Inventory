@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="content-page">
+    <div class="content full-width sahito-user bgr-white">
+      <div class="container">
 
     <form method="POST" @submit.prevent="save">
 
@@ -90,7 +92,9 @@
       </div>
 
     </form>
-
+    
+      </div>
+    </div>
   </div>
 </template>
 

@@ -1,404 +1,409 @@
 <template>
-  <div>
-    <iframe id="iframe-print" src="about:blank" style="display: none"></iframe>
+  <div class="content-page">
+    <div class="content full-width sahito-user bgr-white">
+      <div class="container">
 
-    <!-- Payment Modal -->
+        <iframe id="iframe-print" src="about:blank" style="display: none"></iframe>
 
-    <PaymentAddModal @success="refreshCurrentSalesOrderData"></PaymentAddModal>
+        <!-- Payment Modal -->
 
-    <!--<PaymentEditModal-->
-      <!--:payment="form.payment"-->
-      <!--:payment_method_list="paymentMethodList"-->
-      <!--:payment_method_details="paymentMethodList_details"-->
-    <!--&gt;</PaymentEditModal>-->
+        <PaymentAddModal @success="refreshCurrentSalesOrderData"></PaymentAddModal>
 
-    <!-- END Payment Modal -->
+        <!--<PaymentEditModal-->
+          <!--:payment="form.payment"-->
+          <!--:payment_method_list="paymentMethodList"-->
+          <!--:payment_method_details="paymentMethodList_details"-->
+        <!--&gt;</PaymentEditModal>-->
 
-    <!-- Shipment Modal -->
+        <!-- END Payment Modal -->
 
-    <ShipmentAddModal
-      :payment="payment"
-    ></ShipmentAddModal>
-    <!--<ShipmentEditModal></ShipmentEditModal>-->
+        <!-- Shipment Modal -->
 
-    <!-- END Shipment Modal -->
+        <ShipmentAddModal
+          :payment="payment"
+        ></ShipmentAddModal>
+        <!--<ShipmentEditModal></ShipmentEditModal>-->
+
+        <!-- END Shipment Modal -->
 
 
-    <div class="loading" v-if="isLoading"><i class="fa fa-spin fa-spinner"></i> Loading...</div>
-    <div v-else>
-      <div class="container p-0">
-        <div class="row">
-          <div class="col-md-4 col-sm-4 col-xs-4 left-side">
+        <div class="loading" v-if="isLoading"><i class="fa fa-spin fa-spinner"></i> Loading...</div>
+        <div v-else>
+          <div class="container p-0">
+            <div class="row">
+              <div class="col-md-4 col-sm-4 col-xs-4 left-side">
 
-            <div class="container full-width-header">
-              <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12" v-if="!checkedList.length > 0">
-                  <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
-                     aria-expanded="false">
-                    <h4>{{ currentFilter }} <span class="caret"></span></h4>
-                  </a>
-                  <ul class="dropdown-menu" role="menu" style="top: 35px;">
-                    <li class="dropdown-header">FILTER BY</li>
-                    <li :class="{ active: filter === 'all' }"><a href="javascript:void(0);"
-                                                                 @click="getList({ filter: 'all' })">All</a></li>
-                    <li class="divider"></li>
-                    <li :class="{ active: filter === 'draft' }"><a href="javascript:void(0);"
-                                                                   @click="getList({ filter: 'draft' })">Draft</a></li>
-                    <li :class="{ active: filter == 'paid' }"><a href="javascript:void(0);"
-                                                                 @click="getList({ filter: 'paid' })">Paid</a></li>
-                    <li :class="{ active: filter == 'unpaid' }"><a href="javascript:void(0);"
-                                                                   @click="getList({ filter: 'unpaid' })">Unpaid</a>
-                    </li>
-                    <li :class="{ active: filter == 'partially_paid' }"><a href="javascript:void(0);"
-                                                                           @click="getList({ filter: 'partially_paid' })">Partially Paid</a>
-                    </li>
-                    <li :class="{ active: filter == 'overdue' }"><a href="javascript:void(0);"
-                                                                    @click="getList({ filter: 'overdue' })">Overdue</a>
-                    </li>
-                    <!--<li :class="{ active: filter == 'shipped' }"><a href="javascript:void(0);" @click="getList({ filter: 'shipped' })">Shipped</a></li>-->
-                    <!--<li :class="{ active: filter == 'not_yet_shipped' }"><a href="javascript:void(0);" @click="getList({ filter: 'not_yet_shipped' })">Not shipped</a></li>-->
-                    <li :class="{ active: filter == 'void' }"><a href="javascript:void(0);"
-                                                                 @click="getList({ filter: 'void' })">Void</a></li>
-                  </ul>
-                  <div class="pull-right">
-                    <router-link :to="{ name: 'sales.create' }" class="btn btn-info waves-effect waves-light m-b-5">
-                      New <i class="ion-plus"></i>
-                    </router-link>
-                    <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown"
-                            aria-expanded="false"><i class="fa fa-bars"></i></button>
-                    <ul class="dropdown-menu" role="menu" style="top: 35px;">
-                      <li class="dropdown-header">SORT BY</li>
-                      <li :class="{ active: sort.startsWith('created_at') }"><a href="javascript:void(0);"
-                                                                                @click="getList({ sort: 'created_at.asc' })">Created Time</a>
-                      </li>
-                      <li :class="{ active: sort.startsWith('updated_at') }"><a href="javascript:void(0);"
-                                                                                @click="getList({ sort: 'updated_at.asc' })">Last Modified Time</a>
-                      </li>
-                      <li :class="{ active: sort.startsWith('order_date') }"><a href="javascript:void(0);"
-                                                                                @click="getList({ sort: 'order_date.asc' })">Date</a>
-                      </li>
-                      <li :class="{ active: sort.startsWith('invoice_number') }"><a href="javascript:void(0);"
-                                                                                    @click="getList({ sort: 'invoice_number.asc' })">Invoice#</a>
-                      </li>
-                      <li class="divider"></li>
-                      <!--<li><a href="javascript:void(0);"><i class="md-file-download"></i> Import Invoices</a></li>-->
-                      <!--<li><a href="javascript:void(0);"><i class="md-file-upload"></i> Export Invoices</a></li>-->
-                      <!--<li class="divider"></li>-->
-                      <!--<li><a href="javascript:void(0);"><i class="md-file-download"></i> Import Payments</a></li>-->
-                      <!--<li><a href="javascript:void(0);"><i class="md-file-upload"></i> Export Payments</a></li>-->
-                      <!--<li class="divider"></li>-->
-                      <!--<li><a href="javascript:void(0);"><i class="fa fa-cog"></i> Invoice Preferences</a></li>-->
-                      <!--<li class="divider"></li>-->
-                      <li><a href="javascript:void(0);"><i class="md-refresh"></i> Refresh List</a></li>
-                    </ul>
+                <div class="container full-width-header">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12" v-if="!checkedList.length > 0">
+                      <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
+                        aria-expanded="false">
+                        <h4>{{ currentFilter }} <span class="caret"></span></h4>
+                      </a>
+                      <ul class="dropdown-menu" role="menu" style="top: 35px;">
+                        <li class="dropdown-header">FILTER BY</li>
+                        <li :class="{ active: filter === 'all' }"><a href="javascript:void(0);"
+                                                                    @click="getList({ filter: 'all' })">All</a></li>
+                        <li class="divider"></li>
+                        <li :class="{ active: filter === 'draft' }"><a href="javascript:void(0);"
+                                                                      @click="getList({ filter: 'draft' })">Draft</a></li>
+                        <li :class="{ active: filter == 'paid' }"><a href="javascript:void(0);"
+                                                                    @click="getList({ filter: 'paid' })">Paid</a></li>
+                        <li :class="{ active: filter == 'unpaid' }"><a href="javascript:void(0);"
+                                                                      @click="getList({ filter: 'unpaid' })">Unpaid</a>
+                        </li>
+                        <li :class="{ active: filter == 'partially_paid' }"><a href="javascript:void(0);"
+                                                                              @click="getList({ filter: 'partially_paid' })">Partially Paid</a>
+                        </li>
+                        <li :class="{ active: filter == 'overdue' }"><a href="javascript:void(0);"
+                                                                        @click="getList({ filter: 'overdue' })">Overdue</a>
+                        </li>
+                        <!--<li :class="{ active: filter == 'shipped' }"><a href="javascript:void(0);" @click="getList({ filter: 'shipped' })">Shipped</a></li>-->
+                        <!--<li :class="{ active: filter == 'not_yet_shipped' }"><a href="javascript:void(0);" @click="getList({ filter: 'not_yet_shipped' })">Not shipped</a></li>-->
+                        <li :class="{ active: filter == 'void' }"><a href="javascript:void(0);"
+                                                                    @click="getList({ filter: 'void' })">Void</a></li>
+                      </ul>
+                      <div class="pull-right">
+                        <router-link :to="{ name: 'sales.create' }" class="btn btn-info waves-effect waves-light m-b-5">
+                          New <i class="ion-plus"></i>
+                        </router-link>
+                        <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown"
+                                aria-expanded="false"><i class="fa fa-bars"></i></button>
+                        <ul class="dropdown-menu" role="menu" style="top: 35px;">
+                          <li class="dropdown-header">SORT BY</li>
+                          <li :class="{ active: sort.startsWith('created_at') }"><a href="javascript:void(0);"
+                                                                                    @click="getList({ sort: 'created_at.asc' })">Created Time</a>
+                          </li>
+                          <li :class="{ active: sort.startsWith('updated_at') }"><a href="javascript:void(0);"
+                                                                                    @click="getList({ sort: 'updated_at.asc' })">Last Modified Time</a>
+                          </li>
+                          <li :class="{ active: sort.startsWith('order_date') }"><a href="javascript:void(0);"
+                                                                                    @click="getList({ sort: 'order_date.asc' })">Date</a>
+                          </li>
+                          <li :class="{ active: sort.startsWith('invoice_number') }"><a href="javascript:void(0);"
+                                                                                        @click="getList({ sort: 'invoice_number.asc' })">Invoice#</a>
+                          </li>
+                          <li class="divider"></li>
+                          <!--<li><a href="javascript:void(0);"><i class="md-file-download"></i> Import Invoices</a></li>-->
+                          <!--<li><a href="javascript:void(0);"><i class="md-file-upload"></i> Export Invoices</a></li>-->
+                          <!--<li class="divider"></li>-->
+                          <!--<li><a href="javascript:void(0);"><i class="md-file-download"></i> Import Payments</a></li>-->
+                          <!--<li><a href="javascript:void(0);"><i class="md-file-upload"></i> Export Payments</a></li>-->
+                          <!--<li class="divider"></li>-->
+                          <!--<li><a href="javascript:void(0);"><i class="fa fa-cog"></i> Invoice Preferences</a></li>-->
+                          <!--<li class="divider"></li>-->
+                          <li><a href="javascript:void(0);"><i class="md-refresh"></i> Refresh List</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="clearfix" v-if="checkedList.length > 0">
+                      <div class="pull-left">
+                        <!--<span class="checkbox checkbox-single checkbox-success">
+                          <input type="checkbox" id="all" @click="checkAll($event)" :checked="checkedAll">
+                        </span> -->
+                        <a href="javascript:void(0);" class="btn btn-default waves-effect waves-light m-b-5">
+                          Print Invoice
+                        </a>
+                        <a href="javascript:void(0);" @click="viewShipmentLabels" class="btn btn-default waves-effect waves-light m-b-5">
+                          Print Shipment Labels
+                        </a>
+                      </div>
+                      <div class="pull-right pt-10">
+                        <a href="javascript:void(0);" @click="clearCheckedAll">
+                          <i class="ion-android-close"></i>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="clearfix" v-if="checkedList.length > 0">
-                  <div class="pull-left">
-                    <!--<span class="checkbox checkbox-single checkbox-success">
-                      <input type="checkbox" id="all" @click="checkAll($event)" :checked="checkedAll">
-                    </span> -->
-                    <a href="javascript:void(0);" class="btn btn-default waves-effect waves-light m-b-5">
-                      Print Invoice
-                    </a>
-                    <a href="javascript:void(0);" @click="viewShipmentLabels" class="btn btn-default waves-effect waves-light m-b-5">
-                      Print Shipment Labels
-                    </a>
+
+                  <div class="row sahito-list">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="sahito-list-contact table-responsive">
+                        <table class="table table-hover default-table sahito-list-contact--table">
+                          <tbody>
+                          <tr v-for="(sale, index) in salesList":class="{ active: sale.sales_order_id == salesOrderItems.sales_order_id }">
+                            <td class="col-checkbox">
+                              <div class="checkbox checkbox-single checkbox-success">
+                                <input type="checkbox" :value="sale" v-model="checkedList" title="Check box">
+                                <label></label>
+                              </div>
+                            </td>
+                            <td @click="showDetail(sale)" style="cursor: pointer;">
+                              <div  class="clearfix" style="margin-top: 8px;">
+                                <div class="pull-left">
+                                  <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
+                                    <strong>{{ sale.contact.display_name }}</strong>
+                                  </a>
+                                </div>
+                                <div class="pull-right"> 
+                                  {{ sale.total | money }}
+                                </div>
+                              </div>
+                              <div class="clearfix" style="margin-top: 8px;">
+                                <div class="pull-left">
+                                  <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
+                                    <span class="text-muted">#</span>{{ sale.sales_order_number }}
+                                  </a>
+                                </div>
+                                <div class="pull-right">
+                                  <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status }}</span>
+                                  <span v-else-if="sale.sales_order_status == 'DRAFT'" style="font-size: 10px;">{{ sale.sales_order_status }}</span>
+                                  <span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span>
+                                </div>
+                              </div>
+                              <div class="clearfix" style="margin-top: 8px;">
+                                <div class="pull-left">
+                                  {{ sale.invoice_date | date('short') }}
+                                </div>
+                                <div class="pull-right">
+                                  <span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'" style="font-size: 10px;">{{ sale.shipment_status }}</span>
+                                  <span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
-                  <div class="pull-right pt-10">
-                    <a href="javascript:void(0);" @click="clearCheckedAll">
-                      <i class="ion-android-close"></i>
-                    </a>
-                  </div>
-                </div>
+
               </div>
-            </div>
 
-              <div class="row sahito-list">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                  <div class="sahito-list-contact table-responsive">
-                    <table class="table table-hover default-table sahito-list-contact--table">
-                      <tbody>
-                      <tr v-for="(sale, index) in salesList":class="{ active: sale.sales_order_id == salesOrderItems.sales_order_id }">
-                        <td class="col-checkbox">
-                          <div class="checkbox checkbox-single checkbox-success">
-                            <input type="checkbox" :value="sale" v-model="checkedList" title="Check box">
-                            <label></label>
-                          </div>
-                        </td>
-                        <td @click="showDetail(sale)" style="cursor: pointer;">
-                          <div  class="clearfix" style="margin-top: 8px;">
-                            <div class="pull-left">
-                              <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
-                                <strong>{{ sale.contact.display_name }}</strong>
-                              </a>
-                            </div>
-                            <div class="pull-right"> 
-                              {{ sale.total | money }}
-                            </div>
-                          </div>
-                          <div class="clearfix" style="margin-top: 8px;">
-                            <div class="pull-left">
-                              <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
-                                <span class="text-muted">#</span>{{ sale.sales_order_number }}
-                              </a>
-                            </div>
-                            <div class="pull-right">
-                              <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status }}</span>
-                              <span v-else-if="sale.sales_order_status == 'DRAFT'" style="font-size: 10px;">{{ sale.sales_order_status }}</span>
-                              <span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span>
-                            </div>
-                          </div>
-                          <div class="clearfix" style="margin-top: 8px;">
-                            <div class="pull-left">
-                              {{ sale.invoice_date | date('short') }}
-                            </div>
-                            <div class="pull-right">
-                              <span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'" style="font-size: 10px;">{{ sale.shipment_status }}</span>
-                              <span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+              <div class="col-md-8 col-sm-8 col-xs-8 right-side" style="border-left: 1px solid #eee;">
 
-          </div>
+                <div class="row" v-if="salesOrder">
+                  <div class="col-md-12">
+                    <h3 class="pull-left page-title">
+                      <span class="text-muted">#</span>
+                      <span>{{salesOrder.sales_order_number}}</span>
 
-          <div class="col-md-8 col-sm-8 col-xs-8 right-side" style="border-left: 1px solid #eee;">
+                      <span v-if="salesOrder.sales_order_status === 'DRAFT'">
+                        <small class="label label-default"> DRAFT </small>
+                      </span>
+                      <span v-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT' && salesOrder.invoice_status === 'UNPAID'">
+                        <small class="label label-danger"> UNPAID </small>
+                      </span>
+                      <span v-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT' && salesOrder.invoice_status === 'PARTIALLY_PAID'">
+                        <small class="label label-success"> PARTIALLY PAID </small>
+                      </span>
+                      <span v-if="salesOrder.sales_order_status === 'AWAITING_SHIPMENT' && salesOrder.invoice_status === 'PAID'">
+                        <small class="label label-success"> PAID </small>
+                      </span>
+                      <span v-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT' && salesOrder.invoice_status === 'OVERDUE'">
+                        <small class="label label-danger"> OVERDUE </small>
+                      </span>
+                      <span v-if="salesOrder.sales_order_status === 'CANCELED' && salesOrder.invoice_status === 'VOID'">
+                        <small class="label label-inverse"> VOID </small>
+                      </span>
 
-            <div class="row" v-if="salesOrder">
-              <div class="col-md-12">
-                <h3 class="pull-left page-title">
-                  <span class="text-muted">#</span>
-                  <span>{{salesOrder.sales_order_number}}</span>
+                      <!--<small class="label label-success" v-if="salesOrder.invoice_status === 'PAID'">
+                        {{ salesOrder.invoice_status }}
+                      </small>
+                      <small class="label label-danger" v-else>{{ salesOrder.invoice_status }}</small>
+                      <small class="label label-primary">
+                        {{ salesOrder.invoices[0] ? salesOrder.invoices[0].invoice_status : '' }}
+                      </small>
+                      <small class="label label-success" v-if="salesOrder.shipment_status === 'SHIPPED'">{{ salesOrder.shipment_status | removeUnderScore }}</small>
+                      <small class="label label-danger" v-else>{{ salesOrder.shipment_status | removeUnderScore }}</small>-->
+                    </h3>
+                    <div class="pull-right">
 
-                  <span v-if="salesOrder.sales_order_status === 'DRAFT'">
-                    <small class="label label-default"> DRAFT </small>
-                  </span>
-                  <span v-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT' && salesOrder.invoice_status === 'UNPAID'">
-                    <small class="label label-danger"> UNPAID </small>
-                  </span>
-                  <span v-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT' && salesOrder.invoice_status === 'PARTIALLY_PAID'">
-                    <small class="label label-success"> PARTIALLY PAID </small>
-                  </span>
-                  <span v-if="salesOrder.sales_order_status === 'AWAITING_SHIPMENT' && salesOrder.invoice_status === 'PAID'">
-                    <small class="label label-success"> PAID </small>
-                  </span>
-                  <span v-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT' && salesOrder.invoice_status === 'OVERDUE'">
-                    <small class="label label-danger"> OVERDUE </small>
-                  </span>
-                  <span v-if="salesOrder.sales_order_status === 'CANCELED' && salesOrder.invoice_status === 'VOID'">
-                    <small class="label label-inverse"> VOID </small>
-                  </span>
+                      <div class="dropdown pull-left" style="margin-right: 10px;">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                          Record
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                          <li>
+                            <a
+                              @click="showModalPayment()"
+                              data-toggle="dropdown"
+                              aria-expanded="false"
+                              v-if="salesOrder.invoice_status !== 'VOID'"
+                              :disabled="salesOrder.invoice_status === 'PAID'"
+                            >
+                              Payment
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              @click="showModalShipment()"
+                              data-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              Shipment
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
 
-                  <!--<small class="label label-success" v-if="salesOrder.invoice_status === 'PAID'">
-                    {{ salesOrder.invoice_status }}
-                  </small>
-                  <small class="label label-danger" v-else>{{ salesOrder.invoice_status }}</small>
-                  <small class="label label-primary">
-                    {{ salesOrder.invoices[0] ? salesOrder.invoices[0].invoice_status : '' }}
-                  </small>
-                  <small class="label label-success" v-if="salesOrder.shipment_status === 'SHIPPED'">{{ salesOrder.shipment_status | removeUnderScore }}</small>
-                  <small class="label label-danger" v-else>{{ salesOrder.shipment_status | removeUnderScore }}</small>-->
-                </h3>
-                <div class="pull-right">
-
-                  <div class="dropdown pull-left" style="margin-right: 10px;">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                      Record
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                      <li>
-                        <a
-                          @click="showModalPayment()"
-                          data-toggle="dropdown"
-                          aria-expanded="false"
+                      <div class="pull-left" style="margin-right: 10px;">
+                        <router-link
+                          :to="{ name: 'sales.edit', param: { id: salesOrder.sales_order_id } }"
                           v-if="salesOrder.invoice_status !== 'VOID'"
-                          :disabled="salesOrder.invoice_status === 'PAID'"
+                          class="btn btn-default waves-effect waves-light m-b-5"
                         >
-                          Payment
+                          Edit
+                        </router-link>
+                      </div>
+
+                      <div class="pull-left" style="margin-right: 10px;">
+                        <button
+                          @click="cancelSalesOrder(salesOrder)"
+                          class="btn btn-default waves-effect waves-light m-b-5"
+                          v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'"
+                        >
+                          Void
+                        </button>
+                      </div>
+
+                      <div class="pull-left" style="margin-right: 10px;">
+                        <a href="javascript:void(0);" id="close-btn" class="close-btn" @click="closeDetail">
+                          <i class="ion-android-close"></i>
+                        </a>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <ul class="nav nav-tabs navtab-bg nav-justified">
+                      <li :class="{ tab: true, active: currentTab == 'invoice' }">
+                        <a href="javascript:void(0);" @click="switchTab('invoice')">
+                          <span class="hidden-xs">INVOICE</span>
                         </a>
                       </li>
-                      <li>
-                        <a
-                          @click="showModalShipment()"
-                          data-toggle="dropdown"
-                          aria-expanded="false"
-                        >
-                          Shipment
+                      <li :class="{ tab: true, active: currentTab == 'payment' }">
+                        <a href="javascript:void(0);" @click="switchTab('payment')">
+                          <span class="hidden-xs">PAYMENT</span>
+                        </a>
+                      </li>
+                      <li :class="{ tab: true, active: currentTab == 'shipment' }">
+                        <a href="javascript:void(0);" @click="switchTab('shipment')">
+                          <span class="hidden-xs">SHIPMENT</span>
                         </a>
                       </li>
                     </ul>
-                  </div>
 
-                  <div class="pull-left" style="margin-right: 10px;">
-                    <router-link
-                      :to="{ name: 'sales.edit', param: { id: salesOrder.sales_order_id } }"
-                      v-if="salesOrder.invoice_status !== 'VOID'"
-                      class="btn btn-default waves-effect waves-light m-b-5"
-                    >
-                      Edit
-                    </router-link>
-                  </div>
+                    <div class="tab-content p-0 tab-content-clear tab-content--contact">
+                      <div :class="{ 'tab-pane': true, active: currentTab == 'invoice' }" id="invoice"
+                          v-if="currentTab == 'invoice'">
+                          <div class="row p-20 pb-0">
+                            <div class="btn-toolbar" role="toolbar">
+                              <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
+                                        title="View as PDF" @click="viewInvoice"><i class="fa fa-file-pdf-o"></i></button>
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
+                                        title="Print" @click="viewInvoice"><i class="fa fa-print"></i></button>
+                                <button
+                                  type="button"
+                                  class="btn btn-default"
+                                  data-toggle="tooltip"
+                                  data-placement="top"
+                                  title="Send as mail"
+                                  :disabled="sendingEmail"
+                                  @click="sendInvoiceAsMail"
+                                >
+                                  <i class="fa fa-envelope-o" v-if="!sendingEmail"></i>
+                                  <i class="fa fa-spin fa-spinner" v-else="sendingEmail"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
 
-                  <div class="pull-left" style="margin-right: 10px;">
-                    <button
-                      @click="cancelSalesOrder(salesOrder)"
-                      class="btn btn-default waves-effect waves-light m-b-5"
-                      v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'"
-                    >
-                      Void
-                    </button>
-                  </div>
+                          <div class="row p-15">
+                            <div v-for="invoice in invoiceList">
+                              <component
+                                :is="invoiceComponent"
+                                :value="invoice"
+                                :sales-order="salesOrder"
+                                :payment-list="paymentList"
+                              ></component>
+                            </div>
+                          </div>
+                      </div>
 
-                  <div class="pull-left" style="margin-right: 10px;">
-                    <a href="javascript:void(0);" id="close-btn" class="close-btn" @click="closeDetail">
-                      <i class="ion-android-close"></i>
-                    </a>
+                      <div :class="{ 'tab-pane': true, active: currentTab == 'payment'}" id="payment" v-if="currentTab == 'payment'">
+                          <div class="row p-15">
+                            <div class="border-1 table-responsive mt-20">
+                              <table class="table sahito-invoice-table">
+                                <caption><h3>Payment Receival</h3></caption>
+                                <thead>
+                                <tr class="grey-background">
+                                  <th>Date</th>
+                                  <th>Reference</th>
+                                  <th>Payment Mode</th>
+                                  <th class="text-right">Amount</th>
+                                  <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-show="!paymentList.length > 0">
+                                  <td colspan="5" class="text-muted text-center">No payment received</td>
+                                </tr>
+                                <tr v-for="payment in paymentList" v-show="paymentList.length > 0">
+                                  <td style="padding: 12px 8px;">
+                                    {{ payment.date | date('short') }}
+                                  </td>
+                                  <td style="padding: 12px 8px;">
+                                    <span class="text-muted">#</span> {{ payment.reference_number }}
+                                  </td>
+                                  <td style="padding: 12px 8px;">
+                                    {{ payment.payment_mode_name }}
+                                  </td>
+                                  <td class="text-right" style="padding: 12px 8px;">
+                                    {{ payment.amount | money }}
+                                  </td>
+                                  <td>
+                                    <div class="clearfix">
+                                      <div class="pull-left">
+                                        <!--<a class="btn btn-default btn-sm" href="javascript:void(0);" title="Edit this payment" @click="editPayment(payment)"><i class="fa fa-pencil"></i></a>-->
+                                        <!--<a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="alert('API not available')" title="Send payment receipt to customer">-->
+                                        <!--<i class="fa fa-envelope"></i>-->
+                                        <!--</a>-->
+                                      </div>
+                                      <div class="pull-right">
+                                        <a class="btn btn-default btn-sm" href="javascript:void(0);"
+                                          title="Delete this payment" @click="deletePayment(payment)"><i
+                                          class="fa fa-trash"></i></a>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                      </div>
+
+                      <div :class="{ 'tab-pane': true, active: currentTab == 'shipment' }" id="shipment"
+                          v-if="currentTab == 'shipment'">
+                        <DetailShipment
+                          :shipment-list="shipmentList"
+                          :sales-order="salesOrder"
+                          @edit-shipment="editShipment"
+                          @delete-shipment="deleteShipment"
+                        ></DetailShipment>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
               </div>
+
             </div>
 
             <div class="row">
-              <div class="col-md-12">
-                <ul class="nav nav-tabs navtab-bg nav-justified">
-                  <li :class="{ tab: true, active: currentTab == 'invoice' }">
-                    <a href="javascript:void(0);" @click="switchTab('invoice')">
-                      <span class="hidden-xs">INVOICE</span>
-                    </a>
-                  </li>
-                  <li :class="{ tab: true, active: currentTab == 'payment' }">
-                    <a href="javascript:void(0);" @click="switchTab('payment')">
-                      <span class="hidden-xs">PAYMENT</span>
-                    </a>
-                  </li>
-                  <li :class="{ tab: true, active: currentTab == 'shipment' }">
-                    <a href="javascript:void(0);" @click="switchTab('shipment')">
-                      <span class="hidden-xs">SHIPMENT</span>
-                    </a>
-                  </li>
-                </ul>
-
-                <div class="tab-content p-0 tab-content-clear tab-content--contact">
-                  <div :class="{ 'tab-pane': true, active: currentTab == 'invoice' }" id="invoice"
-                       v-if="currentTab == 'invoice'">
-                      <div class="row p-20 pb-0">
-                        <div class="btn-toolbar" role="toolbar">
-                          <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
-                                    title="View as PDF" @click="viewInvoice"><i class="fa fa-file-pdf-o"></i></button>
-                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
-                                    title="Print" @click="viewInvoice"><i class="fa fa-print"></i></button>
-                            <button
-                              type="button"
-                              class="btn btn-default"
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title="Send as mail"
-                              :disabled="sendingEmail"
-                              @click="sendInvoiceAsMail"
-                            >
-                              <i class="fa fa-envelope-o" v-if="!sendingEmail"></i>
-                              <i class="fa fa-spin fa-spinner" v-else="sendingEmail"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row p-15">
-                        <div v-for="invoice in invoiceList">
-                          <component
-                            :is="invoiceComponent"
-                            :value="invoice"
-                            :sales-order="salesOrder"
-                            :payment-list="paymentList"
-                          ></component>
-                        </div>
-                      </div>
-                  </div>
-
-                  <div :class="{ 'tab-pane': true, active: currentTab == 'payment'}" id="payment" v-if="currentTab == 'payment'">
-                      <div class="row p-15">
-                        <div class="border-1 table-responsive mt-20">
-                          <table class="table sahito-invoice-table">
-                            <caption><h3>Payment Receival</h3></caption>
-                            <thead>
-                            <tr class="grey-background">
-                              <th>Date</th>
-                              <th>Reference</th>
-                              <th>Payment Mode</th>
-                              <th class="text-right">Amount</th>
-                              <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-show="!paymentList.length > 0">
-                              <td colspan="5" class="text-muted text-center">No payment received</td>
-                            </tr>
-                            <tr v-for="payment in paymentList" v-show="paymentList.length > 0">
-                              <td style="padding: 12px 8px;">
-                                {{ payment.date | date('short') }}
-                              </td>
-                              <td style="padding: 12px 8px;">
-                                <span class="text-muted">#</span> {{ payment.reference_number }}
-                              </td>
-                              <td style="padding: 12px 8px;">
-                                {{ payment.payment_mode_name }}
-                              </td>
-                              <td class="text-right" style="padding: 12px 8px;">
-                                {{ payment.amount | money }}
-                              </td>
-                              <td>
-                                <div class="clearfix">
-                                  <div class="pull-left">
-                                    <!--<a class="btn btn-default btn-sm" href="javascript:void(0);" title="Edit this payment" @click="editPayment(payment)"><i class="fa fa-pencil"></i></a>-->
-                                    <!--<a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="alert('API not available')" title="Send payment receipt to customer">-->
-                                    <!--<i class="fa fa-envelope"></i>-->
-                                    <!--</a>-->
-                                  </div>
-                                  <div class="pull-right">
-                                    <a class="btn btn-default btn-sm" href="javascript:void(0);"
-                                       title="Delete this payment" @click="deletePayment(payment)"><i
-                                      class="fa fa-trash"></i></a>
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                  </div>
-
-                  <div :class="{ 'tab-pane': true, active: currentTab == 'shipment' }" id="shipment"
-                       v-if="currentTab == 'shipment'">
-                    <DetailShipment
-                      :shipment-list="shipmentList"
-                      :sales-order="salesOrder"
-                      @edit-shipment="editShipment"
-                      @delete-shipment="deleteShipment"
-                    ></DetailShipment>
-                  </div>
-                </div>
-              </div>
+              <pagination :page-context="page_context" :result="salesList" @updated="updatePagination"></pagination>
             </div>
 
           </div>
-
         </div>
-
-        <div class="row">
-          <pagination :page-context="page_context" :result="salesList" @updated="updatePagination"></pagination>
-        </div>
-
       </div>
     </div>
   </div>

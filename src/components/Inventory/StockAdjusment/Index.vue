@@ -1,91 +1,95 @@
 <template>
-  <div>
-    <div class="col-sm-12">
-      <a class="pull-left page-title" data-toggle="dropdown" aria-expanded="false">
-        <h4>Adjustment History</h4>
-      </a>
-      <div class="pull-right">
-        <router-link :to="{ name: 'stock_adjustment.create' }" class="btn btn-info waves-effect waves-light m-b-5">
-          <span>New </span><i class="ion-plus"></i>
-        </router-link>
-        <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown" aria-expanded="false">
-          <i class="fa fa-bars"></i>
-        </button>
-        <ul class="dropdown-menu" role="menu" style="top: 35px;">
-          <li class="dropdown-header">SORT BY</li>
-          <li :class="{ active: currentSortColumn == 'stock_adjustments.created_at' }">
-            <a href="javascript:void(0);" id="sort-by-stock_adjustments.created_at"
-               @click="sortItemsBy('stock_adjustments.created_at')">Newest</a>
-          </li>
-          <li :class="{ active: currentSortColumn == 'reference_number' }">
-            <a href="javascript:void(0);" id="sort-by-reference_number" @click="sortItemsBy('reference_number')">Reference Number</a>
-          </li>
-          <li :class="{ active: currentSortColumn == 'stock_adjustments.updated_at\n' }">
-            <a href="javascript:void(0);" id="sort-by-stock_adjustments.updated_at" @click="sortItemsBy('name')">Last Updated</a>
-          </li>
-          <li :class="{ active: currentSortColumn == 'stock_adjustment_date' }">
-            <a href="javascript:void(0);" id="sort-by-stock_adjustment_date"
-               @click="sortItemsBy('stock_adjustment_date')">Stock Adjustment Date</a>
-          </li>
-          <li :class="{ active: currentSortColumn == 'stock_adjustment_number' }">
-            <a href="javascript:void(0);" id="sort-by-stock_adjustment_number"
-               @click="sortItemsBy('stock_adjustment_number')">Stock adjustment Number</a>
-          </li>
-          <li class="divider"></li>
-          <li><a href="#"><i class="md-file-download"></i> Import Customers</a></li>
-          <li><a href="#"><i class="md-file-download"></i> Import Vendors</a></li>
-          <li class="divider"></li>
-          <li><a href="#"><i class="md-file-upload"></i> Export Customers</a></li>
-          <li><a href="#"><i class="md-file-upload"></i> Export Vendors</a></li>
-          <li class="divider"></li>
-          <li><a href="javascript:void(0);" id="refresh-list" @click="refreshList"><i class="md-refresh"></i>
-            Refresh List</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <table class="table table-hover table-striped sahito-list-contact--table">
-                  <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Adjustment ID</th>
-                    <th>Reference Number</th>
-                    <th>Item Name</th>
-                    <th>Reason</th>
-                    <th>Qty Adjusted</th>
-                    <th>Qty on Hand</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr v-for="item in list.items">
-                    <td align="right">
-                      <router-link :to="{ name: 'stock_adjustment.edit', params: { id: item.stock_adjustment_id } }">
-                        {{ item.stock_adjustment_date | date('short') }}
-                      </router-link>
-                    </td>
-                    <td>{{ item.stock_adjustment_number }}</td>
-                    <td>#{{ item.reference_number }}</td>
-                    <td>{{ item.item_name }}</td>
-                    <td>{{ item.reason }}</td>
-                    <td>{{ item.adjust_qty }}</td>
-                    <td>{{ item.on_hand_qty }}</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <pagination :page-context="paginate" :result="list.items" @updated="updatePagination"></pagination>
-
+  <div class="content-page">
+    <div class="content full-width sahito-user bgr-white">
+      <div class="container">
+        <div class="col-sm-12">
+          <a class="pull-left page-title" data-toggle="dropdown" aria-expanded="false">
+            <h4>Adjustment History</h4>
+          </a>
+          <div class="pull-right">
+            <router-link :to="{ name: 'stock_adjustment.create' }" class="btn btn-info waves-effect waves-light m-b-5">
+              <span>New </span><i class="ion-plus"></i>
+            </router-link>
+            <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-bars"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu" style="top: 35px;">
+              <li class="dropdown-header">SORT BY</li>
+              <li :class="{ active: currentSortColumn == 'stock_adjustments.created_at' }">
+                <a href="javascript:void(0);" id="sort-by-stock_adjustments.created_at"
+                  @click="sortItemsBy('stock_adjustments.created_at')">Newest</a>
+              </li>
+              <li :class="{ active: currentSortColumn == 'reference_number' }">
+                <a href="javascript:void(0);" id="sort-by-reference_number" @click="sortItemsBy('reference_number')">Reference Number</a>
+              </li>
+              <li :class="{ active: currentSortColumn == 'stock_adjustments.updated_at\n' }">
+                <a href="javascript:void(0);" id="sort-by-stock_adjustments.updated_at" @click="sortItemsBy('name')">Last Updated</a>
+              </li>
+              <li :class="{ active: currentSortColumn == 'stock_adjustment_date' }">
+                <a href="javascript:void(0);" id="sort-by-stock_adjustment_date"
+                  @click="sortItemsBy('stock_adjustment_date')">Stock Adjustment Date</a>
+              </li>
+              <li :class="{ active: currentSortColumn == 'stock_adjustment_number' }">
+                <a href="javascript:void(0);" id="sort-by-stock_adjustment_number"
+                  @click="sortItemsBy('stock_adjustment_number')">Stock adjustment Number</a>
+              </li>
+              <li class="divider"></li>
+              <li><a href="#"><i class="md-file-download"></i> Import Customers</a></li>
+              <li><a href="#"><i class="md-file-download"></i> Import Vendors</a></li>
+              <li class="divider"></li>
+              <li><a href="#"><i class="md-file-upload"></i> Export Customers</a></li>
+              <li><a href="#"><i class="md-file-upload"></i> Export Vendors</a></li>
+              <li class="divider"></li>
+              <li><a href="javascript:void(0);" id="refresh-list" @click="refreshList"><i class="md-refresh"></i>
+                Refresh List</a></li>
+            </ul>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <table class="table table-hover table-striped sahito-list-contact--table">
+                      <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Adjustment ID</th>
+                        <th>Reference Number</th>
+                        <th>Item Name</th>
+                        <th>Reason</th>
+                        <th>Qty Adjusted</th>
+                        <th>Qty on Hand</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr v-for="item in list.items">
+                        <td align="right">
+                          <router-link :to="{ name: 'stock_adjustment.edit', params: { id: item.stock_adjustment_id } }">
+                            {{ item.stock_adjustment_date | date('short') }}
+                          </router-link>
+                        </td>
+                        <td>{{ item.stock_adjustment_number }}</td>
+                        <td>#{{ item.reference_number }}</td>
+                        <td>{{ item.item_name }}</td>
+                        <td>{{ item.reason }}</td>
+                        <td>{{ item.adjust_qty }}</td>
+                        <td>{{ item.on_hand_qty }}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <pagination :page-context="paginate" :result="list.items" @updated="updatePagination"></pagination>
+
+              </div>
+            </div>
+          </div>
+        </div> <!-- End row -->
       </div>
-    </div> <!-- End row -->
+    </div>
   </div>
 </template>
 
