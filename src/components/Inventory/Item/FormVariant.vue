@@ -73,12 +73,12 @@
               <div class="col-md-12 control-label text-left">
                 <div class="checkbox checkbox-success checkbox-inline">
                   <input v-model="form.track_inventory" type="checkbox" id="inlineCheckbox1" value="option1"
-                         checked="checked">
+                         checked="checked" true-value="true" false-value="false">
                   <label for="inlineCheckbox1">Track Inventory for this item</label>
                 </div>
               </div>
             </div>
-            <div id="show-stock" v-if="form.track_inventory">
+            <div id="show-stock" v-if="form.track_inventory === 'true'">
               <div class="form-group form-general m-b-20">
                 <label class="col-md-2 control-label text-left">Stock</label>
                 <div class="col-md-3">
@@ -244,7 +244,7 @@
           weight_unit: 'gr',
           code_sku: '',
           barcode: '',
-          track_inventory: true,
+          track_inventory: 'true',
           inventory_stock: 0,
           inventory_stock_warning: 0,
           category_id: null,
