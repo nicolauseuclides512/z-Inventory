@@ -713,13 +713,6 @@ select.select2-dropdown-open {
     padding: 0px 5px 15px
 }
 
-.content-page-full .content {
-    min-height: 610px;
-    /*background: #fff!important;
-    border: 1px solid #ddd*/
-    background: #EEEEEE;
-}
-
 .content-page-new-item {
     background: #EEEEEE;
     padding-top: 90px;

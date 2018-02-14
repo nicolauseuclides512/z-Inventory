@@ -1,8 +1,7 @@
 <template>
   <div class="content-page-full">
-    <div class="content full-width sahito-user bgr-white">
-      <div class="container">
-
+    <div class="content">
+       <div class="container">
         <div class="row" style="padding: 5px 0;">
           <div class="clearfix">
             <div class="pull-left">
@@ -18,22 +17,21 @@
             </div>
           </div>
         </div>
-
-        <div class="row">
-          <monthly-report :start_date="start_date" :end_date="end_date"></monthly-report>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <contacts :start_date="start_date" :end_date="end_date"></contacts>
-          </div>
-          <div class="col-md-6">
-            <items :start_date="start_date" :end_date="end_date"></items>
-          </div>
-        </div>
-
       </div>
-    </div>
+
+      <div class="row">
+        <monthly-report :start_date="start_date" :end_date="end_date"></monthly-report>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <contacts :start_date="start_date" :end_date="end_date"></contacts>
+        </div>
+        <div class="col-md-6">
+          <items :start_date="start_date" :end_date="end_date"></items>
+        </div>
+      </div>
+  </div>
   </div>
 </template>
 

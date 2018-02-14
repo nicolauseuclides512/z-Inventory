@@ -3415,6 +3415,11 @@ pre code {
     margin-right: -15px
 }
 
+.row {
+    margin-left: -10px;
+    margin-right: -10px
+}
+
 .row:after,
 .row:before {
     content: " ";
@@ -12690,11 +12695,6 @@ a:hover {
     line-height: 30px;
     text-align: center;
     width: 30px
-}
-
-.row {
-    margin-right: -10px;
-    margin-left: -10px
 }
 
 .col-lg-1,

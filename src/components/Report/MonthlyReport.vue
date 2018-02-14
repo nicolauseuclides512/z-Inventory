@@ -1,34 +1,42 @@
 <template>
   <fieldset>
-    <div class="clearfix">
-      <div class="pull-left lead">Monthly Report</div>
-      <div class="pull-right lead">
-        <small>Total</small> {{ total | money }}
+      <div class="col-md-12">
+        <h3 align="Right">Total {{ total | money }}</h3>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Monthly Report</h3>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div id="report-monthly">
+                  <div v-if="items.length > 0">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th class="text-right">Month</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="item in items">
+                          <td width="50%" class="text-right">
+                            {{ item.sales_month_desc.substr(0, 3) }}/{{ item.sales_year }}
+                          </td>
+                          <td width="50%">{{ item.sales_amount | money }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div v-else>
+                    <div class="lead text-center text-muted">No data</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div id="report-monthly">
-      <div v-if="items.length > 0">
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th class="text-right">Month</th>
-            <th>Amount</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="item in items">
-            <td width="50%" class="text-right">
-              {{ item.sales_month_desc.substr(0, 3) }}/{{ item.sales_year }}
-            </td>
-            <td width="50%">{{ item.sales_amount | money }}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div v-else>
-        <div class="lead text-center text-muted">No data</div>
-      </div>
-    </div>
   </fieldset>
 </template>
 
@@ -87,7 +95,7 @@
 
 <style scoped>
   #report-monthly {
-    min-height: 300px;
+    min-height: auto;
     max-height: 400px;
     overflow: auto;
   }
