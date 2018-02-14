@@ -12,10 +12,10 @@
 
         <li class="clearfix">
           <router-link id="nev-left-contacts" :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}"
-            class="waves-effect waves-light pull-left" style="padding-right: 5px">
+            class="waves-effect waves-light pull-left" style="padding-right: 5px; padding-left: 0px">
             <i class="md md-shopping-cart"></i><span> Sales Orders</span>
           </router-link>
-          <router-link :to="{ name: 'sales.create' }" class="waves-effect waves-light pull-right" style="padding: 15px 17px;">
+          <router-link :to="{ name: 'sales.create' }" class="waves-effect waves-light pull-right" style="padding: 15px 7px 15px 7px;">
             <span><i class="fa fa-plus"></i></span>
           </router-link>
         </li>
@@ -23,27 +23,25 @@
         <!--<dropdown-menu id="nav-left-sales" title="Sales" icon="md-shopping-cart">-->
         <!---->
         <!--</dropdown-menu>-->
-
-        <dropdown-menu title="Items" icon="ion-cube">
+        <dropdown-menu title="Items" icon="ion-cube" style="padding-right: 5px; padding-left: 0px">
           <router-link tag="li" :to="{ name: 'item.index' }">
-            <a class="waves-effect waves-light">Item List</a>
+            <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 42px">Item List</a>
           </router-link>
           <router-link tag="li" :to="{ name: 'stock_adjustment.index' }">
-            <a class="waves-effect waves-light">Stock Adjustment</a>
+            <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 42px">Stock Adjustment</a>
           </router-link>
           <router-link tag="li" :to="{ name: 'stock_summary.index' }">
-            <a class="waves-effect waves-light">Stock Summary</a>
+            <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 42px">Stock Summary</a>
           </router-link>
         </dropdown-menu>
-
         <li>
-          <router-link id="nev-left-contacts" :to="{ name: 'contact.index' }" class="waves-effect waves-light">
+          <router-link id="nev-left-contacts" :to="{ name: 'contact.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="ion-person-stalker"></i><span> Contacts </span>
           </router-link>
         </li>
 
         <router-link id="nev-left-report" tag="li" :to="{ name: 'report.index' }">
-          <a class="waves-effect waves-light">
+          <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="ion-stats-bars"></i>
             Report
           </a>
@@ -60,7 +58,7 @@
 
 
         <router-link id="nev-left-settings" tag="li" :to="{ name: 'settings' }">
-          <a class="waves-effect waves-light">
+          <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="md md-settings"></i> <span>Settings</span>
           </a>
         </router-link>
@@ -82,8 +80,9 @@ export default {
 
 <style scoped>
 .router-link-active {
-  background: #272c35;
+  background: #2FA3E6 !important;
   color: #ffffff;
+  font-weight: bold;
 }
 
 .side-menu {
