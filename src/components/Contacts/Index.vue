@@ -5,7 +5,8 @@
     <div v-if="!contacts.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
       <i class="fa fa-5x fa-address-book"></i>
       <div class="lead" style="padding: 30px 0 5px;">
-        <small>You haven't made any contact yet. </small><br>
+        <small>You haven't made any contact yet.</small>
+        <br>
         Add your first contact!
       </div>
       <div>
@@ -31,18 +32,22 @@
               </a>
               <ul class="dropdown-menu" role="menu" style="top: 35px;">
                 <li class="dropdown-header">FILTER BY</li>
-                <li :class="{ active: currentFilter == 'all' }">
+                <li :class="{ active: currentFilter === 'all' }">
                   <a href="javascript:void(0);" id="filter-by-all" @click="filterContact('all')">All</a>
                 </li>
-                <li :class="{ active: currentFilter == 'customer' }">
+                <li :class="{ active: currentFilter === 'customer' }">
                   <a href="javascript:void(0);" id="filter-by-customer" @click="filterContact('customer')">Customers</a>
                 </li>
-                <!--<li :class="{ active: currentFilter == 'vendor' }">-->
-                <!--<a href="javascript:void(0);" id="filter-by-vendor" @click="filterContact('vendor')">Vendors</a>-->
-                <!--</li>-->
-                <!--<li :class="{ active: currentFilter == 'dropshipper' }">-->
-                <!--<a href="javascript:void(0);" id="filter-by-dropshipper" @click="filterContact('dropshipper')">Dropshippers</a>-->
-                <!--</li>-->
+                <li :class="{ active: currentFilter === 'vendor' }">
+                  <a href="javascript:void(0);" id="filter-by-vendor" @click="filterContact('vendor')">Vendors</a>
+                </li>
+                <li :class="{ active: currentFilter === 'dropshipper' }">
+                  <a href="javascript:void(0);" id="filter-by-dropshipper" @click="filterContact('dropshipper')">Dropshippers</a>
+                </li>
+                <li :class="{ active: currentFilter === 'reseller' }">
+                  <a href="javascript:void(0);" id="filter-by-reseller"
+                     @click="filterContact('reseller')">Resellers</a>
+                </li>
                 <li class="divider"></li>
                 <!--<li :class="{ active: currentFilter == 'active' }">-->
                 <!--<a href="javascript:void(0);" id="filter-by-active" @click="filterContact('active')">Active</a>-->
@@ -66,13 +71,16 @@
                     <a href="javascript:void(0);" id="sort-by-name" @click="sortContactsBy('display_name')">Name</a>
                   </li>
                   <li :class="{ active: currentSortColumn == 'company_name' }">
-                    <a href="javascript:void(0);" id="sort-by-company" @click="sortContactsBy('company_name')">Company Name</a>
+                    <a href="javascript:void(0);" id="sort-by-company" @click="sortContactsBy('company_name')">Company
+                      Name</a>
                   </li>
                   <li :class="{ active: currentSortColumn == 'created_at' }">
-                    <a href="javascript:void(0);" id="sort-by-created" @click="sortContactsBy('created_at')">Created Time</a>
+                    <a href="javascript:void(0);" id="sort-by-created" @click="sortContactsBy('created_at')">Created
+                      Time</a>
                   </li>
                   <li :class="{ active: currentSortColumn == 'updated_at' }">
-                    <a href="javascript:void(0);" id="sort-by-updated" @click="sortContactsBy('updated_at')">Last Modified Time</a>
+                    <a href="javascript:void(0);" id="sort-by-updated" @click="sortContactsBy('updated_at')">Last
+                      Modified Time</a>
                   </li>
                   <!--<li class="divider"></li>-->
                   <!--<li><a href="javascript:void(0);"><i class="md-file-download"></i> Import Customers</a></li>-->
@@ -189,9 +197,9 @@
 <script>
 
   import Axios from 'axios'
-  import { getParameterByName } from 'src/helpers'
+  import {getParameterByName} from 'src/helpers'
   import _ from 'lodash'
-  import { responseOk } from '../../helpers'
+  import {responseOk} from '../../helpers'
   import Salutation from '../../helpers/Salutation'
 
   export default {
@@ -202,7 +210,7 @@
     },
 
     watch: {
-      '$route' (to, from) {
+      '$route'(to, from) {
         if (to.query.q) {
           this.getList({q: to.query.q})
         } else {
@@ -211,7 +219,7 @@
       },
     },
 
-    data () {
+    data() {
       return {
         contacts: [],
         paginate: {},
@@ -225,28 +233,28 @@
     },
 
 
-    mounted () {
+    mounted() {
       this.getList()
     },
 
 
     computed: {
 
-      isChecked () {
+      isChecked() {
         if (_.isEmpty(this.checkedContacts)) {
           return false
         }
         return true
       },
 
-      displayActiveCurrentFilter () {
+      displayActiveCurrentFilter() {
         return this.currentFilter.charAt(0).toUpperCase() + this.currentFilter.slice(1)
       },
 
     },
 
     methods: {
-      checkAll () {
+      checkAll() {
         if (this.checkedAll === false) {
           this.checkedAll = true
           _.each(this.contacts, (item, key) => {
@@ -257,7 +265,7 @@
         }
       },
 
-      clearCheckedContacts () {
+      clearCheckedContacts() {
         document.querySelector('#checkAll').checked = false
         this.checkedAll = false
         this.checkedContacts = []
@@ -268,7 +276,7 @@
        * Get contacts
        * @param  {Object} options  Custom options
        */
-      getList (options = {}) {
+      getList(options = {}) {
         const defaultOptions = {
           page: 1,
           per_page: 15,
@@ -291,7 +299,7 @@
       },
 
 
-      refresh () {
+      refresh() {
         this.getList({
           sort: `${this.currentSortColumn}.${this.ascendingSort ? 'asc' : 'desc' }`,
           filter: this.currentFilter,
@@ -303,7 +311,7 @@
        * Delete multiple contacts
        * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)
        */
-      async destroy (ids) {
+      async destroy(ids) {
         Alert.confirm({
           title: 'Do you really want to delete this contact(s)?',
           text: '',
@@ -328,7 +336,7 @@
        * Mark multiple contacts status to active
        * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)
        */
-      markAsActive (ids) {
+      markAsActive(ids) {
         const payload = _.isArray(ids) ? ids.join(',') : ids
 
         this.$http.post('contacts/mark_as/active', {ids: payload})
@@ -352,7 +360,7 @@
        * Mark multiple contacts status to inactive
        * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)
        */
-      markAsInactive (ids) {
+      markAsInactive(ids) {
         const payload = _.isArray(ids) ? ids.join(',') : ids
 
         this.$http.post('contacts/mark_as/inactive', {ids: payload})
@@ -372,7 +380,7 @@
       },
 
 
-      sortContactsBy (column) {
+      sortContactsBy(column) {
         this.currentSortColumn = column
         this.ascendingSort = !this.ascendingSort
 
@@ -390,13 +398,13 @@
       },
 
 
-      filterContact (filter) {
+      filterContact(filter) {
         this.getList({filter: filter})
         this.currentFilter = filter
       },
 
 
-      updatePagination (data) {
+      updatePagination(data) {
         this.paginate = data.paginate
         this.contacts = data.data
       },
@@ -404,7 +412,7 @@
     },
 
     filters: {
-      display_salutation (salutationId) {
+      display_salutation(salutationId) {
         const salutation = Salutation.byId(salutationId)
         if (typeof salutation !== 'undefined') {
           return salutation.name
@@ -414,7 +422,7 @@
 
     events: {
 
-      listenSearch (search) {
+      listenSearch(search) {
         this.getList({
           q: search.text,
         })
