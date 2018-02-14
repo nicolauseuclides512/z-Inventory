@@ -1,10 +1,345 @@
 <template>
   <div class="content-page">
-    <div class="content full-width sahito-user bgr-white">
-      <div class="container">
+    <div class="content" style="padding-left: 0px; padding-right: 0px">
         <form action="POST" @submit.prevent>
-          <div>
-            <h2 class="lead">Sales Order</h2>
+
+                <!-- Page-Title -->
+                <div class="col-md-6">
+                    <h4 class="pull-left page-title">Create New Order</h4>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Sales Order Date</label>
+                        <div class="input-group">
+                          <input v-model="form.invoice_date" required class="flatpickr form-control">
+                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Due Date</label>
+                        <div class="input-group">
+                          <input v-model="form.due_date" class="flatpickr form-control">
+                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8" style="margin-left: 0px">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Items</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                      <vuelist
+                                        @change="selectProduct"
+                                        @search="searchProduct"
+                                        :options="list.product_list"
+                                        :value="selected_product"
+                                        placeholder="Select product"
+                                        keyid="item_id"
+                                        label="item_name"
+                                      ></vuelist>
+
+                                        <br>
+
+                                        <div class="sahito-table-new-order border-1 table-responsive">
+                                          <table class="table table-hover default-table sahito-list-contact--table table-striped">
+                                            <thead>
+                                            <tr style="color: #777">
+                                              <td style="padding-left: 0px" width='30%'>Item</td>
+                                              <td width="8.75%">Qty</td>
+                                              <td width="17.5%">Rate</td>
+                                              <td width="26.25%">Discount</td>
+                                              <td class="text-right" width="17.5%">Amount</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="product in form.details">
+                                              <td v-text="product.item_name" width='30%' style="padding-left:0px"></td>
+                                              <td width="8.75%">
+                                                <input type="number" v-model.number="product.item_quantity" min="1" max="99999" class="form-control" style="padding-left:5px; padding-right:0px">
+                                              </td>
+
+                                              <td width="17.5%">
+                                                <input type="number" v-model.number="product.item_rate" min="0" max="99999999" class="form-control custom">
+                                              </td>
+
+                                              <td width="26.25%">
+                                                <div class="col-md-4" style="padding-right: 0px; padding-left:0px">
+                                                  <select style="padding-left: 0px;" v-model="product.discount_amount_type" @change="updateDiscountType(product)"
+                                                          class="form-control">
+                                                    <option v-for="value, key in list.discount_unit" :value="key" v-text="value"></option>
+                                                  </select>
+                                                </div>
+                                                <div class="col-md-8">
+                                                  <input type="number"
+                                                          v-model.number="product.discount_amount_value"
+                                                          @change="updateDiscountValue(product)"
+                                                          class="form-control">
+                                                </div>
+                                              </td>
+
+                                              <td width="17.5%"class="text-right" style="vertical-align: middle; padding-left:0px">{{ amount(product) | money }}</td>
+
+                                              <td style="vertical-align: middle;">
+                                                <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
+                                                  class="ion-close-circled"></i></a>
+                                              </td>
+
+                                            </tr>
+                                            </tbody>
+                                          </table>
+                                          <table class="table">
+                                            <thead>
+                                                <th style="width: 60%; border-bottom: 0px"></th>
+                                                <th style="width: 20%; border-bottom: 0px"></th>
+                                                <th style="width: 20%; border-bottom: 0px"></th>
+                                            </thead>
+                                            <tbody>
+                                              <tr class="total">
+                                                <td class="text-right"></td>
+                                                <td class="text-right">Sub total</td>
+                                                <td class="text-right">{{ subtotal | money }}</td>
+                                              </tr>
+                                              <tr class="total">
+                                                <td class="text-right" style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
+                                                <td class="text-right">PPN 10%</td>
+                                                <td class="text-right">{{ tax_value }}</td>
+                                              </tr>
+                                              <tr class="total">
+                                                <td  style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
+                                                </td>
+                                                <td class="text-right" style="padding-left: 0px">
+                                                  <input
+                                                    v-model.trim="form.adjustment_name"
+                                                    type="text"
+                                                    class="form-control form-white"
+                                                    style="max-width: 300px;"
+                                                    placeholder="Adjustment"
+                                                  />
+                                                </td>
+                                                <td style="padding-right: 0px">
+                                                  <div class="input-group pull-right">
+                                                    <span class="input-group-addon" style="color:  #666;">Rp</span>
+                                                    <vue-numeric
+                                                      v-model="form.adjustment_value"
+                                                      :minus="true"
+                                                      separator="."
+                                                      style="max-width: 100%;"
+                                                      maxlength="20"
+                                                      class="form-control form-white text-right"
+                                                      placeholder=""
+                                                    ></vue-numeric>
+                                                  </div>
+                                                </td>
+                                              </tr>
+                                              <tr class="total">
+                                                <td class="no-bgr text-right" style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
+                                                <td class="text-right" style="font-size: 20px">Total</td>
+                                                <td class="text-right" style="font-size: 20px">{{ grandTotal | money }}</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Notes</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="container">
+                                            <div class="row m-b-20">
+                                                <div class="col-md-12 pl-pr-0">
+                                                    <div class="form-group col-md-12 form-general-newOrder m-b-20">
+                                                        <label class="col-md-12 control-label text-left">Customer Notes</label>
+                                                        <textarea
+                                                          class="form-control-invoice"
+                                                          rows="3"
+                                                          v-model="form.customer_notes"
+                                                          maxlength="500"
+                                                          placeholder="Will be displayed in invoice. Maximum characters is 500."
+                                                        ></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="container">
+                                            <div class="row m-b-20">
+                                                <div class="col-md-12 pl-pr-0">
+                                                    <div class="form-group col-md-12 form-general-newOrder m-b-20">
+                                                        <label class="col-md-12 control-label text-left">Terms & Conditions</label>
+                                                        <textarea
+                                                        class="form-control-invoice"
+                                                          rows="3"
+                                                          v-model="form.term_and_condition"
+                                                          maxlength="500"
+                                                          placeholder="Will be displayed in invoice. Maximum characters is 500."
+                                                        ></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="container">
+                                            <div class="row m-b-20">
+                                                <div class="col-md-12 pl-pr-0">
+                                                    <div class="form-group col-md-12 form-general-newOrder m-b-20">
+                                                        <label class="col-md-12 control-label text-left">Internal Notes</label>
+                                                        <textarea 
+                                                        class="form-control-invoice" 
+                                                        rows="3" 
+                                                        v-model="form.internal_notes" 
+                                                        maxlength="500" 
+                                                        placeholder="Not displayed in invoice."
+                                                        ></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="container">
+                                            <div class="row m-b-20">
+                                                <div class="col-md-12 pl-pr-0">
+                                                    <div class="form-group col-md-12 form-general-newOrder m-b-20">
+                                                      <label class="control-label">Invoice Email</label>
+                                                      <span v-if="ui.invalidInvoiceEmail" style="color: red;">( Invalid email address )</span>
+                                                      <div>
+                                                        <vuetagger
+                                                          :value="invoice_emails"
+                                                          @change="updateEmail"
+                                                          pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
+                                                        ></vuetagger>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Contacts</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group" style="margin-bottom: 0px">
+                                            <label style="font-weight: normal">Invoice to:</label>
+                                        </div>
+                                        <div v-if="ui.add_contact_mode" class="add-mode">
+                                          <div class="col-md-11" style="padding-left: 0px; padding-right: 0px">
+                                            <div class="form-group">
+                                              <span class="alert-danger" v-if="contact.errors.first_name">{{ contact.errors.first_name[0] }}</span>
+                                              <input type="text" class="form-control" v-model="contact.display_name" required placeholder="Your Client's Name (required)">
+                                            </div>
+                                            <div class="form-group">
+                                              <span class="alert-danger" v-if="contact.errors.billing_address">{{ contact.errors.billing_address[0] }}</span>
+                                              <textarea class="form-control" v-model="contact.billing_address" placeholder="Your Client's Address"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                              <span class="alert-danger" v-if="contact.errors.phone">{{ contact.errors.phone[0] }}</span>
+                                              <input type="text" class="form-control" v-model="contact.phone" placeholder="Your Client's Phone" minlength="9" maxlength="15">
+                                            </div>
+                                            <div class="form-group">
+                                              <span class="alert-danger" v-if="contact.errors.email">{{ contact.errors.email[0] }}</span>
+                                              <input type="email" class="form-control" v-model="contact.email" placeholder="Your Client's Email">
+                                            </div>
+
+                                            <!--<div class="form-group">
+                                              <button class="btn btn-primary" @click="addNewContact">Add New Contact</button>
+                                            </div>-->
+                                          </div>
+
+                                          <div class="col-md-1">
+                                            <a @click="clearSelectedContact" href="javascript:void(0)" class="text-danger">
+                                              <i class="ion-close-circled" style="font-size:12pt"></i>
+                                            </a>
+                                          </div>
+                                        </div>
+                                        <div v-if="!ui.add_contact_mode" class="normal-mode">
+                                          <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
+                                            <vuelist
+                                              @change="selectContact"
+                                              @search="searchContact"
+                                              :options="list.contact_list"
+                                              :value="selected_contact && selected_contact.contact_id"
+                                              placeholder="Search a customer"
+                                              keyid="contact_id"
+                                              label="display_name"
+                                            ></vuelist>
+                                            <div v-if="!selected_contact" @click="addContactMode()" class="add-new-contact-btn">
+                                              + Add New Contact
+                                            </div>
+                                          </div>
+                                          <div class="col-md-1" v-if="selected_contact">
+                                            <a @click="clearSelectedContact" href="javascript:void(0)" class="text-danger">
+                                              <i class="ion-close-circled" style="font-size:12pt"></i>
+                                            </a>
+                                          </div>
+                                          <!--<div class="col-md-1" v-if="!selected_contact">-->
+                                          <!--<a href="javascript:void(0)" onclick="window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>-->
+                                          <!--</div>-->
+                                        </div>
+                                        <div class="normal-mode" v-if="selected_contact">
+                                          <div class="col-md-10" style="padding-left: 0px">
+                                            <div class="text-bold">
+                                              Billing Address
+                                              <a href="javascript:void(0)" @click="editSelectedContact">
+                                                <i class="fa fa-fw fa-pencil"></i>
+                                              </a>
+                                            </div>
+                                            <div v-text="selected_contact.billing_address"></div>
+                                            <div v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
+                                            <div v-text="selected_contact.billing_zip"></div>
+                                            <div v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Sales Info</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group" style="margin-bottom: 0px">
+                                            <label style="font-weight: normal">Sales from:</label>
+                                        </div>
+                                        <div id="insert-contact">
+                                            <select id="customer" class="form-control form-group" style="margin-bottom: 5px;margin-left: -5px;">
+                                                <option selected="active"></option>
+                                                <option>Andi</option>
+                                                <option onclick="showDetails()">Dia</option>
+                                                <option>Charlie</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+ <!-- END OF HTML-->
+<!--LAST VERSION-->
+            <!-- <h2 class="lead">Sales Order</h2>
             <hr>
 
             <div class="row">
@@ -88,8 +423,6 @@
             </div>
 
             <hr>
-
-            <div v-if="selected_contact">
 
               <div class="form-group row">
                 <label class="control-label col-md-2">Product</label>
@@ -263,10 +596,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-
-            </div>
-
+              </div> -->
+<!--END OF LAST VERSION-->
 
             <div class="float-save">
               <div class="row">
@@ -298,9 +629,8 @@
               </div>
             </div>
 
-          </div>
+
         </form>
-      </div>
     </div>
   </div>
 </template>
@@ -781,4 +1111,21 @@
   .flatpickr {
     background: white;
   }
+
+  .add-new-contact-btn {
+  border: 1px dashed #89bbeb;
+  height: 100px;
+  padding: 10px;
+  color: #89bbeb;
+  cursor: pointer;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-new-contact-btn:hover {
+  color: white;
+  background: #89b5eb;
+}
 </style>

@@ -2783,6 +2783,10 @@ textarea {
     line-height: inherit
 }
 
+::placeholder{
+    color: #bdcad0;
+}
+
 a {
     color: #006090;
     text-decoration: none
@@ -4629,7 +4633,7 @@ output {
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control {
-    background-color: #eee;
+    background-color: #fff;
     opacity: 1
 }
 
@@ -12848,6 +12852,22 @@ a:hover {
 
 .text-dark {
     color: #797979!important
+}
+.form-control-invoice {
+    -moz-border-radius: 2px;
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    background-color: transparent;
+    border-radius: 2px;
+    border: 1px solid #eee;
+    box-shadow: none;
+    color: rgba(0, 0, 0, .6);
+    font-size: 14px;
+    min-height: 60px;
+    max-height: 250px;
+    min-width: 100%;
+    max-width: 100%;
 }
 
 .form-control {

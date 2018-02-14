@@ -343,6 +343,11 @@ textarea.form-control {
     border: 1px solid #ddd
 }
 
+textarea.form-control-invoice {
+    background: #fff;
+    border: 1px solid #ddd
+}
+
 textarea.form-control:focus {
     border-color: #c9c9c9
 }
