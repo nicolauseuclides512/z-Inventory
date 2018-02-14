@@ -1,6 +1,6 @@
 <template>
   <li class="has_sub">
-    <a href="javascript:void(0)" class="waves-effect waves-light" @click="showSubMenu">
+    <a href="javascript:void(0)" class="waves-effect waves-light" @click="showSubMenu" style="padding-right: 5px; padding-left: 0px">
       <i :class="'md ' + icon"></i>
       <span> {{ title }} </span>
       <span class="pull-right"><i :class="'fa fa-' + expandIcon"></i></span>
