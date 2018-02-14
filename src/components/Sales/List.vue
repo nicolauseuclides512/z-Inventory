@@ -147,15 +147,15 @@
                         <th id="icon_collapse" style="padding-top:  15px;padding-bottom:  15px;">
                           <div class="placeholder-collapse"></div>
                         </th>
-                        <th>Date</th>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Status </th>
-                        <th>Due Date</th>
-                        <th>Total</th>
-                        <th>Balance Due</th>
-                        <th>Shipment</th>
-                        <th>Action</th>
+                        <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">DATE</th>
+                        <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">ORDER ID</th>
+                        <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">CUSTOMER</th>
+                        <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">STATUS </th>
+                        <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">DUE DATE</th>
+                        <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">TOTAL</th>
+                        <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">BALANCE DUE</th>
+                        <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th>
+                        <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">ACTION</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -261,25 +261,13 @@
                               <tr>
                                 <td class="col-checkbox">
                                 </td>
-                                <td style="line-height: 3; width: 250px;">
+                                <td style="border-top: 1px solid #ddd; width: 200px;">
                                   <div v-if="sale.contact">
                                     <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
                                                  href="javascript:void(0);">
-                                      <div v-if = "sale.contact.first_name != null ">
-                                        Name: {{ sale.contact.first_name }} <br>
-                                      </div>
-                                      <div v-if = "sale.contact.company_name != null ">
-                                        Company: {{ sale.contact.company_name }} <br>
-                                      </div>
-                                      <div v-if = " sale.contact.phone != null">
-                                        Phone Number: {{ sale.contact.phone }} <br>
-                                      </div>
-                                      <div v-if = " sale.contact.mobile != null">
-                                        Work Number: {{ sale.contact.mobile }} <br>
-                                      </div>
-                                      <div v-if = " sale.contact.email != null">
-                                        Email: {{ sale.contact.email }}
-                                      </div>
+                                        <p> {{ sale.contact.display_name }}</p>
+                                        <p>{{ sale.contact.phone }}</p>
+                                        <p>{{ sale.contact.email }}</p>
                                     </router-link>
                                   </div>
                                   <div v-else><span class="text-muted">&mdash;</span></div>
@@ -288,12 +276,12 @@
                                   <div class="border-1 table-responsive">
                                     <table class="table sales-order-inner-table">
                                       <thead>
-                                      <tr class="light-grey-background">
-                                        <th>Item &amp; Description</th>
-                                        <th>Qty</th>
-                                        <th>Price @</th>
-                                        <th class="text-right">Disc</th>
-                                        <th class="text-right">Amount</th>
+                                      <tr class="">
+                                        <th style="color:#000000; width: 50%">Item &amp; Description</th>
+                                        <th style="color:#000000; width: 10%">Qty</th>
+                                        <th style="color:#000000; width: 10%">Price @</th>
+                                        <th class="text-right" style="color:#000000; width: 10%">Disc</th>
+                                        <th class="text-right" style="color:#000000; width: 20%">Amount</th>
                                       </tr>
                                       </thead>
                                       <tbody>
@@ -305,8 +293,7 @@
                                         <td>{{ order.item_rate | money }}</td>
                                         <td class="text-right">
                                         <span
-                                          v-if="order.discount_amount_type === 'fixed'">{{ order.discount_amount_value | money
-                                          }}</span>
+                                          v-if="order.discount_amount_type === 'fixed'">{{ Number(order.discount_amount_value) | money}}</span>
                                           <span v-else>{{ order.discount_amount_value }}%</span>
                                         </td>
                                         <td class="text-right">{{ order.amount | money }}</td>
@@ -322,8 +309,8 @@
                                       <!--</tr>-->
                                       <tr class="sub-total">
                                         <td colspan="3" style="border-color: white;">
-                                        <td colspan="1">{{ overview.adjustment_name || 'Adjusment' }}</td>
-                                        <td class="text-right">{{ overview.adjustment_value | money }}</td>
+                                        <td colspan="1">{{ overview.adjustment_name || 'Adjustment' }}</td>
+                                        <td class="text-right">{{ Number(overview.adjustment_value) | money }}</td>
                                       </tr>
                                       <tr class="sub-total">
                                         <td colspan="3" style="border-color: white;">
