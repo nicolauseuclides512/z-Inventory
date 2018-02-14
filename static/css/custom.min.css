@@ -682,20 +682,48 @@ select.select2-dropdown-open {
 .content-page {
     background: #EEEEEE;
     padding: 20px;
+    padding-bottom: 90px;
+    margin-left: 160px;
+    overflow: hidden
+}
+
+.content-page>.content {
+    margin-bottom: 0px;
+    margin-top: 50px;
+    padding: 0px 5px 15px
+}
+
+.content-page .content {
+    min-height: 610px;
+    /*background: #fff!important;
+    border: 1px solid #ddd*/
+    background: #EEEEEE;
+}
+
+.content-page-full {
+    background: #EEEEEE;
+    padding: 20px 10px 20px 20px;
+    margin-left: 160px;
+    overflow: hidden;
+}
+
+.content-page-full>.content {
+    margin-bottom: 0px;
+    margin-top: 50px;
+    padding: 0px 5px 15px
+}
+
+.content-page-full .content {
+    min-height: 610px;
+    /*background: #fff!important;
+    border: 1px solid #ddd*/
+    background: #EEEEEE;
 }
 
 .content-page-new-item {
     background: #EEEEEE;
     padding-top: 90px;
     padding-left: 260px;
-    padding-bottom: 90px;
-}
-
-.content-page .content {
-    min-height: 500px;
-    /*background: #fff!important;
-    border: 1px solid #ddd*/
-    background: #EEEEEE;
 }
 
 .table-div {

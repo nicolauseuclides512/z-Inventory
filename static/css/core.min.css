@@ -24194,17 +24194,6 @@ body.fixed-left .side-menu.left {
     position: fixed
 }
 
-.content-page {
-    margin-left: 160px;
-    overflow: hidden
-}
-
-.content-page>.content {
-    margin-bottom: 75px;
-    margin-top: 50px;
-    padding: 0px 5px 15px
-}
-
 .button-menu-mobile {
     background: transparent;
     border: none;
