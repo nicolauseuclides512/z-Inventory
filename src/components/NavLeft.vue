@@ -23,7 +23,7 @@
         <!--<dropdown-menu id="nav-left-sales" title="Sales" icon="md-shopping-cart">-->
         <!---->
         <!--</dropdown-menu>-->
-        <dropdown-menu title="Items" icon="ion-cube" style="padding-right: 5px; padding-left: 0px">
+        <dropdown-menu title="Items" icon="fa fa-dropbox" style="padding-right: 5px; padding-left: 0px">
           <router-link tag="li" :to="{ name: 'item.index' }">
             <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 42px">Item List</a>
           </router-link>
@@ -36,13 +36,13 @@
         </dropdown-menu>
         <li>
           <router-link id="nev-left-contacts" :to="{ name: 'contact.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-            <i class="ion-person-stalker"></i><span> Contacts </span>
+            <i class="md md-people"></i><span> Contacts </span>
           </router-link>
         </li>
 
         <router-link id="nev-left-report" tag="li" :to="{ name: 'report.index' }">
           <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-            <i class="ion-stats-bars"></i>
+            <i class="fa fa-area-chart"></i>
             Report
           </a>
         </router-link>
@@ -59,7 +59,7 @@
 
         <router-link id="nev-left-settings" tag="li" :to="{ name: 'settings' }">
           <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-            <i class="md md-settings"></i> <span>Settings</span>
+            <i class="fa fa-gear"></i> <span>Settings</span>
           </a>
         </router-link>
 
