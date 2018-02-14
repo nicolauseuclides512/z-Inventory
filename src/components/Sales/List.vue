@@ -61,7 +61,7 @@
             <div class="pull-right">
               <router-link :to="{ name: 'sales.create' }" href="javascript:void(0);"
                            class="btn btn-info waves-effect waves-light m-b-5">
-                <i class="ion-plus"></i> <span>New </span>
+                <span>New </span> <i class="ion-plus"></i> 
               </router-link>
               <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-bars"></i></button>
