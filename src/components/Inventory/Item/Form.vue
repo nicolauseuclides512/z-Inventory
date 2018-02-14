@@ -126,7 +126,7 @@
         <div class="col-md-12 p-b-20">
           <h5 class="title">Shipping</h5>
           <div class="form-horizontal">
-            <div class="col-md-6">
+            <div class="col-md-6" style="padding-left: 0px;">
               <div class="form-group form-general m-b-20">
                 <label class="col-md-4 control-label text-left text-danger">UOM</label>
                 <div class="col-md-8 pl-pr-0">
