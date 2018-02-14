@@ -2,7 +2,7 @@
   <div class="tab-pane active" id="change-pass">
     <div class="row sahito-profile-tabs--password">
       <div class="col-md-12">
-        <div class="panel panel-default panel-fill">
+        <div class="panel panel-default panel-fill" style="margin-bottom: 0px">
           <div class="panel-heading">
             <h3 class="panel-title">Password</h3>
             <small class="help-block">

@@ -1,115 +1,118 @@
 <template>
-  <div>
-    <div id="full-list">
-      <div class="container full-width-header bt-1 p-b-10">
-        <div class="row">
+  <div class="content-page-full">
+    <div class="content full-width sahito-user bgr-white">
+      <div class="container">
+        <div id="full-list">
+          <div class="container full-width-header bt-1 p-b-10">
+            <div class="row">
 
-          <!-- Default bar -->
-          <div class="col-md-12 col-sm-12 col-xs-12" v-if="checkedItems.length == 0">
-            <a href="javascript:void(0);" id="filter-by-toggle" class="dropdown-toggle pull-left page-title" data-toggle="dropdown" aria-expanded="false">
-              <h4> {{ currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1) }} Collections
-                <span class="caret"></span>
-              </h4>
-            </a>
-            <ul class="dropdown-menu" role="menu" style="top: 35px;">
-              <li :class="{ active: currentFilter == 'all' }"><a href="javascript:void(0);" id="filter-by-all" @click="filterBy('all')">All Collections</a></li>
-              <li :class="{ active: currentFilter == 'published' }"><a href="javascript:void(0);" id="filter-by-published" @click="filterBy('published')">Published Collections</a></li>
-              <li :class="{ active: currentFilter == 'hidden' }"><a href="javascript:void(0);" id="filter-by-hidden" @click="filterBy('hidden')">Hidden Collections</a></li>
-            </ul>
-
-            <div class="pull-right">
-              <router-link :to="{ name: 'collection.create' }" class="btn btn-info waves-effect waves-light m-b-5">
-                <span>New </span> <i class="ion-plus"></i>
-              </router-link>
-            </div>
-          </div>
-
-          <!-- Show this bar if box checked -->
-          <div class="col-md-12 col-sm-12 col-xs-12" v-if="checkedItems.length > 0">
-            <div class="pull-left">
-              <div class="btn-group">
-                <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown" aria-expanded="false">
-                  Mark As <i class="caret"></i>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="javascript:void(0);" @click="markAsPublished">Published</a></li>
-                  <li><a href="javascript:void(0);" @click="markAsHidden">Hidden</a></li>
+              <!-- Default bar -->
+              <div class="col-md-12 col-sm-12 col-xs-12" v-if="checkedItems.length == 0">
+                <a href="javascript:void(0);" id="filter-by-toggle" class="dropdown-toggle pull-left page-title" data-toggle="dropdown" aria-expanded="false">
+                  <h4> {{ currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1) }} Collections
+                    <span class="caret"></span>
+                  </h4>
+                </a>
+                <ul class="dropdown-menu" role="menu" style="top: 35px;">
+                  <li :class="{ active: currentFilter == 'all' }"><a href="javascript:void(0);" id="filter-by-all" @click="filterBy('all')">All Collections</a></li>
+                  <li :class="{ active: currentFilter == 'published' }"><a href="javascript:void(0);" id="filter-by-published" @click="filterBy('published')">Published Collections</a></li>
+                  <li :class="{ active: currentFilter == 'hidden' }"><a href="javascript:void(0);" id="filter-by-hidden" @click="filterBy('hidden')">Hidden Collections</a></li>
                 </ul>
-              </div>
-              <a href="javascript:void(0);" class="btn btn-danger waves-effect waves-light m-b-5" @click="destroy">
-                Delete Collections
-              </a>
-            </div>
-            <div class="pull-right pt-10">
-              <a href="javascript:void(0);" @click="clearCheckedItems" class="close-btn">
-                <i class="ion-android-close"></i>
-              </a>
-            </div>
-          </div>
 
-        </div>
-      </div>
-      <div class="container p-0">
-        <div class="row sahito-list">
-          <div class="col-md-12">
-            <div class="sahito-list-contact border-1 table-responsive">
-              <table class="table table-hover default-table sahito-list-contact--table">
-                <thead>
-                <tr>
-                  <th class="col-checkbox">
-                    <div class="checkbox checkbox-single checkbox-success">
-                      <input type="checkbox" v-model="checkedAll" @click="checkAll">
-                      <label></label>
-                    </div>
-                  </th>
-                  <th>Name</th>
-                  <th>Conditions</th>
-                  <th>Visibility</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="collection in list.collection">
-                  <td class="col-checkbox">
-                    <div class="checkbox checkbox-single checkbox-success">
-                      <input type="checkbox" :value="collection.item_collection_id" v-model="checkedItems">
-                      <label></label>
-                    </div>
-                  </td>
-                  <td>
-                    <router-link :to="{ name: 'collection.edit', params: { id: collection.item_collection_id } }">
-                      {{ collection.name }}
-                    </router-link>
-                  </td>
-                  <td>
-                    <div v-for="condition in collection.conditions">
-                      <p>
-                        {{ displayCondition(condition.type) | capitalize }}
-                        {{ displayCondition(condition.rule) | capitalize }}
-                        {{ displayCondition(condition.value) | capitalize }}
-                      </p>
-                    </div>
-                  </td>
-                  <td>
-                    <div v-if="collection.visibility.online_store">
-                      <span class="label label-success">Published</span>
-                    </div>
-                    <div v-if="! collection.visibility.online_store">
-                      <p><span class="label label-default">Hidden</span></p>
-                      <a href="javascript:void(0);">Will be published on: {{ collection.publish_time | date('short') }}</a>
-                    </div>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
+                <div class="pull-right">
+                  <router-link :to="{ name: 'collection.create' }" class="btn btn-info waves-effect waves-light m-b-5">
+                    <span>New </span> <i class="ion-plus"></i>
+                  </router-link>
+                </div>
+              </div>
+
+              <!-- Show this bar if box checked -->
+              <div class="col-md-12 col-sm-12 col-xs-12" v-if="checkedItems.length > 0">
+                <div class="pull-left">
+                  <div class="btn-group">
+                    <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown" aria-expanded="false">
+                      Mark As <i class="caret"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="javascript:void(0);" @click="markAsPublished">Published</a></li>
+                      <li><a href="javascript:void(0);" @click="markAsHidden">Hidden</a></li>
+                    </ul>
+                  </div>
+                  <a href="javascript:void(0);" class="btn btn-danger waves-effect waves-light m-b-5" @click="destroy">
+                    Delete Collections
+                  </a>
+                </div>
+                <div class="pull-right pt-10">
+                  <a href="javascript:void(0);" @click="clearCheckedItems" class="close-btn">
+                    <i class="ion-android-close"></i>
+                  </a>
+                </div>
+              </div>
+
             </div>
           </div>
-          <div class="col-md-12 pr-20 text-right">
-            <pagination :page-context="page_context" :result="list.collection" @updated="updatePagination"></pagination>
+          <div class="container p-0">
+            <div class="row sahito-list">
+              <div class="col-md-12">
+                <div class="sahito-list-contact border-1 table-responsive">
+                  <table class="table table-hover default-table sahito-list-contact--table">
+                    <thead>
+                    <tr>
+                      <th class="col-checkbox">
+                        <div class="checkbox checkbox-single checkbox-success">
+                          <input type="checkbox" v-model="checkedAll" @click="checkAll">
+                          <label></label>
+                        </div>
+                      </th>
+                      <th>Name</th>
+                      <th>Conditions</th>
+                      <th>Visibility</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="collection in list.collection">
+                      <td class="col-checkbox">
+                        <div class="checkbox checkbox-single checkbox-success">
+                          <input type="checkbox" :value="collection.item_collection_id" v-model="checkedItems">
+                          <label></label>
+                        </div>
+                      </td>
+                      <td>
+                        <router-link :to="{ name: 'collection.edit', params: { id: collection.item_collection_id } }">
+                          {{ collection.name }}
+                        </router-link>
+                      </td>
+                      <td>
+                        <div v-for="condition in collection.conditions">
+                          <p>
+                            {{ displayCondition(condition.type) | capitalize }}
+                            {{ displayCondition(condition.rule) | capitalize }}
+                            {{ displayCondition(condition.value) | capitalize }}
+                          </p>
+                        </div>
+                      </td>
+                      <td>
+                        <div v-if="collection.visibility.online_store">
+                          <span class="label label-success">Published</span>
+                        </div>
+                        <div v-if="! collection.visibility.online_store">
+                          <p><span class="label label-default">Hidden</span></p>
+                          <a href="javascript:void(0);">Will be published on: {{ collection.publish_time | date('short') }}</a>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-md-12 pr-20 text-right">
+                <pagination :page-context="page_context" :result="list.collection" @updated="updatePagination"></pagination>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 

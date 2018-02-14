@@ -1,43 +1,46 @@
 <template>
-  <form method="POST" id="form" @submit.prevent="validate">
+  <div class="content-page">
+    <div class="content full-width sahito-user bgr-white">
+      <div class="container">
+        <form method="POST" id="form" @submit.prevent="validate">
 
-    <div class="container full-width-header bt-1 p-b-10 m-b-20">
-      <div class="row">
-        <div class="col-md-12">
-          <h4 class="pull-left page-title">Create Variant Item</h4>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="container bt-1 m-b-20">
-      <div class="row">
-        <div class="col-md-12 p-b-20">
-          <h5 class="title">Info</h5>
-          <div class="form-horizontal">
-            <div class="form-group form-general m-b-20">
-              <label class="col-md-2 control-label text-left text-danger">Item Name</label>
-              <div class="col-md-9">
-                <input type="text"
-                       v-model="form.item_name"
-                       placeholder="Name of item"
-                       class="form-control"
-                       required
-                />
+          <div class="container full-width-header bt-1 p-b-10 m-b-20">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="pull-left page-title">Create Variant Item</h4>
               </div>
             </div>
+          </div>
 
 
-            <div class="form-group form-general m-b-20">
-              <label class="col-md-2 control-label text-left">Images</label>
-              <div class="col-md-9">
-                <ImageUpload
-                  :images="form.images"
-                  @add="addImage"
-                  @clear="clearImages"
-                ></ImageUpload>
-              </div>
-            </div>
+          <div class="container bt-1 m-b-20">
+            <div class="row">
+              <div class="col-md-12 p-b-20">
+                <h5 class="title">Info</h5>
+                <div class="form-horizontal">
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left text-danger">Item Name</label>
+                    <div class="col-md-9">
+                      <input type="text"
+                            v-model="form.item_name"
+                            placeholder="Name of item"
+                            class="form-control"
+                            required
+                      />
+                    </div>
+                  </div>
+
+
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left">Images</label>
+                    <div class="col-md-9">
+                      <ImageUpload
+                        :images="form.images"
+                        @add="addImage"
+                        @clear="clearImages"
+                      ></ImageUpload>
+                    </div>
+                  </div>
 
 
             <div class="form-group form-general m-b-20">
@@ -92,55 +95,56 @@
     </div>
 
 
-    <!-- Shipping -->
+          <!-- Shipping -->
 
-    <div class="container m-b-20">
-      <div class="row">
-        <div class="col-md-12 p-b-20">
-          <h5 class="title">Shipping</h5>
-          <div class="form-horizontal">
-            <div class="col-md-6">
-              <div class="form-group form-general m-b-20">
-                <label class="col-md-4 control-label text-left text-danger">UOM</label>
-                <div class="col-md-8 pl-pr-0">
-                  <select id="uom_id" v-model="form.uom_id" class="form-control">
-                    <option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group form-general m-b-20">
-                <label class="col-md-4 control-label text-left">Dimension (cm)</label>
-                <div class="col-md-2 pl-pr-0">
-                  <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control">
-                </div>
-                <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
-                <div class="col-md-2 pl-pr-0">
-                  <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control">
-                </div>
-                <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
-                <div class="col-md-2 pl-pr-0">
-                  <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control">
-                </div>
-              </div>
-              <div class="form-group form-general m-b-20">
-                <label class="col-md-4 control-label text-left text-danger">Weight</label>
-                <div class="col-md-4 pl-pr-0">
-                  <div class="input-group">
-                    <input v-model="form.weight" type="number" min="1" placeholder="" required class="form-control">
-                    <span class="input-group-addon">gram</span>
+          <div class="container m-b-20">
+            <div class="row">
+              <div class="col-md-12 p-b-20">
+                <h5 class="title">Shipping</h5>
+                <div class="form-horizontal">
+                  <div class="col-md-6">
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-4 control-label text-left text-danger">UOM</label>
+                      <div class="col-md-8 pl-pr-0">
+                        <select id="uom_id" v-model="form.uom_id" class="form-control">
+                          <option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-4 control-label text-left">Dimension (cm)</label>
+                      <div class="col-md-2 pl-pr-0">
+                        <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control">
+                      </div>
+                      <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
+                      <div class="col-md-2 pl-pr-0">
+                        <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control">
+                      </div>
+                      <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
+                      <div class="col-md-2 pl-pr-0">
+                        <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-4 control-label text-left text-danger">Weight</label>
+                      <div class="col-md-4 pl-pr-0">
+                        <div class="input-group">
+                          <input v-model="form.weight" type="number" min="1" placeholder="" required class="form-control">
+                          <span class="input-group-addon">gram</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
 
     <div v-if="form.item_id">
       <VariantList
         :item="form"
         @remove="deleteChildrenItem"
+        @children-updated="updateChildren"
       ></VariantList>
     </div>
     <div v-else>
@@ -152,44 +156,47 @@
       ></Variant>
     </div>
 
-    <div class="float-save">
-      <div class="container">
+          <div class="float-save">
+            <div class="container">
 
-        <div class="clearfix">
-          <div class="pull-left">
-            <button class="btn btn-default waves-effect" type="button" @click="$router.push({name: 'item.index'})">
-              <i class="fa fa-chevron-left"></i> Cancel
-            </button>
-          </div>
+              <div class="clearfix">
+                <div class="pull-left">
+                  <button class="btn btn-default waves-effect" type="button" @click="$router.push({name: 'item.index'})">
+                    <i class="fa fa-chevron-left"></i> Cancel
+                  </button>
+                </div>
 
-          <div class="pull-right">
-            <div class="btn-group dropup">
-              <button class="btn btn-primary waves-effect waves-light"
-                      id="save"
-                      @click="saveType = 'save'"
-                      data-name="save"
-              >
-                <!--@click="save"-->
-                Save
-              </button>
-              <button type="button" id="cancel" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#" id="save-and-new" @click="saveType = 'save-and-new'" data-name="save-and-new">Save and New</a></li>
-                <li><a href="#" id="save-and-clone" @click="saveType = 'save-and-clone'" data-name="save-and-clone">Save and Clone</a>
-                </li>
-              </ul>
+                <div class="pull-right">
+                  <div class="btn-group dropup">
+                    <button class="btn btn-primary waves-effect waves-light"
+                            id="save"
+                            @click="saveType = 'save'"
+                            data-name="save"
+                    >
+                      <!--@click="save"-->
+                      Save
+                    </button>
+                    <button type="button" id="cancel" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      <li><a href="#" id="save-and-new" @click="saveType = 'save-and-new'" data-name="save-and-new">Save and New</a></li>
+                      <li><a href="#" id="save-and-clone" @click="saveType = 'save-and-clone'" data-name="save-and-clone">Save and Clone</a>
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
-
           </div>
-        </div>
 
+        </form>
       </div>
     </div>
-
-  </form>
+  </div>
 </template>
 
 <script>

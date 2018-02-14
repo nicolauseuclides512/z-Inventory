@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="content-page-full" style="padding-right: 20px">
+    <div class="content sahito-user bgr-white">
+      <div class="container" style="padding: 0px; margin: 0px">
 
     <!--<ul class="nav nav-tabs">-->
       <!--<router-link tag="li"-->
@@ -19,6 +21,8 @@
       <router-view></router-view>
     <!--</div>-->
 
+      </div>
+    </div>
   </div>
 </template>
 

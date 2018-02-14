@@ -5,16 +5,9 @@
       <nav-top :sidebar="sidebarEnlarged" @burger-menu-clicked="sidebarEnlarged = !sidebarEnlarged"></nav-top>
       <nav-left></nav-left>
 
-      <div class="content-page">
-        <div class="content full-width sahito-user bgr-white">
-          <div class="container">
             <!-- <page-title></page-title> -->
 
             <router-view></router-view>
-
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>

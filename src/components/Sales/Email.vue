@@ -1,125 +1,130 @@
 <template>
-  <div>
-    <form method="POST" @submit.prevent="send">
-      <div class="container full-width-header bt-1 p-b-10 m-b-20">
-
-        <div class="row">
-          <div class="col-md-12">
-            <h4 class="pull-left page-title">Email To {{ name }}</h4>
-          </div>
-        </div>
-      </div>
-
+  <div class="content-page">
+    <div class="content full-width sahito-user bgr-white">
       <div class="container">
-        <div class="row m-b-20 bt-1">
-          <div class="form-horizontal">
-            <div class="col-md-12">
-              <div class="form-group form-general">
 
-                <div class="col-md-2">
-                  <label class="control-label">From</label>
-                </div>
-                <div class="col-md-9">
-                  {{ email_from }}
-                  {{ email_address_from }}
-                </div>
+        <form method="POST" @submit.prevent="send">
+          <div class="container full-width-header bt-1 p-b-10 m-b-20">
 
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="pull-left page-title">Email To {{ name }}</h4>
               </div>
+            </div>
+          </div>
 
-              <div class="form-group form-general">
+          <div class="container">
+            <div class="row m-b-20 bt-1">
+              <div class="form-horizontal">
+                <div class="col-md-12">
+                  <div class="form-group form-general">
 
-                <div class="col-md-2">
-                  <!--<div class="btn-group">-->
-                  <!--<span href="#" class="dropdown-toggle" data-toggle="dropdown">-->
-                  <label class="control-label">Send to</label>
-                  <!--<span class="caret" v-show="!ccStatus || !bccStatus"></span>-->
-                  <!--</span>-->
-                  <!--<ul class="dropdown-menu" v-show="!ccStatus || !bccStatus">-->
-                  <!--<li><a href="javascript:void(0);" @click="addCc()" v-show="!ccStatus">CC</a></li>-->
-                  <!--<li><a href="javascript:void(0);" @click="addBcc()" v-show="!bccStatus">BCC</a></li>-->
-                  <!--</ul>-->
-                  <!--</div>-->
+                    <div class="col-md-2">
+                      <label class="control-label">From</label>
+                    </div>
+                    <div class="col-md-9">
+                      {{ email_from }}
+                      {{ email_address_from }}
+                    </div>
+
+                  </div>
+
+                  <div class="form-group form-general">
+
+                    <div class="col-md-2">
+                      <!--<div class="btn-group">-->
+                      <!--<span href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                      <label class="control-label">Send to</label>
+                      <!--<span class="caret" v-show="!ccStatus || !bccStatus"></span>-->
+                      <!--</span>-->
+                      <!--<ul class="dropdown-menu" v-show="!ccStatus || !bccStatus">-->
+                      <!--<li><a href="javascript:void(0);" @click="addCc()" v-show="!ccStatus">CC</a></li>-->
+                      <!--<li><a href="javascript:void(0);" @click="addBcc()" v-show="!bccStatus">BCC</a></li>-->
+                      <!--</ul>-->
+                      <!--</div>-->
+                    </div>
+
+                    <div class="col-md-9">
+                      <vuetagger
+                        :value="email_recipients"
+                        @change="updateEmail"
+                        pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
+                      ></vuetagger>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group form-general" v-show="ccStatus">
+
+                    <div class="col-md-2">
+                      <label class="control-label">CC</label>
+                    </div>
+                    <div class="col-md-9">
+                      <input id="email_cc" type="text" class="form-control">
+                    </div>
+
+                  </div>
+
+                  <div class="form-group form-general" v-show="bccStatus">
+
+                    <div class="col-md-2">
+                      <label class="control-label">BCC</label>
+                    </div>
+                    <div class="col-md-9">
+                      <input id="email_bcc" type="text" class="form-control">
+                    </div>
+
+                  </div>
+
+
+                  <div class="form-group form-general">
+
+                    <div class="col-md-2">
+                      <label class="control-label">Subject</label>
+                    </div>
+                    <div class="col-md-9">
+                      <input type="text" id="email_subject" v-model="email_subject" class="form-control">
+                    </div>
+
+                  </div>
+
+
+                  <div class="form-group form-general m-b-20">
+                    <div class="col-md-2">
+                      <label for="email_template">Message</label>
+                    </div>
+                    <div class="col-md-9">
+                      <textarea id="email_template" v-model.trim="email_message" cols="30" rows="10" class="form-control">{{ email_message }}</textarea>
+                    </div>
+                  </div>
                 </div>
-
-                <div class="col-md-9">
-                  <vuetagger
-                    :value="email_recipients"
-                    @change="updateEmail"
-                    pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
-                  ></vuetagger>
-                </div>
-
               </div>
-
-              <div class="form-group form-general" v-show="ccStatus">
-
-                <div class="col-md-2">
-                  <label class="control-label">CC</label>
+            </div>
+            <div class="row m-b-20 bt-1">
+              <div class="form-horizontal">
+                <div class="col-md-12">
+                  Attachment:
+                  <a href="javascript:;" @click="viewInvoice"> {{invoice_number}} </a>
                 </div>
-                <div class="col-md-9">
-                  <input id="email_cc" type="text" class="form-control">
-                </div>
-
               </div>
-
-              <div class="form-group form-general" v-show="bccStatus">
-
-                <div class="col-md-2">
-                  <label class="control-label">BCC</label>
-                </div>
-                <div class="col-md-9">
-                  <input id="email_bcc" type="text" class="form-control">
-                </div>
-
-              </div>
-
-
-              <div class="form-group form-general">
-
-                <div class="col-md-2">
-                  <label class="control-label">Subject</label>
-                </div>
-                <div class="col-md-9">
-                  <input type="text" id="email_subject" v-model="email_subject" class="form-control">
-                </div>
-
-              </div>
-
-
-              <div class="form-group form-general m-b-20">
-                <div class="col-md-2">
-                  <label for="email_template">Message</label>
-                </div>
-                <div class="col-md-9">
-                  <textarea id="email_template" v-model.trim="email_message" cols="30" rows="10" class="form-control">{{ email_message }}</textarea>
+            </div>
+            <div class="container p-b-10 m-b-20">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <button type="submit" class="btn btn-info waves-effect waves-light" :disabled="sending">
+                    <span v-show="!sending">Send</span>
+                    <span v-show="sending">Sending <i class="fa fa-spin fa-spinner"></i> </span>
+                  </button>
+                  <router-link :to="{ name: 'sales.index' }" type="button" class="btn btn-default waves-effect">
+                    Cancel
+                  </router-link>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row m-b-20 bt-1">
-          <div class="form-horizontal">
-            <div class="col-md-12">
-              Attachment:
-              <a href="javascript:;" @click="viewInvoice"> {{invoice_number}} </a>
-            </div>
-          </div>
-        </div>
-        <div class="container p-b-10 m-b-20">
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <button type="submit" class="btn btn-info waves-effect waves-light" :disabled="sending">
-                <span v-show="!sending">Send</span>
-                <span v-show="sending">Sending <i class="fa fa-spin fa-spinner"></i> </span>
-              </button>
-              <router-link :to="{ name: 'sales.index' }" type="button" class="btn btn-default waves-effect">
-                Cancel
-              </router-link>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
