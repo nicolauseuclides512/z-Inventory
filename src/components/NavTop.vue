@@ -94,7 +94,7 @@
               </a>
               <ul class="dropdown-menu" v-show="showSettingMenu">
                 <router-link id="nav-top-profile" tag="li" :to="{ name: 'profile.change-password' }">
-                  <a> <i class="fa fa-user"></i> Account </a>
+                  <a> <i class="md md-account-circle"></i> Account </a>
                 </router-link>
                 <li class="divider"></li>
                 <router-link id="nav-top-settings" tag="li" :to="{ name: 'settings' }">
