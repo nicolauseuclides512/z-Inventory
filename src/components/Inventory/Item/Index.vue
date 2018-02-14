@@ -1,5 +1,5 @@
 <template>
-  <div class="content-page">
+  <div class="content-page-full">
     <div class="content full-width sahito-user bgr-white">
       <div class="container">
         <div v-if="!list.items.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">

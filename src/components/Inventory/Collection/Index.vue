@@ -1,5 +1,5 @@
 <template>
-  <div class="content-page">
+  <div class="content-page-full">
     <div class="content full-width sahito-user bgr-white">
       <div class="container">
         <div id="full-list">
