@@ -1,7 +1,7 @@
 <template>
-  <div class="content-page-full">
-    <div class="content full-width sahito-user bgr-white">
-      <div class="container">
+  <div class="content-page-full" style="padding-right: 20px">
+    <div class="content sahito-user bgr-white">
+      <div class="container" style="padding: 0px; margin: 0px">
 
     <!--<ul class="nav nav-tabs">-->
       <!--<router-link tag="li"-->
