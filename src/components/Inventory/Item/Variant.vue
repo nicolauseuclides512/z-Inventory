@@ -206,6 +206,15 @@
       }
     },
 
+    watch: {
+      'list.items': {
+        deep: true,
+        handler(value, oldValue) {
+          this.updateChildren()
+        }
+      }
+    },
+
     data () {
       return {
         showVariant: true,
@@ -399,6 +408,10 @@
 
       addVariantTypeValue (value) {
         this.list.currentVariantTypes[value.toLowerCase()].values.push('shoet')
+      },
+
+      async updateChildren() {
+        this.$emit('children-updated', this.list.items)
       },
 
       async removeItem(item) {

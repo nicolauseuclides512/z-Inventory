@@ -148,6 +148,7 @@
         v-if="!$route.params.id"
         :item="form"
         @remove="deleteChildrenItem"
+        @children-updated="updateChildren"
       ></Variant>
     </div>
 
@@ -297,6 +298,14 @@
 
       async validate () {
         this.save()
+      },
+
+      updateChildren(value) {
+        // We have issue with weight
+        this.form.children = value.map(child => {
+          child.weight = form.weight
+          return child
+        })
       },
 
       async save ($event) {
