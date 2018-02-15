@@ -1,5 +1,7 @@
 <template>
-
+<div class="content-page"> 
+    <div class="content full-width sahito-user bgr-white"> 
+      <div class="container"> 
   <div>
     <div v-if="!list.items.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
       <i class="fa fa-5x fa-archive"></i>
@@ -222,7 +224,9 @@
       </div>
     </div>
   </div>
-
+</div> 
+    </div> 
+  </div> 
 </template>
 
 <script>

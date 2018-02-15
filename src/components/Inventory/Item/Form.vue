@@ -1,4 +1,7 @@
 <template>
+<div class="content-page-full"> 
+    <div class="content full-width sahito-user bgr-white"> 
+      <div class="container"> 
   <form method="POST" id="form" @submit.prevent="validate">
 
     <div class="container full-width-header bt-1 p-b-10 m-b-20">
@@ -203,6 +206,9 @@
     </div>
 
   </form>
+  </div> 
+    </div> 
+  </div> 
 </template>
 
 <script>

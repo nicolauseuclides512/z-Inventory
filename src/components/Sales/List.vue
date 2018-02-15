@@ -1,5 +1,7 @@
 <template>
-  <div>
+    <div class="content-page-full"> 
+    <div class="content full-width sahito-user bgr-white"> 
+      <div class="container"> 
 
     <div v-if="!salesList.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
       <i class="fa fa-5x fa-shopping-cart"></i>
@@ -360,7 +362,8 @@
         </div>
       </div>
     </div>
-
+    </div> 
+  </div> 
   </div>
 </template>
 
