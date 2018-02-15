@@ -322,14 +322,14 @@
                                         <div class="form-group" style="margin-bottom: 0px">
                                             <label style="font-weight: normal">Sales from:</label>
                                         </div>
-                                        <div id="insert-contact">
-                                            <select id="customer" class="form-control form-group" style="margin-bottom: 5px;margin-left: -5px;">
-                                                <option selected="active"></option>
-                                                <option>Andi</option>
-                                                <option onclick="showDetails()">Dia</option>
-                                                <option>Charlie</option>
-                                            </select>
-                                        </div>
+                                          <vuelist
+                                            @change="selectSalesChannel"
+                                            :options="list.channels"
+                                            :value="selected_salesChannel"
+                                            placeholder="Search a sales channel"
+                                            keyid="sales_channel_id"
+                                            label="channel_name"
+                                          ></vuelist>
                                     </div>
                                 </div>
                             </div>
@@ -337,8 +337,8 @@
                     </div>
                 </div>
 
- <!-- END OF HTML-->
-<!--LAST VERSION-->
+<!-- END OF HTML VERSION-->
+<!--OLD VERSION-->
             <!-- <h2 class="lead">Sales Order</h2>
             <hr>
 
@@ -597,7 +597,7 @@
                   </div>
                 </div>
               </div> -->
-<!--END OF LAST VERSION-->
+<!--END OF OLD VERSION-->
 
             <div class="float-save">
               <div class="row">
@@ -709,10 +709,12 @@
           discount_unit: [],
           weight_unit: [],
           contact_list: [],
-          product_list: []
+          product_list: [],
+          channels: [],
         },
         selected_contact: null,
         selected_product: null,
+        selected_salesChannel: null,
         tax_included: 1,
         form: new Form({
           invoice_date: dateFormat(new Date(), "DD MMM YYYY"),
@@ -759,7 +761,8 @@
     },
 
     mounted() {
-      this.initialize();
+      this.initialize()
+      this.salesChannel()
     },
 
     methods: {
@@ -782,6 +785,24 @@
         await this.fetchContactList();
         await this.fetchProductList();
         await this.fetchTaxSetting();
+      },
+
+      async salesChannel (params = {}) {
+        const defaultParams = {
+          filter: 'all',
+          page: 1,
+          per_page: 10,
+          sort: 'sales_channel_id.asc',
+        }
+
+        const query = Object.assign({}, defaultParams, params)
+
+        const res = await axios.get(`my_channels`, {params: query})
+        this.list.channels = res.data.data
+      },
+
+      selectSalesChannel (){
+
       },
 
       async edit(sales_order) {
