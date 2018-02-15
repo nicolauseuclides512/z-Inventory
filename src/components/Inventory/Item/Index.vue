@@ -139,7 +139,7 @@
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                     </th>
-                    <th class="text-right" style="width: 20%">
+                    <th class="text-left" style="width: 20%">
                       <a href="#" @click="sortItemsBy('sales_rate')">Price</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'sales_rate'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'sales_rate'"></i>
@@ -185,7 +185,7 @@
                       ></inline-editable>
                     </span>
                   </td>
-                  <td class="text-right">
+                  <td class="text-left">
                     <span v-if="!item.children.length">
                       <inline-editable
                         :item="item"
