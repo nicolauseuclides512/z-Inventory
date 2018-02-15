@@ -277,31 +277,31 @@
                                     <table class="table sales-order-inner-table">
                                       <thead>
                                       <tr class="">
-                                        <th style="color:#000000; width: 50%">Item &amp; Description</th>
-                                        <th style="color:#000000; width: 10%">Qty</th>
-                                        <th style="color:#000000; width: 10%">Price @</th>
-                                        <th class="text-right" style="color:#000000; width: 10%">Disc</th>
-                                        <th class="text-right" style="color:#000000; width: 20%">Amount</th>
+                                        <th style="color:#000000; width: 50%; font-size: 1em;">Item &amp; Description</th>
+                                        <th style="color:#000000; width: 10%; font-size: 1em;">Qty</th>
+                                        <th style="color:#000000; width: 10%; font-size: 1em;">Price @</th>
+                                        <th class="text-right" style="color:#000000; width: 10%; font-size: 1em;">Disc</th>
+                                        <th class="text-right" style="color:#000000; width: 20%; font-size: 1em;">Amount</th>
                                       </tr>
                                       </thead>
                                       <tbody>
                                       <tr v-for="order in orderList">
-                                        <td>{{ order.item_name }}</td>
-                                        <td>
+                                        <td style="font-size: 1em;">{{ order.item_name }}</td>
+                                        <td style="font-size: 1em;">
                                           <p class="qty-amount">{{ order.item_quantity }} {{ order.uom }}</p>
                                         </td>
-                                        <td>{{ order.item_rate | money }}</td>
-                                        <td class="text-right">
+                                        <td style="font-size: 1em;">{{ order.item_rate | money }}</td>
+                                        <td class="text-right" style="font-size: 1em;">
                                         <span
                                           v-if="order.discount_amount_type === 'fixed'">{{ Number(order.discount_amount_value) | money}}</span>
                                           <span v-else>{{ order.discount_amount_value }}%</span>
                                         </td>
-                                        <td class="text-right">{{ order.amount | money }}</td>
+                                        <td class="text-right" style="font-size: 1em;">{{ order.amount | money }}</td>
                                       </tr>
                                       <tr class="sub-total">
                                         <td colspan="3"></td>
-                                        <td colspan="1">Sub Total</td>
-                                        <td class="text-right">{{ overview.sub_total | money }}</td>
+                                        <td colspan="1" style="font-size: 1em;">Sub Total</td>
+                                        <td class="text-right" style="font-size: 1em;">{{ overview.sub_total | money }}</td>
                                       </tr>
                                       <!--<tr class="sub-total">-->
                                       <!--<td colspan="4" class="text-right text-bold">Shipment Charge</td>-->
@@ -309,21 +309,21 @@
                                       <!--</tr>-->
                                       <tr class="sub-total">
                                         <td colspan="3" style="border-color: white;">
-                                        <td colspan="1">{{ overview.adjustment_name || 'Adjustment' }}</td>
-                                        <td class="text-right">{{ Number(overview.adjustment_value) | money }}</td>
+                                        <td colspan="1" style="font-size: 1em;">{{ overview.adjustment_name || 'Adjustment' }}</td>
+                                        <td class="text-right" style="font-size: 1em;">{{ Number(overview.adjustment_value) | money }}</td>
                                       </tr>
                                       <tr class="sub-total">
-                                        <td colspan="3" style="border-color: white;">
-                                        <td>Tax</td>
-                                        <td class="text-right">
+                                        <td colspan="3" style="border-color: white; ">
+                                        <td style="font-size: 1em;">Tax</td>
+                                        <td class="text-right" style="font-size: 1em;">
                                           <span v-if="overview.tax === -1">Included</span>
                                           <span v-else>{{ overview.tax | money }}</span>
                                         </td>
                                       </tr>
                                       <tr class="balance-due">
                                         <td colspan="3" style="border-color: white;"></td>
-                                        <td class="text-bold"  style="background: #f0f0f0;">Total</td>
-                                        <td class="text-right text-bold" style="background: #f0f0f0; font-color: #000000"">{{ overview.total | money }}</td>
+                                        <td class="text-bold"  style="background: #f0f0f0; font-size: 1em;">Total</td>
+                                        <td class="text-right text-bold" style="background: #f0f0f0; font-color: #000000; font-size: 1em;">{{ overview.total | money }}</td>
                                       </tr>
                                       </tbody>
                                     </table>
