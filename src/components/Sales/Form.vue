@@ -643,13 +643,15 @@
   import Router from "src/router";
   import Form from "../../helpers/Form";
   import dateFormat from "date-fns/format";
+  import VueNumeric from 'vue-numeric'
 
   export default {
     name: "SalesOrderForm",
 
     components: {
       Vuelist,
-      Vuetagger
+      Vuetagger,
+      VueNumeric,
     },
 
     watch: {
