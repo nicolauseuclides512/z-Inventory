@@ -11,11 +11,11 @@
         <!--</li>-->
 
         <li class="clearfix">
-          <router-link id="nev-left-contacts" :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}"
+          <router-link id="nev-left-sales-order" :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}"
             class="waves-effect waves-light pull-left" style="padding-right: 5px; padding-left: 0px">
             <i class="md md-shopping-cart"></i><span> Sales Orders</span>
           </router-link>
-          <router-link :to="{ name: 'sales.create' }" class="waves-effect waves-light pull-right" style="padding: 15px 7px 15px 7px;">
+          <router-link :to="{ name: 'sales.create' }" class="waves-effect waves-light pull-right" style="padding: 15px 10px;">
             <span><i class="fa fa-plus"></i></span>
           </router-link>
         </li>
