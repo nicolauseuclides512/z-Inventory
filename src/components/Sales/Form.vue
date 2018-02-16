@@ -195,11 +195,11 @@
                                                 <div class="col-md-12 pl-pr-0">
                                                     <div class="form-group col-md-12 form-general-newOrder m-b-20">
                                                         <label class="col-md-12 control-label text-left">Internal Notes</label>
-                                                        <textarea 
-                                                        class="form-control-invoice" 
-                                                        rows="3" 
-                                                        v-model="form.internal_notes" 
-                                                        maxlength="500" 
+                                                        <textarea
+                                                        class="form-control-invoice"
+                                                        rows="3"
+                                                        v-model="form.internal_notes"
+                                                        maxlength="500"
                                                         placeholder="Not displayed in invoice."
                                                         ></textarea>
                                                     </div>
@@ -328,7 +328,7 @@
                                             :value="selected_salesChannel"
                                             placeholder="Search a sales channel"
                                             keyid="sales_channel_id"
-                                            label="channel_name"
+                                            label="store_name"
                                           ></vuelist>
                                     </div>
                                 </div>
