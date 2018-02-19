@@ -43,7 +43,7 @@
         <router-link id="nev-left-report" tag="li" :to="{ name: 'report.index' }">
           <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="fa fa-area-chart"></i>
-            Report
+            <span>Report</span>
           </a>
         </router-link>
 
