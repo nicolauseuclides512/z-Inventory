@@ -24444,6 +24444,10 @@ body.fixed-left .side-menu.left {
     margin-left: 70px
 }
 
+#wrapper.enlarged .content-page-full {
+    margin-left: 70px
+}
+
 #wrapper.enlarged .topbar .topbar-left {
     width: 70px!important
 }
