@@ -12,8 +12,9 @@
           <!--<span>Zuragan</span>
         </router-link>-->
         <a id="nav-top-logo" href="/" class="logo">
-          <img src="/static/images/zuragan_logo_login.png" height="40">
-          <span></span></a>
+          <span><img src="/static/images/zuragan_logo_login.png" height="40"></span>
+          <div id="icon" style="display:none"><img src="/static/images/iconzuragan.png" height="40"></div>
+        </a>
       </div>
     </div>
     <!-- Button mobile view to collapse sidebar menu -->
@@ -22,9 +23,9 @@
         <div class="">
           <div class="pull-left">
 
-            <!--<button id="nav-top-sidebar-toggle" class="button-menu-mobile open-left" @click="sidebarToggle">
+            <button id="nav-top-sidebar-toggle" class="button-menu-mobile open-left" onclick="sidebarToggle()" @click="sidebarToggle">
               <i class="fa fa-bars"></i>
-            </button>-->
+            </button>
 
             <span class="clearfix"></span>
           </div>
@@ -296,6 +297,12 @@
 
       sidebarToggle() {
         store.commit('global/SIDEBAR_TOGGLE')
+        var x = document.getElementById("icon");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
       },
 
       userMenuToggle(event) {

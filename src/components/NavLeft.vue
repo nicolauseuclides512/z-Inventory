@@ -10,20 +10,19 @@
         <!--</router-link>-->
         <!--</li>-->
 
-        <li class="clearfix">
-          <router-link id="nev-left-contacts" :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}"
-            class="waves-effect waves-light pull-left" style="padding-right: 5px; padding-left: 0px">
-            <i class="md md-shopping-cart"></i><span> Sales Orders</span>
-          </router-link>
+        <li>
           <router-link :to="{ name: 'sales.create' }" class="waves-effect waves-light pull-right" style="padding: 15px 7px 15px 7px;">
             <span><i class="fa fa-plus"></i></span>
+          </router-link>
+          <router-link id="nev-left-sales" :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
+            <i class="md md-shopping-cart"></i><span> Sales Orders</span>
           </router-link>
         </li>
 
         <!--<dropdown-menu id="nav-left-sales" title="Sales" icon="md-shopping-cart">-->
         <!---->
         <!--</dropdown-menu>-->
-        <dropdown-menu title="Items" icon="fa fa-dropbox" style="padding-right: 5px; padding-left: 0px">
+        <dropdown-menu tag="li" title="Items" icon="fa fa-dropbox">
           <router-link tag="li" :to="{ name: 'item.index' }">
             <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 42px">Item List</a>
           </router-link>
@@ -39,13 +38,11 @@
             <i class="md md-people"></i><span> Contacts </span>
           </router-link>
         </li>
-
-        <router-link id="nev-left-report" tag="li" :to="{ name: 'report.index' }">
-          <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-            <i class="fa fa-area-chart"></i>
-            Report
-          </a>
-        </router-link>
+        <li>
+          <router-link id="nev-left-report" :to="{ name: 'report.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
+            <i class="fa fa-area-chart"></i><span> Report </span>
+          </router-link>
+        </li>
 
         <!--<dropdown-menu id="nav-left-inventories" title="Inventories" icon="ion-folder">-->
         <!--<router-link id="nev-left-collections" tag="li" :to="{ name: 'collection.index' }">-->
@@ -56,12 +53,11 @@
         <!--</router-link>-->
         <!--</dropdown-menu>-->
 
-
-        <router-link id="nev-left-settings" tag="li" :to="{ name: 'settings' }">
-          <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-            <i class="fa fa-gear"></i> <span>Settings</span>
-          </a>
-        </router-link>
+        <li>
+          <router-link id="nev-left-settings" :to="{ name: 'settings' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
+            <i class="fa fa-gear"></i><span> Settings </span>
+          </router-link>
+        </li>
 
       </ul>
       <div class="clearfix"></div>
