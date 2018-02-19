@@ -24276,7 +24276,9 @@ body.fixed-left .side-menu.left {
 }
 
 #sidebar-menu ul ul a:hover {
-    color: #fff
+    background: #2FA3E6;
+    color: #FFFFFF;
+    text-decoration: none
 }
 
 #sidebar-menu ul ul a i {
@@ -24343,13 +24345,21 @@ body.fixed-left .side-menu.left {
 #wrapper.enlarged .left.side-menu #sidebar-menu>ul>li>a:active,
 #wrapper.enlarged .left.side-menu #sidebar-menu>ul>li>a:focus,
 #wrapper.enlarged .left.side-menu #sidebar-menu>ul>li>a:hover {
-    background-color: #272c35!important
+    background-color: #2FA3E6!important
 }
 
 #wrapper.enlarged .left.side-menu #sidebar-menu>ul>li>a i {
     margin-right: 20px!important;
     margin-left: 0!important;
-    font-size: 20px
+    font-size: 20px;
+    padding-left: 25px;
+}
+
+#wrapper.enlarged .left.side-menu #sidebar-menu ul ul a {
+    color: #FFFFFF;
+    background: #000;
+    display: none;
+    padding: 10px 25px 10px 65px
 }
 
 #wrapper.enlarged .left.side-menu span.pull-right {
@@ -24358,7 +24368,7 @@ body.fixed-left .side-menu.left {
 
 #wrapper.enlarged .left.side-menu #sidebar-menu ul>li {
     position: relative;
-    white-space: nowrap
+    white-space: nowrap;
 }
 
 #wrapper.enlarged .left.side-menu #sidebar-menu ul>li:hover>a {
