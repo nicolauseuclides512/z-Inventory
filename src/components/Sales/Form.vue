@@ -1,636 +1,385 @@
 <template>
   <div class="content-page">
     <div class="content" style="padding-left: 0px; padding-right: 0px">
-        <form action="POST" @submit.prevent>
+      <form action="POST" @submit.prevent>
 
-                <!-- Page-Title -->
-                <div class="col-md-6">
-                    <h4 class="pull-left page-title">Create New Order</h4>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Sales Order Date</label>
-                        <div class="input-group">
-                          <input v-model="form.invoice_date" required class="flatpickr form-control">
-                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Due Date</label>
-                        <div class="input-group">
-                          <input v-model="form.due_date" class="flatpickr form-control">
-                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        </div>
-                    </div>
-                </div>
+        <!-- Page-Title -->
+        <div class="col-md-6">
+          <h4 class="pull-left page-title">Create New Order</h4>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Sales Order Date</label>
+            <div class="input-group">
+              <input v-model="form.invoice_date" required class="flatpickr form-control">
+              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Due Date</label>
+            <div class="input-group">
+              <input v-model="form.due_date" class="flatpickr form-control">
+              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="col-md-8" style="margin-left: 0px">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Items</h3>
+              </div>
+              <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-8" style="margin-left: 0px">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Items</h3>
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <vuelist
+                      @change="selectProduct"
+                      @search="searchProduct"
+                      :options="list.product_list"
+                      :value="selected_product"
+                      placeholder="Select product"
+                      keyid="item_id"
+                      label="item_name"
+                    ></vuelist>
+
+                    <br>
+
+                    <div class="sahito-table-new-order border-1 table-responsive">
+                      <table class="table table-hover default-table sahito-list-contact--table table-striped">
+                        <thead>
+                        <tr style="color: #777">
+                          <td style="padding-left: 0px" width='30%'>Item</td>
+                          <td width="8.75%">Qty</td>
+                          <td width="17.5%">Rate</td>
+                          <td width="26.25%">Discount</td>
+                          <td class="text-right" width="17.5%">Amount</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="product in form.details">
+                          <td v-text="product.item_name" width='30%' style="padding-left:0px"></td>
+                          <td width="8.75%">
+                            <input type="number" v-model.number="product.item_quantity" min="1" max="99999"
+                                   class="form-control" style="padding-left:5px; padding-right:0px">
+                          </td>
+
+                          <td width="17.5%">
+                            <input type="number" v-model.number="product.item_rate" min="0" max="99999999"
+                                   class="form-control custom">
+                          </td>
+
+                          <td width="26.25%">
+                            <div class="col-md-4" style="padding-right: 0px; padding-left:0px">
+                              <select style="padding-left: 0px;" v-model="product.discount_amount_type"
+                                      @change="updateDiscountType(product)"
+                                      class="form-control">
+                                <option v-for="value, key in list.discount_unit" :value="key" v-text="value"></option>
+                              </select>
                             </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                      <vuelist
-                                        @change="selectProduct"
-                                        @search="searchProduct"
-                                        :options="list.product_list"
-                                        :value="selected_product"
-                                        placeholder="Select product"
-                                        keyid="item_id"
-                                        label="item_name"
-                                      ></vuelist>
-
-                                        <br>
-
-                                        <div class="sahito-table-new-order border-1 table-responsive">
-                                          <table class="table table-hover default-table sahito-list-contact--table table-striped">
-                                            <thead>
-                                            <tr style="color: #777">
-                                              <td style="padding-left: 0px" width='30%'>Item</td>
-                                              <td width="8.75%">Qty</td>
-                                              <td width="17.5%">Rate</td>
-                                              <td width="26.25%">Discount</td>
-                                              <td class="text-right" width="17.5%">Amount</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr v-for="product in form.details">
-                                              <td v-text="product.item_name" width='30%' style="padding-left:0px"></td>
-                                              <td width="8.75%">
-                                                <input type="number" v-model.number="product.item_quantity" min="1" max="99999" class="form-control" style="padding-left:5px; padding-right:0px">
-                                              </td>
-
-                                              <td width="17.5%">
-                                                <input type="number" v-model.number="product.item_rate" min="0" max="99999999" class="form-control custom">
-                                              </td>
-
-                                              <td width="26.25%">
-                                                <div class="col-md-4" style="padding-right: 0px; padding-left:0px">
-                                                  <select style="padding-left: 0px;" v-model="product.discount_amount_type" @change="updateDiscountType(product)"
-                                                          class="form-control">
-                                                    <option v-for="value, key in list.discount_unit" :value="key" v-text="value"></option>
-                                                  </select>
-                                                </div>
-                                                <div class="col-md-8">
-                                                  <input type="number"
-                                                          v-model.number="product.discount_amount_value"
-                                                          @change="updateDiscountValue(product)"
-                                                          class="form-control">
-                                                </div>
-                                              </td>
-
-                                              <td width="17.5%"class="text-right" style="vertical-align: middle; padding-left:0px">{{ amount(product) | money }}</td>
-
-                                              <td style="vertical-align: middle;">
-                                                <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
-                                                  class="ion-close-circled"></i></a>
-                                              </td>
-
-                                            </tr>
-                                            </tbody>
-                                          </table>
-                                          <table class="table">
-                                            <thead>
-                                                <th style="width: 60%; border-bottom: 0px"></th>
-                                                <th style="width: 20%; border-bottom: 0px"></th>
-                                                <th style="width: 20%; border-bottom: 0px"></th>
-                                            </thead>
-                                            <tbody>
-                                              <tr class="total">
-                                                <td class="text-right"></td>
-                                                <td class="text-right">Sub total</td>
-                                                <td class="text-right">{{ subtotal | money }}</td>
-                                              </tr>
-                                              <tr class="total">
-                                                <td class="text-right" style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
-                                                <td class="text-right">PPN 10%</td>
-                                                <td class="text-right">{{ tax_value }}</td>
-                                              </tr>
-                                              <tr class="total">
-                                                <td  style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
-                                                </td>
-                                                <td class="text-right" style="padding-left: 0px">
-                                                  <input
-                                                    v-model.trim="form.adjustment_name"
-                                                    type="text"
-                                                    class="form-control form-white"
-                                                    style="max-width: 300px;"
-                                                    placeholder="Adjustment"
-                                                  />
-                                                </td>
-                                                <td style="padding-right: 0px">
-                                                  <div class="input-group pull-right">
-                                                    <span class="input-group-addon" style="color:  #666;">Rp</span>
-                                                    <vue-numeric
-                                                      v-model="form.adjustment_value"
-                                                      :minus="true"
-                                                      separator="."
-                                                      style="max-width: 100%;"
-                                                      maxlength="20"
-                                                      class="form-control form-white text-right"
-                                                      placeholder=""
-                                                    ></vue-numeric>
-                                                  </div>
-                                                </td>
-                                              </tr>
-                                              <tr class="total">
-                                                <td class="no-bgr text-right" style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
-                                                <td class="text-right" style="font-size: 20px">Total</td>
-                                                <td class="text-right" style="font-size: 20px">{{ grandTotal | money }}</td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-md-8">
+                              <input type="number"
+                                     v-model.number="product.discount_amount_value"
+                                     @change="updateDiscountValue(product)"
+                                     class="form-control">
                             </div>
-                        </div>
+                          </td>
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Notes</h3>
+                          <td width="17.5%" class="text-right" style="vertical-align: middle; padding-left:0px">{{
+                            amount(product) | money }}
+                          </td>
+
+                          <td style="vertical-align: middle;">
+                            <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
+                              class="ion-close-circled"></i></a>
+                          </td>
+
+                        </tr>
+                        </tbody>
+                      </table>
+                      <table class="table">
+                        <thead>
+                        <th style="width: 60%; border-bottom: 0px"></th>
+                        <th style="width: 20%; border-bottom: 0px"></th>
+                        <th style="width: 20%; border-bottom: 0px"></th>
+                        </thead>
+                        <tbody>
+                        <tr class="total">
+                          <td class="text-right"></td>
+                          <td class="text-right">Sub total</td>
+                          <td class="text-right">{{ subtotal | money }}</td>
+                        </tr>
+                        <tr class="total">
+                          <td class="text-right"
+                              style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
+                          <td class="text-right">PPN 10%</td>
+                          <td class="text-right">{{ tax_value }}</td>
+                        </tr>
+                        <tr class="total">
+                          <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
+                          </td>
+                          <td class="text-right" style="padding-left: 0px">
+                            <input
+                              v-model.trim="form.adjustment_name"
+                              type="text"
+                              class="form-control form-white"
+                              style="max-width: 300px;"
+                              placeholder="Adjustment"
+                            />
+                          </td>
+                          <td style="padding-right: 0px">
+                            <div class="input-group pull-right">
+                              <span class="input-group-addon" style="color:  #666;">Rp</span>
+                              <vue-numeric
+                                v-model="form.adjustment_value"
+                                :minus="true"
+                                separator="."
+                                style="max-width: 100%;"
+                                maxlength="20"
+                                class="form-control form-white text-right"
+                                placeholder=""
+                              ></vue-numeric>
                             </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="container">
-                                            <div class="row m-b-20">
-                                                <div class="col-md-12 pl-pr-0">
-                                                    <div class="form-group col-md-12 form-general-newOrder m-b-20">
-                                                        <label class="col-md-12 control-label text-left">Customer Notes</label>
-                                                        <textarea
-                                                          class="form-control-invoice"
-                                                          rows="3"
-                                                          v-model="form.customer_notes"
-                                                          maxlength="500"
-                                                          placeholder="Will be displayed in invoice. Maximum characters is 500."
-                                                        ></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="container">
-                                            <div class="row m-b-20">
-                                                <div class="col-md-12 pl-pr-0">
-                                                    <div class="form-group col-md-12 form-general-newOrder m-b-20">
-                                                        <label class="col-md-12 control-label text-left">Terms & Conditions</label>
-                                                        <textarea
-                                                        class="form-control-invoice"
-                                                          rows="3"
-                                                          v-model="form.term_and_condition"
-                                                          maxlength="500"
-                                                          placeholder="Will be displayed in invoice. Maximum characters is 500."
-                                                        ></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="container">
-                                            <div class="row m-b-20">
-                                                <div class="col-md-12 pl-pr-0">
-                                                    <div class="form-group col-md-12 form-general-newOrder m-b-20">
-                                                        <label class="col-md-12 control-label text-left">Internal Notes</label>
-                                                        <textarea
-                                                        class="form-control-invoice"
-                                                        rows="3"
-                                                        v-model="form.internal_notes"
-                                                        maxlength="500"
-                                                        placeholder="Not displayed in invoice."
-                                                        ></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="container">
-                                            <div class="row m-b-20">
-                                                <div class="col-md-12 pl-pr-0">
-                                                    <div class="form-group col-md-12 form-general-newOrder m-b-20">
-                                                      <label class="control-label">Invoice Email</label>
-                                                      <span v-if="ui.invalidInvoiceEmail" style="color: red;">( Invalid email address )</span>
-                                                      <div>
-                                                        <vuetagger
-                                                          :value="invoice_emails"
-                                                          @change="updateEmail"
-                                                          pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
-                                                        ></vuetagger>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Contacts</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="form-group" style="margin-bottom: 0px">
-                                            <label style="font-weight: normal">Invoice to:</label>
-                                        </div>
-                                        <div v-if="ui.add_contact_mode" class="add-mode">
-                                          <div class="col-md-11" style="padding-left: 0px; padding-right: 0px">
-                                            <div class="form-group">
-                                              <span class="alert-danger" v-if="contact.errors.first_name">{{ contact.errors.first_name[0] }}</span>
-                                              <input type="text" class="form-control" v-model="contact.display_name" required placeholder="Your Client's Name (required)">
-                                            </div>
-                                            <div class="form-group">
-                                              <span class="alert-danger" v-if="contact.errors.billing_address">{{ contact.errors.billing_address[0] }}</span>
-                                              <textarea class="form-control" v-model="contact.billing_address" placeholder="Your Client's Address"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                              <span class="alert-danger" v-if="contact.errors.phone">{{ contact.errors.phone[0] }}</span>
-                                              <input type="text" class="form-control" v-model="contact.phone" placeholder="Your Client's Phone" minlength="9" maxlength="15">
-                                            </div>
-                                            <div class="form-group">
-                                              <span class="alert-danger" v-if="contact.errors.email">{{ contact.errors.email[0] }}</span>
-                                              <input type="email" class="form-control" v-model="contact.email" placeholder="Your Client's Email">
-                                            </div>
-
-                                            <!--<div class="form-group">
-                                              <button class="btn btn-primary" @click="addNewContact">Add New Contact</button>
-                                            </div>-->
-                                          </div>
-
-                                          <div class="col-md-1">
-                                            <a @click="clearSelectedContact" href="javascript:void(0)" class="text-danger">
-                                              <i class="ion-close-circled" style="font-size:12pt"></i>
-                                            </a>
-                                          </div>
-                                        </div>
-                                        <div v-if="!ui.add_contact_mode" class="normal-mode">
-                                          <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
-                                            <vuelist
-                                              @change="selectContact"
-                                              @search="searchContact"
-                                              :options="list.contact_list"
-                                              :value="selected_contact && selected_contact.contact_id"
-                                              placeholder="Search a customer"
-                                              keyid="contact_id"
-                                              label="display_name"
-                                            ></vuelist>
-                                            <div v-if="!selected_contact" @click="addContactMode()" class="add-new-contact-btn">
-                                              + Add New Contact
-                                            </div>
-                                          </div>
-                                          <div class="col-md-1" v-if="selected_contact">
-                                            <a @click="clearSelectedContact" href="javascript:void(0)" class="text-danger">
-                                              <i class="ion-close-circled" style="font-size:12pt"></i>
-                                            </a>
-                                          </div>
-                                          <!--<div class="col-md-1" v-if="!selected_contact">-->
-                                          <!--<a href="javascript:void(0)" onclick="window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>-->
-                                          <!--</div>-->
-                                        </div>
-                                        <div class="normal-mode" v-if="selected_contact">
-                                          <div class="col-md-10" style="padding-left: 0px">
-                                            <div class="text-bold">
-                                              Billing Address
-                                              <a href="javascript:void(0)" @click="editSelectedContact">
-                                                <i class="fa fa-fw fa-pencil"></i>
-                                              </a>
-                                            </div>
-                                            <div v-text="selected_contact.billing_address"></div>
-                                            <div v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
-                                            <div v-text="selected_contact.billing_zip"></div>
-                                            <div v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Sales Info</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="form-group" style="margin-bottom: 0px">
-                                            <label style="font-weight: normal">Sales from:</label>
-                                        </div>
-                                          <vuelist
-                                            @change="selectSalesChannel"
-                                            :options="list.channels"
-                                            :value="selected_salesChannel"
-                                            placeholder="Search a sales channel"
-                                            keyid="sales_channel_id"
-                                            label="store_name"
-                                          ></vuelist>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-<!-- END OF HTML VERSION-->
-<!--OLD VERSION-->
-            <!-- <h2 class="lead">Sales Order</h2>
-            <hr>
-
-            <div class="row">
-              <div class="col-md-2">
-                <label>Invoice date</label>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input v-model="form.invoice_date" required class="flatpickr form-control">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-2">
-                <label>Due date</label>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input v-model="form.due_date" class="flatpickr form-control">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <hr>
-
-            <div class="form-group row">
-              <label class="control-label col-md-2">Customer</label>
-              <div class="col-md-4">
-                <vuelist
-                  @change="selectContact"
-                  @search="searchContact"
-                  :options="list.contact_list"
-                  :value="selected_contact && selected_contact.contact_id"
-                  placeholder="Search a customer"
-                  keyid="contact_id"
-                  label="display_name"
-                ></vuelist>
-              </div>
-              <div class="col-md-1" v-if="selected_contact">
-                <a @click="clearSelectedContact" href="javascript:void(0)" class="btn btn-default btn-xs"><i
-                  class="fa fa-times"></i></a>
-              </div>
-              <div class="col-md-1" v-if="!selected_contact">
-                <a href="javascript:window.open('/contacts/create')"><i class="fa fa-plus"></i></a>
-              </div>
-            </div>
-
-            <div class="row" v-if="selected_contact">
-              <div class="col-md-2"></div>
-              <div class="col-md-2">
-                <div class="text-bold">
-                  Billing Address
-                  <a href="javascript:void(0)" @click="editSelectedContact">
-                    <i class="fa fa-fw fa-pencil"></i>
-                  </a>
-                </div>
-                <div v-text="selected_contact.billing_address"></div>
-                <div v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
-                <div v-text="selected_contact.billing_zip"></div>
-                <div v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
-              </div>
-              <div class="col-md-4">
-                <div class="text-bold">
-                  Shipping Address
-                  <a href="javascript:void(0)" @click="editSelectedContact">
-                    <i class="fa fa-fw fa-pencil"></i>
-                  </a>
-                </div>
-                <div v-text="selected_contact.shipping_address"></div>
-                <div
-                  v-text="selected_contact.shipping_province_detail && selected_contact.shipping_province_detail.name"></div>
-                <div v-text="selected_contact.shipping_zip"></div>
-                <div v-text="selected_contact.shipping_country_detail && selected_contact.shipping_country_detail.name"></div>
-              </div>
-            </div>
-
-            <hr>
-
-              <div class="form-group row">
-                <label class="control-label col-md-2">Product</label>
-                <div class="col-md-4">
-                  <vuelist
-                    @change="selectProduct"
-                    @search="searchProduct"
-                    :options="list.product_list"
-                    :value="selected_product"
-                    placeholder="Select product here"
-                    keyid="item_id"
-                    label="item_name"
-                  ></vuelist>
-                </div>
-
-              </div>
-
-              <div class="row sahito-list">
-                <div class="sahito-list-contact border-1 table-responsive">
-                  <table class="table table-hover default-table sahito-list-contact--table table-striped">
-                    <thead>
-                    <tr style="color: #777">
-                      <th>Item</th>
-                      <th>Qty</th>
-                      <th>Rate</th>
-                      <th>Discount</th>
-                      <th colspan="2">Amount</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="product in form.details">
-                      <td v-text="product.item_name"></td>
-                      <td width="90">
-                        <input type="number" v-model.number="product.item_quantity" min="1" class="form-control">
-                      </td>
-
-                      <td>
-                        <input type="number" v-model.number="product.item_rate" min="0" class="form-control no-spin-button">
-                      </td>
-
-                      <td>
-                        <div class="col-md-3">
-                          <select v-model="product.discount_amount_type" @change="updateDiscountType(product)"
-                                  class="form-control">
-                            <option v-for="value, key in list.discount_unit" :value="key" v-text="value"></option>
-                          </select>
-                        </div>
-                        <div class="col-md-9">
-                          <input type="number"
-                                v-model.number="product.discount_amount_value"
-                                @change="updateDiscountValue(product)"
-                                class="form-control">
-                        </div>
-                      </td>
-
-                      <td class="text-right">{{ amount(product) | money }}</td>
-
-                      <td>
-                        <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
-                          class="ion-close-circled"></i></a>
-                      </td>
-
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr class="total text-bold">
-                      <td colspan="4" class="text-right">Sub total</td>
-                      <td colspan="4" class="text-right">{{ subtotal | money }}</td>
-                    </tr>
-                    <tr class="total text-bold">
-                      <td colspan="4" class="text-right">PPN 10%</td>
-                      <td colspan="4" class="text-right">{{ tax_value | money }}</td>
-                    </tr>
-                    <tr class="total text-bold">
-                      <td colspan="3">
-                        <input
-                          v-model.trim="form.adjustment_name"
-                          type="text"
-                          class="form-control form-white"
-                          style="max-width: 300px;"
-                          placeholder="Adjustment"
-                        />
-                      </td>
-                      <td colspan="3">
-                        <div class="input-group pull-right">
-                          <span class="input-group-addon">Rp</span>
-                          <input type="number" min="0" class="form-control form-white text-right" style="max-width: 100%;"
-                                placeholder="" v-model.number="form.adjustment_value">
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="total text-bold">
-                      <td colspan="4" class="text-right" style="font-size: 18px">Total</td>
-                      <td colspan="4" class="text-right" style="font-size: 18px">{{ grandTotal | money }}</td>
-                    </tr>
-                    </tfoot>
-                  </table>
-                </div>
-              </div>
-
-              <div class="row  m-b-20">
-                <div class="row  m-b-20">
-                </div>
-              </div>
-
-              <div class="row m-b-20">
-                <div class="col-md-6 pl-pr-0">
-                </div>
-                <div class="col-md-6 pl-pr-0">
-                  <div class="form-group form-general m-b-20">
-                    <label class="col-md-3 control-label text-left">Customer Notes</label>
-                    <textarea
-                      class="form-control"
-                      rows="5"
-                      v-model="form.customer_notes"
-                      maxlength="500"
-                    ></textarea>
-                    <div class="">Will be displayed in invoice</div>
-                    <div class="help-text">Maximum customer notes characters is 500.</div>
-                  </div>
-                </div>
-              </div>
-              <div class="row m-b-20">
-                <div class="col-md-6 pl-pr-0">
-                </div>
-                <div class="col-md-6 pl-pr-0">
-                  <div class="form-group form-general m-b-20">
-                    <label class="control-label text-left">Terms & Conditions</label>
-                    <textarea
-                      class="form-control"
-                      rows="5"
-                      v-model="form.term_and_condition"
-                      maxlength="500"
-                    ></textarea>
-                    <div class="">Will be displayed in invoice.</div>
-                    <div class="help-text">Maximum customer notes characters is 500.</div>
-                  </div>
-                </div>
-              </div>
-              <div class="row m-b-20">
-                <div class="col-md-6 pl-pr-0">
-                </div>
-                <div class="col-md-6 pl-pr-0">
-                  <div class="form-group form-general m-b-20">
-                    <label class="control-label text-left">Internal Notes</label>
-                    <textarea
-                      class="form-control"
-                      rows="5"
-                      v-model="form.internal_notes"
-                      maxlength="500"
-                    ></textarea>
-                    <div class="">Internal use only. Will not be displayed anywhere.</div>
-                    <div class="help-text">Maximum customer notes characters is 500.</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row m-b-20">
-                <div class="col-md-6 pl-pr-0">
-                </div>
-                <div class="col-md-6 pl-pr-0">
-                  <div class="form-group form-general">
-                    <label class="control-label">Invoice Email</label>
-                    <span v-if="ui.invalidInvoiceEmail" style="color: red;">( Invalid email address )</span>
-                    <div>
-                      <vuetagger
-                        :value="invoice_emails"
-                        @change="updateEmail"
-                        pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
-                      ></vuetagger>
+                          </td>
+                        </tr>
+                        <tr class="total">
+                          <td class="no-bgr text-right"
+                              style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
+                          <td class="text-right" style="font-size: 20px">Total</td>
+                          <td class="text-right" style="font-size: 20px">{{ grandTotal | money }}</td>
+                        </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
-              </div> -->
-<!--END OF OLD VERSION-->
+              </div>
+            </div>
 
-            <div class="float-save">
-              <div class="row">
-                <div class="col-md-6 text-left">
-                  <router-link :to="{ name: 'sales.index' }" class="btn btn-default waves-effect">
-                    <i class="fa fa-chevron-left"></i> Cancel
-                  </router-link>
-                </div>
-                <div class="col-md-6 text-right">
-                  <button type="button" class="btn btn-default" data-value="save_as_draft"
-                          @click="save($event)">Save as Draft
-                  </button>
-                  <div class="btn-group dropup">
-                    <button type="button" class="btn btn-primary" data-value="save_and_close"
-                            @click="save($event)">Save then Close
-                    </button>
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">Save then Pay</a></li>
-                      <li><a href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">Save and
-                        New</a></li>
-                      <li><a href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">Save and
-                        Duplicate</a></li>
-                    </ul>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Notes</h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="container">
+                      <div class="row m-b-20">
+                        <div class="col-md-12 pl-pr-0">
+                          <div class="form-group col-md-12 form-general-newOrder m-b-20">
+                            <label class="col-md-12 control-label text-left">Customer Notes</label>
+                            <textarea
+                              class="form-control-invoice"
+                              rows="3"
+                              v-model="form.customer_notes"
+                              maxlength="500"
+                              placeholder="Will be displayed in invoice. Maximum characters is 500."
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container">
+                      <div class="row m-b-20">
+                        <div class="col-md-12 pl-pr-0">
+                          <div class="form-group col-md-12 form-general-newOrder m-b-20">
+                            <label class="col-md-12 control-label text-left">Terms & Conditions</label>
+                            <textarea
+                              class="form-control-invoice"
+                              rows="3"
+                              v-model="form.term_and_condition"
+                              maxlength="500"
+                              placeholder="Will be displayed in invoice. Maximum characters is 500."
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container">
+                      <div class="row m-b-20">
+                        <div class="col-md-12 pl-pr-0">
+                          <div class="form-group col-md-12 form-general-newOrder m-b-20">
+                            <label class="col-md-12 control-label text-left">Internal Notes</label>
+                            <textarea
+                              class="form-control-invoice"
+                              rows="3"
+                              v-model="form.internal_notes"
+                              maxlength="500"
+                              placeholder="Not displayed in invoice."
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container">
+                      <div class="row m-b-20">
+                        <div class="col-md-12 pl-pr-0">
+                          <div class="form-group col-md-12 form-general-newOrder m-b-20">
+                            <label class="control-label">Invoice Email</label>
+                            <span v-if="ui.invalidInvoiceEmail" style="color: red;">( Invalid email address )</span>
+                            <div>
+                              <vuetagger
+                                :value="invoice_emails"
+                                @change="updateEmail"
+                                pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
+                              ></vuetagger>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Contacts</h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group" style="margin-bottom: 0px">
+                      <label style="font-weight: normal">Invoice to:</label>
+                    </div>
+
+                    <div class="normal-mode">
+                      <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
+                        <div v-if="!ui.showAddNewContactField">
+                          <vuelist
+                            @change="selectContact"
+                            @search="searchContact"
+                            :options="list.contact_list"
+                            :value="selected_contact && selected_contact.contact_id"
+                            placeholder="Search a customer"
+                            keyid="contact_id"
+                            label="display_name"
+                          ></vuelist>
+                        </div>
+                        <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()" class="add-new-contact-btn">
+                          + Add New Contact
+                        </div>
+                        <div v-if="ui.showAddNewContactField">
+                          <div class="form-group row">
+                            <div class="col-md-11">
+                              <input type="text" name="name" class="form-control" placeholder="Client's name">
+                            </div>
+                            <div class="col-md-1">
+                              <a href="javascript:void(0)" @click="toggleAddNewContactField" class="text-danger">
+                                <i data-v-2b912641="" class="ion-close-circled" style="font-size: 12pt;"></i>
+                              </a>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="col-md-11">
+                            <textarea type="text" name="address" class="form-control" placeholder="Client's address"
+                            rows="4"></textarea>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="col-md-11">
+                              <input type="text" name="phone" class="form-control" placeholder="Client's phone number">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="col-md-11">
+                              <input type="text" name="email" class="form-control" placeholder="Client's email">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-1" v-if="selected_contact">
+                        <a @click="clearSelectedContact" href="javascript:void(0)" class="text-danger">
+                          <i class="ion-close-circled" style="font-size:12pt"></i>
+                        </a>
+                      </div>
+                      <!--<div class="col-md-1" v-if="!selected_contact">-->
+                      <!--<a href="javascript:void(0)" onclick="window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>-->
+                      <!--</div>-->
+                    </div>
+                    <div class="normal-mode" v-if="selected_contact">
+                      <div class="col-md-10" style="padding-left: 0px">
+                        <div class="text-bold">
+                          Billing Address
+                          <a href="javascript:void(0)" @click="editSelectedContact">
+                            <i class="fa fa-fw fa-pencil"></i>
+                          </a>
+                        </div>
+                        <div v-text="selected_contact.billing_address"></div>
+                        <div
+                          v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
+                        <div v-text="selected_contact.billing_zip"></div>
+                        <div
+                          v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Sales Info</h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group" style="margin-bottom: 0px">
+                      <label style="font-weight: normal">Sales from:</label>
+                    </div>
+                    <vuelist
+                      @change="selectSalesChannel"
+                      :options="list.channels"
+                      :value="selected_salesChannel"
+                      placeholder="Search a sales channel"
+                      keyid="sales_channel_id"
+                      label="store_name"
+                    ></vuelist>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="float-save">
+          <div class="row">
+            <div class="col-md-6 text-left">
+              <router-link :to="{ name: 'sales.index' }" class="btn btn-default waves-effect">
+                <i class="fa fa-chevron-left"></i> Cancel
+              </router-link>
+            </div>
+            <div class="col-md-6 text-right">
+              <button type="button" class="btn btn-default" data-value="save_as_draft"
+                      @click="save($event)">Save as Draft
+              </button>
+              <div class="btn-group dropup">
+                <button type="button" class="btn btn-primary" data-value="save_and_close"
+                        @click="save($event)">Save then Close
+                </button>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li><a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">Save then Pay</a>
+                  </li>
+                  <li><a href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">Save and
+                    New</a></li>
+                  <li><a href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">Save and
+                    Duplicate</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
-        </form>
+      </form>
     </div>
   </div>
 </template>
@@ -705,7 +454,8 @@
       return {
         ui: {
           adjustment_edit: false,
-          invalidInvoiceEmail: false
+          invalidInvoiceEmail: false,
+          showAddNewContactField: false,
         },
         list: {
           discount_unit: [],
@@ -787,6 +537,14 @@
         await this.fetchContactList();
         await this.fetchProductList();
         await this.fetchTaxSetting();
+      },
+
+      toggleAddNewContactField() {
+        if (this.ui.showAddNewContactField) {
+          this.ui.showAddNewContactField = false
+        } else {
+          this.ui.showAddNewContactField = true
+        }
       },
 
       async salesChannel (params = {}) {
