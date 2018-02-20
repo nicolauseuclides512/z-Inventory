@@ -11,7 +11,12 @@
         <!--</li>-->
 
         <li>
-          <router-link :to="{ name: 'sales.create' }" class="waves-effect waves-light pull-right" style="padding: 15px 7px 15px 7px;">
+          <router-link
+            :to="{ name: 'sales.create' }"
+            class="waves-effect waves-light pull-right"
+            v-if="sidebarEnlarged"
+            style="padding: 15px 7px 15px 7px;"
+          >
             <span><i class="fa fa-plus"></i></span>
           </router-link>
           <router-link id="nev-left-sales" :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
@@ -67,11 +72,20 @@
 </template>
 
 <script>
-export default {
-  components: {
-    "dropdown-menu": () => import("./Nav/DropdownMenu.vue")
+  import store from '@/store'
+
+  export default {
+
+    components: {
+      "dropdown-menu": () => import("./Nav/DropdownMenu.vue")
+    },
+
+    computed: {
+      sidebarEnlarged() {
+        return store.state.global.sidebarEnlarged
+      }
+    }
   }
-};
 </script>
 
 <style scoped>
