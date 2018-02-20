@@ -265,35 +265,41 @@
                           + Add New Contact
                         </div>
                         <div v-if="ui.showAddNewContactField">
-                          <div class="form-group row">
-                            <div class="col-md-11">
-                              <input type="text" name="name" class="form-control" placeholder="Client's name">
-                            </div>
-                            <div class="col-md-1">
-                              <a href="javascript:void(0)" @click="toggleAddNewContactField" class="text-danger">
-                                <i data-v-2b912641="" class="ion-close-circled" style="font-size: 12pt;"></i>
-                              </a>
-                            </div>
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              name="name"
+                              class="form-control"
+                              placeholder="Client's name"
+                              v-model="newContact.display_name"
+                            />
                           </div>
-                          <div class="form-group row">
-                            <div class="col-md-11">
-                            <textarea type="text" name="address" class="form-control" placeholder="Client's address"
-                            rows="4"></textarea>
-                            </div>
+                          <div class="form-group">
+                            <textarea
+                              type="text"
+                              name="address"
+                              class="form-control"
+                              placeholder="Client's address"
+                              rows="4"
+                              v-model="newContact.billing_address"
+                            ></textarea>
                           </div>
-                          <div class="form-group row">
-                            <div class="col-md-11">
-                              <input type="text" name="phone" class="form-control" placeholder="Client's phone number">
-                            </div>
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              name="phone"
+                              class="form-control"
+                              placeholder="Client's phone number"
+                              v-model="newContact.phone"
+                            />
                           </div>
-                          <div class="form-group row">
-                            <div class="col-md-11">
-                              <input type="text" name="email" class="form-control" placeholder="Client's email">
-                            </div>
+                          <div class="form-group">
+                            <input type="text" name="email" class="form-control" placeholder="Client's email"
+                                   v-model="newContact.email">
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-1" v-if="selected_contact">
+                      <div class="col-md-1" v-if="selected_contact || ui.showAddNewContactField">
                         <a @click="clearSelectedContact" href="javascript:void(0)" class="text-danger">
                           <i class="ion-close-circled" style="font-size:12pt"></i>
                         </a>
@@ -366,12 +372,21 @@
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
-                  <li><a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">Save then Pay</a>
+                  <li>
+                    <a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">
+                      Save then Pay
+                    </a>
                   </li>
-                  <li><a href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">Save and
-                    New</a></li>
-                  <li><a href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">Save and
-                    Duplicate</a></li>
+                  <li>
+                    <a href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">
+                      Save and New
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">
+                      Save and Duplicate
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -406,6 +421,9 @@
     watch: {
       "form.invoice_date"(val) {
         this.form.due_date = val;
+      },
+      'newContact.display_name'(val) {
+        this.newContact.first_name = val
       }
     },
 
@@ -465,6 +483,14 @@
           channels: [],
         },
         selected_contact: null,
+        newContact: {
+          display_code: 1,
+          display_name: '',
+          first_name: '',
+          billing_address: '',
+          phone: '',
+          email: '',
+        },
         selected_product: null,
         selected_salesChannel: null,
         tax_included: 1,
@@ -562,7 +588,7 @@
       },
 
       selectSalesChannel (){
-
+        //
       },
 
       async edit(sales_order) {
@@ -692,6 +718,13 @@
             this.form.is_draft = 0;
           }
 
+          // When use add new contact form field
+          if (this.ui.showAddNewContactField) {
+            const res = await axios.post(`contacts`, this.newContact)
+            this.form.contact_id = res.data.data.contact_id
+            this.form.billing_address = this.newContact.billing_address
+          }
+
           if (sales_order_id) {
             res = await this.form.post(`sales_orders/${sales_order_id}/update`);
           } else {
@@ -760,6 +793,7 @@
 
       clearSelectedContact() {
         this.selected_contact = null;
+        this.ui.showAddNewContactField = false;
       },
 
       searchContact() {
