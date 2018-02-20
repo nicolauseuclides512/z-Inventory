@@ -151,8 +151,8 @@
   .vuetagger {
     display: table;
     border: 1px solid #cecece;
-    padding: 4px 8px;
     width: 100%;
+    padding: 4px;
   }
 
   .vuetagger-list {
@@ -174,6 +174,7 @@
     outline: none;
     width: 100%;
     box-sizing: border-box;
+    border: 0px;
   }
 
   .vuetagger-tag:hover .vuetagger-tag-remover{
