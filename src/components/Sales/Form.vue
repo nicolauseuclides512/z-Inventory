@@ -101,23 +101,26 @@
                       </table>
                       <table class="table">
                         <thead>
-                        <th style="width: 60%; border-bottom: 0px"></th>
+                        <th style="width: 55%; border-bottom: 0px"></th>
                         <th style="width: 20%; border-bottom: 0px"></th>
-                        <th style="width: 20%; border-bottom: 0px"></th>
+                        <th style="width: 21%; border-bottom: 0px"></th>
+                        <th style="width: 4%; border-bottom: 0px"></th>
                         </thead>
                         <tbody>
-                        <tr class="total">
+                        <tr>
                           <td class="text-right"></td>
                           <td class="text-right">Sub total</td>
                           <td class="text-right">{{ subtotal | money }}</td>
+                          <td></td>
                         </tr>
-                        <tr class="total">
+                        <tr>
                           <td class="text-right"
                               style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
                           <td class="text-right">PPN 10%</td>
                           <td class="text-right">{{ tax_value }}</td>
+                          <td></td>
                         </tr>
-                        <tr class="total">
+                        <tr>
                           <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
                           <td class="text-right" style="padding-left: 0px">
@@ -143,12 +146,13 @@
                               ></vue-numeric>
                             </div>
                           </td>
+                          <td></td>
                         </tr>
                         <tr class="total">
                           <td class="no-bgr text-right"
                               style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
                           <td class="text-right" style="font-size: 20px">Total</td>
-                          <td class="text-right" style="font-size: 20px">{{ grandTotal | money }}</td>
+                          <td colspan="2" class="text-right" style="font-size: 20px">{{ grandTotal | money }}</td>
                         </tr>
                         </tbody>
                       </table>
