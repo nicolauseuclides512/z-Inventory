@@ -101,7 +101,7 @@
                         <!--<span class="checkbox checkbox-single checkbox-success">
                           <input type="checkbox" id="all" @click="checkAll($event)" :checked="checkedAll">
                         </span> -->
-                        <a href="javascript:void(0);" class="btn btn-default waves-effect waves-light m-b-5">
+                        <a href="javascript:void(0);" @click="viewBulkInvoice" class="btn btn-default waves-effect waves-light m-b-5">
                           Print Invoice
                         </a>
                         <a href="javascript:void(0);" @click="viewShipmentLabels" class="btn btn-default waves-effect waves-light m-b-5">
@@ -136,7 +136,7 @@
                                     <strong>{{ sale.contact.display_name }}</strong>
                                   </a>
                                 </div>
-                                <div class="pull-right"> 
+                                <div class="pull-right">
                                   {{ sale.total | money }}
                                 </div>
                               </div>
@@ -760,6 +760,30 @@
         const pdfWindow = window.open()
 
         const url = window.BASE_URL + `/sales_orders/shipments/download-labels?ids=` + shipmentIds.join()
+
+        const response = await axios.get(url, {
+          responseType: 'arraybuffer',
+          headers: {
+            'Content-Type': 'application/pdf',
+          },
+        })
+
+        const file = new Blob([response.data], {type: 'application/pdf'})
+        const fileURL = URL.createObjectURL(file)
+        pdfWindow.location = fileURL
+      },
+
+      /**
+       * View bulk invoice
+       */
+      async viewBulkInvoice() {
+
+        let ids = _.map(this.checkedList, function (so) {
+          return so.sales_order_id
+        })
+
+        const pdfWindow = window.open()
+        const url = window.BASE_URL + `/sales_orders/invoices/bulk-pdf?ids=${ids.join()}`
 
         const response = await axios.get(url, {
           responseType: 'arraybuffer',
