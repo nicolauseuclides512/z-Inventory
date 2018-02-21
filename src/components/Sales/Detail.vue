@@ -31,7 +31,7 @@
         <div v-else>
           <div class="container p-0">
             <div class="row">
-              <div class="col-md-4 col-sm-4 col-xs-4 left-side">
+              <div class="col-md-4 col-sm-4 col-xs-4 left-side" style="border-right: 1px solid #eee;">
 
                 <div class="container full-width-header">
                   <div class="row">
@@ -171,7 +171,7 @@
 
               </div>
 
-              <div class="col-md-8 col-sm-8 col-xs-8 right-side" style="border-left: 1px solid #eee;">
+              <div class="col-md-8 col-sm-8 col-xs-8 right-side">
 
                 <div class="row" v-if="salesOrder">
                   <div class="col-md-12">
