@@ -24448,6 +24448,10 @@ body.fixed-left .side-menu.left {
     margin-left: 70px
 }
 
+#wrapper.enlarged .float-save {
+    padding-left: 90px
+}
+
 #wrapper.enlarged .topbar .topbar-left {
     width: 70px!important
 }
