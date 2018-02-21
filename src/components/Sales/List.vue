@@ -49,12 +49,12 @@
                   <li :class="{ active: filter == 'overdue' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'overdue' })">Overdue</a>
                   </li>
-                  <li :class="{ active: filter == 'shipped' }">
+                  <!-- <li :class="{ active: filter == 'shipped' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'shipped' })">Shipped</a>
                   </li>
                   <li :class="{ active: filter == 'not_yet_shipped' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'not_yet_shipped' })">Not shipped</a>
-                  </li>
+                  </li> -->
                   <li :class="{ active: filter == 'void' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'void' })">Void</a>
                   </li>
@@ -158,7 +158,7 @@
                             <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">DUE DATE</th>
                             <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">TOTAL</th>
                             <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">BALANCE DUE</th>
-                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th>
+                            <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
                             <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">ACTION</th>
                           </tr>
                           </thead>
@@ -200,7 +200,7 @@
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.invoices[0].balance_due | money}}
                               </td>
-                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                              <!-- <td style="cursor: pointer;" @click="showDetail(sale)">
                                 <div v-if="sale.invoice_status === 'VOID'">
                                   <i class="fa fa-circle text-black"></i>
                                 </div>
@@ -217,7 +217,7 @@
                                 <div v-else-if="sale.shipment_status === 'SHIPPED'">
                                   <i class="fa fa-circle text-green"></i>
                                 </div>
-                              </td>
+                              </td> -->
                               <td>
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
                                    aria-expanded="false">
@@ -246,11 +246,11 @@
                                     </a>
                                   </li>
                                   <!--<li><a href="javascript:void(0);">Email Invoice</a></li>-->
-                                  <li v-if="sale.shipment_status === 'NOT_YET_SHIPPED'">
+                                  <!-- <li v-if="sale.shipment_status === 'NOT_YET_SHIPPED'">
                                     <a href="javascript:void(0);" @click="gotoDetailShipment(sale)">
                                       Record Shipment
                                     </a>
-                                  </li>
+                                  </li> -->
                                 </ul>
                               </td>
                             </tr>

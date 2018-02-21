@@ -157,8 +157,8 @@
                                   {{ sale.invoice_date | date('short') }}
                                 </div>
                                 <div class="pull-right">
-                                  <span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'" style="font-size: 10px;">{{ sale.shipment_status }}</span>
-                                  <span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span>
+                                  <!-- <span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'" style="font-size: 10px;">{{ sale.shipment_status }}</span>
+                                  <span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span> -->
                                 </div>
                               </div>
                             </td>
@@ -228,13 +228,13 @@
                             </a>
                           </li>
                           <li>
-                            <a
+                            <!-- <a
                               @click="showModalShipment()"
                               data-toggle="dropdown"
                               aria-expanded="false"
                             >
                               Shipment
-                            </a>
+                            </a> -->
                           </li>
                         </ul>
                       </div>
@@ -282,11 +282,11 @@
                           <span class="hidden-xs">PAYMENT</span>
                         </a>
                       </li>
-                      <li :class="{ tab: true, active: currentTab == 'shipment' }">
+                      <!-- <li :class="{ tab: true, active: currentTab == 'shipment' }">
                         <a href="javascript:void(0);" @click="switchTab('shipment')">
                           <span class="hidden-xs">SHIPMENT</span>
                         </a>
-                      </li>
+                      </li> -->
                     </ul>
 
                     <div class="tab-content p-0 tab-content-clear tab-content--contact">
