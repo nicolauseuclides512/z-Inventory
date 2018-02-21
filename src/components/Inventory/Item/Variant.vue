@@ -412,6 +412,13 @@
 
       async updateChildren() {
         this.$emit('children-updated', this.list.items)
+
+        // Variants!!
+        let variants = {}
+        variants[this.firstVariant.name] = this.firstVariant.values
+        variants[this.secondVariant.name] = this.secondVariant.values
+        variants[this.thirdVariant.name] = this.thirdVariant.values
+        this.$emit('variant-type-updated', variants)
       },
 
       async removeItem(item) {

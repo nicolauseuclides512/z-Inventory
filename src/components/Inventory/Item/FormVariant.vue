@@ -140,21 +140,23 @@
             </div>
           </div>
 
-    <div v-if="form.item_id">
-      <VariantList
-        :item="form"
-        @remove="deleteChildrenItem"
-        @children-updated="updateChildren"
-      ></VariantList>
-    </div>
-    <div v-else>
-      <Variant
-        v-if="!$route.params.id"
-        :item="form"
-        @remove="deleteChildrenItem"
-        @children-updated="updateChildren"
-      ></Variant>
-    </div>
+          <div v-if="form.item_id">
+            <VariantList
+              :item="form"
+              @remove="deleteChildrenItem"
+              @children-updated="updateChildren"
+              @variant-type-updated="updateVariantType"
+            ></VariantList>
+          </div>
+          <div v-else>
+            <Variant
+              v-if="!$route.params.id"
+              :item="form"
+              @remove="deleteChildrenItem"
+              @children-updated="updateChildren"
+              @variant-type-updated="updateVariantType"
+            ></Variant>
+          </div>
 
           <div class="float-save">
             <div class="container">
@@ -313,6 +315,10 @@
           child.weight = form.weight
           return child
         })
+      },
+
+      updateVariantType(value) {
+        this.form.item_attributes = value
       },
 
       async save ($event) {
