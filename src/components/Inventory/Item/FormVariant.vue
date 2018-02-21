@@ -319,7 +319,13 @@
         try {
           this.form.weight = parseInt(this.form.weight)
 
-          const res = await Axios.post(`items`, this.form)
+          let res
+
+          if (this.$route.params.id) {
+            res = await Axios.post(`items/${this.$route.params.id}/update`, this.form)
+          } else {
+            res = await Axios.post(`items`, this.form)
+          }
 
           swal_success(res)
 
