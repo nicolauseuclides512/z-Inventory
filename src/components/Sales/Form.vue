@@ -293,8 +293,10 @@
                             <input
                               type="text"
                               name="phone"
+                              id="phone"
                               class="form-control"
                               placeholder="Client's phone number"
+                              maxlength="15" minlength="9"
                               v-model="newContact.phone"
                             />
                           </div>
