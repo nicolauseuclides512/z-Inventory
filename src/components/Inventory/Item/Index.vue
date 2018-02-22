@@ -209,8 +209,9 @@
                   </td>
                   <td class="name">{{ child.item_name }}</td>
                   <td class="sku">{{ child.code_sku }}</td>
+                  <td>{{ child.description }}</td>
                   <td class="available">{{ child.inventory_stock }}</td>
-                  <td class="text-right">{{ child.sales_rate | money }}</td>
+                  <td>{{ child.sales_rate | money }}</td>
                 </tr>
 
                 </tbody>
