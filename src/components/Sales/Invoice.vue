@@ -158,11 +158,14 @@
             </table>
           </div>
         </div>
-      </div>
-
       <div class="row p-15 pt-0">
         <strong>Cutomer notes</strong>
         <div>{{ value.customer_notes }}</div>
+      </div>
+      <div class="row p-15 pt-0">
+        <strong>Terms & Conditions</strong>
+        <div>{{ value.term_and_condition }}</div>
+      </div>
       </div>
     </div>
 
