@@ -69,6 +69,14 @@ sync(store, router)
 
 const Bus = window.Bus = new Vue()
 
+Object.defineProperties(Vue.prototype, {
+  $bus: {
+    get: function () {
+      return Bus
+    }
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
