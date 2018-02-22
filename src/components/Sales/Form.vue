@@ -135,15 +135,16 @@
                           <td style="padding-right: 0px">
                             <div class="input-group pull-right">
                               <span class="input-group-addon" style="color:  #666;">Rp</span>
-                              <vue-numeric
-                                v-model="form.adjustment_value"
+                              <input
+                                type="number"
+                                v-model.number="form.adjustment_value"
                                 :minus="true"
                                 separator="."
                                 style="max-width: 100%;"
                                 maxlength="20"
                                 class="form-control form-white text-right"
                                 placeholder=""
-                              ></vue-numeric>
+                              ></input>
                             </div>
                           </td>
                           <td></td>
