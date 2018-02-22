@@ -191,7 +191,28 @@
                                 </router-link>
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
-                                {{ sale.sales_order_status.toLowerCase().replace(/_/g, ' ') | capitalize }}
+                                <div v-if="sale.sales_order_status === 'DRAFT'">
+                                  <span class="label label-info" style="background-color:#C4C4C4; color:#000000">{{ sale.sales_order_status }}</span>
+                                </div>
+                                <div v-else>
+                                    <!--{{ sale.invoice_status }}-->
+                                  <div v-if="sale.invoice_status === 'PAID'">
+                                    <span class="label label-info" style="background-color:#319B31">PAID</span>
+                                  </div>
+                                  <div v-else-if="sale.invoice_status === 'UNPAID'">
+                                    <span class="label label-info" style="background-color:#1C8AD9">UNPAID</span>
+                                  </div>
+                                  <div v-else-if="sale.invoices[0].invoice_status === 'PARTIALLY_PAID'">
+                                    <span class="label label-info" style="background-color:#E6E600; color:#000000">PARTIALLY PAID</span>
+                                  </div>
+                                  <div v-else-if="sale.invoice_status === 'OVERDUE'">
+                                    <span class="label label-info" style="background-color:#E33636">OVERDUE</span>
+                                  </div>
+                                  <div v-else-if="sale.invoice_status === 'VOID'">
+                                    <span class="label label-info" style="background-color:#000000">VOID</span>
+                                  </div>
+                                </div>
+                                <!-- {{ sale.sales_order_status.toLowerCase().replace(/_/g, ' ') | capitalize }} -->
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.due_date | date('short') }}
