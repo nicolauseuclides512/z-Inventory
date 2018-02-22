@@ -110,8 +110,8 @@
                 </td>
                 <td class="text-right">{{ item.item_rate | money }}</td>
                 <td class="text-right">
-                  <span v-if="item.discount_amount_type === 'fixed'">{{ item.discount_amount_value | money }}</span>
-                  <span v-else>{{ item.discount_amount_value }}%</span>
+                  <span v-if="item.discount_amount_type === 'fixed'">{{ Number(item.discount_amount_value) | money }}</span>
+                  <span v-else>{{ Number(item.discount_amount_value) }}%</span>
                 </td>
                 <td class="text-right">{{ item.amount | money }}</td>
               </tr>
@@ -137,22 +137,22 @@
               <tr class="sub-total" v-if="value.adjustment_value">
                 <td colspan="3"></td>
                 <td colspan="1">{{ value.adjustment_name || 'Adjustment' }}</td>
-                <td colspan="2">{{ value.adjustment_value | money }}</td>
+                <td colspan="2">{{ Number(value.adjustment_value) | money }}</td>
               </tr>
               <tr class="total">
                 <td colspan="3"></td>
-                <td colspan="1">Total</td>
-                <td colspan="2">{{ value.total | money }}</td>
+                <td colspan="1" style="background: #f0f0f0;">Total</td>
+                <td colspan="2" style="background: #f0f0f0;">{{ value.total | money }}</td>
               </tr>
-              <tr class="text-right" v-for="(item, index) in paymentList">
+              <tr class="sub-total" v-for="(item, index) in paymentList">
                 <td colspan="3"></td>
                 <td colspan="1">Paid at {{ item.date | date('short') }}</td>
                 <td colspan="2">{{ item.amount | money }}</td>
               </tr>
-              <tr class="text-right" style="border-bottom-color:  white;">
+              <tr class="sub-total" style="border-bottom-color:  white;">
                 <td colspan="3"></td>
-                <td colspan="1" style="background: #f0f0f0;">Balance Due</td>
-                <td colspan="2" style="background: #f0f0f0;">{{ value.balance_due | money }}</td>
+                <td colspan="1">Balance Due</td>
+                <td colspan="2">{{ value.balance_due | money }}</td>
               </tr>
               </tbody>
             </table>
