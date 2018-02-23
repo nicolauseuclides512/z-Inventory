@@ -371,7 +371,6 @@
             swal_error(err.response)
           }
         }
-
       },
 
       cancel() {
@@ -385,39 +384,6 @@
       clearImages(value) {
         this.form.images = []
       },
-
-      clearForm() {
-        this.form = new Form({
-          item_name: '',
-          description: '',
-          sales_rate: 0,
-          compare_rate: 0,
-          uom_id: null,
-          dimension_l: 0,
-          dimension_w: 0,
-          dimension_h: 0,
-          weight: 0,
-          weight_unit: 'gr',
-          code_sku: '',
-          barcode: '',
-          track_inventory: 'true',
-          inventory_stock: 0,
-          inventory_stock_warning: 0,
-          category_id: null,
-          tags: '',
-          page_title: '',
-          meta_description: '',
-          slug: '',
-          visibility: {
-            online_store: true,
-          },
-          tax_id: 1,
-          item_attributes: '',
-          parent_id: null,
-          item_status: '',
-          images: [],
-        })
-      }
 
     },
   }
