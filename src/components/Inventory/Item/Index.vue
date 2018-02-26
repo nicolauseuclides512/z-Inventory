@@ -186,6 +186,15 @@
                         type="number"
                       ></inline-editable>
                     </span>
+                    <span v-if="item.track_inventory">
+                      <inline-editable
+                        :item="item"
+                        name="inventory_stock"
+                        :value="item.inventory_stock"
+                        :url="`items/${item.item_id}/update_inventory_stock`"
+                        type="number"
+                      ></inline-editable>
+                    </span>
                   </td>
                   <td class="text-left">
                     <span v-if="!item.children.length">
