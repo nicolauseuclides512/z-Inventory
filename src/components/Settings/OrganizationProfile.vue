@@ -75,7 +75,7 @@
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-3 control-label text-left">Phone</label>
                     <div class="col-md-5">
-                      <input type="text" id="phone" v-model.trim="form.phone" class="form-control" placeholder="">
+                      <input type="text" id="phone" v-model.trim="form.phone" class="form-control" placeholder="" minlength="9" maxlength="15">
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
@@ -136,8 +136,13 @@
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-3 control-label text-left">Zip/Postal Code</label>
                     <div class="col-md-5">
-                      <input type="text" id="zip" v-model.trim="form.zip" class="form-control" placeholder=""
-                             maxlength="5"/>
+                      <input type="text" id="zip" 
+                      v-model.trim="form.zip" 
+                      @keyup="inputZip($event)"
+                      @blur="inputZip($event)"
+                      class="form-control" 
+                      placeholder=""
+                      minlenght="5" maxlength="5"/>
                     </div>
                   </div>
                 </div>
@@ -273,6 +278,11 @@
       /**
        * Save organization profile
        */
+      inputZip ($event) {
+        $event.target.value = $event.target.value.replace(/\D/g, '')
+        store.commit('settings/organization/ZIP', $event.target.value)
+      },
+
       async save () {
         try {
           const data = {
