@@ -166,7 +166,7 @@
               <div class="float-save">
                 <div class="row">
                   <div class="col-md-6 text-left">
-                    <button class="btn btn-default waves-effect" type="button">Cancel</button>
+                    <button class="btn btn-default waves-effect" type="button" @click="cancel">Cancel</button>
                   </div>
                   <div class="col-md-6 text-right">
                     <div class="col-md-6 col-md-offset-6">
@@ -365,6 +365,10 @@
         }
 
         detail.on_hand_qty = database_qty + adjust_qty
+      },
+
+    cancel() {
+        this.$router.push('/items/stock_adjustment')
       },
 
     },
