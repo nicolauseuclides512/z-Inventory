@@ -229,6 +229,8 @@
 
     data () {
       return {
+        dirtyForm: false,
+
         list: {
           items: [],
           reasons: [],
@@ -251,6 +253,14 @@
       }
     },
 
+    beforeRouteLeave(to, from, next) {
+      if (this.dirtyForm) {
+        const leave = confirm('Are you sure leave this page?')
+        if (!leave) return next(false)
+      }
+      return next()
+    },
+
     mounted () {
       // Edit mode
       const stockId = this.$route.params.id
@@ -262,7 +272,7 @@
 
       this.initialize()
       this.getItems()
-
+      this.dirtyForm = true
       $('#adjustment_date_picker').flatpickr({
         altInput: true,
       })
@@ -313,9 +323,11 @@
           if (ev.target.dataset.type === 'save-as-draft') {
             data.is_applied = 'false'
             data.is_void = 'false'
+            this.dirtyForm = false
           } else {
             data.is_applied = 'true'
             data.is_void = 'false'
+            this.dirtyForm = false
           }
 
           const res = await Axios.post(`stock_adjustments`, data)
