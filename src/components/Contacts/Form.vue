@@ -221,7 +221,9 @@
                         <label class="col-md-4 control-label text-left">Zip Code</label>
                         <div class="col-md-7">
                           <input type="text" class="form-control" placeholder="" maxlength="5" id="billing_zip"
-                                v-model="form.billing_zip">
+                            @keyup="inputZip(form.billing_zip, $event)"
+                            @blur="inputZip(form.billing_zip, $event)"
+                            v-model="form.billing_zip">
                         </div>
                       </div>
 
@@ -300,8 +302,10 @@
                       <div class="form-group form-general m-b-20">
                         <label class="col-md-4 control-label text-left">Zip Code</label>
                         <div class="col-md-7">
-                          <input type="text" class="form-control" placeholder="" maxlength="5" id="shipping_zip"
-                                v-model="form.shipping_zip">
+                          <input type="text" class="form-control" placeholder="" minlength="5" maxlength="5" id="shipping_zip"
+                          @keyup="inputZip(form.shipping_zip, $event)"
+                           @blur="inputZip(form.shipping_zip, $event)"
+                           v-model="form.shipping_zip">
                         </div>
                       </div>
 
