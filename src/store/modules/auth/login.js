@@ -12,7 +12,7 @@ const state = {
 }
 
 const mutations = {
-  USERNAME(state, payload) { state.username = payload },
+  USERNAME(state, payload) { state.username = payload.toLowerCase() },
   PASSWORD(state, payload) { state.password = payload },
   REMEMBER(state, payload) { state.remember = payload },
 }

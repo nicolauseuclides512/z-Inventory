@@ -301,7 +301,7 @@
                             />
                           </div>
                           <div class="form-group">
-                            <input type="text" name="email" class="form-control" placeholder="Client's email"
+                            <input type="email" name="email" class="form-control" placeholder="Client's email" style="text-transform: lowercase;"
                                    v-model="newContact.email">
                           </div>
                         </div>
