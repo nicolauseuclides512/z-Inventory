@@ -705,7 +705,7 @@
        * Invoice email addresses
        */
       updateEmail(emails) {
-        this.form.invoice_email = emails.join(",");
+        this.form.invoice_email = emails.join(", \s");
       },
 
       /**
