@@ -32,11 +32,11 @@
                 <!--Checkout-->
               <!--</a>-->
             <!--</li>-->
-            <li :class="{ active: $route.name === 'settings.shipment' }">
+            <!-- <li :class="{ active: $route.name === 'settings.shipment' }">
               <router-link :to="{ name: 'settings.shipment' }">
                 Shipment
               </router-link>
-            </li>
+            </li> -->
             <li :class="{ active: $route.name === 'settings.payment' }">
               <router-link :to="{ name: 'settings.payment' }">
                 Payment Settings

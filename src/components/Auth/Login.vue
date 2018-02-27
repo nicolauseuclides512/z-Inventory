@@ -16,6 +16,7 @@
           <div class="form-group">
             <div class="col-xs-12">
               <input class="form-control input-lg"
+                     style="text-transform: lowercase;"
                      type="email"
                      id="email"
                      required

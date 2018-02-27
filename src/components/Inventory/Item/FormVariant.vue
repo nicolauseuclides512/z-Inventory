@@ -12,7 +12,6 @@
             </div>
           </div>
 
-
           <div class="container bt-1 m-b-20">
             <div class="row">
               <div class="col-md-12 p-b-20">
@@ -22,10 +21,10 @@
                     <label class="col-md-2 control-label text-left text-danger">Item Name</label>
                     <div class="col-md-9">
                       <input type="text"
-                            v-model="form.item_name"
-                            placeholder="Name of item"
-                            class="form-control"
-                            required
+                             v-model="form.item_name"
+                             placeholder="Name of item"
+                             class="form-control"
+                             required
                       />
                     </div>
                   </div>
@@ -43,60 +42,58 @@
                   </div>
 
 
-            <div class="form-group form-general m-b-20">
-              <label class="col-md-2 control-label text-left">Description</label>
-              <div class="col-md-9 custom-summernote">
-                <textarea v-model="form.description" class="form-control" rows="3"></textarea>
-              </div>
-            </div>
-            <div class="form-group form-general m-b-20">
-              <label class="col-md-2 control-label text-left text-danger">SKU</label>
-              <div class="col-md-3">
-                <input v-model="form.code_sku" type="text" min="0" placeholder="" required="required"
-                       class="form-control" maxlength="15">
-              </div>
-            </div>
-            <div class="form-group form-general m-b-20">
-              <label class="col-md-2 control-label text-left text-danger">Price</label>
-              <div class="col-md-2">
-                <div class="input-group">
-                  <div class="input-group-addon">Rp</div>
-                  <input
-                    v-model="form.sales_rate"
-                    type="number"
-                    min="1"
-                    placeholder=""
-                    class="form-control custom"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="form-group form-general m-b-20">
-              <div class="col-md-12 control-label text-left">
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <input v-model="form.track_inventory" type="checkbox" id="inlineCheckbox1" value="option1"
-                         checked="checked" true-value="true" false-value="false">
-                  <label for="inlineCheckbox1">Track Inventory for this item</label>
-                </div>
-              </div>
-            </div>
-            <div id="show-stock" v-if="form.track_inventory === 'true'">
-              <div class="form-group form-general m-b-20">
-                <label class="col-md-2 control-label text-left">Stock</label>
-                <div class="col-md-3">
-                  <input v-model="form.inventory_stock" type="number" min="0" placeholder="" class="form-control">
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left">Description</label>
+                    <div class="col-md-9 custom-summernote">
+                      <textarea v-model="form.description" class="form-control" rows="3"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left text-danger">SKU</label>
+                    <div class="col-md-3">
+                      <input v-model="form.code_sku" type="text" min="0" placeholder="" required="required"
+                             class="form-control" maxlength="15">
+                    </div>
+                  </div>
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left text-danger">Price</label>
+                    <div class="col-md-2">
+                      <div class="input-group">
+                        <div class="input-group-addon">Rp</div>
+                        <input
+                          v-model="form.sales_rate"
+                          type="number"
+                          min="1"
+                          placeholder=""
+                          class="form-control custom"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group form-general m-b-20">
+                    <div class="col-md-12 control-label text-left">
+                      <div class="checkbox checkbox-success checkbox-inline">
+                        <input v-model="form.track_inventory" type="checkbox" id="inlineCheckbox1" value="option1"
+                               checked="checked" true-value="true" false-value="false">
+                        <label for="inlineCheckbox1">Track Inventory for this item</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="show-stock" v-if="form.track_inventory === 'true'">
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-2 control-label text-left">Stock</label>
+                      <div class="col-md-3">
+                        <input v-model="form.inventory_stock" type="number" min="0" placeholder="" class="form-control">
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-
 
           <!-- Shipping -->
-
           <div class="container m-b-20">
             <div class="row">
               <div class="col-md-12 p-b-20">
@@ -129,7 +126,8 @@
                       <label class="col-md-4 control-label text-left text-danger">Weight</label>
                       <div class="col-md-4 pl-pr-0">
                         <div class="input-group">
-                          <input v-model="form.weight" type="number" min="1" placeholder="" required class="form-control">
+                          <input v-model="form.weight" type="number" min="1" placeholder="" required
+                                 class="form-control">
                           <span class="input-group-addon">gram</span>
                         </div>
                       </div>
@@ -145,16 +143,14 @@
               :item="form"
               @remove="deleteChildrenItem"
               @children-updated="updateChildren"
-              @variant-type-updated="updateVariantType"
             ></VariantList>
           </div>
           <div v-else>
             <Variant
-              v-if="!$route.params.id"
-              :item="form"
-              @remove="deleteChildrenItem"
-              @children-updated="updateChildren"
-              @variant-type-updated="updateVariantType"
+                     v-if="!$route.params.id"
+                     :item="form"
+                     @remove="deleteChildrenItem"
+                     @children-updated="updateChildren"
             ></Variant>
           </div>
 
@@ -163,7 +159,8 @@
 
               <div class="clearfix">
                 <div class="pull-left">
-                  <button class="btn btn-default waves-effect" type="button" @click="$router.push({name: 'item.index'})">
+                  <button class="btn btn-default waves-effect" type="button"
+                          @click="$router.push({name: 'item.index'})">
                     <i class="fa fa-chevron-left"></i> Cancel
                   </button>
                 </div>
@@ -178,13 +175,25 @@
                       <!--@click="save"-->
                       Save
                     </button>
-                    <button type="button" id="cancel" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" id="cancel" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                       <span class="caret"></span>
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="#" id="save-and-new" @click="saveType = 'save-and-new'" data-name="save-and-new">Save and New</a></li>
-                      <li><a href="#" id="save-and-clone" @click="saveType = 'save-and-clone'" data-name="save-and-clone">Save and Clone</a>
+                      <li>
+                        <button style="text-decoration: none;color: #1d1d1d"
+                                class="btn btn-link waves-effect waves-light btn-block" id="save-and-new"
+                                @click="saveType = 'save-and-new'"
+                                data-name="save-and-new">Save and New
+                        </button>
+                      </li>
+                      <li>
+                        <button style="text-decoration: none;color: #1d1d1d"
+                                class="btn btn-link waves-effect waves-light btn-block" id="save-and-clone"
+                                @click="saveType = 'save-and-clone'"
+                                data-name="save-and-clone">Save and Clone
+                        </button>
                       </li>
                     </ul>
                   </div>
@@ -215,7 +224,7 @@
       ImageUpload, Variant, VariantList,
     },
 
-    beforeRouteLeave (to, from, next) {
+    beforeRouteLeave(to, from, next) {
       if (this.dirtyForm) {
         const leave = confirm('Are you sure leave this page?')
         if (!leave) return next(false)
@@ -223,7 +232,7 @@
       return next()
     },
 
-    data () {
+    data() {
       return {
         dirtyForm: false,
         saveType: null,
@@ -274,7 +283,7 @@
       }
     },
 
-    mounted () {
+    mounted() {
       $('input, textarea, select').on('change', (event) => {
         this.dirtyForm = true
       })
@@ -283,7 +292,7 @@
     },
 
     methods: {
-      async init () {
+      async init() {
         const id = this.$route.params.id
         let res
         if (id) {
@@ -305,7 +314,7 @@
         this.url = res.data.data.url
       },
 
-      async validate () {
+      async validate() {
         this.save()
       },
 
@@ -317,21 +326,11 @@
         })
       },
 
-      updateVariantType(value) {
-        this.form.item_attributes = value
-      },
-
-      async save ($event) {
+      async save($event) {
         try {
           this.form.weight = parseInt(this.form.weight)
 
-          let res
-
-          if (this.$route.params.id) {
-            res = await Axios.post(`items/${this.$route.params.id}/update`, this.form)
-          } else {
-            res = await Axios.post(`items`, this.form)
-          }
+          const res = await Axios.post(`items`, this.form)
 
           swal_success(res)
 
@@ -342,7 +341,8 @@
           }
 
           if (this.saveType === 'save-and-new') {
-            this.form = this.$options.data().form
+            this.$bus.$emit('clear-variant-data')
+            Object.assign(this.$data.form, this.$options.data().form)
           }
 
           if (this.saveType === 'save-and-clone') {
@@ -358,15 +358,15 @@
 
       },
 
-      addImage (value) {
+      addImage(value) {
         this.form.images.push(value)
       },
 
-      clearImages (value) {
+      clearImages(value) {
         this.form.images = []
       },
 
-      deleteChildrenItem (item) {
+      deleteChildrenItem(item) {
         Alert.confirm('Are you sure want to delete this item?', () => {
           const index = this.form.children.indexOf(this.form.children)
           this.form.children.splice(index, 1)

@@ -7,6 +7,15 @@ import Regional from '../../helpers/regional'
 
 export default {
 
+  inputZip (zip, $event) {
+    if (zip.length > 5) {
+      $event.preventDefault()
+      return false
+    }
+
+    zip = $event.target.value = $event.target.value.replace(/\D/g, '')
+  },
+
   async updateBillingCountryList () {
     this.list.billing_country_list = await Regional.countryList()
     this.list.billing_province_list = []

@@ -49,12 +49,12 @@
                   <li :class="{ active: filter == 'overdue' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'overdue' })">Overdue</a>
                   </li>
-                  <li :class="{ active: filter == 'shipped' }">
+                  <!-- <li :class="{ active: filter == 'shipped' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'shipped' })">Shipped</a>
                   </li>
                   <li :class="{ active: filter == 'not_yet_shipped' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'not_yet_shipped' })">Not shipped</a>
-                  </li>
+                  </li> -->
                   <li :class="{ active: filter == 'void' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'void' })">Void</a>
                   </li>
@@ -70,32 +70,24 @@
                     <i class="fa fa-bars"></i></button>
                   <ul class="dropdown-menu" role="menu" style="top: 35px;">
                     <li class="dropdown-header">SORT BY</li>
-                    <li :class="{ active: sort.startsWith('created_at') }">
-                      <a href="javascript:void(0);"
-                         @click="changeSorter({ sort: 'created_at.asc' })"
-                      >
+                    <li :class="{ active: $route.query.sort ? $route.query.sort.startsWith('created_at') : '' }">
+                      <a href="javascript:void(0);" @click="changeSorter('created_at.asc')">
                         Created Time
                       </a>
                     </li>
-                    <li :class="{ active: sort.startsWith('updated_at') }">
-                      <a href="javascript:void(0);"
-                         @click="changeSorter({ sort: 'updated_at.asc' })"
-                      >
+                    <li :class="{ active: $route.query.sort ? $route.query.sort.startsWith('updated_at') : '' }">
+                      <a href="javascript:void(0);" @click="changeSorter('updated_at.desc')">
                         Last Modified Time
                       </a>
                     </li>
-                    <li :class="{ active: sort.startsWith('order_date') }">
-                      <a href="javascript:void(0);"
-                         @click="changeSorter({ sort: 'order_date.asc' })"
-                      >
-                        Date
+                    <li :class="{ active: $route.query.sort ? $route.query.sort.startsWith('invoice_date') : '' }">
+                      <a href="javascript:void(0);" @click="changeSorter('invoice_date.asc')">
+                        Order Date
                       </a>
                     </li>
-                    <li :class="{ active: sort.startsWith('invoice_number') }">
-                      <a href="javascript:void(0);"
-                         @click="changeSorter({ sort: 'invoice_number.asc' })"
-                      >
-                        Invoice#
+                    <li :class="{ active: $route.query.sort ? $route.query.sort.startsWith('sales_order_number') : '' }">
+                      <a href="javascript:void(0);" @click="changeSorter('sales_order_number.desc')">
+                        Sales Order Number
                       </a>
                     </li>
                     <li class="divider"></li>
@@ -158,7 +150,7 @@
                             <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">DUE DATE</th>
                             <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">TOTAL</th>
                             <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">BALANCE DUE</th>
-                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th>
+                            <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
                             <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">ACTION</th>
                           </tr>
                           </thead>
@@ -191,7 +183,28 @@
                                 </router-link>
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
-                                {{ sale.sales_order_status.toLowerCase().replace(/_/g, ' ') | capitalize }}
+                                <div v-if="sale.sales_order_status === 'DRAFT'">
+                                  <span class="label label-info" style="background-color:#C4C4C4; color:#000000">{{ sale.sales_order_status }}</span>
+                                </div>
+                                <div v-else>
+                                    <!--{{ sale.invoice_status }}-->
+                                  <div v-if="sale.invoice_status === 'PAID'">
+                                    <span class="label label-info" style="background-color:#319B31">PAID</span>
+                                  </div>
+                                  <div v-else-if="sale.invoice_status === 'UNPAID'">
+                                    <span class="label label-info" style="background-color:#1C8AD9">UNPAID</span>
+                                  </div>
+                                  <div v-else-if="sale.invoices[0].invoice_status === 'PARTIALLY_PAID'">
+                                    <span class="label label-info" style="background-color:#E6E600; color:#000000">PARTIALLY PAID</span>
+                                  </div>
+                                  <div v-else-if="sale.invoice_status === 'OVERDUE'">
+                                    <span class="label label-info" style="background-color:#E33636">OVERDUE</span>
+                                  </div>
+                                  <div v-else-if="sale.invoice_status === 'VOID'">
+                                    <span class="label label-info" style="background-color:#000000">VOID</span>
+                                  </div>
+                                </div>
+                                <!-- {{ sale.sales_order_status.toLowerCase().replace(/_/g, ' ') | capitalize }} -->
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.due_date | date('short') }}
@@ -200,7 +213,7 @@
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.invoices[0].balance_due | money}}
                               </td>
-                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                              <!-- <td style="cursor: pointer;" @click="showDetail(sale)">
                                 <div v-if="sale.invoice_status === 'VOID'">
                                   <i class="fa fa-circle text-black"></i>
                                 </div>
@@ -217,7 +230,7 @@
                                 <div v-else-if="sale.shipment_status === 'SHIPPED'">
                                   <i class="fa fa-circle text-green"></i>
                                 </div>
-                              </td>
+                              </td> -->
                               <td>
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
                                    aria-expanded="false">
@@ -246,11 +259,11 @@
                                     </a>
                                   </li>
                                   <!--<li><a href="javascript:void(0);">Email Invoice</a></li>-->
-                                  <li v-if="sale.shipment_status === 'NOT_YET_SHIPPED'">
+                                  <!-- <li v-if="sale.shipment_status === 'NOT_YET_SHIPPED'">
                                     <a href="javascript:void(0);" @click="gotoDetailShipment(sale)">
                                       Record Shipment
                                     </a>
-                                  </li>
+                                  </li> -->
                                 </ul>
                               </td>
                             </tr>
@@ -424,6 +437,11 @@
 
     mounted() {
       store.dispatch('sales/initialize')
+      this.getList({
+        filter: this.$route.query.filter || 'all',
+        sort: this.$route.query.sort || 'created_at.desc',
+        q: this.$route.query.q || '',
+      })
     },
 
     computed: {
@@ -518,12 +536,12 @@
         this.getList(options)
       },
 
-      changeSorter(options = {}) {
+      changeSorter(sort) {
         this.$router.push({
           name: 'sales.index',
           query: {
             filter: this.filter,
-            sort: this.sort,
+            sort: sort,
           },
         })
         this.getList(options)
@@ -584,13 +602,13 @@
       async viewShipmentLabels() {
         let me = this;
 
-        let shipmentIds = _.map(me.checkedList, function (o) {
-          return o.shipment_id
+        let soId = _.map(me.checkedList, function (o) {
+          return o.sales_order_id
         })
 
         const pdfWindow = window.open()
 
-        const url = window.BASE_URL + `/sales_orders/shipments/download-labels?ids=` + shipmentIds.join()
+        const url = window.BASE_URL + `/sales_orders/shipments/bulk-label?ids=` + soId.join()
 
         const response = await axios.get(url, {
           responseType: 'arraybuffer',

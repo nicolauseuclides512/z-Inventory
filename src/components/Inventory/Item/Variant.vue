@@ -7,28 +7,28 @@
           <div class="form-horizontal">
             <div class="col-md-12">
               <!--<div class="form-group">-->
-                <!--<div class="toggles-dropship">-->
-                  <!--<label>Add Variants?</label>-->
-                  <!--<div @click="toggleVariant"-->
-                       <!--class="toggle toggle-default"-->
-                       <!--id="variant_button"-->
-                       <!--ref="variant_button"-->
-                       <!--style="height: 20px; width: 65px;">-->
-                    <!--<div :class="{ 'toggle-slide': true, active: showVariant }">-->
-                      <!--<div class="toggle-inner" :style="{ width: '80px', 'margin-left': !showVariant ? '-31px' : 0 }">-->
-                        <!--<div :class="{ 'toggle-on': true, active: showVariant }"-->
-                             <!--style="height: 20px; width: 40px; text-align: center; text-indent: -10px; line-height: 20px;">-->
-                          <!--ON-->
-                        <!--</div>-->
-                        <!--<div class="toggle-blob" style="height: 20px; width: 20px; margin-left: -10px;"></div>-->
-                        <!--<div :class="{ 'toggle-off': true, active: !showVariant }"-->
-                             <!--style="height: 20px; width: 40px; margin-left: -10px; text-align: center; text-indent: 10px; line-height: 20px;">-->
-                          <!--OFF-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
+              <!--<div class="toggles-dropship">-->
+              <!--<label>Add Variants?</label>-->
+              <!--<div @click="toggleVariant"-->
+              <!--class="toggle toggle-default"-->
+              <!--id="variant_button"-->
+              <!--ref="variant_button"-->
+              <!--style="height: 20px; width: 65px;">-->
+              <!--<div :class="{ 'toggle-slide': true, active: showVariant }">-->
+              <!--<div class="toggle-inner" :style="{ width: '80px', 'margin-left': !showVariant ? '-31px' : 0 }">-->
+              <!--<div :class="{ 'toggle-on': true, active: showVariant }"-->
+              <!--style="height: 20px; width: 40px; text-align: center; text-indent: -10px; line-height: 20px;">-->
+              <!--ON-->
+              <!--</div>-->
+              <!--<div class="toggle-blob" style="height: 20px; width: 20px; margin-left: -10px;"></div>-->
+              <!--<div :class="{ 'toggle-off': true, active: !showVariant }"-->
+              <!--style="height: 20px; width: 40px; margin-left: -10px; text-align: center; text-indent: 10px; line-height: 20px;">-->
+              <!--OFF-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--</div>-->
               <!--</div>-->
 
               <div v-if="showVariant" id="mark_active">
@@ -48,7 +48,8 @@
                         ></Vuetagger>
                       </div>
                       <div class="col-md-1">
-                        <button type="button" @click="hideFirstVariant" class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
+                        <button type="button" @click="hideFirstVariant"
+                                class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
                         </button>
                       </div>
@@ -68,7 +69,8 @@
                         <Vuetagger :value="secondVariant.values" @change="changeSecondVariantValues"></Vuetagger>
                       </div>
                       <div class="col-md-1">
-                        <button type="button" @click="hideSecondVariant" class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
+                        <button type="button" @click="hideSecondVariant"
+                                class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
                         </button>
                       </div>
@@ -88,7 +90,8 @@
                         <Vuetagger :value="thirdVariant.values" @change="changeThirdVariantValues"></Vuetagger>
                       </div>
                       <div class="col-md-1">
-                        <button type="button" @click="hideThirdVariant" class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
+                        <button type="button" @click="hideThirdVariant"
+                                class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
                         </button>
                       </div>
@@ -109,15 +112,15 @@
 
 
                 <!--<div id="mark_hide" v-if="list.currentVariantTypes.length < 3">-->
-                  <!--<div class="form-horizontal p-0-10">-->
-                    <!--<div class="form-group">-->
-                      <!--<div class="col-md-4">-->
-                        <!--<button type="button" @click="addMoreVariant" class="btn btn-default waves-effect waves-light">-->
-                          <!--<i class="md md-add"></i> Add more variant type-->
-                        <!--</button>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</div>-->
+                <!--<div class="form-horizontal p-0-10">-->
+                <!--<div class="form-group">-->
+                <!--<div class="col-md-4">-->
+                <!--<button type="button" @click="addMoreVariant" class="btn btn-default waves-effect waves-light">-->
+                <!--<i class="md md-add"></i> Add more variant type-->
+                <!--</button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
                 <!--</div>-->
 
 
@@ -137,10 +140,16 @@
                       </thead>
                       <tbody>
                       <tr v-for="v in list.items">
-                        <td><input type="text" class="form-control form-white" v-model="v.item_name"> </td>
-                        <td v-if="firstVariant.show"><input type="text" class="form-control form-white" v-model="v.item_attributes[firstVariant.name]" disabled="disabled"></td>
-                        <td v-if="secondVariant.show"><input type="text" class="form-control form-white" v-model="v.item_attributes[secondVariant.name]" disabled="disabled"></td>
-                        <td v-if="thirdVariant.show"><input type="text" class="form-control form-white" v-model="v.item_attributes[thirdVariant.name]" disabled="disabled"></td>
+                        <td><input type="text" class="form-control form-white" v-model="v.item_name"></td>
+                        <td v-if="firstVariant.show"><input type="text" class="form-control form-white"
+                                                            v-model="v.item_attributes[firstVariant.name]"
+                                                            disabled="disabled"></td>
+                        <td v-if="secondVariant.show"><input type="text" class="form-control form-white"
+                                                             v-model="v.item_attributes[secondVariant.name]"
+                                                             disabled="disabled"></td>
+                        <td v-if="thirdVariant.show"><input type="text" class="form-control form-white"
+                                                            v-model="v.item_attributes[thirdVariant.name]"
+                                                            disabled="disabled"></td>
                         <td><input type="number" class="form-control form-white" v-model="v.code_sku"></td>
                         <td><input type="text" class="form-control form-white" v-model="v.sales_rate"></td>
                         <td>
@@ -165,7 +174,7 @@
 <script>
   import Vuetagger from '../../Vuetagger'
 
-  function cartesianProductOf (args) {
+  function cartesianProductOf(args) {
     return _.reduce(args, function (a, b) {
       return _.flatten(_.map(a, function (x) {
         return _.map(b, function (y) {
@@ -176,22 +185,22 @@
   }
 
   //  function cartesian () {
-//    let r = [], arg = arguments, max = arg.length - 1
-//
-//    function helper (arr, i) {
-//      for (let j = 0, l = arg[i].length; j < l; j++) {
-//        let a = arr.slice(0) // clone arr
-//        a.push(arg[i][j])
-//        if (i === max)
-//          r.push(a)
-//        else
-//          helper(a, i + 1)
-//      }
-//    }
-//
-//    helper([], 0)
-//    return r
-//  }
+  //    let r = [], arg = arguments, max = arg.length - 1
+  //
+  //    function helper (arr, i) {
+  //      for (let j = 0, l = arg[i].length; j < l; j++) {
+  //        let a = arr.slice(0) // clone arr
+  //        a.push(arg[i][j])
+  //        if (i === max)
+  //          r.push(a)
+  //        else
+  //          helper(a, i + 1)
+  //      }
+  //    }
+  //
+  //    helper([], 0)
+  //    return r
+  //  }
 
   export default {
     name: 'VariantItem',
@@ -215,13 +224,13 @@
       }
     },
 
-    data () {
+    data() {
       return {
         showVariant: true,
 
-        firstVariant: { name: 'color', show: true, values: []},
-        secondVariant: { name: 'size', show: true, values: []},
-        thirdVariant: { name: 'material', show: true, values: []},
+        firstVariant: {name: 'color', show: true, values: []},
+        secondVariant: {name: 'size', show: true, values: []},
+        thirdVariant: {name: 'material', show: true, values: []},
 
         list: {
           // Backend haven't have any asset variant yet
@@ -239,16 +248,24 @@
       }
     },
 
-    async mounted () {
+    created() {
+      this.$bus.$on('clear-variant-data', this._resetData)
+    },
+
+    async mounted() {
       this.list.items = await this.item.children
     },
 
     methods: {
-      toggleVariant () {
+      toggleVariant() {
         this.showVariant = !this.showVariant
       },
 
-      generateVariant () {
+      _resetData() {
+        Object.assign(this.$data, this.$options.data())
+      },
+
+      generateVariant() {
 
         let variants = []
 
@@ -331,28 +348,25 @@
           })
 
 
-
         })
 
-        const items = [
-
-        ]
+        const items = []
       },
 
-      changeFirstVariantValues (values) {
+      changeFirstVariantValues(values) {
         this.firstVariant.values = values
       },
 
-      changeSecondVariantValues (values) {
+      changeSecondVariantValues(values) {
         this.secondVariant.values = values
       },
 
-      changeThirdVariantValues (values) {
+      changeThirdVariantValues(values) {
         this.thirdVariant.values = values
       },
 
 
-      hideFirstVariant () {
+      hideFirstVariant() {
         if (!this.secondVariant.show && !this.thirdVariant.show) {
           return
         }
@@ -360,7 +374,7 @@
         this.firstVariant.show = false
       },
 
-      hideSecondVariant () {
+      hideSecondVariant() {
         if (!this.firstVariant.show && !this.thirdVariant.show) {
           return
         }
@@ -368,7 +382,7 @@
         this.secondVariant.show = false
       },
 
-      hideThirdVariant () {
+      hideThirdVariant() {
         if (!this.firstVariant.show && !this.secondVariant.show) {
           return
         }
@@ -376,7 +390,7 @@
         this.thirdVariant.show = false
       },
 
-      addMoreVariant () {
+      addMoreVariant() {
         if (!this.firstVariant.show) {
           this.firstVariant.show = true
           return
@@ -393,7 +407,7 @@
         }
       },
 
-      addVariant (name, values) {
+      addVariant(name, values) {
         if (this.list.currentVariantTypes.length < 3) {
           this.list.currentVariantTypes.push({
             name: name.toLowerCase(),
@@ -402,11 +416,11 @@
         }
       },
 
-      addVariantValues (variant, halo) {
+      addVariantValues(variant, halo) {
         console.log(variant, halo, 'sdsds')
       },
 
-      addVariantTypeValue (value) {
+      addVariantTypeValue(value) {
         this.list.currentVariantTypes[value.toLowerCase()].values.push('shoet')
       },
 
@@ -425,7 +439,7 @@
         this.$emit('remove', item)
       },
 
-      removeVariant (variant) {
+      removeVariant(variant) {
         Alert.confirm('Are you sure?', () => {
           const index = this.list.currentVariantTypes.indexOf(variant)
           this.list.currentVariantTypes.splice(index, 1)

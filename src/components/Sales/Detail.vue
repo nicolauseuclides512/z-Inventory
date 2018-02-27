@@ -31,7 +31,7 @@
         <div v-else>
           <div class="container p-0">
             <div class="row">
-              <div class="col-md-4 col-sm-4 col-xs-4 left-side">
+              <div class="col-md-4 col-sm-4 col-xs-4 left-side" style="border-right: 1px solid #eee;">
 
                 <div class="container full-width-header">
                   <div class="row">
@@ -157,8 +157,8 @@
                                   {{ sale.invoice_date | date('short') }}
                                 </div>
                                 <div class="pull-right">
-                                  <span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'" style="font-size: 10px;">{{ sale.shipment_status }}</span>
-                                  <span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span>
+                                  <!-- <span v-if="sale.shipment_status !== 'NOT_YET_SHIPPED'" style="font-size: 10px;">{{ sale.shipment_status }}</span>
+                                  <span v-else style="font-size: 10px;">{{ sale.shipment_status }}</span> -->
                                 </div>
                               </div>
                             </td>
@@ -171,7 +171,7 @@
 
               </div>
 
-              <div class="col-md-8 col-sm-8 col-xs-8 right-side" style="border-left: 1px solid #eee;">
+              <div class="col-md-8 col-sm-8 col-xs-8 right-side">
 
                 <div class="row" v-if="salesOrder">
                   <div class="col-md-12">
@@ -228,13 +228,13 @@
                             </a>
                           </li>
                           <li>
-                            <a
+                            <!-- <a
                               @click="showModalShipment()"
                               data-toggle="dropdown"
                               aria-expanded="false"
                             >
                               Shipment
-                            </a>
+                            </a> -->
                           </li>
                         </ul>
                       </div>
@@ -282,11 +282,11 @@
                           <span class="hidden-xs">PAYMENT</span>
                         </a>
                       </li>
-                      <li :class="{ tab: true, active: currentTab == 'shipment' }">
+                      <!-- <li :class="{ tab: true, active: currentTab == 'shipment' }">
                         <a href="javascript:void(0);" @click="switchTab('shipment')">
                           <span class="hidden-xs">SHIPMENT</span>
                         </a>
-                      </li>
+                      </li> -->
                     </ul>
 
                     <div class="tab-content p-0 tab-content-clear tab-content--contact">
@@ -753,13 +753,13 @@
       async viewShipmentLabels() {
         let me = this;
 
-        let shipmentIds = _.map(me.checkedList, function (o) {
-          return o.shipment_id
+        let soId = _.map(me.checkedList, function (o) {
+          return o.sales_order_id
         })
 
         const pdfWindow = window.open()
 
-        const url = window.BASE_URL + `/sales_orders/shipments/download-labels?ids=` + shipmentIds.join()
+        const url = window.BASE_URL + `/sales_orders/shipments/bulk-label?ids=` + soId.join()
 
         const response = await axios.get(url, {
           responseType: 'arraybuffer',
