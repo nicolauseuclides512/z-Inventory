@@ -180,8 +180,8 @@
                     <span v-if="!item.children.length && !item.track_inventory">
                       <inline-editable
                         :item="item"
-                        name="inventory_stock"
-                        :value="item.inventory_stock"
+                        name="stock_quantity"
+                        :value="item.stock_quantity"
                         :url="`items/${item.item_id}/update_inventory_stock`"
                         type="number"
                       ></inline-editable>
@@ -189,8 +189,8 @@
                     <span v-if="item.track_inventory">
                       <inline-editable
                         :item="item"
-                        name="inventory_stock"
-                        :value="item.inventory_stock"
+                        name="stock_quantity"
+                        :value="item.stock_quantity"
                         :url="`items/${item.item_id}/update_inventory_stock`"
                         type="number"
                       ></inline-editable>
