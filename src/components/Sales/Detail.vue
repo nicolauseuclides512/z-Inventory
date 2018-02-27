@@ -753,13 +753,13 @@
       async viewShipmentLabels() {
         let me = this;
 
-        let shipmentIds = _.map(me.checkedList, function (o) {
-          return o.shipment_id
+        let soId = _.map(me.checkedList, function (o) {
+          return o.sales_order_id
         })
 
         const pdfWindow = window.open()
 
-        const url = window.BASE_URL + `/sales_orders/shipments/download-labels?ids=` + shipmentIds.join()
+        const url = window.BASE_URL + `/sales_orders/shipments/bulk-label?ids=` + soId.join()
 
         const response = await axios.get(url, {
           responseType: 'arraybuffer',
