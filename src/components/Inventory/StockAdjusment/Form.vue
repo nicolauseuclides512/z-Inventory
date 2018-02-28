@@ -307,7 +307,7 @@
 
       async selectItem(item) {
         const res = await Axios.get(`items/${item.item_id}`)
-        item.database_qty = res.data.data.inventory_stock
+        item.database_qty = res.data.data.stock_quantity
       },
 
       async save (ev) {
