@@ -34,12 +34,12 @@
                   <a href="javascript:void(0);" id="sort-by-stock_adjustment_number"
                     @click="sortItemsBy('stock_adjustment_number')">Stock adjustment Number</a>
                 </li>
-                <li class="divider"></li>
+                <!-- <li class="divider"></li>
                 <li><a href="#"><i class="md-file-download"></i> Import Customers</a></li>
                 <li><a href="#"><i class="md-file-download"></i> Import Vendors</a></li>
                 <li class="divider"></li>
                 <li><a href="#"><i class="md-file-upload"></i> Export Customers</a></li>
-                <li><a href="#"><i class="md-file-upload"></i> Export Vendors</a></li>
+                <li><a href="#"><i class="md-file-upload"></i> Export Vendors</a></li> -->
                 <li class="divider"></li>
                 <li><a href="javascript:void(0);" id="refresh-list" @click="refreshList"><i class="md-refresh"></i>
                   Refresh List</a></li>
@@ -67,12 +67,12 @@
                       </thead>
                       <tbody>
                       <tr v-for="item in list.items">
-                        <td align="right">
+                        <td align="right">{{ item.stock_adjustment_date | date('short') }}</td>
+                        <td>
                           <router-link :to="{ name: 'stock_adjustment.edit', params: { id: item.stock_adjustment_id } }">
-                            {{ item.stock_adjustment_date | date('short') }}
+                            {{ item.stock_adjustment_number }}
                           </router-link>
                         </td>
-                        <td>{{ item.stock_adjustment_number }}</td>
                         <td>#{{ item.reference_number }}</td>
                         <td>{{ item.item_name }}</td>
                         <td>{{ item.reason }}</td>
