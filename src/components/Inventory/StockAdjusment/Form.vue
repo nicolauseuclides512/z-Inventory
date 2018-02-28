@@ -9,8 +9,8 @@
               <div class="container full-width-header bt-1 p-b-10 m-b-20">
                 <div class="row">
                   <div class="col-md-12">
-                    <h4 class="pull-left page-title" v-if="form.stock_adjustment_id">Add Stock Adjusment</h4>
-                    <h4 class="pull-left page-title" v-if="!form.stock_adjustment_id">Edit Stock Adjusment</h4>
+                    <h4 class="pull-left page-title" v-if="$route.name == 'stock_adjustment.edit'">Edit Stock Adjusment</h4>
+                    <h4 class="pull-left page-title" v-else>Add Stock Adjusment</h4>
                   </div>
                 </div>
               </div>
@@ -283,7 +283,9 @@
       async initialize () {
         const res = await Axios.get(`stock_adjustments/create`);
         this.list.reasons = res.data.data.reasons;
-        this.form.stock_adjustment_id = res.data.data.next_stock_adjustment_number;
+        // if ($route.name == "stock_adjustment.create"){
+        //   this.form.stock_adjustment_id = res.data.data.next_stock_adjustment_number
+        // }
       },
 
       async getItems () {
@@ -296,10 +298,12 @@
       },
 
       async getDetails (stockId) {
-        const res = await Axios.get(`stock_adjustments/${stockId}`)
-        this.form.details = res.data.data.details
-        this.form.details[0].database_qty = 129
-        //this.form.stock_adjustment_id = res.data.data.next_stock_adjustmemt_number
+        const res = await Axios.get(`stock_adjustments/${stockId}`);
+        this.form.details = res.data.data.details;
+        this.form.details[0].database_qty = 129;
+        // if ($route.name == "stock_adjustment.edit"){
+        //   this.form.stock_adjustment_id = res.data.data.stock_adjustment_number;
+        // }
       },
 
       addNew () {
