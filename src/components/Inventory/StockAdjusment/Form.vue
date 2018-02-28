@@ -105,8 +105,8 @@
                                     <td>
                                       <div class="col-md-12 pl-pr-0">
                                         <select class="form-control" v-model="detail.item_id" @change="selectItem(detail)" required title="Item name">
-                                          <option v-for="item in list.items" :value="item.item_id">
-                                            {{ item.item_name }}
+                                          <option v-for="item in list.items" :value="item.item_id" v-if="item.track_inventory" >
+                                              {{ item.item_name }}
                                           </option>
                                         </select>
                                       </div>
@@ -310,6 +310,7 @@
         const res = await Axios.get(`items/${item.item_id}`)
         item.database_qty = res.data.data.stock_quantity
         item.code_sku = res.data.data.code_sku
+        item.track_inventory = res.data.data.track_inventory
       },
 
       async save (ev) {
