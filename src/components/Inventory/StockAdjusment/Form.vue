@@ -9,8 +9,8 @@
               <div class="container full-width-header bt-1 p-b-10 m-b-20">
                 <div class="row">
                   <div class="col-md-12">
-                    <h4 class="pull-left page-title" v-if="!form.stock_adjustment_id">Add Stock Adjusment</h4>
-                    <h4 class="pull-left page-title" v-if="form.stock_adjustment_id">Edit Stock Adjusment</h4>
+                    <h4 class="pull-left page-title" v-if="form.stock_adjustment_id">Add Stock Adjusment</h4>
+                    <h4 class="pull-left page-title" v-if="!form.stock_adjustment_id">Edit Stock Adjusment</h4>
                   </div>
                 </div>
               </div>
@@ -54,7 +54,7 @@
                         <div class="col-md-3">
                           <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-fw fa-hashtag"></i></span>
-                            <input v-model="form.reference_number" type="text" placeholder="779001" class="form-control"
+                            <input v-model="form.reference_number" type="text" placeholder="" class="form-control"
                                   id="reference_number">
                           </div>
                         </div>
@@ -101,7 +101,7 @@
                                   <tbody>
                                   <tr v-for="(detail, index) in form.details">
                                     <td>{{ index+1 }}</td>
-                                    <td>{{ detail.item_id }}</td>
+                                    <td>{{ detail.code_sku }}</td>
                                     <td>
                                       <div class="col-md-12 pl-pr-0">
                                         <select class="form-control" v-model="detail.item_id" @change="selectItem(detail)" required title="Item name">
@@ -281,8 +281,9 @@
     methods: {
 
       async initialize () {
-        const res = await Axios.get(`reasons`)
-        this.list.reasons = res.data.data
+        const res = await Axios.get(`stock_adjustments/create`);
+        this.list.reasons = res.data.data.reasons;
+        this.form.stock_adjustment_id = res.data.data.next_stock_adjustment_number;
       },
 
       async getItems () {
@@ -298,7 +299,7 @@
         const res = await Axios.get(`stock_adjustments/${stockId}`)
         this.form.details = res.data.data.details
         this.form.details[0].database_qty = 129
-        this.form.stock_adjustment_id = res.data.data.stock_adjustment_id
+        //this.form.stock_adjustment_id = res.data.data.next_stock_adjustmemt_number
       },
 
       addNew () {
@@ -308,6 +309,7 @@
       async selectItem(item) {
         const res = await Axios.get(`items/${item.item_id}`)
         item.database_qty = res.data.data.stock_quantity
+        item.code_sku = res.data.data.code_sku
       },
 
       async save (ev) {
