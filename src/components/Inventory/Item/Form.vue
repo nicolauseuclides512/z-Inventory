@@ -92,7 +92,7 @@
                     <div class="form-group form-general m-b-20">
                       <label class="col-md-2 control-label text-left">Stock</label>
                       <div class="col-md-3">
-                        <input v-model="form.inventory_stock" type="number" min="0" placeholder="" class="form-control">
+                        <input v-model="form.stock_quantity" type="number" min="0" placeholder="" class="form-control">
                       </div>
                     </div>
                   </div>
@@ -275,7 +275,7 @@
           code_sku: '',
           barcode: '',
           track_inventory: 'true',
-          inventory_stock: 0,
+          stock_quantity: 0,
           inventory_stock_warning: 0,
           category_id: null,
           tags: '',
