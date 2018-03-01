@@ -283,9 +283,9 @@
       async initialize () {
         const res = await Axios.get(`stock_adjustments/create`);
         this.list.reasons = res.data.data.reasons;
-        // if ($route.name == "stock_adjustment.create"){
-        //   this.form.stock_adjustment_id = res.data.data.next_stock_adjustment_number
-        // }
+        if (!this.$route.params.id){
+          this.form.stock_adjustment_id = res.data.data.next_stock_adjustment_number
+        }
       },
 
       async getItems () {
@@ -301,9 +301,9 @@
         const res = await Axios.get(`stock_adjustments/${stockId}`);
         this.form.details = res.data.data.details;
         this.form.details[0].database_qty = 129;
-        // if ($route.name == "stock_adjustment.edit"){
-        //   this.form.stock_adjustment_id = res.data.data.stock_adjustment_number;
-        // }
+        if (this.$route.params.id){
+          this.form.stock_adjustment_id = res.data.data.stock_adjustment_number;
+        }
       },
 
       addNew () {
