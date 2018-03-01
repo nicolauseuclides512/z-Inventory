@@ -1,4 +1,4 @@
-<template>
+/'<template>
   <div class="content-page-full">
     <div class="content sahito-user">
       <div class="container" style="padding:0px; margin:0px">
@@ -62,8 +62,9 @@
                         <td>#{{ history.reference_number }}</td>
                         <td>{{ history.status }}</td>
                         <td>
-                          <!--<span class="label label-info">2 stocks on fire</span>-->
-                          <!--<span class="label label-info">3 stolen goods</span>-->
+                          <span v-for="value in history.reason_summary" class="label label-info" style="margin-right: 5px;">
+                            {{ value.line_count }} {{ value.reason_description }}
+                          </span>
                         </td>
                       </tr>
                       </tbody>
