@@ -57,8 +57,11 @@
                       </thead>
                       <tbody>
                       <tr v-for="history in list.items">
-                        <td align="right"><a href="#">{{ history.stock_adjustment_date | date('short') }}</a></td>
-                        <td>{{ history.stock_adjustment_id }}</td>
+                        <td align="right">{{ history.stock_adjustment_date | date('short') }}</td>
+                        <td>
+                          <router-link :to="{ name: 'stock_adjustment.edit', params: { id: history.stock_adjustment_id } }">
+                            {{ history.stock_adjustment_number }}
+                          </router-link></td>
                         <td>#{{ history.reference_number }}</td>
                         <td>{{ history.status }}</td>
                         <td>
