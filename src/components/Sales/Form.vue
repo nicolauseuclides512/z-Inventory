@@ -5,7 +5,8 @@
 
         <!-- Page-Title -->
         <div class="col-md-6">
-          <h4 class="pull-left page-title">Create New Order</h4>
+          <h4 class="pull-left page-title" v-if="!$route.params.id">Create New Order</h4>
+          <h4 class="pull-left page-title" v-if="$route.params.id">Edit Order</h4>
         </div>
         <div class="col-md-3">
           <div class="form-group">
@@ -244,6 +245,20 @@
           <div class="col-md-4">
             <div class="panel panel-default">
               <div class="panel-heading">
+                <h3 class="panel-title">Sales Order Number</h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group" style="text-align: center;margin-bottom: 0px">
+                      <h4 style="color: #bbb">{{ sales_order_number }}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
                 <h3 class="panel-title">Contacts</h3>
               </div>
               <div class="panel-body">
@@ -342,17 +357,32 @@
               <div class="panel-body">
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" style="margin-bottom: 0px">
-                      <label style="font-weight: normal">Sales from:</label>
+                    <div v-if="list.channels.length">
+                      <div class="form-group" style="margin-bottom: 0px" >
+                        <label style="font-weight: normal" v-if="!selected_sales_channel">Sales from:</label>
+                        <label style="font-weight: normal" v-if="selected_sales_channel">Sales from: {{ selected_sales_channel.sales_channel.channel_name }}</label>
+                      </div>
+                      <div class="normal-mode">
+                        <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
+                            <vuelist
+                            @change="selectSalesChannel"
+                            :options="list.channels"
+                            :value="selected_sales_channel && selected_sales_channel.my_sales_channel_id && selected_sales_channel.my_sales_channel"
+                            placeholder="Search a sales channel"
+                            keyid="id"
+                            label="store_name"
+                          ></vuelist>
+                        </div>
+                        <div class="col-md-1" v-if="selected_sales_channel">
+                          <a @click="clearSelectedSalesChannel" href="javascript:void(0)" class="text-danger">
+                            <i class="ion-close-circled" style="font-size:12pt"></i>
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                    <vuelist
-                      @change="selectSalesChannel"
-                      :options="list.channels"
-                      :value="selected_salesChannel"
-                      placeholder="Search a sales channel"
-                      keyid="sales_channel_id"
-                      label="store_name"
-                    ></vuelist>
+                    <div v-else>
+                      <label style="font-weight: normal">Go to <i>Settings</i> >> <i>Sales Channel</i> to add your first sales channel</label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -499,7 +529,7 @@
           email: '',
         },
         selected_product: null,
-        selected_salesChannel: null,
+        selected_sales_channel: null,
         tax_included: 1,
         form: new Form({
           invoice_date: dateFormat(new Date(), "DD MMM YYYY"),
@@ -540,6 +570,8 @@
           carrier_code: "",
           carrier_name: "",
           carrier_service: "",
+          my_sales_channel_id: null,
+          my_sales_channel: null,
           details: []
         })
       };
@@ -559,11 +591,13 @@
           this.list.discount_unit = res.data.data.discount_unit;
           this.list.weight_unit = res.data.data.weight_unit;
           this.tax_included = res.data.data.tax_included;
+          this.sales_order_number = res.data.data.sales_order.sales_order_number;
         } else {
           const res = await axios.get("sales_orders/create");
           this.list.discount_unit = res.data.data.discount_unit;
           this.list.weight_unit = res.data.data.weight_unit;
           this.tax_included = res.data.data.tax_included;
+          this.sales_order_number = res.data.data.next_sales_order_number;
         }
 
         await this.dateTime();
@@ -580,26 +614,9 @@
         }
       },
 
-      async salesChannel (params = {}) {
-        const defaultParams = {
-          filter: 'all',
-          page: 1,
-          per_page: 10,
-          sort: 'sales_channel_id.asc',
-        }
-
-        const query = Object.assign({}, defaultParams, params)
-
-        const res = await axios.get(`my_channels`, {params: query})
-        this.list.channels = res.data.data
-      },
-
-      selectSalesChannel (){
-        //
-      },
-
       async edit(sales_order) {
         this.selectContact(sales_order.contact);
+        this.selectSalesChannel(sales_order.my_sales_channel);
 
         const res = await axios.get(
           `sales_orders/${sales_order.sales_order_id}/details`
@@ -654,6 +671,8 @@
         this.form.carrier_code = sales_order.carrier_code;
         this.form.carrier_name = sales_order.carrier_name;
         this.form.carrier_service = sales_order.carrier_service;
+        this.form.my_sales_channel_id = sales_order.my_sales_channel_id;
+        this.form.my_sales_channel = sales_order.my_sales_channel;
       },
 
       dateTime() {
@@ -692,6 +711,20 @@
         });
 
         this.list.product_list = product_list_response.data.data;
+      },
+
+      async salesChannel (params = {}) {
+        const defaultParams = {
+          filter: 'all',
+          page: 1,
+          per_page: 9999,
+          sort: 'sales_channel_id.asc',
+        }
+
+        const query = Object.assign({}, defaultParams, params)
+
+        const res = await axios.get(`my_channels`, {params: query})
+        this.list.channels = res.data.data
       },
 
       async fetchTaxSetting() {
@@ -832,6 +865,17 @@
         //
       },
 
+      async selectSalesChannel (channel){
+        const my_sales_channel_id = (this.form.my_sales_channel_id = channel.id);
+        const my_sales_channel = (this.form.my_sales_channel = channel.store_name);
+        const res = await axios.get(`my_channels/${my_sales_channel_id}`);
+        this.selected_sales_channel = res.data.data;
+      },
+
+      clearSelectedSalesChannel() {
+        this.selected_sales_channel = null;
+      },
+
       updateDiscountType(product) {
         this.amount(product);
       },
@@ -922,6 +966,8 @@
           carrier_code: "",
           carrier_name: "",
           carrier_service: "",
+          my_sales_channel_id: null,
+          my_sales_channel: null,
           details: []
         });
       }
