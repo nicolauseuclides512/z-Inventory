@@ -7,7 +7,8 @@
           <div class="container full-width-header bt-1 p-b-10 m-b-20">
             <div class="row">
               <div class="col-md-12">
-                <h4 class="pull-left page-title">Create Variant Item</h4>
+                <h4 v-if="!$route.params.id" class="pull-left page-title">Create Variant Item</h4>
+                <h4 v-if="$route.params.id" class="pull-left page-title">Edit Variant Item</h4>
               </div>
             </div>
           </div>
