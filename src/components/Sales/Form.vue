@@ -251,7 +251,7 @@
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group" style="text-align: center;margin-bottom: 0px">
-                      <h4 style="font-weight: normal">{{ sales_order_number }}</h4>
+                      <h4 style="color: #bbb">{{ sales_order_number }}</h4>
                     </div>
                   </div>
                 </div>
