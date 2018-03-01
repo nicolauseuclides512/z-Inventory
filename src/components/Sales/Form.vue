@@ -357,26 +357,31 @@
               <div class="panel-body">
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" style="margin-bottom: 0px" >
-                      <label style="font-weight: normal" v-if="!selected_sales_channel">Sales from:</label>
-                      <label style="font-weight: normal" v-if="selected_sales_channel">Sales from: {{ selected_sales_channel.sales_channel.channel_name }}</label>
+                    <div v-if="list.channels.length">
+                      <div class="form-group" style="margin-bottom: 0px" >
+                        <label style="font-weight: normal" v-if="!selected_sales_channel">Sales from:</label>
+                        <label style="font-weight: normal" v-if="selected_sales_channel">Sales from: {{ selected_sales_channel.sales_channel.channel_name }}</label>
+                      </div>
+                      <div class="normal-mode">
+                        <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
+                            <vuelist
+                            @change="selectSalesChannel"
+                            :options="list.channels"
+                            :value="selected_sales_channel && selected_sales_channel.my_sales_channel_id && selected_sales_channel.my_sales_channel"
+                            placeholder="Search a sales channel"
+                            keyid="id"
+                            label="store_name"
+                          ></vuelist>
+                        </div>
+                        <div class="col-md-1" v-if="selected_sales_channel">
+                          <a @click="clearSelectedSalesChannel" href="javascript:void(0)" class="text-danger">
+                            <i class="ion-close-circled" style="font-size:12pt"></i>
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                    <div class="normal-mode">
-                      <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
-                        <vuelist
-                          @change="selectSalesChannel"
-                          :options="list.channels"
-                          :value="selected_sales_channel && selected_sales_channel.my_sales_channel_id && selected_sales_channel.my_sales_channel"
-                          placeholder="Search a sales channel"
-                          keyid="id"
-                          label="store_name"
-                        ></vuelist>
-                      </div>
-                      <div class="col-md-1" v-if="selected_sales_channel">
-                        <a @click="clearSelectedSalesChannel" href="javascript:void(0)" class="text-danger">
-                          <i class="ion-close-circled" style="font-size:12pt"></i>
-                        </a>
-                      </div>
+                    <div v-else>
+                      <label style="font-weight: normal">Go to <i>Settings</i> >> <i>Sales Channel</i> to add your first sales channel</label>
                     </div>
                   </div>
                 </div>
@@ -611,7 +616,7 @@
 
       async edit(sales_order) {
         this.selectContact(sales_order.contact);
-        this.selectSalesChannel(sales_order.channel);
+        this.selectSalesChannel(sales_order.my_sales_channel);
 
         const res = await axios.get(
           `sales_orders/${sales_order.sales_order_id}/details`
