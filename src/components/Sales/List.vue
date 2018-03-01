@@ -151,6 +151,7 @@
                             <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">TOTAL</th>
                             <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">BALANCE DUE</th>
                             <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
+                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">CHANNEL</th>
                             <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">ACTION</th>
                           </tr>
                           </thead>
@@ -231,6 +232,11 @@
                                   <i class="fa fa-circle text-green"></i>
                                 </div>
                               </td> -->
+                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                                <div v-if="sale.my_sales_channel">
+                                   {{ sale.my_sales_channel.sales_channel.channel_name }}
+                                </div>
+                              </td>
                               <td>
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
                                    aria-expanded="false">
