@@ -138,7 +138,7 @@
 
                 <div class="col-md-12 pl-pr-0" style="padding-top: 30px">
                   <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" v-if="list.items.length">
                       <thead>
                       <tr>
                         <td>Item Name</td>
