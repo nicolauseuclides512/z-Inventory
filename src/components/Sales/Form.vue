@@ -364,14 +364,14 @@
                       </div>
                       <div class="normal-mode">
                         <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
-                            <vuelist
+                          <vuelist
                             @change="selectSalesChannel"
                             :options="list.channels"
-                            :value="selected_sales_channel && selected_sales_channel.my_sales_channel_id && selected_sales_channel.my_sales_channel"
+                            :value="selected_sales_channel"
                             placeholder="Search a sales channel"
                             keyid="id"
                             label="store_name"
-                          ></vuelist>
+                        ></vuelist>
                         </div>
                         <div class="col-md-1" v-if="selected_sales_channel">
                           <a @click="clearSelectedSalesChannel" href="javascript:void(0)" class="text-danger">
@@ -528,6 +528,7 @@
           phone: '',
           email: '',
         },
+        sales_order_number: null,
         selected_product: null,
         selected_sales_channel: null,
         tax_included: 1,
@@ -866,10 +867,12 @@
       },
 
       async selectSalesChannel (channel){
-        const my_sales_channel_id = (this.form.my_sales_channel_id = channel.id);
-        const my_sales_channel = (this.form.my_sales_channel = channel.store_name);
-        const res = await axios.get(`my_channels/${my_sales_channel_id}`);
-        this.selected_sales_channel = res.data.data;
+        if (channel) {
+          const my_sales_channel_id = (this.form.my_sales_channel_id = channel.id);
+          const my_sales_channel = (this.form.my_sales_channel = channel.store_name);
+          const res = await axios.get(`my_channels/${my_sales_channel_id}`);
+          this.selected_sales_channel = res.data.data;
+        }
       },
 
       clearSelectedSalesChannel() {
