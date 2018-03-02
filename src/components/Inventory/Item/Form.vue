@@ -134,7 +134,7 @@
                 <div class="form-horizontal">
                   <div class="col-md-6" style="padding-left: 0px;">
                     <div class="form-group form-general m-b-20">
-                      <label class="col-md-4 control-label text-left text-danger">UOM</label>
+                      <label class="col-md-4 control-label text-left">UOM</label>
                       <div class="col-md-8 pl-pr-0">
                         <select id="uom_id" v-model="form.uom_id" class="form-control">
                           <option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
@@ -142,7 +142,7 @@
                       </div>
                     </div>
                     <div class="form-group form-general m-b-20">
-                      <label class="col-md-4 control-label text-left">Dimension (cm)</label>
+                      <label class="col-md-4 control-label text-left text-danger">Dimension (cm)</label>
                       <div class="col-md-2 pl-pr-0">
                         <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control">
                       </div>
@@ -269,9 +269,9 @@
           sales_rate: 0,
           compare_rate: 0,
           uom_id: null,
-          dimension_l: 0,
-          dimension_w: 0,
-          dimension_h: 0,
+          dimension_l: 1,
+          dimension_w: 1,
+          dimension_h: 1,
           weight: 0,
           weight_unit: 'gr',
           code_sku: '',
