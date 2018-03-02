@@ -47,6 +47,12 @@
                           @change="changeFirstVariantValues"
                         ></Vuetagger>
                       </div>
+                      <div class="col-md-1" v-if="!secondVariant.show && !thirdVariant.show">
+                        <button type="button" @click="addMoreVariant"
+                                class="btn btn-info btn-custom waves-effect waves-light m-b-5">
+                          Add more
+                        </button>
+                      </div>
                       <div class="col-md-1">
                         <button type="button" @click="hideFirstVariant"
                                 class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
@@ -67,6 +73,12 @@
                       </div>
                       <div class="col-md-7">
                         <Vuetagger :value="secondVariant.values" @change="changeSecondVariantValues"></Vuetagger>
+                      </div>
+                      <div class="col-md-1" v-if="!thirdVariant.show && firstVariant.show">
+                        <button type="button" @click="addMoreVariant"
+                                class="btn btn-info btn-custom waves-effect waves-light m-b-5">
+                          Add more
+                        </button>
                       </div>
                       <div class="col-md-1">
                         <button type="button" @click="hideSecondVariant"
@@ -100,11 +112,11 @@
                 </div>
 
                 <div class="row">
-                  <button
+                  <!-- <button
                     v-if="!firstVariant.show || !secondVariant.show || !thirdVariant.show"
                     type="button" @click="addMoreVariant" class="btn btn-info waves-effect waves-light">
                     Add more variant
-                  </button>
+                  </button> -->
                   <button type="button" @click="generateVariant" class="btn btn-info waves-effect waves-light">
                     Generate Variants
                   </button>
