@@ -39,6 +39,7 @@
                         :images="form.images"
                         @add="addImage"
                         @clear="clearImages"
+                        @delete="removeImage"
                       ></ImageUpload>
                     </div>
                   </div>
@@ -380,6 +381,11 @@
 
       addImage(value) {
         this.form.images.push(value)
+      },
+
+      removeImage(value) {
+        const index = this.form.images.indexOf(value)
+        this.form.images.splice(index, 1)
       },
 
       clearImages(value) {
