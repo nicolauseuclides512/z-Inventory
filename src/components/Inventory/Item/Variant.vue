@@ -130,10 +130,10 @@
                       <thead>
                       <tr>
                         <td>Item Name</td>
+                        <td>SKU</td>
                         <td v-if="firstVariant.show">{{ firstVariant.name | capitalize }}</td>
                         <td v-if="secondVariant.show">{{ secondVariant.name | capitalize }}</td>
                         <td v-if="thirdVariant.show">{{ thirdVariant.name | capitalize }}</td>
-                        <td>SKU</td>
                         <td>Price</td>
                         <td></td>
                       </tr>
@@ -141,6 +141,7 @@
                       <tbody>
                       <tr v-for="v in list.items">
                         <td><input type="text" class="form-control form-white" v-model="v.item_name"></td>
+                        <td><input type="text" class="form-control form-white" v-model="v.code_sku"></td>
                         <td v-if="firstVariant.show"><input type="text" class="form-control form-white"
                                                             v-model="v.item_attributes[firstVariant.name]"
                                                             disabled="disabled"></td>
@@ -150,7 +151,6 @@
                         <td v-if="thirdVariant.show"><input type="text" class="form-control form-white"
                                                             v-model="v.item_attributes[thirdVariant.name]"
                                                             disabled="disabled"></td>
-                        <td><input type="number" class="form-control form-white" v-model="v.code_sku"></td>
                         <td><input type="text" class="form-control form-white" v-model="v.sales_rate"></td>
                         <td>
                           <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
