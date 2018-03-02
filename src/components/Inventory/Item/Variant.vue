@@ -241,8 +241,8 @@
         showVariant: true,
 
         firstVariant: {name: 'color', show: true, values: []},
-        secondVariant: {name: 'size', show: true, values: []},
-        thirdVariant: {name: 'material', show: true, values: []},
+        secondVariant: {name: 'size', show: false, values: []},
+        thirdVariant: {name: 'material', show: false, values: []},
 
         list: {
           // Backend haven't have any asset variant yet
