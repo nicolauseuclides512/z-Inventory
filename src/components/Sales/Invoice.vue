@@ -24,7 +24,7 @@
       <div class="row sahito-invoice-content p-15">
         <div class="col-md-4 pt-20">
           <img class="img-responsive" :src="logo"
-               style="width: auto; height: auto; max-width: 160px; max-height: 120px; object-fit: cover;">
+               style="width: auto; height: auto; max-width: 160px; max-height: 120px; object-fit: cover;"  v-if="logo != 'http://placehold.it/250?text=No+Logo'">
         </div>
         <div class="col-md-8 text-right">
           <h1>INVOICE</h1>
