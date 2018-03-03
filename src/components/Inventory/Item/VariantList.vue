@@ -48,6 +48,9 @@
                     <td><input type="number" class="form-control form-white" v-model="v.code_sku" title=""></td>
                     <td><input type="text" class="form-control form-white" v-model="v.sales_rate" title=""></td>
                     <td>
+                      <button type="button" @click="updateItem(v)" class="btn btn-info btn-custom waves-effect">
+                        <i class="fa fa-check"></i>
+                      </button>
                       <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
                         <i class="ion-trash-b"></i>
                       </button>
@@ -93,6 +96,20 @@
     },
 
     methods: {
+
+      async updateItem (item) {
+        try {
+          const res = await Axios.post(`items/${item.item_id}/update`, item)
+          console.log(_.cloneDeep(res))
+          Alert.success(res.data.message)
+        }
+        catch (err) {
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            Alert.error(response.message)
+          }
+        }
+      },
 
       async removeItem (item) {
         this.$emit('remove', item)
