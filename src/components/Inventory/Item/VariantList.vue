@@ -53,13 +53,6 @@
                       </button>
                     </td>
                   </tr>
-                  <tr>
-                    <td colspan="10">
-                      <button type="button" @click="addMoreVariant" class="btn btn-default btn-custom waves-effect">
-                        Add more variant
-                      </button>
-                    </td>
-                  </tr>
                   </tbody>
                 </table>
               </div>
@@ -100,42 +93,6 @@
     },
 
     methods: {
-
-      addMoreVariant () {
-        this.list.items.push({
-          brand_id: this.item.brand_id,
-          category_id: this.item.category_id,
-          code_ean: this.item.code_ean,
-          code_isbn: this.item.code_isbn,
-          code_mpn: this.item.code_mpn,
-          code_sku: this.item.code_sku,
-          code_upc: this.item.code_upc,
-          dimension_h: this.item.dimension_h,
-          dimension_l: this.item.dimension_l,
-          dimension_w: this.item.dimension_w,
-          inventory_account: this.item.inventory_account,
-          inventory_checked: this.item.inventory_checked,
-          inventory_rate: this.item.inventory_rate,
-          inventory_stock: this.item.inventory_stock,
-          item_attributes: this.item.item_attributes,
-          item_name: this.item.item_name,
-          item_status: this.item.item_status,
-          manufacturer_id: this.item.manufacturer_id,
-          parent_id: this.item.item_id,
-          purchase_account: this.item.purchase_account,
-          purchase_checked: this.item.purchase_checked,
-          purchase_description: this.item.purchase_description,
-          purchase_rate: this.item.purchase_rate,
-          sales_account: this.item.sales_account,
-          sales_checked: this.item.sales_checked,
-          sales_description: this.item.sales_description,
-          sales_rate: this.item.sales_rate,
-          tax_id: this.item.tax_id,
-          uom_id: this.item.uom_id,
-          weight: this.item.weight,
-          weight_unit: this.item.weight_unit,
-        })
-      },
 
       async removeItem (item) {
         this.$emit('remove', item)
