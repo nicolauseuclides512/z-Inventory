@@ -967,6 +967,11 @@ select.select2-dropdown-open {
 .sales-order-inner-table td p {
     margin-bottom: 5px
 }
+.sales-order-inner-table td{
+    background-color:#eff0f1;
+    font-size:.97em!important;
+    padding: 10px 8px!important;
+}
 
 .sales-order-inner-table .sahito-invoice-table-inside tr.balance-due td,
 .sales-order-inner-table .sahito-invoice-table-inside tr.sub-total td {
@@ -2083,8 +2088,16 @@ select.select2-dropdown-open {
 
 .sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr td,
 .sahito-list .sahito-list-item-group .sahito-list-item-group-list--table tr td {
-    padding: 14px 8px;
-    font-size: .95em
+    padding: 12px 8px;
+    font-size: 1.05em;
+    color: #000
+}
+
+.sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr:first-child td,
+.sahito-list .sahito-list-item-group .sahito-list-item-group-list--table tr:first-child td {
+    padding: 22px 8px 12px 8px;
+    font-size: 1.05em;
+    color: #000
 }
 
 .sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr td.col-checkbox,
