@@ -3,7 +3,7 @@
     <div class="content full-width sahito-user bgr-white">
       <div class="container">
         <!-- Full list -->
-        <div class="container full-width-header bt-1 p-b-10">
+        <div class="container full-width-header p-b-10">
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
 
@@ -128,9 +128,9 @@
         <div v-if="contacts.length" class="container p-0">
           <div class="row sahito-list">
             <div class="col-md-12 p-0">
-              <div class="sahito-list-contact border-1 table-responsive">
-                <table class="table table-hover default-table sahito-list-contact--table table-striped">
-                  <thead>
+              <div class="sahito-list-contact table-responsive">
+                <table class="table table-hover default-table sahito-list-contact--table">
+                  <thead style="box-shadow: rgb(221, 221, 221) 0px 4px 2px -2px; font-weight: 400; color: rgb(0, 0, 0);">
                   <tr>
                     <th class="col-checkbox">
                       <div class="checkbox checkbox-single checkbox-success">
@@ -138,23 +138,23 @@
                         <label></label>
                       </div>
                     </th>
-                    <th>
-                      <a href="#" id="sort-title-name" @click="sortContactsBy('display_name')">Name</a>
+                    <th style="font-size:1.1em; font-weight:normal; width:20%">
+                      <a href="#" id="sort-title-name" @click="sortContactsBy('display_name')" style="color:#000">Name</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'display_name'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'display_name'"></i>
                     </th>
-                    <th>
-                      <a href="#" id="sort-title-company" @click="sortContactsBy('company_name')">Company Name</a>
+                    <th style="font-size:1.1em; font-weight:normal; width:35%">
+                      <a href="#" id="sort-title-company" @click="sortContactsBy('company_name')" style="color:#000">Company Name</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'company_name'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'company_name'"></i>
                     </th>
-                    <th>
-                      <a href="#" id="sort-title-email" @click="sortContactsBy('email')">Email</a>
+                    <th style="font-size:1.1em; font-weight:normal; width:20%">
+                      <a href="#" id="sort-title-email" @click="sortContactsBy('email')" style="color:#000">Email</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'email'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'email'"></i>
                     </th>
-                    <th>
-                      <a href="#" id="sort-title-work-phone" @click="sortContactsBy('phone')">Work Phone</a>
+                    <th style="font-size:1.1em; font-weight:normal; width:20%">
+                      <a href="#" id="sort-title-work-phone" @click="sortContactsBy('phone')" style="color:#000">Work Phone</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'phone'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'phone'"></i>
                     </th>
@@ -169,7 +169,7 @@
                       </div>
                     </td>
                     <td>
-                      <router-link :to="{ name: 'contact.edit', params: {id: c.contact_id }}">
+                      <router-link :to="{ name: 'contact.edit', params: {id: c.contact_id }}"style="color:#000">
                       <span v-if="c.display_code === 1 || !c.display_code">
                         {{ c.salutation_id | display_salutation }} {{ c.first_name }} {{ c.last_name }}
                       </span>
