@@ -11,10 +11,10 @@
                   <thead>
                   <tr>
                     <td>Item Name</td>
+                    <td>SKU</td>
                     <td v-if="Object.keys(item.item_attributes)[0]">{{ Object.keys(item.item_attributes)[0] }}</td>
                     <td v-if="Object.keys(item.item_attributes)[1]">{{ Object.keys(item.item_attributes)[1] }}</td>
                     <td v-if="Object.keys(item.item_attributes)[2]">{{ Object.keys(item.item_attributes)[2] }}</td>
-                    <td>SKU</td>
                     <td>Price</td>
                     <td></td>
                   </tr>
@@ -24,6 +24,7 @@
                     <td>
                       <input type="text" class="form-control form-white" v-model="v.item_name" title="">
                     </td>
+                    <td><input type="text" class="form-control form-white" v-model="v.code_sku" title=""></td>
                     <td v-if="Object.keys(item.item_attributes)[0]">
                       <input
                         type="text"
@@ -45,7 +46,6 @@
                         title=""
                       />
                     </td>
-                    <td><input type="number" class="form-control form-white" v-model="v.code_sku" title=""></td>
                     <td><input type="text" class="form-control form-white" v-model="v.sales_rate" title=""></td>
                     <td>
                       <button type="button" @click="updateItem(v)" class="btn btn-info btn-custom waves-effect">

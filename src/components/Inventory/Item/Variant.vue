@@ -47,6 +47,12 @@
                           @change="changeFirstVariantValues"
                         ></Vuetagger>
                       </div>
+                      <div class="col-md-1" v-if="!secondVariant.show && !thirdVariant.show">
+                        <button type="button" @click="addMoreVariant"
+                                class="btn btn-info btn-custom waves-effect waves-light m-b-5">
+                          Add more
+                        </button>
+                      </div>
                       <div class="col-md-1">
                         <button type="button" @click="hideFirstVariant"
                                 class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
@@ -67,6 +73,12 @@
                       </div>
                       <div class="col-md-7">
                         <Vuetagger :value="secondVariant.values" @change="changeSecondVariantValues"></Vuetagger>
+                      </div>
+                      <div class="col-md-1" v-if="!thirdVariant.show && firstVariant.show">
+                        <button type="button" @click="addMoreVariant"
+                                class="btn btn-info btn-custom waves-effect waves-light m-b-5">
+                          Add more
+                        </button>
                       </div>
                       <div class="col-md-1">
                         <button type="button" @click="hideSecondVariant"
@@ -100,11 +112,11 @@
                 </div>
 
                 <div class="row">
-                  <button
+                  <!-- <button
                     v-if="!firstVariant.show || !secondVariant.show || !thirdVariant.show"
                     type="button" @click="addMoreVariant" class="btn btn-info waves-effect waves-light">
                     Add more variant
-                  </button>
+                  </button> -->
                   <button type="button" @click="generateVariant" class="btn btn-info waves-effect waves-light">
                     Generate Variants
                   </button>
@@ -126,14 +138,14 @@
 
                 <div class="col-md-12 pl-pr-0" style="padding-top: 30px">
                   <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" v-if="list.items.length">
                       <thead>
                       <tr>
                         <td>Item Name</td>
+                        <td>SKU</td>
                         <td v-if="firstVariant.show">{{ firstVariant.name | capitalize }}</td>
                         <td v-if="secondVariant.show">{{ secondVariant.name | capitalize }}</td>
                         <td v-if="thirdVariant.show">{{ thirdVariant.name | capitalize }}</td>
-                        <td>SKU</td>
                         <td>Price</td>
                         <td></td>
                       </tr>
@@ -141,6 +153,7 @@
                       <tbody>
                       <tr v-for="v in list.items">
                         <td><input type="text" class="form-control form-white" v-model="v.item_name"></td>
+                        <td><input type="text" class="form-control form-white" v-model="v.code_sku"></td>
                         <td v-if="firstVariant.show"><input type="text" class="form-control form-white"
                                                             v-model="v.item_attributes[firstVariant.name]"
                                                             disabled="disabled"></td>
@@ -150,7 +163,6 @@
                         <td v-if="thirdVariant.show"><input type="text" class="form-control form-white"
                                                             v-model="v.item_attributes[thirdVariant.name]"
                                                             disabled="disabled"></td>
-                        <td><input type="number" class="form-control form-white" v-model="v.code_sku"></td>
                         <td><input type="text" class="form-control form-white" v-model="v.sales_rate"></td>
                         <td>
                           <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
@@ -229,8 +241,8 @@
         showVariant: true,
 
         firstVariant: {name: 'color', show: true, values: []},
-        secondVariant: {name: 'size', show: true, values: []},
-        thirdVariant: {name: 'material', show: true, values: []},
+        secondVariant: {name: 'size', show: false, values: []},
+        thirdVariant: {name: 'material', show: false, values: []},
 
         list: {
           // Backend haven't have any asset variant yet

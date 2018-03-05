@@ -93,8 +93,8 @@
                                     <th>SKU</th>
                                     <th>Item Name</th>
                                     <th>Quantity in Database</th>
-                                    <th>Adjust</th>
                                     <th>Quantity on Hand</th>
+                                    <th>Adjust</th>
                                     <th>Reason</th>
                                   </tr>
                                   </thead>
@@ -116,11 +116,11 @@
                                     </td>
                                     <td>
                                       <input
-                                        v-model.number="detail.adjust_qty"
-                                        @keyup="changeOnHandValue(detail)"
+                                        v-model.number="detail.on_hand_qty"
+                                        @keyup="changeAdjustValue(detail)"
                                         required
                                         :disabled="!detail.item_id"
-                                        title="Adjustment quantity"
+                                        title="On hand quantity"
                                         class="vertical-spin form-control"
                                         type="number"
                                         name="vertical-spin"
@@ -129,11 +129,11 @@
                                     </td>
                                     <td>
                                       <input
-                                        v-model.number="detail.on_hand_qty"
-                                        @keyup="changeAdjustValue(detail)"
+                                        v-model.number="detail.adjust_qty"
+                                        @keyup="changeOnHandValue(detail)"
                                         required
                                         :disabled="!detail.item_id"
-                                        title="On hand quantity"
+                                        title="Adjustment quantity"
                                         class="vertical-spin form-control"
                                         type="number"
                                         name="vertical-spin"
