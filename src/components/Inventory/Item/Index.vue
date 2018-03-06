@@ -187,28 +187,27 @@
                         <td class="text-center">
                           <span v-if="!item.children.length && !item.track_inventory">
                             <inline-editable
-                              :item-id="item.item_id"
-                              :value="item.stock_quantity"
+                              :item="item"
+                              :value.sync="item.stock_quantity"
                               @change="saveStockQuantity"
                             ></inline-editable>
                           </span>
                           <span v-if="item.track_inventory">
                             <inline-editable
-                              :item-id="item.item_id"
-                              :value="item.stock_quantity"
+                              :item="item"
+                              :value.sync="item.stock_quantity"
                               @change="saveStockQuantity"
-                            ></inline-editable>
+                            />
                           </span>
                         </td>
                         <td class="text-left">
-                          <!--<pre v-text="$options.filters.money"></pre>-->
                           <span v-if="!item.children.length">
                             <inline-editable
-                              :item-id="item.item_id"
-                              :value="item.sales_rate"
+                              :item="item"
+                              :value.sync="item.sales_rate"
                               @change="saveNewPrice"
                               output="money"
-                            ></inline-editable>
+                            />
                           </span>
                         </td>
                       </tr>
@@ -310,10 +309,14 @@
             return
           }
 
+          const quantityAdjustment = payload.value - payload.oldValue
+
           const res = await Axios.post(`stocks/free_adjust`, {
-            item_id: payload.itemId,
-            adjust_qty: payload.value - payload.oldValue,
+            item_id: payload.item.item_id,
+            adjust_qty: quantityAdjustment,
           })
+
+          payload.item.stock_quantity = payload.value
 
           swal_success(res)
         }
@@ -328,9 +331,11 @@
 
       async saveNewPrice(payload) {
         try {
-          const res = await Axios.post(`items/${payload.itemId}/update_price`, {
+          const res = await Axios.post(`items/${payload.item.item_id}/update_price`, {
             new_price: payload.value,
           })
+
+          payload.item.sales_rate = payload.value
 
           swal_success(res)
         }

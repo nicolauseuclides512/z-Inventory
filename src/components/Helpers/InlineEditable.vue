@@ -32,7 +32,7 @@
 
 
     props: {
-      itemId: {},
+      item: null,
       value: null,
       output: null,
     },
@@ -47,6 +47,13 @@
     },
 
 
+    watch: {
+      value(value) {
+        this.newValue = value
+      }
+    },
+
+
     mounted() {
       this.newValue = this.value
     },
@@ -56,10 +63,11 @@
 
       save() {
         this.$emit('change', {
-          itemId: this.itemId,
+          item: this.item,
           value: Number(this.newValue),
           oldValue: Number(this.originalValue),
         })
+        this.hideInlineEditor()
       },
 
 
