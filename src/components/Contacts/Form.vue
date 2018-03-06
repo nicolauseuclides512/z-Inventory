@@ -126,10 +126,10 @@
                   </li>
                   -->
                   <li :class="{ tab: true, active: currentTab === 'address'}" style="width: 50%;">
-                    <a href="javascript:void(0)" @click="changeTab('address')"> Address </a>
+                    <a href="javascript:void(0)" @click="changeTab('address')" style="line-height:50px"> Address </a>
                   </li>
                   <li :class="{ tab: true, active: currentTab === 'notes'}" style="width: 50%;">
-                    <a href="javascript:void(0)" @click="changeTab('notes')">Notes</a>
+                    <a href="javascript:void(0)" @click="changeTab('notes')" style="line-height:50px">Notes</a>
                   </li>
                   <div class="indicator" style="right: 932px; left: 0px;"></div>
                 </ul>
