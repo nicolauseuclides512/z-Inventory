@@ -110,9 +110,9 @@
       <div class="container p-0">
         <div class="row sahito-list">
           <div class="col-md-12 p-0">
-            <div class="sahito-list-item-group border-1 table-responsive">
-               <table class="table table-hover default-table sahito-list-contact--table table-striped">
-                <thead>
+            <div class="sahito-list-item-group table-responsive">
+               <table class="table table-hover default-table sahito-list-contact--table">
+                <thead style="box-shadow: rgb(221, 221, 221) 0px 4px 2px -2px; font-weight: 400; color: rgb(0, 0, 0);">
                   <tr>
                     <th class="col-checkbox" style="width: 5%">
                       <div class="checkbox checkbox-single checkbox-success">
@@ -121,28 +121,28 @@
                       </div>
                     </th>
                     <th></th>
-                    <th style="width: 25%">
-                      <a href="#" @click="sortItemsBy('item_name')" >Name</a>
+                    <th style="width: 25%; font-size:1.1em; font-weight:normal">
+                      <a href="#" @click="sortItemsBy('item_name')" style="color:#000" >Name</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'item_name'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'item_name'"></i>
                     </th>
-                    <th class="text-center" style="width: 10%">
-                      <a href="#" @click="sortItemsBy('description')">SKU</a>
+                    <th class="text-center" style="width: 10%; font-size:1.1em; font-weight:normal">
+                      <a href="#" @click="sortItemsBy('description')" style="color:#000">SKU</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'sku'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'sku'"></i>
                     </th>
-                    <th style="width: 25%">
-                      <a href="#" @click="sortItemsBy('description')">Description</a>
+                    <th style="width: 25%; font-size:1.1em; font-weight:normal">
+                      <a href="#" @click="sortItemsBy('description')" style="color:#000">Description</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'description'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'description'"></i>
                     </th>
-                    <th class="text-center" style="width: 15%">
-                      <a href="#" @click="sortItemsBy('inventory_stock')" >Stock Available</a>
+                    <th class="text-center" style="width: 15%; font-size:1.1em; font-weight:normal">
+                      <a href="#" @click="sortItemsBy('inventory_stock')" style="color:#000">Stock Available</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                     </th>
-                    <th class="text-left" style="width: 20%">
-                      <a href="#" @click="sortItemsBy('sales_rate')">Price</a>
+                    <th class="text-left" style="width: 20%; font-size:1.1em; font-weight:normal">
+                      <a href="#" @click="sortItemsBy('sales_rate')" style="color:#000">Price</a>
                       <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'sales_rate'"></i>
                       <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'sales_rate'"></i>
                     </th>
@@ -165,10 +165,10 @@
                   </td>
                   <td>
                     <router-link v-if="item.children.length"
-                                 :to="{ name: 'item.edit_variant', params: { id: item.item_id } }">
+                                 :to="{ name: 'item.edit_variant', params: { id: item.item_id } }" style="color:#000">
                       {{ item.item_name }}
                     </router-link>
-                    <router-link v-if="!item.children.length" :to="{ name: 'item.edit', params: { id: item.item_id } }">
+                    <router-link v-if="!item.children.length" :to="{ name: 'item.edit', params: { id: item.item_id } } "style="color:#000">
                       {{ item.item_name }}
                     </router-link>
                   </td>
