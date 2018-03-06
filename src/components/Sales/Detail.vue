@@ -129,31 +129,52 @@
                                 <label></label>
                               </div>
                             </td>
-                            <td @click="showDetail(sale)" style="cursor: pointer;">
-                              <div  class="clearfix" style="margin-top: 8px;">
+                            <td @click="showDetail(sale)" style="cursor: pointer; padding:5px 15px 5px 0px">
+                              <div  class="clearfix">
                                 <div class="pull-left">
-                                  <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
-                                    <strong>{{ sale.contact.display_name }}</strong>
+                                  <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact" style="color:#000">
+                                    {{ sale.contact.display_name }}
                                   </a>
                                 </div>
-                                <div class="pull-right">
+                                <div class="pull-right" style="font-size:1.1em; color:#000">
                                   {{ sale.total | money }}
                                 </div>
                               </div>
                               <div class="clearfix" style="margin-top: 8px;">
                                 <div class="pull-left">
-                                  <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
-                                    <span class="text-muted">#</span>{{ sale.sales_order_number }}
+                                  <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact" style="color:#000; font-size:.9em">
+                                    <span class="text-muted">#</span><span style="color: rgb(153, 153, 153); font-size: 0.9em !important;" >{{ sale.sales_order_number }}</span>
                                   </a>
                                 </div>
                                 <div class="pull-right">
-                                  <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status }}</span>
+                                  <!-- <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status }}</span>
                                   <span v-else-if="sale.sales_order_status == 'DRAFT'" style="font-size: 10px;">{{ sale.sales_order_status }}</span>
-                                  <span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span>
+                                  <span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span> -->
+                                                                <div v-if="sale.sales_order_status === 'DRAFT'">
+                                  <span class="label label-info" style="background-color:#C4C4C4; color:#000000">{{ sale.sales_order_status }}</span>
+                                </div>
+                                <div v-else>
+                                  <!--{{ sale.invoice_status }}-->
+                                <div v-if="sale.invoice_status === 'PAID'">
+                                  <span class="label label-info" style="background-color:#319B31">PAID</span>
+                                </div>
+                                <div v-else-if="sale.invoice_status === 'UNPAID'">
+                                  <span class="label label-info" style="background-color:#1C8AD9">UNPAID</span>
+                                </div>
+                                <div v-else-if="sale.invoices[0].invoice_status === 'PARTIALLY_PAID'">
+                                  <span class="label label-info" style="background-color:#E6E600; color:#000000">PARTIALLY PAID</span>
+                                </div>
+                                <div v-else-if="sale.invoice_status === 'OVERDUE'">
+                                  <span class="label label-info" style="background-color:#E33636">OVERDUE</span>
+                                </div>
+                                <div v-else-if="sale.invoice_status === 'VOID'">
+                                  <span class="label label-info" style="background-color:#000000">VOID</span>
+                                </div>
+                                </div>
                                 </div>
                               </div>
                               <div class="clearfix" style="margin-top: 8px;">
-                                <div class="pull-left">
+                                <div class="pull-left" style="color:rgb(153, 153, 153); font-size:.9em">
                                   {{ sale.invoice_date | date('short') }}
                                 </div>
                                 <div class="pull-right">
@@ -179,7 +200,7 @@
                       <span class="text-muted">#</span>
                       <span>{{salesOrder.sales_order_number}}</span>
 
-                      <span v-if="salesOrder.sales_order_status === 'DRAFT'">
+                      <!-- <span v-if="salesOrder.sales_order_status === 'DRAFT'">
                         <small class="label label-default"> DRAFT </small>
                       </span>
                       <span v-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT' && salesOrder.invoice_status === 'UNPAID'">
@@ -196,7 +217,7 @@
                       </span>
                       <span v-if="salesOrder.sales_order_status === 'CANCELED' && salesOrder.invoice_status === 'VOID'">
                         <small class="label label-inverse"> VOID </small>
-                      </span>
+                      </span> -->
 
                       <!--<small class="label label-success" v-if="salesOrder.invoice_status === 'PAID'">
                         {{ salesOrder.invoice_status }}
