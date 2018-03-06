@@ -189,14 +189,14 @@
                             <inline-editable
                               :item="item"
                               :value.sync="item.stock_quantity"
-                              @change="saveStockQuantity"
+                              @update="saveStockQuantity"
                             ></inline-editable>
                           </span>
                           <span v-if="item.track_inventory">
                             <inline-editable
                               :item="item"
                               :value.sync="item.stock_quantity"
-                              @change="saveStockQuantity"
+                              @update="saveStockQuantity"
                             />
                           </span>
                         </td>
@@ -205,7 +205,7 @@
                             <inline-editable
                               :item="item"
                               :value.sync="item.sales_rate"
-                              @change="saveNewPrice"
+                              @update="saveNewPrice"
                               output="money"
                             />
                           </span>

@@ -62,7 +62,7 @@
     methods: {
 
       save() {
-        this.$emit('change', {
+        this.$emit('update', {
           item: this.item,
           value: Number(this.newValue),
           oldValue: Number(this.originalValue),
