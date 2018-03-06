@@ -1,7 +1,7 @@
 <template>
-<div class="content-page"> 
-    <div class="content full-width sahito-user bgr-white"> 
-      <div class="container"> 
+<div class="content-page">
+    <div class="content full-width sahito-user bgr-white">
+      <div class="container">
   <div>
     <div v-if="!list.items.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
       <i class="fa fa-5x fa-archive"></i>
@@ -179,20 +179,16 @@
                   <td class="text-center">
                     <span v-if="!item.children.length && !item.track_inventory">
                       <inline-editable
-                        :item="item"
-                        name="stock_quantity"
+                        :item-id="item.item_id"
                         :value="item.stock_quantity"
-                        :url="`items/${item.item_id}/update_inventory_stock`"
-                        type="number"
+                        @change="saveStockQuantity"
                       ></inline-editable>
                     </span>
                     <span v-if="item.track_inventory">
                       <inline-editable
-                        :item="item"
-                        name="stock_quantity"
+                        :item-id="item.item_id"
                         :value="item.stock_quantity"
-                        :url="`items/${item.item_id}/update_inventory_stock`"
-                        type="number"
+                        @change="saveStockQuantity"
                       ></inline-editable>
                     </span>
                   </td>
@@ -234,12 +230,15 @@
       </div>
     </div>
   </div>
-</div> 
-    </div> 
-  </div> 
+</div>
+    </div>
+  </div>
 </template>
 
 <script>
+/* tslint:disable:no-console no-shadowed-variable object-literal-sort-keys variable-name */
+
+import Axios from 'axios'
 import { getParameterByName } from "src/helpers";
 
 export default {
@@ -294,6 +293,30 @@ export default {
   },
 
   methods: {
+
+    async saveStockQuantity (payload) {
+      try {
+
+        if (payload.value <= payload.oldValue) {
+          Alert.error('New value must be larger than original value')
+          return
+        }
+
+        const res = await Axios.post(`stocks/free_adjust`, {
+          item_id: payload.itemId,
+          adjust_qty: payload.value - payload.oldValue,
+        })
+
+        swal_success(res)
+      }
+      catch (err) {
+        console.error(err)
+        if (err.hasOwnProperty('response')) {
+          swal_error(err.response)
+        }
+      }
+    },
+
     /**
        * Check all items
        */
