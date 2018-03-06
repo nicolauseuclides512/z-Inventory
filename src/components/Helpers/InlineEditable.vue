@@ -10,12 +10,7 @@
       <form method="POST" @submit.prevent="save">
 
         <div class="input-group col-sx-12">
-          <div v-if="type === 'text'">
-            <input type="text" v-model="newValue" class="form-control" min="0" required>
-          </div>
-          <div v-if="type === 'number'">
-            <input type="number" v-model="newValue" class="form-control" min="0" required>
-          </div>
+          <input type="number" v-model="newValue" class="form-control" min="0" required>
           <div class="input-group-btn">
             <button type="submit" class="btn btn-primary editable-submit btn-sm waves-effect waves-light"><i class="md md-done"></i></button>
             <button type="button" @click="hideInlineEditor" class="btn editable-cancel btn-sm waves-effect waves-light"><i class="md md-clear"></i></button>
@@ -34,10 +29,7 @@
 
 
     props: {
-      item: {},
-      type: null, // text or number
-      url: '',
-      name: '',
+      itemId: {},
       value: null,
     },
 
@@ -59,30 +51,11 @@
     methods: {
 
       save() {
-
-        let data
-
-        if (this.name === 'sales_rate') {
-          data = {new_price: this.newValue}
-        }
-
-        if (this.name === 'inventory_stock') {
-          data = { new_inventory_stock: this.newValue }
-        }
-
-        this.$http.post(this.url, data)
-          .then(res => {
-            if ([0, 200, 201].indexOf(res.data.code) === -1) return swal_error(res)
-
-            this.originalValue = this.newValue
-
-            this.hideInlineEditor()
-
-            swal_success(res)
-
-          }, res => {
-            return swal_error(res)
-          })
+        this.$emit('change', {
+          itemId: this.itemId,
+          value: Number(this.newValue),
+          oldValue: Number(this.originalValue),
+        })
       },
 
 
