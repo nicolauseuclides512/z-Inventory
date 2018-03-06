@@ -210,7 +210,7 @@
                     </h3>
                     <div class="pull-right">
 
-                      <div class="dropdown pull-left" style="margin-right: 10px;">
+                      <div class="dropdown pull-left" style="margin-right: 10px;" v-if="salesOrder.invoice_status !== 'VOID'">
                         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                           Record
                           <span class="caret"></span>
@@ -221,7 +221,6 @@
                               @click="showModalPayment()"
                               data-toggle="dropdown"
                               aria-expanded="false"
-                              v-if="salesOrder.invoice_status !== 'VOID'"
                               :disabled="salesOrder.invoice_status === 'PAID'"
                             >
                               Payment
