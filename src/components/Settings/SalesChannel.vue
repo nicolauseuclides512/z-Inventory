@@ -63,7 +63,9 @@
                 <tbody>
                 <tr v-for="channel in list.channels">
                   <td class="has_img">
-                    <img :src="`/static/images/sales-channel/${channel.sales_channel.channel_name.toLowerCase()}.png`">
+                    <img v-if="channel.sales_channel.channel_name == 'Offline Store' || channel.sales_channel.channel_name == 'Website' || channel.sales_channel.channel_name == 'Bazaar' " :src="image_logo_medium">
+                    <img v-else-if="channel.sales_channel.channel_name == 'SMS'">
+                    <img v-else :src="`/static/images/sales-channel/${channel.sales_channel.channel_name.toLowerCase()}.png`">
                   </td>
                   <td>{{ channel.sales_channel.channel_name }}</td>
                   <td>{{ channel.store_name }}</td>
@@ -98,8 +100,11 @@
 
 <script>
   import Axios from 'axios'
+  import Cookie from 'js-cookie'
   import Form from '@/helpers/Form'
   import SalesChannelModal from './SalesChannelModal'
+
+  const orgId = Cookie.get('organization_id')
 
   export default {
     name: 'SalesChannel',
@@ -127,6 +132,7 @@
     mounted () {
       this.salesChannelResource()
       this.salesChannel()
+      this.companyLogo()
     },
 
     methods: {
@@ -151,6 +157,12 @@
 
         const res = await Axios.get(`my_channels`, {params: query})
         this.list.channels = res.data.data
+      },
+
+      async companyLogo (){
+        const organization_id = Cookie.get('organization_id')
+        const res = await Axios.get(`organizations/${organization_id}`)
+        this.image_logo_medium = res.data.data.logo
       },
 
       async add () {
