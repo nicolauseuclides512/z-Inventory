@@ -149,7 +149,7 @@
         const defaultParams = {
           filter: 'all',
           page: 1,
-          per_page: 10,
+          per_page: 9999,
           sort: 'sales_channel_id.asc',
         }
 
