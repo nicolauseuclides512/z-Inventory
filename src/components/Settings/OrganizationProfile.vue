@@ -75,7 +75,7 @@
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-3 control-label text-left">Phone</label>
                     <div class="col-md-5">
-                      <input type="text" id="phone" v-model.trim="form.phone" class="form-control" placeholder="" minlength="9" maxlength="15">
+                      <input type="number" id="phone" v-model.trim="form.phone" class="form-control" placeholder="" minlength="9" maxlength="15">
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
