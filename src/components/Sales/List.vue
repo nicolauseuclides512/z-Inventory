@@ -19,7 +19,7 @@
         </div>
 
         <div v-if="salesList.length">
-          <div class="container full-width-header bt-1 p-b-10">
+          <div class="container full-width-header p-b-10">
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0">
 
@@ -132,7 +132,7 @@
                       <div v-else>
                         <table
                           class="table table-hover default-table sahito-list-item-group-list--table sahito-sales-order-table">
-                          <thead>
+                          <thead style="box-shadow: rgb(221, 221, 221) 0px 4px 2px -2px;">
                           <tr>
                             <th class="col-checkbox">
                               <div class="checkbox checkbox-single checkbox-success">
@@ -143,16 +143,16 @@
                             <th id="icon_collapse" style="padding-top:  15px;padding-bottom:  15px;">
                               <div class="placeholder-collapse"></div>
                             </th>
-                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">DATE</th>
-                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">ORDER ID</th>
-                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">CUSTOMER</th>
-                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">STATUS</th>
-                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">DUE DATE</th>
-                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">TOTAL</th>
-                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">BALANCE DUE</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Date</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Order ID</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;">Customer</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Status</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Due Date</th>
+                            <th class="text-right" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Total</th>
+                            <th class="text-right" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Balance Due</th>
                             <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
-                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">CHANNEL</th>
-                            <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">ACTION</th>
+                            <th class="text-right" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Channel</th>
+                            <th class="text-right" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Action</th>
                           </tr>
                           </thead>
                           <tbody>
@@ -167,21 +167,21 @@
                               <td>
                                 <a href="javascript:void(0);" @click="overviewToggle(sale.sales_order_id)">
                                   <i v-if="overview.sales_order_id == sale.sales_order_id"
-                                     class="ion-minus-circled text-green fa-lg"></i>
-                                  <i v-else="" class="ion-plus-circled text-green fa-lg"></i>
+                                     class="ion-minus-round text-green"></i>
+                                  <i v-else="" class="ion-plus-round text-green"></i>
                                 </a>
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.invoice_date |
                                 date('short') }}
                               </td>
-                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                              <td style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
                                 {{ sale.sales_order_number }}
                               </td>
                               <td>
-                                <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
-                                             href="javascript:void(0);">
+                                <!-- <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }" -->
+                                             <!-- href="javascript:void(0);"> -->
                                   {{ sale.contact.display_name }}
-                                </router-link>
+                                <!-- </router-link> -->
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 <div v-if="sale.sales_order_status === 'DRAFT'">
@@ -210,8 +210,8 @@
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.due_date | date('short') }}
                               </td>
-                              <td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
-                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
+                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.invoices[0].balance_due | money}}
                               </td>
                               <!-- <td style="cursor: pointer;" @click="showDetail(sale)">
@@ -232,17 +232,17 @@
                                   <i class="fa fa-circle text-green"></i>
                                 </div>
                               </td> -->
-                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">
                                 <div v-if="sale.my_sales_channel">
                                    {{ sale.my_sales_channel.sales_channel.channel_name }}
                                 </div>
                               </td>
-                              <td>
+                              <td class="text-right">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
                                    aria-expanded="false">
-                                  <span class="fa fa-cog"></span>
+                                  <span class="ion-ios7-more-outline" style="color:#03a2cd; font-size:1.5em; padding:px"></span>
                                 </a>
-                                <ul class="dropdown-menu" role="menu" style="right: 70px;top: 70px;left: initial;">
+                                <ul class="dropdown-menu" role="menu" style="right: 40px;left: initial;top: initial;">
                                   <li>
                                     <router-link :to="{ name: 'sales.edit', params: { id: sale.sales_order_id } }"
                                                  href="javascript:void(0)">
@@ -278,16 +278,16 @@
                                 <table v-if="overview.sales_order_id === sale.sales_order_id"
                                        class="table sales-order-inner-table">
                                   <tbody>
-                                  <tr>
+                                  <!-- <tr>
                                     <td class="col-checkbox">
                                     </td>
                                     <th>Customer</th>
                                     <th>Order Details</th>
-                                  </tr>
+                                  </tr> -->
                                   <tr>
                                     <td class="col-checkbox">
                                     </td>
-                                    <td style="border-top: 1px solid #ddd; width: 200px;">
+                                    <td style="width: 200px; vertical-align:top">
                                       <div v-if="sale.contact">
                                         <router-link
                                           :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
@@ -299,22 +299,16 @@
                                       </div>
                                       <div v-else><span class="text-muted">&mdash;</span></div>
                                     </td>
-                                    <td rowspan="3" style="border-left:1px solid #ddd;">
+                                    <td rowspan="3">
                                       <div class="border-1 table-responsive">
                                         <table class="table sales-order-inner-table">
                                           <thead>
                                           <tr class="">
-                                            <th style="color:#000000; width: 50%; font-size: 1em;">Item &amp;
-                                              Description
-                                            </th>
-                                            <th style="color:#000000; width: 10%; font-size: 1em;">Qty</th>
-                                            <th style="color:#000000; width: 10%; font-size: 1em;">Price @</th>
-                                            <th class="text-right" style="color:#000000; width: 10%; font-size: 1em;">
-                                              Disc
-                                            </th>
-                                            <th class="text-right" style="color:#000000; width: 20%; font-size: 1em;">
-                                              Amount
-                                            </th>
+                                            <th style="color:#000000; width: 40%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Item &amp; Description</th>
+                                            <th style="color:#000000; width: 10%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Qty</th>
+                                            <th style="color:#000000; width: 15%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Price @</th>
+                                            <th class="text-left" style="color:#000000; width: 15%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Disc</th>
+                                            <th class="text-right" style="color:#000000; width: 20%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Amount </th>
                                           </tr>
                                           </thead>
                                           <tbody>
@@ -324,7 +318,7 @@
                                               <p class="qty-amount">{{ order.item_quantity }} {{ order.uom }}</p>
                                             </td>
                                             <td style="font-size: 1em;">{{ order.item_rate | money }}</td>
-                                            <td class="text-right" style="font-size: 1em;">
+                                            <td class="text-left" style="font-size: 1em;">
                                         <span
                                           v-if="order.discount_amount_type === 'fixed'">{{ Number(order.discount_amount_value) | money}}</span>
                                               <span v-else>{{ order.discount_amount_value }}%</span>
@@ -344,7 +338,7 @@
                                           <!--<td>{{ overview.shipping_charge | money }}</td>-->
                                           <!--</tr>-->
                                           <tr class="sub-total">
-                                            <td colspan="3" style="border-color: white;">
+                                            <td colspan="3" style="border-color: #eee;">
                                             <td colspan="1" style="font-size: 1em;">{{ overview.adjustment_name ||
                                               'Adjustment' }}
                                             </td>
@@ -353,7 +347,7 @@
                                             </td>
                                           </tr>
                                           <tr class="sub-total">
-                                            <td colspan="3" style="border-color: white; ">
+                                            <td colspan="3" style="border-color: #eee; ">
                                             <td style="font-size: 1em;">Tax</td>
                                             <td class="text-right" style="font-size: 1em;">
                                               <span v-if="overview.tax === -1">Included</span>
@@ -361,11 +355,11 @@
                                             </td>
                                           </tr>
                                           <tr class="balance-due">
-                                            <td colspan="3" style="border-color: white;"></td>
-                                            <td class="text-bold" style="background: #f0f0f0; font-size: 1em;">Total
+                                            <td colspan="3" style="border-color: #eee;"></td>
+                                            <td class="text-bold" style="background-color :rgb(214, 218, 219); font-size: 1em;">Total
                                             </td>
                                             <td class="text-right text-bold"
-                                                style="background: #f0f0f0; font-color: #000000; font-size: 1em;">{{
+                                                style="background-color :rgb(214, 218, 219); font-color: #000000; font-size: 1em;">{{
                                               overview.total | money }}
                                             </td>
                                           </tr>

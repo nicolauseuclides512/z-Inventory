@@ -114,7 +114,9 @@
                           <td class="text-right">{{ subtotal | money }}</td>
                           <td></td>
                         </tr>
-                        <tr>
+                        <tr v-if="tax_value == 'Included'">
+                        </tr>
+                        <tr v-else>
                           <td class="text-right"
                               style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
                           <td class="text-right">PPN 10%</td>
