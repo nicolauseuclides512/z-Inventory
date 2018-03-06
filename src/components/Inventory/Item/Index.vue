@@ -185,31 +185,31 @@
                         </td>
                         <td><span v-if="!item.children.length">{{ item.description }}</span></td>
                         <td class="text-center">
-                    <span v-if="!item.children.length && !item.track_inventory">
-                      <inline-editable
-                        :item-id="item.item_id"
-                        :value="item.stock_quantity"
-                        @change="saveStockQuantity"
-                      ></inline-editable>
-                    </span>
+                          <span v-if="!item.children.length && !item.track_inventory">
+                            <inline-editable
+                              :item-id="item.item_id"
+                              :value="item.stock_quantity"
+                              @change="saveStockQuantity"
+                            ></inline-editable>
+                          </span>
                           <span v-if="item.track_inventory">
-                      <inline-editable
-                        :item-id="item.item_id"
-                        :value="item.stock_quantity"
-                        @change="saveStockQuantity"
-                      ></inline-editable>
-                    </span>
+                            <inline-editable
+                              :item-id="item.item_id"
+                              :value="item.stock_quantity"
+                              @change="saveStockQuantity"
+                            ></inline-editable>
+                          </span>
                         </td>
                         <td class="text-left">
-                    <span v-if="!item.children.length">
-                      <inline-editable
-                        :item="item"
-                        name="sales_rate"
-                        :value="item.sales_rate | money"
-                        :url="'items/' + item.item_id + '/update_price'"
-                        type="number"
-                      ></inline-editable>
-                    </span>
+                          <!--<pre v-text="$options.filters.money"></pre>-->
+                          <span v-if="!item.children.length">
+                            <inline-editable
+                              :item-id="item.item_id"
+                              :value="item.sales_rate"
+                              @change="saveNewPrice"
+                              output="money"
+                            ></inline-editable>
+                          </span>
                         </td>
                       </tr>
 
@@ -313,6 +313,23 @@
           const res = await Axios.post(`stocks/free_adjust`, {
             item_id: payload.itemId,
             adjust_qty: payload.value - payload.oldValue,
+          })
+
+          swal_success(res)
+        }
+        catch (err) {
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
+        }
+      },
+
+
+      async saveNewPrice(payload) {
+        try {
+          const res = await Axios.post(`items/${payload.itemId}/update_price`, {
+            new_price: payload.value,
           })
 
           swal_success(res)

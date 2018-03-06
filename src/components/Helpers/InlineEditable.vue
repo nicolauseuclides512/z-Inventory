@@ -2,7 +2,10 @@
   <div>
 
     <div v-if="!editMode" col-sx-12>
-      <a href="javascript:;" @click="showInlineEditor($event)">{{ newValue }}</a>
+      <a href="javascript:;" @click="showInlineEditor($event)">
+        <span v-if="output">{{ newValue | money }}</span>
+        <span v-else>{{ newValue }}</span>
+      </a>
     </div>
 
     <div v-else>
@@ -31,6 +34,7 @@
     props: {
       itemId: {},
       value: null,
+      output: null,
     },
 
 
