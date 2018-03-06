@@ -18,6 +18,8 @@
                     <option
                       v-for="channel in list.channel_resources"
                       :value="channel.id"
+                      placeholder="Choose Sales Channel"
+                      required="required"
                     >
                       {{ channel.channel_name }}
                     </option>
@@ -30,7 +32,7 @@
                     type="text"
                     class="form-control form-white"
                     id="sales_channel_name"
-                    placeholder="Sales Channel Name"
+                    required
                   />
                 </div>
                 <div class="col-md-1">
@@ -167,11 +169,15 @@
 
       async add () {
         try {
+          if (this.form.store_name && this.form.sales_channel_id){
           const res = await Axios.post(`my_channels`, this.form)
           await this.salesChannel()
           this.form.sales_channel_id = null
           this.form.store_name = ''
           Alert.success('New channel has been created')
+          } else {
+            Alert.error('Whoops! Choose sales channel or fill your store name first!')  
+          }
         }
         catch (err) {
           console.error(err)
