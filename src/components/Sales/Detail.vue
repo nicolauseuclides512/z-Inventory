@@ -192,13 +192,31 @@
 
               </div>
 
-              <div class="col-md-8 col-sm-8 col-xs-8 right-side">
+              <div class="col-md-8 col-sm-8 col-xs-8 right-side" style="padding-left:20px; padding-top: 2px;">
 
-                <div class="row" v-if="salesOrder">
+                <div class="row" v-if="salesOrder" style="margin-bottom:30px">
                   <div class="col-md-12">
-                    <h3 class="pull-left page-title">
+                    <h4 class="pull-left page-title">
                       <span class="text-muted">#</span>
                       <span>{{salesOrder.sales_order_number}}</span>
+                                                    <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
+                                        title="View as PDF" @click="viewInvoice"><i class="fa fa-file-pdf-o"></i></button>
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
+                                        title="Print" @click="viewInvoice"><i class="fa fa-print"></i></button>
+                                <button
+                                  type="button"
+                                  class="btn btn-default"
+                                  data-toggle="tooltip"
+                                  data-placement="top"
+                                  title="Send as mail"
+                                  :disabled="sendingEmail"
+                                  @click="sendInvoiceAsMail"
+                                >
+                                  <i class="fa fa-envelope-o" v-if="!sendingEmail"></i>
+                                  <i class="fa fa-spin fa-spinner" v-else="sendingEmail"></i>
+                                </button>
+                              </div>
 
                       <!-- <span v-if="salesOrder.sales_order_status === 'DRAFT'">
                         <small class="label label-default"> DRAFT </small>
@@ -228,11 +246,20 @@
                       </small>
                       <small class="label label-success" v-if="salesOrder.shipment_status === 'SHIPPED'">{{ salesOrder.shipment_status | removeUnderScore }}</small>
                       <small class="label label-danger" v-else>{{ salesOrder.shipment_status | removeUnderScore }}</small>-->
-                    </h3>
+                    </h4>
                     <div class="pull-right">
-
+                      <div class="pull-left" style="margin-right: 10px;">
+                        <router-link
+                          :to="{ name: 'sales.edit', param: { id: salesOrder.sales_order_id } }"
+                          v-if="salesOrder.invoice_status !== 'VOID'"
+                          class="btn btn-default waves-effect waves-light m-b-5"
+                        >
+                          Edit
+                        </router-link>
+                      </div>
                       <div class="dropdown pull-left" style="margin-right: 10px;">
-                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                        v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'">
                           Record
                           <span class="caret"></span>
                         </button>
@@ -260,31 +287,26 @@
                         </ul>
                       </div>
 
-                      <div class="pull-left" style="margin-right: 10px;">
-                        <router-link
-                          :to="{ name: 'sales.edit', param: { id: salesOrder.sales_order_id } }"
-                          v-if="salesOrder.invoice_status !== 'VOID'"
-                          class="btn btn-default waves-effect waves-light m-b-5"
-                        >
-                          Edit
-                        </router-link>
-                      </div>
 
                       <div class="pull-left" style="margin-right: 10px;">
-                        <button
-                          @click="cancelSalesOrder(salesOrder)"
-                          class="btn btn-default waves-effect waves-light m-b-5"
-                          v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'"
-                        >
-                          Void
-                        </button>
+                       <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown" aria-expanded="false"
+                            v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'">
+	                    More <i class="ion-arrow-down-b"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" style="top: 35px; left:initial; right:20px">
+                      <li>
+                        <a @click="cancelSalesOrder(salesOrder)" style="cursor: pointer;">
+                          Mark as Void
+                        </a>
+                      </li>
+                    </ul>
                       </div>
 
-                      <div class="pull-left" style="margin-right: 10px;">
+                      <!-- <div class="pull-left" style="margin-right: 10px;">
                         <a href="javascript:void(0);" id="close-btn" class="close-btn" @click="closeDetail">
                           <i class="ion-android-close"></i>
                         </a>
-                      </div>
+                      </div> -->
                     </div>
 
                   </div>
@@ -292,13 +314,13 @@
 
                 <div class="row">
                   <div class="col-md-12">
-                    <ul class="nav nav-tabs navtab-bg nav-justified">
-                      <li :class="{ tab: true, active: currentTab == 'invoice' }">
+                    <ul class="nav nav-tabs navtab-bg nav-justified"  style="margin-left: 5px;">
+                      <li :class="{ tab: true, active: currentTab == 'invoice' }" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
                         <a href="javascript:void(0);" @click="switchTab('invoice')">
                           <span class="hidden-xs">INVOICE</span>
                         </a>
                       </li>
-                      <li :class="{ tab: true, active: currentTab == 'payment' }">
+                      <li :class="{ tab: true, active: currentTab == 'payment' }" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
                         <a href="javascript:void(0);" @click="switchTab('payment')">
                           <span class="hidden-xs">PAYMENT</span>
                         </a>
@@ -313,7 +335,7 @@
                     <div class="tab-content p-0 tab-content-clear tab-content--contact">
                       <div :class="{ 'tab-pane': true, active: currentTab == 'invoice' }" id="invoice"
                           v-if="currentTab == 'invoice'">
-                          <div class="row p-20 pb-0">
+                          <!-- <div class="row p-20 pb-0">
                             <div class="btn-toolbar" role="toolbar">
                               <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
@@ -334,9 +356,9 @@
                                 </button>
                               </div>
                             </div>
-                          </div>
+                          </div> -->
 
-                          <div class="row p-15">
+                          <div class="row p-15" style="padding:20px 15px 15px 15px;">
                             <div v-for="invoice in invoiceList">
                               <component
                                 :is="invoiceComponent"
@@ -1234,7 +1256,11 @@
   .tabs-vertical > li.active > a,
   .tabs-vertical > li.active > a:focus,
   .tabs-vertical > li.active > a:hover {
-    border-top: 3px solid #337ab7;
+    /* border-top: 3px solid #337ab7; */
     color: white;
+      border-top: 1px solid #03a2cd;
+  border-left: 1px solid #03a2cd;
+  border-right: 1px solid #03a2cd;
+  border-bottom: 1px solid #03a2cd;
   }
 </style>
