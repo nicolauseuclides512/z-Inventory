@@ -15,7 +15,7 @@
                     {{ displayActiveCurrentFilter }} Contacts <span class="caret"></span>
                   </h4>
                 </a>
-                <ul class="dropdown-menu" role="menu" style="top: 35px;">
+                <ul class="dropdown-menu" role="menu" style="top: 117px;left: 210px;position: fixed;">
                   <li class="dropdown-header">FILTER BY</li>
                   <li :class="{ active: currentFilter === 'all' }">
                     <a href="javascript:void(0);" id="filter-by-all" @click="filterContact('all')">All</a>
@@ -51,7 +51,7 @@
                           aria-expanded="false">
                     <i class="fa fa-bars"></i>
                   </button>
-                  <ul class="dropdown-menu" role="menu" style="top: 35px;">
+                  <ul class="dropdown-menu" role="menu" style="top: 125px;position:  fixed;right: 40px;">
                     <li class="dropdown-header">SORT BY</li>
                     <li :class="{ active: currentSortColumn === 'display_name' }">
                       <a href="javascript:void(0);" id="sort-by-name" @click="sortContactsBy('display_name')">Name</a>
