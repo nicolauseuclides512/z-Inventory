@@ -185,14 +185,7 @@
                         </td>
                         <td><span v-if="!item.children.length">{{ item.description }}</span></td>
                         <td class="text-center">
-                          <span v-if="!item.children.length && !item.track_inventory">
-                            <inline-editable
-                              :item="item"
-                              :value.sync="item.stock_quantity"
-                              @update="saveStockQuantity"
-                            ></inline-editable>
-                          </span>
-                          <span v-if="item.track_inventory">
+                          <span v-if="(item.track_inventory == true) && (!item.children.length)">
                             <inline-editable
                               :item="item"
                               :value.sync="item.stock_quantity"
