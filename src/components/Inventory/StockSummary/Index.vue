@@ -56,20 +56,20 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <tr v-for="history in list.items">
-                        <td align="right">{{ history.stock_adjustment_date | date('short') }}</td>
-                        <td>
-                          <router-link :to="{ name: 'stock_adjustment.edit', params: { id: history.stock_adjustment_id } }">
-                            {{ history.stock_adjustment_number }}
-                          </router-link></td>
-                        <td>#{{ history.reference_number }}</td>
-                        <td>{{ history.status }}</td>
-                        <td>
-                          <span v-for="value in history.reason_summary" class="label label-info" style="margin-right: 5px;">
-                            {{ value.line_count }} {{ value.reason_description }}
-                          </span>
-                        </td>
-                      </tr>
+                        <tr v-for="history in list.items">
+                            <td  v-for="value in history.reason_summary" v-if="value.reason_description" align="right">{{ history.stock_adjustment_date | date('short') }}</td>
+                            <td  v-for="value in history.reason_summary" v-if="value.reason_description">
+                              <router-link :to="{ name: 'stock_adjustment.edit', params: { id: history.stock_adjustment_id } }">
+                                {{ history.stock_adjustment_number }}
+                              </router-link></td>
+                            <td  v-for="value in history.reason_summary" v-if="value.reason_description">#{{ history.reference_number }}</td>
+                            <td  v-for="value in history.reason_summary" v-if="value.reason_description">{{ history.status }}</td>
+                            <td  v-for="value in history.reason_summary" v-if="value.reason_description">
+                              <span v-for="value in history.reason_summary" class="label label-info" style="margin-right: 5px;">
+                                {{ value.line_count }} {{ value.reason_description }}
+                              </span>
+                            </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -153,6 +153,7 @@
           const res = await Axios.get('stock_adjustments', {params: params})
 
           this.list.items = res.data.data
+          this.reason_description = res.data.data.reason_summary.reason_description
           this.paginate = res.data.paginate
 
         } catch (err) {

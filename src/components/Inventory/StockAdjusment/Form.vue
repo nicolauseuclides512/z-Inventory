@@ -337,11 +337,21 @@
             this.dirtyForm = false
           }
 
-          const res = await Axios.post(`stock_adjustments`, data)
+          let counter_null = 0
 
-          Alert.success('Stock adjustment has been added')
+          for (let counter = 0; counter < data.details.length; counter++){
+            if (!data.details[counter].reason_id){
+                counter_null++ 
+            }
+          }
+          
+          if (counter_null == 0){
+            const res = await Axios.post(`stock_adjustments`, data)
 
-          this.$router.push({ name: 'stock_adjustment.index' })
+            Alert.success('Stock adjustment has been added')
+
+            this.$router.push({ name: 'stock_adjustment.index' })
+          }
         }
         catch (err) {
           console.error(err)

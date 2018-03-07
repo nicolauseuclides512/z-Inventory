@@ -1,5 +1,5 @@
 <template>
-  <div class="content-page">
+  <div class="content-page-full">
     <div class="content full-width sahito-user bgr-white">
       <div class="container">
         <div>
@@ -185,14 +185,7 @@
                         </td>
                         <td><span v-if="!item.children.length">{{ item.description }}</span></td>
                         <td class="text-center">
-                          <span v-if="!item.children.length && !item.track_inventory">
-                            <inline-editable
-                              :item="item"
-                              :value.sync="item.stock_quantity"
-                              @update="saveStockQuantity"
-                            ></inline-editable>
-                          </span>
-                          <span v-if="item.track_inventory">
+                          <span v-if="(item.track_inventory == true) && (!item.children.length)">
                             <inline-editable
                               :item="item"
                               :value.sync="item.stock_quantity"
@@ -222,7 +215,13 @@
                         <td class="name">{{ child.item_name }}</td>
                         <td class="sku">{{ child.code_sku }}</td>
                         <td>{{ child.description }}</td>
-                        <td class="available">{{ child.stock_quantity }}</td>
+                        <td class="available">
+                          <inline-editable
+                            :item="child"
+                            :value.sync="child.stock_quantity"
+                            @update="saveStockQuantity"
+                          />
+                        </td>
                         <td>{{ child.sales_rate | money }}</td>
                       </tr>
 

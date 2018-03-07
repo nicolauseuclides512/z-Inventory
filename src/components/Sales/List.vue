@@ -28,7 +28,7 @@
                   <h4><span class="text-muted">Status: </span> {{ currentFilter }} <span class="caret"></span></h4>
                 </a>
 
-                <ul class="dropdown-menu" role="menu" style="top: 35px;">
+                <ul class="dropdown-menu" role="menu" style="top: 117px;left: 210px;position: fixed;">
                   <li class="dropdown-header">FILTER BY</li>
                   <li :class="{ active: filter == 'all' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'all' })">All</a>
@@ -68,7 +68,7 @@
                   <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown"
                           aria-expanded="false">
                     <i class="fa fa-bars"></i></button>
-                  <ul class="dropdown-menu" role="menu" style="top: 35px;">
+                  <ul class="dropdown-menu" role="menu" style="top: 125px;position:  fixed;right: 40px;">
                     <li class="dropdown-header">SORT BY</li>
                     <li :class="{ active: $route.query.sort ? $route.query.sort.startsWith('created_at') : '' }">
                       <a href="javascript:void(0);" @click="changeSorter('created_at.asc')">

@@ -16,6 +16,15 @@ export default {
     zip = $event.target.value = $event.target.value.replace(/\D/g, '')
   },
 
+  inputPhone (phone, $event) {
+    if (phone.length > 5) {
+      $event.preventDefault()
+      return false
+    }
+
+    phone = $event.target.value = $event.target.value.replace(/\D/g, '')
+  },
+
   async updateBillingCountryList () {
     this.list.billing_country_list = await Regional.countryList()
     this.list.billing_province_list = []

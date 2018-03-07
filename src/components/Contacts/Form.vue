@@ -86,11 +86,15 @@
                 <div class="form-group form-general m-b-20">
                   <label class="col-md-3 control-label text-left">Phone</label>
                   <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Work Phone" maxlength="20" id="phone"
+                    <input type="text" class="form-control" placeholder="Work Phone" maxlength="15" minlength="9" id="phone"
+                          @keyup="inputPhone(form.phone, $event)"
+                          @blur="inputPhone(form.phone, $event)"
                           v-model="form.phone">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Mobile" maxlength="20" id="mobile"
+                    <input type="text" class="form-control" placeholder="Mobile" maxlength="15" minlength="9" id="mobile"
+                          @keyup="inputPhone(form.phone, $event)"
+                          @blur="inputPhone(form.phone, $event)"
                           v-model="form.mobile">
                   </div>
                 </div>
@@ -589,7 +593,7 @@
           this.dirtyForm = false
           this.saving = false
 
-          this.$router.push({name: 'contact.edit', params: {id: res.data.data.contact_id}})
+          this.$router.push({name: 'contact.index'})
         }
         catch(err) {
           this.saving = false
