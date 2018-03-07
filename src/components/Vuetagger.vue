@@ -175,7 +175,6 @@
     width: 100%;
     box-sizing: border-box;
     border: 0px;
-    text-transform: lowercase;
   }
 
   .vuetagger-tag:hover .vuetagger-tag-remover{
