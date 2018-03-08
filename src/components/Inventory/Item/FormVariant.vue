@@ -219,7 +219,7 @@
   import VariantList from './VariantList'
 
   export default {
-    name: 'Form',
+    name: 'FormVariant',
 
     components: {
       ImageUpload, Variant, VariantList,
