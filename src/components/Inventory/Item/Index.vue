@@ -13,7 +13,7 @@
             <div>
               <router-link id="create-new-item-when-empty" :to="{ name: 'item.create' }"
                            class="btn btn-info waves-light m-b-5">
-                <i class="ion-plus"></i> <span>Create Item</span> dsa
+                <i class="ion-plus"></i> <span>Create Item</span>
               </router-link>
               <router-link id="create-new-item-variant-when-empty" :to="{ name: 'item.create_variant' }"
                            class="btn btn-info waves-light m-b-5">
