@@ -12,9 +12,10 @@
         class="vuetagger-input"
         v-model="newTag"
         @keydown.enter.prevent="append"
-        @keydown.space.prevent="append"
+        @keydown.tab.prevent="append"
         @keydown.188.prevent="append"
         @keydown.delete="removeLastTag"
+        placeholder="Press Enter/Tab/Comma after typing"
       />
 
     </div>
