@@ -50,122 +50,113 @@
               <!-- <div class="panel-heading">
                 <h3 class="panel-title">Items</h3>
               </div> -->
-              <div class="panel-body">
+              <div class="panel-body" style="padding:10px 10px 10px 10px">
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="sahito-table-new-order border-1 table-responsive">
-                      <table class="table table-hover default-table sahito-list-contact--table table-striped">
-                        <thead>
-                        <tr style="color: #777">
-                          <td style="padding-left: 0px" width='30%'>Item</td>
-                          <td width="8.75%">Qty</td>
-                          <td width="17.5%">Rate</td>
-                          <td width="26.25%">Discount</td>
-                          <td class="text-right" width="17.5%">Amount</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="product in form.details">
-                          <td v-text="product.item_name" width='30%' style="padding-left:0px"></td>
-                          <td width="8.75%">
-                            <input type="number" v-model.number="product.item_quantity" min="1" max="99999"
-                                   class="form-control" style="padding-left:5px; padding-right:0px">
-                          </td>
+                    <div class="sahito-list-contact table-responsive">
+                    <table class="table table-hover default-table sahito-list-contact--table">
+                      <thead style="box-shadow: 0 4px 2px -2px #ddd;">
+                      <tr style="color:#000;">
+                        <td style="padding-left: 10px; padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width='30%'>Item</td>
+                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="8.75%">Qty</td>
+                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="17.5%">Rate</td>
+                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="26.25%">Discount</td>
+                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" class="text-right" width="17.5%">Amount</td>
+                        <td style="box-shadow: 0px solid; border: 0px solid;"></td>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr v-for="product in form.details">
+                        <td v-text="product.item_name" width='30%' style="padding-left:10px"></td>
+                        <td width="8.75%">
+                          <input type="number" v-model.number="product.item_quantity" min="1" max="99999" class="form-control" style="padding-left:5px; padding-right:0px">
+                        </td>
 
-                          <td width="17.5%">
-                            <input type="number" v-model.number="product.item_rate" min="0" max="99999999"
-                                   class="form-control custom">
-                          </td>
+                        <td width="17.5%">
+                          <vue-numeric v-model.number="product.item_rate" min="0" max="99999999" separator="." class="form-control custom"></vue-numeric>
+                        </td>
 
-                          <td width="26.25%">
-                            <div class="col-md-4" style="padding-right: 0px; padding-left:0px">
-                              <select style="padding-left: 0px;" v-model="product.discount_amount_type"
-                                      @change="updateDiscountType(product)"
-                                      class="form-control">
-                                <option v-for="value, key in list.discount_unit" :value="key" v-text="value"></option>
-                              </select>
-                            </div>
-                            <div class="col-md-8">
-                              <input type="number"
-                                     v-model.number="product.discount_amount_value"
-                                     @change="updateDiscountValue(product)"
-                                     class="form-control">
-                            </div>
-                          </td>
+                        <td width="26.25%">
+                          <div class="col-md-4" style="padding-right: 0px; padding-left:0px">
+                            <select style="padding-left: 0px; font-size:12px" v-model="product.discount_amount_type" @change="updateDiscountType(product)"
+                                    class="form-control">
+                              <option v-for="value, key in list.discount_unit" :value="key" v-text="value" style="font-size:12px"></option>
+                            </select>
+                          </div>
+                          <div class="col-md-8">
+                            <vue-numeric 
+                                    v-model.number="product.discount_amount_value"
+                                    @change="updateDiscountValue(product)"
+                                    separator="."
+                                    class="form-control">
+                                    </vue-numeric>
+                          </div>
+                        </td>
 
-                          <td width="17.5%" class="text-right" style="vertical-align: middle; padding-left:0px">{{
-                            amount(product) | money }}
-                          </td>
+                        <td width="17.5%"class="text-right" style="vertical-align: middle; padding-left:0px">{{ amount(product) | money }}</td>
 
-                          <td style="vertical-align: middle;">
-                            <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
-                              class="ion-close-circled"></i></a>
-                          </td>
+                        <td style="vertical-align: middle; background-color:#ffffff; border:0px solid">
+                          <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
+                            class="ion-close-circled"></i></a>
+                        </td>
 
-                        </tr>
-                        </tbody>
-                      </table>
-                      <table class="table">
-                        <thead>
-                        <th style="width: 55%; border-bottom: 0px"></th>
-                        <th style="width: 20%; border-bottom: 0px"></th>
-                        <th style="width: 21%; border-bottom: 0px"></th>
-                        <th style="width: 4%; border-bottom: 0px"></th>
-                        </thead>
-                        <tbody>
-                        <tr>
+                      </tr>
+                      </tbody>
+                    </table>
+                    <table class="table" style="font-size:1.05em">
+                      <thead>
+                          <th style="width: 55%; border-bottom: 0px"></th>
+                          <th style="width: 17.5%; border-bottom: 0px"></th>
+                          <th style="width: 22.75%; border-bottom: 0px"></th>
+                          <th></th>
+                      </thead>
+                      <tbody>
+                        <tr class="total">
                           <td class="text-right"></td>
-                          <td class="text-right">Sub total</td>
-                          <td class="text-right">{{ subtotal | money }}</td>
-                          <td></td>
+                          <td class="text-left" style="padding-left:0px; padding-top:24px" >Sub total</td>
+                          <td class="text-right" style="padding-right:0px; padding-top:24px">{{ subtotal | money }}</td>
+                          <td style="width=3.5%; border:0px solid"></td>
                         </tr>
-                        <tr v-if="tax_value == 'Included'">
+                        <tr class="total">
+                          <td class="text-right" style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
+                          <td class="text-left" style="padding-left:0px">PPN 10%</td>
+                          <td class="text-right" style="padding-right:0px">{{ tax_value }}</td>
                         </tr>
-                        <tr v-else>
-                          <td class="text-right"
-                              style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
-                          <td class="text-right">PPN 10%</td>
-                          <td class="text-right">{{ tax_value }}</td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
+                        <tr class="total">
+                          <td  style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
-                          <td class="text-right" style="padding-left: 0px">
+                          <td class="text-right" style="padding-left: 0px; padding-bottom:24px">
                             <input
                               v-model.trim="form.adjustment_name"
                               type="text"
                               class="form-control form-white"
-                              style="max-width: 300px;"
+                              style="max-width: 300px; border: 1px solid #eee"
                               placeholder="Adjustment"
                             />
                           </td>
-                          <td style="padding-right: 0px">
+                          <td style="padding-right: 0px; padding-bottom:24px">
                             <div class="input-group pull-right">
                               <span class="input-group-addon" style="color:  #666;">Rp</span>
-                              <input
-                                type="number"
-                                v-model.number="form.adjustment_value"
+                              <vue-numeric
+                                v-model="form.adjustment_value"
                                 :minus="true"
                                 separator="."
-                                style="max-width: 100%;"
+                                style="max-width: 95%; border: 1px solid #eee"
                                 maxlength="20"
                                 class="form-control form-white text-right"
                                 placeholder=""
-                              ></input>
+                              ></vue-numeric>
                             </div>
                           </td>
-                          <td></td>
                         </tr>
                         <tr class="total">
-                          <td class="no-bgr text-right"
-                              style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
-                          <td class="text-right" style="font-size: 20px">Total</td>
-                          <td colspan="2" class="text-right" style="font-size: 20px">{{ grandTotal | money }}</td>
+                          <td class="no-bgr text-right" style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
+                          <td class="text-left" style="font-size: 20px; background-color: rgb(240, 240, 240);padding-left:0px">Total</td>
+                          <td class="text-right" style="padding-right:0px; font-size: 20px; background-color: rgb(240, 240, 240)">{{ grandTotal | money }}</td>
                         </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                      </tbody>
+                    </table>
+                  </div>
                   </div>
                 </div>
               </div>
