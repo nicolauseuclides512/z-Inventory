@@ -144,7 +144,7 @@
               :item="form"
               @remove="deleteChildrenItem"
               @children-updated="updateChildren"
-            ></VariantList>
+            />
           </div>
           <div v-else>
             <Variant
@@ -152,7 +152,7 @@
               :item="form"
               @remove="deleteChildrenItem"
               @children-updated="updateChildren"
-            ></Variant>
+            />
           </div>
 
           <div class="float-save">
