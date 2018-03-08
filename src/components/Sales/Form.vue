@@ -29,12 +29,9 @@
 
         <div class="row">
           <div class="col-md-8" style="margin-left: 0px">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Items</h3>
-              </div>
-              <div class="panel-body">
-                <div class="row">
+             <div class="panel panel-default" style="margin-bottom:10px">
+               <div class="panel-body" style="padding:0px">
+                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <vuelist
                       @change="selectProduct"
@@ -45,9 +42,17 @@
                       keyid="item_id"
                       label="item_name"
                     ></vuelist>
-
-                    <br>
-
+                  </div>
+                 </div>
+               </div>
+             </div>
+            <div class="panel panel-default">
+              <!-- <div class="panel-heading">
+                <h3 class="panel-title">Items</h3>
+              </div> -->
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="sahito-table-new-order border-1 table-responsive">
                       <table class="table table-hover default-table sahito-list-contact--table table-striped">
                         <thead>
