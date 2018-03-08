@@ -6345,7 +6345,7 @@ tbody.collapse.in {
 
 .nav-justified,
 .nav-tabs.nav-justified {
-    width: 100%
+    width: 98.5%
 }
 
 .nav-justified>li,
@@ -13093,7 +13093,7 @@ a:hover {
     border: none;
     color: #333!important;
     cursor: pointer;
-    line-height: 50px;
+    line-height: 30px;
     font-weight: 500;
     padding-left: 20px;
     padding-right: 20px

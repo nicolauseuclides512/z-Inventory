@@ -129,31 +129,52 @@
                                 <label></label>
                               </div>
                             </td>
-                            <td @click="showDetail(sale)" style="cursor: pointer;">
-                              <div  class="clearfix" style="margin-top: 8px;">
+                            <td @click="showDetail(sale)" style="cursor: pointer; padding:5px 15px 5px 0px">
+                              <div  class="clearfix">
                                 <div class="pull-left">
-                                  <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
-                                    <strong>{{ sale.contact.display_name }}</strong>
+                                  <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact" style="color:#000">
+                                    {{ sale.contact.display_name }}
                                   </a>
                                 </div>
-                                <div class="pull-right">
+                                <div class="pull-right" style="font-size:1.1em; color:#000">
                                   {{ sale.total | money }}
                                 </div>
                               </div>
                               <div class="clearfix" style="margin-top: 8px;">
                                 <div class="pull-left">
-                                  <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact">
-                                    <span class="text-muted">#</span>{{ sale.sales_order_number }}
+                                  <a @click="showDetail(sale)" href="javascript:void(0);" v-if="sale.contact" style="color:#000; font-size:.9em">
+                                    <span class="text-muted">#</span><span style="color: rgb(153, 153, 153); font-size: 0.9em !important;" >{{ sale.sales_order_number }}</span>
                                   </a>
                                 </div>
                                 <div class="pull-right">
-                                  <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status }}</span>
+                                  <!-- <span v-if="sale.invoice_status == 'PAID'" style="font-size: 10px;">{{ sale.invoice_status }}</span>
                                   <span v-else-if="sale.sales_order_status == 'DRAFT'" style="font-size: 10px;">{{ sale.sales_order_status }}</span>
-                                  <span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span>
+                                  <span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span> -->
+                                                                <div v-if="sale.sales_order_status === 'DRAFT'">
+                                  <span class="label label-info" style="background-color:#C4C4C4; color:#000000">{{ sale.sales_order_status }}</span>
+                                </div>
+                                <div v-else>
+                                  <!--{{ sale.invoice_status }}-->
+                                <div v-if="sale.invoice_status === 'PAID'">
+                                  <span class="label label-info" style="background-color:#319B31">PAID</span>
+                                </div>
+                                <div v-else-if="sale.invoice_status === 'UNPAID'">
+                                  <span class="label label-info" style="background-color:#1C8AD9">UNPAID</span>
+                                </div>
+                                <div v-else-if="sale.invoices[0].invoice_status === 'PARTIALLY_PAID'">
+                                  <span class="label label-info" style="background-color:#E6E600; color:#000000">PARTIALLY PAID</span>
+                                </div>
+                                <div v-else-if="sale.invoice_status === 'OVERDUE'">
+                                  <span class="label label-info" style="background-color:#E33636">OVERDUE</span>
+                                </div>
+                                <div v-else-if="sale.invoice_status === 'VOID'">
+                                  <span class="label label-info" style="background-color:#000000">VOID</span>
+                                </div>
+                                </div>
                                 </div>
                               </div>
                               <div class="clearfix" style="margin-top: 8px;">
-                                <div class="pull-left">
+                                <div class="pull-left" style="color:rgb(153, 153, 153); font-size:.9em">
                                   {{ sale.invoice_date | date('short') }}
                                 </div>
                                 <div class="pull-right">
@@ -171,15 +192,33 @@
 
               </div>
 
-              <div class="col-md-8 col-sm-8 col-xs-8 right-side">
+              <div class="col-md-8 col-sm-8 col-xs-8 right-side" style="padding-left:20px; padding-top: 2px;">
 
-                <div class="row" v-if="salesOrder">
+                <div class="row" v-if="salesOrder" style="margin-bottom:30px">
                   <div class="col-md-12">
-                    <h3 class="pull-left page-title">
+                    <h4 class="pull-left page-title">
                       <span class="text-muted">#</span>
                       <span>{{salesOrder.sales_order_number}}</span>
+                                                    <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
+                                        title="View as PDF" @click="viewInvoice"><i class="fa fa-file-pdf-o"></i></button>
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
+                                        title="Print" @click="viewInvoice"><i class="fa fa-print"></i></button>
+                                <button
+                                  type="button"
+                                  class="btn btn-default"
+                                  data-toggle="tooltip"
+                                  data-placement="top"
+                                  title="Send as mail"
+                                  :disabled="sendingEmail"
+                                  @click="sendInvoiceAsMail"
+                                >
+                                  <i class="fa fa-envelope-o" v-if="!sendingEmail"></i>
+                                  <i class="fa fa-spin fa-spinner" v-else="sendingEmail"></i>
+                                </button>
+                              </div>
 
-                      <span v-if="salesOrder.sales_order_status === 'DRAFT'">
+                      <!-- <span v-if="salesOrder.sales_order_status === 'DRAFT'">
                         <small class="label label-default"> DRAFT </small>
                       </span>
                       <span v-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT' && salesOrder.invoice_status === 'UNPAID'">
@@ -196,7 +235,7 @@
                       </span>
                       <span v-if="salesOrder.sales_order_status === 'CANCELED' && salesOrder.invoice_status === 'VOID'">
                         <small class="label label-inverse"> VOID </small>
-                      </span>
+                      </span> -->
 
                       <!--<small class="label label-success" v-if="salesOrder.invoice_status === 'PAID'">
                         {{ salesOrder.invoice_status }}
@@ -207,11 +246,20 @@
                       </small>
                       <small class="label label-success" v-if="salesOrder.shipment_status === 'SHIPPED'">{{ salesOrder.shipment_status | removeUnderScore }}</small>
                       <small class="label label-danger" v-else>{{ salesOrder.shipment_status | removeUnderScore }}</small>-->
-                    </h3>
+                    </h4>
                     <div class="pull-right">
-
-                      <div class="dropdown pull-left" style="margin-right: 10px;" v-if="salesOrder.invoice_status !== 'VOID'">
-                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                      <div class="pull-left" style="margin-right: 10px;">
+                        <router-link
+                          :to="{ name: 'sales.edit', param: { id: salesOrder.sales_order_id } }"
+                          v-if="salesOrder.invoice_status !== 'VOID'"
+                          class="btn btn-default waves-effect waves-light m-b-5"
+                        >
+                          Edit
+                        </router-link>
+                      </div>
+                      <div class="dropdown pull-left" style="margin-right: 10px;">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                        v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'">
                           Record
                           <span class="caret"></span>
                         </button>
@@ -221,6 +269,7 @@
                               @click="showModalPayment()"
                               data-toggle="dropdown"
                               aria-expanded="false"
+                              v-if="salesOrder.invoice_status !== 'VOID'"
                               :disabled="salesOrder.invoice_status === 'PAID'"
                             >
                               Payment
@@ -238,31 +287,26 @@
                         </ul>
                       </div>
 
-                      <div class="pull-left" style="margin-right: 10px;">
-                        <router-link
-                          :to="{ name: 'sales.edit', param: { id: salesOrder.sales_order_id } }"
-                          v-if="salesOrder.invoice_status !== 'VOID'"
-                          class="btn btn-default waves-effect waves-light m-b-5"
-                        >
-                          Edit
-                        </router-link>
-                      </div>
 
                       <div class="pull-left" style="margin-right: 10px;">
-                        <button
-                          @click="cancelSalesOrder(salesOrder)"
-                          class="btn btn-default waves-effect waves-light m-b-5"
-                          v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'"
-                        >
-                          Void
-                        </button>
+                       <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown" aria-expanded="false"
+                            v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'">
+	                    More <i class="ion-arrow-down-b"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" style="top: 35px; left:initial; right:20px">
+                      <li>
+                        <a @click="cancelSalesOrder(salesOrder)" style="cursor: pointer;">
+                          Mark as Void
+                        </a>
+                      </li>
+                    </ul>
                       </div>
 
-                      <div class="pull-left" style="margin-right: 10px;">
+                      <!-- <div class="pull-left" style="margin-right: 10px;">
                         <a href="javascript:void(0);" id="close-btn" class="close-btn" @click="closeDetail">
                           <i class="ion-android-close"></i>
                         </a>
-                      </div>
+                      </div> -->
                     </div>
 
                   </div>
@@ -270,13 +314,13 @@
 
                 <div class="row">
                   <div class="col-md-12">
-                    <ul class="nav nav-tabs navtab-bg nav-justified">
-                      <li :class="{ tab: true, active: currentTab == 'invoice' }">
+                    <ul class="nav nav-tabs navtab-bg nav-justified"  style="margin-left: 5px;">
+                      <li :class="{ tab: true, active: currentTab == 'invoice' }" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
                         <a href="javascript:void(0);" @click="switchTab('invoice')">
                           <span class="hidden-xs">INVOICE</span>
                         </a>
                       </li>
-                      <li :class="{ tab: true, active: currentTab == 'payment' }">
+                      <li :class="{ tab: true, active: currentTab == 'payment' }" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
                         <a href="javascript:void(0);" @click="switchTab('payment')">
                           <span class="hidden-xs">PAYMENT</span>
                         </a>
@@ -291,7 +335,7 @@
                     <div class="tab-content p-0 tab-content-clear tab-content--contact">
                       <div :class="{ 'tab-pane': true, active: currentTab == 'invoice' }" id="invoice"
                           v-if="currentTab == 'invoice'">
-                          <div class="row p-20 pb-0">
+                          <!-- <div class="row p-20 pb-0">
                             <div class="btn-toolbar" role="toolbar">
                               <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
@@ -312,9 +356,9 @@
                                 </button>
                               </div>
                             </div>
-                          </div>
+                          </div> -->
 
-                          <div class="row p-15">
+                          <div class="row p-15" style="padding:20px 15px 15px 15px;">
                             <div v-for="invoice in invoiceList">
                               <component
                                 :is="invoiceComponent"
@@ -1212,7 +1256,11 @@
   .tabs-vertical > li.active > a,
   .tabs-vertical > li.active > a:focus,
   .tabs-vertical > li.active > a:hover {
-    border-top: 3px solid #337ab7;
+    /* border-top: 3px solid #337ab7; */
     color: white;
+      border-top: 1px solid #03a2cd;
+  border-left: 1px solid #03a2cd;
+  border-right: 1px solid #03a2cd;
+  border-bottom: 1px solid #03a2cd;
   }
 </style>

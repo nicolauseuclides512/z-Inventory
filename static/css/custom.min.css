@@ -1009,8 +1009,8 @@ select.select2-dropdown-open {
     -webkit-transform: rotate(-45deg);
     width: 100px;
     display: block;
-    background: #79a70a;
-    background: linear-gradient(#9bc90d, #79a70a);
+    background: #319B31;
+    background: linear-gradient(#319B31, #319B31);
     box-shadow: 0 3px 10px -5px #000;
     position: absolute;
     top: 19px;
@@ -1024,10 +1024,10 @@ select.select2-dropdown-open {
     left: 0;
     top: 100%;
     z-index: -1;
-    border-left: 3px solid #79a70a;
+    border-left: 3px solid #319B31;
     border-right: 3px solid transparent;
     border-bottom: 3px solid transparent;
-    border-top: 3px solid #79a70a
+    border-top: 3px solid #319B31
 }
 
 .sahito-invoice-pdf .ribbon span:after,
@@ -1038,9 +1038,9 @@ select.select2-dropdown-open {
     top: 100%;
     z-index: -1;
     border-left: 3px solid transparent;
-    border-right: 3px solid #79a70a;
+    border-right: 3px solid #319B31;
     border-bottom: 3px solid transparent;
-    border-top: 3px solid #79a70a
+    border-top: 3px solid #319B31
 }
 
 .sahito-invoice-pdf .ribbon-draft, 
@@ -1059,7 +1059,7 @@ select.select2-dropdown-open {
 .sahito-invoice .ribbon-draft span { 
     font-size: 10px; 
     font-weight: 700; 
-    color: #fff; 
+    color: #000; 
     text-transform: uppercase; 
     text-align: center; 
     line-height: 20px; 
@@ -1067,8 +1067,8 @@ select.select2-dropdown-open {
     -webkit-transform: rotate(-45deg); 
     width: 100px; 
     display: block; 
-    background: #cccccc; 
-    background: linear-gradient(#dddddd, #cccccc); 
+    background: #C4C4C4; 
+    background: linear-gradient(#C4C4C4, #C4C4C4); 
     box-shadow: 0 3px 10px -5px #000; 
     position: absolute; 
     top: 19px; 
@@ -1082,10 +1082,10 @@ select.select2-dropdown-open {
     left: 0; 
     top: 100%; 
     z-index: -1; 
-    border-left: 3px solid #cccccc; 
+    border-left: 3px solid #C4C4C4; 
     border-right: 3px solid transparent; 
     border-bottom: 3px solid transparent; 
-    border-top: 3px solid #cccccc 
+    border-top: 3px solid #C4C4C4 
 } 
  
 .sahito-invoice-pdf .ribbon-draft span:after, 
@@ -1096,9 +1096,9 @@ select.select2-dropdown-open {
     top: 100%; 
     z-index: -1; 
     border-left: 3px solid transparent; 
-    border-right: 3px solid #cccccc; 
+    border-right: 3px solid #C4C4C4; 
     border-bottom: 3px solid transparent; 
-    border-top: 3px solid #cccccc 
+    border-top: 3px solid #C4C4C4 
 } 
  
 .sahito-invoice-pdf .ribbon-overdue, 
@@ -1125,8 +1125,8 @@ select.select2-dropdown-open {
     -webkit-transform: rotate(-45deg); 
     width: 100px; 
     display: block; 
-    background: #ff0000; 
-    background: linear-gradient(#ff2626, #ff0000); 
+    background: #E33636; 
+    background: linear-gradient(#E33636, #E33636); 
     box-shadow: 0 3px 10px -5px #000; 
     position: absolute; 
     top: 19px; 
@@ -1140,10 +1140,10 @@ select.select2-dropdown-open {
     left: 0; 
     top: 100%; 
     z-index: -1; 
-    border-left: 3px solid #ff0000; 
+    border-left: 3px solid #E33636; 
     border-right: 3px solid transparent; 
     border-bottom: 3px solid transparent; 
-    border-top: 3px solid #ff0000 
+    border-top: 3px solid #E33636 
 } 
  
 .sahito-invoice-pdf .ribbon-overdue span:after, 
@@ -1154,9 +1154,9 @@ select.select2-dropdown-open {
     top: 100%; 
     z-index: -1; 
     border-left: 3px solid transparent; 
-    border-right: 3px solid #ff0000; 
+    border-right: 3px solid #E33636; 
     border-bottom: 3px solid transparent; 
-    border-top: 3px solid #ff0000 
+    border-top: 3px solid #E33636 
 } 
 
 
@@ -1216,6 +1216,122 @@ select.select2-dropdown-open {
     border-right: 3px solid #000000;
     border-bottom: 3px solid transparent;
     border-top: 3px solid #000000
+}
+.sahito-invoice-pdf .ribbon-partially,
+.sahito-invoice .ribbon-partially {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right
+}
+
+.sahito-invoice-pdf .ribbon-partially span,
+.sahito-invoice .ribbon-partially span {
+    font-size: 10px;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    width: 100px;
+    display: block;
+    background: #E6E600;
+    background: linear-gradient(#E6E600, #E6E600);
+    box-shadow: 0 3px 10px -5px #000;
+    position: absolute;
+    top: 19px;
+    left: -21px
+}
+
+.sahito-invoice-pdf .ribbon-partially span:before,
+.sahito-invoice .ribbon-partially span:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid #E6E600;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #E6E600
+}
+
+.sahito-invoice-pdf .ribbon-partially span:after,
+.sahito-invoice .ribbon-partially span:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid transparent;
+    border-right: 3px solid #E6E600;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #E6E600
+}
+
+
+.sahito-invoice-pdf .ribbon-unpaid,
+.sahito-invoice .ribbon-unpaid {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right
+}
+
+.sahito-invoice-pdf .ribbon-unpaid span,
+.sahito-invoice .ribbon-unpaid span {
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    width: 100px;
+    display: block;
+    background: #1C8AD9;
+    background: linear-gradient(#1C8AD9, #1C8AD9);
+    box-shadow: 0 3px 10px -5px #000;
+    position: absolute;
+    top: 19px;
+    left: -21px
+}
+
+.sahito-invoice-pdf .ribbon-unpaid span:before,
+.sahito-invoice .ribbon-unpaid span:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid #1C8AD9;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #1C8AD9
+}
+
+.sahito-invoice-pdf .ribbon-unpaid span:after,
+.sahito-invoice .ribbon-unpaid span:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid transparent;
+    border-right: 3px solid #1C8AD9;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #1C8AD9
 }
 
 .sahito-invoice-pdf .sahito-invoice-content .col-md-4 img,
@@ -1802,7 +1918,7 @@ select.select2-dropdown-open {
 }
 
 .grey-background {
-    background: #fafafa
+    background: #eff0f1
 }
 
 .dark-grey-background {
