@@ -140,11 +140,29 @@
           </div>
 
           <div v-if="form.item_id">
-            <VariantList
-              :item="form"
-              @remove="deleteChildrenItem"
-              @children-updated="updateChildren"
-            />
+            <a href="javascript:;" class="btn btn-default waves-effect" type="button" @click="toggleVariantListModal">
+              Edit Variant
+            </a>
+            <div v-if="variantListModal" class="modal show" tabindex="-1" role="dialog" data-keyboard="false" style="background: rgba(0, 0, 0, 0.75);">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button @click="toggleVariantListModal" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit Variant</h4>
+                  </div>
+                  <div class="modal-body">
+                    <VariantList
+                      :item="form"
+                      @remove="deleteChildrenItem"
+                      @children-updated="updateChildren"
+                    />
+                  </div>
+                  <div class="modal-footer" style="padding-top: 10px;">
+                    <button @click="toggleVariantListModal" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
           </div>
           <div v-else>
             <Variant
@@ -237,6 +255,7 @@
       return {
         dirtyForm: false,
         saveType: null,
+        variantListModal: false,
 
         list: {
           uoms: [],
@@ -319,6 +338,10 @@
         this.save()
       },
 
+      toggleVariantListModal() {
+        this.variantListModal = ! this.variantListModal
+      },
+
       updateChildren(value) {
         // We have issue with weight
         this.form.children = value.map(child => {
@@ -385,5 +408,8 @@
 </script>
 
 <style scoped lang="scss">
-
+  .modal-body {
+    max-height: calc(100vh - 212px);
+    overflow-y: auto;
+  }
 </style>

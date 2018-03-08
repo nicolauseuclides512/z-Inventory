@@ -2,7 +2,7 @@
   <div class="container m-b-20">
     <div class="row">
       <div class="col-md-12">
-        <h5 class="title">Variant</h5>
+        <!--<h5 class="title">Variant</h5>-->
         <div class="form-horizontal">
           <div class="col-md-12">
             <div class="col-md-12 pl-pr-0" style="padding-top: 30px">
