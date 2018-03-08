@@ -148,10 +148,10 @@
           </div>
           <div v-else>
             <Variant
-                     v-if="!$route.params.id"
-                     :item="form"
-                     @remove="deleteChildrenItem"
-                     @children-updated="updateChildren"
+              v-if="!$route.params.id"
+              :item="form"
+              @remove="deleteChildrenItem"
+              @children-updated="updateChildren"
             ></Variant>
           </div>
 
