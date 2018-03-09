@@ -412,4 +412,7 @@
     max-height: calc(100vh - 212px);
     overflow-y: auto;
   }
+  .modal-lg {
+    width: 65vw;
+  }
 </style>
