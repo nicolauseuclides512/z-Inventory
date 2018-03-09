@@ -15,6 +15,7 @@
                     <td v-if="Object.keys(item.item_attributes)[0]">{{ Object.keys(item.item_attributes)[0] }}</td>
                     <td v-if="Object.keys(item.item_attributes)[1]">{{ Object.keys(item.item_attributes)[1] }}</td>
                     <td v-if="Object.keys(item.item_attributes)[2]">{{ Object.keys(item.item_attributes)[2] }}</td>
+                    <td>Stock</td>
                     <td>Price</td>
                     <td></td>
                   </tr>
@@ -46,6 +47,7 @@
                         title=""
                       />
                     </td>
+                    <td><input type="text" class="form-control form-white" v-model="v.inventory_stock" title="Stock"></td>
                     <td><input type="text" class="form-control form-white" v-model="v.sales_rate" title=""></td>
                     <td>
                       <button type="button" @click="updateItem(v)" class="btn btn-info btn-custom waves-effect">
