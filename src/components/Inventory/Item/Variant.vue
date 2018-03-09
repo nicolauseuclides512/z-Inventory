@@ -143,9 +143,15 @@
                       <tr>
                         <td>Item Name</td>
                         <td>SKU</td>
-                        <td v-if="firstVariant.show">{{ firstVariant.name | capitalize }}</td>
-                        <td v-if="secondVariant.show">{{ secondVariant.name | capitalize }}</td>
-                        <td v-if="thirdVariant.show">{{ thirdVariant.name | capitalize }}</td>
+                        <td v-if="firstVariant.show && firstVariant.values.length">{{ firstVariant.name | capitalize
+                          }}
+                        </td>
+                        <td v-if="secondVariant.show && secondVariant.values.length">{{ secondVariant.name | capitalize
+                          }}
+                        </td>
+                        <td v-if="thirdVariant.show && thirdVariant.values.length">{{ thirdVariant.name | capitalize
+                          }}
+                        </td>
                         <td>Price</td>
                         <td></td>
                       </tr>
@@ -154,15 +160,27 @@
                       <tr v-for="v in list.items">
                         <td><input type="text" class="form-control form-white" v-model="v.item_name"></td>
                         <td><input type="text" class="form-control form-white" v-model="v.code_sku"></td>
-                        <td v-if="firstVariant.show"><input type="text" class="form-control form-white"
-                                                            v-model="v.item_attributes[firstVariant.name]"
-                                                            disabled="disabled"></td>
-                        <td v-if="secondVariant.show"><input type="text" class="form-control form-white"
-                                                             v-model="v.item_attributes[secondVariant.name]"
-                                                             disabled="disabled"></td>
-                        <td v-if="thirdVariant.show"><input type="text" class="form-control form-white"
-                                                            v-model="v.item_attributes[thirdVariant.name]"
-                                                            disabled="disabled"></td>
+                        <td v-if="firstVariant.show && firstVariant.values.length">
+                          <input
+                            type="text"
+                            class="form-control form-white"
+                            v-model="v.item_attributes[firstVariant.name]"
+                            disabled="disabled">
+                        </td>
+                        <td v-if="secondVariant.show && secondVariant.values.length">
+                          <input
+                            type="text"
+                            class="form-control form-white"
+                            v-model="v.item_attributes[secondVariant.name]"
+                            disabled="disabled">
+                        </td>
+                        <td v-if="thirdVariant.show && thirdVariant.values.length">
+                          <input
+                            type="text"
+                            class="form-control form-white"
+                            v-model="v.item_attributes[thirdVariant.name]"
+                            disabled="disabled">
+                        </td>
                         <td><input type="number" class="form-control form-white" v-model="v.sales_rate"></td>
                         <td>
                           <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
@@ -361,60 +379,70 @@
 
 
         })
-
-        const items = []
       },
 
       changeFirstVariantValues(values) {
         this.firstVariant.values = values
+        this.generateVariant()
       },
 
       changeSecondVariantValues(values) {
         this.secondVariant.values = values
+        this.generateVariant()
       },
 
       changeThirdVariantValues(values) {
         this.thirdVariant.values = values
+        this.generateVariant()
       },
 
 
       hideFirstVariant() {
         if (!this.secondVariant.show && !this.thirdVariant.show) {
+          this.generateVariant()
           return
         }
         this.firstVariant.values = []
         this.firstVariant.show = false
+        this.generateVariant()
       },
 
       hideSecondVariant() {
         if (!this.firstVariant.show && !this.thirdVariant.show) {
+          this.generateVariant()
           return
         }
         this.secondVariant.values = []
         this.secondVariant.show = false
+        this.generateVariant()
       },
 
       hideThirdVariant() {
         if (!this.firstVariant.show && !this.secondVariant.show) {
+          this.generateVariant()
           return
         }
         this.thirdVariant.values = []
         this.thirdVariant.show = false
+        this.generateVariant()
       },
 
       addMoreVariant() {
         if (!this.firstVariant.show) {
           this.firstVariant.show = true
+          this.generateVariant()
           return
         }
 
         if (!this.secondVariant.show) {
           this.secondVariant.show = true
+          this.generateVariant()
           return
         }
 
         if (!this.thirdVariant.show) {
           this.thirdVariant.show = true
+          this.generateVariant()
           return
         }
       },
