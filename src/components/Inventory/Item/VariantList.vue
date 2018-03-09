@@ -1,11 +1,11 @@
 <template>
-  <div class="container m-b-20">
-    <div class="row">
-      <div class="col-md-12">
+  <div class="">
+    <div class="">
+      <div class="">
         <!--<h5 class="title">Variant</h5>-->
         <div class="form-horizontal">
-          <div class="col-md-12">
-            <div class="col-md-12 pl-pr-0" style="padding-top: 30px">
+          <div class="">
+            <div class="" style="padding-top: 30px">
               <div class="table-responsive">
                 <table class="table table-bordered">
                   <thead>
