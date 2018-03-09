@@ -57,7 +57,7 @@
                     <table class="table table-hover default-table sahito-list-contact--table">
                       <thead style="box-shadow: 0 4px 2px -2px #ddd;">
                       <tr style="color:#000;">
-                        <td style="padding-left: 10px; padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width='10%'>Image</td>
+                        <td style="padding-left: 10px; padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width='10%'></td>
                         <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="40.85%">Item</td>
                         <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="6.75%">Qty</td>
                         <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="10.65%">Rate</td>
@@ -332,7 +332,7 @@
                       </div>
                       <div class="col-md-1" v-if="selected_contact || ui.showAddNewContactField" style="padding-left:0">
                         <a @click="clearSelectedContact" href="javascript:void(0)" class="text-danger">
-                          <i class="ion-close-round" style="font-size:12pt"></i>
+                          <i class="ion-close-round" style="font-size:13.3px"></i>
                         </a>
                       </div>
                       <!--<div class="col-md-1" v-if="!selected_contact">-->
@@ -341,7 +341,7 @@
                     </div>
                     <div class="normal-mode" v-if="selected_contact">
                       <div class="col-md-10" style="padding-left: 8px; margin-bottom:15px">
-                        <div class="text-bold">
+                        <div>
                           Billing Address
                           <a href="javascript:void(0)" @click="editSelectedContact">
                             <i class="fa fa-fw fa-pencil"></i>
@@ -388,7 +388,7 @@
                         </div>
                         <div class="col-md-1" v-if="selected_sales_channel"  style="padding-left:0">
                           <a @click="clearSelectedSalesChannel" href="javascript:void(0)" class="text-danger">
-                            <i class="ion-close-round" style="font-size:12pt"></i>
+                            <i class="ion-close-round" style="font-size:13.3px"></i>
                           </a>
                         </div>
                       </div>
