@@ -143,17 +143,18 @@
                       <tr>
                         <td>Item Name</td>
                         <td>SKU</td>
-                        <td v-if="firstVariant.show && firstVariant.values.length">{{ firstVariant.name | capitalize
-                          }}
+                        <td v-if="firstVariant.show && firstVariant.values.length">
+                          {{ firstVariant.name | capitalize }}
                         </td>
-                        <td v-if="secondVariant.show && secondVariant.values.length">{{ secondVariant.name | capitalize
-                          }}
+                        <td v-if="secondVariant.show && secondVariant.values.length">
+                          {{ secondVariant.name | capitalize }}
                         </td>
-                        <td v-if="thirdVariant.show && thirdVariant.values.length">{{ thirdVariant.name | capitalize
-                          }}
+                        <td v-if="thirdVariant.show && thirdVariant.values.length">
+                          {{ thirdVariant.name | capitalize }}
                         </td>
+                        <td>Stock</td>
                         <td>Price</td>
-                        <td></td>
+                        <td>&nbsp;</td>
                       </tr>
                       </thead>
                       <tbody>
@@ -181,7 +182,8 @@
                             v-model="v.item_attributes[thirdVariant.name]"
                             disabled="disabled">
                         </td>
-                        <td><input type="number" class="form-control form-white" v-model="v.sales_rate"></td>
+                        <td><input type="number" step="1" class="form-control form-white" v-model="v.inventory_stock"></td>
+                        <td><input type="number" step="1" class="form-control form-white" v-model="v.sales_rate"></td>
                         <td>
                           <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
                             <i class="ion-trash-b"></i>
