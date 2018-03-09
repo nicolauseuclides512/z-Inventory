@@ -37,7 +37,7 @@
                   <div class="form-horizontal p-5">
                     <div class="form-group">
                       <div class="col-md-3">
-                        <select class="form-control" v-model="firstVariant.name">
+                        <select class="form-control" v-model="firstVariant.name" @change="generateVariant">
                           <option v-for="(v, k) in list.variants" :value="k">{{ v }}</option>
                         </select>
                       </div>
@@ -67,7 +67,7 @@
                   <div class="form-horizontal p-5">
                     <div class="form-group">
                       <div class="col-md-3">
-                        <select class="form-control" v-model="secondVariant.name">
+                        <select class="form-control" v-model="secondVariant.name" @change="generateVariant">
                           <option v-for="(v, k) in list.variants" :value="k">{{ v }}</option>
                         </select>
                       </div>
@@ -94,7 +94,7 @@
                   <div class="form-horizontal p-5">
                     <div class="form-group">
                       <div class="col-md-3">
-                        <select class="form-control" v-model="thirdVariant.name">
+                        <select class="form-control" v-model="thirdVariant.name" @change="generateVariant">
                           <option v-for="(v, k) in list.variants" :value="k">{{ v }}</option>
                         </select>
                       </div>
