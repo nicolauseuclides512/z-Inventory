@@ -70,7 +70,7 @@
                               v-model="language_id"
                       >
                         <option value="0" hidden disabled>Select default language</option>
-                        <option v-for="lang in languageList" :value="lang.id">{{ lang.name }}</option>
+                        <option v-for="lang in languageList" :value="lang.id" v-if="lang.id != 103">{{ lang.name }}</option>
                       </select>
                     </div>
                   </div>
