@@ -389,31 +389,76 @@
 
       },
 
-      addImage(value) {
-        this.form.item_medias.push(value)
+      async addImage(image) {
+        try {
+          const itemId = this.$route.params.id
+          const addResponse = await Axios.post(`items/${itemId}/images/add`, image)
+          const editResponse = await Axios.get(`items/${itemId}/edit`)
+          this.form.item_medias = editResponse.data.data.item.item_medias
+          console.log(_.cloneDeep(editResponse.data.data.item.item_medias))
+
+          Alert.success('Image has been added.')
+        }
+        catch (err) {
+          Alert.error('Something went wrong.')
+        }
       },
 
-      removeImage(value) {
-        const index = this.form.item_medias.indexOf(value)
-        this.form.item_medias.splice(index, 1)
+      async removeImage(image) {
+        try {
+          const itemId = this.$route.params.id
+          const res = await Axios.delete(`items/${itemId}/images/remove/${image.item_media_id}`)
+          const index = this.form.item_medias.indexOf(image)
+          this.form.item_medias.splice(index, 1)
+          Alert.success('Image has been deleted.')
+        }
+        catch (err) {
+          Alert.error('Something went wrong.')
+        }
       },
 
       clearImages() {
-        this.form.item_medias = []
+        try {
+          const itemId = this.$route.params.id
+          const promiseList = []
+
+          this.form.item_medias.map((img) => {
+            const deleteImage = Axios.delete(`items/${itemId}/images/remove/${img.item_media_id}`)
+            promiseList.push(deleteImage)
+          })
+
+          Promise.all(promiseList)
+
+          Alert.success('All images has been deleted.')
+
+          this.form.item_medias = []
+
+        }
+        catch (err) {
+          Alert.error('Something went wrong.')
+        }
       },
 
       setAsPrimary(image) {
-        this.form.item_medias
-          .map(img => {
-            img.is_main = false
-            return img
-          })
-          .find(img => {
-            if (img === image) {
-              img.is_main = true
+        const itemId = this.$route.params.id
+        try {
+          const primaryImage = this.form.item_medias
+            .map(img => {
+              img.is_main = false
               return img
-            }
-          })
+            })
+            .find(img => {
+              if (img === image) {
+                img.is_main = true
+                return img
+              }
+            })
+          Axios.get(`items/${itemId}/images/set_primary/${primaryImage.item_media_id}`)
+          Alert.success('Image has been set to primary image')
+        }
+        catch (err) {
+          Alert.error('Something went wrong.')
+        }
       },
 
       deleteChildrenItem(item) {
