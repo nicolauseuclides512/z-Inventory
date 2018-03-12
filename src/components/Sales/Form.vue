@@ -4,11 +4,11 @@
       <form action="POST" @submit.prevent>
 
         <!-- Page-Title -->
-        <div class="col-md-6">
+        <div class="col-md-6" style="padding-left:0px">
           <h4 class="pull-left page-title" v-if="!$route.params.id">Create New Order</h4>
           <h4 class="pull-left page-title" v-if="$route.params.id">Edit Order</h4>
         </div>
-        <div class="col-md-3">
+        <!-- <div class="col-md-3">
           <div class="form-group">
             <label>Sales Order Date</label>
             <div class="input-group">
@@ -25,16 +25,13 @@
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="row">
-          <div class="col-md-8" style="margin-left: 0px">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Items</h3>
-              </div>
-              <div class="panel-body">
-                <div class="row">
+          <div class="col-md-9" style="margin-left: 0px">
+             <div class="panel panel-default" style="margin-bottom:10px">
+               <div class="panel-body" style="padding:0px">
+                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <vuelist
                       @change="selectProduct"
@@ -45,131 +42,140 @@
                       keyid="item_id"
                       label="item_name"
                     ></vuelist>
+                  </div>
+                 </div>
+               </div>
+             </div>
+            <div class="panel panel-default">
+              <!-- <div class="panel-heading">
+                <h3 class="panel-title">Items</h3>
+              </div> -->
+              <div class="panel-body" style="padding:10px 10px 10px 10px">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="sahito-list-contact table-responsive">
+                    <table class="table table-hover default-table sahito-list-contact--table">
+                      <thead style="box-shadow: 0 4px 2px -2px #ddd;">
+                      <tr style="color:#000;">
+                        <td style="padding-left: 10px; padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width='10%'></td>
+                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="40.85%">Item</td>
+                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="6.75%">Qty</td>
+                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="10.65%">Rate</td>
+                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="20.25%">Discount</td>
+                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" class="text-right" width="11.5%">Amount</td>
+                        <td style="box-shadow: 0px solid; border: 0px solid; width:28px"></td>
+                      </tr>
+                      </thead>
+                      <tbody style="color:#000;">
+                      <tr v-for="product in form.details">
+                        <td width='10%' style="padding: 15px 8px 15px 10px">
+                          <a href="#" class="pull-left">
+                            <img alt="" :src="tesimgProduct" class="media-object thumb-sm" style="width: auto; height: auto; max-width: 70px; max-height: 70px;">
+                          </a>
+                        </td>
+                        <td v-text="product.item_name" width='40.85%' style="padding-left:10px; size:14px"></td>
+                        <td width="6.75%">
+                          <input type="number" v-model.number="product.item_quantity" min="1" max="99999" class="form-control" style="padding-left:5px; padding-right:0px">
+                        </td>
 
-                    <br>
+                        <td width="10.65%">
+                          <vue-numeric v-model.number="product.item_rate" min="0" max="99999999" separator="." class="form-control custom" style="padding:6px; width:89px"></vue-numeric>
+                        </td>
 
-                    <div class="sahito-table-new-order border-1 table-responsive">
-                      <table class="table table-hover default-table sahito-list-contact--table table-striped">
-                        <thead>
-                        <tr style="color: #777">
-                          <td style="padding-left: 0px" width='30%'>Item</td>
-                          <td width="8.75%">Qty</td>
-                          <td width="17.5%">Rate</td>
-                          <td width="26.25%">Discount</td>
-                          <td class="text-right" width="17.5%">Amount</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="product in form.details">
-                          <td v-text="product.item_name" width='30%' style="padding-left:0px"></td>
-                          <td width="8.75%">
-                            <input type="number" v-model.number="product.item_quantity" min="1" max="99999"
-                                   class="form-control" style="padding-left:5px; padding-right:0px">
-                          </td>
+                        <td width="20.25%">
+                          <div class="col-md-3" style="padding-right: 0px; padding-left:0px">
+                            <select style="padding-left: 0px; font-size:12px; padding-right: 0px;width: 47px;" v-model="product.discount_amount_type" @change="updateDiscountType(product)"
+                                    class="form-control">
+                              <option v-for="value, key in list.discount_unit" :value="key" v-text="value" style="font-size:12px"></option>
+                            </select>
+                          </div>
+                          <div class="col-md-8">
+                            <vue-numeric 
+                                    v-model.number="product.discount_amount_value"
+                                    @change="updateDiscountValue(product)"
+                                    separator="."
+                                    class="form-control"
+                                    style="padding:6px; width:89px">
+                                    </vue-numeric>
+                          </div>
+                        </td>
 
-                          <td width="17.5%">
-                            <input type="number" v-model.number="product.item_rate" min="0" max="99999999"
-                                   class="form-control custom">
-                          </td>
+                        <td width="11.5%"class="text-right" style="vertical-align: middle; padding-left:0px">{{ amount(product) | money }}</td>
 
-                          <td width="26.25%">
-                            <div class="col-md-4" style="padding-right: 0px; padding-left:0px">
-                              <select style="padding-left: 0px;" v-model="product.discount_amount_type"
-                                      @change="updateDiscountType(product)"
-                                      class="form-control">
-                                <option v-for="value, key in list.discount_unit" :value="key" v-text="value"></option>
-                              </select>
-                            </div>
-                            <div class="col-md-8">
-                              <input type="number"
-                                     v-model.number="product.discount_amount_value"
-                                     @change="updateDiscountValue(product)"
-                                     class="form-control">
-                            </div>
-                          </td>
+                        <td style="vertical-align: middle; background-color:#ffffff; border:0px solid; width:28px">
+                          <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
+                            class="ion-close-round"></i></a>
+                        </td>
 
-                          <td width="17.5%" class="text-right" style="vertical-align: middle; padding-left:0px">{{
-                            amount(product) | money }}
-                          </td>
-
-                          <td style="vertical-align: middle;">
-                            <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
-                              class="ion-close-circled"></i></a>
-                          </td>
-
-                        </tr>
-                        </tbody>
-                      </table>
-                      <table class="table">
-                        <thead>
-                        <th style="width: 55%; border-bottom: 0px"></th>
-                        <th style="width: 20%; border-bottom: 0px"></th>
-                        <th style="width: 21%; border-bottom: 0px"></th>
-                        <th style="width: 4%; border-bottom: 0px"></th>
-                        </thead>
-                        <tbody>
-                        <tr>
+                      </tr>
+                      </tbody>
+                    </table>
+                    <table class="table" style="font-size:1.05em">
+                      <thead>
+                          <th style="width: 67.6%; border-bottom: 0px"></th>
+                          <th style="width: 14%; border-bottom: 0px"></th>
+                          <th style="width: 18%; border-bottom: 0px"></th>
+                          <th style="width:28px"></th>
+                      </thead>
+                      <tbody>
+                        <tr class="total">
                           <td class="text-right"></td>
-                          <td class="text-right">Sub total</td>
-                          <td class="text-right">{{ subtotal | money }}</td>
-                          <td></td>
+                          <td class="text-left" style="padding-left:8px; padding-top:24px; color:#000" >Sub total</td>
+                          <td class="text-right" style="padding-right:8px; padding-top:24px; color:#000">{{ subtotal | money }}</td>
+                          <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
-                        <tr v-if="tax_value == 'Included'">
+                        <tr class="total">
+                          <td class="text-right" style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
+                          <td class="text-left" style="padding-left:8px; color:#000">PPN 10%</td>
+                          <td class="text-right" style="padding-right:8px; color:#000">{{ tax_value }}</td>
+                          <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
-                        <tr v-else>
-                          <td class="text-right"
-                              style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
-                          <td class="text-right">PPN 10%</td>
-                          <td class="text-right">{{ tax_value }}</td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
+                        <tr class="total">
+                          <td  style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
-                          <td class="text-right" style="padding-left: 0px">
+                          <td class="text-right" style="padding-left: 0px; padding-bottom:24px">
                             <input
                               v-model.trim="form.adjustment_name"
                               type="text"
                               class="form-control form-white"
-                              style="max-width: 300px;"
+                              style="max-width: 300px; border: 1px solid #eee; padding-left:8px"
                               placeholder="Adjustment"
                             />
                           </td>
-                          <td style="padding-right: 0px">
+                          <td style="padding-right: 0px; padding-bottom:24px">
                             <div class="input-group pull-right">
                               <span class="input-group-addon" style="color:  #666;">Rp</span>
-                              <input
-                                type="number"
-                                v-model.number="form.adjustment_value"
+                              <vue-numeric
+                                v-model="form.adjustment_value"
                                 :minus="true"
                                 separator="."
-                                style="max-width: 100%;"
+                                style="max-width: 95%; border: 1px solid #eee"
                                 maxlength="20"
                                 class="form-control form-white text-right"
                                 placeholder=""
-                              ></input>
+                              ></vue-numeric>
                             </div>
                           </td>
-                          <td></td>
+                          <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
                         <tr class="total">
-                          <td class="no-bgr text-right"
-                              style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
-                          <td class="text-right" style="font-size: 20px">Total</td>
-                          <td colspan="2" class="text-right" style="font-size: 20px">{{ grandTotal | money }}</td>
+                          <td class="no-bgr text-right" style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
+                          <td class="text-left" style="font-size: 20px; background-color: rgb(240, 240, 240);padding-left:8px; color:#000">Total</td>
+                          <td class="text-right" style="padding-right:8px; font-size: 20px; background-color: rgb(240, 240, 240); color:#000">{{ grandTotal | money }}</td>
+                          <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                      </tbody>
+                    </table>
+                  </div>
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="panel panel-default">
-              <div class="panel-heading">
+              <!-- <div class="panel-heading">
                 <h3 class="panel-title">Notes</h3>
-              </div>
+              </div> -->
               <div class="panel-body">
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
@@ -244,9 +250,9 @@
             </div>
           </div>
 
-          <div class="col-md-4">
-            <div class="panel panel-default">
-              <div class="panel-heading">
+          <div class="col-md-3">
+            <!-- <div class="panel panel-default">
+               <div class="panel-heading">
                 <h3 class="panel-title">Sales Order Number</h3>
               </div>
               <div class="panel-body">
@@ -258,18 +264,17 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
+            </div> -->
+            <div class="panel panel-default" style="box-shadow:none; background-color:#eee; ">
+              <!-- <div class="panel-heading">
                 <h3 class="panel-title">Contacts</h3>
-              </div>
-              <div class="panel-body">
+              </div> -->
+              <div class="panel-body" style="padding:0px">
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" style="margin-bottom: 0px">
+                    <!-- <div class="form-group" style="margin-bottom: 0px">
                       <label style="font-weight: normal">Invoice to:</label>
-                    </div>
-
+                    </div> -->
                     <div class="normal-mode">
                       <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
                         <div v-if="!ui.showAddNewContactField">
@@ -278,16 +283,17 @@
                             @search="searchContact"
                             :options="list.contact_list"
                             :value="selected_contact && selected_contact.contact_id"
-                            placeholder="Search a customer"
+                            placeholder="Select a customer"
                             keyid="contact_id"
                             label="display_name"
+                            style="box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1); background-color:#eee; width:95%"
                           ></vuelist>
                         </div>
-                        <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()" class="add-new-contact-btn">
+                        <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()" class="add-new-contact-btn" style="width:95%">
                           + Add New Contact
                         </div>
                         <div v-if="ui.showAddNewContactField">
-                          <div class="form-group">
+                          <div class="form-group" style="width:95%">
                             <input
                               type="text"
                               name="name"
@@ -296,17 +302,18 @@
                               v-model="newContact.display_name"
                             />
                           </div>
-                          <div class="form-group">
+                          <div class="form-group" style="width:95%">
                             <textarea
                               type="text"
                               name="address"
                               class="form-control"
                               placeholder="Client's address"
+                              style="resize:vertical"
                               rows="4"
                               v-model="newContact.billing_address"
                             ></textarea>
                           </div>
-                          <div class="form-group">
+                          <div class="form-group" style="width:95%">
                             <input
                               type="text"
                               name="phone"
@@ -317,15 +324,15 @@
                               v-model="newContact.phone"
                             />
                           </div>
-                          <div class="form-group">
+                          <div class="form-group" style="width:95%">
                             <input type="email" name="email" class="form-control" placeholder="Client's email" style="text-transform: lowercase;"
                                    v-model="newContact.email">
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-1" v-if="selected_contact || ui.showAddNewContactField">
+                      <div class="col-md-1" v-if="selected_contact || ui.showAddNewContactField" style="padding-left:0">
                         <a @click="clearSelectedContact" href="javascript:void(0)" class="text-danger">
-                          <i class="ion-close-circled" style="font-size:12pt"></i>
+                          <i class="ion-close-round" style="font-size:13.3px"></i>
                         </a>
                       </div>
                       <!--<div class="col-md-1" v-if="!selected_contact">-->
@@ -333,8 +340,8 @@
                       <!--</div>-->
                     </div>
                     <div class="normal-mode" v-if="selected_contact">
-                      <div class="col-md-10" style="padding-left: 0px">
-                        <div class="text-bold">
+                      <div class="col-md-10" style="padding-left: 8px; margin-bottom:15px">
+                        <div>
                           Billing Address
                           <a href="javascript:void(0)" @click="editSelectedContact">
                             <i class="fa fa-fw fa-pencil"></i>
@@ -348,11 +355,52 @@
                           v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
                       </div>
                     </div>
+                    <div class="form-group">
+                      <label style="font-weight:400">Sales Order Date</label>
+                      <div class="input-group">
+                        <input v-model="form.invoice_date" required class="flatpickr form-control">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label style="font-weight:400">Due Date</label>
+                      <div class="input-group">
+                        <input v-model="form.due_date" class="flatpickr form-control">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                      </div>
+                    </div>
+                    <div v-if="list.channels.length">
+                      <div class="form-group" style="margin-bottom: 0px" >
+                        <label style="font-weight: normal" v-if="!selected_sales_channel">Sales from:</label>
+                        <label style="font-weight: normal" v-if="selected_sales_channel">Sales from: {{ selected_sales_channel.sales_channel.channel_name }}</label>
+                      </div>
+                      <div class="normal-mode">
+                        <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
+                          <vuelist
+                            @change="selectSalesChannel"
+                            :options="list.channels"
+                            :value="selected_sales_channel"
+                            placeholder="Search a sales channel"
+                            keyid="id"
+                            label="store_name"
+                            style="width:93%"
+                        ></vuelist>
+                        </div>
+                        <div class="col-md-1" v-if="selected_sales_channel"  style="padding-left:0">
+                          <a @click="clearSelectedSalesChannel" href="javascript:void(0)" class="text-danger">
+                            <i class="ion-close-round" style="font-size:13.3px"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div v-else>
+                      <label style="font-weight: normal">Go to <i>Settings</i> >> <i>Sales Channel</i> to add your first sales channel</label>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="panel panel-default">
+            <!-- <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title">Sales Info</h3>
               </div>
@@ -388,7 +436,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -533,6 +581,7 @@
         sales_order_number: null,
         selected_product: null,
         selected_sales_channel: null,
+        tesimgProduct: "http://placehold.it/70?text=No+image",
         tax_included: 1,
         form: new Form({
           invoice_date: dateFormat(new Date(), "DD MMM YYYY"),
@@ -986,10 +1035,10 @@
   }
 
   .add-new-contact-btn {
-  border: 1px dashed #89bbeb;
+  border: 1px dashed #aaa;
   height: 100px;
   padding: 10px;
-  color: #89bbeb;
+  color: #aaa;
   cursor: pointer;
   margin-top: 10px;
   display: flex;
