@@ -3,10 +3,10 @@
 
     <header>
       <div v-if="!loading">
-        <a href="javascript:;" @click="openFileManager" class="btn btn-primary">Add Images</a>
+        <!-- <a href="javascript:;" @click="openFileManager" class="btn btn-primary">Add Images</a> -->
         <!--<a href="javascript:;" @click="promptUrl" class="btn btn-primary">Image URL</a>-->
         <!--<a href="javascript:;" @click="promptYoutube" class="btn btn-primary">Youtube URL</a>-->
-        <a href="javascript:;" @click="clearAll" v-show="this.images.length > 0" class="btn btn-default">Clear all</a>
+        <!-- <a href="javascript:;" @click="clearAll" v-show="this.images.length > 0" class="btn btn-default">Clear all</a> -->
       </div>
       <div v-else> Please wait... </div>
     </header>
@@ -14,10 +14,12 @@
     <input ref="fileUploader" type="file" multiple accept="image/*" @change="addFromFile" style="display: none;">
 
     <section class="image-uploader-container">
-      <div v-show="!images.length" class="bg"></div>
+      <div v-show="!images.length" class="bg">
+
+      </div>
       <div class="row">
         <div v-show="images.length" v-for="image in images">
-          <div class="col-xs-3">
+          <div class="col-xs-3" style="margin:5px">
 
             <div class="image-uploader-container-item" style="max-height: 150px">
               <div
@@ -38,6 +40,14 @@
 
           </div>
         </div>
+        <div class="col-xs-3"style="margin:5px">
+            <div class="image-uploader-container-item" style="max-height: 150px">
+              <div v-if="" @click="openFileManager" class="add-new-image-btn">
+                          + Add New Image
+                </div>
+            </div>
+
+          </div>
       </div>
     </section>
   </div>
@@ -263,11 +273,11 @@
 <style scoped>
 
   .image-uploader-container {
-    background: #f0f0f0;
-    border: 1px solid #d9d9d9;
-    min-height: 240px;
-    margin: 10px 0;
-    padding: 10px;
+    /* background: #eee;
+    border: 1px solid #d9d9d9ee; */
+    /* min-height: 240px; */
+    margin: 10px 0px;
+    /* padding: 10px; */
     border-radius: 2px;
   }
 
@@ -315,4 +325,21 @@
     margin-right: 5px;
     font-size: 12px;
   }
+
+  .add-new-image-btn {
+  border: 1px dashed #aaa;
+  width: 154px;
+  height: 154px;
+  padding: 10px;
+  color: #aaa;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-new-image-btn:hover {
+  color: white;
+  background: #89b5eb;
+}
 </style>

@@ -1,20 +1,175 @@
 <template>
-  <div class="content-page-full">
-    <div class="content full-width sahito-user bgr-white">
-      <div class="container">
+  <div class="content-page">
+    <div class="content" style="padding-left: 0px; padding-right: 0px">
+      <!-- <div class="container"> -->
         <form method="POST" id="form" @submit.prevent="validate">
+          <div class="col-md-12" style="padding-left:0px">
+                <h4 v-if="$route.params.id" class="pull-left page-title">Edit Item</h4>
+                <h4 v-if="!$route.params.id" class="pull-left page-title">Create Item</h4>
+              </div>
+          <div class="row">
+            <!-- Info -->
+            <div class="col-md-9">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Info</h3>
+                  </div>
+                  <div class="panel-body">
+                    <div class="form-horizontal">
+                    <div class="form-group form-general m-b-12">
+                    <label class="col-md-2 control-label text-left text-danger">Item Name</label>
+                    <div class="col-md-9">
+                      <input type="text"
+                             v-model="form.item_name"
+                             placeholder="Name of item"
+                             class="form-control"
+                             required
+                      />
+                    </div>
+                  </div>
 
-          <div class="container full-width-header bt-1 p-b-10 m-b-20">
+                  <div class="form-group form-general m-b-12">
+                    <label class="col-md-2 control-label text-left">Images</label>
+                    <div class="col-md-9">
+                      <ImageUpload
+                        :images="form.images"
+                        @add="addImage"
+                        @clear="clearImages"
+                        @delete="removeImage"
+                      ></ImageUpload>
+                    </div>
+                  </div>
+
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left">Description</label>
+                    <div class="col-md-9 custom-summernote">
+                      <textarea v-model="form.description" class="form-control" rows="3"
+                                style="resize:vertical"></textarea>
+                    </div>
+                  </div>
+
+                  </div>
+                  </div>
+              </div>
+            </div>
+
+            <!-- Price and Stock -->
+            <div class="col-md-3">
+              <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">Price & Stock</h3>
+                  </div>
+                  <div class="panel-body" >
+                    <div class="form-horizontal">
+                      <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left text-danger">Price</label>
+                    <div class="col-md-10">
+                      <div class="input-group">
+                        <div class="input-group-addon">Rp</div>
+                        <input
+                          v-model="form.sales_rate"
+                          type="number"
+                          min="1"
+                          placeholder=""
+                          class="form-control custom"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                      <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left text-danger">SKU</label>
+                    <div class="col-md-10">
+                      <input v-model="form.code_sku" type="text" min="0" placeholder="" required="required"
+                             class="form-control" maxlength="15">
+                    </div>
+                  </div>
+                  
+                  <div class="form-group form-general m-b-20">
+                    <div class="col-md-12 control-label text-left" style="padding:0px">
+                      <div class="checkbox checkbox-success checkbox-inline">
+                        <input
+                          v-model="form.track_inventory"
+                          type="checkbox"
+                          id="track-inventory"
+                          true-value="true"
+                          false-value="false"
+                          checked="checked"
+                        />
+                        <label for="track-inventory">Track Inventory for this item</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="show-stock" v-if="form.track_inventory == 'true'">
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-2 control-label text-left">Stock</label>
+                      <div class="col-md-6">
+                        <input v-model="form.stock_quantity" type="number" min="0" placeholder="" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+              </div>
+
+               <!-- Shipping -->
+              <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">Shipping</h3>
+                  </div>
+                  <div class="panel-body" >
+                    <div class="form-horizontal">
+                      <div class="col-md-12" style="padding-left: 0px;">
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-4 control-label text-left">UOM</label>
+                      <div class="col-md-8 pl-pr-0">
+                        <select id="uom_id" v-model="form.uom_id" class="form-control">
+                          <option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-4 control-label text-left text-danger">Dimension (cm)</label>
+                      <div class="col-md-2 pl-pr-0">
+                        <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control">
+                      </div>
+                      <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
+                      <div class="col-md-2 pl-pr-0">
+                        <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control">
+                      </div>
+                      <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
+                      <div class="col-md-2 pl-pr-0">
+                        <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-4 control-label text-left text-danger">Weight</label>
+                      <div class="col-md-8 pl-pr-0">
+                        <div class="input-group">
+                          <input v-model="form.weight" type="number" min="1" placeholder="" required
+                                 class="form-control">
+                          <span class="input-group-addon">gram</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="container full-width-header bt-1 p-b-10 m-b-20">
             <div class="row">
               <div class="col-md-12">
                 <h4 v-if="$route.params.id" class="pull-left page-title">Edit Item</h4>
                 <h4 v-if="!$route.params.id" class="pull-left page-title">Create Item</h4>
               </div>
             </div>
-          </div>
+          </div> -->
 
 
-          <div class="container bt-1 m-b-20">
+          <!-- <div class="container bt-1 m-b-20">
             <div class="row">
               <div class="col-md-12 p-b-20">
                 <h5 class="title">Info</h5>
@@ -121,15 +276,15 @@
                   <!--</div>-->
                   <!--</div>-->
 
-                </div>
+                <!-- </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
 
           <!-- Shipping -->
 
-          <div class="container m-b-20">
+          <!-- <div class="container m-b-20">
             <div class="row">
               <div class="col-md-12 p-b-20">
                 <h5 class="title">Shipping</h5>
@@ -171,7 +326,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
 
           <div class="float-save">
@@ -230,7 +385,7 @@
           </div>
 
         </form>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 </template>
