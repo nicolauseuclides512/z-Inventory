@@ -8,15 +8,33 @@
                 <h4 v-if="!$route.params.id" class="pull-left page-title">Create Item</h4>
               </div>
           <div class="row">
+            <div class="col-md-4">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="form-group form-general m-b-10">
+                    <!-- <label class="col-md-2 control-label text-left">Images</label> -->
+                    <div class="col-md-9">
+                      <ImageUpload
+                        :images="form.item_medias"
+                        @add="addImage"
+                        @clear="clearImages"
+                        @remove="removeImage"
+                        @set-as-primary="setAsPrimary"
+                      ></ImageUpload>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- Info -->
-            <div class="col-md-9">
+            <div class="col-md-8">
               <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title">Info</h3>
                   </div>
                   <div class="panel-body">
                     <div class="form-horizontal">
-                    <div class="form-group form-general m-b-12">
+                    <div class="form-group form-general m-b-10">
                     <label class="col-md-2 control-label text-left text-danger">Item Name</label>
                     <div class="col-md-9">
                       <input type="text"
@@ -28,20 +46,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group form-general m-b-12">
-                    <label class="col-md-2 control-label text-left">Images</label>
-                    <div class="col-md-9">
-                      <ImageUpload
-                        :images="form.item_medias"
-                        @add="addImage"
-                        @clear="clearImages"
-                        @remove="removeImage"
-                        @set-as-primary="setAsPrimary"
-                      ></ImageUpload>
-                    </div>
-                  </div>
-
-                  <div class="form-group form-general m-b-20">
+                  <div class="form-group form-general m-b-10">
                     <label class="col-md-2 control-label text-left">Description</label>
                     <div class="col-md-9 custom-summernote">
                       <textarea v-model="form.description" class="form-control" rows="3"
@@ -52,19 +57,16 @@
                   </div>
                   </div>
               </div>
-            </div>
-
-            <!-- Price and Stock -->
-            <div class="col-md-3">
+              <!--Price -->
               <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">Price & Stock</h3>
+                    <h3 class="panel-title">Price</h3>
                   </div>
                   <div class="panel-body" >
                     <div class="form-horizontal">
-                      <div class="form-group form-general m-b-20">
+                      <div class="form-group form-general m-b-10">
                     <label class="col-md-2 control-label text-left text-danger">Price</label>
-                    <div class="col-md-10">
+                    <div class="col-md-4">
                       <div class="input-group">
                         <div class="input-group-addon">Rp</div>
                         <input
@@ -77,17 +79,28 @@
                         />
                       </div>
                     </div>
+                  </div>            
+                    </div>
                   </div>
-                      <div class="form-group form-general m-b-20">
+              </div>
+              
+              <!--Stock -->
+              <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">Stock</h3>
+                  </div>
+                  <div class="panel-body" >
+                    <div class="form-horizontal">
+                      <div class="form-group form-general m-b-10">
                     <label class="col-md-2 control-label text-left text-danger">SKU</label>
-                    <div class="col-md-10">
+                    <div class="col-md-4">
                       <input v-model="form.code_sku" type="text" min="0" placeholder="" required="required"
                              class="form-control" maxlength="15">
                     </div>
                   </div>
                   
-                  <div class="form-group form-general m-b-20">
-                    <div class="col-md-12 control-label text-left" style="padding:0px">
+                  <div class="form-group form-general m-b-10">
+                    <div class="col-md-9 control-label text-left" style="padding:0px">
                       <div class="checkbox checkbox-success checkbox-inline">
                         <input
                           v-model="form.track_inventory"
@@ -102,9 +115,9 @@
                     </div>
                   </div>
                   <div id="show-stock" v-if="form.track_inventory == 'true'">
-                    <div class="form-group form-general m-b-20">
+                    <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Stock</label>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <input v-model="form.stock_quantity" type="number" min="0" placeholder="" class="form-control">
                       </div>
                     </div>
@@ -112,8 +125,7 @@
                     </div>
                   </div>
               </div>
-
-               <!-- Shipping -->
+              <!-- Shipping -->
               <div class="panel panel-default" >
                 <div class="panel-heading">
                     <h3 class="panel-title">Shipping</h3>
@@ -121,31 +133,31 @@
                   <div class="panel-body" >
                     <div class="form-horizontal">
                       <div class="col-md-12" style="padding-left: 0px;">
-                    <div class="form-group form-general m-b-20">
-                      <label class="col-md-4 control-label text-left">UOM</label>
-                      <div class="col-md-8 pl-pr-0">
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left">UOM</label>
+                      <div class="col-md-4 ">
                         <select id="uom_id" v-model="form.uom_id" class="form-control">
                           <option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
                         </select>
                       </div>
                     </div>
-                    <div class="form-group form-general m-b-20">
-                      <label class="col-md-4 control-label text-left text-danger">Dimension (cm)</label>
-                      <div class="col-md-2 pl-pr-0">
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left text-danger">Dimension (cm)</label>
+                      <div class="col-md-1 pr-0">
                         <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control" style="font-size:12px; padding:2px">
                       </div>
                       <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
-                      <div class="col-md-2 pl-pr-0">
+                      <div class="col-md-1 pl-pr-0">
                         <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control" style="font-size:12px; padding:2px">
                       </div>
                       <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
-                      <div class="col-md-2 pl-pr-0">
+                      <div class="col-md-1 pl-pr-0">
                         <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control" style="font-size:12px; padding:2px">
                       </div>
                     </div>
-                    <div class="form-group form-general m-b-20">
-                      <label class="col-md-4 control-label text-left text-danger">Weight</label>
-                      <div class="col-md-8 pl-pr-0">
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left text-danger">Weight</label>
+                      <div class="col-md-4">
                         <div class="input-group">
                           <input v-model="form.weight" type="number" min="1" placeholder="" required
                                  class="form-control">
@@ -158,6 +170,10 @@
                   </div>
               </div>
             </div>
+
+
+           
+            
           </div>
 
           <!-- <div class="container full-width-header bt-1 p-b-10 m-b-20">
