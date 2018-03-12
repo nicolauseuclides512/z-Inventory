@@ -38,6 +38,7 @@
                         :images="form.item_medias"
                         @add="addImage"
                         @clear="clearImages"
+                        @set-as-primary="setAsPrimary"
                       ></ImageUpload>
                     </div>
                   </div>
@@ -393,6 +394,20 @@
 
       clearImages() {
         this.form.item_medias = []
+      },
+
+      setAsPrimary(image) {
+        this.form.item_medias
+          .map(img => {
+            img.is_main = false
+            return img
+          })
+          .find(img => {
+            if (img === image) {
+              img.is_main = true
+              return img
+            }
+          })
       },
 
       deleteChildrenItem(item) {
