@@ -40,6 +40,7 @@
                         @add="addImage"
                         @clear="clearImages"
                         @delete="removeImage"
+                        @set-as-primary="setAsPrimary"
                       ></ImageUpload>
                     </div>
                   </div>
@@ -386,6 +387,20 @@
       removeImage(value) {
         const index = this.form.images.indexOf(value)
         this.form.images.splice(index, 1)
+      },
+
+      setAsPrimary(image) {
+        this.form.item_medias
+          .map(img => {
+            img.is_main = false
+            return img
+          })
+          .find(img => {
+            if (img === image) {
+              img.is_main = true
+              return img
+            }
+          })
       },
 
       clearImages(value) {
