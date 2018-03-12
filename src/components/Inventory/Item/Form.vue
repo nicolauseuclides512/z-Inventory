@@ -131,15 +131,15 @@
                     <div class="form-group form-general m-b-20">
                       <label class="col-md-4 control-label text-left text-danger">Dimension (cm)</label>
                       <div class="col-md-2 pl-pr-0">
-                        <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control">
+                        <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control" style="font-size:12px; padding:2px">
                       </div>
                       <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
                       <div class="col-md-2 pl-pr-0">
-                        <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control">
+                        <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control" style="font-size:12px; padding:2px">
                       </div>
                       <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
                       <div class="col-md-2 pl-pr-0">
-                        <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control">
+                        <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control" style="font-size:12px; padding:2px">
                       </div>
                     </div>
                     <div class="form-group form-general m-b-20">
@@ -649,6 +649,11 @@
   }
 </script>
 
-<style scoped lang="scss">
-
+<style scoped>
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    margin: 0; 
+  }
 </style>
