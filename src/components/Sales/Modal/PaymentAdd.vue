@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group row" v-if="form.payment_mode_id === 1">
                   <label class="col-md-3 control-label">Deposit To</label>
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                     <!-- <select v-model="form.payment_account_id" class="form-control">
                       <option value="" disabled selected></option>
                       <option v-for="p in payment_method_details" :value="p.account_id">
@@ -53,7 +53,7 @@
                       <div class="cnt_min">
                         <input type="radio" v-model="form.payment_account_id" :value="p.account_id"/>
                         <img :src="`/static/images/bank/${p.account_name}.png`" class="selected_img" >
-                        <div class="text-center"><small>{{ p.account_number }} </small></div>
+                        <div class="text-center"><small style="font-size:.80em">{{ p.account_number }} </small></div>
                       </div>
                     </div>
                   </div>
@@ -302,15 +302,13 @@
 <style scoped>
 .cnt_min{
     display:inline-block;
-    width:89px;
-    height:50spx;
+    width:95px;
+    height:56spx;
     position:relative;
-    border:solid 1px #eee;
+    border:solid 1px #ccc;
     border-radius:5px;
-    margin:3px;
-}
-.cnt_min:hover{
-    cursor:"pointer"
+    margin:5px;
+    float: left;
 }
 .cnt_min input[type="radio"]{
     width:100%;
@@ -319,14 +317,16 @@
     top:0;
     left:0;
     opacity:0;
+    border-radius:5px;
 }
 .selected_img{
     pointer-events: none;
     width:100%;
     height:100%;
+    border-radius:5px;
 }
 .cnt_min input[type="radio"]:checked ~ .selected_img{
-  border:solid 1px blue;
+  border:solid 2px #1c8ad9;
   box-shadow:0px 1px 4px 0px #ccc;
   border-radius:5px;
 }
