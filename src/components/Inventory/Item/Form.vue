@@ -32,10 +32,11 @@
                     <label class="col-md-2 control-label text-left">Images</label>
                     <div class="col-md-9">
                       <ImageUpload
-                        :images="form.images"
+                        :images="form.item_medias"
                         @add="addImage"
                         @clear="clearImages"
-                        @delete="removeImage"
+                        @remove="removeImage"
+                        @set-as-primary="setAsPrimary"
                       ></ImageUpload>
                     </div>
                   </div>
