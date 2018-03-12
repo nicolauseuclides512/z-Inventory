@@ -19,7 +19,7 @@
       </div>
       <div class="row">
         <div v-show="images.length" v-for="image in images">
-          <div class="col-xs-3" style="margin:5px">
+          <div class="col-xs-3" style="margin-left:0px;margin-top:5px;margin-right:5px;margin-bottom:5px">
 
             <div class="image-uploader-container-item" style="max-height: 150px">
               <div
@@ -40,7 +40,7 @@
 
           </div>
         </div>
-        <div class="col-xs-3"style="margin:5px">
+        <div class="col-xs-3" style="margin-left:0px;margin-top:5px;margin-right:5px;margin-bottom:5px">
             <div class="image-uploader-container-item" style="max-height: 150px">
               <div v-if="" @click="openFileManager" class="add-new-image-btn">
                           + Add New Image
