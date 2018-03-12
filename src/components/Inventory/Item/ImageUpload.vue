@@ -252,7 +252,7 @@
       },
 
       remove (image) {
-        this.$emit('delete', image)
+        this.$emit('remove', image)
       }
 
     }

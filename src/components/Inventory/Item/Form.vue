@@ -39,7 +39,7 @@
                         :images="form.item_medias"
                         @add="addImage"
                         @clear="clearImages"
-                        @delete="removeImage"
+                        @remove="removeImage"
                         @set-as-primary="setAsPrimary"
                       ></ImageUpload>
                     </div>
@@ -388,6 +388,10 @@
         this.form.item_medias.splice(index, 1)
       },
 
+      clearImages() {
+        this.form.item_medias = []
+      },
+
       setAsPrimary(image) {
         this.form.item_medias
           .map(img => {
@@ -400,10 +404,6 @@
               return img
             }
           })
-      },
-
-      clearImages() {
-        this.form.item_medias = []
       },
 
     },

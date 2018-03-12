@@ -38,6 +38,7 @@
                         :images="form.item_medias"
                         @add="addImage"
                         @clear="clearImages"
+                        @remove="removeImage"
                         @set-as-primary="setAsPrimary"
                       ></ImageUpload>
                     </div>
@@ -390,6 +391,11 @@
 
       addImage(value) {
         this.form.item_medias.push(value)
+      },
+
+      removeImage(value) {
+        const index = this.form.item_medias.indexOf(value)
+        this.form.item_medias.splice(index, 1)
       },
 
       clearImages() {
