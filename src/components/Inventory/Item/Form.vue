@@ -36,7 +36,7 @@
                     <label class="col-md-2 control-label text-left">Images</label>
                     <div class="col-md-9">
                       <ImageUpload
-                        :images="form.images"
+                        :images="form.item_medias"
                         @add="addImage"
                         @clear="clearImages"
                         @delete="removeImage"
@@ -292,7 +292,7 @@
           item_attributes: '',
           parent_id: null,
           item_status: '',
-          images: [],
+          item_medias: [],
         })
       }
     },
@@ -320,7 +320,6 @@
         if (id) {
           res = await Axios.get(`items/${id}/edit`)
           this.form = res.data.data.item
-          this.form.images = res.data.data.item.item_medias
         } else {
           res = await Axios.get(`items/create`)
           this.form.uom_id = res.data.data.uoms[0].uom_id
@@ -381,12 +380,12 @@
       },
 
       addImage(value) {
-        this.form.images.push(value)
+        this.form.item_medias.push(value)
       },
 
       removeImage(value) {
-        const index = this.form.images.indexOf(value)
-        this.form.images.splice(index, 1)
+        const index = this.form.item_medias.indexOf(value)
+        this.form.item_medias.splice(index, 1)
       },
 
       setAsPrimary(image) {
@@ -403,8 +402,8 @@
           })
       },
 
-      clearImages(value) {
-        this.form.images = []
+      clearImages() {
+        this.form.item_medias = []
       },
 
     },
