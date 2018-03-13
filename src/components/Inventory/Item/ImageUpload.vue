@@ -43,7 +43,9 @@
         <div class="col-xs-3" style="margin-left:0px;margin-top:5px;margin-right:5px;margin-bottom:5px">
             <div class="image-uploader-container-item" style="max-height: 150px">
               <div v-if="" @click="openFileManager" class="add-new-image-btn">
-                          + Add New Image
+                <i class="fa fa-image" style="font-size:20px"></i><br>
+                <p>+ Add New Image</p>
+                          
                 </div>
             </div>
 

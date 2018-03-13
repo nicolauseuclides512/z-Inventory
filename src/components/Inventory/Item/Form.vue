@@ -35,7 +35,7 @@
                   <div class="panel-body">
                     <div class="form-horizontal">
                     <div class="form-group form-general m-b-10">
-                    <label class="col-md-2 control-label text-left text-danger">Item Name</label>
+                    <label class="col-md-2 control-label text-left">Item Name *</label>
                     <div class="col-md-9">
                       <input type="text"
                              v-model="form.item_name"
@@ -65,7 +65,7 @@
                   <div class="panel-body" >
                     <div class="form-horizontal">
                       <div class="form-group form-general m-b-10">
-                    <label class="col-md-2 control-label text-left text-danger">Price</label>
+                    <label class="col-md-2 control-label text-left">Price *</label>
                     <div class="col-md-4">
                       <div class="input-group">
                         <div class="input-group-addon">Rp</div>
@@ -92,9 +92,9 @@
                   <div class="panel-body" >
                     <div class="form-horizontal">
                       <div class="form-group form-general m-b-10">
-                    <label class="col-md-2 control-label text-left text-danger">SKU</label>
+                    <label class="col-md-2 control-label text-left">SKU</label>
                     <div class="col-md-4">
-                      <input v-model="form.code_sku" type="text" min="0" placeholder="" required="required"
+                      <input v-model="form.code_sku" type="text" min="0" placeholder=""
                              class="form-control" maxlength="15">
                     </div>
                   </div>
@@ -146,7 +146,7 @@
                       <div class="col-md-12" style="padding-left: 0px;">
                     
                     <div class="form-group form-general m-b-10">
-                      <label class="col-md-2 control-label text-left text-danger">Dimension (cm)</label>
+                      <label class="col-md-2 control-label text-left">Dimension (cm)</label>
                       <div class="col-md-1 pr-0">
                         <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control" style="font-size:12px;">
                       </div>
@@ -160,7 +160,7 @@
                       </div>
                     </div>
                     <div class="form-group form-general m-b-10">
-                      <label class="col-md-2 control-label text-left text-danger">Weight</label>
+                      <label class="col-md-2 control-label text-left ">Weight *</label>
                       <div class="col-md-4">
                         <div class="input-group">
                           <input v-model="form.weight" type="number" min="1" placeholder="" required
@@ -174,10 +174,6 @@
                   </div>
               </div>
             </div>
-
-
-           
-            
           </div>
 
           <!-- <div class="container full-width-header bt-1 p-b-10 m-b-20">
