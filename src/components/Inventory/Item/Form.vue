@@ -29,9 +29,9 @@
             <!-- Info -->
             <div class="col-md-8">
               <div class="panel panel-default">
-                  <div class="panel-heading">
+                  <!-- <div class="panel-heading">
                     <h3 class="panel-title">Info</h3>
-                  </div>
+                  </div> -->
                   <div class="panel-body">
                     <div class="form-horizontal">
                     <div class="form-group form-general m-b-10">
@@ -59,9 +59,9 @@
               </div>
               <!--Price -->
               <div class="panel panel-default" >
-                <div class="panel-heading">
-                    <h3 class="panel-title">Price</h3>
-                  </div>
+                <!-- <div class="panel-heading">
+                    <h3 class="panel-title">Pricing</h3>
+                  </div> -->
                   <div class="panel-body" >
                     <div class="form-horizontal">
                       <div class="form-group form-general m-b-10">
@@ -86,9 +86,9 @@
               
               <!--Stock -->
               <div class="panel panel-default" >
-                <div class="panel-heading">
+                <!-- <div class="panel-heading">
                     <h3 class="panel-title">Stock</h3>
-                  </div>
+                  </div> -->
                   <div class="panel-body" >
                     <div class="form-horizontal">
                       <div class="form-group form-general m-b-10">
@@ -98,10 +98,18 @@
                              class="form-control" maxlength="15">
                     </div>
                   </div>
-                  
                   <div class="form-group form-general m-b-10">
-                    <div class="col-md-9 control-label text-left" style="padding:0px">
-                      <div class="checkbox checkbox-success checkbox-inline">
+                      <label class="col-md-2 control-label text-left">UOM</label>
+                      <div class="col-md-4 ">
+                        <select id="uom_id" v-model="form.uom_id" class="form-control">
+                          <option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
+                        </select>
+                      </div>
+                    </div>
+                  <div class="form-group form-general m-b-10">
+                    <label class="col-md-2 control-label text-left">Stock Tracking</label>
+                    <div class="col-md-4">
+                      <!-- <div class="checkbox checkbox-success checkbox-inline">
                         <input
                           v-model="form.track_inventory"
                           type="checkbox"
@@ -110,10 +118,13 @@
                           false-value="false"
                           checked="checked"
                         />
-                        <label for="track-inventory">Track Inventory for this item</label>
+                        <label for="track-inventory">Track Inventory for this item</label> -->
+                        <select v-model="form.track_inventory" class="form-control">
+                          <option value="false">Do not track</option>
+                          <option value="true">Track inventory for this item</option>
+                        </select>
                       </div>
                     </div>
-                  </div>
                   <div id="show-stock" v-if="form.track_inventory == 'true'">
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Stock</label>
@@ -127,32 +138,25 @@
               </div>
               <!-- Shipping -->
               <div class="panel panel-default" >
-                <div class="panel-heading">
+                <!-- <div class="panel-heading">
                     <h3 class="panel-title">Shipping</h3>
-                  </div>
+                  </div> -->
                   <div class="panel-body" >
                     <div class="form-horizontal">
                       <div class="col-md-12" style="padding-left: 0px;">
-                    <div class="form-group form-general m-b-10">
-                      <label class="col-md-2 control-label text-left">UOM</label>
-                      <div class="col-md-4 ">
-                        <select id="uom_id" v-model="form.uom_id" class="form-control">
-                          <option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
-                        </select>
-                      </div>
-                    </div>
+                    
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left text-danger">Dimension (cm)</label>
                       <div class="col-md-1 pr-0">
-                        <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control" style="font-size:12px; padding:2px">
+                        <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control" style="font-size:12px;">
                       </div>
                       <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
                       <div class="col-md-1 pl-pr-0">
-                        <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control" style="font-size:12px; padding:2px">
+                        <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control" style="font-size:12px;">
                       </div>
                       <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
                       <div class="col-md-1 pl-pr-0">
-                        <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control" style="font-size:12px; padding:2px">
+                        <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control" style="font-size:12px;">
                       </div>
                     </div>
                     <div class="form-group form-general m-b-10">
