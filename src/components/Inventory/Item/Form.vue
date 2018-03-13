@@ -8,12 +8,13 @@
                 <h4 v-if="!$route.params.id" class="pull-left page-title">Create Item</h4>
               </div>
           <div class="row">
+            <!-- Images -->
             <div class="col-md-4">
-              <div class="panel panel-default">
-                <div class="panel-body">
+              <div class="panel panel-default" style="background-color:transparent; box-shadow:none">
+                <div class="panel-body" style="padding:0px">
                   <div class="form-group form-general m-b-10">
                     <!-- <label class="col-md-2 control-label text-left">Images</label> -->
-                    <div class="col-md-9">
+                    <div class="col-md-12 pl-pr-0">
                       <ImageUpload
                         :images="form.item_medias"
                         @add="addImage"
@@ -22,16 +23,17 @@
                         @set-as-primary="setAsPrimary"
                       ></ImageUpload>
                     </div>
+                    <div class="col-md-12 pl-pr-0">
+                      <small>Upload your product's photo up to 5 images</small>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            
             <!-- Info -->
             <div class="col-md-8">
               <div class="panel panel-default">
-                  <!-- <div class="panel-heading">
-                    <h3 class="panel-title">Info</h3>
-                  </div> -->
                   <div class="panel-body">
                     <div class="form-horizontal">
                     <div class="form-group form-general m-b-10">
@@ -57,11 +59,9 @@
                   </div>
                   </div>
               </div>
+
               <!--Price -->
               <div class="panel panel-default" >
-                <!-- <div class="panel-heading">
-                    <h3 class="panel-title">Pricing</h3>
-                  </div> -->
                   <div class="panel-body" >
                     <div class="form-horizontal">
                       <div class="form-group form-general m-b-10">
@@ -86,9 +86,6 @@
               
               <!--Stock -->
               <div class="panel panel-default" >
-                <!-- <div class="panel-heading">
-                    <h3 class="panel-title">Stock</h3>
-                  </div> -->
                   <div class="panel-body" >
                     <div class="form-horizontal">
                       <div class="form-group form-general m-b-10">
@@ -107,7 +104,7 @@
                       </div>
                     </div>
                   <div class="form-group form-general m-b-10">
-                    <label class="col-md-2 control-label text-left">Stock Tracking</label>
+                    <label class="col-md-2 control-label text-left">Inventory Policy</label>
                     <div class="col-md-4">
                       <!-- <div class="checkbox checkbox-success checkbox-inline">
                         <input
@@ -138,9 +135,6 @@
               </div>
               <!-- Shipping -->
               <div class="panel panel-default" >
-                <!-- <div class="panel-heading">
-                    <h3 class="panel-title">Shipping</h3>
-                  </div> -->
                   <div class="panel-body" >
                     <div class="form-horizontal">
                       <div class="col-md-12" style="padding-left: 0px;">

@@ -43,8 +43,8 @@
         <div class="col-xs-3" style="margin-left:0px;margin-top:5px;margin-right:5px;margin-bottom:5px">
             <div class="image-uploader-container-item" style="max-height: 150px">
               <div v-if="" @click="openFileManager" class="add-new-image-btn">
-                <i class="fa fa-image" style="font-size:20px"></i><br>
-                <p>+ Add New Image</p>
+                <i class="fa fa-image" style="font-size:12px"></i><br>
+                <p style="font-size:12px">+ Add New Image</p>
                           
                 </div>
             </div>
@@ -275,17 +275,18 @@
 <style scoped>
 
   .image-uploader-container {
-    /* background: #eee;
-    border: 1px solid #d9d9d9ee; */
-    /* min-height: 240px; */
-    margin: 10px 0px;
-    /* padding: 10px; */
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    min-height: 165px;
+    padding: 10px;
     border-radius: 2px;
+    box-shadow:0px 1px 4px 0px #ccc;
   }
 
   .image {
-    width: 154px;
-    height: 154px;
+    width: 130px;
+    height: 130px;
     background-image: url('http://placehold.it/154');
     background-size: cover;
     background-position: top left;
@@ -329,11 +330,11 @@
   }
 
   .add-new-image-btn {
-  border: 1px dashed #aaa;
-  width: 154px;
-  height: 154px;
+  border: 1px dashed #999;
+  width: 130px;
+  height: 130px;
   padding: 10px;
-  color: #aaa;
+  color: #999;
   cursor: pointer;
   display: flex;
   justify-content: center;
