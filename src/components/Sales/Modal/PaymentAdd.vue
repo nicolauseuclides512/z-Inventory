@@ -42,13 +42,20 @@
                 </div>
                 <div class="form-group row" v-if="form.payment_mode_id === 1">
                   <label class="col-md-3 control-label">Deposit To</label>
-                  <div class="col-md-6">
-                    <select v-model="form.payment_account_id" class="form-control">
+                  <div class="col-md-8">
+                    <!-- <select v-model="form.payment_account_id" class="form-control">
                       <option value="" disabled selected></option>
                       <option v-for="p in payment_method_details" :value="p.account_id">
                         {{ p.account_name }} - {{ p.account_number }}
                       </option>
-                    </select>
+                    </select> -->
+                    <div v-for="p in payment_method_details">
+                      <div class="cnt_min">
+                        <input type="radio" v-model="form.payment_account_id" :value="p.account_id"/>
+                        <img :src="`/static/images/bank/${p.account_name}.png`" class="selected_img" >
+                        <div class="text-center"><small style="font-size:.80em">{{ p.account_number }} </small></div>
+                      </div>
+                    </div>
                   </div>
                   <small v-if="!payment_method_details.length" class="col-md-11 col-md-offset-1 alert-warning" style="padding: 3px;">
                     You don't have any bank on the list.
@@ -292,3 +299,35 @@
     }
   }
 </script>
+<style scoped>
+.cnt_min{
+    display:inline-block;
+    width:95px;
+    height:56spx;
+    position:relative;
+    border:solid 1px #ccc;
+    border-radius:5px;
+    margin:5px;
+    float: left;
+}
+.cnt_min input[type="radio"]{
+    width:100%;
+    height:100%;
+    position: absolute;
+    top:0;
+    left:0;
+    opacity:0;
+    border-radius:5px;
+}
+.selected_img{
+    pointer-events: none;
+    width:100%;
+    height:100%;
+    border-radius:5px;
+}
+.cnt_min input[type="radio"]:checked ~ .selected_img{
+  border:solid 2px #1c8ad9;
+  box-shadow:0px 1px 4px 0px #ccc;
+  border-radius:5px;
+}
+</style>
