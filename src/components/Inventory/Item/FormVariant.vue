@@ -51,13 +51,13 @@
                       <textarea v-model="form.description" class="form-control" rows="3"></textarea>
                     </div>
                   </div>
-                  <div class="form-group form-general m-b-20">
+                  <!-- <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left">SKU</label>
                     <div class="col-md-3">
                       <input v-model="form.code_sku" type="text" min="0" placeholder=""
                              class="form-control" maxlength="15">
                     </div>
-                  </div>
+                  </div> -->
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left text-danger">Price</label>
                     <div class="col-md-2">
