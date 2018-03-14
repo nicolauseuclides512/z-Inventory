@@ -80,7 +80,15 @@ export const Alert = new function () {
         params = _.merge(defaultOptions, args)
       }
 
-      swal(params).then(callback).catch(swal.noop)
+      if (typeof(callback) === 'function') {
+        swal(params)
+          .then((result) => {
+            if (result.value) {
+              callback()
+            }
+          })
+          .catch(swal.noop)
+      }
     }
 }
 
