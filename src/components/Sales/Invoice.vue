@@ -66,12 +66,13 @@
           <div class="billto">
             <p>Bill to</p>
             <h4 style="color: black;">{{ buyer_name }}</h4>
+            <p style="color: black;">{{ buyer_phone }}</p> 
+            <p style="color: black;">{{ buyer_mobile }}</p> 
             <p style="color: black;">{{ buyer_address }}</p>
             <p style="color: black;">{{ buyer_region }}</p>
             <p style="color: black;">{{ buyer_district }}</p>
             <p style="color: black;">{{ buyer_province }}</p>
-            <p style="color: black;">{{ buyer_zip }}</p>
-            <p style="color: black;">{{ buyer_country }}</p>
+            <p style="color: black;">{{ buyer_zip }} {{ buyer_country }}</p>
           </div>
         </div>
         <div class="col-md-8" style="padding-right:0px">
@@ -233,7 +234,9 @@ export default {
       buyer_district: "",
       buyer_province: "",
       buyer_zip: "",
-      buyer_country: ""
+      buyer_country: "", 
+      buyer_phone: "", 
+      buyer_mobile: ""
     };
   },
 
@@ -287,6 +290,9 @@ export default {
 
     async getBuyerinfo() {
       this.buyer_name = this.value.contact.display_name;
+
+      this.buyer_phone = this.value.contact.phone; 
+      this.buyer_mobile = this.value.contact.mobile; 
 
       this.buyer_address = this.value.billing_address
         ? this.value.billing_address
