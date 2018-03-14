@@ -80,7 +80,7 @@
                           Add more
                         </button>
                       </div>
-                      <div class="col-md-1">
+                      <div class="col-md-1" v-if="firstVariant.show || thirdVariant.show">
                         <button type="button" @click="hideSecondVariant"
                                 class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
@@ -107,7 +107,7 @@
                           Add more
                         </button>
                       </div>
-                      <div class="col-md-1">
+                      <div class="col-md-1" v-if="firstVariant.show || secondVariant.show">
                         <button type="button" @click="hideThirdVariant"
                                 class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
