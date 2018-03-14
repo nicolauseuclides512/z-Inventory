@@ -53,7 +53,7 @@
                           Add more
                         </button>
                       </div>
-                      <div class="col-md-1">
+                      <div class="col-md-1"  v-if="secondVariant.show || thirdVariant.show">
                         <button type="button" @click="hideFirstVariant"
                                 class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
@@ -74,13 +74,13 @@
                       <div class="col-md-7">
                         <Vuetagger :value="secondVariant.values" @change="changeSecondVariantValues"></Vuetagger>
                       </div>
-                      <div class="col-md-1" v-if="!thirdVariant.show && firstVariant.show">
+                      <div class="col-md-1" v-if="(!thirdVariant.show && firstVariant.show) || (!firstVariant.show && !thirdVariant.show )">
                         <button type="button" @click="addMoreVariant"
                                 class="btn btn-info btn-custom waves-effect waves-light m-b-5">
                           Add more
                         </button>
                       </div>
-                      <div class="col-md-1">
+                      <div class="col-md-1" v-if="firstVariant.show || thirdVariant.show">
                         <button type="button" @click="hideSecondVariant"
                                 class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
@@ -101,7 +101,13 @@
                       <div class="col-md-7">
                         <Vuetagger :value="thirdVariant.values" @change="changeThirdVariantValues"></Vuetagger>
                       </div>
-                      <div class="col-md-1">
+                      <div class="col-md-1" v-if="(secondVariant.show && !firstVariant.show) || (firstVariant.show && !secondVariant.show ) || (!firstVariant.show && !secondVariant.show )">
+                        <button type="button" @click="addMoreVariant"
+                                class="btn btn-info btn-custom waves-effect waves-light m-b-5">
+                          Add more
+                        </button>
+                      </div>
+                      <div class="col-md-1" v-if="firstVariant.show || secondVariant.show">
                         <button type="button" @click="hideThirdVariant"
                                 class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
@@ -111,16 +117,16 @@
                   </div>
                 </div>
 
-                <div class="row">
-                  <!-- <button
+                <!-- <div class="row">
+                  <button
                     v-if="!firstVariant.show || !secondVariant.show || !thirdVariant.show"
                     type="button" @click="addMoreVariant" class="btn btn-info waves-effect waves-light">
                     Add more variant
-                  </button> -->
+                  </button>
                   <button type="button" @click="generateVariant" class="btn btn-info waves-effect waves-light">
                     Generate Variants
                   </button>
-                </div>
+                </div> -->
 
 
                 <!--<div id="mark_hide" v-if="list.currentVariantTypes.length < 3">-->
