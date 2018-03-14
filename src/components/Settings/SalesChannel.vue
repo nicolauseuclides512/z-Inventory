@@ -115,7 +115,7 @@
       SalesChannelModal,
     },
 
-    data () {
+    data() {
       return {
         ui: {
           showSyncModal: false,
@@ -131,7 +131,7 @@
       }
     },
 
-    mounted () {
+    mounted() {
       this.salesChannelResource()
       this.salesChannel()
       this.companyLogo()
@@ -139,15 +139,15 @@
 
     methods: {
 
-      async salesChannelResource () {
+      async salesChannelResource() {
         const res = await Axios.get(`my_channels/create`)
         const channel_resources = res.data.data.channels
         const sortedData = _.sortBy(channel_resources, ['channel_name'])
-          /*.filter(channel => channel.channel_name !== 'Lazada')*/
+        /*.filter(channel => channel.channel_name !== 'Lazada')*/
         this.list.channel_resources = sortedData
       },
 
-      async salesChannel (params = {}) {
+      async salesChannel(params = {}) {
         const defaultParams = {
           filter: 'all',
           page: 1,
@@ -161,22 +161,22 @@
         this.list.channels = res.data.data
       },
 
-      async companyLogo (){
+      async companyLogo() {
         const organization_id = Cookie.get('organization_id')
         const res = await Axios.get(`organizations/${organization_id}`)
         this.image_logo_medium = res.data.data.logo
       },
 
-      async add () {
+      async add() {
         try {
-          if (this.form.store_name && this.form.sales_channel_id){
-          const res = await Axios.post(`my_channels`, this.form)
-          await this.salesChannel()
-          this.form.sales_channel_id = null
-          this.form.store_name = ''
-          Alert.success('New channel has been created')
+          if (this.form.store_name && this.form.sales_channel_id) {
+            const res = await Axios.post(`my_channels`, this.form)
+            await this.salesChannel()
+            this.form.sales_channel_id = null
+            this.form.store_name = ''
+            Alert.success('New channel has been created')
           } else {
-            Alert.error('Whoops! Choose sales channel or fill your store name first!')  
+            Alert.error('Whoops! Choose sales channel or fill your store name first!')
           }
         }
         catch (err) {
@@ -185,7 +185,7 @@
         }
       },
 
-      async remove (channel) {
+      async remove(channel) {
         try {
           Alert.confirm({text: 'Are you sure?'}, async () => {
             const res = await Axios.delete(`my_channels/${channel.id}`)
@@ -202,7 +202,7 @@
       },
 
       async syncModalToggle() {
-        this.ui.showSyncModal = ! this.ui.showSyncModal
+        this.ui.showSyncModal = !this.ui.showSyncModal
       },
 
     },
