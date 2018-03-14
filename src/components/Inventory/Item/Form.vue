@@ -12,7 +12,7 @@
             <div class="col-md-4">
               <div class="panel panel-default" style="background-color:transparent; box-shadow:none">
                 <div class="panel-body" style="padding:0px">
-                  <div class="form-group form-general m-b-10">
+                  <div class="form-group form-general">
                     <!-- <label class="col-md-2 control-label text-left">Images</label> -->
                     <div class="col-md-12 pl-pr-0">
                       <ImageUpload

@@ -14,19 +14,28 @@
     <input ref="fileUploader" type="file" multiple accept="image/*" @change="addFromFile" style="display: none;">
 
     <section class="image-uploader-container">
-      <div v-show="!images.length" class="bg">
+      <!-- <div v-show="!images.length" class="bg">
 
-      </div>
-      <div class="row">
+      </div> -->
+      <div class="row m-0" style="min-height:165px">
+        <div v-show="!images.length">
+          <div class="image-uploader-container-item">
+              <div @click="openFileManager" class="add-new-image-btn2 p-0">
+                <i class="fa fa-image" style="font-size:12px"></i><br>
+                <p style="font-size:12px">+ Add New Image</p>        
+                </div>
+            </div>
+        </div>
         <div v-show="images.length" v-for="image in images">
-          <div class="col-xs-3" style="margin-left:0px;margin-top:5px;margin-right:5px;margin-bottom:5px">
+          <div class="col-xs-6 p-0 m-t-0 m-r-0 m-l-0 m-b-5">
 
-            <div class="image-uploader-container-item" style="max-height: 150px">
+            <div class="image-uploader-container-item">
               <div
                 :class="{ primary: image.is_main, 'image thumbnail': true }"
                 :style="{
                   'background-image': `url(${'media_url' in image ? image.media_url : image.data})`,
                 }"
+                style="margin-bottom:0px"
               >
 
                 <div class="image-uploader-container-item-action clearfix">
@@ -40,15 +49,13 @@
 
           </div>
         </div>
-        <div class="col-xs-3" style="margin-left:0px;margin-top:5px;margin-right:5px;margin-bottom:5px">
-            <div class="image-uploader-container-item" style="max-height: 150px">
-              <div v-if="" @click="openFileManager" class="add-new-image-btn">
+        <div v-show="images.length" class="col-xs-6 p-0 m-t-0 m-r-0 m-l-0 m-b-5">
+            <div class="image-uploader-container-item">
+              <div  @click="openFileManager" class="add-new-image-btn p-0">
                 <i class="fa fa-image" style="font-size:12px"></i><br>
-                <p style="font-size:12px">+ Add New Image</p>
-                          
+                <p style="font-size:12px">+ Add New Image</p>  
                 </div>
             </div>
-
           </div>
       </div>
     </section>
@@ -275,18 +282,16 @@
 <style scoped>
 
   .image-uploader-container {
-    background: #fff;
+    background:transparent;
     height: 100%;
     width: 100%;
     min-height: 165px;
-    padding: 10px;
     border-radius: 2px;
-    box-shadow:0px 1px 4px 0px #ccc;
   }
 
   .image {
-    width: 130px;
-    height: 130px;
+    width: 180px;
+    height: 180px;
     background-image: url('http://placehold.it/154');
     background-size: cover;
     background-position: top left;
@@ -331,8 +336,8 @@
 
   .add-new-image-btn {
   border: 1px dashed #999;
-  width: 130px;
-  height: 130px;
+  width: 180px;
+  height: 180px;
   padding: 10px;
   color: #999;
   cursor: pointer;
@@ -342,6 +347,23 @@
 }
 
 .add-new-image-btn:hover {
+  color: white;
+  background: #89b5eb;
+}
+
+  .add-new-image-btn2 {
+  border: 1px dashed #999;
+  width: 100%;
+  height: 165px;
+  padding: 10px;
+  color: #999;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-new-image-btn2:hover {
   color: white;
   background: #89b5eb;
 }
