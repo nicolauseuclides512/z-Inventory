@@ -187,9 +187,11 @@
 
       async remove(channel) {
         try {
-          Alert.confirm({text: 'Are you sure?'}, async () => {
-            const res = await Axios.delete(`my_channels/${channel.id}`)
-
+          Alert.confirm({
+            title: 'Are you sure want to delete this sales channel?',
+            text: '',
+          }, () => {
+            const res = Axios.delete(`my_channels/${channel.id}`)
             const index = this.list.channels.indexOf(channel)
             this.list.channels.splice(index, 1)
 
