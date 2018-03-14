@@ -158,7 +158,7 @@
                         <td v-if="thirdVariant.show && thirdVariant.values.length">
                           {{ thirdVariant.name | capitalize }}
                         </td>
-                        <td>Stock</td>
+                        <td v-if="item.track_inventory == 'true'">Stock</td>
                         <td>Price</td>
                         <td>&nbsp;</td>
                       </tr>
