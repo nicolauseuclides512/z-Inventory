@@ -320,6 +320,7 @@
         if (id) {
           res = await Axios.get(`items/${id}/edit`)
           this.form = res.data.data.item
+          this.form.track_inventory = String(this.form.track_inventory)
         } else {
           res = await Axios.get(`items/create`)
           this.form.uom_id = res.data.data.uoms[0].uom_id
