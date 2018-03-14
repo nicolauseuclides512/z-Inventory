@@ -188,7 +188,7 @@
                             v-model="v.item_attributes[thirdVariant.name]"
                             disabled="disabled">
                         </td>
-                        <td><input type="number" step="1" class="form-control form-white" v-model="v.inventory_stock"></td>
+                        <td><input type="number" step="1" class="form-control form-white" v-model="v.stock_quantity"></td>
                         <td><input type="number" step="1" class="form-control form-white" v-model="v.sales_rate"></td>
                         <td>
                           <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
@@ -364,7 +364,7 @@
             dimension_h: this.item.dimension_h,
             compare_rate: this.item.compare_rate,
             track_inventory: this.item.track_inventory,
-            inventory_stock: this.item.inventory_stock,
+            stock_quantity: this.item.stock_quantity,
             inventory_stock_warning: this.item.inventory_stock_warning,
             item_status: this.item.item_status,
             category_id: this.item.category_id,
