@@ -130,7 +130,148 @@
                 <div class="panel-body">
                   <div class="form-horizontal">
                     <div class="form-group form-general m-b-10">
-                      ISI DISINI
+                      <label class="col-md-4 control-label text-left ">Same Billing and Shipping address?</label>
+                      <div class="col-md-2">
+                        <select v-model="form.is_sameAddress" class="form-control">
+                          <option value="true">Yes</option>
+                          <option value="false">No</option>
+                      </select>
+                      </div>
+                    </div>
+                    
+                    <!-- Billing Address Goes Here -->
+                    <div class="col-md-6" style="padding-left:0px">
+                      <div class="form-group form-general m-b-10">
+                        <div v-if="form.is_sameAddress =='false'" class="form-group form-general m-b-10">
+                          <label class="col-md-4 control-label text-left">Billing Address</label>
+                        </div>
+                        <label class="col-md-3 control-label text-left">Country</label>
+                        <div class="col-md-8">
+                          <select id="billing_country_id" v-model="form.billing_country" class="form-control">
+                            <option :value="0" hidden disabled>Select Country</option>
+                            <option v-for="country in list.billing_country_list" :value="country.id" v-text="">
+                              {{ country.name }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">Province</label>
+                        <div class="col-md-8">
+                          <select id="billing_province_id" v-model="form.billing_province" class="form-control"
+                                  @change="updateBillingDistrictList" :disabled="!list.billing_province_list.length">
+                            <option :value="0" hidden disabled>Select Province</option>
+                            <option v-for="province in list.billing_province_list" :value="province.id">
+                              {{ province.name }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">District</label>
+                        <div class="col-md-8">
+                          <select id="billing_district_id" v-model="form.billing_district" class="form-control"
+                                  @change="updateBillingRegionList" :disabled="!list.billing_district_list.length">
+                            <option :value="0" hidden disabled>Select District</option>
+                            <option v-for="district in list.billing_district_list" :value="district.id">
+                              {{ district.name }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">Region</label>
+                        <div class="col-md-8">
+                          <select id="billing_region_id" v-model="form.billing_region" class="form-control"
+                                  :disabled="!list.billing_region_list.length">
+                            <option :value="0" hidden disabled>Select Region</option>
+                            <option v-for="region in list.billing_region_list" :value="region.id">{{ region.name }}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">Street</label>
+                        <div class="col-md-8">
+                          <textarea class="form-control" rows="2" id="billing_address"
+                                    v-model="form.billing_address" style="resize:vertical"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">Zip Code</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" placeholder="" maxlength="5" id="billing_zip"
+                            @keyup="inputZip(form.billing_zip, $event)"
+                            @blur="inputZip(form.billing_zip, $event)"
+                            v-model="form.billing_zip">
+                        </div>
+                      </div>
+                    </div>
+
+                      <!-- Shipping Address Goes Here -->
+                    <div v-if="form.is_sameAddress =='false'" class="col-md-6" style="border-left:1px solid #eee">
+                      <div class="form-group form-general m-b-10">
+                          <label class="col-md-4 control-label text-left">Shipping Address</label>
+                        </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">Country</label>
+                        <div class="col-md-9">
+                          <select id="shipping_country_id" v-model="form.shipping_country" class="form-control">
+                            <option :value="0" hidden disabled>Select Country</option>
+                            <option v-for="country in list.shipping_country_list" :value="country.id">
+                              {{ country.name }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">Province</label>
+                        <div class="col-md-9">
+                          <select id="shipping_province_id" v-model="form.shipping_province" class="form-control"
+                                  @change="updateShippingDistrictList" :disabled="!list.shipping_province_list.length">
+                            <option :value="0" hidden disabled>Select Province</option>
+                            <option v-for="province in list.shipping_province_list" :value="province.id">
+                              {{ province.name }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">District</label>
+                        <div class="col-md-9">
+                          <select id="shipping_district_id" v-model="form.shipping_district" class="form-control"
+                                  @change="updateShippingRegionList" :disabled="!list.shipping_district_list.length">
+                            <option :value="0" hidden disabled>Select District</option>
+                            <option v-for="district in list.shipping_district_list" :value="district.id">{{ district.name }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">Region</label>
+                        <div class="col-md-9">
+                          <select id="shipping_region_id" v-model="form.shipping_region" class="form-control"
+                                  :disabled="!list.shipping_region_list.length">
+                            <option :value="0" hidden disabled>Select Region</option>
+                            <option v-for="region in list.shipping_region_list" :value="region.id">{{ region.name }}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">Street</label>
+                        <div class="col-md-9">
+                          <textarea class="form-control" rows="2" id="shipping_address"
+                                    v-model="form.shipping_address" style="resize:vertical"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">Zip Code</label>
+                        <div class="col-md-9">
+                          <input type="text" class="form-control" placeholder="" minlength="5" maxlength="5" id="shipping_zip"
+                          @keyup="inputZip(form.shipping_zip, $event)"
+                           @blur="inputZip(form.shipping_zip, $event)"
+                           v-model="form.shipping_zip">
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -160,7 +301,7 @@
                         <small style="color: #aaa">(For Internal Use)</small>
                       </label>
                       <div class="col-md-8">
-                        <textarea id="notes" v-model="form.notes" class="form-control m-l-15" rows="4"></textarea>
+                        <textarea id="notes" v-model="form.notes" class="form-control m-l-15" rows="4" style="resize:vertical"></textarea>
                       </div>
                     </div>
                   </div>
@@ -590,6 +731,7 @@
           shipping_fax: '',
           notes: '',
           contact_status: 1,
+          is_sameAddress:'false'
         }),
       }
     },
