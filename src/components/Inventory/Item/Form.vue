@@ -22,11 +22,12 @@
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left text-danger">Item Name</label>
                     <div class="col-md-9">
-                      <input type="text"
-                             v-model="form.item_name"
-                             placeholder="Name of item"
-                             class="form-control"
-                             required
+                      <input
+                        type="text"
+                        v-model="form.item_name"
+                        placeholder="Name of item"
+                        class="form-control"
+                        required
                       />
                     </div>
                   </div>
@@ -293,6 +294,7 @@
           parent_id: null,
           item_status: '',
           item_medias: [],
+          images: [],
         })
       }
     },
@@ -303,6 +305,11 @@
         if (!leave) return next(false)
       }
       return next()
+    },
+
+    created() {
+      // IMPORTANT: Make images and item_medias sync.
+      this.form.images = this.form.item_medias
     },
 
     mounted() {
@@ -382,28 +389,48 @@
       async addImage(image) {
         try {
           const itemId = this.$route.params.id
-          const addResponse = await Axios.post(`items/${itemId}/images/add`, image)
-          const editResponse = await Axios.get(`items/${itemId}/edit`)
-          this.form.item_medias = editResponse.data.data.item.item_medias
-          console.log(_.cloneDeep(editResponse.data.data.item.item_medias))
 
-          Alert.success('Image has been added.')
+          if (itemId) {
+            // Edit item
+            const addResponse = await Axios.post(`items/${itemId}/images/add`, image)
+            const editResponse = await Axios.get(`items/${itemId}/edit`)
+            this.form.item_medias = editResponse.data.data.item.item_medias
+
+            swal_success(addResponse)
+          } else {
+            this.form.item_medias.push(image)
+          }
         }
         catch (err) {
-          Alert.error('Something went wrong.')
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
         }
       },
 
       async removeImage(image) {
         try {
           const itemId = this.$route.params.id
-          const res = await Axios.delete(`items/${itemId}/images/remove/${image.item_media_id}`)
+
+          if (itemId) {
+            const res = await Axios.delete(`items/${itemId}/images/remove/${image.item_media_id}`)
+
+            if (!responseOk(res.data.code)) {
+              swal_error(res)
+            }
+
+            swal_success(res)
+          }
+
           const index = this.form.item_medias.indexOf(image)
           this.form.item_medias.splice(index, 1)
-          Alert.success('Image has been deleted.')
         }
         catch (err) {
-          Alert.error('Something went wrong.')
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
         }
       },
 
@@ -425,13 +452,17 @@
 
         }
         catch (err) {
-          Alert.error('Something went wrong.')
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
         }
       },
 
-      setAsPrimary(image) {
-        const itemId = this.$route.params.id
+      async setAsPrimary(image) {
         try {
+          const itemId = this.$route.params.id
+
           const primaryImage = this.form.item_medias
             .map(img => {
               img.is_main = false
@@ -443,11 +474,19 @@
                 return img
               }
             })
-          Axios.get(`items/${itemId}/images/set_primary/${primaryImage.item_media_id}`)
-          Alert.success('Image has been set to primary image')
+
+          if (itemId) {
+            // Edit item
+            const res = await Axios.get(`items/${itemId}/images/set_primary/${primaryImage.item_media_id}`)
+            swal_success(res)
+          }
+
         }
         catch (err) {
-          Alert.error('Something went wrong.')
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
         }
       },
 
