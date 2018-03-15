@@ -864,6 +864,11 @@
             this.form.billing_address = this.newContact.billing_address
           }
 
+          if (!this.form.contact_id) {
+            Alert.error('Please select a customer or create new contact.')
+            return
+          }
+
           if (sales_order_id) {
             res = await this.form.post(`sales_orders/${sales_order_id}/update`);
 
