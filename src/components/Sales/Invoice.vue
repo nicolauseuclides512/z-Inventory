@@ -144,7 +144,7 @@
                 <td colspan="1">Shipping Charge</td>
                 <td colspan="2">{{ value.shipping_charge | money }}</td>
               </tr> -->
-              <tr class="sub-total">
+              <tr class="sub-total" v-if="value.tax">
                 <td colspan="3"></td>
                 <td class="text-left" colspan="1">Tax</td>
                 <td colspan="1">
