@@ -40,7 +40,7 @@
           title=""
         />
       </td>
-      <td><input type="text" class="form-control form-white" v-model="v.inventory_stock" title="Stock"></td>
+      <td><input type="text" class="form-control form-white" v-model="v.stock_quantity" title="Stock" v-if="v.track_inventory"></td>
       <td><input type="text" class="form-control form-white" v-model="v.sales_rate" title=""></td>
       <td>
         <button type="button" @click="updateItem(v)" class="btn btn-info btn-custom waves-effect">

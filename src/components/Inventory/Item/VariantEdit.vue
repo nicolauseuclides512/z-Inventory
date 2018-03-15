@@ -15,11 +15,11 @@
                       <thead>
                       <tr>
                         <td>Item Name</td>
+                        <td>SKU</td>
                         <!--<td v-for="attribute in attributes">-->
                           <!--{{ value }}-->
                         <!--</td>-->
                         <td>Stock</td>
-                        <td>SKU</td>
                         <td>Price</td>
                         <td></td>
                       </tr>
@@ -30,11 +30,11 @@
                           <!--<pre v-text="item"></pre>-->
                           <input type="text" class="form-control form-white" v-model="item.item_name">
                         </td>
+                        <td><input type="text" class="form-control form-white" v-model="item.code_sku"></td>
                         <td v-for="(value, key) in item.item_attributes">
                           <input type="text" class="form-control form-white" v-model="value[0]">
                         </td>
-                        <td><input type="number" class="form-control form-white" v-model="item.inventory_stock"></td>
-                        <td><input type="text" class="form-control form-white" v-model="item.code_sku"></td>
+                        <td><input type="number" class="form-control form-white" v-model="item.stock_quantity"></td>
                         <td><input type="number" class="form-control form-white" v-model="item.sales_rate"></td>
                         <td>
                           <button v-if="items.length > 1" @click="removeVariantItem(item)" type="button" class="btn btn-danger btn-custom waves-effect">
