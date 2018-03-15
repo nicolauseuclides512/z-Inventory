@@ -96,6 +96,7 @@
                                     <th>Quantity on Hand</th>
                                     <th>Adjust</th>
                                     <th>Reason</th>
+                                    <td style="box-shadow: 0px solid; border: 0px solid; width:28px"></td>
                                   </tr>
                                   </thead>
                                   <tbody>
@@ -146,6 +147,10 @@
                                           {{ reason.reason }}
                                         </option>
                                       </select>
+                                    </td>
+                                    <td style="vertical-align: middle; background-color:#ffffff; border:0px solid; width:28px" v-if="detail.item_id">
+                                      <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
+                                        class="ion-close-round"></i></a>
                                     </td>
                                   </tr>
                                   </tbody>
@@ -407,6 +412,11 @@
         }
 
         detail.on_hand_qty = database_qty + adjust_qty
+      },
+
+      removeProduct(product) {
+        const index = this.form.details.indexOf(product);
+        this.form.details.splice(index, 1);
       },
 
     cancel() {
