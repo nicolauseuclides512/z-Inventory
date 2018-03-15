@@ -75,11 +75,11 @@
                         </td>
                         <td v-text="product.item_name" width='40.85%' style="padding-left:10px; size:14px"></td>
                         <td width="6.75%">
-                          <input type="number" v-model.number="product.item_quantity" min="1" max="99999" class="form-control" style="padding-left:5px; padding-right:0px">
+                          <input type="number" v-model.number="product.item_quantity" :min="1" :max="99999" class="form-control" style="padding-left:5px; padding-right:0px">
                         </td>
 
                         <td width="10.65%">
-                          <vue-numeric v-model.number="product.item_rate" min="0" max="99999999" separator="." class="form-control custom" style="padding:6px; width:89px"></vue-numeric>
+                          <vue-numeric v-model.number="product.item_rate" :min="0" :max="99999999" separator="." class="form-control custom" style="padding:6px; width:89px"></vue-numeric>
                         </td>
 
                         <td width="20.25%">
@@ -90,7 +90,7 @@
                             </select>
                           </div>
                           <div class="col-md-8">
-                            <vue-numeric 
+                            <vue-numeric
                                     v-model.number="product.discount_amount_value"
                                     @change="updateDiscountValue(product)"
                                     separator="."
