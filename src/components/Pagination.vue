@@ -1,5 +1,5 @@
 <template>
-  <div class="clearfix" v-if="pageContext.count > 15">
+  <div class="clearfix" v-if="pageContext.total > 15">
     <div class="pr-20 pull-left" style="padding: 26px 0 0 15px;">
       <small class="text-muted">
         Show
