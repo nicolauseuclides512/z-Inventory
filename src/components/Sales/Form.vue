@@ -489,6 +489,7 @@
 <script>
   const Flatpickr = require("flatpickr");
   import axios from "axios";
+  import {responseOk} from 'src/helpers';
   import Vuelist from "../Vuelist";
   import Vuetagger from "../Vuetagger";
   import Router from "src/router";
@@ -636,26 +637,39 @@
 
     methods: {
       async initialize() {
-        if (this.$route.params.id) {
-          const sales_order_id = this.$route.params.id;
-          const res = await axios.get(`sales_orders/${sales_order_id}/edit`);
-          this.edit(res.data.data.sales_order);
-          this.list.discount_unit = res.data.data.discount_unit;
-          this.list.weight_unit = res.data.data.weight_unit;
-          this.tax_included = res.data.data.tax_included;
-          this.sales_order_number = res.data.data.sales_order.sales_order_number;
-        } else {
-          const res = await axios.get("sales_orders/create");
-          this.list.discount_unit = res.data.data.discount_unit;
-          this.list.weight_unit = res.data.data.weight_unit;
-          this.tax_included = res.data.data.tax_included;
-          this.sales_order_number = res.data.data.next_sales_order_number;
-        }
+        try {
+          if (this.$route.params.id) {
+            const sales_order_id = this.$route.params.id;
+            const res = await axios.get(`sales_orders/${sales_order_id}/edit`);
+            if (!responseOk(res.data.code)) {
+              throw new Error(res.data.message)
+            }
+            this.edit(res.data.data.sales_order);
+            this.list.discount_unit = res.data.data.discount_unit;
+            this.list.weight_unit = res.data.data.weight_unit;
+            this.tax_included = res.data.data.tax_included;
+            this.sales_order_number = res.data.data.sales_order.sales_order_number;
+          } else {
+            const res = await axios.get("sales_orders/create");
+            if (!responseOk(res.data.code)) {
+              throw new Error(res.data.message)
+            }
+            this.list.discount_unit = res.data.data.discount_unit;
+            this.list.weight_unit = res.data.data.weight_unit;
+            this.tax_included = res.data.data.tax_included;
+            this.sales_order_number = res.data.data.next_sales_order_number;
+          }
 
-        await this.dateTime();
-        await this.fetchContactList();
-        await this.fetchProductList();
-        await this.fetchTaxSetting();
+          await this.dateTime();
+          await this.fetchContactList();
+          await this.fetchProductList();
+          await this.fetchTaxSetting();
+        } catch (err) {
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
+        }
       },
 
       toggleAddNewContactField() {
@@ -670,9 +684,12 @@
         this.selectContact(sales_order.contact);
         this.selectSalesChannel(sales_order.my_sales_channel);
 
-        const res = await axios.get(
-          `sales_orders/${sales_order.sales_order_id}/details`
-        );
+        const res = await axios.get(`sales_orders/${sales_order.sales_order_id}/details`);
+
+        if (!responseOk(res.data.code)) {
+          throw new Error(res.data.message)
+        }
+
         this.form.details = res.data.data;
 
         this.form.invoice_date = sales_order.invoice_date
@@ -738,17 +755,28 @@
       },
 
       async fetchContactList() {
-        const contact_list_response = await axios.get("contacts", {
-          params: {
-            page: 1,
-            per_page: 9999,
-            sort: "created_at.desc",
-            filter: "all",
-            q: ""
-          }
-        });
+        try {
+          const res = await axios.get("contacts", {
+            params: {
+              page: 1,
+              per_page: 9999,
+              sort: "created_at.desc",
+              filter: "all",
+              q: ""
+            }
+          });
 
-        this.list.contact_list = contact_list_response.data.data;
+          if (!responseOk(res.data.code)) {
+            throw new Error(res.data.message)
+          }
+
+          this.list.contact_list = res.data.data;
+        } catch (err) {
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
+        }
       },
 
       async fetchProductList() {
@@ -766,17 +794,31 @@
       },
 
       async salesChannel (params = {}) {
-        const defaultParams = {
-          filter: 'all',
-          page: 1,
-          per_page: 9999,
-          sort: 'sales_channel_id.asc',
+        try {
+          const defaultParams = {
+            filter: 'all',
+            page: 1,
+            per_page: 9999,
+            sort: 'sales_channel_id.asc',
+          }
+
+          const query = Object.assign({}, defaultParams, params)
+
+          const res = await axios.get(`my_channels`, {params: query})
+
+          if (!responseOk(res.data.code)) {
+            throw new Error(res.data.message)
+          }
+
+          this.list.channels = res.data.data
+        }
+        catch (err) {
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
         }
 
-        const query = Object.assign({}, defaultParams, params)
-
-        const res = await axios.get(`my_channels`, {params: query})
-        this.list.channels = res.data.data
       },
 
       async fetchTaxSetting() {
@@ -813,14 +855,28 @@
           // When use add new contact form field
           if (this.ui.showAddNewContactField) {
             const res = await axios.post(`contacts`, this.newContact)
+
+            if (!responseOk(res.data.code)) {
+              throw new Error(res.data.message)
+            }
+
             this.form.contact_id = res.data.data.contact_id
             this.form.billing_address = this.newContact.billing_address
           }
 
           if (sales_order_id) {
             res = await this.form.post(`sales_orders/${sales_order_id}/update`);
+
+            if (!responseOk(res.data.code)) {
+              throw new Error(res.data.message)
+            }
           } else {
             res = await this.form.post(`sales_orders`);
+
+            if (!responseOk(res.data.code)) {
+              throw new Error(res.data.message)
+            }
+
             sales_order_id = res.data.data.sales_order_id;
           }
 
@@ -868,19 +924,30 @@
             this.resetForm();
           }
 
-          Alert.success(res.data.message);
+          swal_success(res)
         } catch (err) {
           console.error(err);
           if (err.hasOwnProperty("response")) {
-            Alert.error(err.response.data.message);
+            swal_error(err)
           }
         }
       },
 
       async selectContact(contact) {
-        const contact_id = (this.form.contact_id = contact.contact_id);
-        const res = await axios.get(`contacts/${contact_id}`);
-        this.selected_contact = res.data.data;
+        try {
+          const contact_id = (this.form.contact_id = contact.contact_id);
+          const res = await axios.get(`contacts/${contact_id}`);
+          if (!responseOk(res.data.code)) {
+            throw new Error(res.data.message)
+          }
+          this.selected_contact = res.data.data;
+        }
+        catch (err) {
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
+        }
       },
 
       clearSelectedContact() {
@@ -922,6 +989,9 @@
           const my_sales_channel_id = (this.form.my_sales_channel_id = channel.id);
           const my_sales_channel = (this.form.my_sales_channel = channel.store_name);
           const res = await axios.get(`my_channels/${my_sales_channel_id}`);
+          if (!responseOk(res.data.code)) {
+            throw new Error(res.data.message)
+          }
           this.selected_sales_channel = res.data.data;
         }
       },
