@@ -251,7 +251,7 @@
                       <div class="pull-left" style="margin-right: 10px;">
                         <router-link
                           :to="{ name: 'sales.edit', param: { id: salesOrder.sales_order_id } }"
-                          v-if="salesOrder.invoice_status !== 'VOID'"
+                          v-if="(salesOrder.invoice_status !== 'VOID') && (salesOrder.invoice_status !== 'PAID')"
                           class="btn btn-default waves-effect waves-light m-b-5"
                         >
                           Edit
