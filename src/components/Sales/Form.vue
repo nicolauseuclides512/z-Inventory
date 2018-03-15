@@ -940,12 +940,13 @@
 
       async selectContact(contact) {
         try {
-          const contact_id = (this.form.contact_id = contact.contact_id);
+          const contact_id = contact.contact_id
           const res = await axios.get(`contacts/${contact_id}`);
           if (!responseOk(res.data.code)) {
             throw new Error(res.data.message)
           }
           this.selected_contact = res.data.data;
+          this.form.contact_id = this.selected_contact.contact_id
         }
         catch (err) {
           console.error(err)
