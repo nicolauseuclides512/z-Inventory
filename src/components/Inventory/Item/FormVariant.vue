@@ -94,7 +94,7 @@
                     <div class="form-group form-general m-b-20">
                       <label class="col-md-2 control-label text-left">Stock</label>
                       <div class="col-md-3">
-                        <input v-model="form.stock_quantity" type="number" min="0" placeholder="" class="form-control">
+                        <input v-model.number="form.stock_quantity" type="number" min="0" placeholder="" class="form-control">
                       </div>
                     </div>
                   </div>
