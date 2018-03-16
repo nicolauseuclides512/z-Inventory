@@ -713,7 +713,7 @@
         this.form.shipping_weight_unit = sales_order.shipping_weight_unit;
         this.form.shipping_rate = sales_order.shipping_rate;
         this.form.adjustment_name = sales_order.adjustment_name;
-        this.form.adjustment_value = sales_order.adjustment_value;
+        this.form.adjustment_value = Number(sales_order.adjustment_value);
         this.form.internal_notes = sales_order.internal_notes;
         this.form.customer_notes = sales_order.customer_notes;
         this.form.term_and_condition = sales_order.term_and_condition;
