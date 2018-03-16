@@ -361,8 +361,8 @@
       updateChildren(value) {
         // We have issue with weight
         this.form.children = value.map(child => {
-          child.weight = form.weight
-          child.track_inventory = form.track_inventory
+          child.weight = this.form.weight
+          child.track_inventory = this.form.track_inventory
           return child
         })
       },
