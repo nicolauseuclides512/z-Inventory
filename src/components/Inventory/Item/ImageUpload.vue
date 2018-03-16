@@ -3,10 +3,10 @@
 
     <header>
       <div v-if="!loading">
-        <a href="javascript:;" @click="openFileManager" class="btn btn-primary">Add Images</a>
+        <!-- <a href="javascript:;" @click="openFileManager" class="btn btn-primary">Add Images</a> -->
         <!--<a href="javascript:;" @click="promptUrl" class="btn btn-primary">Image URL</a>-->
         <!--<a href="javascript:;" @click="promptYoutube" class="btn btn-primary">Youtube URL</a>-->
-        <a href="javascript:;" @click="clearAll" v-show="this.images.length > 0" class="btn btn-default">Clear all</a>
+        <!-- <a href="javascript:;" @click="clearAll" v-show="this.images.length > 0" class="btn btn-default">Clear all</a> -->
       </div>
       <div v-else> Please wait... </div>
     </header>
@@ -14,17 +14,28 @@
     <input ref="fileUploader" type="file" multiple accept="image/*" @change="addFromFile" style="display: none;">
 
     <section class="image-uploader-container">
-      <div v-show="!images.length" class="bg"></div>
-      <div class="row">
-        <div v-show="images.length" v-for="image in images">
-          <div class="col-xs-3">
+      <!-- <div v-show="!images.length" class="bg">
 
-            <div class="image-uploader-container-item" style="max-height: 150px">
+      </div> -->
+      <div class="row m-0" style="min-height:165px">
+        <div v-show="!images.length">
+          <div class="image-uploader-container-item">
+              <div @click="openFileManager" class="add-new-image-btn2 p-0">
+                <i class="fa fa-image" style="font-size:12px"></i><br>
+                <p style="font-size:12px">+ Add New Image</p>        
+                </div>
+            </div>
+        </div>
+        <div v-show="images.length" v-for="image in images">
+          <div class="col-xs-6 p-0 m-t-0 m-r-0 m-l-0 m-b-5">
+
+            <div class="image-uploader-container-item">
               <div
                 :class="{ primary: image.is_main, 'image thumbnail': true }"
                 :style="{
                   'background-image': `url(${'media_url' in image ? image.media_url : image.data})`,
                 }"
+                style="margin-bottom:0px"
               >
 
                 <div class="image-uploader-container-item-action clearfix">
@@ -38,6 +49,14 @@
 
           </div>
         </div>
+        <div v-show="images.length" class="col-xs-6 p-0 m-t-0 m-r-0 m-l-0 m-b-5">
+            <div class="image-uploader-container-item">
+              <div  @click="openFileManager" class="add-new-image-btn p-0">
+                <i class="fa fa-image" style="font-size:12px"></i><br>
+                <p style="font-size:12px">+ Add New Image</p>  
+                </div>
+            </div>
+          </div>
       </div>
     </section>
   </div>
@@ -263,17 +282,16 @@
 <style scoped>
 
   .image-uploader-container {
-    background: #f0f0f0;
-    border: 1px solid #d9d9d9;
-    min-height: 240px;
-    margin: 10px 0;
-    padding: 10px;
+    background:transparent;
+    height: 100%;
+    width: 100%;
+    min-height: 165px;
     border-radius: 2px;
   }
 
   .image {
-    width: 154px;
-    height: 154px;
+    width: 180px;
+    height: 180px;
     background-image: url('http://placehold.it/154');
     background-size: cover;
     background-position: top left;
@@ -315,4 +333,38 @@
     margin-right: 5px;
     font-size: 12px;
   }
+
+  .add-new-image-btn {
+  border: 1px dashed #999;
+  width: 180px;
+  height: 180px;
+  padding: 10px;
+  color: #999;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-new-image-btn:hover {
+  color: white;
+  background: #89b5eb;
+}
+
+  .add-new-image-btn2 {
+  border: 1px dashed #999;
+  width: 100%;
+  height: 165px;
+  padding: 10px;
+  color: #999;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-new-image-btn2:hover {
+  color: white;
+  background: #89b5eb;
+}
 </style>
