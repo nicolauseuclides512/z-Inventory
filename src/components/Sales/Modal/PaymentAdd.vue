@@ -305,7 +305,7 @@
     width:95px;
     height:56spx;
     position:relative;
-    border:solid 1px #ccc;
+    border:solid 2px #eee;
     border-radius:5px;
     margin:5px;
     float: left;
@@ -324,9 +324,10 @@
     width:100%;
     height:100%;
     border-radius:5px;
+    border:solid 1px #fff;
 }
 .cnt_min input[type="radio"]:checked ~ .selected_img{
-  border:solid 2px #1c8ad9;
+  border:solid 1px #1c8ad9;
   box-shadow:0px 1px 4px 0px #ccc;
   border-radius:5px;
 }
