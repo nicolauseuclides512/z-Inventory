@@ -736,7 +736,7 @@
           shipping_fax: '',
           notes: '',
           contact_status: 1,
-          is_sameAddress:''
+          is_sameAddress:'true'
         }),
       }
     },
@@ -867,6 +867,15 @@
 
           if (this.form.display_code === 2) {
             this.form.display_name = this.form.company_name
+          }
+
+          if(this.form.is_sameAddress === 'true'){
+            this.form.shipping_country = this.form.billing_country
+            this.form.shipping_province = this.form.billing_province
+            this.form.shipping_district = this.form.billing_district
+            this.form.shipping_region = this.form.billing_region
+            this.form.shipping_address = this.form.billing_address
+            this.form.shipping_zip = this.form.billing_zip
           }
 
           let url
