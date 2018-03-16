@@ -188,8 +188,8 @@
                             v-model="v.item_attributes[thirdVariant.name]"
                             disabled="disabled">
                         </td>
-                        <td><input type="number" step="1" class="form-control form-white" v-model="v.stock_quantity"></td>
-                        <td><input type="number" step="1" class="form-control form-white" v-model="v.sales_rate"></td>
+                        <td><input type="number" step="1" class="form-control form-white" v-model.number="v.stock_quantity"></td>
+                        <td><input type="number" step="1" class="form-control form-white" v-model.number="v.sales_rate"></td>
                         <td>
                           <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
                             <i class="ion-trash-b"></i>
