@@ -81,18 +81,18 @@
                     <div class="col-md-12 control-label text-left">
                       <div class="checkbox checkbox-success checkbox-inline">
                         <input
-                          v-model="form.track_inventory"
                           type="checkbox"
                           id="track-inventory"
+                          v-model="form.track_inventory"
+                          @click="changeTrackInventoryStatus"
                           true-value="true"
                           false-value="false"
-                          checked="checked"
                         />
                         <label for="track-inventory">Track Inventory for this item</label>
                       </div>
                     </div>
                   </div>
-                  <div id="show-stock" v-if="form.track_inventory == 'true'">
+                  <div id="show-stock" v-if="form.track_inventory === 'true'">
                     <div class="form-group form-general m-b-20">
                       <label class="col-md-2 control-label text-left">Stock</label>
                       <div class="col-md-3">
@@ -488,6 +488,10 @@
             swal_error(err.response)
           }
         }
+      },
+
+      changeTrackInventoryStatus() {
+        this.form.children.map(item => item.track_inventory = this.form.track_inventory)
       },
 
     },

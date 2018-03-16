@@ -78,9 +78,15 @@
                   <div class="form-group form-general m-b-20">
                     <div class="col-md-12 control-label text-left">
                       <div class="checkbox checkbox-success checkbox-inline">
-                        <input v-model="form.track_inventory" type="checkbox" id="inlineCheckbox1" value="option1"
-                               checked="checked" true-value="true" false-value="false">
-                        <label for="inlineCheckbox1">Track Inventory for this item</label>
+                        <input
+                          type="checkbox"
+                          id="track-inventory"
+                          v-model="form.track_inventory"
+                          @click="changeTrackInventoryStatus"
+                          true-value="true"
+                          false-value="false"
+                        />
+                        <label for="track-inventory">Track Inventory for this item</label>
                       </div>
                     </div>
                   </div>
@@ -507,6 +513,10 @@
           const index = this.form.children.indexOf(this.form.children)
           this.form.children.splice(index, 1)
         })
+      },
+
+      changeTrackInventoryStatus() {
+        this.form.children.map(item => item.track_inventory = this.form.track_inventory)
       },
 
     },
