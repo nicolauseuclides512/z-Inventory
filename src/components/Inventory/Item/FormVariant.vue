@@ -362,7 +362,7 @@
         // We have issue with weight
         this.form.children = value.map(child => {
           child.weight = this.form.weight
-          child.track_inventory = this.form.track_inventory
+          child.track_inventory = String(this.form.track_inventory)
           return child
         })
       },
@@ -517,7 +517,13 @@
       },
 
       changeTrackInventoryStatus() {
-        this.form.children.map(item => item.track_inventory = this.form.track_inventory)
+        this.form.children.map(item => {
+          if (item.track_inventory === 'true') {
+            item.track_inventory = 'false'
+          } else {
+            item.track_inventory = 'true'
+          }
+        })
       },
 
     },
