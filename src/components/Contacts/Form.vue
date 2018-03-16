@@ -677,6 +677,7 @@
   import sharedMethods from './sharedMethods.js'
   import Salutation from 'src/helpers/Salutation'
   import Regional from 'src/helpers/regional'
+  import {responseOk, swal_error, swal_success} from 'helpers'
 
   export default {
 
@@ -918,12 +919,17 @@
           data.is_dropshipper = String(this.form.is_dropshipper)
 
           const res = await Axios.post(url, data)
-          swal_success(res)
 
-          this.dirtyForm = false
-          this.saving = false
+          if (!responseOk(res.data.code)) {
+            return swal_error(res)
+          }else{
+            this.dirtyForm = false
+            this.saving = false
 
-          this.$router.push({name: 'contact.index'})
+            return swal_success(res)
+
+            this.$router.push({name: 'contact.index'})
+          }
         }
         catch(err) {
           this.saving = false
