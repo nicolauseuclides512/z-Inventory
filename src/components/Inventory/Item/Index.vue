@@ -413,7 +413,7 @@
       destroy() {
         Alert.confirm(
           {
-            title: "Do you really want to delete this item?",
+            title: "Do you really want to delete this sales order?",
             text: "The item will be deleted permanently."
           },
           () => {
