@@ -213,6 +213,7 @@
   import Axios from 'axios'
   import { Alert } from 'src/helpers'
   import Form from 'src/helpers/Form'
+  import {responseOk, swal_error, swal_success} from 'helpers'
 
   export default {
     name: 'StockAdjustmentForm',
@@ -353,26 +354,20 @@
           if (counter_null == 0){
             const res = await Axios.post(`stock_adjustments`, data)
 
-            if (res.code != 200){
-              swal_error(res)
-            } else{
+            if (!responseOk(res.data.code)) {
+              return swal_error(res)
+            }else{
               swal_success(res)
-              // Alert.success('Stock adjustment has been added')
               this.$router.push({ name: 'stock_adjustment.index' })
             }
+
           }
         }
         catch (err) {
           console.error(err)
-          // if (err.hasOwnProperty('response')) {
-          //   swal_error(err.response)
-
-          //   if (this.$route.params.id) {
-          //     this.form.errors = err.response.data.data.errors
-          //   } else {
-          //     this.form.errors = err.response.data.data
-          //   }
-          // }
+          if (err.hasOwnProperty('message')) {
+            swal_error(err.response)
+          }
         }
       },
 
