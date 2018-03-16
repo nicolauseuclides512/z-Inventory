@@ -130,7 +130,7 @@
               <div class="panel panel-default">
                 <div class="panel-body">
                   <div class="form-horizontal">
-                    <div class="form-group form-general m-b-10">
+                    <div v-if="!this.$route.params.id" class="form-group form-general m-b-10">
                       <div class="checkbox checkbox-success checkbox-inline">
                         <input
                           v-model="form.is_sameAddress"
@@ -149,6 +149,9 @@
                       <div class="form-group form-general m-b-10">
                         <div v-if="form.is_sameAddress =='false'" class="form-group form-general m-b-10">
                           <label class="col-md-4 control-label text-left">Billing Address</label>
+                        </div>
+                        <div v-if="form.is_sameAddress =='true'" class="form-group form-general m-b-10">
+                          <label class="col-md-6 control-label text-left">Billing & Shipping Address</label>
                         </div>
                         <label class="col-md-3 control-label text-left">Country</label>
                         <div class="col-md-8">
