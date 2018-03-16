@@ -67,7 +67,7 @@
                   <td class="has_img">
                     <img v-if="channel.sales_channel.channel_name == 'Offline Store' || channel.sales_channel.channel_name == 'Website' || channel.sales_channel.channel_name == 'Bazaar' " :src="image_logo_medium">
                     <img v-else-if="channel.sales_channel.channel_name == 'SMS'">
-                    <img v-else :src="`/static/images/sales-channel/${channel.sales_channel.channel_name.toLowerCase()}.png`">
+                    <img v-else :src="`/static/images/sales-channel/${channel.sales_channel.channel_name.toLowerCase()}.png`" style="height:60px">
                   </td>
                   <td>{{ channel.sales_channel.channel_name }}</td>
                   <td>{{ channel.store_name }}</td>
