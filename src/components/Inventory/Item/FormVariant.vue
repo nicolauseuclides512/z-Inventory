@@ -153,7 +153,7 @@
               Edit Variant
             </a>
             <div v-if="variantListModal" class="modal show" tabindex="-1" role="dialog" data-keyboard="false" style="background: rgba(0, 0, 0, 0.75);">
-              <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-dialog modal-full" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button @click="toggleVariantListModal" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -362,6 +362,7 @@
         // We have issue with weight
         this.form.children = value.map(child => {
           child.weight = form.weight
+          child.track_inventory = form.track_inventory
           return child
         })
       },
