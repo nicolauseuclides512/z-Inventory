@@ -125,17 +125,22 @@
               </div>
             </div>
             <div class="col-md-8">
+              
               <!-- Right Panel : 2 Contact Address Form -->
               <div class="panel panel-default">
                 <div class="panel-body">
                   <div class="form-horizontal">
                     <div class="form-group form-general m-b-10">
-                      <label class="col-md-4 control-label text-left ">Same Billing and Shipping address?</label>
-                      <div class="col-md-2">
-                        <select v-model="form.is_sameAddress" class="form-control">
-                          <option value="true">Yes</option>
-                          <option value="false">No</option>
-                      </select>
+                      <div class="checkbox checkbox-success checkbox-inline">
+                        <input
+                          v-model="form.is_sameAddress"
+                          type="checkbox"
+                          id="sameAddress"
+                          true-value="true"
+                          false-value="false"
+                          checked="unchecked"
+                        />
+                        <label for="sameAddress">Same address between Billing and Shipping</label>
                       </div>
                     </div>
                     
@@ -731,7 +736,7 @@
           shipping_fax: '',
           notes: '',
           contact_status: 1,
-          is_sameAddress:'false'
+          is_sameAddress:''
         }),
       }
     },
