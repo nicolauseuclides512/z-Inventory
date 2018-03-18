@@ -118,7 +118,8 @@
                                     <td>
                                       <input
                                         v-model.number="detail.on_hand_qty"
-                                        @keyup="changeAdjustValue(detail)"
+                                        @keypress="changeAdjustValue(detail)"
+                                        @change="changeAdjustValue(detail)"
                                         required
                                         :disabled="!detail.item_id"
                                         title="On hand quantity"
@@ -131,7 +132,8 @@
                                     <td>
                                       <input
                                         v-model.number="detail.adjust_qty"
-                                        @keyup="changeOnHandValue(detail)"
+                                        @keypress="changeOnHandValue(detail)"
+                                        @change="changeOnHandValue(detail)"
                                         required
                                         :disabled="!detail.item_id"
                                         title="Adjustment quantity"
@@ -346,10 +348,10 @@
 
           for (let counter = 0; counter < data.details.length; counter++){
             if (!data.details[counter].reason_id){
-                counter_null++ 
+                counter_null++
             }
           }
-          
+
           if (counter_null == 0){
             const res = await Axios.post(`stock_adjustments`, data)
 
