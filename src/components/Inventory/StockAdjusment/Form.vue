@@ -96,7 +96,7 @@
                                     <th>Quantity on Hand</th>
                                     <th>Adjust</th>
                                     <th>Reason</th>
-                                    <td style="box-shadow: 0px solid; border: 0px solid; width:28px"></td>
+                                    <td style="box-shadow: none; border: none; width:28px"></td>
                                   </tr>
                                   </thead>
                                   <tbody>
@@ -269,7 +269,7 @@
       return next()
     },
 
-    mounted () {
+    async mounted () {
       // Edit mode
       const stockId = this.$route.params.id
       if (!stockId) {
@@ -278,8 +278,18 @@
         this.getDetails(stockId)
       }
 
-      this.initialize()
-      this.getItems()
+      const [createResponse, itemsResponse] = await Promise.all([
+        this.initialize(),
+        this.getItems(),
+      ])
+
+      this.list.items = itemsResponse.data.data
+
+      this.list.reasons = createResponse.data.data.reasons;
+      if (!this.$route.params.id) {
+        this.form.stock_adjustment_id = createResponse.data.data.next_stock_adjustment_number
+      }
+
       this.dirtyForm = true
       $('#adjustment_date_picker').flatpickr({
         altInput: true,
@@ -289,20 +299,15 @@
     methods: {
 
       async initialize () {
-        const res = await Axios.get(`stock_adjustments/create`);
-        this.list.reasons = res.data.data.reasons;
-        if (!this.$route.params.id){
-          this.form.stock_adjustment_id = res.data.data.next_stock_adjustment_number
-        }
+        return await Axios.get(`stock_adjustments/create`);
       },
 
       async getItems () {
-        const res = await Axios.get(`items`, {
+        return await Axios.get(`items`, {
           params: {
             per_page: 9999,
           },
         })
-        this.list.items = res.data.data
       },
 
       async getDetails (stockId) {
