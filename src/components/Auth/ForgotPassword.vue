@@ -71,6 +71,7 @@
       return {
         email: '',
         loading: false,
+        application: inventory
       }
     },
 
@@ -80,7 +81,10 @@
         try {
           this.loading = true
 
-          const res = await Axios.post('password/request_reset', {email: this.email})
+          const res = await Axios.post('password/request_reset', {
+            email: this.email, 
+            application: 'inventory'
+          })
 
           if (!responseOk(res.data.code)) {
             this.loading = false
