@@ -40,6 +40,16 @@
           title=""
         />
       </td>
+      <td align="center">
+          <input
+          type="checkbox"
+          id="track-inventory"
+          v-model="v.track_inventory"
+          true-value="true"
+          false-value="false"
+          class="checkbox-primary"
+        />
+      </td>
       <td><input type="text" class="form-control form-white" v-model="v.stock_quantity" title="Stock" v-if="v.track_inventory"></td>
       <td><input type="text" class="form-control form-white" v-model="v.sales_rate" title=""></td>
       <td>

@@ -299,7 +299,12 @@
       async getItems () {
         const res = await Axios.get(`items`, {
           params: {
-            per_page: 9999,
+            page: 1,
+            per_page: 100,
+            sort: "created_at.desc",
+            filter: "all",
+            q: "",
+            leaf_only: true
           },
         })
         this.list.items = res.data.data

@@ -22,7 +22,7 @@
           <div class="image-uploader-container-item">
               <div @click="openFileManager" class="add-new-image-btn2 p-0">
                 <i class="fa fa-image" style="font-size:12px"></i><br>
-                <p style="font-size:12px">+ Add New Image</p>        
+                <p style="font-size:12px"> UPLOAD IMAGE FEATURE, SOON AVAILABLE</p>        
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
     methods: {
 
       initialize() {
-        this.fileUploader = this.$refs.fileUploader
+        //this.fileUploader = this.$refs.fileUploader
       },
 
       setAsPrimary (image) {

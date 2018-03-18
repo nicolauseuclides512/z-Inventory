@@ -786,7 +786,8 @@
             per_page: 9999,
             sort: "created_at.desc",
             filter: "all",
-            q: ""
+            q: "",
+            leaf_only: true
           }
         });
 
