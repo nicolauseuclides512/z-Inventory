@@ -216,7 +216,7 @@
                         <td class="sku">{{ child.code_sku }}</td>
                         <td>{{ child.description }}</td>
                         <td class="available">
-                          <inline-editable
+                          <inline-editable v-if="(child.track_inventory == true)"
                             :item="child"
                             :value.sync="child.stock_quantity"
                             @update="saveStockQuantity"
