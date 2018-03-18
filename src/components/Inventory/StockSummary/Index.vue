@@ -142,7 +142,7 @@
         try {
           const defaultParams = {
             page: 1,
-            per_page: 30,
+            per_page: 15,
             sort: 'stock_adjustment.create.asc',
             filter_by: '',
             q: getParameterByName('q'),
@@ -153,7 +153,6 @@
           const res = await Axios.get('stock_adjustments', {params: params})
 
           this.list.items = res.data.data
-          this.reason_description = res.data.data.reason_summary.reason_description
           this.paginate = res.data.paginate
 
         } catch (err) {
