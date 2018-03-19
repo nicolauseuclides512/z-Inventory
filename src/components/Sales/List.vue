@@ -153,7 +153,7 @@
                             <th class="text-right" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Balance Due</th>
                             <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
                             
-                            <th class="text-right" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Action</th>
+                            <th class="text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Action</th>
                           </tr>
                           </thead>
                           <tbody>
@@ -178,16 +178,13 @@
                               <td style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
                                 {{ sale.sales_order_number }}
                               </td>
-                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">
+                              <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">
                                 <div v-if="sale.my_sales_channel">
                                    {{ sale.my_sales_channel.sales_channel.channel_name }}
                                 </div>
                               </td>
-                              <td>
-                                <!-- <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }" -->
-                                             <!-- href="javascript:void(0);"> -->
+                              <td class="text-left" @click="showDetail(sale)" style="cursor:pointer">
                                   {{ sale.contact.display_name }}
-                                <!-- </router-link> -->
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 <div v-if="sale.sales_order_status === 'DRAFT'">
@@ -239,7 +236,7 @@
                                 </div>
                               </td> -->
                               
-                              <td class="text-right">
+                              <td class="text-center">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
                                    aria-expanded="false">
                                   <span class="ion-ios7-more-outline" style="color:#03a2cd; font-size:1.5em; padding:px"></span>
