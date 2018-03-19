@@ -14328,8 +14328,8 @@ a:hover {
 }
 
 .checkbox-success input[type=checkbox]:checked+label:before {
-    background-color: #33b86c;
-    border-color: #33b86c
+    background-color: #2FA3E6;
+    border-color: #2FA3E6
 }
 
 .checkbox-success input[type=checkbox]:checked+label:after {
