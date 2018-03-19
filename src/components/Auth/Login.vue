@@ -205,7 +205,7 @@
           }
 
           if (err.message === 'invalid_credentials') {
-            err.message = 'Invalid credentials'
+            err.message = 'Password or Email does not match'
           }
 
           swal({
