@@ -41,8 +41,8 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-xs-6">
+          <div class="form-group" v-if="!notVerified">
+            <div class="col-xs-6" >
               <div class="checkbox checkbox-primary">
                 <input id="remember" type="checkbox" v-model="form.remember">
                 <label for="remember">
@@ -52,22 +52,34 @@
 
             </div>
 
-            <div class="col-xs-6" v-if="notVerified">
+            <!-- <div class="col-xs-6" v-if="notVerified">
               <router-link :to="{ name: 'auth.verification' }">
                 Resend verification email
               </router-link>
-            </div>
+            </div> -->
 
           </div>
 
           <div class="form-group text-center m-t-30">
-            <div class="col-xs-12">
+            <div class="col-xs-12" v-if="!notVerified">
               <button v-if="!loading" id="submit" type="submit" class="btn btn-primary btn-lg w-lg waves-effect waves-light">
                 Log In
               </button>
               <button v-else id="loading-button" type="button" class="btn btn-default btn-lg w-lg waves-effect waves-light" disabled>
                 <i class="fa fa-spin fa-spinner"></i> Log In
               </button>
+            </div>
+            <div class="col-xs-12" v-if="notVerified">
+              <router-link v-if="!loading" :to="{ name: 'auth.verification' }">
+                <button  class="btn btn-warning btn-lg w-lg waves-effect waves-light">
+                  Resend Verification Email
+                </button>
+              </router-link>
+              <router-link  v-else :to="{ name: 'auth.verification' }">
+                <button class="btn btn-default btn-lg w-lg waves-effect waves-light" disabled>
+                  <i class="fa fa-spin fa-spinner"></i> Resend Verification Email
+                </button>
+              </router-link>
             </div>
           </div>
 
@@ -202,6 +214,7 @@
 
           if (err.message === 'Account not verified.') {
             this.notVerified = true
+            err.message = "Account not verified. Please verify by click a link in email. Or resend verification email if you don't get one."
           }
 
           if (err.message === 'invalid_credentials') {
