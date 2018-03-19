@@ -1,6 +1,6 @@
 <template>
-  <div class="content-page-full">
-    <div class="content full-width sahito-user bgr-white">
+  <div class="content-page-full" style="padding-right: 0px;">
+    <div class="content full-width sahito-user bgr-white" style="min-height:620px">
       <div class="container">
 
         <div v-if="!salesList.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
