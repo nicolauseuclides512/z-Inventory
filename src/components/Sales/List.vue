@@ -25,7 +25,7 @@
 
                 <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
                    aria-expanded="false">
-                  <h4><span class="text-muted">Status: </span> {{ currentFilter }} <span class="caret"></span></h4>
+                  <h4><span>Status: </span> {{ currentFilter }} <span class="caret"></span></h4>
                 </a>
 
                 <ul class="dropdown-menu" role="menu" style="top: 117px;left: 210px;position: fixed;">
