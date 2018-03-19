@@ -263,6 +263,11 @@
                                       Print Invoice
                                     </a>
                                   </li>
+                                  <li>
+                                    <a href="javascript:void(0);" @click="printShipmentLabel(sale.sales_order_id)">
+                                      Print Shipment Label
+                                    </a>
+                                  </li>
                                   <!--<li><a href="javascript:void(0);">Email Invoice</a></li>-->
                                   <!-- <li v-if="sale.shipment_status === 'NOT_YET_SHIPPED'">
                                     <a href="javascript:void(0);" @click="gotoDetailShipment(sale)">
@@ -575,6 +580,22 @@
         }).catch(err => {
           swal_error(err.response)
         })
+      },
+
+      async printShipmentLabel(sales_order_id: number) {
+        const pdfWindow = window.open()
+        const url = window.BASE_URL + `/sales_orders/shipments/bulk-label?ids=` + sales_order_id
+
+        const response = await axios.get(url, {
+          responseType: 'arraybuffer',
+          headers: {
+            'Content-Type': 'application/pdf',
+          },
+        })
+
+        const file = new Blob([response.data], {type: 'application/pdf'})
+        const fileURL = URL.createObjectURL(file)
+        pdfWindow.location = fileURL
       },
 
       async downloadInvoice(sales_order_id) {
