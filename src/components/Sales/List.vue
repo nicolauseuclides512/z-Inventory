@@ -178,7 +178,7 @@
                               <td style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
                                 {{ sale.sales_order_number }}
                               </td>
-                              <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">
+                              <td class="text-left" style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
                                 <div v-if="sale.my_sales_channel">
                                    {{ sale.my_sales_channel.sales_channel.channel_name }}
                                 </div>
