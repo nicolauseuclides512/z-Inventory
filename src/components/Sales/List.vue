@@ -144,14 +144,15 @@
                               <div class="placeholder-collapse"></div>
                             </th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Date</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Order ID</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Order #</th>
+                            <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Channel</th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;">Customer</th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Status</th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Due Date</th>
                             <th class="text-right" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Total</th>
                             <th class="text-right" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Balance Due</th>
                             <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
-                            <th class="text-right" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Channel</th>
+                            
                             <th class="text-right" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Action</th>
                           </tr>
                           </thead>
@@ -176,6 +177,11 @@
                               </td>
                               <td style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
                                 {{ sale.sales_order_number }}
+                              </td>
+                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">
+                                <div v-if="sale.my_sales_channel">
+                                   {{ sale.my_sales_channel.sales_channel.channel_name }}
+                                </div>
                               </td>
                               <td>
                                 <!-- <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }" -->
@@ -232,11 +238,7 @@
                                   <i class="fa fa-circle text-green"></i>
                                 </div>
                               </td> -->
-                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">
-                                <div v-if="sale.my_sales_channel">
-                                   {{ sale.my_sales_channel.sales_channel.channel_name }}
-                                </div>
-                              </td>
+                              
                               <td class="text-right">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
                                    aria-expanded="false">
