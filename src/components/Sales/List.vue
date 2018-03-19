@@ -360,10 +360,10 @@
                                           </tr>
                                           <tr class="balance-due">
                                             <td colspan="3" ></td>
-                                            <td class="text-bold" style="background-color :rgb(214, 218, 219); font-size: 1em;">Total
+                                            <td class="text-bold" style="background-color:#e5e5e5; font-size: 1em;">Total
                                             </td>
                                             <td class="text-right text-bold"
-                                                style="background-color :rgb(214, 218, 219); font-color: #000000; font-size: 1em;">{{
+                                                style="background-color:#e5e5e5; font-color: #000000; font-size: 1em;">{{
                                               overview.total | money }}
                                             </td>
                                           </tr>
