@@ -308,9 +308,9 @@
                                         <table class="table sales-order-inner-table">
                                           <thead>
                                           <tr class="">
-                                            <th style="color:#000000; width: 40%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Item &amp; Description</th>
+                                            <th style="color:#000000; width: 40%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Item</th>
                                             <th style="color:#000000; width: 10%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Qty</th>
-                                            <th style="color:#000000; width: 15%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Price @</th>
+                                            <th style="color:#000000; width: 15%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Price</th>
                                             <th class="text-left" style="color:#000000; width: 15%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Disc</th>
                                             <th class="text-right" style="color:#000000; width: 20%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Amount </th>
                                           </tr>
