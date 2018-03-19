@@ -291,8 +291,8 @@
                                   <tr>
                                     <td class="col-checkbox">
                                     </td>
-                                    <td style="width: 200px; vertical-align:top">
-                                      <div v-if="sale.contact">
+                                    <td style="width: 200px; vertical-align:top; border-right: 1px solid #dedede; ">
+                                      <div v-if="sale.contact" style="margin-top:6px">
                                         <router-link
                                           :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
                                           href="javascript:void(0);">
@@ -331,9 +331,9 @@
                                             </td>
                                           </tr>
                                           <tr class="sub-total">
-                                            <td colspan="3"></td>
-                                            <td colspan="1" style="font-size: 1em;">Sub Total</td>
-                                            <td class="text-right" style="font-size: 1em;">{{ overview.sub_total | money
+                                            <td colspan="3" style="border-top: 1px solid #dedede"></td>
+                                            <td colspan="1" style="font-size: 1em; border-top: 1px solid #dedede">Sub Total</td>
+                                            <td class="text-right" style="font-size: 1em; border-top: 1px solid #dedede">{{ overview.sub_total | money
                                               }}
                                             </td>
                                           </tr>
@@ -342,7 +342,7 @@
                                           <!--<td>{{ overview.shipping_charge | money }}</td>-->
                                           <!--</tr>-->
                                           <tr class="sub-total">
-                                            <td colspan="3" style="border-color: #eee;">
+                                            <td colspan="3" >
                                             <td colspan="1" style="font-size: 1em;">{{ overview.adjustment_name ||
                                               'Adjustment' }}
                                             </td>
@@ -351,7 +351,7 @@
                                             </td>
                                           </tr>
                                           <tr class="sub-total">
-                                            <td colspan="3" style="border-color: #eee; ">
+                                            <td colspan="3" >
                                             <td style="font-size: 1em;">Tax</td>
                                             <td class="text-right" style="font-size: 1em;">
                                               <span v-if="overview.tax === -1">Included</span>
@@ -359,7 +359,7 @@
                                             </td>
                                           </tr>
                                           <tr class="balance-due">
-                                            <td colspan="3" style="border-color: #eee;"></td>
+                                            <td colspan="3" ></td>
                                             <td class="text-bold" style="background-color :rgb(214, 218, 219); font-size: 1em;">Total
                                             </td>
                                             <td class="text-right text-bold"
