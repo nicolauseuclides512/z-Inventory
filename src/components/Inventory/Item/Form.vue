@@ -141,17 +141,20 @@
                     
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Dimension (cm)</label>
-                      <div class="col-md-1 pr-0">
-                        <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control" style="font-size:12px;">
+                      <div class="col-md-4 p-0">
+                        <div class="col-md-3 pr-0">
+                        <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control" style="font-size:12px; padding:6px">
                       </div>
-                      <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
-                      <div class="col-md-1 pl-pr-0">
-                        <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control" style="font-size:12px;">
+                      <div class="col-md-3 pl-pr-0 text-center form-custom-link" style="width:25px">x</div>
+                      <div class="col-md-3 pl-pr-0">
+                        <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control" style="font-size:12px; padding:6px">
                       </div>
-                      <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
-                      <div class="col-md-1 pl-pr-0">
-                        <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control" style="font-size:12px;">
+                      <div class="col-md-3 pl-pr-0 text-center form-custom-link" style="width:25px">x</div>
+                      <div class="col-md-3 pl-pr-0">
+                        <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control" style="font-size:12px; padding:6px">
                       </div>
+                      </div>
+                      
                     </div>
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left ">Weight *</label>
