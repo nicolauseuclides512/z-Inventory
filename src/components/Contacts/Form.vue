@@ -130,19 +130,6 @@
               <div class="panel panel-default">
                 <div class="panel-body">
                   <div class="form-horizontal">
-                    <div v-if="!this.$route.params.id" class="form-group form-general m-b-10">
-                      <div class="checkbox checkbox-success checkbox-inline">
-                        <input
-                          v-model="form.is_sameAddress"
-                          type="checkbox"
-                          id="sameAddress"
-                          true-value="true"
-                          false-value="false"
-                          checked="unchecked"
-                        />
-                        <label for="sameAddress">Same address between Billing and Shipping</label>
-                      </div>
-                    </div>
                     
                     <!-- Billing Address Goes Here -->
                     <div class="col-md-6" style="padding-left:0px">
@@ -280,6 +267,21 @@
                            v-model="form.shipping_zip">
                         </div>
                       </div>
+                    </div>
+                    <div v-if="!this.$route.params.id" class="col-md-8 pl-0">
+                      <div  class="form-group form-general m-b-10">
+                      <div class="checkbox checkbox-success checkbox-inline">
+                        <input
+                          v-model="form.is_sameAddress"
+                          type="checkbox"
+                          id="sameAddress"
+                          true-value="true"
+                          false-value="false"
+                          checked="unchecked"
+                        />
+                        <label for="sameAddress">Same address between Billing and Shipping</label>
+                      </div>
+                    </div>
                     </div>
                   </div>
                 </div>
