@@ -292,7 +292,7 @@
                                     <td class="col-checkbox">
                                     </td>
                                     <td style="width: 220px; vertical-align:top; border-right: 1px solid #dedede; ">
-                                      <div v-if="sale.contact" style="margin-top:6px">
+                                      <div v-if="sale.contact" style="margin-top:12px">
                                         <router-link
                                           :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
                                           href="javascript:void(0);">
@@ -308,11 +308,11 @@
                                         <table class="table sales-order-inner-table">
                                           <thead>
                                           <tr class="">
-                                            <th style="color:#000000; width: 330px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Item</th>
-                                            <th style="color:#000000; width: 127px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Qty</th>
-                                            <th style="color:#000000; width: 114px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Price</th>
-                                            <th class="text-left" style="color:#000000; width: 109px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Disc</th>
-                                            <th class="text-right" style="color:#000000; width: 196px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Amount </th>
+                                            <th style="color:#000000; width: 330px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px">Item</th>
+                                            <th style="color:#000000; width: 127px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px">Qty</th>
+                                            <th style="color:#000000; width: 114px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px">Price</th>
+                                            <th class="text-left" style="color:#000000; width: 109px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px"> Disc</th>
+                                            <th class="text-right" style="color:#000000; width: 196px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px"> Amount </th>
                                           </tr>
                                           </thead>
                                           <tbody>
