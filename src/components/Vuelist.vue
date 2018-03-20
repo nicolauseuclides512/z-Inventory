@@ -3,8 +3,8 @@
 
     <div class="main" @click="toggle" :class="{ 'text-muted': selected === placeholder }">
       {{ selected }}
-      <span class="arrow arrow-up" v-show="isOpen"></span>
-      <span class="arrow arrow-down" v-show="!isOpen"></span>
+      <span class="pull-right ion-ios7-arrow-up" style="font-size:20px" v-show="isOpen"></span>
+      <span class="pull-right ion-ios7-arrow-down" style="font-size:20px" v-show="!isOpen"></span>
     </div>
 
     <div class="list" v-show="isOpen">
