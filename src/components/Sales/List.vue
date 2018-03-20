@@ -149,8 +149,8 @@
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;">Customer</th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Status</th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Due Date</th>
-                            <th class="text-right" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Total</th>
-                            <th class="text-right" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Balance Due</th>
+                            <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Total</th>
+                            <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Balance Due</th>
                             <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
                             
                             <th class="text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Action</th>
@@ -213,8 +213,8 @@
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.due_date | date('short') }}
                               </td>
-                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
-                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">
+                              <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
+                              <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.invoices[0].balance_due | money}}
                               </td>
                               <!-- <td style="cursor: pointer;" @click="showDetail(sale)">
@@ -291,7 +291,7 @@
                                   <tr>
                                     <td class="col-checkbox">
                                     </td>
-                                    <td style="width: 200px; vertical-align:top; border-right: 1px solid #dedede; ">
+                                    <td style="width: 220px; vertical-align:top; border-right: 1px solid #dedede; ">
                                       <div v-if="sale.contact" style="margin-top:6px">
                                         <router-link
                                           :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
@@ -308,11 +308,11 @@
                                         <table class="table sales-order-inner-table">
                                           <thead>
                                           <tr class="">
-                                            <th style="color:#000000; width: 40%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Item</th>
-                                            <th style="color:#000000; width: 10%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Qty</th>
-                                            <th style="color:#000000; width: 15%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Price</th>
-                                            <th class="text-left" style="color:#000000; width: 15%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Disc</th>
-                                            <th class="text-right" style="color:#000000; width: 20%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Amount </th>
+                                            <th style="color:#000000; width: 330px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Item</th>
+                                            <th style="color:#000000; width: 127px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Qty</th>
+                                            <th style="color:#000000; width: 114px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Price</th>
+                                            <th class="text-left" style="color:#000000; width: 109px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Disc</th>
+                                            <th class="text-right" style="color:#000000; width: 196px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Amount </th>
                                           </tr>
                                           </thead>
                                           <tbody>
