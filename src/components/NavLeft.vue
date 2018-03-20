@@ -39,6 +39,14 @@
           </router-link>
         </dropdown-menu>
         <li>
+          <router-link
+            :to="{ name: 'contact.create' }"
+            class="waves-effect waves-light pull-right"
+            v-if="sidebarEnlarged"
+            style="padding: 15px 7px 15px 7px;"
+          >
+            <span><i class="fa fa-plus"></i></span>
+          </router-link>
           <router-link id="nev-left-contacts" :to="{ name: 'contact.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="md md-people"></i><span> Contacts </span>
           </router-link>
