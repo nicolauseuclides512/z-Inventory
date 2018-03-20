@@ -21,7 +21,7 @@
         <div v-if="salesList.length">
           <div class="container full-width-header p-b-10">
             <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0">
+              <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0" style="padding-left:18px">
 
                 <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
                    aria-expanded="false">
