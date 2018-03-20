@@ -12761,7 +12761,7 @@ a:hover {
 
 .dropdown-menu {
     padding: 4px 0;
-    animation: Bb .3s ease-out;
+    animation: Bb .15s ease-out;
     border: 0;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26)
 }
