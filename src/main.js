@@ -13,6 +13,9 @@ import store from './store'
 // import Select2 from './directives'
 // Vue.use(Select2)
 
+import VeeValidate from 'vee-validate'
+Vue.use(VeeValidate)
+
 Vue.config.productionTip = false
 
 Vue.prototype.$http = Axios
