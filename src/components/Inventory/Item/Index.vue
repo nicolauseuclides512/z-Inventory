@@ -246,6 +246,7 @@
 
   import Axios from 'axios'
   import {getParameterByName} from "src/helpers";
+  import { responseOk } from '@/helpers'
 
   export default {
     components: {
@@ -314,6 +315,11 @@
             item_id: payload.item.item_id,
             adjust_qty: quantityAdjustment,
           })
+
+          if (!responseOk(res.data.code)) {
+            swal_error(res)
+            return
+          }
 
           payload.item.stock_quantity = payload.value
 
