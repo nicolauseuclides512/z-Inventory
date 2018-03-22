@@ -12,7 +12,7 @@
           <div class="container bt-1 bgr-white p-b-10">
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
-                <h4 class="title">Organization Profile</h4>
+                <h4 class="title">Company Profile</h4>
               </div>
             </div>
           </div>
