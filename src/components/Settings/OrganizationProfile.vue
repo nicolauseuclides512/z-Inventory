@@ -298,7 +298,11 @@
 
           const organization_id = Cookie.get('organization_id')
           const res = await Axios.put(`organizations/${organization_id}`, data)
-          swal_success(res)
+          if (!responseOk(res.data.code)) {
+            swal_error(res)
+          } else {
+            swal_success(res) 
+          }
         }
         catch (err) {
           console.error(err)
