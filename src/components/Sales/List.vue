@@ -248,7 +248,7 @@
                                       Edit
                                     </router-link>
                                   </li>
-                                  <li v-if="sale.invoice_status === 'UNPAID' || 'OVERDUE'">
+                                  <li v-if="(sale.invoice_status === 'UNPAID' || 'OVERDUE') && sale.sales_order_status != 'DRAFT'">
                                     <a href="javascript:void(0);" @click="gotoDetailPayment(sale)">
                                       Record Payment
                                     </a>
