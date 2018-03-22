@@ -23,7 +23,7 @@
                 </li>
                 <li :class="{ active: currentSortColumn == 'stock_adjustment_date' }">
                   <a href="javascript:void(0);" id="sort-by-stock_adjustment_date"
-                    @click="sortItemsBy('stock_adjustment_date')">Adjusment date</a>
+                    @click="sortItemsBy('stock_adjustment_date')">Adjustment Date</a>
                 </li>
                 <li :class="{ active: currentSortColumn == 'reference_number' }">
                   <a href="javascript:void(0);" id="sort-by-reference_number"
@@ -31,7 +31,7 @@
                 </li>
                 <li :class="{ active: currentSortColumn == 'stock_adjustment_number' }">
                   <a href="javascript:void(0);" id="sort-by-stock_adjustment_number"
-                    @click="sortItemsBy('stock_adjustment_number')">Adjusted number</a>
+                    @click="sortItemsBy('stock_adjustment_number')">Adjusted Number</a>
                 </li>
 
               </ul>
