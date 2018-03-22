@@ -142,15 +142,15 @@
                 <!--</div>-->
 
 
-                <div class="col-md-12 pl-pr-0" style="padding-top: 30px">
-                  <h5 class="title" style="margin-top:0px" v-if="list.items.length">Generated Variant</h5>
+                <div v-if="list.items.length" class="col-md-12 pl-pr-0" style="padding-top: 30px" >
+                  <h5 class="title" style="margin-top:0px">Generated Variant</h5>
                   <div class="table-responsive">
-                    <table class="table" v-if="list.items.length">
+                    <table class="table">
                       <thead>
                       <tr>
                         <td>Item Name</td>
-                        <td>SKU</td>
-                        <td v-if="firstVariant.show && firstVariant.values.length">
+                        <td style="width:152px;">SKU</td>
+                        <!-- <td v-if="firstVariant.show && firstVariant.values.length">
                           {{ firstVariant.name | capitalize }}
                         </td>
                         <td v-if="secondVariant.show && secondVariant.values.length">
@@ -158,7 +158,7 @@
                         </td>
                         <td v-if="thirdVariant.show && thirdVariant.values.length">
                           {{ thirdVariant.name | capitalize }}
-                        </td>
+                        </td> -->
                         <td v-if="item.track_inventory == 'true'" style="width:97px">Stock</td>
                         <td style="width:136px">Price</td>
                         <td>&nbsp;</td>
@@ -166,9 +166,46 @@
                       </thead>
                       <tbody>
                       <tr v-for="v in list.items">
-                        <td><input type="text" class="form-control form-white" v-model="v.item_name"></td>
-                        <td><input type="text" class="form-control form-white" v-model="v.code_sku"></td>
-                        <td v-if="firstVariant.show && firstVariant.values.length">
+                        <td>
+                          <input type="text" class="form-control form-white" v-model="v.item_name" style="margin-bottom:8px">
+                          <div v-if="firstVariant.show && firstVariant.values.length" style="float:left"> 
+                            <div class="label label-info m-b-10">
+                              {{ v.item_attributes[firstVariant.name] | removeNonAlphaNum}}
+                            </div>
+                            <input
+                            type="text"
+                            class="form-control form-white"
+                            v-model="v.item_attributes[firstVariant.name]"
+                            disabled="disabled"
+                            style="display:none; margin-top:10px">
+                          </div>
+                          <div v-if="secondVariant.show && secondVariant.values.length" style="float:left">
+                            <div class="label label-info m-b-10">
+                              {{v.item_attributes[secondVariant.name] | removeNonAlphaNum}}
+                            </div>
+                            <input
+                            type="text"
+                            class="form-control form-white"
+                            v-model="v.item_attributes[secondVariant.name]"
+                            disabled="disabled"
+                            style="display:none; margin-top:10px">
+                          </div>
+                          <div v-if="thirdVariant.show && thirdVariant.values.length" style="float:left">
+                             <div class="label label-info m-b-10">
+                              {{v.item_attributes[thirdVariant.name] | removeNonAlphaNum}}
+                            </div>
+                            <input
+                            type="text"
+                            class="form-control form-white"
+                            v-model="v.item_attributes[thirdVariant.name]"
+                            disabled="disabled"
+                            style="display:none; margin-top:10px">
+                          </div>
+                        </td>
+                        <td style="vertical-align:text-top">
+                          <input type="text" class="form-control form-white" v-model="v.code_sku" style="width:144px">
+                        </td>
+                        <!-- <td v-if="firstVariant.show && firstVariant.values.length">
                           <input
                             type="text"
                             class="form-control form-white"
@@ -188,10 +225,10 @@
                             class="form-control form-white"
                             v-model="v.item_attributes[thirdVariant.name]"
                             disabled="disabled">
-                        </td>
-                        <td v-if="item.track_inventory == 'true'"><input type="number" step="1" class="form-control form-white" v-model.number="v.stock_quantity"></td>
-                        <td><input type="number" step="1" class="form-control form-white" v-model.number="v.sales_rate"></td>
-                        <td>
+                        </td> -->
+                        <td v-if="item.track_inventory == 'true'" style="vertical-align:text-top"><input type="number" step="1" class="form-control form-white" v-model.number="v.stock_quantity"></td>
+                        <td style="vertical-align:text-top"><input type="number" step="1" class="form-control form-white" v-model.number="v.sales_rate"></td>
+                        <td style="vertical-align:text-top">
                           <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
                             <i class="ion-trash-b"></i>
                           </button>

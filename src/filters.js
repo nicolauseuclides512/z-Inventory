@@ -31,3 +31,8 @@ Vue.filter('date', (value, dateFormat = 'YYYY-MM-DD') => {
 Vue.filter('capitalize', value => {
   return value.charAt(0).toUpperCase() + value.substring(1)
 })
+
+Vue.filter('removeNonAlphaNum', value => {
+  value = value.toString()
+  return value.replace("[^A-Za-z0-9]", "")
+})

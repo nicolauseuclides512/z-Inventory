@@ -116,7 +116,7 @@
                           checked="checked"
                         />
                         <label for="track-inventory">Track Inventory for this item</label> -->
-                        <select v-model="form.track_inventory" class="form-control">
+                        <select v-model="form.track_inventory" class="form-control" @change="changeTrackInventoryStatus">
                           <option value="false">Do not track</option>
                           <option value="true">Track inventory for this item</option>
                         </select>
