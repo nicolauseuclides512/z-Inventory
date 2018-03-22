@@ -105,6 +105,7 @@
   import Cookie from 'js-cookie'
   import Form from '@/helpers/Form'
   import SalesChannelModal from './SalesChannelModal'
+  import { responseOk, swal_error, swal_success } from 'src/helpers'
 
   const orgId = Cookie.get('organization_id')
 
@@ -192,10 +193,15 @@
             text: '',
           }, async () => {
             const res = await Axios.delete(`my_channels/${channel.id}`)
-            const index = this.list.channels.indexOf(channel)
-            this.list.channels.splice(index, 1)
+            
+            if (!responseOk(res.data.code)) {
+              Alert.error('Delete sales channel failed')
+            } else {
+              const index = this.list.channels.indexOf(channel)
+              this.list.channels.splice(index, 1)
 
-            Alert.success('Channel has been deleted')
+              Alert.success('Channel has been deleted')
+            }
           })
         }
         catch (err) {
