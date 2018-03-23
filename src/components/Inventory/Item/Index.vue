@@ -3,7 +3,15 @@
     <div class="content full-width sahito-user bgr-white">
       <div class="container">
         <div>
-          <div v-if="!list.items.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
+          <div v-if="list.items === null" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
+            <i class="fa fa-5x fa-spin fa-circle-o-notch"></i>
+            <div class="lead" style="padding: 30px 0 5px;">
+              Loading
+              <br>
+              <small>Please wait...</small>
+            </div>
+          </div>
+          <div v-if="Array.isArray(list.items) && !list.items.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
             <i class="fa fa-5x fa-archive"></i>
             <div class="lead" style="padding: 30px 0 5px;">
               <small>You haven't made any item yet.</small>
@@ -23,7 +31,7 @@
           </div>
 
           <!-- full list -->
-          <div id="full-list" v-if="list.items.length">
+          <div id="full-list" v-if="Array.isArray(list.items) && list.items.length">
             <!-- Mark as Active/Inactive -->
             <div class="container full-width-header p-b-10" v-if="checkedItems.length">
               <div class="row">
@@ -268,7 +276,7 @@
       return {
         itemChildren: null,
         list: {
-          items: []
+          items: null,
         },
         paginate: {},
         selectedItem: {},
@@ -387,7 +395,7 @@
        * Get item list
        * @param  {Object} params  Custom query string parameters
        */
-      getList(params) {
+      async getList(params) {
         try {
           const defaultParams = {
             page: 1,
@@ -399,7 +407,7 @@
 
           params = _.merge(defaultParams, params)
 
-          const res = Axios.get(`items`, {params: params})
+          const res = await Axios.get(`items`, {params: params})
 
           if (!responseOk(res.data.code)) {
             return swal_error(res)
