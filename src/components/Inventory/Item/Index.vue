@@ -388,28 +388,32 @@
        * @param  {Object} params  Custom query string parameters
        */
       getList(params) {
-        const defaultParams = {
-          page: 1,
-          per_page: 30,
-          sort: "item_name.asc",
-          filter_by: "status_all",
-          q: getParameterByName("q")
-        };
-
-        params = _.merge(defaultParams, params);
-
-        this.$http.get("items", {params: params}).then(
-          res => {
-            if ([0, 200, 201].indexOf(res.data.code) === -1)
-              return swal_error(res);
-
-            this.list.items = res.data.data;
-            this.paginate = res.data.paginate;
-          },
-          res => {
-            return swal_error(res);
+        try {
+          const defaultParams = {
+            page: 1,
+            per_page: 30,
+            sort: "item_name.asc",
+            filter_by: "status_all",
+            q: getParameterByName("q")
           }
-        );
+
+          params = _.merge(defaultParams, params)
+
+          const res = Axios.get(`items`, {params: params})
+
+          if (!responseOk(res.data.code)) {
+            return swal_error(res)
+          }
+
+          this.list.items = res.data.data
+          this.paginate = res.data.paginate
+
+        } catch (err) {
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
+        }
       },
 
       /**
