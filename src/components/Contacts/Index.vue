@@ -111,7 +111,15 @@
             </div>
           </div>
         </div>
-        <div v-if="!contacts.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
+        <div v-if="contacts === null" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
+          <i class="fa fa-5x fa-spin fa-circle-o-notch"></i>
+          <div class="lead" style="padding: 30px 0 5px;">
+            Loading
+            <br>
+            <small>Please wait...</small>
+          </div>
+        </div>
+        <div v-if="Array.isArray(contacts) && !contacts.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
           <i class="fa fa-5x fa-address-book"></i>
           <div class="lead" style="padding: 30px 0 5px;">
             <small>You haven't made any contact yet.</small>
@@ -120,12 +128,12 @@
           </div>
           <div>
             <router-link :to="{ name: 'contact.create' }" href="javascript:void(0);"
-                         class="btn btn-info waves-light m-b-5" id="create-new">
+                         class="btn btn-info waves-light m-b-5" id="create-new-button">
               <span>New </span> <i class="ion-plus"></i>
             </router-link>
           </div>
         </div>
-        <div v-if="contacts.length" class="container p-0">
+        <div v-if="Array.isArray(contacts) && contacts.length" class="container p-0">
           <div class="row sahito-list">
             <div class="col-md-12 p-0">
               <div class="sahito-list-contact table-responsive">
@@ -221,7 +229,7 @@
 
     data() {
       return {
-        contacts: [],
+        contacts: null,
         paginate: {},
         selectedContact: {},
         checkedContacts: [],
