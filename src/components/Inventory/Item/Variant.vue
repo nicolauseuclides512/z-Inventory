@@ -168,7 +168,7 @@
                       <tr v-for="v in list.items">
                         <td>
                           <input type="text" class="form-control form-white" v-model="v.item_name" style="margin-bottom:8px">
-                          <div v-if="firstVariant.show && firstVariant.values.length" style="float:left"> 
+                          <!-- <div v-if="firstVariant.show && firstVariant.values.length" style="float:left"> 
                             <div class="label label-info m-b-10">
                               {{ v.item_attributes[firstVariant.name] | removeNonAlphaNum}}
                             </div>
@@ -200,7 +200,7 @@
                             v-model="v.item_attributes[thirdVariant.name]"
                             disabled="disabled"
                             style="display:none; margin-top:10px">
-                          </div>
+                          </div> -->
                         </td>
                         <td style="vertical-align:text-top">
                           <input type="text" class="form-control form-white" v-model="v.code_sku" style="width:144px">
