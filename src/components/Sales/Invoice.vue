@@ -24,7 +24,7 @@
       <div class="row sahito-invoice-content" style="padding:67px 25px 0px 45px;margin-left:0px;margin-right:0px;margin-bottom:30px">
         <div class="col-md-8 pull-left" >
             <div class="media m-b-30">
-                <a href="#" class="pull-left">
+                <a v-show="logo != null" href="#" class="pull-left">
                     <img alt="" :src="logo" class="media-object thumb-sm" style="width: auto; height: auto; max-width: 240px; max-height: 100px;">
                 </a>
                 <div class="media-body" style="padding-top:15px;">
@@ -216,8 +216,8 @@ export default {
   data() {
     return {
       invoice: {},
-      logo: "http://placehold.it/250?text=No+Logo",
-
+      //logo: "http://placehold.it/250?text=No+Logo",
+      logo:null,
       company_name: "",
       company_address: "",
       company_zip: "",
@@ -252,7 +252,7 @@ export default {
       const res = await Axios.get(url);
       this.logo = res.data.data.multi_res_logo
         ? res.data.data.multi_res_logo.small
-        : this.logo;
+        : null
 
       this.company_name = res.data.data.name;
       this.company_address = res.data.data.address;
