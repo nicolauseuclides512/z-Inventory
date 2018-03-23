@@ -12,7 +12,7 @@
           <div class="container bt-1 bgr-white p-b-10">
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
-                <h4 class="title">Organization Profile</h4>
+                <h4 class="title">Company Profile</h4>
               </div>
             </div>
           </div>
@@ -298,7 +298,11 @@
 
           const organization_id = Cookie.get('organization_id')
           const res = await Axios.put(`organizations/${organization_id}`, data)
-          swal_success(res)
+          if (!responseOk(res.data.code)) {
+            swal_error(res)
+          } else {
+            swal_success(res) 
+          }
         }
         catch (err) {
           console.error(err)

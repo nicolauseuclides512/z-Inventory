@@ -64,10 +64,10 @@
                       <a href="javascript:void(0);" id="sort-by-created" @click="sortContactsBy('created_at')">Created
                         Time</a>
                     </li>
-                    <li :class="{ active: currentSortColumn === 'updated_at' }">
+                    <!-- <li :class="{ active: currentSortColumn === 'updated_at' }">
                       <a href="javascript:void(0);" id="sort-by-updated" @click="sortContactsBy('updated_at')">Last
                         Modified Time</a>
-                    </li>
+                    </li> -->
                     <!--<li class="divider"></li>-->
                     <!--<li><a href="javascript:void(0);"><i class="md-file-download"></i> Import Customers</a></li>-->
                     <!--<li><a href="javascript:void(0);"><i class="md-file-download"></i> Import Vendors</a></li>-->
