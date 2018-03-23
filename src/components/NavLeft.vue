@@ -27,11 +27,10 @@
         <!--<dropdown-menu id="nav-left-sales" title="Sales" icon="md-shopping-cart">-->
         <!---->
         <!--</dropdown-menu>-->
-        <dropdown-menu tag="li" title="Items" icon="fa fa-dropbox">
+        <dropdown-menu v-if="sidebarEnlarged" tag="li" title="Items" icon="fa fa-dropbox">
           <router-link
             :to="{ name: 'item.create' }"
             class="waves-effect waves-light pull-right"
-            v-if="sidebarEnlarged"
             style="padding: 10px 7px 10px 12px; height:38px"
           >
             <span><i class="fa fa-plus"></i></span>
@@ -42,7 +41,6 @@
           <router-link
             :to="{ name: 'item.create_variant' }"
             class="waves-effect waves-light pull-right"
-            v-if="sidebarEnlarged"
             style="padding: 10px 7px 10px 12px; height:38px"
           >
             <span><i class="fa fa-plus"></i></span>
@@ -64,13 +62,18 @@
           </router-link>
         </li>
         <li v-if="!sidebarEnlarged">
+          <router-link id="nav-left-items" :to="{ name: 'item.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
+              <i class="fa fa-dropbox"></i><span>Item Variant</span>
+          </router-link>
+        </li>
+        <li v-if="!sidebarEnlarged">
           <router-link id="nav-left-stock-adjustment" :to="{ name: 'stock_adjustment.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-              <span>Stock Adjustment</span>
+              <i class="fa fa-dropbox"></i><span>Stock Adjustment</span>
           </router-link>
         </li>
         <li v-if="!sidebarEnlarged">
           <router-link id="nav-left-items" :to="{ name: 'stock_summary.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-              <span>Stock Summary</span>
+              <i class="fa fa-dropbox"></i><span>Stock Summary</span>
           </router-link>
         </li>
         <!-- END -->
