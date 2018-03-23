@@ -27,7 +27,7 @@
         <!--<dropdown-menu id="nav-left-sales" title="Sales" icon="md-shopping-cart">-->
         <!---->
         <!--</dropdown-menu>-->
-        <dropdown-menu v-if="sidebarEnlarged" tag="li" title="Items" icon="fa fa-dropbox">
+        <dropdown-menu v-if="sidebarEnlarged" tag="li" title="Items" icon="md md-layers">
           <router-link
             :to="{ name: 'item.create' }"
             class="waves-effect waves-light pull-right"
@@ -58,22 +58,22 @@
         <!--This Code below are shown when SideBar is not enlarged-->
         <li v-if="!sidebarEnlarged">
           <router-link id="nav-left-items" :to="{ name: 'item.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-              <i class="fa fa-dropbox"></i><span>Item List</span>
+              <i class="md md-layers"></i><span>Item List</span>
           </router-link>
         </li>
         <li v-if="!sidebarEnlarged">
           <router-link id="nav-left-items" :to="{ name: 'item.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-              <i class="fa fa-dropbox"></i><span>Item Variant</span>
+              <i class="md md-now-widgets"></i><span>Item Variant</span>
           </router-link>
         </li>
         <li v-if="!sidebarEnlarged">
           <router-link id="nav-left-stock-adjustment" :to="{ name: 'stock_adjustment.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-              <i class="fa fa-dropbox"></i><span>Stock Adjustment</span>
+              <i class="md md-assignment-turned-in"></i><span>Stock Adjustment</span>
           </router-link>
         </li>
         <li v-if="!sidebarEnlarged">
           <router-link id="nav-left-items" :to="{ name: 'stock_summary.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-              <i class="fa fa-dropbox"></i><span>Stock Summary</span>
+              <i class="md md-assignment"></i><span>Stock Summary</span>
           </router-link>
         </li>
         <!-- END -->
@@ -87,12 +87,12 @@
             <span><i class="fa fa-plus"></i></span>
           </router-link>
           <router-link id="nev-left-contacts" :to="{ name: 'contact.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-            <i class="md md-people"></i><span> Contacts </span>
+            <i class="md  md-person"></i><span> Contacts </span>
           </router-link>
         </li>
         <li>
           <router-link id="nev-left-report" :to="{ name: 'report.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-            <i class="fa fa-area-chart"></i><span> Report </span>
+            <i class="md  md-trending-up"></i><span> Report </span>
           </router-link>
         </li>
 
@@ -107,7 +107,7 @@
 
         <li>
           <router-link id="nev-left-settings" :to="{ name: 'settings' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-            <i class="fa fa-gear"></i><span> Settings </span>
+            <i class="md md-settings"></i><span> Settings </span>
           </router-link>
         </li>
 
