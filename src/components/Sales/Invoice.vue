@@ -115,7 +115,7 @@
                 <th id="item" width="40%">Item</th>
                 <th id="qty" class="text-left" width="8.75%">Qty</th>
                 <th id="rate" class="text-left" width="15%">Rate</th>
-                <th id="discount" class="text-left" width="15%">Discount</th>
+                <th id="discount" class="text-left" width="20%">Discount</th>
                 <th id="amount" width="26.25%">Amount</th>
               </tr>
               </thead>
