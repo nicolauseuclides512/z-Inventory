@@ -1,5 +1,5 @@
 <template>
-  <div class="content sahito-user bgr-white">
+  <div class="content sahito-user" style="box-shadow:none!important;">
     <div id="sales_channel">
       <div class="container full-width-header bttop-1 pt-pb-10 m-b-20">
         <div class="row">
@@ -63,7 +63,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="channel in list.channels">
+                <tr v-for="channel in list.channels" style="background-color:#eee!important">
                   <td class="has_img">
                     <img v-if="channel.sales_channel.channel_name == 'Offline Store' || channel.sales_channel.channel_name == 'Website' || channel.sales_channel.channel_name == 'Bazaar' " :src="image_logo_medium">
                     <img v-else-if="channel.sales_channel.channel_name == 'SMS'">

@@ -1,7 +1,7 @@
 <template>
-  <section id="payment" class="content sahito-user full-width bgr-white">
+  <section id="payment" class="content sahito-user full-width" style="box-shadow:none!important;">
 
-    <div class="container bt-1 bgr-white p-b-10">
+    <div class="container bt-1 p-b-10" >
       <div class="row">
         <div class="col-md-12">
           <h4 class="title">Payment</h4>
@@ -92,7 +92,7 @@
         <div v-if="list.my_banks.length">
           <h4>Your current payment method list</h4>
           <div v-for="bank in list.my_banks">
-            <div class="row" style="padding: 8px; margin: 4px 0; background: #f9f9f9;">
+            <div class="row" style="padding: 8px; margin: 4px 0; background: #eaeaea;">
               <div class="col-md-9">
                 {{ bank.account_name }} <br>
                 {{ bank.account_holder }} <br>

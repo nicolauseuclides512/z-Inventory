@@ -1,5 +1,5 @@
 <template>
-  <div class="content sahito-user bgr-white">
+  <div class="content sahito-user" style="box-shadow:none!important;">
     <div id="sales_channel">
       <div class="container full-width-header bttop-1 pt-pb-10 m-b-20">
         <div class="row">
@@ -24,7 +24,7 @@
         <div v-if="!reasons.length">
           <div class="lead">You don't have any reasons</div>
         </div>
-        <table v-if="reasons.length" class="table table-striped">
+        <table v-if="reasons.length" class="table">
           <thead>
           <tr>
             <th>No.</th>

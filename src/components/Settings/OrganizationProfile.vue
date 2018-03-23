@@ -1,5 +1,5 @@
 <template>
-  <section id="organization" class="content sahito-user full-width bgr-white">
+  <section id="organization" class="content sahito-user full-width" style="box-shadow:none!important; top:30px">
 
     <div v-if="loading" class="lead text-muted text-center">
       <i class="fa fa-spin fa-spinner fa-lg"></i> Loading Checkout Detail
@@ -9,7 +9,7 @@
       <form method="POST" @submit.prevent="save">
 
         <div>
-          <div class="container bt-1 bgr-white p-b-10">
+          <div class="container bt-1 p-b-10">
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <h4 class="title">Company Profile</h4>
