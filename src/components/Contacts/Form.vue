@@ -10,7 +10,7 @@
           
           <!-- Row:1 Contact Info -->
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
               <!-- Left Panel : 1 Contact Info Guide -->
               <div class="panel panel-default" style="background-color:transparent; box-shadow:none">
                 <div class="panel-body" style="padding:0px">
@@ -19,7 +19,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
               <!-- Right Panel : 1 Contact Info Form -->
               <div class="panel panel-default">
                 <div class="panel-body">
@@ -115,7 +115,7 @@
 
           <!-- Row:2 Contact Address -->
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
               <!-- Left Panel : 2 Contact Address Guide -->
               <div class="panel panel-default" style="background-color:transparent; box-shadow:none">
                 <div class="panel-body" style="padding:0px">
@@ -124,25 +124,12 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
               
               <!-- Right Panel : 2 Contact Address Form -->
               <div class="panel panel-default">
                 <div class="panel-body">
                   <div class="form-horizontal">
-                    <div v-if="!this.$route.params.id" class="form-group form-general m-b-10">
-                      <div class="checkbox checkbox-success checkbox-inline">
-                        <input
-                          v-model="form.is_sameAddress"
-                          type="checkbox"
-                          id="sameAddress"
-                          true-value="true"
-                          false-value="false"
-                          checked="unchecked"
-                        />
-                        <label for="sameAddress">Same address between Billing and Shipping</label>
-                      </div>
-                    </div>
                     
                     <!-- Billing Address Goes Here -->
                     <div class="col-md-6" style="padding-left:0px">
@@ -153,7 +140,7 @@
                         <div v-if="form.is_sameAddress =='true'" class="form-group form-general m-b-10">
                           <label class="col-md-6 control-label text-left">Billing & Shipping Address</label>
                         </div>
-                        <label class="col-md-3 control-label text-left">Country</label>
+                        <label class="col-md-4 control-label text-left">Country</label>
                         <div class="col-md-8">
                           <select id="billing_country_id" v-model="form.billing_country" class="form-control">
                             <option :value="0" hidden disabled>Select Country</option>
@@ -164,7 +151,7 @@
                         </div>
                       </div>
                       <div class="form-group form-general m-b-10">
-                        <label class="col-md-3 control-label text-left">Province</label>
+                        <label class="col-md-4 control-label text-left">Province</label>
                         <div class="col-md-8">
                           <select id="billing_province_id" v-model="form.billing_province" class="form-control"
                                   @change="updateBillingDistrictList" :disabled="!list.billing_province_list.length">
@@ -176,7 +163,7 @@
                         </div>
                       </div>
                       <div class="form-group form-general m-b-10">
-                        <label class="col-md-3 control-label text-left">District</label>
+                        <label class="col-md-4 control-label text-left">District</label>
                         <div class="col-md-8">
                           <select id="billing_district_id" v-model="form.billing_district" class="form-control"
                                   @change="updateBillingRegionList" :disabled="!list.billing_district_list.length">
@@ -188,7 +175,7 @@
                         </div>
                       </div>
                       <div class="form-group form-general m-b-10">
-                        <label class="col-md-3 control-label text-left">Region</label>
+                        <label class="col-md-4 control-label text-left">Region</label>
                         <div class="col-md-8">
                           <select id="billing_region_id" v-model="form.billing_region" class="form-control"
                                   :disabled="!list.billing_region_list.length">
@@ -198,14 +185,14 @@
                         </div>
                       </div>
                       <div class="form-group form-general m-b-10">
-                        <label class="col-md-3 control-label text-left">Street</label>
+                        <label class="col-md-4 control-label text-left">Street</label>
                         <div class="col-md-8">
                           <textarea class="form-control" rows="2" id="billing_address"
                                     v-model="form.billing_address" style="resize:vertical"></textarea>
                         </div>
                       </div>
                       <div class="form-group form-general m-b-10">
-                        <label class="col-md-3 control-label text-left">Zip Code</label>
+                        <label class="col-md-4 control-label text-left">Zip Code</label>
                         <div class="col-md-8">
                           <input type="text" class="form-control" placeholder="" maxlength="5" id="billing_zip"
                             @keyup="inputZip(form.billing_zip, $event)"
@@ -221,8 +208,8 @@
                           <label class="col-md-4 control-label text-left">Shipping Address</label>
                         </div>
                       <div class="form-group form-general m-b-10">
-                        <label class="col-md-3 control-label text-left">Country</label>
-                        <div class="col-md-9">
+                        <label class="col-md-4 control-label text-left">Country</label>
+                        <div class="col-md-8">
                           <select id="shipping_country_id" v-model="form.shipping_country" class="form-control">
                             <option :value="0" hidden disabled>Select Country</option>
                             <option v-for="country in list.shipping_country_list" :value="country.id">
@@ -232,8 +219,8 @@
                         </div>
                       </div>
                       <div class="form-group form-general m-b-10">
-                        <label class="col-md-3 control-label text-left">Province</label>
-                        <div class="col-md-9">
+                        <label class="col-md-4 control-label text-left">Province</label>
+                        <div class="col-md-8">
                           <select id="shipping_province_id" v-model="form.shipping_province" class="form-control"
                                   @change="updateShippingDistrictList" :disabled="!list.shipping_province_list.length">
                             <option :value="0" hidden disabled>Select Province</option>
@@ -244,8 +231,8 @@
                         </div>
                       </div>
                       <div class="form-group form-general m-b-10">
-                        <label class="col-md-3 control-label text-left">District</label>
-                        <div class="col-md-9">
+                        <label class="col-md-4 control-label text-left">District</label>
+                        <div class="col-md-8">
                           <select id="shipping_district_id" v-model="form.shipping_district" class="form-control"
                                   @change="updateShippingRegionList" :disabled="!list.shipping_district_list.length">
                             <option :value="0" hidden disabled>Select District</option>
@@ -255,8 +242,8 @@
                         </div>
                       </div>
                       <div class="form-group form-general m-b-10">
-                        <label class="col-md-3 control-label text-left">Region</label>
-                        <div class="col-md-9">
+                        <label class="col-md-4 control-label text-left">Region</label>
+                        <div class="col-md-8">
                           <select id="shipping_region_id" v-model="form.shipping_region" class="form-control"
                                   :disabled="!list.shipping_region_list.length">
                             <option :value="0" hidden disabled>Select Region</option>
@@ -265,21 +252,36 @@
                         </div>
                       </div>
                       <div class="form-group form-general m-b-10">
-                        <label class="col-md-3 control-label text-left">Street</label>
-                        <div class="col-md-9">
+                        <label class="col-md-4 control-label text-left">Street</label>
+                        <div class="col-md-8">
                           <textarea class="form-control" rows="2" id="shipping_address"
                                     v-model="form.shipping_address" style="resize:vertical"></textarea>
                         </div>
                       </div>
                       <div class="form-group form-general m-b-10">
-                        <label class="col-md-3 control-label text-left">Zip Code</label>
-                        <div class="col-md-9">
+                        <label class="col-md-4 control-label text-left">Zip Code</label>
+                        <div class="col-md-8">
                           <input type="text" class="form-control" placeholder="" minlength="5" maxlength="5" id="shipping_zip"
                           @keyup="inputZip(form.shipping_zip, $event)"
                            @blur="inputZip(form.shipping_zip, $event)"
                            v-model="form.shipping_zip">
                         </div>
                       </div>
+                    </div>
+                    <div v-if="!this.$route.params.id" class="col-md-8 pl-0">
+                      <div  class="form-group form-general m-b-10">
+                      <div class="checkbox checkbox-success checkbox-inline">
+                        <input
+                          v-model="form.is_sameAddress"
+                          type="checkbox"
+                          id="sameAddress"
+                          true-value="true"
+                          false-value="false"
+                          checked="unchecked"
+                        />
+                        <label for="sameAddress">Same address between Billing and Shipping</label>
+                      </div>
+                    </div>
                     </div>
                   </div>
                 </div>
@@ -289,7 +291,7 @@
 
           <!-- Row:3 Contact Notes -->
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
               <!-- Left Panel : 2 Contact Notes Guide -->
               <div class="panel panel-default" style="background-color:transparent; box-shadow:none">
                 <div class="panel-body" style="padding:0px">
@@ -298,7 +300,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
               <!-- Right Panel : 2 Contact Notes Form -->
               <div class="panel panel-default">
                 <div class="panel-body">
@@ -309,7 +311,10 @@
                         <small style="color: #aaa">(For Internal Use)</small>
                       </label>
                       <div class="col-md-8">
-                        <textarea id="notes" v-model="form.notes" class="form-control m-l-15" rows="4" style="resize:vertical"></textarea>
+                        <textarea id="notes" v-model="form.notes" class="form-control m-l-15" rows="4" 
+                        style="
+                        resize:vertical;
+                        margin-left:0px"></textarea>
                       </div>
                     </div>
                   </div>

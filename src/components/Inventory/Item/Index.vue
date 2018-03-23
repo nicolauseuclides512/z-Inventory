@@ -113,8 +113,8 @@
 
             <div class="container p-0">
               <div class="row sahito-list">
-                <div class="col-md-12 p-0">
-                  <div class="sahito-list-item-group table-responsive">
+                <div class="col-md-12 p-10">
+                  <div class="sahito-list-contact table-responsive">
                     <table class="table table-hover default-table sahito-list-contact--table">
                       <thead
                         style="box-shadow: rgb(221, 221, 221) 0px 4px 2px -2px; font-weight: 400; color: rgb(0, 0, 0);">
@@ -125,6 +125,7 @@
                             <label></label>
                           </div>
                         </th>
+                        <th></th>
                         <th></th>
                         <th style="width: 25%; font-size:1.1em; font-weight:normal">
                           <a href="#" @click="sortItemsBy('item_name')" style="color:#000">Name</a>
@@ -162,6 +163,11 @@
                              class="checkbox">
                       <label></label>
                     </span>
+                    <td style="padding: 15px 8px 15px 10px">
+                          <a href="#" class="pull-left">
+                            <img alt="" :src="tesimgProduct" class="media-object thumb-sm" style="width: auto; height: auto; max-width: 70px; max-height: 70px;">
+                          </a>
+                        </td>
                         </td>
                         <td>
                           <a href="javascript:void(0)" v-if="item.children.length" @click="toggleChildren(item)">
@@ -210,6 +216,7 @@
                           <div class="checkbox checkbox-single checkbox-success">
                           </div>
                         </td>
+                        <td></td>
                         <td class="col-icon_collapse" style="width: 23px">
                         </td>
                         <td class="name">{{ child.item_name }}</td>
@@ -266,6 +273,7 @@
 
     data() {
       return {
+        tesimgProduct: "http://placehold.it/70?text=No+image",
         itemChildren: null,
         list: {
           items: []

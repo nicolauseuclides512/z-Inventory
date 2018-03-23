@@ -127,7 +127,7 @@
         </div>
         <div v-if="contacts.length" class="container p-0">
           <div class="row sahito-list">
-            <div class="col-md-12 p-0">
+            <div class="col-md-12 p-10">
               <div class="sahito-list-contact table-responsive">
                 <table class="table table-hover default-table sahito-list-contact--table">
                   <thead style="box-shadow: rgb(221, 221, 221) 0px 4px 2px -2px; font-weight: 400; color: rgb(0, 0, 0);">

@@ -1,6 +1,6 @@
 <template>
-  <div class="content-page-full">
-    <div class="content full-width sahito-user bgr-white">
+  <div class="content-page-full" style="padding-right: 0px;">
+    <div class="content full-width sahito-user bgr-white" style="min-height:620px">
       <div class="container">
 
         <div v-if="!salesList.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
@@ -21,11 +21,11 @@
         <div v-if="salesList.length">
           <div class="container full-width-header p-b-10">
             <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0">
+              <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0" style="padding-left:18px">
 
                 <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
                    aria-expanded="false">
-                  <h4><span class="text-muted">Status: </span> {{ currentFilter }} <span class="caret"></span></h4>
+                  <h4><span>Status: </span> {{ currentFilter }} <span class="caret"></span></h4>
                 </a>
 
                 <ul class="dropdown-menu" role="menu" style="top: 117px;left: 210px;position: fixed;">
@@ -143,16 +143,17 @@
                             <th id="icon_collapse" style="padding-top:  15px;padding-bottom:  15px;">
                               <div class="placeholder-collapse"></div>
                             </th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Date</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Order ID</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;">Customer</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Status</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Due Date</th>
-                            <th class="text-right" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Total</th>
-                            <th class="text-right" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Balance Due</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em; color:#000">Date</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Order #</th>
+                            <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Channel</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Status</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Due Date</th>
+                            <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Total</th>
+                            <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Balance Due</th>
                             <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
-                            <th class="text-right" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Channel</th>
-                            <th class="text-right" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;">Action</th>
+                            
+                            <th class="text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Action</th>
                           </tr>
                           </thead>
                           <tbody>
@@ -177,32 +178,34 @@
                               <td style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
                                 {{ sale.sales_order_number }}
                               </td>
-                              <td>
-                                <!-- <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }" -->
-                                             <!-- href="javascript:void(0);"> -->
+                              <td class="text-left" style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
+                                <div v-if="sale.my_sales_channel">
+                                   {{ sale.my_sales_channel.sales_channel.channel_name }}
+                                </div>
+                              </td>
+                              <td class="text-left" @click="showDetail(sale)" style="cursor:pointer">
                                   {{ sale.contact.display_name }}
-                                <!-- </router-link> -->
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 <div v-if="sale.sales_order_status === 'DRAFT'">
-                                  <span class="label label-info" style="background-color:#C4C4C4; color:#000000">{{ sale.sales_order_status }}</span>
+                                  <span style="color:#C4C4C4; font-size:13px">{{ sale.sales_order_status }}</span>
                                 </div>
                                 <div v-else>
                                     <!--{{ sale.invoice_status }}-->
                                   <div v-if="sale.invoice_status === 'PAID'">
-                                    <span class="label label-info" style="background-color:#319B31">PAID</span>
+                                    <span style="color:#319B31; font-size:13px;">PAID</span>
                                   </div>
                                   <div v-else-if="sale.invoice_status === 'UNPAID'">
-                                    <span class="label label-info" style="background-color:#1C8AD9">UNPAID</span>
+                                    <span style="color:#1C8AD9; font-size:13px">UNPAID</span>
                                   </div>
                                   <div v-else-if="sale.invoices[0].invoice_status === 'PARTIALLY_PAID'">
-                                    <span class="label label-info" style="background-color:#E6E600; color:#000000">PARTIALLY PAID</span>
+                                    <span style="color:#319B31; font-size:13px">PARTIALLY PAID</span>
                                   </div>
                                   <div v-else-if="sale.invoice_status === 'OVERDUE'">
-                                    <span class="label label-info" style="background-color:#E33636">OVERDUE</span>
+                                    <span style="color:#E33636; font-size:13px">OVERDUE</span>
                                   </div>
                                   <div v-else-if="sale.invoice_status === 'VOID'">
-                                    <span class="label label-info" style="background-color:#000000">VOID</span>
+                                    <span style="color:#000000; font-size:13px">VOID</span>
                                   </div>
                                 </div>
                                 <!-- {{ sale.sales_order_status.toLowerCase().replace(/_/g, ' ') | capitalize }} -->
@@ -210,8 +213,8 @@
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.due_date | date('short') }}
                               </td>
-                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
-                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">
+                              <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
+                              <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.invoices[0].balance_due | money}}
                               </td>
                               <!-- <td style="cursor: pointer;" @click="showDetail(sale)">
@@ -232,12 +235,8 @@
                                   <i class="fa fa-circle text-green"></i>
                                 </div>
                               </td> -->
-                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">
-                                <div v-if="sale.my_sales_channel">
-                                   {{ sale.my_sales_channel.sales_channel.channel_name }}
-                                </div>
-                              </td>
-                              <td class="text-right">
+                              
+                              <td class="text-center">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
                                    aria-expanded="false">
                                   <span class="ion-ios7-more-outline" style="color:#03a2cd; font-size:1.5em; padding:px"></span>
@@ -264,6 +263,11 @@
                                       Print Invoice
                                     </a>
                                   </li>
+                                  <li>
+                                    <a href="javascript:void(0);" @click="printShipmentLabel(sale.sales_order_id)">
+                                      Print Shipment Label
+                                    </a>
+                                  </li>
                                   <!--<li><a href="javascript:void(0);">Email Invoice</a></li>-->
                                   <!-- <li v-if="sale.shipment_status === 'NOT_YET_SHIPPED'">
                                     <a href="javascript:void(0);" @click="gotoDetailShipment(sale)">
@@ -287,8 +291,8 @@
                                   <tr>
                                     <td class="col-checkbox">
                                     </td>
-                                    <td style="width: 200px; vertical-align:top">
-                                      <div v-if="sale.contact">
+                                    <td style="width: 220px; vertical-align:top; border-right: 1px solid #dedede; ">
+                                      <div v-if="sale.contact" style="margin-top:12px">
                                         <router-link
                                           :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
                                           href="javascript:void(0);">
@@ -304,11 +308,11 @@
                                         <table class="table sales-order-inner-table">
                                           <thead>
                                           <tr class="">
-                                            <th style="color:#000000; width: 40%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Item &amp; Description</th>
-                                            <th style="color:#000000; width: 10%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Qty</th>
-                                            <th style="color:#000000; width: 15%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px">Price @</th>
-                                            <th class="text-left" style="color:#000000; width: 15%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Disc</th>
-                                            <th class="text-right" style="color:#000000; width: 20%; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 6px; padding-bottom: 10px"> Amount </th>
+                                            <th style="color:#000000; width: 330px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px">Item</th>
+                                            <th style="color:#000000; width: 127px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px">Qty</th>
+                                            <th style="color:#000000; width: 114px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px">Price</th>
+                                            <th class="text-left" style="color:#000000; width: 109px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px"> Disc</th>
+                                            <th class="text-right" style="color:#000000; width: 196px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px"> Amount </th>
                                           </tr>
                                           </thead>
                                           <tbody>
@@ -327,9 +331,9 @@
                                             </td>
                                           </tr>
                                           <tr class="sub-total">
-                                            <td colspan="3"></td>
-                                            <td colspan="1" style="font-size: 1em;">Sub Total</td>
-                                            <td class="text-right" style="font-size: 1em;">{{ overview.sub_total | money
+                                            <td colspan="3" style="border-top: 1px solid #dedede"></td>
+                                            <td colspan="1" style="font-size: 1em; border-top: 1px solid #dedede">Sub Total</td>
+                                            <td class="text-right" style="font-size: 1em; border-top: 1px solid #dedede">{{ overview.sub_total | money
                                               }}
                                             </td>
                                           </tr>
@@ -338,7 +342,7 @@
                                           <!--<td>{{ overview.shipping_charge | money }}</td>-->
                                           <!--</tr>-->
                                           <tr class="sub-total">
-                                            <td colspan="3" style="border-color: #eee;">
+                                            <td colspan="3" >
                                             <td colspan="1" style="font-size: 1em;">{{ overview.adjustment_name ||
                                               'Adjustment' }}
                                             </td>
@@ -347,7 +351,7 @@
                                             </td>
                                           </tr>
                                           <tr class="sub-total">
-                                            <td colspan="3" style="border-color: #eee; ">
+                                            <td colspan="3" >
                                             <td style="font-size: 1em;">Tax</td>
                                             <td class="text-right" style="font-size: 1em;">
                                               <span v-if="overview.tax === -1">Included</span>
@@ -355,11 +359,11 @@
                                             </td>
                                           </tr>
                                           <tr class="balance-due">
-                                            <td colspan="3" style="border-color: #eee;"></td>
-                                            <td class="text-bold" style="background-color :rgb(214, 218, 219); font-size: 1em;">Total
+                                            <td colspan="3" ></td>
+                                            <td class="text-bold" style="background-color:#e5e5e5; font-size: 1em;">Total
                                             </td>
                                             <td class="text-right text-bold"
-                                                style="background-color :rgb(214, 218, 219); font-color: #000000; font-size: 1em;">{{
+                                                style="background-color:#e5e5e5; font-color: #000000; font-size: 1em;">{{
                                               overview.total | money }}
                                             </td>
                                           </tr>
@@ -576,6 +580,22 @@
         }).catch(err => {
           swal_error(err.response)
         })
+      },
+
+      async printShipmentLabel(sales_order_id: number) {
+        const pdfWindow = window.open()
+        const url = window.BASE_URL + `/sales_orders/shipments/bulk-label?ids=` + sales_order_id
+
+        const response = await axios.get(url, {
+          responseType: 'arraybuffer',
+          headers: {
+            'Content-Type': 'application/pdf',
+          },
+        })
+
+        const file = new Blob([response.data], {type: 'application/pdf'})
+        const fileURL = URL.createObjectURL(file)
+        pdfWindow.location = fileURL
       },
 
       async downloadInvoice(sales_order_id) {

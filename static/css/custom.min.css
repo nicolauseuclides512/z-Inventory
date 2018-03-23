@@ -2006,17 +2006,32 @@ select.select2-dropdown-open {
     margin: 0
 }
 
-.sahito-list .sahito-list-contact .sahito-list-contact--table tr td,
-.sahito-list .sahito-list-contact .sahito-list-contact-recent--table tr td,
-.sahito-list .sahito-list-contact .sahito-list-contact-transaction--table tr td,
-.sahito-list .sahito-list-contact .sahito-list-discount-list--table tr td,
-.sahito-list .sahito-list-contact .sahito-list-item-group--table tr td,
-.sahito-list .sahito-list-item-group .sahito-list-contact--table tr td,
-.sahito-list .sahito-list-item-group .sahito-list-contact-recent--table tr td,
-.sahito-list .sahito-list-item-group .sahito-list-contact-transaction--table tr td,
-.sahito-list .sahito-list-item-group .sahito-list-discount-list--table tr td,
-.sahito-list .sahito-list-item-group .sahito-list-item-group--table tr td {
+.sahito-list .sahito-list-contact .sahito-list-contact--table tbody tr td,
+.sahito-list .sahito-list-contact .sahito-list-contact-recent--table tbody tr td,
+.sahito-list .sahito-list-contact .sahito-list-contact-transaction--table tbody tr td,
+.sahito-list .sahito-list-contact .sahito-list-discount-list--table tbody tr td,
+.sahito-list .sahito-list-contact .sahito-list-item-group--table tbody tr td,
+.sahito-list .sahito-list-item-group .sahito-list-contact--table tbody tr td,
+.sahito-list .sahito-list-item-group .sahito-list-contact-recent--table tbody tr td,
+.sahito-list .sahito-list-item-group .sahito-list-contact-transaction--table tbody tr td,
+.sahito-list .sahito-list-item-group .sahito-list-discount-list--table tbody tr td,
+.sahito-list .sahito-list-item-group .sahito-list-item-group--table tbody tr td {
     padding: 14px 8px;
+    font-size: 1.05em;
+    vertical-align: middle
+}
+
+.sahito-list .sahito-list-contact .sahito-list-contact--table tbody tr:first-child td,
+.sahito-list .sahito-list-contact .sahito-list-contact-recent--table tbody tr:first-child td,
+.sahito-list .sahito-list-contact .sahito-list-contact-transaction--table tbody tr:first-child td,
+.sahito-list .sahito-list-contact .sahito-list-discount-list--table tbody tr:first-child td,
+.sahito-list .sahito-list-contact .sahito-list-item-group--table tbody tr:first-child td,
+.sahito-list .sahito-list-item-group .sahito-list-contact--table tbody tr:first-child td,
+.sahito-list .sahito-list-item-group .sahito-list-contact-recent--table tbody tr:first-child td,
+.sahito-list .sahito-list-item-group .sahito-list-contact-transaction--table tbody tr:first-child td,
+.sahito-list .sahito-list-item-group .sahito-list-discount-list--table tbody tr:first-child td,
+.sahito-list .sahito-list-item-group .sahito-list-item-group--table tbody tr:first-child td {
+    padding: 22px 8px 12px 8px;
     font-size: 1.05em;
     vertical-align: middle
 }
@@ -2559,9 +2574,9 @@ select.select2-dropdown-open {
 }
 
 h5.title {
-    font-size: 1.1em;
+    font-size: 14px;
     margin-bottom: 20px;
-    text-transform: uppercase
+    /* text-transform: uppercase */
 }
 
 .form-custom-link {
