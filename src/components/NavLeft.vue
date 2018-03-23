@@ -27,7 +27,6 @@
         <!--<dropdown-menu id="nav-left-sales" title="Sales" icon="md-shopping-cart">-->
         <!---->
         <!--</dropdown-menu>-->
-<<<<<<< HEAD
         <dropdown-menu tag="li" title="Items" icon="fa fa-dropbox">
           <router-link
             :to="{ name: 'item.create' }"
@@ -37,9 +36,6 @@
           >
             <span><i class="fa fa-plus"></i></span>
           </router-link>
-=======
-        <dropdown-menu tag="li" title="Items" icon="fa fa-dropbox" v-if="sidebarEnlarged">
->>>>>>> Make up drop down menu when sidebar minimize
           <router-link tag="li" :to="{ name: 'item.index' }">
             <a class="waves-effect waves-light" style="padding-right: 5px; padding-left: 42px">Item List</a>
           </router-link>
