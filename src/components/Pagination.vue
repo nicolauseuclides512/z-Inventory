@@ -1,38 +1,21 @@
 <template>
   <div class="clearfix" v-if="pageContext.total > 15">
-    <div class="pr-20 pull-left" style="padding: 26px 0 0 15px;">
-      <small class="text-muted">
-        Show
-        {{
-        pageContext.current_page == 1
-          ? 1
-          : pageContext.current_page * pageContext.per_page - pageContext.per_page + 1
-        }}
-        to
-        {{
-        pageContext.current_page == pageContext.last_page
-          ? pageContext.total
-          : pageContext.current_page * pageContext.per_page
-        }}
-        of {{ pageContext.total }} total entries
-
-        &mdash;
-
-        <select id="pagination-per-page" v-model="per_page" @change="updatePerPage" title="Per page">
-          <option :value="10">10</option>
-          <option :value="15">15</option>
-          <option :value="30">30</option>
-          <option :value="60">60</option>
-          <option :value="100">100</option>
-        </select>
-
-        per page
-
-      </small>
-    </div>
-    <div class="pr-20 pull-right">
+    <div class="pr-20 pull-right" style="padding: 26px 0 0 15px;">
+      
 
       <ul class="pagination m-b-5">
+        <li>
+          <small class="text-muted" style="margin-right:10px">
+          <select id="pagination-per-page" v-model="per_page" @change="updatePerPage" title="Per page" style="height:20px">
+          <option v-bind:value="pageContext.total">All Sales</option>
+          <option :value="10">10 per page</option>
+          <option :value="15">15 per page</option>
+          <option :value="30">30 per page</option>
+          <option :value="60">60 per page</option>
+          <option :value="100">100 per page</option>
+        </select>
+          </small>
+        </li>
 
         <li>
           <button type="button"
@@ -40,25 +23,39 @@
                   :class="{ btn: true, 'btn-primary': pageContext.prev_page_url, 'btn-default': !pageContext.prev_page_url }"
                   :disabled="!pageContext.prev_page_url"
                   @click="prev">
-            <i class="fa fa-arrow-left" v-show="!loadingPrev"></i>
+            <i class="ion-chevron-left" v-show="!loadingPrev"></i>
             <i class="fa fa-circle-o-notch fa-spin" v-show="loadingPrev"></i>
           </button>
         </li>
-
+        <li>
+          <small class="text-muted">
+        {{
+        pageContext.current_page == 1
+          ? 1
+          : pageContext.current_page * pageContext.per_page - pageContext.per_page + 1
+        }}
+        -
+        {{
+        pageContext.current_page == pageContext.last_page
+          ? pageContext.total
+          : pageContext.current_page * pageContext.per_page
+        }}
+        of {{ pageContext.total }}
+      </small>
+        </li>
         <li>
           <button type="button"
                   id="pagination-next"
                   :class="{ btn: true, 'btn-primary': pageContext.next_page_url, 'btn-default': !pageContext.next_page_url }"
                   :disabled="!pageContext.next_page_url"
                   @click="next">
-            <i class="fa fa-arrow-right" v-show="!loadingNext"></i>
+            <i class="ion-chevron-right" v-show="!loadingNext"></i>
             <i class="fa fa-circle-o-notch fa-spin" v-show="loadingNext"></i>
           </button>
         </li>
 
       </ul>
-
-    </div>
+  </div>
   </div>
   <div class="clearfix" v-else-if="pageContext.total < 16">
 
@@ -88,7 +85,7 @@
 
     data () {
       return {
-        per_page: 15,
+        per_page: 10,
         loading: false,
         loadingNext: false,
         loadingPrev: false,
@@ -181,3 +178,24 @@
     },
   }
 </script>
+<style scoped>
+  .btn-primary{
+    border:none !important;
+    box-shadow: none !important;
+    background-color: #fff !important;
+    color: #1c8ad9 !important;
+  }
+  .btn-default{
+    border:none !important;
+    box-shadow: none !important;
+    background-color: #fff !important;
+    color: #aaa !important;
+  }
+  .btn-default:hover{
+    box-shadow: none !important;
+  }
+  .btn-primary:hover{
+    box-shadow: none !important;
+  }
+</style>
+

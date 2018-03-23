@@ -189,7 +189,9 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="row">
+              <pagination :page-context="page_context" :result="salesList" @updated="updatePagination"></pagination>
+            </div>
               </div>
 
               <div class="col-md-8 col-sm-8 col-xs-8 right-side" style="padding-left:20px; padding-top: 2px;">
@@ -441,9 +443,7 @@
 
             </div>
 
-            <div class="row">
-              <pagination :page-context="page_context" :result="salesList" @updated="updatePagination"></pagination>
-            </div>
+            
 
           </div>
         </div>
