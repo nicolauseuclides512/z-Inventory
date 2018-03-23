@@ -57,18 +57,17 @@
                       </thead>
                       <tbody>
                         <tr v-for="history in list.items">
-                            <td  v-for="value in history.reason_summary" v-if="value.reason_description" align="right">{{ history.stock_adjustment_date | date('short') }}</td>
-                            <td  v-for="value in history.reason_summary" v-if="value.reason_description">
+                            <td v-if="history.reason_summary[0].reason_description" align="right">{{ history.stock_adjustment_date | date('short') }}</td>
+                            <td v-if="history.reason_summary[0].reason_description">
                               <router-link :to="{ name: 'stock_adjustment.edit', params: { id: history.stock_adjustment_id } }">
                                 {{ history.stock_adjustment_number }}
                               </router-link></td>
-                            <td  v-for="value in history.reason_summary" v-if="value.reason_description">#{{ history.reference_number }}</td>
-                            <td  v-for="value in history.reason_summary" v-if="value.reason_description">{{ history.status }}</td>
-                            <td  v-for="value in history.reason_summary" v-if="value.reason_description">
-                              <span v-for="value in history.reason_summary" class="label label-info" style="margin-right: 5px;">
+                            <td v-if="history.reason_summary[0].reason_description">#{{ history.reference_number }}</td>
+                            <td v-if="history.reason_summary[0].reason_description">{{ history.status }}</td>
+                            <td v-if="history.reason_summary[0].reason_description">
+                              <span v-for="value in history.reason_summary" v-if="value.reason_description" class="label label-info" style="margin-right: 5px;">
                                 {{ value.line_count }} {{ value.reason_description }}
-                              </span>
-                            </td>
+                              </span></td>
                         </tr>
                       </tbody>
                     </table>
