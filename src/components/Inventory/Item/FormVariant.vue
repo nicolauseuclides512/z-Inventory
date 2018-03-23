@@ -110,14 +110,14 @@
                       </select>
                     </div>
                   </div>
-                  <div id="show-stock" v-if="form.track_inventory == 'true'">
+                  <!-- <div id="show-stock" v-if="form.track_inventory == 'true'">
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Stock</label>
                       <div class="col-md-4">
                         <input v-model.number="form.stock_quantity" type="number" min="0" placeholder="" class="form-control">
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
