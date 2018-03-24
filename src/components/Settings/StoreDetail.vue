@@ -1,5 +1,5 @@
 <template>
-  <section id="store_detail" class="content sahito-user full-width" style="box-shadow:none!important;">
+  <section id="store_detail" class="content sahito-user full-width" style="box-shadow:none!important; top:30px">
 
     <div v-if="loading" class="lead text-muted text-center">
       <i class="fa fa-spin fa-spinner fa-lg"></i> Loading Store Detail

@@ -1,5 +1,5 @@
 <template>
-  <section id="payment" class="content sahito-user full-width" style="box-shadow:none!important;">
+  <section id="payment" class="content sahito-user full-width" style="box-shadow:none!important;top:30px">
 
     <div class="container bt-1 p-b-10" >
       <div class="row">

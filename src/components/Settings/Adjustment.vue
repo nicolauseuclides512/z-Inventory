@@ -1,5 +1,5 @@
 <template>
-  <div class="content sahito-user" style="box-shadow:none!important;">
+  <div class="content sahito-user" style="box-shadow:none!important;top:39px">
     <div id="sales_channel">
       <div class="container full-width-header bttop-1 pt-pb-10 m-b-20">
         <div class="row">
