@@ -1,10 +1,116 @@
 <template>
   <div class="content-page">
-    <div class="content full-width sahito-user bgr-white">
-      <div class="container">
+    <div class="content" style="padding-left: 0px; padding-right: 0px">
+      <!-- <div class="container"> -->
 
         <form method="POST" @submit.prevent>
-          <div class="content full-width sahito-user bgr-white">
+          <div class="col-md-12" style="padding-left:0px">
+            <h4 class="pull-left page-title" v-if="$route.name == 'stock_adjustment.edit'">Edit Stock Adjusment</h4>
+            <h4 class="pull-left page-title" v-else>Add Stock Adjusment</h4>
+          </div>
+          <!-- Row 1 : INFO -->
+          <div class="row">
+            <div class="col-md-3">
+              <!-- Adjustment info guide-->
+              <div class="panel panel-default" style="background-color:transparent; box-shadow:none">
+                <div class="panel-body" style="padding:0px">
+                  Information <br>
+                  <small class="text-muted">This section contain the overview of your stock adjustment.</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-9">
+              <!-- Adjustment info -->
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="form-horizontal">
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left">Adjustment ID</label>
+                      <div class="col-md-4">
+                      
+                          <input v-model="form.stock_adjustment_id"
+                                disabled
+                                required
+                                type="text"
+                                placeholder=""
+                                class="form-control"
+                          />
+
+                      </div>
+                    </div>
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left">Adjustment date</label>
+                      <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                              <i class="fa fa-fw fa-calendar"></i>
+                            </span>
+                            <input
+                              v-model="form.stock_adjustment_date"
+                              type="text"
+                              required
+                              class="form-control bg-white"
+                              placeholder="yyyy-mm-dd"
+                              id="adjustment_date_picker"
+                            />
+                          </div>
+                      </div>
+                    </div>
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left">Reference No.</label>
+                      <div class="col-md-4">
+
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-fw fa-hashtag"></i></span>
+                            <input v-model="form.reference_number" type="text" placeholder="" class="form-control"
+                                  id="reference_number">
+                          </div>
+
+                      </div>
+                    </div>
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left">Notes</label>
+                      <div class="col-md-8">
+                         <textarea
+                            v-model="form.notes"
+                            class="form-control"
+                            id="notes"
+                            title="notes"
+                            rows="4"
+                            style="resize:vertical"
+                          ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Row 1 : DETAIL -->
+          <div class="row">
+            <div class="col-md-3">
+              <!-- Adjustment details guide-->
+              <div class="panel panel-default" style="background-color:transparent; box-shadow:none">
+                <div class="panel-body" style="padding:0px">
+                  Details <br>
+                  <small class="text-muted">This section contain the list of your stock adjustment.</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-9">
+              <!-- Adjustment details -->
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="form-horizontal">
+                    //TABLE GOES HERE
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="content full-width sahito-user bgr-white">
             <div class="container">
               <div class="container full-width-header bt-1 p-b-10 m-b-20">
                 <div class="row">
@@ -168,7 +274,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <div class="float-save">
                 <div class="row">
@@ -201,11 +307,11 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            <!-- </div>
+          </div> -->
         </form>
 
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 </template>
