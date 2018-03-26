@@ -29,9 +29,9 @@
 
         <div class="row">
           <div class="col-md-9" style="margin-left: 0px">
-             <div class="panel panel-default" style="margin-bottom:10px">
-               <div class="panel-body" style="padding:0px">
-                 <div class="row">
+            <div class="panel panel-default" style="margin-bottom:10px">
+              <div class="panel-body" style="padding:0px">
+                <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <vuelist
                       @change="selectProduct"
@@ -43,9 +43,9 @@
                       label="item_name"
                     ></vuelist>
                   </div>
-                 </div>
-               </div>
-             </div>
+                </div>
+              </div>
+            </div>
             <div class="panel panel-default">
               <!-- <div class="panel-heading">
                 <h3 class="panel-title">Items</h3>
@@ -54,84 +54,111 @@
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="sahito-list-contact table-responsive">
-                    <table class="table table-hover default-table sahito-list-contact--table">
-                      <thead style="box-shadow: 0 4px 2px -2px #ddd;">
-                      <tr style="color:#000;">
-                        <td style="padding-left: 10px; padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width='10%'></td>
-                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="40.85%">Item</td>
-                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="6.75%">Qty</td>
-                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="10.65%">Rate</td>
-                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" width="20.25%">Discount</td>
-                        <td style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd" class="text-right" width="11.5%">Amount</td>
-                        <td style="box-shadow: 0px solid; border: 0px solid; width:28px"></td>
-                      </tr>
-                      </thead>
-                      <tbody style="color:#000;">
-                      <tr v-for="product in form.details">
-                        <td width='10%' style="padding: 15px 8px 15px 10px">
-                          <a href="#" class="pull-left">
-                            <img alt="" :src="tesimgProduct" class="media-object thumb-sm" style="width: auto; height: auto; max-width: 70px; max-height: 70px;">
-                          </a>
-                        </td>
-                        <td v-text="product.item_name" width='40.85%' style="padding-left:10px; size:14px"></td>
-                        <td width="6.75%">
-                          <input type="number" v-model.number="product.item_quantity" :min="1" :max="99999" class="form-control" style="padding-left:5px; padding-right:0px">
-                        </td>
+                      <table class="table table-hover default-table sahito-list-contact--table">
+                        <thead style="box-shadow: 0 4px 2px -2px #ddd;">
+                        <tr style="color:#000;">
+                          <td
+                            style="padding-left: 10px; padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
+                            width='10%'></td>
+                          <td
+                            style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
+                            width="40.85%">Item
+                          </td>
+                          <td
+                            style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
+                            width="6.75%">Qty
+                          </td>
+                          <td
+                            style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
+                            width="10.65%">Rate
+                          </td>
+                          <td
+                            style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
+                            width="20.25%">Discount
+                          </td>
+                          <td
+                            style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
+                            class="text-right" width="11.5%">Amount
+                          </td>
+                          <td style="box-shadow: 0px solid; border: 0px solid; width:28px"></td>
+                        </tr>
+                        </thead>
+                        <tbody style="color:#000;">
+                        <tr v-for="product in form.details">
+                          <td width='10%' style="padding: 15px 8px 15px 10px">
+                            <a href="#" class="pull-left">
+                              <img alt="" :src="tesimgProduct" class="media-object thumb-sm"
+                                   style="width: auto; height: auto; max-width: 70px; max-height: 70px;">
+                            </a>
+                          </td>
+                          <td v-text="product.item_name" width='40.85%' style="padding-left:10px; size:14px"></td>
+                          <td width="6.75%">
+                            <input type="number" v-model.number="product.item_quantity" :min="1" :max="99999"
+                                   class="form-control" style="padding-left:5px; padding-right:0px">
+                          </td>
 
-                        <td width="10.65%">
-                          <vue-numeric v-model.number="product.item_rate" :min="0" :max="99999999" separator="." class="form-control custom" style="padding:6px; width:89px"></vue-numeric>
-                        </td>
+                          <td width="10.65%">
+                            <vue-numeric v-model.number="product.item_rate" :min="0" :max="99999999" separator="."
+                                         class="form-control custom" style="padding:6px; width:89px"></vue-numeric>
+                          </td>
 
-                        <td width="20.25%">
-                          <div class="col-md-3" style="padding-right: 0px; padding-left:0px">
-                            <select style="padding-left: 0px; font-size:12px; padding-right: 0px;width: 47px;" v-model="product.discount_amount_type" @change="updateDiscountType(product)"
-                                    class="form-control">
-                              <option v-for="value, key in list.discount_unit" :value="key" v-text="value" style="font-size:12px"></option>
-                            </select>
-                          </div>
-                          <div class="col-md-8">
-                            <vue-numeric
-                                    v-model.number="product.discount_amount_value"
-                                    @change="updateDiscountValue(product)"
-                                    separator="."
-                                    class="form-control"
-                                    style="padding:6px; width:89px">
-                                    </vue-numeric>
-                          </div>
-                        </td>
+                          <td width="20.25%">
+                            <div class="col-md-3" style="padding-right: 0px; padding-left:0px">
+                              <select style="padding-left: 0px; font-size:12px; padding-right: 0px;width: 47px;"
+                                      v-model="product.discount_amount_type" @change="updateDiscountType(product)"
+                                      class="form-control">
+                                <option v-for="value, key in list.discount_unit" :value="key" v-text="value"
+                                        style="font-size:12px"></option>
+                              </select>
+                            </div>
+                            <div class="col-md-8">
+                              <vue-numeric
+                                v-model.number="product.discount_amount_value"
+                                @change="updateDiscountValue(product)"
+                                separator="."
+                                class="form-control"
+                                style="padding:6px; width:89px">
+                              </vue-numeric>
+                            </div>
+                          </td>
 
-                        <td width="11.5%"class="text-right" style="vertical-align: middle; padding-left:0px">{{ amount(product) | money }}</td>
+                          <td width="11.5%" class="text-right" style="vertical-align: middle; padding-left:0px">{{
+                            amount(product) | money }}
+                          </td>
 
-                        <td style="vertical-align: middle; background-color:#ffffff; border:0px solid; width:28px">
-                          <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
-                            class="ion-close-round"></i></a>
-                        </td>
+                          <td style="vertical-align: middle; background-color:#ffffff; border:0px solid; width:28px">
+                            <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
+                              class="ion-close-round"></i></a>
+                          </td>
 
-                      </tr>
-                      </tbody>
-                    </table>
-                    <table class="table" style="font-size:1.05em">
-                      <thead>
-                          <th style="width: 67.6%; border-bottom: 0px"></th>
-                          <th style="width: 14%; border-bottom: 0px"></th>
-                          <th style="width: 18%; border-bottom: 0px"></th>
-                          <th style="width:28px"></th>
-                      </thead>
-                      <tbody>
+                        </tr>
+                        </tbody>
+                      </table>
+                      <table class="table" style="font-size:1.05em">
+                        <thead>
+                        <th style="width: 67.6%; border-bottom: 0px"></th>
+                        <th style="width: 14%; border-bottom: 0px"></th>
+                        <th style="width: 18%; border-bottom: 0px"></th>
+                        <th style="width:28px"></th>
+                        </thead>
+                        <tbody>
                         <tr class="total">
                           <td class="text-right"></td>
-                          <td class="text-left" style="padding-left:8px; padding-top:24px; color:#000" >Sub total</td>
-                          <td class="text-right" style="padding-right:8px; padding-top:24px; color:#000">{{ subtotal | money }}</td>
+                          <td class="text-left" style="padding-left:8px; padding-top:24px; color:#000">Sub total</td>
+                          <td class="text-right" style="padding-right:8px; padding-top:24px; color:#000">{{ subtotal |
+                            money }}
+                          </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
                         <tr class="total">
-                          <td class="text-right" style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
+                          <td class="text-right"
+                              style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
                           <td class="text-left" style="padding-left:8px; color:#000">PPN 10%</td>
                           <td class="text-right" style="padding-right:8px; color:#000">{{ tax_value }}</td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
                         <tr class="total">
-                          <td  style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
+                          <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
                           <td class="text-right" style="padding-left: 0px; padding-bottom:24px">
                             <input
@@ -159,14 +186,21 @@
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
                         <tr class="total">
-                          <td class="no-bgr text-right" style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
-                          <td class="text-left" style="font-size: 20px; background-color: rgb(240, 240, 240);padding-left:8px; color:#000">Total</td>
-                          <td class="text-right" style="padding-right:8px; font-size: 20px; background-color: rgb(240, 240, 240); color:#000">{{ grandTotal | money }}</td>
+                          <td class="no-bgr text-right"
+                              style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
+                          <td class="text-left"
+                              style="font-size: 20px; background-color: rgb(240, 240, 240);padding-left:8px; color:#000">
+                            Total
+                          </td>
+                          <td class="text-right"
+                              style="padding-right:8px; font-size: 20px; background-color: rgb(240, 240, 240); color:#000">
+                            {{ grandTotal | money }}
+                          </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -289,7 +323,8 @@
                             style="box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1); background-color:#eee; width:95%"
                           ></vuelist>
                         </div>
-                        <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()" class="add-new-contact-btn" style="width:95%">
+                        <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()"
+                             class="add-new-contact-btn" style="width:95%">
                           + Add New Contact
                         </div>
                         <div v-if="ui.showAddNewContactField">
@@ -325,7 +360,8 @@
                             />
                           </div>
                           <div class="form-group" style="width:95%">
-                            <input type="email" name="email" class="form-control" placeholder="Client's email" style="text-transform: lowercase;"
+                            <input type="email" name="email" class="form-control" placeholder="Client's email"
+                                   style="text-transform: lowercase;"
                                    v-model="newContact.email">
                           </div>
                         </div>
@@ -348,11 +384,15 @@
                           </a>
                         </div>
                         <div v-text="selected_contact.billing_address"></div>
-                        <div v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
-                        <div v-text="selected_contact.billing_district_detail && selected_contact.billing_district_detail.name"></div>
-                        <div v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
+                        <div
+                          v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
+                        <div
+                          v-text="selected_contact.billing_district_detail && selected_contact.billing_district_detail.name"></div>
+                        <div
+                          v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
                         <div v-text="selected_contact.billing_zip"></div>
-                        <div v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
+                        <div
+                          v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
                         <div>&nbsp;</div>
                         <div>Phone: {{ selected_contact.phone ? selected_contact.phone : '-' }}</div>
                         <div>Mobile {{ selected_contact.mobile ? selected_contact.mobile : '-' }}</div>
@@ -373,9 +413,10 @@
                       </div>
                     </div>
                     <div v-if="list.channels.length">
-                      <div class="form-group" style="margin-bottom: 0px" >
+                      <div class="form-group" style="margin-bottom: 0px">
                         <label style="font-weight: normal" v-if="!selected_sales_channel">Sales from:</label>
-                        <label style="font-weight: normal" v-if="selected_sales_channel">Sales from: {{ selected_sales_channel.sales_channel.channel_name }}</label>
+                        <label style="font-weight: normal" v-if="selected_sales_channel">Sales from: {{
+                          selected_sales_channel.sales_channel.channel_name }}</label>
                       </div>
                       <div class="normal-mode">
                         <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
@@ -387,9 +428,9 @@
                             keyid="id"
                             label="store_name"
                             style="width:93%"
-                        ></vuelist>
+                          ></vuelist>
                         </div>
-                        <div class="col-md-1" v-if="selected_sales_channel"  style="padding-left:0">
+                        <div class="col-md-1" v-if="selected_sales_channel" style="padding-left:0">
                           <a @click="clearSelectedSalesChannel" href="javascript:void(0)" class="text-danger">
                             <i class="ion-close-round" style="font-size:13.3px"></i>
                           </a>
@@ -397,7 +438,8 @@
                       </div>
                     </div>
                     <div v-else>
-                      <label style="font-weight: normal">Go to <i>Settings</i> >> <i>Sales Channel</i> to add your first sales channel</label>
+                      <label style="font-weight: normal">Go to <i>Settings</i> >> <i>Sales Channel</i> to add your first
+                        sales channel</label>
                     </div>
                   </div>
                 </div>
@@ -797,7 +839,7 @@
         this.list.product_list = product_list_response.data.data;
       },
 
-      async salesChannel (params = {}) {
+      async salesChannel(params = {}) {
         try {
           const defaultParams = {
             filter: 'all',
@@ -970,19 +1012,36 @@
       },
 
       async selectProduct(product) {
+
         this.selected_product = product;
+
         Vue.nextTick(() => {
           this.selected_product = null;
         });
-        this.form.details.push({
-          item_id: product.item_id,
-          item_name: product.item_name,
-          item_quantity: product.item_quantity || 1,
-          item_rate: product.sales_rate,
-          discount_contact_id: product.discount_contact_id,
-          discount_amount_type: product.discount_amount_type || "fixed",
-          discount_amount_value: product.discount_amount_value || 0
-        });
+
+        //reject the item if stock_quantity smaller than 1
+        if (product.track_inventory && product.stock_quantity < 1) {
+          console.info('Insufficient item stock');
+          let res = {
+            data: {
+              code: 500,
+              message: "Insufficient item stock"
+            }
+          };
+
+          swal_error(res);
+        } else {
+
+          this.form.details.push({
+            item_id: product.item_id,
+            item_name: product.item_name,
+            item_quantity: product.item_quantity || 1,
+            item_rate: product.sales_rate,
+            discount_contact_id: product.discount_contact_id,
+            discount_amount_type: product.discount_amount_type || "fixed",
+            discount_amount_value: product.discount_amount_value || 0
+          });
+        }
       },
 
       removeProduct(product) {
@@ -994,7 +1053,7 @@
         //
       },
 
-      async selectSalesChannel (channel){
+      async selectSalesChannel(channel) {
         if (channel) {
           const my_sales_channel_id = (this.form.my_sales_channel_id = channel.id);
           const my_sales_channel = (this.form.my_sales_channel = channel.store_name);
@@ -1115,19 +1174,19 @@
   }
 
   .add-new-contact-btn {
-  border: 1px dashed #aaa;
-  height: 100px;
-  padding: 10px;
-  color: #aaa;
-  cursor: pointer;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    border: 1px dashed #aaa;
+    height: 100px;
+    padding: 10px;
+    color: #aaa;
+    cursor: pointer;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.add-new-contact-btn:hover {
-  color: white;
-  background: #89b5eb;
-}
+  .add-new-contact-btn:hover {
+    color: white;
+    background: #89b5eb;
+  }
 </style>
