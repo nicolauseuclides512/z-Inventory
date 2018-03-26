@@ -315,7 +315,7 @@
                           </div>
                           <div class="form-group" style="width:95%">
                             <input
-                              type="text"
+                              type="number"
                               name="phone"
                               id="phone"
                               class="form-control"

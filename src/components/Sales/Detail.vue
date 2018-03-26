@@ -151,24 +151,24 @@
                                   <span v-else-if="sale.sales_order_status == 'DRAFT'" style="font-size: 10px;">{{ sale.sales_order_status }}</span>
                                   <span v-else style="font-size: 10px;">{{ sale.invoice_status }}</span> -->
                                                                 <div v-if="sale.sales_order_status === 'DRAFT'">
-                                  <span class="label label-info" style="background-color:#C4C4C4; color:#000000">{{ sale.sales_order_status }}</span>
+                                  <span style="color:#C4C4C4; font-size:13px;">{{ sale.sales_order_status }}</span>
                                 </div>
                                 <div v-else>
                                   <!--{{ sale.invoice_status }}-->
                                 <div v-if="sale.invoice_status === 'PAID'">
-                                  <span class="label label-info" style="background-color:#319B31">PAID</span>
+                                  <span style="color:#319B31; font-size:13px;">PAID</span>
                                 </div>
                                 <div v-else-if="sale.invoice_status === 'UNPAID'">
-                                  <span class="label label-info" style="background-color:#1C8AD9">UNPAID</span>
+                                  <span style="color:#1C8AD9; font-size:13px;">UNPAID</span>
                                 </div>
                                 <div v-else-if="sale.invoices[0].invoice_status === 'PARTIALLY_PAID'">
-                                  <span class="label label-info" style="background-color:#E6E600; color:#000000">PARTIALLY PAID</span>
+                                  <span style="color:#319B31; font-size:13px;">PARTIALLY PAID</span>
                                 </div>
                                 <div v-else-if="sale.invoice_status === 'OVERDUE'">
-                                  <span class="label label-info" style="background-color:#E33636">OVERDUE</span>
+                                  <span style="color:#E33636; font-size:13px;">OVERDUE</span>
                                 </div>
                                 <div v-else-if="sale.invoice_status === 'VOID'">
-                                  <span class="label label-info" style="background-color:#000000">VOID</span>
+                                  <span style="color:#000000; font-size:13px;">VOID</span>
                                 </div>
                                 </div>
                                 </div>
@@ -259,7 +259,7 @@
                       </div>
                       <div class="dropdown pull-left" style="margin-right: 10px;">
                         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
-                        v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'">
+                        v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE') && salesOrder.sales_order_status != 'DRAFT'">
                           Record
                           <span class="caret"></span>
                         </button>

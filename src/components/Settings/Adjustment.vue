@@ -87,10 +87,14 @@
 
       async add () {
         try {
-          const res = await Axios.post(`reasons`, this.form)
-          this.getList()
-          this.form.reason = ''
-          Alert.success(`New reason has been added`)
+          if(this.form.reason){
+            const res = await Axios.post(`reasons`, this.form)
+            this.getList()
+            this.form.reason = ''
+            Alert.success(`New reason has been added`)
+          } else {
+            Alert.error(`Whoops! Reason cannot empty`)
+          }
         }
         catch (err) {
           console.error(err)

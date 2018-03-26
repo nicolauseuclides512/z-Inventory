@@ -1,10 +1,212 @@
 <template>
   <div class="content-page">
-    <div class="content full-width sahito-user bgr-white">
-      <div class="container">
+    <div class="content" style="padding-left: 0px; padding-right: 0px">
+      <!-- <div class="container"> -->
         <form method="POST" id="form" @submit.prevent="validate">
+          <div class="col-md-12" style="padding-left:0px">
+            <h4 v-if="!$route.params.id" class="pull-left page-title">Create Variant Item</h4>
+            <h4 v-if="$route.params.id" class="pull-left page-title">Edit Variant Item</h4>
+          </div>
+          <div class="row">
+          <!-- Image Uploader -->
+          <div class="col-md-4">
+            <div class="panel panel-default" style="background-color:transparent; box-shadow:none">
+              <div class="panel-body" style="padding:0px">
+                <div class="form-group form-general">
+                  <div class="col-md-12 pl-pr-0">
+                    <ImageUpload
+                        :images="form.item_medias"
+                        @add="addImage"
+                        @clear="clearImages"
+                        @remove="removeImage"
+                        @set-as-primary="setAsPrimary"
+                      ></ImageUpload>
+                  </div>
+                  <div class="col-md-12 pl-pr-0">
+                    <small>Upload your product's photo up to 5 images</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-8">
 
-          <div class="container full-width-header bt-1 p-b-10 m-b-20">
+            <!-- Info -->
+            <div class="panel panel-default">
+               <div class="panel-body">
+                 <div class="form-horizontal">
+                   <div class="form-group form-general m-b-10">
+                     <label class="col-md-2 control-label text-left">Item Name *</label>
+                     <div class="col-md-9">
+                       <input
+                        type="text"
+                        v-model="form.item_name"
+                        placeholder="Name of item"
+                        class="form-control"
+                        required
+                      />
+                     </div>
+                   </div>
+                   <div class="form-group form-general m-b-10">
+                     <label class="col-md-2 control-label text-left">Description</label>
+                     <div class="col-md-9 custom-summernote">
+                       <textarea v-model="form.description" class="form-control" rows="3" style="resize:vertical"></textarea>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+            </div>
+
+            <!--Price -->
+            <div class="panel panel-default" >
+               <div class="panel-body" >
+                 <div class="form-horizontal">
+                   <div class="form-group form-general m-b-10">
+                     <label class="col-md-2 control-label text-left">Price *</label>
+                     <div class="col-md-4">
+                       <div class="input-group">
+                         <div class="input-group-addon">Rp</div>
+                         <input
+                          v-model="form.sales_rate"
+                          type="number"
+                          min="1"
+                          placeholder=""
+                          class="form-control custom"
+                          required
+                        />
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+            </div>
+
+            <!--Stock -->
+            <div class="panel panel-default" >
+              <div class="panel-body" >
+                <div class="form-horizontal">
+                  <div class="form-group form-general m-b-10">
+                    <label class="col-md-2 control-label text-left">SKU</label>
+                    <div class="col-md-4">
+                      <input v-model="form.code_sku" type="text" min="0" placeholder=""
+                       class="form-control" maxlength="15">
+                    </div>
+                  </div>
+                  <div class="form-group form-general m-b-10">
+                    <label class="col-md-2 control-label text-left">UOM</label>
+                    <div class="col-md-4 ">
+                      <select id="uom_id" v-model="form.uom_id" class="form-control">
+                          <option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group form-general m-b-10">
+                    <label class="col-md-2 control-label text-left">Inventory Policy</label>
+                    <div class="col-md-4">
+                      <select v-model="form.track_inventory" class="form-control" >
+                        <option value='false'>Do not track</option>
+                        <option value='true'>Track inventory for this item</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- <div id="show-stock" v-if="form.track_inventory == 'true'">
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left">Stock</label>
+                      <div class="col-md-4">
+                        <input v-model.number="form.stock_quantity" type="number" min="0" placeholder="" class="form-control">
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+
+            <!--Shipping -->
+            <div class="panel panel-default" >
+              <div class="panel-body" >
+                <div class="form-horizontal">
+                  <div class="col-md-12" style="padding-left: 0px;">
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left">Dimension (cm)</label>
+                      <div class="col-md-4 p-0">
+                        <div class="col-md-3 pr-0">
+                          <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control" style="font-size:12px; padding:6px">
+                        </div>
+                        <div class="col-md-3 pl-pr-0 text-center form-custom-link" style="width:25px">x</div>
+                        <div class="col-md-3 pr-0">
+                          <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control" style="font-size:12px; padding:6px">
+                        </div>
+                        <div class="col-md-3 pl-pr-0 text-center form-custom-link" style="width:25px">x</div>
+                        <div class="col-md-3 pr-0">
+                          <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control" style="font-size:12px; padding:6px">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left ">Weight *</label>
+                      <div class="col-md-4">
+                        <div class="input-group">
+                          <input v-model="form.weight" type="number" min="1" placeholder="" required
+                                 class="form-control">
+                          <span class="input-group-addon">gram</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--Generate Variant -->
+           
+            <div class="panel panel-default">
+              <div class="panel-body" >
+                <div v-if="form.item_id">
+                  <a href="javascript:;" class="btn btn-default waves-effect" type="button" @click="toggleVariantListModal">
+                    Edit Variant
+                  </a>
+                  <div v-if="variantListModal" class="modal show" tabindex="-1" role="dialog" data-keyboard="false" style="background: rgba(0, 0, 0, 0.75);">
+                    <div class="modal-dialog modal-full" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button @click="toggleVariantListModal" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title">Edit Variant</h4>
+                        </div>
+                        <div class="modal-body">
+                          <VariantList
+                            :item="form"
+                            @remove="deleteChildrenItem"
+                            @children-updated="updateChildren"
+                          />
+                        </div>
+                        <div class="modal-footer" style="padding-top: 10px;">
+                          <button @click="toggleVariantListModal" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-else>
+                  <Variant
+                    v-if="!$route.params.id"
+                    :item="form"
+                    @remove="deleteChildrenItem"
+                    @children-updated="updateChildren"
+                  />
+                </div> 
+              </div>
+            </div>
+
+          <div class="col-md-10 pull-right">
+          <!--Variant List -->
+          </div>
+          
+          </div>
+          </div>
+          
+
+          <!-- <div class="container full-width-header bt-1 p-b-10 m-b-20">
             <div class="row">
               <div class="col-md-12">
                 <h4 v-if="!$route.params.id" class="pull-left page-title">Create Variant Item</h4>
@@ -51,7 +253,7 @@
                     <div class="col-md-9 custom-summernote">
                       <textarea v-model="form.description" class="form-control" rows="3"></textarea>
                     </div>
-                  </div>
+                  </div> -->
                   <!-- <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left">SKU</label>
                     <div class="col-md-3">
@@ -59,7 +261,7 @@
                              class="form-control" maxlength="15">
                     </div>
                   </div> -->
-                  <div class="form-group form-general m-b-20">
+                  <!-- <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left text-danger">Price</label>
                     <div class="col-md-2">
                       <div class="input-group">
@@ -101,10 +303,10 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Shipping -->
-          <div class="container m-b-20">
+          <!-- <div class="container m-b-20">
             <div class="row">
               <div class="col-md-12 p-b-20">
                 <h5 class="title">Shipping</h5>
@@ -168,11 +370,11 @@
                   </div>
                   <div class="modal-footer" style="padding-top: 10px;">
                     <button @click="toggleVariantListModal" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-          </div>
+                  </div> -->
+                <!-- </div>/.modal-content -->
+              <!-- </div>/.modal-dialog -->
+            <!-- </div>/.modal -->
+          <!-- </div>
           <div v-else>
             <Variant
               v-if="!$route.params.id"
@@ -180,7 +382,7 @@
               @remove="deleteChildrenItem"
               @children-updated="updateChildren"
             />
-          </div>
+          </div> -->
 
           <div class="float-save">
             <div class="container">
@@ -233,7 +435,7 @@
           </div>
 
         </form>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -523,6 +725,7 @@
           } else {
             item.track_inventory = 'true'
           }
+          console.log(item.track_inventory)
         })
       },
 

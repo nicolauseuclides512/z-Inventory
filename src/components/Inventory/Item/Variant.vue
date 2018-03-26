@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="container m-b-20">
+    <div class="container m-b-20 pl-pr-0">
       <div class="row">
         <div class="col-md-12">
-          <h5 class="title">Variant</h5>
+          <h5 class="title" style="margin-top:0px">Variant</h5>
           <div class="form-horizontal">
-            <div class="col-md-12">
+            <div class="col-md-12 pl-pr-0">
               <!--<div class="form-group">-->
               <!--<div class="toggles-dropship">-->
               <!--<label>Add Variants?</label>-->
@@ -36,7 +36,7 @@
                 <div v-if="firstVariant.show">
                   <div class="form-horizontal p-5">
                     <div class="form-group">
-                      <div class="col-md-3">
+                      <div class="col-md-2 pl-0">
                         <select class="form-control" v-model="firstVariant.name" @change="generateVariant">
                           <option v-for="(v, k) in list.variants" :value="k">{{ v }}</option>
                         </select>
@@ -47,13 +47,13 @@
                           @change="changeFirstVariantValues"
                         ></Vuetagger>
                       </div>
-                      <div class="col-md-1" v-if="!secondVariant.show && !thirdVariant.show">
+                      <div class="col-md-1 pl-0" v-if="!secondVariant.show && !thirdVariant.show">
                         <button type="button" @click="addMoreVariant"
                                 class="btn btn-info btn-custom waves-effect waves-light m-b-5">
-                          Add more
+                          <i data-v-46bab2ea="" class="fa fa-plus"></i>
                         </button>
                       </div>
-                      <div class="col-md-1"  v-if="secondVariant.show || thirdVariant.show">
+                      <div class="col-md-1 pl-0"  v-if="secondVariant.show || thirdVariant.show">
                         <button type="button" @click="hideFirstVariant"
                                 class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
@@ -66,7 +66,7 @@
                 <div v-if="secondVariant.show">
                   <div class="form-horizontal p-5">
                     <div class="form-group">
-                      <div class="col-md-3">
+                      <div class="col-md-2 pl-0">
                         <select class="form-control" v-model="secondVariant.name" @change="generateVariant">
                           <option v-for="(v, k) in list.variants" :value="k">{{ v }}</option>
                         </select>
@@ -74,16 +74,16 @@
                       <div class="col-md-7">
                         <Vuetagger :value="secondVariant.values" @change="changeSecondVariantValues"></Vuetagger>
                       </div>
-                      <div class="col-md-1" v-if="(!thirdVariant.show && firstVariant.show) || (!firstVariant.show && !thirdVariant.show )">
-                        <button type="button" @click="addMoreVariant"
-                                class="btn btn-info btn-custom waves-effect waves-light m-b-5">
-                          Add more
-                        </button>
-                      </div>
-                      <div class="col-md-1" v-if="firstVariant.show || thirdVariant.show">
+                      <div class="col-md-1 pl-0" v-if="firstVariant.show || thirdVariant.show" style="width:50px">
                         <button type="button" @click="hideSecondVariant"
                                 class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
+                        </button>
+                      </div>
+                      <div class="col-md-1 pl-0" v-if="(!thirdVariant.show && firstVariant.show) || (!firstVariant.show && !thirdVariant.show )">
+                        <button type="button" @click="addMoreVariant"
+                                class="btn btn-info btn-custom waves-effect waves-light m-b-5">
+                          <i data-v-46bab2ea="" class="fa fa-plus"></i>
                         </button>
                       </div>
                     </div>
@@ -93,7 +93,7 @@
                 <div v-if="thirdVariant.show">
                   <div class="form-horizontal p-5">
                     <div class="form-group">
-                      <div class="col-md-3">
+                      <div class="col-md-2 pl-0">
                         <select class="form-control" v-model="thirdVariant.name" @change="generateVariant">
                           <option v-for="(v, k) in list.variants" :value="k">{{ v }}</option>
                         </select>
@@ -101,13 +101,13 @@
                       <div class="col-md-7">
                         <Vuetagger :value="thirdVariant.values" @change="changeThirdVariantValues"></Vuetagger>
                       </div>
-                      <div class="col-md-1" v-if="(secondVariant.show && !firstVariant.show) || (firstVariant.show && !secondVariant.show ) || (!firstVariant.show && !secondVariant.show )">
+                      <div class="col-md-1 pl-0" v-if="(secondVariant.show && !firstVariant.show) || (firstVariant.show && !secondVariant.show ) || (!firstVariant.show && !secondVariant.show )">
                         <button type="button" @click="addMoreVariant"
                                 class="btn btn-info btn-custom waves-effect waves-light m-b-5">
-                          Add more
+                          <i data-v-46bab2ea="" class="fa fa-plus"></i>
                         </button>
                       </div>
-                      <div class="col-md-1" v-if="firstVariant.show || secondVariant.show">
+                      <div class="col-md-1 pl-0" v-if="firstVariant.show || secondVariant.show">
                         <button type="button" @click="hideThirdVariant"
                                 class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
                           <i class="md md-delete"></i>
@@ -142,14 +142,15 @@
                 <!--</div>-->
 
 
-                <div class="col-md-12 pl-pr-0" style="padding-top: 30px">
+                <div v-if="list.items.length" class="col-md-12 pl-pr-0" style="padding-top: 30px" >
+                  <h5 class="title" style="margin-top:0px">Generated Variant</h5>
                   <div class="table-responsive">
-                    <table class="table table-bordered" v-if="list.items.length">
+                    <table class="table">
                       <thead>
                       <tr>
                         <td>Item Name</td>
-                        <td>SKU</td>
-                        <td v-if="firstVariant.show && firstVariant.values.length">
+                        <td style="width:152px;">SKU</td>
+                        <!-- <td v-if="firstVariant.show && firstVariant.values.length">
                           {{ firstVariant.name | capitalize }}
                         </td>
                         <td v-if="secondVariant.show && secondVariant.values.length">
@@ -157,17 +158,54 @@
                         </td>
                         <td v-if="thirdVariant.show && thirdVariant.values.length">
                           {{ thirdVariant.name | capitalize }}
-                        </td>
-                        <td v-if="item.track_inventory == 'true'">Stock</td>
-                        <td>Price</td>
+                        </td> -->
+                        <td v-if="item.track_inventory == 'true'" style="width:97px">Stock</td>
+                        <td style="width:136px">Price</td>
                         <td>&nbsp;</td>
                       </tr>
                       </thead>
                       <tbody>
                       <tr v-for="v in list.items">
-                        <td><input type="text" class="form-control form-white" v-model="v.item_name"></td>
-                        <td><input type="text" class="form-control form-white" v-model="v.code_sku"></td>
-                        <td v-if="firstVariant.show && firstVariant.values.length">
+                        <td>
+                          <input type="text" class="form-control form-white" v-model="v.item_name" style="margin-bottom:8px">
+                          <!-- <div v-if="firstVariant.show && firstVariant.values.length" style="float:left"> 
+                            <div class="label label-info m-b-10">
+                              {{ v.item_attributes[firstVariant.name] | removeNonAlphaNum}}
+                            </div>
+                            <input
+                            type="text"
+                            class="form-control form-white"
+                            v-model="v.item_attributes[firstVariant.name]"
+                            disabled="disabled"
+                            style="display:none; margin-top:10px">
+                          </div>
+                          <div v-if="secondVariant.show && secondVariant.values.length" style="float:left">
+                            <div class="label label-info m-b-10">
+                              {{v.item_attributes[secondVariant.name] | removeNonAlphaNum}}
+                            </div>
+                            <input
+                            type="text"
+                            class="form-control form-white"
+                            v-model="v.item_attributes[secondVariant.name]"
+                            disabled="disabled"
+                            style="display:none; margin-top:10px">
+                          </div>
+                          <div v-if="thirdVariant.show && thirdVariant.values.length" style="float:left">
+                             <div class="label label-info m-b-10">
+                              {{v.item_attributes[thirdVariant.name] | removeNonAlphaNum}}
+                            </div>
+                            <input
+                            type="text"
+                            class="form-control form-white"
+                            v-model="v.item_attributes[thirdVariant.name]"
+                            disabled="disabled"
+                            style="display:none; margin-top:10px">
+                          </div> -->
+                        </td>
+                        <td style="vertical-align:text-top">
+                          <input type="text" class="form-control form-white" v-model="v.code_sku" style="width:144px">
+                        </td>
+                        <!-- <td v-if="firstVariant.show && firstVariant.values.length">
                           <input
                             type="text"
                             class="form-control form-white"
@@ -187,10 +225,10 @@
                             class="form-control form-white"
                             v-model="v.item_attributes[thirdVariant.name]"
                             disabled="disabled">
-                        </td>
-                        <td><input type="number" step="1" class="form-control form-white" v-model.number="v.stock_quantity"></td>
-                        <td><input type="number" step="1" class="form-control form-white" v-model.number="v.sales_rate"></td>
-                        <td>
+                        </td> -->
+                        <td v-if="item.track_inventory == 'true'" style="vertical-align:text-top"><input type="number" step="1" class="form-control form-white" v-model.number="v.stock_quantity"></td>
+                        <td style="vertical-align:text-top"><input type="number" step="1" class="form-control form-white" v-model.number="v.sales_rate"></td>
+                        <td style="vertical-align:text-top">
                           <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
                             <i class="ion-trash-b"></i>
                           </button>
