@@ -353,6 +353,9 @@
                         <div v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
                         <div v-text="selected_contact.billing_zip"></div>
                         <div v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
+                        <div>&nbsp;</div>
+                        <div>Phone: {{ selected_contact.phone ? selected_contact.phone : '-' }}</div>
+                        <div>Mobile {{ selected_contact.mobile ? selected_contact.mobile : '-' }}</div>
                       </div>
                     </div>
                     <div class="form-group">
