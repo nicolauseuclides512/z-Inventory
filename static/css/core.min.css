@@ -24452,6 +24452,10 @@ body.fixed-left .side-menu.left {
     padding-left: 90px
 }
 
+#wrapper.enlarged .float-CheckOpt {
+    padding-left: 90px
+}
+
 #wrapper.enlarged .topbar .topbar-left {
     width: 70px!important
 }
