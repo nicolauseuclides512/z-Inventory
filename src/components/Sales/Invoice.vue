@@ -177,7 +177,7 @@
           </div>
         </div>
       <div class="row p-15 pt-0">
-        Cutomer notes
+        Customer notes
         <div>{{ value.customer_notes }}</div>
       </div>
       <div class="row p-15 pt-0">
