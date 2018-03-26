@@ -39,18 +39,26 @@
                   <div class="pull-left">
                     <!--<a href="javascript:void(0);" id="mark-as-active" @click="markAsActive" class="btn btn-default waves-effect waves-light m-b-5">Mark as Active</a>-->
                     <div class="btn-group">
-                      <button
+                      <!-- <button
                         class="btn btn-default waves-effect waves-light m-b-5"
                         id="more-actions"
                         data-toggle="dropdown"
                         aria-expanded="false"
                       >
                         More Actions <i class="caret"></i>
+                      </button> -->
+                      <button
+                        class="btn btn-default waves-effect waves-light m-b-5"
+                        id="more-actions"
+                        data-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                       <a href="javascript:void(0);" id="delete" @click="destroy">Delete</a>
                       </button>
-                      <ul class="dropdown-menu" role="menu">
+                      <!-- <ul class="dropdown-menu" role="menu"> -->
                         <!--<li><a href="javascript:void(0);" id="mark-as-inactive" @click="markAsInactive">Mark as Inactive</a></li>-->
-                        <li><a href="javascript:void(0);" id="delete" @click="destroy">Delete</a></li>
-                      </ul>
+                        <!-- <li><a href="javascript:void(0);" id="delete" @click="destroy">Delete</a></li> -->
+                      <!-- </ul> -->
                     </div>
                   </div>
                   <div class="pull-right pt-10">
