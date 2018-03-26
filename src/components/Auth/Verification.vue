@@ -96,7 +96,8 @@
           }
 
           swal({
-            title: 'Terima kasih. Silakan cek email untuk proses selanjutnya.',
+            //title: 'Terima kasih. Silakan cek email untuk proses selanjutnya.',
+            title: 'Thankyou. Please check your email and verify your account.',
             type: 'success',
             showConfirmButton: true,
           }).catch(swal.noop)
