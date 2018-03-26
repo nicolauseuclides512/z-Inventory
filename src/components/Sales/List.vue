@@ -186,7 +186,7 @@
                               <td class="text-left" @click="showDetail(sale)" style="cursor:pointer">
                                   {{ sale.contact.display_name }}
                               </td>
-                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                              <td style="cursor: pointer; width:126px" @click="showDetail(sale)">
                                 <div v-if="sale.sales_order_status === 'DRAFT'">
                                   <span style="color:#C4C4C4; font-size:13px">{{ sale.sales_order_status }}</span>
                                 </div>
