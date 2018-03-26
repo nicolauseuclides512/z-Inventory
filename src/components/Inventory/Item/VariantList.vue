@@ -8,9 +8,10 @@
       <td v-if="Object.keys(item.item_attributes)[0]">{{ Object.keys(item.item_attributes)[0] }}</td>
       <td v-if="Object.keys(item.item_attributes)[1]">{{ Object.keys(item.item_attributes)[1] }}</td>
       <td v-if="Object.keys(item.item_attributes)[2]">{{ Object.keys(item.item_attributes)[2] }}</td>
+      <td>Track</td>
       <td>Stock</td>
       <td>Price</td>
-      <td></td>
+      <td>Action</td>
     </tr>
     </thead>
     <tbody>
