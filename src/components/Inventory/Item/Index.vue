@@ -176,7 +176,6 @@
                             <img alt="" :src="tesimgProduct" class="media-object thumb-sm" style="width: auto; height: auto; max-width: 70px; max-height: 70px;">
                           </a>
                         </td>
-                        </td>
                         <td>
                           <a href="javascript:void(0)" v-if="item.children.length" @click="toggleChildren(item)">
                             <i class="ion-chevron-right" v-if="!item.expanded"></i>
