@@ -1,5 +1,28 @@
 <template>
   <div class="content-page-full">
+    <div v-show="isChecked" class="float-CheckOpt">
+        <div class="container">
+           <div class="clearfix">
+              <div class="pull-left">
+                <div class="btn-group">
+                  <button
+                        class="btn btn-default waves-effect waves-light m-b-5"
+                        id="more-actions"
+                        data-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                       <a href="javascript:void(0);" id="delete" @click="destroy">Delete</a>
+                      </button>
+                </div>
+            </div>
+            <div class="pull-right pt-10">
+                  <a href="javascript:void(0);" @click="clearCheckedItems" id="close-btn" class="close-btn">
+                      <i class="ion-android-close"></i>
+                    </a>
+                </div>
+          </div>
+      </div>
+    </div>
     <div class="content full-width sahito-user bgr-white">
       <div class="container">
         <div>
@@ -34,11 +57,11 @@
           <div id="full-list" v-if="Array.isArray(list.items) && list.items.length">
             <!-- Mark as Active/Inactive -->
             <div class="container full-width-header p-b-10" v-if="checkedItems.length">
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <div class="pull-left">
+                  <div class="pull-left"> -->
                     <!--<a href="javascript:void(0);" id="mark-as-active" @click="markAsActive" class="btn btn-default waves-effect waves-light m-b-5">Mark as Active</a>-->
-                    <div class="btn-group">
+                    <!-- <div class="btn-group"> -->
                       <!-- <button
                         class="btn btn-default waves-effect waves-light m-b-5"
                         id="more-actions"
@@ -47,19 +70,19 @@
                       >
                         More Actions <i class="caret"></i>
                       </button> -->
-                      <button
+                      <!-- <button
                         class="btn btn-default waves-effect waves-light m-b-5"
                         id="more-actions"
                         data-toggle="dropdown"
                         aria-expanded="false"
                       >
                        <a href="javascript:void(0);" id="delete" @click="destroy">Delete</a>
-                      </button>
+                      </button> -->
                       <!-- <ul class="dropdown-menu" role="menu"> -->
                         <!--<li><a href="javascript:void(0);" id="mark-as-inactive" @click="markAsInactive">Mark as Inactive</a></li>-->
                         <!-- <li><a href="javascript:void(0);" id="delete" @click="destroy">Delete</a></li> -->
                       <!-- </ul> -->
-                    </div>
+                    <!-- </div>
                   </div>
                   <div class="pull-right pt-10">
                     <a href="javascript:void(0);" @click="clearCheckedItems" id="close-btn" class="close-btn">
@@ -67,8 +90,8 @@
                     </a>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div>-->
+            </div> 
             <!-- Mark as Active/Inactive END -->
 
             <div class="container full-width-header p-b-10" v-if="!checkedItems.length">
