@@ -51,8 +51,9 @@
                   </div>
                   <div class="col-md-3">
                     <input
-                      type="number"
-                      min="0"
+                      type="text"
+                      minlength="10"
+                      maxlength="16"
                       id="account_number"
                       v-model="bank_form.account_number"
                       @keyup.prevent.stop="inputAccountNumber(bank_form.account_number, $event)"
@@ -67,6 +68,8 @@
                       type="text"
                       id="account_holder"
                       v-model="bank_form.account_holder"
+                      @keyup.prevent.stop="inputAccountHolder(bank_form.account_holder, $event)"
+                      @blur="inputAccountHolder(bank_form.account_holder, $event)"
                       class="form-control form-white"
                       placeholder="Account holder name"
                       required
@@ -363,6 +366,10 @@
 
       inputAccountNumber (account_number, $event) {
         account_number = $event.target.value = $event.target.value.replace(/\D/g, '')
+      },
+
+      inputAccountHolder (account_holder, $event) {
+        account_holder = $event.target.value = $event.target.value.replace(/\W[^A-Z][^a-z]/g, '')
       },
 
     },

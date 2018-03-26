@@ -8,22 +8,24 @@
       <td v-if="Object.keys(item.item_attributes)[0]">{{ Object.keys(item.item_attributes)[0] }}</td>
       <td v-if="Object.keys(item.item_attributes)[1]">{{ Object.keys(item.item_attributes)[1] }}</td>
       <td v-if="Object.keys(item.item_attributes)[2]">{{ Object.keys(item.item_attributes)[2] }}</td>
+      <td>Track</td>
       <td>Stock</td>
       <td>Price</td>
-      <td></td>
+      <td>Action</td>
     </tr>
     </thead>
     <tbody>
     <tr v-for="v in list.items">
       <td>
-        <input type="text" class="form-control form-white" v-model="v.item_name" title="">
+        <input type="text" class="form-control form-white" v-model="v.item_name" title="" @keydown.prevent.enter>
       </td>
-      <td><input type="text" class="form-control form-white" v-model="v.code_sku" title=""></td>
+      <td><input type="text" class="form-control form-white" v-model="v.code_sku" title="" @keydown.prevent.enter></td>
       <td v-if="Object.keys(item.item_attributes)[0]">
         <input
           type="text"
           class="form-control form-white"
           title=""
+          @keydown.prevent.enter
         />
       </td>
       <td v-if="Object.keys(item.item_attributes)[1]">
@@ -31,6 +33,7 @@
           type="text"
           class="form-control form-white"
           title=""
+          @keydown.prevent.enter
         />
       </td>
       <td v-if="Object.keys(item.item_attributes)[2]">
@@ -38,6 +41,7 @@
           type="text"
           class="form-control form-white"
           title=""
+          @keydown.prevent.enter
         />
       </td>
       <td align="center">
@@ -48,10 +52,11 @@
           true-value="true"
           false-value="false"
           class="checkbox-primary"
+          @keydown.prevent.enter
         />
       </td>
-      <td><input type="text" class="form-control form-white" v-model="v.stock_quantity" title="Stock" v-if="v.track_inventory"></td>
-      <td><input type="text" class="form-control form-white" v-model="v.sales_rate" title=""></td>
+      <td><input type="text" class="form-control form-white" v-model="v.stock_quantity" title="Stock" v-if="v.track_inventory"  @keydown.prevent.enter></td>
+      <td><input type="text" class="form-control form-white" v-model="v.sales_rate" title="" @keydown.prevent.enter></td>
       <td>
         <button type="button" @click="updateItem(v)" class="btn btn-info btn-custom waves-effect">
           <i class="fa fa-check"></i>
@@ -68,6 +73,7 @@
 <script>
   import Axios from 'axios'
   import Form from '@/helpers/Form'
+  import { responseOk, swal_error, swal_success } from 'src/helpers'
 
   export default {
     name: 'VariantList',
@@ -109,8 +115,51 @@
         }
       },
 
+      refreshList() {
+        this.list.items = [];
+        this.getList({
+          currentFilter: this.currentFilter,
+          sort: `${this.currentSortColumn}.${this.ascendingSort ? "asc" : "desc"}`
+        });
+      },
+
       async removeItem (item) {
-        this.$emit('remove', item)
+        Alert.confirm(
+          {
+            title: "Do you really want to delete this sales order?",
+            text: "The item will be deleted permanently."
+          },
+          async () => {
+            const ids = item.item_id;
+
+            const res = await Axios.delete(`items?ids=${ids}`)
+            
+            if (!responseOk(res.data.code)) {
+              Alert.error('Failed to delete item')
+            } else {
+              const index = this.list.items.indexOf(item)
+              this.list.items.splice(index, 1)
+
+              Alert.success('Item has been deleted')
+            }
+
+            // this.$http.delete(`items?ids=${ids}`).then(
+            //   res => {
+            //     if ([0, 200, 201].indexOf(res.data.code) === -1)
+            //     {
+            //       return swal_error(res);
+            //     } else {
+            //       this.$emit('remove', item);
+            //       this.mounted();
+            //       Alert.success(res.data.message);
+            //     }
+            //   },
+            //   res => {
+            //     return swal_error(res);
+            //   }
+            // );
+          }
+        );
       },
 
     },
