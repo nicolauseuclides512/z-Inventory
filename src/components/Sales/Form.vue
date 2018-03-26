@@ -348,11 +348,11 @@
                           </a>
                         </div>
                         <div v-text="selected_contact.billing_address"></div>
-                        <div
-                          v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
+                        <div v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
+                        <div v-text="selected_contact.billing_district_detail && selected_contact.billing_district_detail.name"></div>
+                        <div v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
                         <div v-text="selected_contact.billing_zip"></div>
-                        <div
-                          v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
+                        <div v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
                       </div>
                     </div>
                     <div class="form-group">
