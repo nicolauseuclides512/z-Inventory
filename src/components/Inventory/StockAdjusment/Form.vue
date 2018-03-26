@@ -10,7 +10,7 @@
           </div>
           <!-- Row 1 : INFO -->
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
               <!-- Adjustment info guide-->
               <div class="panel panel-default" style="background-color:transparent; box-shadow:none">
                 <div class="panel-body" style="padding:0px">
@@ -20,7 +20,7 @@
               </div>
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-10">
               <!-- Adjustment info -->
               <div class="panel panel-default">
                 <div class="panel-body">
@@ -107,27 +107,26 @@
                     <table class="table table-striped">
                                   <thead>
                                   <tr>
-                                    <th>No.</th>
-                                    <th>SKU</th>
-                                    <th>Item Name</th>
-                                    <th>Quantity in Database</th>
-                                    <th>Quantity on Hand</th>
-                                    <th>Adjust</th>
+                                    <th class="text-center">No.</th>
+                                    <th>Item</th>
+                                    <th class="text-center" style="width:95px">Quantity in Database</th>
+                                    <th class="text-center" style="width:85px">Quantity on Hand</th>
+                                    <th class="text-center" style="width:85px">Adjust</th>
                                     <th>Reason</th>
                                     <td style="box-shadow: none; border: none; width:28px"></td>
                                   </tr>
                                   </thead>
                                   <tbody>
                                   <tr v-for="(detail, index) in form.details">
-                                    <td>{{ index+1 }}</td>
-                                    <td>{{ detail.code_sku }}</td>
+                                    <td class="text-center">{{ index+1 }}</td>
                                     <td>
                                       <div class="col-md-12 pl-pr-0">
                                         <select class="form-control" v-model="detail.item_id" @change="selectItem(detail)" required title="Item name">
                                           <option v-for="item in list.items" :value="item.item_id" v-if="item.track_inventory" >
                                               {{ item.item_name }}
                                           </option>
-                                        </select>
+                                        </select><br>
+                                        <small v-show="detail.item_id != null">SKU Code : {{detail.code_sku }}</small>
                                       </div>
                                     </td>
                                     <td align="center">
