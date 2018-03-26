@@ -20,7 +20,7 @@
               </div>
             </div>
 
-            <div class="col-md-10">
+            <div class="col-md-9">
               <!-- Adjustment info -->
               <div class="panel panel-default">
                 <div class="panel-body">
@@ -71,7 +71,7 @@
                     </div>
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Notes</label>
-                      <div class="col-md-8">
+                      <div class="col-md-6">
                          <textarea
                             v-model="form.notes"
                             class="form-control"
@@ -107,12 +107,12 @@
                     <table class="table table-striped">
                                   <thead>
                                   <tr>
-                                    <th class="text-center">No.</th>
-                                    <th>Item</th>
-                                    <th class="text-center" style="width:95px">Quantity in Database</th>
-                                    <th class="text-center" style="width:85px">Quantity on Hand</th>
-                                    <th class="text-center" style="width:85px">Adjust</th>
-                                    <th>Reason</th>
+                                    <th class="text-center" style="font-weight:400; color:#000">No.</th>
+                                    <th style="font-weight:400; color:#000">Item</th>
+                                    <th class="text-center" style="width:95px; font-weight:400; color:#000">Quantity in Database</th>
+                                    <th class="text-center" style="width:85px; font-weight:400; color:#000">Quantity on Hand</th>
+                                    <th class="text-center" style="width:85px; font-weight:400; color:#000">Adjust</th>
+                                    <th style="font-weight:400; color:#000" >Reason</th>
                                     <td style="box-shadow: none; border: none; width:28px"></td>
                                   </tr>
                                   </thead>
@@ -126,7 +126,7 @@
                                               {{ item.item_name }}
                                           </option>
                                         </select><br>
-                                        <small v-show="detail.item_id != null">SKU Code : {{detail.code_sku }}</small>
+                                        <span v-show="detail.item_id != null"> <small >SKU Code : {{detail.code_sku }}</small></span>
                                       </div>
                                     </td>
                                     <td align="center">
