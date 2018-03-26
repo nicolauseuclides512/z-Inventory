@@ -1,7 +1,7 @@
 <template>
   <div class="left side-menu">
 
-    <div id="sidebar-menu" style="padding-top: 83px;">
+    <div id="sidebar-menu" style="padding-top: 35px;">
       <ul>
 
         <!--<li>-->
