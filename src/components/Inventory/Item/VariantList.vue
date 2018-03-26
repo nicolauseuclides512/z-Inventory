@@ -17,14 +17,15 @@
     <tbody>
     <tr v-for="v in list.items">
       <td>
-        <input type="text" class="form-control form-white" v-model="v.item_name" title="">
+        <input type="text" class="form-control form-white" v-model="v.item_name" title="" @keydown.prevent.enter>
       </td>
-      <td><input type="text" class="form-control form-white" v-model="v.code_sku" title=""></td>
+      <td><input type="text" class="form-control form-white" v-model="v.code_sku" title="" @keydown.prevent.enter></td>
       <td v-if="Object.keys(item.item_attributes)[0]">
         <input
           type="text"
           class="form-control form-white"
           title=""
+          @keydown.prevent.enter
         />
       </td>
       <td v-if="Object.keys(item.item_attributes)[1]">
@@ -32,6 +33,7 @@
           type="text"
           class="form-control form-white"
           title=""
+          @keydown.prevent.enter
         />
       </td>
       <td v-if="Object.keys(item.item_attributes)[2]">
@@ -39,6 +41,7 @@
           type="text"
           class="form-control form-white"
           title=""
+          @keydown.prevent.enter
         />
       </td>
       <td align="center">
@@ -49,10 +52,11 @@
           true-value="true"
           false-value="false"
           class="checkbox-primary"
+          @keydown.prevent.enter
         />
       </td>
-      <td><input type="text" class="form-control form-white" v-model="v.stock_quantity" title="Stock" v-if="v.track_inventory"></td>
-      <td><input type="text" class="form-control form-white" v-model="v.sales_rate" title=""></td>
+      <td><input type="text" class="form-control form-white" v-model="v.stock_quantity" title="Stock" v-if="v.track_inventory"  @keydown.prevent.enter></td>
+      <td><input type="text" class="form-control form-white" v-model="v.sales_rate" title="" @keydown.prevent.enter></td>
       <td>
         <button type="button" @click="updateItem(v)" class="btn btn-info btn-custom waves-effect">
           <i class="fa fa-check"></i>
