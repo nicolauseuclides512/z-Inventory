@@ -91,14 +91,19 @@
                   <!--Mark as Active-->
                   <!--</a>-->
                   <div class="btn-group">
-                    <button id="more-actions" class="btn btn-default waves-effect waves-light m-b-5"
+                    <!-- <button id="more-actions" class="btn btn-default waves-effect waves-light m-b-5"
                             data-toggle="dropdown" aria-expanded="false">
                       More Actions <i class="caret"></i>
+                    </button> -->
+                    <button id="destroy" class="btn btn-default waves-effect waves-light m-b-5"
+                            aria-expanded="false">
+                            <a href="javascript:void(0);" id="destroy" @click="destroy(checkedContacts)">
+                              Delete</a>
                     </button>
-                    <ul class="dropdown-menu" role="menu">
+                    <!-- <ul class="dropdown-menu" role="menu"> -->
                       <!--<li><a href="javascript:void(0);" id="mark-as-inactive" @click="markAsInactive(checkedContacts)">Mark as Inactive</a></li>-->
-                      <li><a href="javascript:void(0);" id="destroy" @click="destroy(checkedContacts)">Delete</a></li>
-                    </ul>
+                      <!-- <li><a href="javascript:void(0);" id="destroy" @click="destroy(checkedContacts)">Delete</a></li> -->
+                    <!-- </ul> -->
                   </div>
                 </div>
                 <div class="pull-right pt-10">
