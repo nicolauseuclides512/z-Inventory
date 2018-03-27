@@ -203,7 +203,7 @@
 
           this.payment_method_list = res.data.data.payment_method
 
-          this.form.amount = res.data.data.total_payment
+          this.form.amount = res.data.data.due_payment
 
           // ----------------------------
           // --- SEARCH BANK TRANSFER ---
