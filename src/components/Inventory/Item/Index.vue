@@ -227,7 +227,7 @@
                         <td class="text-center">
                           {{ item.code_sku ? item.code_sku : '-' }}
                         </td>
-                        <td><span v-if="!item.children.length">{{ item.description }}</span></td>
+                        <td><span v-if="!item.children.length">{{ item.description | truncItemDesc}}</span></td>
                         <td class="text-center">
                           <span v-if="(item.track_inventory == true) && (!item.children.length)">
                             <inline-editable
