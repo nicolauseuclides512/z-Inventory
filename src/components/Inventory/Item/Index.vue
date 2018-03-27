@@ -164,7 +164,7 @@
                             <label></label>
                           </div>
                         </th>
-                        <th></th>
+                        <!-- <th></th> -->
                         <th></th>
                         <th style="width: 25%; font-size:1.1em; font-weight:normal">
                           <a href="#" @click="sortItemsBy('item_name')" style="color:#000">Name</a>
@@ -202,11 +202,11 @@
                              class="checkbox">
                       <label></label>
                     </span>
-                    <td style="padding: 15px 8px 15px 10px">
+                    <!-- <td style="padding: 15px 8px 15px 10px">
                           <a href="#" class="pull-left">
                             <img alt="" :src="tesimgProduct" class="media-object thumb-sm" style="width: auto; height: auto; max-width: 70px; max-height: 70px;">
                           </a>
-                        </td>
+                        </td> -->
                         <td>
                           <a href="javascript:void(0)" v-if="item.children.length" @click="toggleChildren(item)">
                             <i class="ion-chevron-right" v-if="!item.expanded"></i>
@@ -254,7 +254,7 @@
                           <div class="checkbox checkbox-single checkbox-success">
                           </div>
                         </td>
-                        <td></td>
+                        <!-- <td></td> -->
                         <td class="col-icon_collapse" style="width: 23px">
                         </td>
                         <td class="name">{{ child.item_name }}</td>
