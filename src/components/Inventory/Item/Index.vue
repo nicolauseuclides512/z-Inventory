@@ -182,7 +182,8 @@
                           <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'description'"></i>
                         </th>
                         <th class="text-center" style="width: 15%; font-size:1.1em; font-weight:normal">
-                          <a href="#" @click="sortItemsBy('inventory_stock')" style="color:#000">Stock Available</a>
+                          <!-- <a href="#" @click="sortItemsBy('inventory_stock')" style="color:#000">Stock Available</a> -->
+                          Stock Available
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                           <i class="fa fa-sort-desc"
                              v-if="! ascendingSort && currentSortColumn === 'inventory_stock'"></i>
