@@ -43,6 +43,7 @@
                             type="file"
                             accept="image/png,image/jpg,image/jpeg"
                             style="opacity: 0;"
+                            size="1000000"
                           />
                         </div>
                         <a
@@ -285,6 +286,7 @@
       },
 
       async save () {
+        
         try {
           const data = {
             name: this.form.name,
@@ -346,6 +348,7 @@
 
         }
         catch (err) {
+          alert("Image too large / Not supported format.")
           console.error(err)
           this.uploading = false
         }
