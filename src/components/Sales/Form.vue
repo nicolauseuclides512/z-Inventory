@@ -86,10 +86,10 @@
                         <tbody style="color:#000;">
                         <tr v-for="product in form.details">
                           <td width='10%' style="padding: 15px 8px 15px 10px">
-                            <a href="#" class="pull-left">
+                            <!-- <a href="#" class="pull-left">
                               <img alt="" :src="tesimgProduct" class="media-object thumb-sm"
                                    style="width: auto; height: auto; max-width: 70px; max-height: 70px;">
-                            </a>
+                            </a> -->
                           </td>
                           <td v-text="product.item_name" width='40.85%' style="padding-left:10px; size:14px"></td>
                           <td width="6.75%">
