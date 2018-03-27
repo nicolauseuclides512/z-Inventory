@@ -417,8 +417,10 @@
                     <div v-if="list.channels.length">
                       <div class="form-group" style="margin-bottom: 0px">
                         <label style="font-weight: normal" v-if="!selected_sales_channel">Sales from:</label>
-                        <label style="font-weight: normal" v-if="selected_sales_channel">Sales from: {{
-                          selected_sales_channel.sales_channel.channel_name }}</label>
+                        <div v-if="selected_sales_channel">
+                          <label class="pull-left" style="font-weight: normal" >Sales from:</label>
+                          <label class="pull-right" style="font-weight: normal; padding-right:45px; font-size:15px" >{{selected_sales_channel.sales_channel.channel_name }}</label>
+                        </div>
                       </div>
                       <div class="normal-mode">
                         <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
