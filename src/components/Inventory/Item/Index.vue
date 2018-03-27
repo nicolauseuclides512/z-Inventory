@@ -268,7 +268,14 @@
                             @update="saveStockQuantity"
                           />
                         </td>
-                        <td>{{ child.sales_rate | money }}</td>
+                        <td>
+                          <inline-editable
+                            :item="child"
+                            :value.sync="child.sales_rate"
+                            @update="saveNewPrice"
+                            output="money"
+                          />  
+                        </td>
                       </tr>
 
                       </tbody>
