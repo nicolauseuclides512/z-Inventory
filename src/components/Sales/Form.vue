@@ -57,13 +57,14 @@
                       <table class="table table-hover default-table sahito-list-contact--table">
                         <thead style="box-shadow: 0 4px 2px -2px #ddd;">
                         <tr style="color:#000;">
-                          <td
-                            style="padding-left: 10px; padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
-                            width='10%'></td>
+                          
                           <td
                             style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
                             width="40.85%">Item
                           </td>
+                          <td
+                            style="padding-left: 10px; padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
+                            width='10%'></td>
                           <td
                             style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
                             width="6.75%">Qty
@@ -85,13 +86,14 @@
                         </thead>
                         <tbody style="color:#000;">
                         <tr v-for="product in form.details">
-                          <td width='10%' style="padding: 15px 8px 15px 10px">
-                            <!-- <a href="#" class="pull-left">
+                          <!-- <td width='10%' style="padding: 15px 8px 15px 10px">
+                            <a href="#" class="pull-left">
                               <img alt="" :src="tesimgProduct" class="media-object thumb-sm"
                                    style="width: auto; height: auto; max-width: 70px; max-height: 70px;">
-                            </a> -->
-                          </td>
+                            </a>
+                          </td> -->
                           <td v-text="product.item_name" width='40.85%' style="padding-left:10px; size:14px"></td>
+                          <td width='10%' style="padding: 15px 8px 15px 10px"></td>
                           <td width="6.75%">
                             <input type="number" v-model.number="product.item_quantity" :min="1" :max="99999"
                                    class="form-control" style="padding-left:5px; padding-right:0px">
