@@ -21,7 +21,7 @@
         <div class="ribbon"><span>{{ salesOrder.invoice_status }}</span></div>
       </div>
 
-      <div class="row sahito-invoice-content" style="padding:67px 25px 0px 45px;margin-left:0px;margin-right:0px;margin-bottom:30px">
+      <div class="row sahito-invoice-content" style="padding:67px 25px 0px 45px;margin-left:0px;margin-right:0px;margin-bottom:30px;">
         <div class="col-md-8 pull-left" >
             <div class="media m-b-30">
                 <a v-show="logo != null" class="pull-left">
@@ -63,7 +63,7 @@
             <p>{{ company_zip }}</p>
             <p>{{ company_country }}</p>
           </div> -->
-          <div class="billto">
+          <div class="billto" style="min-height:144px">
             <p>Bill to</p>
             <h4 style="color: black;">{{ buyer_name }}</h4>
             <p style="color: black;">{{ buyer_phone }}</p> 
