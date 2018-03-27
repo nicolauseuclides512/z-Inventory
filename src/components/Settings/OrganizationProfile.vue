@@ -41,7 +41,7 @@
                             @change="uploadLogo"
                             name="file"
                             type="file"
-                            accept="image/*"
+                            accept="image/png,image/jpg,image/jpeg"
                             style="opacity: 0;"
                           />
                         </div>
@@ -62,7 +62,8 @@
                       <p class="note-text">
                         This logo will appear on the documents such as sales order and purchase order that you created.
                       </p>
-                      <span class="help-text">Preferred Image Size: 240px x 240px @ 72 DPI Maximum size of 1MB.</span>
+                      <span class="help-text">Preferred Image Size: 240px x 240px @ 72 DPI Maximum size of 1MB.</span> <br>
+                      <span class="help-text">Supported types : .PNG, .JPG, .JPEG</span>
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
