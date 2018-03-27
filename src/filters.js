@@ -39,9 +39,9 @@ Vue.filter('removeNonAlphaNum', value => {
 
 Vue.filter('truncItemDesc', value => {
   value = value.toString()
-  if(value.length<150){
+  if(value.length<60){
     return value
   } else{
-    return value.substring(0,150)+"..."
+    return value.substring(0,60)+"..."
   }
 })
