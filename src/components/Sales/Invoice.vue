@@ -178,11 +178,11 @@
         </div>
       <div class="row p-15 pt-0">
         Customer notes
-        <div>{{ value.customer_notes }}</div>
+        <div><pre>{{ value.customer_notes}}</pre></div>
       </div>
       <div class="row p-15 pt-0">
         Terms & Conditions
-        <div>{{ value.term_and_condition }}</div>
+        <div><pre>{{value.term_and_condition}}</pre></div>
       </div>
       </div>
     </div>
@@ -346,3 +346,13 @@ export default {
   }
 };
 </script>
+ <style scoped>
+pre{
+  font-family: 'Proxima Nova', Georgia, sans-serif;
+  border:none;
+  box-shadow: none;
+  padding: 0px;
+  background: transparent;
+}
+ </style>
+ 
