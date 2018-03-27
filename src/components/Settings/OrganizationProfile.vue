@@ -66,7 +66,7 @@
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
-                    <label class="col-md-3 control-label text-left">Business Name</label>
+                    <label class="col-md-3 control-label text-left">Business Name *</label>
                     <div class="col-md-5">
                       <input type="text" id="name" v-model.trim="form.name" class="form-control" placeholder=""
                              required>
