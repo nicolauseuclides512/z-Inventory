@@ -601,8 +601,17 @@
       }
     },
 
+    beforeRouteLeave (to, from, next) {
+      if (this.dirtyForm) {
+        const leave = confirm('Are you sure leave this page?')
+        if (!leave) return next(false)
+      }
+      return next()
+    },
+
     data() {
       return {
+        dirtyForm: false,
         ui: {
           adjustment_edit: false,
           invalidInvoiceEmail: false,
@@ -676,6 +685,10 @@
     },
 
     mounted() {
+      $('input, textarea, select').on('change blur', (event) => {
+        this.dirtyForm = true
+      })
+
       this.initialize()
       this.salesChannel()
     },
@@ -932,6 +945,8 @@
           }
 
           const invoice_id = res.data.data.invoices[0].invoice_id;
+
+          this.dirtyForm = false
 
           switch (evt.target.dataset.value) {
             case "save_and_send_invoice":
