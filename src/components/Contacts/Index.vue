@@ -348,7 +348,7 @@
       async destroy(ids) {
         Alert.confirm({
           title: 'Do you really want to delete this contact(s)?',
-          text: '',
+          text: 'The contact(s) will be deleted permanently.',
         }, async () => {
           const queryString = _.isArray(ids) ? ids.join(',') : ids
 
@@ -356,7 +356,7 @@
             const res = await Axios.delete('contacts?ids=' + queryString)
 
             if (!responseOk(res.data.code)) {
-              Alert.error('Delete Contact(s) Failed. Some contacts related to some Sales Orders')
+              Alert.error('Delete contact(s) Failed. Some contacts related to some Sales Orders')
             } else {
               //swal_success(res)
               Alert.success('Contact(s) deleted')
@@ -366,7 +366,7 @@
             }
           } catch (e) {
             console.error(e)
-            Alert.error('Failed to delete this contact. Delete all sales orders that contain this contact first.')
+            Alert.error('Failed to delete this contact. Some contacts related to some Sales Orders')
           }
         })
       },
