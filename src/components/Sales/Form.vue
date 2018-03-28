@@ -117,7 +117,7 @@
                               <vue-numeric
                                 v-model.number="product.discount_amount_value"
                                 @change="updateDiscountValue(product)"
-                                separator="."
+                                separator=","
                                 class="form-control"
                                 style="padding:6px; width:89px">
                               </vue-numeric>
