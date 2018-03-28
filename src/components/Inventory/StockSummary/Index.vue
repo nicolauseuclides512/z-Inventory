@@ -57,17 +57,21 @@
                       </thead>
                       <tbody>
                         <tr v-for="history in list.items">
-                            <td v-if="history.reason_summary[0].reason_description" align="right">{{ history.stock_adjustment_date | date('short') }}</td>
+                            <td align="right">{{ history.stock_adjustment_date | date('short') }}</td>
                             <td v-if="history.reason_summary[0].reason_description">
                               <router-link :to="{ name: 'stock_adjustment.edit', params: { id: history.stock_adjustment_id } }">
                                 {{ history.stock_adjustment_number }}
                               </router-link></td>
-                            <td v-if="history.reason_summary[0].reason_description">#{{ history.reference_number }}</td>
-                            <td v-if="history.reason_summary[0].reason_description">{{ history.status }}</td>
+                            <td v-if="!history.reason_summary[0].reason_description">{{ history.stock_adjustment_number }}</td>
+                            <td v-if="history.reference_number">#{{ history.reference_number }}</td>
+                            <td v-if="!history.reference_number">-</td>
+                            <td>{{ history.status }}</td>
                             <td v-if="history.reason_summary[0].reason_description">
                               <span v-for="value in history.reason_summary" v-if="value.reason_description" class="label label-info" style="margin-right: 5px;">
                                 {{ value.line_count }} {{ value.reason_description }}
                               </span></td>
+                            <td v-if="!history.reason_summary[0].reason_description">
+                              <span class="label label-default" style="margin-right: 5px;">Free Adjust to add stock</span></td>
                         </tr>
                       </tbody>
                     </table>
