@@ -342,9 +342,8 @@
                                             </td>
                                             <td style="font-size: 1em;">{{ order.item_rate | money }}</td>
                                             <td class="text-left" style="font-size: 1em;">
-                                        <span
-                                          v-if="order.discount_amount_type === 'fixed'">{{ Number(order.discount_amount_value) | money}}</span>
-                                              <span v-else>{{ order.discount_amount_value }}%</span>
+                                              <span v-if="order.discount_amount_type === 'fixed'">{{ Number(order.discount_amount_value) | money}}</span>
+                                              <span v-if="order.discount_amount_type === 'percentage'">{{ Number(order.discount_amount_value) }}%</span>
                                             </td>
                                             <td class="text-right" style="font-size: 1em;">{{ order.amount | money }}
                                             </td>
@@ -352,8 +351,7 @@
                                           <tr class="sub-total">
                                             <td colspan="3" style="border-top: 1px solid #dedede"></td>
                                             <td colspan="1" style="font-size: 1em; border-top: 1px solid #dedede">Sub Total</td>
-                                            <td class="text-right" style="font-size: 1em; border-top: 1px solid #dedede">{{ overview.sub_total | money
-                                              }}
+                                            <td class="text-right" style="font-size: 1em; border-top: 1px solid #dedede">{{ overview.sub_total | money }}
                                             </td>
                                           </tr>
                                           <!--<tr class="sub-total">-->

@@ -126,7 +126,15 @@
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Stock</label>
                       <div class="col-md-4">
-                        <input v-model="form.stock_quantity" type="number" min="0" placeholder="" class="form-control">
+                        <input v-model="form.stock_quantity" type="number" min="0" placeholder="" class="form-control" @blur="saveStockQuantity($event)">
+                      </div>
+                    </div>
+                  </div>
+                  <div id="show-stock" v-if="form.track_inventory == 'true'">
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left"></label>
+                      <div class="col-md-8">
+                        <div class="alert alert-danger" v-if="stockAlert">New value must be greater than original value!</div>
                       </div>
                     </div>
                   </div>
@@ -421,6 +429,7 @@
     data() {
       return {
         dirtyForm: false,
+        stockAlert: false,
         saveType: null,
 
         list: {
@@ -509,10 +518,21 @@
         this.list.weight_units = res.data.data.weight_units
         this.form.default_weight_unit = res.data.data.default_weight_unit
         this.url = res.data.data.url
+        this.form.oldStockValue = res.data.data.item.stock_quantity
       },
 
       async validate() {
         this.save()
+      },
+
+      async saveStockQuantity() {
+        if (this.form.oldStockValue >= this.form.stock_quantity) {
+          this.stockAlert = true;
+          return 
+        } else {
+          this.stockAlert = false;
+          return
+        }
       },
 
       async save($event) {
@@ -522,7 +542,12 @@
           let res
 
           if (this.$route.params.id) {
-            res = await Axios.post(`items/${this.$route.params.id}/update`, this.form)
+            if (this.stockAlert) {
+              Alert.error('New value must be greater than original value')
+              return
+            } else {
+              res = await Axios.post(`items/${this.$route.params.id}/update`, this.form)
+            }
           } else {
             res = await Axios.post(`items`, this.form)
           }
