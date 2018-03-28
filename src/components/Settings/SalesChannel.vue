@@ -78,7 +78,7 @@
                   </td>
                   <td>
                     <button @click="remove(channel)" type="button" class="btn btn-default waves-effect">
-                      <i class="ion-trash-b"></i>
+                      <i class="fa fa-trash"></i>
                     </button>
                   </td>
                 </tr>
