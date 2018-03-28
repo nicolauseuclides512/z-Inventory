@@ -24337,7 +24337,7 @@ body.fixed-left .side-menu.left {
 }
 
 #wrapper.enlarged .left.side-menu {
-    padding-top: 80px;
+    padding-top: 0px;
     width: 70px;
     z-index: 5
 }
@@ -24449,6 +24449,10 @@ body.fixed-left .side-menu.left {
 }
 
 #wrapper.enlarged .float-save {
+    padding-left: 90px
+}
+
+#wrapper.enlarged .float-CheckOpt {
     padding-left: 90px
 }
 

@@ -2601,6 +2601,19 @@ h5.title {
     color: #fff
 }
 
+.float-CheckOpt {
+    width: 100%;
+    height: 50px;
+    background: #fff;
+    padding: 7px;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    padding-left: 180px;
+    top:50px;
+    box-shadow: rgb(221, 221, 221) 0px 4px 2px -2px;
+}
+
 .float-save {
     width: 100%;
     height: 50px;

@@ -1,5 +1,28 @@
 <template>
   <div class="content-page-full">
+    <div v-show="isChecked" class="float-CheckOpt">
+        <div class="container">
+           <div class="clearfix">
+              <div class="pull-left">
+                <div class="btn-group">
+                  <button
+                        class="btn btn-default waves-effect waves-light m-b-5"
+                        id="more-actions"
+                        data-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                       <a href="javascript:void(0);" id="delete" @click="destroy">Delete</a>
+                      </button>
+                </div>
+            </div>
+            <div class="pull-right pt-10">
+                  <a href="javascript:void(0);" @click="clearCheckedItems" id="close-btn" class="close-btn">
+                      <i class="ion-android-close"></i>
+                    </a>
+                </div>
+          </div>
+      </div>
+    </div>
     <div class="content full-width sahito-user bgr-white">
       <div class="container">
         <div>
@@ -34,24 +57,32 @@
           <div id="full-list" v-if="Array.isArray(list.items) && list.items.length">
             <!-- Mark as Active/Inactive -->
             <div class="container full-width-header p-b-10" v-if="checkedItems.length">
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <div class="pull-left">
+                  <div class="pull-left"> -->
                     <!--<a href="javascript:void(0);" id="mark-as-active" @click="markAsActive" class="btn btn-default waves-effect waves-light m-b-5">Mark as Active</a>-->
-                    <div class="btn-group">
-                      <button
+                    <!-- <div class="btn-group"> -->
+                      <!-- <button
                         class="btn btn-default waves-effect waves-light m-b-5"
                         id="more-actions"
                         data-toggle="dropdown"
                         aria-expanded="false"
                       >
                         More Actions <i class="caret"></i>
-                      </button>
-                      <ul class="dropdown-menu" role="menu">
+                      </button> -->
+                      <!-- <button
+                        class="btn btn-default waves-effect waves-light m-b-5"
+                        id="more-actions"
+                        data-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                       <a href="javascript:void(0);" id="delete" @click="destroy">Delete</a>
+                      </button> -->
+                      <!-- <ul class="dropdown-menu" role="menu"> -->
                         <!--<li><a href="javascript:void(0);" id="mark-as-inactive" @click="markAsInactive">Mark as Inactive</a></li>-->
-                        <li><a href="javascript:void(0);" id="delete" @click="destroy">Delete</a></li>
-                      </ul>
-                    </div>
+                        <!-- <li><a href="javascript:void(0);" id="delete" @click="destroy">Delete</a></li> -->
+                      <!-- </ul> -->
+                    <!-- </div>
                   </div>
                   <div class="pull-right pt-10">
                     <a href="javascript:void(0);" @click="clearCheckedItems" id="close-btn" class="close-btn">
@@ -59,8 +90,8 @@
                     </a>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div>-->
+            </div> 
             <!-- Mark as Active/Inactive END -->
 
             <div class="container full-width-header p-b-10" v-if="!checkedItems.length">
@@ -133,7 +164,7 @@
                             <label></label>
                           </div>
                         </th>
-                        <th></th>
+                        <!-- <th></th> -->
                         <th></th>
                         <th style="width: 25%; font-size:1.1em; font-weight:normal">
                           <a href="#" @click="sortItemsBy('item_name')" style="color:#000">Name</a>
@@ -171,11 +202,11 @@
                              class="checkbox">
                       <label></label>
                     </span>
-                    <td style="padding: 15px 8px 15px 10px">
+                    <!-- <td style="padding: 15px 8px 15px 10px">
                           <a href="#" class="pull-left">
                             <img alt="" :src="tesimgProduct" class="media-object thumb-sm" style="width: auto; height: auto; max-width: 70px; max-height: 70px;">
                           </a>
-                        </td>
+                        </td> -->
                         <td>
                           <a href="javascript:void(0)" v-if="item.children.length" @click="toggleChildren(item)">
                             <i class="ion-chevron-right" v-if="!item.expanded"></i>
@@ -196,7 +227,7 @@
                         <td class="text-center">
                           {{ item.code_sku ? item.code_sku : '-' }}
                         </td>
-                        <td><span v-if="!item.children.length">{{ item.description }}</span></td>
+                        <td><span v-if="!item.children.length">{{ item.description | truncItemDesc}}</span></td>
                         <td class="text-center">
                           <span v-if="(item.track_inventory == true) && (!item.children.length)">
                             <inline-editable
@@ -223,7 +254,7 @@
                           <div class="checkbox checkbox-single checkbox-success">
                           </div>
                         </td>
-                        <td></td>
+                        <!-- <td></td> -->
                         <td class="col-icon_collapse" style="width: 23px">
                         </td>
                         <td class="name">{{ child.item_name }}</td>

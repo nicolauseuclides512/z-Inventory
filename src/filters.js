@@ -36,3 +36,12 @@ Vue.filter('removeNonAlphaNum', value => {
   value = value.toString()
   return value.replace("[^A-Za-z0-9]", "")
 })
+
+Vue.filter('truncItemDesc', value => {
+  value = value.toString()
+  if(value.length<60){
+    return value
+  } else{
+    return value.substring(0,60)+"..."
+  }
+})

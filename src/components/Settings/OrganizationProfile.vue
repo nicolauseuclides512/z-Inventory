@@ -1,5 +1,5 @@
 <template>
-  <section id="organization" class="content sahito-user full-width bgr-white">
+  <section id="organization" class="content sahito-user full-width" style="box-shadow:none!important; top:30px">
 
     <div v-if="loading" class="lead text-muted text-center">
       <i class="fa fa-spin fa-spinner fa-lg"></i> Loading Checkout Detail
@@ -9,7 +9,7 @@
       <form method="POST" @submit.prevent="save">
 
         <div>
-          <div class="container bt-1 bgr-white p-b-10">
+          <div class="container bt-1 p-b-10">
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <h4 class="title">Company Profile</h4>
@@ -41,8 +41,9 @@
                             @change="uploadLogo"
                             name="file"
                             type="file"
-                            accept="image/*"
+                            accept="image/png,image/jpg,image/jpeg"
                             style="opacity: 0;"
+                            size="1000000"
                           />
                         </div>
                         <a
@@ -62,11 +63,12 @@
                       <p class="note-text">
                         This logo will appear on the documents such as sales order and purchase order that you created.
                       </p>
-                      <span class="help-text">Preferred Image Size: 240px x 240px @ 72 DPI Maximum size of 1MB.</span>
+                      <span class="help-text">Preferred Image Size: 240px x 240px @ 72 DPI Maximum size of 1MB.</span> <br>
+                      <span class="help-text">Supported types : .PNG, .JPG, .JPEG</span>
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
-                    <label class="col-md-3 control-label text-left">Business Name</label>
+                    <label class="col-md-3 control-label text-left">Business Name *</label>
                     <div class="col-md-5">
                       <input type="text" id="name" v-model.trim="form.name" class="form-control" placeholder=""
                              required>
@@ -284,6 +286,7 @@
       },
 
       async save () {
+        
         try {
           const data = {
             name: this.form.name,
@@ -345,6 +348,7 @@
 
         }
         catch (err) {
+          alert("Image too large / Not supported format.")
           console.error(err)
           this.uploading = false
         }

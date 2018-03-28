@@ -24,7 +24,7 @@
                       ></ImageUpload>
                     </div>
                     <div class="col-md-12 pl-pr-0">
-                      <small>Upload your product's photo up to 5 images</small>
+                      <small>You can upload up to 5 images.</small>
                     </div>
                   </div>
                 </div>
