@@ -14229,9 +14229,9 @@ a:hover {
     border-radius: 3px;
     border: 1px solid #ccc;
     content: "";
-    height: 17px;
+    height: 13px;
     transition: .3s ease-in-out;
-    width: 17px;
+    width: 13px;
     outline: none!important
 }
 
@@ -14245,12 +14245,12 @@ a:hover {
 
 .checkbox label:after {
     color: #555;
-    font-size: 11px;
-    height: 16px;
+    font-size: 9px;
+    height: 13px;
     padding-left: 3px;
     padding-top: 1px;
     top: 0;
-    width: 16px
+    width: 13px
 }
 
 .checkbox input[type=checkbox] {
@@ -14288,7 +14288,7 @@ a:hover {
 }
 
 .checkbox.checkbox-single label {
-    height: 17px
+    height: 10px
 }
 
 .checkbox-primary input[type=checkbox]:checked+label:before {

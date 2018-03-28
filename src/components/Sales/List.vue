@@ -179,7 +179,7 @@
                           <template v-for="(sale, index) in salesList">
                             <tr>
                               <td class="col-checkbox">
-                                <div class="checkbox checkbox-single checkbox-success">
+                                <div class="checkbox checkbox-single checkbox-success" style="top:4px">
                                   <input type="checkbox" v-model="checkedList" :value="sale">
                                   <label></label>
                                 </div>
