@@ -182,7 +182,8 @@
                           <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'description'"></i>
                         </th>
                         <th class="text-center" style="width: 15%; font-size:1.1em; font-weight:normal">
-                          <a href="#" @click="sortItemsBy('inventory_stock')" style="color:#000">Stock Available</a>
+                          <!-- <a href="#" @click="sortItemsBy('inventory_stock')" style="color:#000">Stock Available</a> -->
+                          Stock Available
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                           <i class="fa fa-sort-desc"
                              v-if="! ascendingSort && currentSortColumn === 'inventory_stock'"></i>
@@ -267,7 +268,14 @@
                             @update="saveStockQuantity"
                           />
                         </td>
-                        <td>{{ child.sales_rate | money }}</td>
+                        <td>
+                          <inline-editable
+                            :item="child"
+                            :value.sync="child.sales_rate"
+                            @update="saveNewPrice"
+                            output="money"
+                          />  
+                        </td>
                       </tr>
 
                       </tbody>
@@ -291,7 +299,8 @@
 
   import Axios from 'axios'
   import {getParameterByName} from "src/helpers";
-  import { responseOk } from '@/helpers'
+  //import { responseOk } from '@/helpers'
+  import {responseOk, swal_error, swal_success} from 'src/helpers'
 
   export default {
     components: {
@@ -466,29 +475,46 @@
        * Delete multiple items
        * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)
        */
-      destroy() {
+      destroy(ids) {
         Alert.confirm(
           {
-            title: "Do you really want to delete this sales order?",
-            text: "The item will be deleted permanently."
+            title: "Do you really want to delete this item(s)?",
+            text: "The item(s) will be deleted permanently."
           },
-          () => {
-            const ids = this.checkedItems.join(",");
+          async () => {
+            //const ids = this.checkedItems.join(",");
+            const queryString = _.isArray(ids) ? ids.join(',') : ids
 
-            this.$http.delete(`items?ids=${ids}`).then(
-              res => {
-                if ([0, 200, 201].indexOf(res.data.code) === -1)
-                  return swal_error(res);
+            try{
+              const res = await Axios.delete('items?ids=' + queryString)
 
+              if (!responseOk(res.data.code)) {
+                Alert.error('Delete item(s) failed. Some items related to some Sales Orders')
+              } else {
+                //swal_success(res)
+                Alert.success('Item(s) deleted')
                 this.clearCheckedItems();
                 this.list.items = [];
                 this.refreshList();
-                Alert.success(res.data.message);
-              },
-              res => {
-                return swal_error(res);
               }
-            );
+            } catch(e) {
+              console.error(e)
+              Alert.error('Failed to delete this item(s). Some items related to some Sales Orders.')
+            }
+            // this.$http.delete(`items?ids=${ids}`).then(
+            //   res => {
+            //     if ([0, 200, 201].indexOf(res.data.code) === -1)
+            //       return swal_error(res);
+
+            //     this.clearCheckedItems();
+            //     this.list.items = [];
+            //     this.refreshList();
+            //     Alert.success(res.data.message);
+            //   },
+            //   res => {
+            //     return swal_error(res);
+            //   }
+            // );
           }
         );
       },

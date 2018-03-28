@@ -232,7 +232,8 @@
   import Axios from 'axios'
   import {getParameterByName} from 'src/helpers'
   import _ from 'lodash'
-  import {responseOk} from '../../helpers'
+  //import {responseOk} from '../../helpers'
+  import {responseOk, swal_error, swal_success} from 'src/helpers'
   import Salutation from '../../helpers/Salutation'
 
   export default {
@@ -347,19 +348,25 @@
       async destroy(ids) {
         Alert.confirm({
           title: 'Do you really want to delete this contact(s)?',
-          text: '',
+          text: 'The contact(s) will be deleted permanently.',
         }, async () => {
           const queryString = _.isArray(ids) ? ids.join(',') : ids
 
           try {
             const res = await Axios.delete('contacts?ids=' + queryString)
-            swal_success(res)
-            this.clearCheckedContacts()
-            this.contacts = []
-            this.getList()
+
+            if (!responseOk(res.data.code)) {
+              Alert.error('Delete contact(s) Failed. Some contacts related to some Sales Orders')
+            } else {
+              //swal_success(res)
+              Alert.success('Contact(s) deleted')
+              this.clearCheckedContacts()
+              this.contacts = []
+              this.getList()
+            }
           } catch (e) {
             console.error(e)
-            Alert.error('Failed to delete this contact. Delete all sales orders that contain this contact first.')
+            Alert.error('Failed to delete this contact. Some contacts related to some Sales Orders')
           }
         })
       },

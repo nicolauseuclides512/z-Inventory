@@ -926,6 +926,7 @@
           const res = await Axios.post(url, data)
 
           if (!responseOk(res.data.code)) {
+            this.saving = false
             return swal_error(res)
           }else{
             this.dirtyForm = false
