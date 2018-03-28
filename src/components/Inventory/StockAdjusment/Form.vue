@@ -135,7 +135,7 @@
                                     <td>
                                       <input
                                         v-model.number="detail.on_hand_qty"
-                                        @keypress="changeAdjustValue(detail)"
+                                        @keyup="changeAdjustValue(detail)"
                                         @change="changeAdjustValue(detail)"
                                         required
                                         :disabled="!detail.item_id"
@@ -149,7 +149,7 @@
                                     <td>
                                       <input
                                         v-model.number="detail.adjust_qty"
-                                        @keypress="changeOnHandValue(detail)"
+                                        @keyup="changeOnHandValue(detail)"
                                         @change="changeOnHandValue(detail)"
                                         required
                                         :disabled="!detail.item_id"
@@ -296,7 +296,7 @@
                                     <td>
                                       <input
                                         v-model.number="detail.on_hand_qty"
-                                        @keypress="changeAdjustValue(detail)"
+                                        @keyup="changeAdjustValue(detail)"
                                         @change="changeAdjustValue(detail)"
                                         required
                                         :disabled="!detail.item_id"
@@ -310,7 +310,7 @@
                                     <td>
                                       <input
                                         v-model.number="detail.adjust_qty"
-                                        @keypress="changeOnHandValue(detail)"
+                                        @keyup="changeOnHandValue(detail)"
                                         @change="changeOnHandValue(detail)"
                                         required
                                         :disabled="!detail.item_id"
@@ -512,7 +512,7 @@ export default {
       const res = await Axios.get(`items/${item.item_id}`);
       item.database_qty = res.data.data.stock_quantity;
       item.code_sku = res.data.data.code_sku;
-      item.track_inventory = res.data.data.track_inventory;
+      //item.track_inventory = res.data.data.track_inventory;
     },
 
     async save(ev) {
