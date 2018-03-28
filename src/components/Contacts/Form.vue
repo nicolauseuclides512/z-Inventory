@@ -931,10 +931,9 @@
           }else{
             this.dirtyForm = false
             this.saving = false
-
-            return swal_success(res)
-
             this.$router.push({name: 'contact.index'})
+            return swal_success(res)
+            
           }
         }
         catch(err) {
