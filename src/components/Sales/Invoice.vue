@@ -132,12 +132,12 @@
                   <span v-if="item.discount_amount_type === 'fixed'">{{ Number(item.discount_amount_value) | money }}</span>
                   <span v-else>{{ Number(item.discount_amount_value) }}%</span>
                 </td>
-                <td class="text-right" style="font-weight:400">{{ item.amount | money }}</td>
+                <td class="text-left" style="font-weight:400"><span>Rp</span><span>{{ item.amount | decimalformat }}</span></td>
               </tr>
               <tr class="sub-total">
                 <td colspan="3"></td>
                 <td colspan="1" class="text-left">Sub Total</td>
-                <td colspan="1" class="text-right">{{ value.sub_total | money }}</td>
+                <td colspan="1" class="text-left"><span>Rp</span><span>{{ value.sub_total | decimalformat }}</span></td>
               </tr>
               <!-- <tr class="sub-total">
                 <td colspan="3"></td>
@@ -149,28 +149,28 @@
                 <td class="text-left" colspan="1">Tax</td>
                 <td colspan="1">
                     <span v-if="!value.tax">Included</span>
-                    <span v-else>{{ value.tax | money }}</span>
+                    <span v-else>Rp</span><span>{{ value.tax | decimalformat }}</span>
                 </td>
               </tr>
               <tr class="sub-total" v-if="value.adjustment_value">
                 <td colspan="3"></td>
                 <td colspan="1" class="text-left">{{ value.adjustment_name || 'Adjustment' }}</td>
-                <td colspan="1">{{ Number(value.adjustment_value) | money }}</td>
+                <td colspan="1"><span>Rp</span><span>{{ Number(value.adjustment_value) | decimalformat }}</span></td>
               </tr>
               <tr class="total">
                 <td colspan="3"></td>
                 <td class="text-left" colspan="1" style=" font-weight:400; border-bottom: 1px solid rgb(221, 221, 221);">Total</td>
-                <td colspan="1" style=" font-weight:400; border-bottom: 1px solid rgb(221, 221, 221);">{{ value.total | money }}</td>
+                <td colspan="1" style=" font-weight:400; border-bottom: 1px solid rgb(221, 221, 221);"><span>Rp</span><span>{{ value.total | decimalformat }}</span></td>
               </tr>
               <tr class="sub-total" v-for="(item, index) in paymentList">
                 <td colspan="3"></td>
                 <td class="text-left" colspan="1">Paid at {{ item.date | date('short') }}</td>
-                <td colspan="1">{{ item.amount | money }}</td>
+                <td colspan="1"><span>Rp</span><span>{{ item.amount | decimalformat }}</span></td>
               </tr>
               <tr class="sub-total" style="border-bottom-color:  white;">
                 <td colspan="3"></td>
                 <td class="text-left" colspan="1" style="background: rgb(240, 240, 240);">Balance Due</td>
-                <td colspan="1" style="background: rgb(240, 240, 240);">{{ value.balance_due | money }}</td>
+                <td colspan="1" style="background: rgb(240, 240, 240);"><span>Rp</span><span>{{ value.balance_due | decimalformat }}</span></td>
               </tr>
               </tbody>
             </table>
@@ -353,6 +353,12 @@ pre{
   box-shadow: none;
   padding: 0px;
   background: transparent;
+}
+td span{
+    float:right;
+}
+td span:first-child{ /* compatible to >=IE7 */
+    float:left;
 }
  </style>
  
