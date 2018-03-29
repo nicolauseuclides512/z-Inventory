@@ -482,25 +482,22 @@
             text: "The item(s) will be deleted permanently."
           },
           async () => {
-            //const ids = this.checkedItems.join(",");
-            const queryString = _.isArray(ids) ? ids.join(',') : ids
+            const ids = this.checkedItems.join(",");
+            //const queryString = _.isArray(ids) ? ids.join(',') : ids
 
-            try{
-              const res = await Axios.delete('items?ids=' + queryString)
+              const res = await Axios.delete('items?ids=' + ids)
 
               if (!responseOk(res.data.code)) {
-                Alert.error('Delete item(s) failed. Some items related to some Sales Orders')
+                return swal_error(res);
+                //Alert.error('Delete item(s) failed. Some items related to some Sales Orders')
               } else {
-                //swal_success(res)
-                Alert.success('Item(s) deleted')
                 this.clearCheckedItems();
                 this.list.items = [];
                 this.refreshList();
+                Alert.success('Item(s) deleted')
+                //return swal_success(res)
               }
-            } catch(e) {
-              console.error(e)
-              Alert.error('Failed to delete this item(s). Some items related to some Sales Orders.')
-            }
+
             // this.$http.delete(`items?ids=${ids}`).then(
             //   res => {
             //     if ([0, 200, 201].indexOf(res.data.code) === -1)
