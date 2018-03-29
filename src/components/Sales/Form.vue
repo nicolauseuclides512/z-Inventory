@@ -497,7 +497,7 @@
               </router-link>
             </div>
             <div class="col-md-6 text-right">
-              <button type="button" class="btn btn-default" data-value="save_as_draft"
+              <button v-if="!this.$route.params.id" type="button" class="btn btn-default" data-value="save_as_draft"
                       @click="save($event)">Save as Draft
               </button>
               <div class="btn-group dropup">
