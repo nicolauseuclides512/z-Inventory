@@ -37,9 +37,9 @@
           <div v-if="Array.isArray(list.items) && !list.items.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
             <i class="fa fa-5x fa-archive"></i>
             <div class="lead" style="padding: 30px 0 5px;">
-              <small>You haven't made any item yet.</small>
+              <small>Item data not found.</small>
               <br>
-              Add your first item!
+              Add your item!
             </div>
             <div>
               <router-link id="create-new-item-when-empty" :to="{ name: 'item.create' }"
