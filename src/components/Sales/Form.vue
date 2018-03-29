@@ -6,7 +6,7 @@
         <!-- Page-Title -->
         <div class="col-md-6" style="padding-left:0px">
           <h4 class="pull-left page-title" v-if="!$route.params.id">Create New Order</h4>
-          <h4 class="pull-left page-title" v-if="$route.params.id">Edit Order</h4>
+          <h4 class="pull-left page-title" v-if="$route.params.id">Edit Order {{ sales_order_number }}</h4>
         </div>
         <!-- <div class="col-md-3">
           <div class="form-group">
