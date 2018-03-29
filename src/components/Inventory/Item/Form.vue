@@ -117,12 +117,12 @@
                         />
                         <label for="track-inventory">Track Inventory for this item</label> -->
                         <select v-model="form.track_inventory" class="form-control" @change="changeTrackInventoryStatus">
-                          <option value="false">Do not track</option>
-                          <option value="true">Track inventory for this item</option>
+                          <option value=false>Do not track</option>
+                          <option value=true>Track inventory for this item</option>
                         </select>
                       </div>
                     </div>
-                  <div id="show-stock" v-if="form.track_inventory == 'true'">
+                  <div id="show-stock" v-if="form.track_inventory == true">
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Stock</label>
                       <div class="col-md-4">
@@ -130,7 +130,7 @@
                       </div>
                     </div>
                   </div>
-                  <div id="show-stock" v-if="form.track_inventory == 'true'">
+                  <div id="show-stock" v-if="form.track_inventory == true">
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left"></label>
                       <div class="col-md-8">
@@ -456,7 +456,7 @@
           weight_unit: 'gr',
           code_sku: '',
           barcode: '',
-          track_inventory: 'true',
+          track_inventory: true,
           stock_quantity: 0,
           inventory_stock_warning: 0,
           category_id: null,
@@ -526,7 +526,7 @@
       },
 
       async saveStockQuantity() {
-        if (this.form.oldStockValue >= this.form.stock_quantity) {
+        if (this.form.oldStockValue >= this.form.stock_quantity ) {
           this.stockAlert = true;
           return 
         } else {
