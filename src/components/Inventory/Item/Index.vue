@@ -91,7 +91,7 @@
                   </div>
                 </div>
               </div>-->
-            </div> 
+            </div>
             <!-- Mark as Active/Inactive END -->
 
             <div class="container full-width-header p-b-10" v-if="!checkedItems.length">
@@ -274,7 +274,7 @@
                             :value.sync="child.sales_rate"
                             @update="saveNewPrice"
                             output="money"
-                          />  
+                          />
                         </td>
                       </tr>
 
@@ -411,14 +411,14 @@
        * Check all items
        */
       checkAll() {
-        if (this.checkedItems.length < this.list.items.length) {
-          this.checkedAll = true;
-          this.list.items.map(item => {
-            this.checkedItems.push(item.item_id);
-          });
+        if (this.checkedAll === false) {
+          this.checkedAll = true
+          _.each(this.list.items, (item, key) => {
+            this.checkedItems.push(item.item_id)
+          })
         } else {
-          this.checkedAll = false;
-          this.checkedItems = [];
+          this.checkedAll = false
+          this.checkedItems = []
         }
       },
 
