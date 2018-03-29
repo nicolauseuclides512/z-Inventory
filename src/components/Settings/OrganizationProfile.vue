@@ -298,7 +298,7 @@
       inputZip ($event) {
         $event.target.value = $event.target.value.replace(/\D/g, '')
 
-        if ($event.target.value.length < 5 || $event.target.value.length > 5){
+        if (($event.target.value.length < 5 && $event.target.value.length > 0) || $event.target.value.length > 5){
           this.zipAlert = true
           return
         } else {
@@ -309,7 +309,7 @@
       },
 
       async phoneCheck(){
-        if (this.form.phone.length < 9 || this.form.phone.length > 15){
+        if ((this.form.phone.length < 9 && this.form.phone.length > 0) || this.form.phone.length > 15){
           this.phoneAlert = true
           return
         } else {
@@ -319,7 +319,7 @@
       },
 
       async zipCheck(){
-        if ($event.target.value.length < 5 || $event.target.value.length > 5){
+        if ((this.form.zip.length > 0 && this.form.zip.length < 5) || this.form.zip.length > 5){
           this.zipAlert = true
           return
         } else {
