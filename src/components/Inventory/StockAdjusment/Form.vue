@@ -105,78 +105,78 @@
                 <div class="panel-body">
                   <div class="form-horizontal">
                     <table class="table table-striped">
-                                  <thead>
-                                  <tr>
-                                    <th class="text-center" style="font-weight:400; color:#000">No.</th>
-                                    <th style="font-weight:400; color:#000">Item</th>
-                                    <th class="text-center" style="width:95px; font-weight:400; color:#000">Quantity in Database</th>
-                                    <th class="text-center" style="width:85px; font-weight:400; color:#000">Quantity on Hand</th>
-                                    <th class="text-center" style="width:85px; font-weight:400; color:#000">Adjust</th>
-                                    <th style="font-weight:400; color:#000" >Reason</th>
-                                    <td style="box-shadow: none; border: none; width:28px"></td>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <tr v-for="(detail, index) in form.details">
-                                    <td class="text-center">{{ index+1 }}</td>
-                                    <td>
-                                      <div class="col-md-12 pl-pr-0">
-                                        <select class="form-control" v-model="detail.item_id" @change="selectItem(detail)" required title="Item name">
-                                          <option v-for="item in list.items" :value="item.item_id" v-if="item.track_inventory" >
-                                              {{ item.item_name }}
-                                          </option>
-                                        </select><br>
-                                        <span v-show="detail.item_id != null"> <small >SKU Code : {{detail.code_sku }}</small></span>
-                                      </div>
-                                    </td>
-                                    <td align="center">
-                                      <span>{{ detail.database_qty }}</span>
-                                    </td>
-                                    <td>
-                                      <input
-                                        v-model.number="detail.on_hand_qty"
-                                        @keyup="changeAdjustValue(detail)"
-                                        @change="changeAdjustValue(detail)"
-                                        required
-                                        :disabled="!detail.item_id"
-                                        title="On hand quantity"
-                                        class="vertical-spin form-control"
-                                        type="number"
-                                        name="vertical-spin"
-                                        data-bts-button-down-class="btn btn-primary"
-                                        data-bts-button-up-class="btn btn-primary">
-                                    </td>
-                                    <td>
-                                      <input
-                                        v-model.number="detail.adjust_qty"
-                                        @keyup="changeOnHandValue(detail)"
-                                        @change="changeOnHandValue(detail)"
-                                        required
-                                        :disabled="!detail.item_id"
-                                        title="Adjustment quantity"
-                                        class="vertical-spin form-control"
-                                        type="number"
-                                        name="vertical-spin"
-                                        data-bts-button-down-class="btn btn-primary"
-                                        data-bts-button-up-class="btn btn-primary">
-                                    </td>
-                                    <td>
-                                      <select required title="Reason" class="form-control" v-model="detail.reason_id" :disabled="!detail.item_id">
-                                        <option v-for="reason in list.reasons" :value="reason.reason_id">
-                                          {{ reason.reason }}
-                                        </option>
-                                      </select>
-                                    </td>
-                                    <td style="vertical-align: middle; background-color:#ffffff; border:0px solid; width:28px" v-if="detail.item_id">
-                                      <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
-                                        class="ion-close-round"></i></a>
-                                    </td>
-                                  </tr>
-                                  </tbody>
-                                </table>
-                                <button type="button" @click="addNew" class="btn-link">
-                                  + Add another line
-                                </button>
+                      <thead>
+                      <tr>
+                        <th class="text-center" style="font-weight:400; color:#000">No.</th>
+                        <th style="font-weight:400; color:#000">Item</th>
+                        <th class="text-center" style="width:95px; font-weight:400; color:#000">Quantity in Database</th>
+                        <th class="text-center" style="width:85px; font-weight:400; color:#000">Quantity on Hand</th>
+                        <th class="text-center" style="width:85px; font-weight:400; color:#000">Adjust</th>
+                        <th style="font-weight:400; color:#000" >Reason</th>
+                        <td style="box-shadow: none; border: none; width:28px"></td>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr v-for="(detail, index) in form.details">
+                        <td class="text-center">{{ index+1 }}</td>
+                        <td>
+                          <div class="col-md-12 pl-pr-0">
+                            <select class="form-control" v-model="detail.item_id" @change="selectItem(detail)" required title="Item name">
+                              <option v-for="item in list.items" :value="item.item_id" v-if="item.track_inventory" >
+                                  {{ item.item_name }}
+                              </option>
+                            </select><br>
+                            <span v-show="detail.item_id != null"> <small >SKU Code : {{detail.code_sku }}</small></span>
+                          </div>
+                        </td>
+                        <td align="center">
+                          <span>{{ detail.database_qty }}</span>
+                        </td>
+                        <td>
+                          <input
+                            v-model.number="detail.on_hand_qty"
+                            @keyup="changeAdjustValue(detail)"
+                            @change="changeAdjustValue(detail)"
+                            required
+                            :disabled="!detail.item_id"
+                            title="On hand quantity"
+                            class="vertical-spin form-control"
+                            type="number"
+                            name="vertical-spin"
+                            data-bts-button-down-class="btn btn-primary"
+                            data-bts-button-up-class="btn btn-primary">
+                        </td>
+                        <td>
+                          <input
+                            v-model.number="detail.adjust_qty"
+                            @keyup="changeOnHandValue(detail)"
+                            @change="changeOnHandValue(detail)"
+                            required
+                            :disabled="!detail.item_id"
+                            title="Adjustment quantity"
+                            class="vertical-spin form-control"
+                            type="number"
+                            name="vertical-spin"
+                            data-bts-button-down-class="btn btn-primary"
+                            data-bts-button-up-class="btn btn-primary">
+                        </td>
+                        <td>
+                          <select required title="Reason" class="form-control" v-model="detail.reason_id" :disabled="!detail.item_id">
+                            <option v-for="reason in list.reasons" :value="reason.reason_id">
+                              {{ reason.reason }}
+                            </option>
+                          </select>
+                        </td>
+                        <td style="vertical-align: middle; background-color:#ffffff; border:0px solid; width:28px" v-if="detail.item_id">
+                          <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
+                            class="ion-close-round"></i></a>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                    <button type="button" @click="addNew" class="btn-link">
+                      + Add another line
+                    </button>
                   </div>
                 </div>
               </div>

@@ -130,7 +130,7 @@
                       </div>
                     </div>
                   </div>
-                  <div id="show-stock" v-if="form.track_inventory == 'true'">
+                  <div id="show-stock" v-if="form.track_inventory == true">
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left"></label>
                       <div class="col-md-8">
@@ -456,7 +456,7 @@
           weight_unit: 'gr',
           code_sku: '',
           barcode: '',
-          track_inventory: 'true',
+          track_inventory: true,
           stock_quantity: 0,
           inventory_stock_warning: 0,
           category_id: null,

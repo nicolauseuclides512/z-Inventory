@@ -126,7 +126,7 @@
       async removeItem (item) {
         Alert.confirm(
           {
-            title: "Do you really want to delete this sales order?",
+            title: "Do you really want to delete this item variant?",
             text: "The item will be deleted permanently."
           },
           async () => {

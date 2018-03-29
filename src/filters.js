@@ -6,7 +6,6 @@ Vue.filter('money', (value, currency = 'Rp ', precision = 0, thousand = '.', dec
   if (typeof value === 'number') {
     return Accounting.formatMoney(value, currency, precision, thousand, decimal, format)
   }
-
   return value
 })
 
@@ -44,4 +43,11 @@ Vue.filter('truncItemDesc', value => {
   } else{
     return value.substring(0,60)+"..."
   }
+})
+
+Vue.filter('decimalformat', (value, currency = '', precision = 0, thousand = '.', decimal = ',', format = '%s%v') => {
+  if (typeof value === 'number') {
+    return Accounting.formatMoney(value, currency, precision, thousand, decimal, format)
+  }
+  return value
 })

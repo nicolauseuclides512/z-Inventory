@@ -147,9 +147,9 @@
         <div v-if="Array.isArray(contacts) && !contacts.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
           <i class="fa fa-5x fa-address-book"></i>
           <div class="lead" style="padding: 30px 0 5px;">
-            <small>You haven't made any contact yet.</small>
+            <small>Contact data not found.</small>
             <br>
-            Add your first contact!
+            Add your contact!
           </div>
           <div>
             <router-link :to="{ name: 'contact.create' }" href="javascript:void(0);"

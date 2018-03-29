@@ -203,7 +203,7 @@
                     </div>
 
                       <!-- Shipping Address Goes Here -->
-                    <div v-show="form.is_sameAddress =='false'" class="col-md-6" style="border-left:1px solid #eee">
+                    <div v-show="form.is_sameAddress =='false' || this.$route.params.id" class="col-md-6" style="border-left:1px solid #eee">
                       <div class="form-group form-general m-b-10">
                           <label class="col-md-4 control-label text-left">Shipping Address</label>
                         </div>
@@ -931,10 +931,9 @@
           }else{
             this.dirtyForm = false
             this.saving = false
-
-            return swal_success(res)
-
             this.$router.push({name: 'contact.index'})
+            return swal_success(res)
+            
           }
         }
         catch(err) {

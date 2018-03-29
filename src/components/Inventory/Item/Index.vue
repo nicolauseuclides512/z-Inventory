@@ -37,9 +37,9 @@
           <div v-if="Array.isArray(list.items) && !list.items.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
             <i class="fa fa-5x fa-archive"></i>
             <div class="lead" style="padding: 30px 0 5px;">
-              <small>You haven't made any item yet.</small>
+              <small>Item data not found.</small>
               <br>
-              Add your first item!
+              Add your item!
             </div>
             <div>
               <router-link id="create-new-item-when-empty" :to="{ name: 'item.create' }"
@@ -208,13 +208,13 @@
                             <img alt="" :src="tesimgProduct" class="media-object thumb-sm" style="width: auto; height: auto; max-width: 70px; max-height: 70px;">
                           </a>
                         </td> -->
-                        <td>
+                        <td style="padding: 14px 8px;">
                           <a href="javascript:void(0)" v-if="item.children.length" @click="toggleChildren(item)">
                             <i class="ion-chevron-right" v-if="!item.expanded"></i>
                             <i class="ion-chevron-down" v-if="item.expanded"></i>
                           </a>
                         </td>
-                        <td>
+                        <td style="padding: 14px 8px !important;">
                           <router-link v-if="item.children.length"
                                        :to="{ name: 'item.edit_variant', params: { id: item.item_id } }"
                                        style="color:#000">
@@ -225,11 +225,11 @@
                             {{ item.item_name }}
                           </router-link>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" style="padding: 14px 8px !important;">
                           {{ item.code_sku ? item.code_sku : '-' }}
                         </td>
-                        <td><span v-if="!item.children.length">{{ item.description | truncItemDesc}}</span></td>
-                        <td class="text-center">
+                        <td style="padding: 14px 8px !important;"><span v-if="!item.children.length">{{ item.description | truncItemDesc}}</span></td>
+                        <td class="text-center" style="padding: 14px 8px !important;">
                           <span v-if="(item.track_inventory == true) && (!item.children.length)">
                             <inline-editable
                               :item="item"
@@ -238,7 +238,7 @@
                             />
                           </span>
                         </td>
-                        <td class="text-left">
+                        <td class="text-left" style="padding: 14px 8px !important;">
                           <span v-if="!item.children.length">
                             <inline-editable
                               :item="item"
@@ -260,7 +260,7 @@
                         </td>
                         <td class="name">{{ child.item_name }}</td>
                         <td class="sku">{{ child.code_sku }}</td>
-                        <td>{{ child.description }}</td>
+                        <td>{{ child.description | truncItemDesc }}</td>
                         <td class="available">
                           <inline-editable v-if="(child.track_inventory == true)"
                             :item="child"
@@ -482,25 +482,22 @@
             text: "The item(s) will be deleted permanently."
           },
           async () => {
-            //const ids = this.checkedItems.join(",");
-            const queryString = _.isArray(ids) ? ids.join(',') : ids
+            const ids = this.checkedItems.join(",");
+            //const queryString = _.isArray(ids) ? ids.join(',') : ids
 
-            try{
-              const res = await Axios.delete('items?ids=' + queryString)
+              const res = await Axios.delete('items?ids=' + ids)
 
               if (!responseOk(res.data.code)) {
-                Alert.error('Delete item(s) failed. Some items related to some Sales Orders')
+                return swal_error(res);
+                //Alert.error('Delete item(s) failed. Some items related to some Sales Orders')
               } else {
-                //swal_success(res)
-                Alert.success('Item(s) deleted')
                 this.clearCheckedItems();
                 this.list.items = [];
                 this.refreshList();
+                Alert.success('Item(s) deleted')
+                //return swal_success(res)
               }
-            } catch(e) {
-              console.error(e)
-              Alert.error('Failed to delete this item(s). Some items related to some Sales Orders.')
-            }
+
             // this.$http.delete(`items?ids=${ids}`).then(
             //   res => {
             //     if ([0, 200, 201].indexOf(res.data.code) === -1)
