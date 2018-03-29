@@ -21,13 +21,45 @@
     </div>
     <div class="content full-width sahito-user bgr-white" style="min-height:620px">
       <div class="container">
-
-        <div v-if="!salesList.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
+        <div v-if="!salesList.length" class="text-center" style="color: #a9a9a9;">
+          <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0" style="padding-left:33px">
+                <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
+                   aria-expanded="false">
+                  <h4><span>Status: </span> {{ currentFilter }} <span class="caret"></span></h4>
+                </a>
+                <ul class="dropdown-menu" role="menu" style="top: 117px;left: 210px;position: fixed;">
+                  <li class="dropdown-header">FILTER BY</li>
+                  <li :class="{ active: filter == 'all' }">
+                    <a href="javascript:void(0);" @click="changeFilter({ filter: 'all' })">All</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li :class="{ active: filter == 'draft' }">
+                    <a href="javascript:void(0);" @click="changeFilter({ filter: 'draft' })">Draft</a>
+                  </li>
+                  <li :class="{ active: filter == 'paid' }">
+                    <a href="javascript:void(0);" @click="changeFilter({ filter: 'paid' })">Paid</a>
+                  </li>
+                  <li :class="{ active: filter == 'unpaid' }">
+                    <a href="javascript:void(0);" @click="changeFilter({ filter: 'unpaid' })">Unpaid</a>
+                  </li>
+                  <li :class="{ active: filter == 'partially_paid' }">
+                    <a href="javascript:void(0);" @click="getList({ filter: 'partially_paid' })">Partially Paid</a>
+                  </li>
+                  <li :class="{ active: filter == 'overdue' }">
+                    <a href="javascript:void(0);" @click="changeFilter({ filter: 'overdue' })">Overdue</a>
+                  </li>
+                  <li :class="{ active: filter == 'void' }">
+                    <a href="javascript:void(0);" @click="changeFilter({ filter: 'void' })">Void</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           <i class="fa fa-5x fa-shopping-cart"></i>
           <div class="lead" style="padding: 30px 0 5px;">
-            <small>You haven't made any sales order yet.</small>
+            <small>Sales order data not found.</small>
             <br>
-            Add your first sales order!
+            Add your sales order!
           </div>
           <div>
             <router-link :to="{ name: 'sales.create' }" href="javascript:void(0);"
@@ -179,7 +211,7 @@
                           <template v-for="(sale, index) in salesList">
                             <tr>
                               <td class="col-checkbox">
-                                <div class="checkbox checkbox-single checkbox-success">
+                                <div class="checkbox checkbox-single checkbox-success" style="top:4px">
                                   <input type="checkbox" v-model="checkedList" :value="sale">
                                   <label></label>
                                 </div>
