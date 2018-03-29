@@ -30,7 +30,7 @@
                 </div>
               </div>
             </div>
-            
+
             <!-- Info -->
             <div class="col-md-8">
               <div class="panel panel-default">
@@ -79,11 +79,11 @@
                         />
                       </div>
                     </div>
-                  </div>            
+                  </div>
                     </div>
                   </div>
               </div>
-              
+
               <!--Stock -->
               <div class="panel panel-default" >
                   <div class="panel-body" >
@@ -122,7 +122,7 @@
                         </select>
                       </div>
                     </div>
-                  <div id="show-stock" v-if="form.track_inventory == 'true'">
+                  <div id="show-stock" v-if="typeof form.track_inventory === 'boolean' && form.track_inventory === true || typeof form.track_inventory === 'string' && form.track_inventory === 'true'">
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Stock</label>
                       <div class="col-md-4">
@@ -146,7 +146,7 @@
                   <div class="panel-body" >
                     <div class="form-horizontal">
                       <div class="col-md-12" style="padding-left: 0px;">
-                    
+
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Dimension (cm)</label>
                       <div class="col-md-4 p-0">
@@ -162,7 +162,7 @@
                         <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control" style="font-size:12px; padding:6px">
                       </div>
                       </div>
-                      
+
                     </div>
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left ">Weight *</label>
@@ -528,7 +528,7 @@
       async saveStockQuantity() {
         if (this.form.oldStockValue >= this.form.stock_quantity) {
           this.stockAlert = true;
-          return 
+          return
         } else {
           this.stockAlert = false;
           return
@@ -693,10 +693,10 @@
 </script>
 
 <style scoped>
-  input[type=number]::-webkit-inner-spin-button, 
-  input[type=number]::-webkit-outer-spin-button { 
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: textfield;
-    margin: 0; 
+    margin: 0;
   }
 </style>
