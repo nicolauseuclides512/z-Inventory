@@ -1086,6 +1086,8 @@
 
       clearSelectedSalesChannel() {
         this.selected_sales_channel = null;
+        this.form.my_sales_channel = null;
+        this.form.my_sales_channel_id = null;
       },
 
       updateDiscountType(product) {
