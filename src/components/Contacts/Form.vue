@@ -46,7 +46,7 @@
                       </div>
                     </div>
                     <div class="form-group form-general m-b-20">
-                      <label class="col-md-2 control-label text-left">Name</label>
+                      <label class="col-md-2 control-label text-left">Name *</label>
                         <div class="col-md-2">
                           <select id="salutation_id" v-model="form.salutation_id" class="form-control" title="Salutation">
                             <option :value="null"></option>
@@ -69,7 +69,7 @@
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left ">Display Name *</label>
                     <div class="col-md-8">
-                      <select id="display_code" v-model="form.display_code" class="form-control">
+                      <select id="display_code" v-model="form.display_code" class="form-control" required>
                         <!-- <option :value="0">{{ displayNameFormat1 }}</option> -->
                         <option :value="1">{{ displayNameFormat2 }}</option> 
                         <option :value="2">{{ displayNameFormat3 }}</option>
@@ -926,6 +926,7 @@
           const res = await Axios.post(url, data)
 
           if (!responseOk(res.data.code)) {
+            this.saving = false
             return swal_error(res)
           }else{
             this.dirtyForm = false

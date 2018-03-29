@@ -51,11 +51,14 @@
                     </select> -->
                     <div v-for="p in payment_method_details">
                       <div class="cnt_min">
-                        <input type="radio" v-model="form.payment_account_id" :value="p.account_id"/>
-                        <img :src="`/static/images/bank/${p.account_name}.png`" class="selected_img" >
-                        <div class="text-center"><small style="font-size:.80em">{{ p.account_number }} </small></div>
+                          <input type="radio" v-model="form.payment_account_id" :value="p.account_id"/>
+                          <div class="selection_bank">
+                              <img :src="`/static/images/bank/${p.account_name}.png`" class="img_bank" >
+                              <div class="text-center"><small style="font-size:.80em">{{ p.account_number }} </small>
+                              </div>
+                          </div>
                       </div>
-                    </div>
+                  </div>
                   </div>
                   <small v-if="!payment_method_details.length" class="col-md-11 col-md-offset-1 alert-warning" style="padding: 3px;">
                     You don't have any bank on the list.
@@ -200,7 +203,7 @@
 
           this.payment_method_list = res.data.data.payment_method
 
-          this.form.amount = res.data.data.total_payment
+          this.form.amount = res.data.data.due_payment
 
           // ----------------------------
           // --- SEARCH BANK TRANSFER ---
@@ -319,14 +322,20 @@
     opacity:0;
     border-radius:5px;
 }
-.selected_img{
-    pointer-events: none;
+.img_bank{
     width:100%;
     height:100%;
     border-radius:5px;
-    border:solid 1px #fff;
 }
-.cnt_min input[type="radio"]:checked ~ .selected_img{
+
+.selection_bank{
+    width:100%;
+    height:100%;
+    border-radius:5px;
+    border:solid 1px #eee;
+}
+
+.cnt_min input[type="radio"]:checked ~ .selection_bank{
   border:solid 1px #1c8ad9;
   box-shadow:0px 1px 4px 0px #ccc;
   border-radius:5px;

@@ -189,7 +189,9 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="row">
+              <pagination :page-context="page_context" :result="salesList" @updated="updatePagination"></pagination>
+            </div>
               </div>
 
               <div class="col-md-8 col-sm-8 col-xs-8 right-side" style="padding-left:20px; padding-top: 2px;">
@@ -198,7 +200,7 @@
                   <div class="col-md-12">
                     <h4 class="pull-left page-title">
                       <span class="text-muted">#</span>
-                      <span>{{salesOrder.sales_order_number}}</span>
+                      <span style="margin-right:15px">{{salesOrder.sales_order_number}}</span>
                                                     <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
                                         title="View as PDF" @click="viewInvoice"><i class="fa fa-file-pdf-o"></i></button>
@@ -441,9 +443,7 @@
 
             </div>
 
-            <div class="row">
-              <pagination :page-context="page_context" :result="salesList" @updated="updatePagination"></pagination>
-            </div>
+            
 
           </div>
         </div>

@@ -21,10 +21,10 @@
         <div class="ribbon"><span>{{ salesOrder.invoice_status }}</span></div>
       </div>
 
-      <div class="row sahito-invoice-content" style="padding:67px 25px 0px 45px;margin-left:0px;margin-right:0px;margin-bottom:30px">
+      <div class="row sahito-invoice-content" style="padding:67px 25px 0px 45px;margin-left:0px;margin-right:0px;margin-bottom:30px;">
         <div class="col-md-8 pull-left" >
             <div class="media m-b-30">
-                <a href="#" class="pull-left">
+                <a v-show="logo != null" class="pull-left">
                     <img alt="" :src="logo" class="media-object thumb-sm" style="width: auto; height: auto; max-width: 240px; max-height: 100px;">
                 </a>
                 <div class="media-body" style="padding-top:15px;">
@@ -63,7 +63,7 @@
             <p>{{ company_zip }}</p>
             <p>{{ company_country }}</p>
           </div> -->
-          <div class="billto">
+          <div class="billto" style="min-height:144px">
             <p>Bill to</p>
             <h4 style="color: black;">{{ buyer_name }}</h4>
             <p style="color: black;">{{ buyer_phone }}</p> 
@@ -115,7 +115,7 @@
                 <th id="item" width="40%">Item</th>
                 <th id="qty" class="text-left" width="8.75%">Qty</th>
                 <th id="rate" class="text-left" width="15%">Rate</th>
-                <th id="discount" class="text-left" width="15%">Discount</th>
+                <th id="discount" class="text-left" width="20%">Discount</th>
                 <th id="amount" width="26.25%">Amount</th>
               </tr>
               </thead>
@@ -177,12 +177,12 @@
           </div>
         </div>
       <div class="row p-15 pt-0">
-        Cutomer notes
-        <div>{{ value.customer_notes }}</div>
+        Customer notes
+        <div><pre>{{ value.customer_notes}}</pre></div>
       </div>
       <div class="row p-15 pt-0">
         Terms & Conditions
-        <div>{{ value.term_and_condition }}</div>
+        <div><pre>{{value.term_and_condition}}</pre></div>
       </div>
       </div>
     </div>
@@ -216,8 +216,8 @@ export default {
   data() {
     return {
       invoice: {},
-      logo: "http://placehold.it/250?text=No+Logo",
-
+      //logo: "http://placehold.it/250?text=No+Logo",
+      logo:null,
       company_name: "",
       company_address: "",
       company_zip: "",
@@ -252,7 +252,7 @@ export default {
       const res = await Axios.get(url);
       this.logo = res.data.data.multi_res_logo
         ? res.data.data.multi_res_logo.small
-        : this.logo;
+        : null
 
       this.company_name = res.data.data.name;
       this.company_address = res.data.data.address;
@@ -346,3 +346,13 @@ export default {
   }
 };
 </script>
+ <style scoped>
+pre{
+  font-family: 'Proxima Nova', Georgia, sans-serif;
+  border:none;
+  box-shadow: none;
+  padding: 0px;
+  background: transparent;
+}
+ </style>
+ 

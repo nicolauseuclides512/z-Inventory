@@ -4,7 +4,7 @@
 
     <div class="container">
       <div class="row">
-        <nav class="setting-page-left" id="setting-page-left" data-spy="affix">
+        <nav class="setting-page-left" id="setting-page-left" data-spy="affix" style="border:none">
           <ul id="sahito-page-left-list" class="nav">
 
             <li :class="{ active: $route.name === 'settings' }">
@@ -164,7 +164,7 @@
 
 <style scoped>
   .setting-page .setting-page-left ul li.active {
-    background: #e9e9e9;
+    background: #eee;
     border-left: 4px solid #d9d9d9;
   }
 

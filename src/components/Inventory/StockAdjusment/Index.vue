@@ -1,5 +1,5 @@
 <template>
-  <div class="content-page-full">
+  <div class="content-page-full" style="min-height:350px">
     <div class="content sahito-user">
       <div class="container" style="padding:0px; margin:0px">
         <div class="row">

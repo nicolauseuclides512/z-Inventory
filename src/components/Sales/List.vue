@@ -1,5 +1,24 @@
 <template>
   <div class="content-page-full" style="padding-right: 0px;">
+    <div v-if="checkedList.length > 0" class="float-CheckOpt">
+        <div class="container">
+           <div class="clearfix">
+              <div class="pull-left">
+                <div class="btn-group">
+                  <a href="javascript:void(0);" @click="viewBulkInvoice"
+                     class="btn btn-default waves-effect waves-light m-b-5">Print Invoice</a>
+                  <a href="javascript:void(0);" @click="viewShipmentLabels"
+                     class="btn btn-default waves-effect waves-light m-b-5">Print Shipment Label</a>
+                </div>
+            </div>
+            <div class="pull-right pt-10">
+                  <a href="javascript:void(0);" @click="clearCheckedAll">
+                    <i class="ion-android-close"></i>
+                  </a>
+                </div>
+          </div>
+      </div>
+    </div>
     <div class="content full-width sahito-user bgr-white" style="min-height:620px">
       <div class="container">
 
@@ -102,7 +121,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-md-12 col-sm-12 col-xs-12" id="mark_active" v-if="checkedList.length > 0">
+              <!-- <div class="col-md-12 col-sm-12 col-xs-12" id="mark_active" v-if="checkedList.length > 0">
                 <div class="pull-left">
                   <a href="javascript:void(0);" @click="viewBulkInvoice"
                      class="btn btn-default waves-effect waves-light m-b-5">Print Invoice</a>
@@ -114,7 +133,7 @@
                     <i class="ion-android-close"></i>
                   </a>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -186,7 +205,7 @@
                               <td class="text-left" @click="showDetail(sale)" style="cursor:pointer">
                                   {{ sale.contact.display_name }}
                               </td>
-                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                              <td style="cursor: pointer; width:126px" @click="showDetail(sale)">
                                 <div v-if="sale.sales_order_status === 'DRAFT'">
                                   <span style="color:#C4C4C4; font-size:13px">{{ sale.sales_order_status }}</span>
                                 </div>
@@ -323,9 +342,8 @@
                                             </td>
                                             <td style="font-size: 1em;">{{ order.item_rate | money }}</td>
                                             <td class="text-left" style="font-size: 1em;">
-                                        <span
-                                          v-if="order.discount_amount_type === 'fixed'">{{ Number(order.discount_amount_value) | money}}</span>
-                                              <span v-else>{{ order.discount_amount_value }}%</span>
+                                              <span v-if="order.discount_amount_type === 'fixed'">{{ Number(order.discount_amount_value) | money}}</span>
+                                              <span v-if="order.discount_amount_type === 'percentage'">{{ Number(order.discount_amount_value) }}%</span>
                                             </td>
                                             <td class="text-right" style="font-size: 1em;">{{ order.amount | money }}
                                             </td>
@@ -333,8 +351,7 @@
                                           <tr class="sub-total">
                                             <td colspan="3" style="border-top: 1px solid #dedede"></td>
                                             <td colspan="1" style="font-size: 1em; border-top: 1px solid #dedede">Sub Total</td>
-                                            <td class="text-right" style="font-size: 1em; border-top: 1px solid #dedede">{{ overview.sub_total | money
-                                              }}
+                                            <td class="text-right" style="font-size: 1em; border-top: 1px solid #dedede">{{ overview.sub_total | money }}
                                             </td>
                                           </tr>
                                           <!--<tr class="sub-total">-->

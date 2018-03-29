@@ -226,7 +226,7 @@
                             v-model="v.item_attributes[thirdVariant.name]"
                             disabled="disabled">
                         </td> -->
-                        <td v-if="item.track_inventory == 'true'" style="vertical-align:text-top"><input type="number" step="1" class="form-control form-white" v-model.number="v.stock_quantity"></td>
+                        <td v-if="item.track_inventory == 'true'" style="vertical-align:text-top"><input type="number" min="0" step="1" class="form-control form-white" v-model.number="v.stock_quantity"></td>
                         <td style="vertical-align:text-top"><input type="number" step="1" class="form-control form-white" v-model.number="v.sales_rate"></td>
                         <td style="vertical-align:text-top">
                           <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
