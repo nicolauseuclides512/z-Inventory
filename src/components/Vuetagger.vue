@@ -15,8 +15,8 @@
         @keydown.tab.prevent="append"
         @keydown.188.prevent="append"
         @keydown.delete="removeLastTag"
-        placeholder="Press Enter/Tab/Comma after typing"
       />
+      <span class="reminder"><small>For multiple input, press Enter/Tab/Comma after typing.</small></span>
 
     </div>
   </div>
@@ -142,7 +142,7 @@
 
       convertToNormalObject(obj) {
         return JSON.parse(JSON.stringify(obj))
-      }
+      },
 
     }
   }
@@ -188,5 +188,12 @@
     display: inline-block;
     cursor: default;
     margin-left: 4px;
+  }
+
+  .reminder{
+    display: none
+  }
+  .vuetagger-input:focus ~.reminder{
+   display: inline;
   }
 </style>
