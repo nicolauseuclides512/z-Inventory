@@ -77,7 +77,13 @@
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-3 control-label text-left">Phone</label>
                     <div class="col-md-5">
-                      <input type="number" id="phone" v-model.trim="form.phone" class="form-control" placeholder="" minlength="9" maxlength="15">
+                      <input type="number" id="phone" v-model.trim="form.phone" class="form-control" placeholder="" minlength="9" maxlength="15" @blur="phoneCheck($event)">
+                    </div>
+                  </div>
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-3 control-label text-left"></label>
+                    <div class="col-md-8">
+                      <div class="alert alert-danger" v-if="phoneAlert">Please type a correct phone number</div>
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
@@ -142,9 +148,16 @@
                       v-model.trim="form.zip" 
                       @keyup="inputZip($event)"
                       @blur="inputZip($event)"
+                      @keypress="zipCheck()"
                       class="form-control" 
                       placeholder=""
                       minlenght="5" maxlength="5"/>
+                    </div>
+                  </div>
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-3 control-label text-left"></label>
+                    <div class="col-md-8">
+                      <div class="alert alert-danger" v-if="zipAlert">Please type a correct zip code</div>
                     </div>
                   </div>
                 </div>
@@ -222,6 +235,8 @@
           timezone_id: '',
           organization_status: '',
         }),
+        phoneAlert: false,
+        zipcodeAlert: false
       }
 
     },
@@ -282,7 +297,35 @@
        */
       inputZip ($event) {
         $event.target.value = $event.target.value.replace(/\D/g, '')
+
+        if ($event.target.value.length < 5 || $event.target.value.length > 5){
+          this.zipAlert = true
+          return
+        } else {
+          this.zipAlert = false
+          return
+        }
         store.commit('settings/organization/ZIP', $event.target.value)
+      },
+
+      async phoneCheck(){
+        if (this.form.phone.length < 9 || this.form.phone.length > 15){
+          this.phoneAlert = true
+          return
+        } else {
+          this.phoneAlert = false
+          return
+        }
+      },
+
+      async zipCheck(){
+        if ($event.target.value.length < 5 || $event.target.value.length > 5){
+          this.zipAlert = true
+          return
+        } else {
+          this.zipAlert = false
+          return
+        }
       },
 
       async save () {
@@ -299,12 +342,22 @@
             zip: '' + this.form.zip,
           }
 
-          const organization_id = Cookie.get('organization_id')
-          const res = await Axios.put(`organizations/${organization_id}`, data)
-          if (!responseOk(res.data.code)) {
-            swal_error(res)
+          if (!this.phoneAlert){
+            if (!this.zipAlert){
+              const organization_id = Cookie.get('organization_id')
+              const res = await Axios.put(`organizations/${organization_id}`, data)
+              if (!responseOk(res.data.code)) {
+                swal_error(res)
+              } else {
+                swal_success(res) 
+              }
+            } else {
+              Alert.error('Please type a correct  zip code')
+              return
+            }
           } else {
-            swal_success(res) 
+            Alert.error('Please type a correct phone number')
+            return
           }
         }
         catch (err) {
