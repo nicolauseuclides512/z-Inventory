@@ -13,6 +13,7 @@ import itemForm from './modules/items/form'
 import sales from './modules/sales'
 import salesDetail from './modules/sales/detail'
 import salesForm from './modules/sales/form'
+import salesOrders from './modules/sales_orders/index'
 
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
@@ -27,5 +28,6 @@ export default new Vuex.Store({
     sales,
     salesDetail,
     salesForm,
+    salesOrders,
   }
 })

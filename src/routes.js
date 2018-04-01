@@ -190,6 +190,12 @@ export default [
       },
 
       {
+        path: '/sales/:id/details',
+        name: 'sales.details',
+        component: () => import('./components/SalesOrder/Details/Main'),
+      },
+
+      {
         path: '/sales/:sales_order_id/:invoice_id/email',
         name: 'sales.email',
         component: () => import('./components/Sales/Email'),
