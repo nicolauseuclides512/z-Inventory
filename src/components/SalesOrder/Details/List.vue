@@ -18,19 +18,19 @@
           <li :class="{ active: filter === 'draft' }">
             <a href="javascript:void(0);" @click="getList({ filter: 'draft' })">Draft</a>
           </li>
-          <li :class="{ active: filter == 'paid' }">
+          <li :class="{ active: filter === 'paid' }">
             <a href="javascript:void(0);" @click="getList({ filter: 'paid' })">Paid</a>
           </li>
-          <li :class="{ active: filter == 'unpaid' }">
+          <li :class="{ active: filter === 'unpaid' }">
             <a href="javascript:void(0);" @click="getList({ filter: 'unpaid' })">Unpaid</a>
           </li>
-          <li :class="{ active: filter == 'partially_paid' }">
+          <li :class="{ active: filter === 'partially_paid' }">
             <a href="javascript:void(0);" @click="getList({ filter: 'partially_paid' })">Partially Paid</a>
           </li>
-          <li :class="{ active: filter == 'overdue' }">
+          <li :class="{ active: filter === 'overdue' }">
             <a href="javascript:void(0);" @click="getList({ filter: 'overdue' })">Overdue</a>
           </li>
-          <li :class="{ active: filter == 'void' }">
+          <li :class="{ active: filter === 'void' }">
             <a href="javascript:void(0);" @click="getList({ filter: 'void' })">Void</a>
           </li>
         </ul>
@@ -168,7 +168,6 @@
         loaded: false,
         page_context: {},
         checkedList: [],
-        // salesOrderList: [],
         filter: 'all',
         sort: 'created_at.desc',
       }
