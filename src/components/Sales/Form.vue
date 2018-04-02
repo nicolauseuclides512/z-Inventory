@@ -1013,6 +1013,20 @@
           }
           this.selected_contact = res.data.data;
           this.form.contact_id = this.selected_contact.contact_id
+          this.form.billing_address = this.selected_contact.billing_address
+          this.form.billing_region = this.selected_contact.billing_region
+          this.form.billing_district = this.selected_contact.billing_district
+          this.form.billing_province = this.selected_contact.billing_province
+          this.form.billing_country = this.selected_contact.billing_country
+          this.form.billing_zip = this.selected_contact.billing_zip
+          this.form.billing_fax = this.selected_contact.billing_fax
+          this.form.shipping_address = this.selected_contact.shipping_address
+          this.form.shipping_region = this.selected_contact.shipping_region
+          this.form.shipping_district = this.selected_contact.shipping_district
+          this.form.shipping_province = this.selected_contact.shipping_province
+          this.form.shipping_country = this.selected_contact.shipping_country
+          this.form.shipping_zip = this.selected_contact.shipping_zip
+          this.form.shipping_fax = this.selected_contact.shipping_fax
         }
         catch (err) {
           console.error(err)
