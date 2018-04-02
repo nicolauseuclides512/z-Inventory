@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import paymentMethodList from '@/helpers/paymentMethodList'
+import paymentMethodList from 'src/helpers/PaymentMethodList'
 
 const CONSTANT = {
   SALES_ORDER_LIST: 'SALES_ORDER_LIST',
@@ -106,8 +106,8 @@ const actions = {
     try {
       return dispatch('getInvoices', salesOrderId)
         .then(async (invoices) => {
-          const firstInvoice = invoices[0]
-          const paymentsResponse = await Axios.get(`sales_orders/${salesOrderId}/invoices/${firstInvoice.invoice_id}/payments`)
+          const lastInvoice = invoices[invoices.length - 1]
+          const paymentsResponse = await Axios.get(`sales_orders/${salesOrderId}/invoices/${lastInvoice.invoice_id}/payments`)
           commit(CONSTANT.PAYMENTS, paymentsResponse.data.data)
           return state.payments
         })
