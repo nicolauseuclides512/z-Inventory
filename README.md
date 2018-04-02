@@ -1,5 +1,8 @@
 # Zuragan Web App
 
+* Development server https://dev.inventory.zuragan.com
+* Staging server http://app.zuragan.com:8080
+
 ## Build Setup
 
 ``` bash
