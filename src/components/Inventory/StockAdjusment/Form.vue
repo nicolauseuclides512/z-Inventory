@@ -498,7 +498,7 @@ export default {
     async getDetails(stockId) {
       const res = await Axios.get(`stock_adjustments/${stockId}`);
       this.form.details = res.data.data.details;
-      this.form.details[0].database_qty = 129;
+      this.form.details.database_qty = res.data.data.details[0].stock_quantity;
       if (this.$route.params.id) {
         this.form.stock_adjustment_id = res.data.data.stock_adjustment_number;
       }

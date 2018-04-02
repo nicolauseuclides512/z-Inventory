@@ -293,13 +293,13 @@
                                   <span class="ion-ios7-more-outline" style="color:#03a2cd; font-size:1.5em; padding:px"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu" style="right: 40px;left: initial;top: initial; position: fixed">
-                                  <li>
+                                  <li v-if="sale.invoice_status != 'VOID' && sale.invoice_status != 'PAID'">
                                     <router-link :to="{ name: 'sales.edit', params: { id: sale.sales_order_id } }"
                                                  href="javascript:void(0)">
                                       Edit
                                     </router-link>
                                   </li>
-                                  <li v-if="(sale.invoice_status === 'UNPAID' || 'OVERDUE') && sale.sales_order_status != 'DRAFT'">
+                                  <li v-if="(sale.invoice_status === 'UNPAID' || 'OVERDUE') && sale.sales_order_status != 'DRAFT' && sale.invoice_status != 'VOID' && sale.invoice_status != 'PAID'">
                                     <a href="javascript:void(0);" @click="gotoDetailPayment(sale)">
                                       Record Payment
                                     </a>
@@ -314,7 +314,7 @@
                                       Print Invoice
                                     </a>
                                   </li>
-                                  <li>
+                                  <li v-if="sale.sales_order_status != 'DRAFT'">
                                     <a href="javascript:void(0);" @click="printShipmentLabel(sale.sales_order_id)">
                                       Print Shipment Label
                                     </a>

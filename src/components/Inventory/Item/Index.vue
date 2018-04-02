@@ -446,7 +446,7 @@
         try {
           const defaultParams = {
             page: 1,
-            per_page: 30,
+            per_page: 15,
             sort: "item_name.asc",
             filter_by: "status_all",
             q: getParameterByName("q")

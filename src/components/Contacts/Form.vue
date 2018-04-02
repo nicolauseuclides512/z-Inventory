@@ -878,6 +878,22 @@
         }
       },
 
+      inputPhone (phone_number, $event) {
+        phone_number = $event.target.value = $event.target.value.replace(/\D/g, '')
+      },
+
+      inputZip (zipCode, $event) {
+        zipCode = $event.target.value = $event.target.value.replace(/\D/g, '')
+
+        if (($event.target.value.length < 5 && $event.target.value.length > 0) || $event.target.value.length > 5){
+          this.zipAlert = true
+          return
+        } else {
+          this.zipAlert = false
+          return
+        }
+      },
+
       /**
        * Save contact
        */
