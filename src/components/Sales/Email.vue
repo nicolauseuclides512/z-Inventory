@@ -249,7 +249,7 @@
           invoiceTemplate = invoiceTemplate.replace(/%[o|O]rganization[_|\s][N|n]ame%/g, company_name)
           invoiceTemplate = invoiceTemplate.replace(/%portal_name%/g, orgResponse.data.data.portal)
           invoiceTemplate = invoiceTemplate.replace(/%invoice[_\s]number%/g, response.data.data.invoice_number)
-          invoiceTemplate = invoiceTemplate.replace(/%date[_\s]order%/g, dateFormat(response.data.data.invoice_date, 'DD-MM-YYYY HH:mm'))
+          invoiceTemplate = invoiceTemplate.replace(/%date[_\s]order%/g, dateFormat(response.data.data.invoice_date, 'DD-MM-YYYY'))
 
 
           store.commit('sales/email/MESSAGE', invoiceTemplate)
