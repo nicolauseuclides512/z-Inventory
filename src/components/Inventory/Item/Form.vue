@@ -122,7 +122,7 @@
                         </select>
                       </div>
                     </div>
-                  <div id="show-stock" v-if="typeof form.track_inventory === 'boolean' && form.track_inventory === true || typeof form.track_inventory === 'string' && form.track_inventory === 'true'">
+                  <div id="stock-quantity" v-if="typeof form.track_inventory === 'boolean' && form.track_inventory === true || typeof form.track_inventory === 'string' && form.track_inventory === 'true'">
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Stock</label>
                       <div class="col-md-4">
