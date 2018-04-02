@@ -126,7 +126,7 @@
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Stock</label>
                       <div class="col-md-4">
-                        <input v-model="form.stock_quantity" type="number" min="0" placeholder="" class="form-control" @blur="saveStockQuantity($event)">
+                        <input v-model.number="form.stock_quantity" type="number" min="0" placeholder="" class="form-control" @blur="saveStockQuantity($event)">
                       </div>
                     </div>
                   </div>
