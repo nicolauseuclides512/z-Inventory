@@ -57,7 +57,7 @@
                       <table class="table table-hover default-table sahito-list-contact--table">
                         <thead style="box-shadow: 0 4px 2px -2px #ddd;">
                         <tr style="color:#000;">
-                          
+
                           <td
                             style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
                             width="40.85%">Item
@@ -1004,6 +1004,7 @@
       },
 
       async selectContact(contact) {
+        this.dirtyForm = true;
         try {
           const contact_id = contact.contact_id
           const res = await axios.get(`contacts/${contact_id}`);
@@ -1031,7 +1032,7 @@
       },
 
       async selectProduct(product) {
-
+        this.dirtyForm = true;
         this.selected_product = product;
 
         Vue.nextTick(() => {
