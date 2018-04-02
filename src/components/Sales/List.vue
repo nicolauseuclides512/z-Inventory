@@ -292,7 +292,7 @@
                                    aria-expanded="false">
                                   <span class="ion-ios7-more-outline" style="color:#03a2cd; font-size:1.5em; padding:px"></span>
                                 </a>
-                                <ul class="dropdown-menu" role="menu" style="right: 40px;left: initial;top: initial; position: fixed">
+                                <ul class="dropdown-menu" role="menu" style="right: 40px;left: initial;top: initial;">
                                   <li>
                                     <router-link :to="{ name: 'sales.edit', params: { id: sale.sales_order_id } }"
                                                  href="javascript:void(0)">
