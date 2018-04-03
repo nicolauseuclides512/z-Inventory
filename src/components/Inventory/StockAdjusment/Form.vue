@@ -126,7 +126,7 @@
                                   {{ item.item_name }}
                               </option>
                             </select><br>
-                            <span v-show="detail.item_id != null"> <small >SKU Code : {{detail.code_sku }}</small></span>
+                            <span v-if="!$route.params.id"  v-show="detail.item_id != null"> <small >SKU Code : {{detail.code_sku }}</small></span>
                           </div>
                         </td>
                         <td align="center">
