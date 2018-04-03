@@ -62,9 +62,9 @@
                             style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
                             width="40.85%">Item
                           </td>
-                          <td
+<!--                           <td
                             style="padding-left: 10px; padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
-                            width='10%'></td>
+                            width='10%'></td> -->
                           <td
                             style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
                             width="6.75%">Qty
@@ -93,10 +93,16 @@
                             </a>
                           </td> -->
                           <td v-text="product.item_name" width='40.85%' style="padding-left:10px; size:14px"></td>
-                          <td width='10%' style="padding: 15px 8px 15px 10px"></td>
-                          <td width="6.75%">
-                            <input type="number" v-model.number="product.item_quantity" :min="1" :max="99999"
-                                   class="form-control" style="padding-left:5px; padding-right:0px">
+                          <!-- <td width='10%' style="padding: 15px 8px 15px 10px"></td> -->
+                          <td width="16.75%">
+                            <input
+                              @blur="changeProductQty(product)"
+                              type="number"
+                              v-model.number="product.item_quantity"
+                              :min="1"
+                              :max="product.stock_quantity"
+                              class="form-control"
+                              style="padding-left:5px; padding-right:0px">
                           </td>
 
                           <td width="10.65%">
@@ -737,6 +743,17 @@
           }
         }
       },
+      limiQuantity(val, min, max){
+        if (isNaN(val)) {
+          return val;
+        }
+        return parseFloat(Math.max(Math.min(val, max), min)).toFixed(0);
+      },
+
+      changeProductQty(item){
+        item.item_quantity = this.limiQuantity(item.item_quantity, 0, item.stock_quantity)
+        item.item_quantity = item.item_quantity
+      },
 
       toggleAddNewContactField() {
         if (this.ui.showAddNewContactField) {
@@ -953,6 +970,7 @@
             res = await this.form.post(`sales_orders`);
 
             if (!responseOk(res.data.code)) {
+              alert(res.data.message)
               throw new Error(res.data.message)
             }
 
@@ -1078,6 +1096,7 @@
         } else {
 
           this.form.details.push({
+            stock_quantity: product.stock_quantity,
             item_id: product.item_id,
             item_name: product.item_name,
             item_quantity: product.item_quantity || 1,
