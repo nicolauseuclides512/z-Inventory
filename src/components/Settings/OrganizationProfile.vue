@@ -87,7 +87,7 @@
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
-                    <label class="col-md-3 control-label text-left">Email</label>
+                    <label class="col-md-3 control-label text-left" style="padding-top:0px">Email</label>
                     <div class="col-md-5 primary-contact">
                       {{ primary_contact_email }}
                     </div>

@@ -85,7 +85,7 @@
 
     data () {
       return {
-        per_page: 10,
+        per_page: 15,
         loading: false,
         loadingNext: false,
         loadingPrev: false,
@@ -176,6 +176,9 @@
 
 
     },
+    beforeMount(){
+      this.updatePerPage()
+    }
   }
 </script>
 <style scoped>

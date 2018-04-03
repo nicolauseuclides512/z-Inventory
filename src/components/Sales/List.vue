@@ -203,7 +203,7 @@
                             <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Total</th>
                             <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Balance Due</th>
                             <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
-                            
+
                             <th class="text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Action</th>
                           </tr>
                           </thead>
@@ -286,13 +286,13 @@
                                   <i class="fa fa-circle text-green"></i>
                                 </div>
                               </td> -->
-                              
+
                               <td class="text-center">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
                                    aria-expanded="false">
                                   <span class="ion-ios7-more-outline" style="color:#03a2cd; font-size:1.5em; padding:px"></span>
                                 </a>
-                                <ul class="dropdown-menu" role="menu" style="right: 40px;left: initial;top: initial; position: fixed">
+                                <ul class="dropdown-menu" role="menu" style="right: 40px;left: initial;top: initial;">
                                   <li v-if="sale.invoice_status != 'VOID' && sale.invoice_status != 'PAID'">
                                     <router-link :to="{ name: 'sales.edit', params: { id: sale.sales_order_id } }"
                                                  href="javascript:void(0)">

@@ -20,9 +20,9 @@
       <div class="row m-0" style="min-height:165px">
         <div v-show="!images.length">
           <div class="image-uploader-container-item">
-              <div @click="openFileManager" class="add-new-image-btn2 p-0">
+              <div @click="openFileManager" class="add-new-image-btn2 p-0" style="cursor:not-allowed">
                 <i class="fa fa-image" style="font-size:12px"></i><br>
-                <p style="font-size:12px"> + Add New Image</p>        
+                <p style="font-size:12px"> + Image Feature(Coming Soon)</p>        
                 </div>
             </div>
         </div>
