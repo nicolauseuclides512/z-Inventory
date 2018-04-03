@@ -551,7 +551,6 @@
   import Form from "../../helpers/Form";
   import dateFormat from "date-fns/format";
   import VueNumeric from 'vue-numeric'
-  import moment from 'moment'
 
   export default {
     name: "SalesOrderForm",
@@ -731,8 +730,8 @@
             this.sales_order_number = res.data.data.next_sales_order_number;
           }
 
-          await this.dateTime(moment(this.salesOrderEdit.invoice_date).format('YYYY-MM-DD'));
-          await this.dueDateTime(moment(this.salesOrderEdit.due_date).format('YYYY-MM-DD'));
+          await this.dateTime(this.salesOrderEdit.invoice_date);
+          await this.dueDateTime(this.salesOrderEdit.due_date);
           await this.fetchContactList();
           await this.fetchProductList();
           await this.fetchTaxSetting();
