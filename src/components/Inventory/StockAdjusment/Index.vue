@@ -131,7 +131,7 @@
         try {
           const defaultParams = {
             page: 1,
-            per_page: 30,
+            per_page: 15,
             sort: 'stock_adjustment.create.asc',
             filter_by: '',
             q: getParameterByName('q'),
