@@ -410,7 +410,7 @@
                     <div class="form-group">
                       <label style="font-weight:400">Due Date</label>
                       <div class="input-group">
-                        <input v-model="form.due_date" class="flatpickr form-control">
+                        <input v-model="form.due_date" class="flatpickr-due form-control">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                       </div>
                     </div>
@@ -545,6 +545,7 @@
   import Form from "../../helpers/Form";
   import dateFormat from "date-fns/format";
   import VueNumeric from 'vue-numeric'
+  import moment from 'moment'
 
   export default {
     name: "SalesOrderForm",
@@ -557,7 +558,7 @@
 
     watch: {
       "form.invoice_date"(val) {
-        this.form.due_date = val;
+        if (!this.$route.params.id) this.form.due_date = val;
       },
       'newContact.display_name'(val) {
         this.newContact.first_name = val
@@ -616,6 +617,7 @@
     data() {
       return {
         dirtyForm: false,
+        salesOrderEdit: {},
         ui: {
           adjustment_edit: false,
           invalidInvoiceEmail: false,
@@ -706,7 +708,8 @@
             if (!responseOk(res.data.code)) {
               throw new Error(res.data.message)
             }
-            this.edit(res.data.data.sales_order);
+            this.salesOrderEdit = res.data.data.sales_order;
+            this.edit(this.salesOrderEdit);
             this.list.discount_unit = res.data.data.discount_unit;
             this.list.weight_unit = res.data.data.weight_unit;
             this.tax_included = res.data.data.tax_included;
@@ -722,7 +725,8 @@
             this.sales_order_number = res.data.data.next_sales_order_number;
           }
 
-          await this.dateTime();
+          await this.dateTime(moment(this.salesOrderEdit.invoice_date).format('YYYY-MM-DD'));
+          await this.dueDateTime(moment(this.salesOrderEdit.due_date).format('YYYY-MM-DD'));
           await this.fetchContactList();
           await this.fetchProductList();
           await this.fetchTaxSetting();
@@ -753,7 +757,6 @@
         }
 
         this.form.details = res.data.data;
-
         this.form.invoice_date = sales_order.invoice_date
           ? sales_order.invoice_date.substr(0, 10)
           : null;
@@ -805,10 +808,18 @@
         this.form.my_sales_channel_id = sales_order.my_sales_channel_id;
         this.form.my_sales_channel = sales_order.my_sales_channel;
       },
-
-      dateTime() {
+      dueDateTime(setDate) {
         const dateConfig = {
-          defaultDate: new Date(),
+          defaultDate: setDate,
+          dateFormat: "Y-m-d",
+          altFormat: "j M Y",
+          altInput: true
+        };
+        $(".flatpickr-due").flatpickr(dateConfig);
+      },
+      dateTime(setDate) {
+        const dateConfig = {
+          defaultDate: setDate,
           dateFormat: "Y-m-d",
           altFormat: "j M Y",
           altInput: true
