@@ -11,9 +11,24 @@
 
 
       <div class="panel-body">
-        <form method="POST" class="form-horizontal m-t-20" @submit.prevent="login">
+        <form method="POST" class="form-horizontal m-t-20" @submit.prevent>
 
-          <div class="form-group">
+          <div v-if="!emailIsTrue" class="form-group">
+            <div class="col-xs-12">
+              <input class="form-control input-lg"
+                     style="text-transform: lowercase;"
+                     type="email"
+                     id="email"
+                     required
+                     placeholder="Email"
+                     autocomplete="off"
+                     autofocus
+                     v-model="formEmail.email"
+              />
+            </div>
+          </div>
+
+          <div v-if="emailIsTrue" class="form-group">
             <div class="col-xs-12">
               <input class="form-control input-lg"
                      style="text-transform: lowercase;"
@@ -28,7 +43,7 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div v-if="emailIsTrue" class="form-group">
             <div class="col-xs-12">
               <input class="form-control input-lg"
                      type="password"
@@ -42,7 +57,7 @@
           </div>
 
           <div class="form-group" v-if="!notVerified">
-            <div class="col-xs-6" >
+            <div v-if="emailIsTrue" class="col-xs-6" >
               <div class="checkbox checkbox-primary">
                 <input id="remember" type="checkbox" v-model="form.remember">
                 <label for="remember">
@@ -62,10 +77,9 @@
 
           <div class="form-group text-center m-t-30">
             <div class="col-xs-12" v-if="!notVerified">
-              <button v-if="!loading" id="submit" type="submit" class="btn btn-primary btn-lg w-lg waves-effect waves-light">
-                Log In
-              </button>
-              <button v-else id="loading-button" type="button" class="btn btn-default btn-lg w-lg waves-effect waves-light" disabled>
+              <button v-if="!loading && !emailIsTrue" id="submit" type="submit" class="btn btn-primary btn-lg w-lg waves-effect waves-light" @click="checkMail">Log In</button>
+              <button v-if="!loading && emailIsTrue" id="submit" type="submit" class="btn btn-primary btn-lg w-lg waves-effect waves-light" @click="login">Log In</button>
+              <button v-if="loading" id="loading-button" type="button" class="btn btn-default btn-lg w-lg waves-effect waves-light" disabled>
                 <i class="fa fa-spin fa-spinner"></i> Log In
               </button>
             </div>
@@ -85,7 +99,7 @@
 
           <div class="form-group m-t-30">
             <div class="col-sm-7">
-              <router-link :to="{ name: 'auth.forgot' }" id="goto-forgot-password">
+              <router-link v-if="emailIsTrue" :to="{ name: 'auth.forgot' }" id="goto-forgot-password">
                 <i class="fa fa-lock m-r-5"></i> Forgot your password?
               </router-link>
             </div>
@@ -128,12 +142,18 @@
 
     data() {
       return {
+        emailIsTrue: false,
         notVerified: null,
         loading: false,
+        formEmail: new Form({
+          email: '',
+          application: 'inventory'
+        }),
         form: new Form({
           grant_type: 'password',
           client_id: 2, // FIXME: Hard coded
           client_secret: 'beXvmNU9dQS1cN35vmGSSDAfOR8nSVASouE3sVBT', // FIXME: Hard coded
+          // email: '',
           username: '',
           password: '',
           scope: '',
@@ -145,6 +165,55 @@
     },
 
     methods: {
+      async checkMail () {
+        try {
+          this.loading = true
+          const res = await this.formEmail.post(`register/check_avail_email`)
+          if (res.data.code == 200) {
+            this.$router.push({
+              name: 'auth.register',
+              query: {
+                email: this.formEmail.email,
+              }
+            })
+          }
+          if (res.data.code == 202) {
+            this.$router.push({
+              name: 'auth.register.company',
+              query: {
+                email: this.formEmail.email,
+              }
+            })
+          }
+          this.loading = false
+        }
+        catch (err) {
+          const errCode = err.response.data.code
+          if (errCode == 400) {
+            if (err.response.data.data && err.response.data.data.email && err.response.data.data.email.length) {
+              swal({
+                title: res.data.data.email[0],
+                type: 'error',
+                showConfirmButton: true,
+              })
+            }
+          }
+          if (errCode == 409) {
+            this.emailIsTrue = true;
+            this.form.username = this.formEmail.email
+          }
+          else{
+            swal({
+              title: err.message,
+              type: 'error',
+              showConfirmButton: true,
+            }).catch(swal.noop)
+          }
+
+          this.loading = false
+
+        }
+      },
 
       async login () {
 

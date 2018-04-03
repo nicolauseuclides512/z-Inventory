@@ -636,7 +636,8 @@
           </div>
 
           <div class="panel-body">
-            <p v-if="$route.query.email" class="text-center" style="margin:10px auto 30px auto;">You've already have an account in Zuragan identity. Just complete this form and we'll help to build your store.</p>
+            <!-- <p v-if="$route.query.email" class="text-center" style="margin:10px auto 30px auto;">You've already have an account in Zuragan identity. Just complete this form and we'll help to build your store.</p> -->
+            <h4 class="text-center" style="margin:10px auto 30px auto;">Create New Account</h4>
             <div class="form-group">
               <input
                 type="text"
