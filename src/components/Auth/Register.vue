@@ -628,12 +628,15 @@
         <div class="panel panel-color panel-primary panel-pages panel-sign-in">
 
           <div class="panel-heading">
-            <div class="bg-overlay"></div>
-            <h3 class="text-center m-t-10 text-white"> Create a new account </h3>
+            <div class="bg-overlay">
+              <div class="zuragan-logo-login" style="padding-left:15px; padding-top:15px;">
+                <img src="/static/images/zuragan_logo_login.png" height="62" width="125">
+              </div>
+            </div>
           </div>
 
           <div class="panel-body">
-
+            <p v-if="$route.query.email" class="text-center" style="margin:10px auto 30px auto;">You've already have an account in Zuragan identity. Just complete this form and we'll help to build your store.</p>
             <div class="form-group">
               <input
                 type="text"
@@ -771,6 +774,12 @@
           email: '',
           password: '',
         }
+      }
+    },
+
+    mounted(){
+      if (this.$route.query.email) {
+        this.email = this.$route.query.email;
       }
     },
 

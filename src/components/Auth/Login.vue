@@ -175,7 +175,10 @@
           }
           if (res.data.code == 200) {
             this.$router.push({
-              name: 'auth.register'
+              name: 'auth.register',
+              query: {
+                email: this.formEmail.email,
+              }
             })
           }else {
             if (res.data.data && res.data.data.email && res.data.data.email.length) {
