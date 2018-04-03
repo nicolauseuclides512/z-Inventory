@@ -719,6 +719,8 @@
             this.list.weight_unit = res.data.data.weight_unit;
             this.tax_included = res.data.data.tax_included;
             this.sales_order_number = res.data.data.sales_order.sales_order_number;
+            this.dateTime(this.salesOrderEdit.invoice_date);
+            this.dueDateTime(this.salesOrderEdit.due_date);
           } else {
             const res = await axios.get("sales_orders/create");
             if (!responseOk(res.data.code)) {
@@ -728,10 +730,10 @@
             this.list.weight_unit = res.data.data.weight_unit;
             this.tax_included = res.data.data.tax_included;
             this.sales_order_number = res.data.data.next_sales_order_number;
+            this.dateTime(new Date());
+            this.dueDateTime(new Date());
           }
 
-          await this.dateTime(this.salesOrderEdit.invoice_date);
-          await this.dueDateTime(this.salesOrderEdit.due_date);
           await this.fetchContactList();
           await this.fetchProductList();
           await this.fetchTaxSetting();
@@ -824,6 +826,7 @@
         this.form.my_sales_channel_id = sales_order.my_sales_channel_id;
         this.form.my_sales_channel = sales_order.my_sales_channel;
       },
+
       dueDateTime(setDate) {
         const dateConfig = {
           defaultDate: setDate,
@@ -833,6 +836,7 @@
         };
         $(".flatpickr-due").flatpickr(dateConfig);
       },
+
       dateTime(setDate) {
         const dateConfig = {
           defaultDate: setDate,
