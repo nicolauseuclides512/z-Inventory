@@ -770,11 +770,12 @@
         loading: false,
         organizationPortalHasChanged: false,
         showTerms: false,
-        errors: {
-          organization_name: '',
-          email: '',
-          password: '',
-        }
+        errors: {}
+        // {
+        //   organization_name: '',
+        //   email: '',
+        //   password: '',
+        // }
       }
     },
 
