@@ -37,7 +37,8 @@ const actions = {
       return await axios.post('register', data)
 
     } catch (err) {
-      console.error(err)
+      // console.error(err)
+      throw { error: err.response.data }
     }
   },
 

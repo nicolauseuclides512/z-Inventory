@@ -760,6 +760,7 @@
 <script>
   import store from 'src/store'
   import slugify from "src/helpers/slugify"
+  import swal from 'sweetalert2'
   import { responseOk, swal_error, swal_success } from 'src/helpers'
 
   export default {
@@ -877,6 +878,19 @@
           this.loading = false
 
         } catch (err) {
+            if (err && (err.error.message.email[0])) {
+              swal({
+                title: err.error.message.email[0],
+                type: 'error',
+                showConfirmButton: true,
+              })
+              // this.$router.push({
+              //   name: 'auth.login',
+              //   query: {
+              //     email: this.email,
+              //   }
+              // })
+            }
           this.loading = false
           _.each(err.data.message, message => {
             _.each(message, msg => {
