@@ -27,12 +27,7 @@
       <div class="container">
         <div>
           <div v-if="list.items === null" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
-            <i class="fa fa-5x fa-spin fa-circle-o-notch"></i>
-            <div class="lead" style="padding: 30px 0 5px;">
-              Loading
-              <br>
-              <small>Please wait...</small>
-            </div>
+            <Spinner></Spinner>
           </div>
           <div v-if="Array.isArray(list.items) && !list.items.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
             <i class="fa fa-5x fa-archive"></i>
@@ -305,7 +300,8 @@
   export default {
     components: {
       "inline-editable": () => import("../../Helpers/InlineEditable.vue"),
-      Pagination: () => import("../../Pagination")
+      Pagination: () => import("../../Pagination"),
+      Spinner: () => import('@/components/Helpers/Spinner'),
     },
 
     watch: {

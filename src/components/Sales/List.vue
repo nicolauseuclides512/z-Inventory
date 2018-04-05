@@ -71,7 +71,7 @@
         <div v-if="loadingSalesOrders" class="loading">
           <Spinner></Spinner>
         </div>
-        <div v-if="salesList.length">
+        <div v-if="salesList.length && !loadingSalesOrders">
           <div class="container full-width-header p-b-10">
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0" style="padding-left:18px">

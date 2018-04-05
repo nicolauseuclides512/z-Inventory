@@ -137,12 +137,7 @@
           </div>
         </div>
         <div v-if="contacts === null" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
-          <i class="fa fa-5x fa-spin fa-circle-o-notch"></i>
-          <div class="lead" style="padding: 30px 0 5px;">
-            Loading
-            <br>
-            <small>Please wait...</small>
-          </div>
+          <Spinner></Spinner>
         </div>
         <div v-if="Array.isArray(contacts) && !contacts.length" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
           <i class="fa fa-5x fa-address-book"></i>
@@ -240,6 +235,7 @@
     name: 'ContactList',
 
     components: {
+      Spinner: () => import('@/components/Helpers/Spinner'),
       Pagination: () => import('../Pagination'),
     },
 

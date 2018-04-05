@@ -8,7 +8,9 @@
         <!--<a href="javascript:;" @click="promptYoutube" class="btn btn-primary">Youtube URL</a>-->
         <!-- <a href="javascript:;" @click="clearAll" v-show="this.images.length > 0" class="btn btn-default">Clear all</a> -->
       </div>
-      <div v-else> Please wait... </div>
+      <div v-else>
+        <Spinner></Spinner>
+      </div>
     </header>
 
     <input ref="fileUploader" type="file" multiple accept="image/*" @change="addFromFile" style="display: none;">
@@ -22,7 +24,7 @@
           <div class="image-uploader-container-item">
               <div @click="openFileManager" class="add-new-image-btn2 p-0" style="cursor:not-allowed">
                 <i class="fa fa-image" style="font-size:12px"></i><br>
-                <p style="font-size:12px"> + Image Feature(Coming Soon)</p>        
+                <p style="font-size:12px"> + Image Feature(Coming Soon)</p>
                 </div>
             </div>
         </div>
@@ -53,7 +55,7 @@
             <div class="image-uploader-container-item">
               <div  @click="openFileManager" class="add-new-image-btn p-0">
                 <i class="fa fa-image" style="font-size:12px"></i><br>
-                <p style="font-size:12px">+ Add New Image</p>  
+                <p style="font-size:12px">+ Add New Image</p>
                 </div>
             </div>
           </div>
@@ -68,6 +70,10 @@
   import store from 'src/store'
 
   export default {
+
+    components: {
+      Spinner: () => import('@/components/Helpers/Spinner'),
+    },
 
     props: ['images'],
 

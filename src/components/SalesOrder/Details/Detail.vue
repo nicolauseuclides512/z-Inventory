@@ -3,14 +3,7 @@
 
     <div v-if="loading && !Object.keys(salesOrder).length"
          style="height: 100vh; display: flex; align-items: center; justify-content: center;">
-      <div class="text-center text-muted">
-        <i class="fa fa-5x fa-spin fa-circle-o-notch"></i>
-        <div class="lead" style="padding: 30px 0 5px;">
-          Loading
-          <br>
-          <small>Please wait...</small>
-        </div>
-      </div>
+      <Spinner></Spinner>
     </div>
 
     <!-- =========================== -->
@@ -244,6 +237,7 @@
     name: 'Detail',
 
     components: {
+      Spinner: () => import('@/components/Helpers/Spinner'),
       Invoice,
       PaymentForm,
     },
