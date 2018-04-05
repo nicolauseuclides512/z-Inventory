@@ -44,7 +44,6 @@ const mutations = {
   SALES_ORDER(state, payload) { state.salesOrder = payload },
   SALES_ORDER_ITEMS(state, payload) { state.salesOrderItems = payload },
   INVOICE_LIST(state, payload) { state.invoiceList = payload },
-  INVOICE(state, payload) { state.invoice = payload },
   SHIPMENT_LIST(state, payload) { state.shipmentList = payload },
   PAYMENT_LIST(state, payload) { state.paymentList = payload },
   CARRIER_LIST(state, payload) { state.carrierList = payload },
