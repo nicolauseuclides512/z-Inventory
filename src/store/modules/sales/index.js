@@ -167,8 +167,8 @@ const actions = {
       }
 
       commit('SALES_ORDER', res.data.data)
-      // await dispatch('getList')
-      // await dispatch('invoiceList', salesOrderId)
+      await dispatch('getList')
+      await dispatch('invoiceList', salesOrderId)
 
       await commit('SALES_ORDER_LOADING', false)
     } catch (err) {
