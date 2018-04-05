@@ -1,6 +1,6 @@
 <template>
   <div class="content-page-full" style="padding-right: 0px;">
-    <div v-if="checkedList.length > 0" class="float-CheckOpt">
+    <div v-if="checkedList.length > 0 && !loadingSalesOrders" class="float-CheckOpt">
         <div class="container">
            <div class="clearfix">
               <div class="pull-left">
@@ -21,7 +21,7 @@
     </div>
     <div class="content full-width sahito-user bgr-white" style="min-height:620px">
       <div class="container">
-        <div v-if="!salesList.length" class="text-center" style="color: #a9a9a9;">
+        <div v-if="!salesList.length && !loadingSalesOrders" class="text-center" style="color: #a9a9a9;">
           <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0" style="padding-left:33px">
                 <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
@@ -68,7 +68,9 @@
             </router-link>
           </div>
         </div>
-
+        <div v-if="loadingSalesOrders" class="loading">
+          <Spinner></Spinner>
+        </div>
         <div v-if="salesList.length">
           <div class="container full-width-header p-b-10">
             <div class="row">
@@ -179,8 +181,7 @@
                         <div class="text-muted text-center lead" style="padding: 30px 0 10px">No data</div>
                       </div>
 
-
-                      <div v-else>
+                      <div class="sales-table-wrapper" v-else>
                         <table
                           class="table table-hover default-table sahito-list-item-group-list--table sahito-sales-order-table">
                           <thead style="box-shadow: rgb(221, 221, 221) 0px 4px 2px -2px;">
@@ -453,6 +454,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -461,6 +463,7 @@
   import store from 'src/store'
   import {getParameterByName} from 'src/helpers'
   import Pagination from '../Pagination.vue'
+  import Spinner from '@/components/Helpers/Spinner'
 
   export default {
     name: 'List',
@@ -472,6 +475,7 @@
 
     components: {
       Pagination,
+      Spinner
     },
 
     watch: {
@@ -524,6 +528,10 @@
         set(value) {
           store.commit('sales/OVERVIEW', value)
         },
+      },
+
+      loadingSalesOrders() {
+        return store.getters['sales/loadingSalesList']
       },
 
       orderList: {
