@@ -380,7 +380,8 @@
                         </div> -->
 
                         <div class="row p-15" style="padding:20px 15px 15px 15px;">
-                          <div v-for="invoice in invoiceList">
+                          <Spinner v-if="!invoiceComponent || salesOrderLoading"></Spinner>
+                          <div v-if="invoiceComponent && !salesOrderLoading" v-for="invoice in invoiceList">
                             <component
                               :is="invoiceComponent"
                               :value="invoice"
@@ -486,6 +487,7 @@
   import {swal_error} from '../../helpers'
   //  import ShipmentEditModal from './Modal/ShipmentEdit'
   import Pagination from '../Pagination.vue'
+  import Spinner from '@/components/Helpers/Spinner'
   import {swal_success} from 'helpers'
 
   export default {
@@ -495,6 +497,7 @@
     components: {
       Pagination,
       Invoice,
+      Spinner,
       PaymentAddModal,
 //      PaymentEditModal,
       ShipmentAddModal,
@@ -532,7 +535,7 @@
 
     mounted() {
       this.initialize()
-
+      this.getList()
       // If shipment exists, disable create shipment button
       this.fetchShipmentData()
 
@@ -546,6 +549,10 @@
     },
 
     computed: {
+
+      salesOrderLoading() {
+        return store.getters['sales/salesOrderLoading']
+      },
 
       salesOrder: {
         get() {
@@ -822,8 +829,8 @@
         })
 
         this.salesOrderItems = item
-        const invoices = await this.getInvoiceList(item.sales_order_id)
-        const payments = await this.getPaymentListByInvoiceId(invoices[0].invoice_id)
+        // const invoices = await this.getInvoiceList(item.sales_order_id)
+        // const payments = await this.getPaymentListByInvoiceId(invoices[0].invoice_id)
 
         await store.dispatch('sales/show', item.sales_order_id)
       },

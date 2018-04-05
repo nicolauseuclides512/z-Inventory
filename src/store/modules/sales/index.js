@@ -29,6 +29,7 @@ const state = {
   checkedList: [],
   page_context: {},
   loadingSalesList: false,
+  salesOrderLoading: false,
   q: '',
 }
 
@@ -37,6 +38,7 @@ const mutations = {
   SORT(state, payload) { state.sort = payload },
   CHECKED_LIST(state, payload) { state.checkedList = payload },
   OVERVIEW(state, payload) { state.overview = payload },
+  SALES_ORDER_LOADING(state, payload) { state.salesOrderLoading = payload },
   LOADING_SALES_LIST(state, payload) { state.loadingSalesList = payload },
   SALES_LIST(state, payload) { state.salesList = payload },
   SALES_ORDER(state, payload) { state.salesOrder = payload },
@@ -157,6 +159,7 @@ const actions = {
 
   async show({state, commit, dispatch}, salesOrderId) {
     try {
+      commit('SALES_ORDER_LOADING', true)
       const res = await axios.get(`sales_orders/${salesOrderId}`)
 
       if (!responseOk(res.data.code)) {
@@ -164,10 +167,12 @@ const actions = {
       }
 
       commit('SALES_ORDER', res.data.data)
-      await dispatch('getList')
-      await dispatch('invoiceList', salesOrderId)
+      // await dispatch('getList')
+      // await dispatch('invoiceList', salesOrderId)
 
+      await commit('SALES_ORDER_LOADING', false)
     } catch (err) {
+      commit('SALES_ORDER_LOADING', false)
       console.error(err)
       if (err.hasOwnProperty('response')) {
         swal_error(err.response)
@@ -298,6 +303,10 @@ const actions = {
 }
 
 const getters = {
+  salesOrderLoading(state){
+    return state.salesOrderLoading
+  },
+
   loadingSalesList(state) {
     return state.loadingSalesList
   },
