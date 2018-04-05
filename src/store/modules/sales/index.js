@@ -28,6 +28,7 @@ const state = {
   orderList: [],
   checkedList: [],
   page_context: {},
+  loadingSalesList: false,
   q: '',
 }
 
@@ -36,6 +37,7 @@ const mutations = {
   SORT(state, payload) { state.sort = payload },
   CHECKED_LIST(state, payload) { state.checkedList = payload },
   OVERVIEW(state, payload) { state.overview = payload },
+  LOADING_SALES_LIST(state, payload) { state.loadingSalesList = payload },
   SALES_LIST(state, payload) { state.salesList = payload },
   SALES_ORDER(state, payload) { state.salesOrder = payload },
   SALES_ORDER_ITEMS(state, payload) { state.salesOrderItems = payload },
@@ -137,12 +139,14 @@ const actions = {
     const params = Object.assign({}, defaultParams, userParams)
 
     try {
+      commit('LOADING_SALES_LIST', true)
       const res = await axios.get(`sales_orders`, {params})
       commit('SALES_LIST', res.data.data)
       commit('PAGE_CONTEXT', res.data.paginate)
-
+      commit('LOADING_SALES_LIST', false)
       return res.data.data
     } catch (err) {
+      commit('LOADING_SALES_LIST', false)
       console.error(err)
       if (err.hasOwnProperty('response')) {
         swal_error(err.response)
@@ -294,6 +298,10 @@ const actions = {
 }
 
 const getters = {
+  loadingSalesList(state) {
+    return state.loadingSalesList
+  },
+
   currentFilter(state) {
     const currentFilter = state.filter
     return _.capitalize(currentFilter.split('_').join(' '))
