@@ -18,15 +18,16 @@
     <section class="image-uploader-container wrap-uploader">
       <!-- <div v-show="!images.length" class="bg">
       </div> -->
-        <div v-show="!images.length">
-          <div class="image-uploader-container-item">
-              <div @click="openFileManager" class="add-new-image-btn2 p-0" style="cursor:pointer">
-                <i class="fa fa-image" style="font-size:12px"></i><br>
-                <p style="font-size:12px"> + Image Feature(Coming Soon)</p>
-                </div>
-            </div>
+        <div v-if="!images.length  && !uploading" class="image-uploader-container-item">
+          <div @click="openFileManager" class="add-new-image-btn2 p-0" style="cursor:pointer">
+            <i class="fa fa-image" style="font-size:12px"></i><br>
+            <p style="font-size:12px"> + Upload Image </p>
+          </div>
         </div>
-        <div class="uploaded-wrap" v-show="images.length" v-for="image in images">
+        <div v-if="uploading" class="image-uploader-container-item add-new-image-btn2">
+          <SpinnerSmall></SpinnerSmall>
+        </div>
+        <div class="uploaded-wrap" v-if="images.length && !uploading" v-for="image in images">
           <div class="uploaded-image">
 
             <div class="image-uploader-container-item">
@@ -49,9 +50,13 @@
 
           </div>
         </div>
+
         <div v-show="images.length" class="uploaded-wrap">
             <div class="image-uploader-container-item">
-              <div  @click="openFileManager" class="add-new-image-btn p-0">
+              <div v-if="uploading" class="add-new-image-btn p-0">
+                <SpinnerSmall ></SpinnerSmall>
+              </div>
+              <div v-if="!uploading" @click="openFileManager" class="add-new-image-btn p-0">
                 <i class="fa fa-image" style="font-size:12px"></i><br>
                 <p style="font-size:12px">+ Add New Image</p>
                 </div>
@@ -70,9 +75,10 @@
 
     components: {
       Spinner: () => import('@/components/Helpers/Spinner'),
+      SpinnerSmall: () => import('@/components/Helpers/SpinnerSmall'),
     },
 
-    props: ['images'],
+    props: ['images','uploading'],
 
     data () {
       return {
@@ -291,6 +297,9 @@
     flex-direction: row;
     flex-wrap: wrap;
     min-height:165px;
+    .image-uploader-container-item {
+      flex: 1;
+    }
     .uploaded-wrap{
       margin: 5px 0;
       display: block;

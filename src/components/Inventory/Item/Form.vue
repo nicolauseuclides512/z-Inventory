@@ -16,6 +16,7 @@
                     <!-- <label class="col-md-2 control-label text-left">Images</label> -->
                     <div class="col-md-12 pl-pr-0">
                       <ImageUpload
+                        :uploading="uploading"
                         :images="form.item_medias"
                         @add="addImage"
                         @clear="clearImages"
@@ -429,6 +430,7 @@
 
     data() {
       return {
+        uploading: false,
         dirtyForm: false,
         stockAlert: false,
         saveType: null,
@@ -582,6 +584,7 @@
       },
 
       async addImage(image) {
+        this.uploading = true;
         try {
           const itemId = this.$route.params.id
 
@@ -595,8 +598,10 @@
           } else {
             this.form.item_medias.push(image)
           }
+          this.uploading = false
         }
         catch (err) {
+          this.uploading = false
           console.error(err)
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
