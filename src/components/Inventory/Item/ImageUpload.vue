@@ -3,33 +3,31 @@
 
     <header>
       <div v-if="!loading">
-        <!-- <a href="javascript:;" @click="openFileManager" class="btn btn-primary">Add Images</a> -->
-        <!--<a href="javascript:;" @click="promptUrl" class="btn btn-primary">Image URL</a>-->
-        <!--<a href="javascript:;" @click="promptYoutube" class="btn btn-primary">Youtube URL</a>-->
-        <!-- <a href="javascript:;" @click="clearAll" v-show="this.images.length > 0" class="btn btn-default">Clear all</a> -->
+<!--         <a href="javascript:;" @click="openFileManager" class="btn btn-primary">Add Images</a>
+        <a href="javascript:;" @click="promptUrl" class="btn btn-primary">Image URL</a>
+        <a href="javascript:;" @click="promptYoutube" class="btn btn-primary">Youtube URL</a>
+        <a href="javascript:;" @click="clearAll" v-show="this.images.length > 0" class="btn btn-default">Clear all</a> -->
       </div>
-      <div v-else>
+      <div v-if="loading">
         <Spinner></Spinner>
       </div>
     </header>
 
     <input ref="fileUploader" type="file" multiple accept="image/*" @change="addFromFile" style="display: none;">
 
-    <section class="image-uploader-container">
+    <section class="image-uploader-container wrap-uploader">
       <!-- <div v-show="!images.length" class="bg">
-
       </div> -->
-      <div class="row m-0" style="min-height:165px">
         <div v-show="!images.length">
           <div class="image-uploader-container-item">
-              <div @click="openFileManager" class="add-new-image-btn2 p-0" style="cursor:not-allowed">
+              <div @click="openFileManager" class="add-new-image-btn2 p-0" style="cursor:pointer">
                 <i class="fa fa-image" style="font-size:12px"></i><br>
                 <p style="font-size:12px"> + Image Feature(Coming Soon)</p>
                 </div>
             </div>
         </div>
-        <div v-show="images.length" v-for="image in images">
-          <div class="col-xs-6 p-0 m-t-0 m-r-0 m-l-0 m-b-5">
+        <div class="uploaded-wrap" v-show="images.length" v-for="image in images">
+          <div class="uploaded-image">
 
             <div class="image-uploader-container-item">
               <div
@@ -40,10 +38,10 @@
                 style="margin-bottom:0px"
               >
 
+                <span v-if="image.is_main" class="set-as-primary-btn">Primary image</span>
                 <div class="image-uploader-container-item-action clearfix">
                   <a href="javascript:void(0);" @click="remove(image)" title="Remove image" class="delete-btn">&times;</a>
-                  <a v-show="!image.is_main" href="javascript:void(0);" @click="setAsPrimary(image)" title="Set as primary image" class="set-as-primary-btn"> Set as primary </a>
-                  <span v-show="image.is_main"  class="set-as-primary-btn">Primary image</span>
+                  <a v-if="!image.is_main" href="javascript:void(0);" @click="setAsPrimary(image)" title="Set as primary image" class="set-as-primary-btn"> Set as primary </a>
                 </div>
 
               </div>
@@ -51,7 +49,7 @@
 
           </div>
         </div>
-        <div v-show="images.length" class="col-xs-6 p-0 m-t-0 m-r-0 m-l-0 m-b-5">
+        <div v-show="images.length" class="uploaded-wrap">
             <div class="image-uploader-container-item">
               <div  @click="openFileManager" class="add-new-image-btn p-0">
                 <i class="fa fa-image" style="font-size:12px"></i><br>
@@ -59,7 +57,6 @@
                 </div>
             </div>
           </div>
-      </div>
     </section>
   </div>
 </template>
@@ -94,7 +91,7 @@
     methods: {
 
       initialize() {
-        //this.fileUploader = this.$refs.fileUploader
+        this.fileUploader = this.$refs.fileUploader
       },
 
       setAsPrimary (image) {
@@ -285,8 +282,27 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  .image-uploader-container.wrap-uploader{
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    padding-top: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height:165px;
+    .uploaded-wrap{
+      margin: 5px 0;
+      display: block;
+    }
+    .image-uploader-container-item .image.thumbnail,
+    .primary.image.thumbnail{
+      margin: 0;
+      background-size: contain !important;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
   .image-uploader-container {
     background:transparent;
     height: 100%;
@@ -317,7 +333,7 @@
 
   .image-uploader-container-item-action {
     display: none;
-    background: rgba(0, 0, 0, 0.3);
+    // background: rgba(0, 0, 0, 0.3);
     /*margin-bottom: 10px;*/
   }
 
@@ -338,6 +354,10 @@
     color: white;
     margin-right: 5px;
     font-size: 12px;
+    padding: 5px;
+    border-radius: 2px;
+    font-weight: bold;
+    background: #006090;
   }
 
   .add-new-image-btn {
