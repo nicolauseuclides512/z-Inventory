@@ -464,6 +464,7 @@
   import {getParameterByName} from 'src/helpers'
   import Pagination from '../Pagination.vue'
   import Spinner from '@/components/Helpers/Spinner'
+  import {mapGetters} from 'vuex'
 
   export default {
     name: 'List',
@@ -529,10 +530,13 @@
           store.commit('sales/OVERVIEW', value)
         },
       },
-
-      loadingSalesOrders() {
-        return store.getters['sales/loadingSalesList']
-      },
+      ...mapGetters({
+        loadingSalesOrders: 'sales/loadingSalesList',
+        currentFilter: 'sales/currentFilter'
+      }),
+      // loadingSalesOrders() {
+      //   return store.getters['sales/loadingSalesList']
+      // },
 
       orderList: {
         get() {
@@ -543,9 +547,9 @@
         },
       },
 
-      currentFilter() {
-        return store.getters['sales/currentFilter']
-      },
+      // currentFilter() {
+      //   return store.getters['sales/currentFilter']
+      // },
 
       checkedList: {
         get() {
