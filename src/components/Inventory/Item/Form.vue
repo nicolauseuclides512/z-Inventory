@@ -414,6 +414,7 @@
 
 <script>
   import Axios from 'axios'
+  import {responseOk, swal_error, swal_success} from 'helpers'
   import ImageUpload from './ImageUpload'
   import Form from 'src/helpers/Form'
   import store from 'src/store'
