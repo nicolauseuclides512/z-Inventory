@@ -136,13 +136,13 @@
         paymentMethodDetails: [],
         form: new Form({
           reference_number: '',
-          date: '',
-          currency: '',
+          date: new Date().toISOString().split('T')[0],
+          currency: 1,
           amount: 0,
           notes: '',
           payment_mode_id: '',
           payment_account_id: '',
-          send_receipt: '',
+          send_receipt: 0,
         }),
       }
     },
