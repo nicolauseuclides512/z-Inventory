@@ -104,6 +104,12 @@
   export default {
     name: 'PaymentForm',
 
+    watch: {
+      '$route.params.id'() {
+        this.fetch()
+      }
+    },
+
     data () {
       return {
         ui: {
@@ -131,11 +137,7 @@
     },
 
     async mounted () {
-      const salesOrderId = this.$route.params.id
-      this.$store.dispatch('salesOrders/createPayment', salesOrderId)
-        .then(async (createPayment) => {
-          this.form.amount = createPayment.due_payment
-        })
+      this.fetch()
 
       $('.flatpickr').flatpickr({
         defaultDate: new Date(),
@@ -146,6 +148,14 @@
     },
 
     methods: {
+      fetch() {
+        const salesOrderId = parseInt(this.$route.params.id)
+        this.$store.dispatch('salesOrders/createPayment', salesOrderId)
+          .then(async (createPayment) => {
+            this.form.amount = createPayment.due_payment
+          })
+      },
+
       /**
        * Change payment mode
        * @param {int} payment_mode_id
