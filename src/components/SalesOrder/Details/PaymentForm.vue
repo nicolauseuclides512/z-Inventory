@@ -19,7 +19,7 @@
                         v-model.number="form.amount"
                         required
                         class="form-control"
-                        min="0"
+                        :min="0"
                         separator="."
                       />
                     </div>
@@ -115,6 +115,13 @@
       VueNumeric
     },
 
+    props: {
+      invoiceList: {
+        type: Array,
+        default: () => { return [] }
+      }
+    },
+
     watch: {
       '$route.params.id'() {
         this.fetch()
@@ -185,7 +192,10 @@
         try {
           this.ui.saving = true
 
-          const url = `sales_orders/${this.sales_order_id}/invoices/${this.invoice_id}/payments`
+          const salesOrderId = this.$route.params.id
+          const invoiceId = this.invoiceList[this.invoiceList.length - 1].invoice_id
+
+          const url = `sales_orders/${salesOrderId}/invoices/${invoiceId}/payments`
           const res = await this.form.post(url)
 
           if (!responseOk(res.data.code)) {

@@ -216,7 +216,9 @@
     <!-- Payment Record Form Modal   -->
     <!-- =========================== -->
 
-    <PaymentForm />
+    <PaymentForm
+      :invoiceList="invoiceList"
+    />
 
     <!-- =========================== -->
     <!-- END Payment Record Form Modal -->
