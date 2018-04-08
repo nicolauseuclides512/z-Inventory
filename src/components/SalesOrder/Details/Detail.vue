@@ -307,7 +307,7 @@
        */
       async sendInvoiceAsMail () {
         const sales_order_id = parseInt(this.$route.params.id)
-        const invoice_id = parseInt(store.state.sales.invoiceList[0].invoice_id)
+        const invoice_id = parseInt(this.invoiceList[0].invoice_id)
         this.$router.push({name: 'sales.email', params: {sales_order_id, invoice_id}})
       },
 
