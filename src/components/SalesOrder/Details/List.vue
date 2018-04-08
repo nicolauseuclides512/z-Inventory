@@ -84,7 +84,7 @@
     <!-- =========================== -->
 
     <table class="table">
-      <tr v-for="salesOrder in salesOrderList" :key="salesOrder.sales_order_id">
+      <tr v-for="salesOrder in salesOrderList" :key="salesOrder.sales_order_id" :class="{active: parseInt(salesOrder.sales_order_id) === parseInt($route.params.id)}">
         <td width="1%" @click="addCheck">
           <div class="checkbox checkbox-single checkbox-success">
             <input
@@ -284,16 +284,33 @@
     padding: 10px 0;
   }
 
+  table tr:hover td {
+    cursor: pointer;
+    background: #f6f6f6;
+  }
+
+  table tr:hover td:first-child {
+    border-left: 2px solid #3fb8e6;
+  }
+
   table tr td:first-child {
     padding-left: 10px;
+    border-left: 2px solid transparent;
+  }
+
+  table tr.active td {
+    background: #f9f9f9;
+  }
+
+  table tr.active:hover td {
+    background: #f6f6f6;
+  }
+
+  table tr.active td:first-child {
+    border-left: 2px solid #2FA3E6;
   }
 
   table tr td:last-child {
     padding-right: 10px;
-  }
-
-  table tr:hover td {
-    background: #f5f5f5;
-    cursor: pointer;
   }
 </style>
