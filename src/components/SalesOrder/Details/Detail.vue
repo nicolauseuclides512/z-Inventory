@@ -285,12 +285,11 @@
         const salesOrderId = this.$route.params.id
 
         // Fetch invoice list
-        await this.getInvoiceList(parseInt(salesOrderId))
-        const invoiceId = store.state.sales.invoiceList[0].invoice_id
+        const invoiceId = this.invoiceList[0].invoice_id
 
         const url = window.BASE_URL + `/sales_orders/${salesOrderId}/invoices/${invoiceId}/pdf`
 
-        const response = await axios.get(url, {
+        const response = await Axios.get(url, {
           responseType: 'arraybuffer',
           headers: {
             'Content-Type': 'application/pdf',
