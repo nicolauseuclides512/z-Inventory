@@ -49,7 +49,7 @@
             </div>
             <div class="dropdown pull-left" style="margin-right: 10px;">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
-                      v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE') && salesOrder.sales_order_status != 'DRAFT'">
+                      v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE' || salesOrder.invoice_status === 'PARTIALLY_PAID') && salesOrder.sales_order_status != 'DRAFT'">
                 Record
                 <span class="caret"></span>
               </button>
