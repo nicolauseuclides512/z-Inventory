@@ -12,7 +12,7 @@
         <div class="ribbon-overdue"><span>{{ value.sales_order.invoice_status }}</span></div>
       </div>
       <div v-else-if="value.invoice_status === 'PARTIALLY_PAID'">
-        <div class="ribbon-partially"><span>{{ value.invoice_status }}</span></div>
+        <div class="ribbon-partially"><span>{{ value.invoice_status.replace(/_/, ' ') }}</span></div>
       </div>
       <div v-else-if="value.invoice_status === 'VOID'">
         <div class="ribbon-void"><span>{{ value.invoice_status }}</span></div>
@@ -66,8 +66,8 @@
           <div class="billto" style="min-height:144px">
             <p>Bill to</p>
             <h4 style="color: black;">{{ buyer_name }}</h4>
-            <p style="color: black;">{{ buyer_phone }}</p> 
-            <p style="color: black;">{{ buyer_mobile }}</p> 
+            <p style="color: black;">{{ buyer_phone }}</p>
+            <p style="color: black;">{{ buyer_mobile }}</p>
             <p style="color: black;">{{ buyer_address }}</p>
             <p style="color: black;">{{ buyer_region }}</p>
             <p style="color: black;">{{ buyer_district }}</p>
@@ -234,8 +234,8 @@ export default {
       buyer_district: "",
       buyer_province: "",
       buyer_zip: "",
-      buyer_country: "", 
-      buyer_phone: "", 
+      buyer_country: "",
+      buyer_phone: "",
       buyer_mobile: ""
     };
   },
@@ -291,8 +291,8 @@ export default {
     async getBuyerinfo() {
       this.buyer_name = this.value.contact.display_name;
 
-      this.buyer_phone = this.value.contact.phone; 
-      this.buyer_mobile = this.value.contact.mobile; 
+      this.buyer_phone = this.value.contact.phone;
+      this.buyer_mobile = this.value.contact.mobile;
 
       this.buyer_address = this.value.billing_address
         ? this.value.billing_address
@@ -361,4 +361,3 @@ td span:first-child{ /* compatible to >=IE7 */
     float:left;
 }
  </style>
- 
