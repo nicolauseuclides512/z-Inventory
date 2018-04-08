@@ -15,7 +15,13 @@
                   <div class="col-md-6">
                     <div class="input-group">
                       <span class="input-group-addon">Rp</span>
-                      <input type="number" v-model.number="form.amount" required class="form-control" min="0">
+                      <vue-numeric
+                        v-model.number="form.amount"
+                        required
+                        class="form-control"
+                        min="0"
+                        separator="."
+                      />
                     </div>
                   </div>
                 </div>
@@ -94,6 +100,7 @@
 </template>
 
 <script>
+  import VueNumeric from 'vue-numeric'
   import Axios from 'axios'
   import Form from '@/helpers/Form'
   import {responseOk} from '@/helpers';
@@ -103,6 +110,10 @@
 
   export default {
     name: 'PaymentForm',
+
+    components: {
+      VueNumeric
+    },
 
     watch: {
       '$route.params.id'() {
