@@ -13,30 +13,31 @@
     <div v-if="!loading && Object.keys(salesOrder).length">
       <div class="row">
         <div class="col-md-12">
-          <h4 class="pull-left page-title">
-            <span class="text-muted">#</span>
-            <span style="margin-right:15px">{{salesOrder.sales_order_number}}</span>
-            <div class="btn-group" role="group">
-              <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
-                      title="View as PDF" @click="viewInvoice"><i class="fa fa-file-pdf-o"></i></button>
-              <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
-                      title="Print" @click="viewInvoice"><i class="fa fa-print"></i></button>
-              <button
-                type="button"
-                class="btn btn-default"
-                data-toggle="tooltip"
-                data-placement="top"
-                title="Send as mail"
-                :disabled="sendingEmail"
-                @click="sendInvoiceAsMail"
-              >
-                <i class="fa fa-envelope-o" v-if="!sendingEmail"></i>
-                <i class="fa fa-spin fa-spinner" v-else="sendingEmail"></i>
-              </button>
-            </div>
+          <div class="clearfix m-b-30">
+            <h4 class="pull-left page-title m-0">
+              <span class="text-muted">#</span>
+              <span style="margin-right:15px">{{salesOrder.sales_order_number}}</span>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
+                        title="View as PDF" @click="viewInvoice"><i class="fa fa-file-pdf-o"></i></button>
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
+                        title="Print" @click="viewInvoice"><i class="fa fa-print"></i></button>
+                <button
+                  type="button"
+                  class="btn btn-default"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Send as mail"
+                  :disabled="sendingEmail"
+                  @click="sendInvoiceAsMail"
+                >
+                  <i class="fa fa-envelope-o" v-if="!sendingEmail"></i>
+                  <i class="fa fa-spin fa-spinner" v-else="sendingEmail"></i>
+                </button>
+              </div>
 
-          </h4>
-          <div class="pull-right">
+            </h4>
+            <div class="pull-right">
             <div class="pull-left" style="margin-right: 10px;">
               <router-link
                 :to="{ name: 'sales.edit', param: { id: salesOrder.sales_order_id } }"
@@ -90,7 +91,7 @@
             </div>
 
           </div>
-
+          </div>
         </div>
       </div>
     </div>
