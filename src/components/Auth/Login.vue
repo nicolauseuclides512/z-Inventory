@@ -290,12 +290,31 @@
           if (err.response.data.message === 'invalid_credentials') {
             err.message = 'Password or Email does not match'
           }
+          if (err.response.data.message === 'Account does not exist.') {
+            swal({
+              title: 'Account does not exist.',
+              text: "Please register your email.",
+              type: 'warning',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Yes, sign me up!'
+            }).then((result) => {
+              if (result.value) {
+                this.$router.push({
+                  name: 'auth.register.company',
+                  query: {
+                    email: this.form.username,
+                  }
+                })
+              }
+            })
 
-          swal({
-            title: err.message,
-            type: 'error',
-            showConfirmButton: true,
-          }).catch(swal.noop)
+          }else{
+            swal({
+              title: err.response.data.message,
+              type: 'error',
+              showConfirmButton: true,
+            }).catch(swal.noop)
+          }
 
           this.loading = false
 
