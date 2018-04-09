@@ -32,7 +32,7 @@
                   Reset
                 </button>
                 <button
-                  v-else=""
+                  v-else
                   class="btn btn-lg btn-disabled waves-effect waves-light"
                   disabled
                 >
@@ -82,7 +82,7 @@
           this.loading = true
 
           const res = await Axios.post('password/request_reset', {
-            email: this.email, 
+            email: this.email,
             application: 'inventory'
           })
 
