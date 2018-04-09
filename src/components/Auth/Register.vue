@@ -840,27 +840,27 @@
           this.loading = true
           const res = await store.dispatch('registration/register')
 
-          if (!responseOk(res.data.code)) {
+          // if (!responseOk(res.data.code)) {
 
-            if (res.data.hasOwnProperty('message') && res.data.message.hasOwnProperty('organization_portal')) {
-              this.errors.organization_portal = res.data.message.organization_portal[0]
-            }
+          //   if (res.data.hasOwnProperty('message') && res.data.message.hasOwnProperty('organization_portal')) {
+          //     this.errors.organization_portal = res.data.message.organization_portal[0]
+          //   }
 
-            if (res.data.hasOwnProperty('message') && res.data.message.hasOwnProperty('organization_name')) {
-              this.errors.organization_name = res.data.message.organization_name[0]
-            }
+          //   if (res.data.hasOwnProperty('message') && res.data.message.hasOwnProperty('organization_name')) {
+          //     this.errors.organization_name = res.data.message.organization_name[0]
+          //   }
 
-            if (res.data.hasOwnProperty('message') && res.data.message.hasOwnProperty('email')) {
-              this.errors.email = res.data.message.email[0]
-            }
+          //   if (res.data.hasOwnProperty('message') && res.data.message.hasOwnProperty('email')) {
+          //     this.errors.email = res.data.message.email[0]
+          //   }
 
-            if (res.data.hasOwnProperty('message') && res.data.message.hasOwnProperty('password')) {
-              this.errors.password = res.data.message.password[0]
-            }
+          //   if (res.data.hasOwnProperty('message') && res.data.message.hasOwnProperty('password')) {
+          //     this.errors.password = res.data.message.password[0]
+          //   }
 
-            this.loading = false
-            return;
-          }
+          //   this.loading = false
+          //   return;
+          // }
 
           if (res.data.message === 'User is not registered on this application.') {
             this.$router.push({
@@ -878,25 +878,39 @@
           this.loading = false
 
         } catch (err) {
-            if (err && (err.error.message.email[0])) {
+            this.loading = false
+            console.log(err.error)
+            if(err.error){
+              if (err.error.hasOwnProperty('message') && err.error.message.hasOwnProperty('organization_portal')) {
+                this.errors.organization_portal = err.error.message.organization_portal[0]
+              }
+
+              if (err.error.hasOwnProperty('message') && err.error.message.hasOwnProperty('organization_name')) {
+                this.errors.organization_name = err.error.message.organization_name[0]
+              }
+
+              if (err.error.hasOwnProperty('message') && err.error.message.hasOwnProperty('email')) {
+                this.errors.email = err.error.message.email[0]
+              }
+
+              if (err.error.hasOwnProperty('message') && err.error.message.hasOwnProperty('password')) {
+                this.errors.password = err.error.message.password[0]
+              }
+            }
+            if (err && err.error.message && err.error.message.email && (err.error.message.email[0])) {
               swal({
                 title: err.error.message.email[0],
                 type: 'error',
                 showConfirmButton: true,
               })
-              // this.$router.push({
-              //   name: 'auth.login',
-              //   query: {
-              //     email: this.email,
-              //   }
-              // })
             }
-          this.loading = false
-          _.each(err.data.message, message => {
-            _.each(message, msg => {
-              Alert.error(msg)
-            })
-          })
+            if(err.data && err.data.message){
+              _.each(err.data.message, message => {
+                _.each(message, msg => {
+                  Alert.error(msg)
+                })
+              })
+            }
         }
       },
 
