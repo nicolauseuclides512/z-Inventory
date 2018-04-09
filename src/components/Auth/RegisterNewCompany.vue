@@ -131,38 +131,6 @@
 
           const res = await this.form.post(`register/organization`)
 
-          // There's a lot checker because inconsistency and server returns status code 200
-          if (res.data.message.hasOwnProperty('password')) {
-            Alert.error(res.data.message.password[0])
-            return
-          }
-
-          if (res.data.message.hasOwnProperty('email')) {
-            Alert.error(res.data.message.email[0])
-            return
-          }
-
-          if (res.data.message.hasOwnProperty('organization_name')) {
-            Alert.error(`Invalid Organization Name`)
-            return
-          }
-
-          if (res.data.message.hasOwnProperty('organization_portal')) {
-            Alert.error(res.data.message.organization_portal[0])
-            return
-          }
-
-          if (res.data.message === 'wrong input password.') {
-            Alert.error(res.data.message)
-            return
-          }
-
-          if (res.data.message === 'User already registered') {
-            Alert.success(res.data.message)
-            this.$router.push({name: 'auth.login'})
-            return
-          }
-
           if (res.data.code === 200 || res.data.code === 201 || res.data.message === 'organization created.') {
             Alert.success(res.data.message)
             this.$router.push({name: 'auth.login'})
@@ -176,9 +144,42 @@
 
         }
         catch (err) {
-          console.error(err)
+          console.log(err.response.data.code)
+
+          // There's a lot checker because inconsistency and server returns status code 200
+          if (err.response.data.message.hasOwnProperty('password')) {
+            Alert.error(err.response.data.message.password[0])
+            return
+          }
+
+          if (err.response.data.message.hasOwnProperty('email')) {
+            Alert.error(err.response.data.message.email[0])
+            return
+          }
+
+          if (err.response.data.message.hasOwnProperty('organization_name')) {
+            Alert.error(`Invalid Organization Name`)
+            return
+          }
+
+          if (err.response.data.message.hasOwnProperty('organization_portal')) {
+            Alert.error(err.response.data.message.organization_portal[0])
+            return
+          }
+
+          if (err.response.data.message === 'wrong input password.') {
+            Alert.error(err.response.data.message)
+            return
+          }
+
+          if (err.response.data.message === 'User already registered') {
+            Alert.success(err.response.data.message)
+            this.$router.push({name: 'auth.login'})
+            return
+          }
+
           if (err.hasOwnProperty('response')) {
-            Alert.error(err.response.message)
+            Alert.error(err.response.data.message)
           }
         }
       }
