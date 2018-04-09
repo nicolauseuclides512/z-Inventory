@@ -28,7 +28,7 @@
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Adjustment ID</label>
                       <div class="col-md-4">
-                      
+
                           <input v-model="form.stock_adjustment_id"
                                 disabled
                                 required
@@ -547,16 +547,17 @@ export default {
           const res = await Axios.post(`stock_adjustments`, data);
 
           if (!responseOk(res.data.code)) {
-            return swal_error(res);
+            return swal_error(res.data.message);
           } else {
             swal_success(res);
             this.$router.push({ name: "stock_adjustment.index" });
           }
         }
-      } catch (err) {
-        console.error(err);
-        if (err.hasOwnProperty("message")) {
-          swal_error(err.response);
+      }
+      catch (err) {
+        const errorMessage = _.first(Object.values(err.response.data.data)[0])
+        if (err.response && err.response.data) {
+          Alert.error(errorMessage)
         }
       }
     },
