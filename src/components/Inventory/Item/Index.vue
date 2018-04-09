@@ -479,9 +479,8 @@
           async () => {
             const ids = this.checkedItems.join(",");
             //const queryString = _.isArray(ids) ? ids.join(',') : ids
-              Axios.delete('items?ids=' + ids).then(
+              await Axios.delete('items?ids=' + ids).then(
                 res => {
-                  console.log(res)
                   if(responseOk(res.data.code)){
                     this.clearCheckedItems();
                     this.list.items = [];
