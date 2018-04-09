@@ -105,7 +105,8 @@
 
 <script>
   import axios from 'axios'
-  import {responseOk, swal_error, swal_success} from "../../helpers";
+  import swal from 'sweetalert2'
+  import {responseOk, swal_error, swal_success} from "../../helpers"
 
   export default {
     name: 'ChangePassword',
@@ -174,20 +175,27 @@
           password_confirmation: this.passwords.reenter_pass,
         };
 
-        try {
-          const res = await axios.post('profile/change_password', payload)
-          if (!responseOk(res.data.code)) return swal_error(res)
-
-          swal_success(res)
-          this.reset()
-
-        } catch(err) {
-          console.error(err)
-          if (err.hasOwnProperty('response')) {
+        await axios.post('profile/change_password', payload).then(res => {
+          // console.log(res)
+          if (responseOk(res.data.code) && res.data.message){
+            swal_success(res.data.message)
+            this.reset()
+          }
+        }).catch(err =>{
+          if (err.response && err.response.data && err.response.data.message) {
+            const errorMessage = _.first(Object.values(err.response.data.message)[0])
+            alert(errorMessage)
+            // swal({
+            //   title: errorMessage,
+            //   type: 'error',
+            //   showConfirmButton: true,
+            // })
+          }
+          if(err.hasOwnProperty('response')) {
             swal_error(err.response);
           }
-        }
-
+          this.reset()
+        })
       },
 
       reset() {
