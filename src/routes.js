@@ -183,15 +183,15 @@ export default [
         component: () => import('./components/Sales/Form'),
       },
 
+      // {
+      //   path: '/sales/:id/detail',
+      //   name: 'sales.detail',
+      //   component: () => import('./components/Sales/Detail'),
+      // },
+
       {
         path: '/sales/:id/detail',
         name: 'sales.detail',
-        component: () => import('./components/Sales/Detail'),
-      },
-
-      {
-        path: '/sales/:id/details',
-        name: 'sales.details',
         component: () => import('./components/SalesOrder/Details/Main'),
       },
 
