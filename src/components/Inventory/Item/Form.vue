@@ -572,11 +572,17 @@
           }
         }
         catch (err) {
-          console.error(err)
-          if (err.hasOwnProperty('response')) {
-            swal_error(err.response)
+          const errorMessage = _.first(Object.values(err.response.data.data)[0])
+          if (err.response && err.response.data) {
+            Alert.error(errorMessage)
           }
         }
+        // catch (err) {
+        //   console.error(err)
+        //   if (err.hasOwnProperty('response')) {
+        //     swal_error(err.response)
+        //   }
+        // }
       },
 
       cancel() {
