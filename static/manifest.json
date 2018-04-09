@@ -1,10 +1,30 @@
 {
   "name": "Zuragan",
   "short_name": "Zuragan",
-  "description": "Zuragan Invoicing",
-  "start_url": "/?utm_source=homescreen",
+  "description": "Smart invoice and inventory manager for your multiple online store",
+  "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "background_color": "#fff",
-  "theme_color": "#fff"
+  "theme_color": "#fff",
+  "lang": "id-ID",
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.zuragan.apps.siomay",
+      "url": "https://play.google.com/store/apps/details?id=com.zuragan.apps.siomay"
+    }
+  ],
+  "icons": [
+    {
+     "src": "\/static\/.favicon.png",
+     "sizes": "204x204",
+     "type": "image\/png"
+    }
+  ],
+  "serviceworker": {
+    "src": "service-worker.js",
+    "use_cache": false
+  }
 }

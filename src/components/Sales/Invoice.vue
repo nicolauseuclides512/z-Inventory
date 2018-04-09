@@ -144,7 +144,7 @@
                 <td colspan="1">Shipping Charge</td>
                 <td colspan="2">{{ value.shipping_charge | money }}</td>
               </tr> -->
-              <tr class="sub-total" v-if="value.tax">
+              <tr class="sub-total" v-if="value.tax  > 0">
                 <td colspan="3"></td>
                 <td class="text-left" colspan="1">Tax</td>
                 <td colspan="1">
@@ -152,7 +152,7 @@
                     <span v-else>Rp</span><span>{{ value.tax | decimalformat }}</span>
                 </td>
               </tr>
-              <tr class="sub-total" v-if="value.adjustment_value">
+              <tr class="sub-total" v-if="value.adjustment_value > 0">
                 <td colspan="3"></td>
                 <td colspan="1" class="text-left">{{ value.adjustment_name || 'Adjustment' }}</td>
                 <td colspan="1"><span>Rp</span><span>{{ Number(value.adjustment_value) | decimalformat }}</span></td>

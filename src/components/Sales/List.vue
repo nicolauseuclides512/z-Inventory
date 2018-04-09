@@ -391,7 +391,7 @@
                                           <!--<td colspan="4" class="text-right text-bold">Shipment Charge</td>-->
                                           <!--<td>{{ overview.shipping_charge | money }}</td>-->
                                           <!--</tr>-->
-                                          <tr class="sub-total">
+                                          <tr v-if="overview.adjustment_value > 0" class="sub-total">
                                             <td colspan="3" >
                                             <td colspan="1" style="font-size: 1em;">{{ overview.adjustment_name ||
                                               'Adjustment' }}
@@ -400,7 +400,7 @@
                                               Number(overview.adjustment_value) | money }}
                                             </td>
                                           </tr>
-                                          <tr class="sub-total">
+                                          <tr v-if="overview.tax > 0" class="sub-total">
                                             <td colspan="3" >
                                             <td style="font-size: 1em;">Tax</td>
                                             <td class="text-right" style="font-size: 1em;">

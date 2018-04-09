@@ -752,7 +752,12 @@
       },
 
       changeProductQty(item){
-        item.item_quantity = this.limiQuantity(item.item_quantity, 0, item.item.stock_quantity)
+        if(item.stock_quantity){
+          item.item_quantity = this.limiQuantity(item.item_quantity, 0, item.stock_quantity)
+        }
+        if(item.item && item.item.stock_quantity){
+          item.item_quantity = this.limiQuantity(item.item_quantity, 0, item.item.stock_quantity)
+        }
         item.item_quantity = item.item_quantity
       },
 
