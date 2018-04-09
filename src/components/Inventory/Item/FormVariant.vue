@@ -29,7 +29,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="col-md-8">
 
             <!-- Info -->
@@ -159,7 +159,7 @@
             </div>
 
             <!--Generate Variant -->
-           
+
             <div class="panel panel-default">
               <div class="panel-body" >
                 <div v-if="form.item_id">
@@ -182,7 +182,7 @@
                         </div>
                         <div class="modal-footer" style="padding-top: 10px;">
                           <button @click="toggleVariantListModal" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div> 
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -194,17 +194,17 @@
                     @remove="deleteChildrenItem"
                     @children-updated="updateChildren"
                   />
-                </div> 
+                </div>
               </div>
             </div>
 
           <div class="col-md-10 pull-right">
           <!--Variant List -->
           </div>
-          
+
           </div>
           </div>
-          
+
 
           <!-- <div class="container full-width-header bt-1 p-b-10 m-b-20">
             <div class="row">
@@ -599,9 +599,10 @@
           }
         }
         catch (err) {
-          console.error(err)
-          if (err.hasOwnProperty('response')) {
-            swal_error(err.response)
+          // Object.values(err.response.data)[0]
+          const errorMessage = _.first(Object.values(err.response.data.data)[0])
+          if (err.response && err.response.data) {
+            Alert.error(errorMessage)
           }
         }
 
@@ -635,13 +636,13 @@
           const itemId = this.$route.params.id
 
           if (itemId) {
-            const res = await Axios.delete(`items/${itemId}/images/remove/${image.item_media_id}`)
-
-            if (!responseOk(res.data.code)) {
+            await Axios.delete(`items/${itemId}/images/remove/${image.item_media_id}`).then(res => {
+              if(responseOk(res.data.code)){
+                swal_success(res)
+              }
+            }).catch(err =>{
               swal_error(res)
-            }
-
-            swal_success(res)
+            })
           }
 
           const index = this.form.item_medias.indexOf(image)
