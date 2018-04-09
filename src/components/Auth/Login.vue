@@ -280,13 +280,14 @@
         }
         catch (err) {
           console.error(err)
+          console.log(err.response.data.message)
 
-          if (err.message === 'Account not verified.') {
+          if (err.response.data.message === 'Account not verified.') {
             this.notVerified = true
-            err.message = "Account not verified. Please verify by click a link in email. Or resend verification email if you don't get one."
+            err.response.data.message = "Account not verified. Please verify by click a link in email. Or resend verification email if you don't get one."
           }
 
-          if (err.message === 'invalid_credentials') {
+          if (err.response.data.message === 'invalid_credentials') {
             err.message = 'Password or Email does not match'
           }
 
