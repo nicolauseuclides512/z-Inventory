@@ -294,8 +294,7 @@
 
   import Axios from 'axios'
   import {getParameterByName} from "src/helpers";
-  //import { responseOk } from '@/helpers'
-  import {responseOk, swal_error, swal_success} from 'src/helpers'
+  import {responseOk, swal_error, swal_success} from '@/helpers'
 
   export default {
     components: {
@@ -480,34 +479,20 @@
           async () => {
             const ids = this.checkedItems.join(",");
             //const queryString = _.isArray(ids) ? ids.join(',') : ids
-
-              const res = await Axios.delete('items?ids=' + ids)
-
-              if (!responseOk(res.data.code)) {
-                return swal_error(res);
-                //Alert.error('Delete item(s) failed. Some items related to some Sales Orders')
-              } else {
-                this.clearCheckedItems();
-                this.list.items = [];
-                this.refreshList();
-                Alert.success('Item(s) deleted')
-                //return swal_success(res)
-              }
-
-            // this.$http.delete(`items?ids=${ids}`).then(
-            //   res => {
-            //     if ([0, 200, 201].indexOf(res.data.code) === -1)
-            //       return swal_error(res);
-
-            //     this.clearCheckedItems();
-            //     this.list.items = [];
-            //     this.refreshList();
-            //     Alert.success(res.data.message);
-            //   },
-            //   res => {
-            //     return swal_error(res);
-            //   }
-            // );
+              Axios.delete('items?ids=' + ids).then(
+                res => {
+                  console.log(res)
+                  if(responseOk(res.data.code)){
+                    this.clearCheckedItems();
+                    this.list.items = [];
+                    this.refreshList();
+                    Alert.success('Item(s) deleted')
+                  }
+                }
+              )
+              .catch(err => {
+                swal_error(err.response)
+              })
           }
         );
       },
