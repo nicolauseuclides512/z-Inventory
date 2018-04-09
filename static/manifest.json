@@ -12,15 +12,15 @@
   "related_applications": [
     {
       "platform": "play",
-      "id": "com.zuragan.apps.siomay"
+      "id": "com.zuragan.apps.siomay",
+      "url": "https://play.google.com/store/apps/details?id=com.zuragan.apps.siomay"
     }
   ],
   "icons": [
     {
      "src": "\/static\/.favicon.png",
      "sizes": "204x204",
-     "type": "image\/png",
-     "density": "1.0"
+     "type": "image\/png"
     }
   ],
   "serviceworker": {
