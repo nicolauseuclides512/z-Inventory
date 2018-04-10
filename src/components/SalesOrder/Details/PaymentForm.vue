@@ -5,7 +5,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title">Add Payment</h4>
+            <h4 class="modal-title">Add Payment halo</h4>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -196,27 +196,32 @@
           const invoiceId = this.invoiceList[this.invoiceList.length - 1].invoice_id
 
           const url = `sales_orders/${salesOrderId}/invoices/${invoiceId}/payments`
-          const res = await this.form.post(url)
+          await Axios.post(url, this.form).then(
+            res => {
+              // console.log(res)
+              if(responseOk(res.data.code)){
 
-          if (!responseOk(res.data.code)) {
+                this.$emit('success', res.data.data)
+
+                swal_success(res)
+
+                $('#payment-modal-add').modal('hide')
+
+                this.ui.saving = false
+              }
+          }).catch(
+            err => {
             throw new Error(`I got code: ${res.data.code} from server.`)
-          }
-
-          this.$emit('success', res.data.data)
-
-          swal_success(res)
-
-          $('#payment-modal-add').modal('hide')
-
-          this.ui.saving = false
+            Alert.error(`I got code: ${res.data.code} from server.`)
+          });
 
         } catch (err) {
           this.ui.saving = false
-          console.error(err)
+          // console.log(err)
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
           } else {
-            Alert.error('Can not save the payment')
+            Alert.error('Can not save the payment '+ err)
           }
         }
       },
