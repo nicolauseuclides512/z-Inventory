@@ -55,9 +55,9 @@
                           Remove logo
                         </a>
                       </div>
-                      <div v-if="uploading" class="lead text-muted">Uploading logo...</div>
-                      <div v-if="removing" class="lead text-muted">Removing logo...</div>
-
+                      <div v-if="uploading || removing" class="lead d-flex">
+                        <SpinnerSmall></SpinnerSmall>
+                      </div>
                     </div>
                     <div class="col-md-8">
                       <p class="note-text">
@@ -144,12 +144,12 @@
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-3 control-label text-left">Zip/Postal Code</label>
                     <div class="col-md-5">
-                      <input type="text" id="zip" 
-                      v-model.trim="form.zip" 
+                      <input type="text" id="zip"
+                      v-model.trim="form.zip"
                       @keyup="inputZip($event)"
                       @blur="inputZip($event)"
                       @keypress="zipCheck()"
-                      class="form-control" 
+                      class="form-control"
                       placeholder=""
                       minlenght="5" maxlength="5"/>
                     </div>
@@ -195,6 +195,10 @@
 
   export default {
     name: 'OrganizationProfile',
+
+    components: {
+      SpinnerSmall: () => import('@/components/Helpers/SpinnerSmall'),
+    },
 
     data () {
       return {
@@ -329,7 +333,7 @@
       },
 
       async save () {
-        
+
         try {
           const data = {
             name: this.form.name,
@@ -349,7 +353,7 @@
               if (!responseOk(res.data.code)) {
                 swal_error(res)
               } else {
-                swal_success(res) 
+                swal_success(res)
               }
             } else {
               Alert.error('Please type a correct  zip code')
@@ -433,6 +437,13 @@
 </script>
 
 <style scoped>
+  .d-flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
   fieldset {
     margin-top: 20px;
   }
@@ -464,8 +475,11 @@
   }
 
   .custom-dropzone {
+    justify-content: center;
+    align-items: center;
     padding: 0;
     position: relative;
+    background-color: transparent;
     display: flex;
   }
 
