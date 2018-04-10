@@ -36,14 +36,15 @@
 
     data () {
       return {
-        //
+        salesOrderRoute: this.$route.params.id
       }
     },
 
     computed: {},
 
     async mounted () {
-      //
+      //load content if users directly hit url
+      this.selectSalesOrder(this.salesOrderRoute)
     },
 
     methods: {
