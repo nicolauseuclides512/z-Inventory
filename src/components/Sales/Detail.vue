@@ -7,7 +7,7 @@
 
         <!-- Payment Modal -->
 
-        <PaymentAddModal @success="refreshCurrentSalesOrderData"></PaymentAddModal>
+        <PaymentAddModal @success="refreshCurrentSalesOrderData($event)"></PaymentAddModal>
 
         <!--<PaymentEditModal-->
         <!--:payment="form.payment"-->
