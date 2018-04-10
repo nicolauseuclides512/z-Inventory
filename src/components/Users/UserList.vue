@@ -119,7 +119,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button @click="saveEdit" id="save" :disabled="editButton" type="button" class="btn btn-info waves-effect waves-light m-t-15">Save</button>
+                <button @click="saveEdit" id="save" :disabled="false" type="button" class="btn btn-info waves-effect waves-light m-t-15">Save</button>
                 <button @click="closeEdit" id="cancel" type="button" class="btn btn-default waves-effect m-t-15" data-dismiss="modal">Cancel</button>
               </div>
             </div>
@@ -250,7 +250,7 @@
 
           this.users = res.data.data
 
-        }).catch(err => swal_error(err.response))
+          }).catch(err => Alert.error(err.response && err.response && err.response.data.message))
       },
 
       markAsActive(user) {
@@ -262,9 +262,8 @@
 
             return swal_success(res)
 
-          }, res => {
-            return swal_error(res)
-          })
+          }).catch(err => Alert.error(err.response && err.response && err.response.data.message))
+
       },
 
       markAsInactive(user) {
@@ -275,9 +274,7 @@
             user.user_status = 0
             return swal_success(res);
 
-          }, res => {
-            return swal_error(res);
-          });
+          }).catch(err => Alert.error(err.response && err.response && err.response.data.message))
       },
 
       destroy(user) {
@@ -296,9 +293,7 @@
               } else {
                 swal_error(res);
               }
-            }, res => {
-              swal_error(res);
-            });
+            }).catch(err => Alert.error(err.response && err.response && err.response.data.message))
 
         });
       },
@@ -323,9 +318,7 @@
             } else {
               swal_error(res);
             }
-          }, res => {
-            swal_error(res);
-          });
+          }).catch(err => Alert.error(err.response && err.response.data && err.response.data.message))
 
       },
 
@@ -345,7 +338,8 @@
 
         this.$http.post(`users/${this.edit.id}/update`, payload)
           .then(res => {
-            if (res.body.code == 0) {
+            console.log(res)
+            if (res.body.code == 200) {
               this.edit.role = this.edit.email = this.edit.email = this.edit.full_name = '';
               $('#edit-user').modal('hide');
               this.users = [];
@@ -354,14 +348,13 @@
             } else {
               swal_error(res);
             }
-          }, res => {
-            swal_error(res);
-          });
+          }).catch(err => Alert.error(err.response && err.response.data && err.response.data.message))
 
       },
 
       editUser(user) {
-        this.edit.id = user.user_id;
+        this.edit = user;
+        this.edit.id = user.id;
         this.edit.role = user.role;
         this.edit.email = user.email;
         this.edit.username = user.username;
