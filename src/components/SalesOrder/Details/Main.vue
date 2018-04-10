@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-4">
           <List
-            @selectSalesOrder="selectSalesOrder"
+            @selectSalesOrder="selectSalesOrder($event)"
           />
         </div>
         <div class="col-md-8" style="border-left: 1px solid #f0f0f0;">
@@ -51,10 +51,7 @@
         this.$store.dispatch('salesOrders/selectSalesOrder', salesOrderId)
           .then(() => {
             this.$router.push({
-              name: 'sales.details',
-              params: {
-                id: salesOrderId,
-              },
+              path: `/sales/${salesOrderId}/detail`,
               replace: true,
             })
           })

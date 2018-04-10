@@ -283,6 +283,7 @@
        * View invoice
        */
       async viewInvoice () {
+        this.loading = true
         const pdfWindow = window.open()
         const salesOrderId = this.$route.params.id
 
@@ -301,6 +302,7 @@
         const file = new Blob([response.data], {type: 'application/pdf'})
         const fileURL = URL.createObjectURL(file)
         pdfWindow.location = fileURL
+        this.loading = false
       },
 
       /**
