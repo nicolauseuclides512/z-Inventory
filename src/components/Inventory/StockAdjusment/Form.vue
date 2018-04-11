@@ -543,8 +543,10 @@ export default {
           }
         }
 
-        if (counter_null == 0) {
-          const res = await Axios.post(`stock_adjustments`, data);
+        if (counter_null === 0) {
+          const stockAdjusmentId = this.$route.params.id
+          const url = stockAdjusmentId ? `stock_adjustments/${stockAdjusmentId}` : `stock_adjustments`
+          const res = await Axios.post(url, data);
 
           if (!responseOk(res.data.code)) {
             return swal_error(res.data.message);
