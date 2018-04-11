@@ -1,7 +1,7 @@
 <template>
   <div class="clearfix" v-if="pageContext.total > 15">
     <div class="pr-20 pull-right" style="padding: 26px 0 0 15px;">
-      
+
 
       <ul class="pagination m-b-5">
         <li>
@@ -116,8 +116,11 @@
 
         }
         catch (err) {
+          console.error(err)
           this.loading = false
-          return swal_error(err.response)
+          if (err.hasOwnProperty('response')) {
+            return swal_error(err.response)
+          }
         }
       },
 
