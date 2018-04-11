@@ -16,6 +16,7 @@
                     <!-- <label class="col-md-2 control-label text-left">Images</label> -->
                     <div class="col-md-12 pl-pr-0">
                       <ImageUpload
+                        :limit="5"
                         :uploading="uploading"
                         :images="form.item_medias"
                         @add="addImage"

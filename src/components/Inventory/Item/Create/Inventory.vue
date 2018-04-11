@@ -41,12 +41,13 @@
               <div v-show="form.track_inventory">
                 <label class="col-md-2 col-md-offset-1 control-label text-left">Quantity</label>
                 <div class="col-md-3">
-                  <input type="number"
-                         class="vertical-spin form-control"
-                         name="vertical-spin"
-                         min="0"
-                         data-bts-button-down-class="btn btn-primary"
-                         data-bts-button-up-class="btn btn-primary">
+                  <input
+                    type="number"
+                    class="vertical-spin form-control"
+                    name="vertical-spin"
+                    min="0"
+                    data-bts-button-down-class="btn btn-primary"
+                    data-bts-button-up-class="btn btn-primary">
                 </div>
               </div>
 

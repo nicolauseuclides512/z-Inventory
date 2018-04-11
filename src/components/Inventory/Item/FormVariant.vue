@@ -15,6 +15,7 @@
                 <div class="form-group form-general">
                   <div class="col-md-12 pl-pr-0">
                     <ImageUpload
+                        :limit="5"
                         :images="form.item_medias"
                         @add="addImage"
                         @clear="clearImages"
