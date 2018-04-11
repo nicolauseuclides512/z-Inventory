@@ -213,6 +213,12 @@ export default {
     }
   },
 
+  watch: {
+    value() {
+      this.getBuyerinfo()
+    }
+  },
+
   data() {
     return {
       invoice: {},
