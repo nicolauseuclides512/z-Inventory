@@ -248,6 +248,7 @@
 </template>
 
 <script>
+  import _ from 'lodash'
   import Vuetagger from '../../Vuetagger'
 
   function cartesianProductOf(args) {
@@ -327,36 +328,21 @@
     computed: {
       firstVariantList() {
         const variants = [this.secondVariant.name, this.thirdVariant.name]
-        const result = Object.keys(this.list.variants).filter((variant) => variants.indexOf(variant) === -1)
-
-        const finalResult = {}
-        for (let r of result) {
-          finalResult[r] = r
-        }
-
-        return finalResult
+        return _.transform(this.list.variants, (result, value, key) => {
+          variants.indexOf(key) < 0 ? result[key] = value: ''
+        }, {})
       },
       secondVariantList() {
         const variants = [this.firstVariant.name, this.thirdVariant.name]
-        const result = Object.keys(this.list.variants).filter((variant) => variants.indexOf(variant) === -1)
-
-        const finalResult = {}
-        for (let r of result) {
-          finalResult[r] = r
-        }
-
-        return finalResult
+        return _.transform(this.list.variants, (result, value, key) => {
+          variants.indexOf(key) < 0 ? result[key] = value: ''
+        }, {})
       },
       thirdVariantList() {
         const variants = [this.firstVariant.name, this.secondVariant.name]
-        const result = Object.keys(this.list.variants).filter((variant) => variants.indexOf(variant) === -1)
-
-        const finalResult = {}
-        for (let r of result) {
-          finalResult[r] = r
-        }
-
-        return finalResult
+        return _.transform(this.list.variants, (result, value, key) => {
+          variants.indexOf(key) < 0 ? result[key] = value: ''
+        }, {})
       }
     },
 
