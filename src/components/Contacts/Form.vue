@@ -7,7 +7,7 @@
               <h4 v-if="this.$route.params.id" class="pull-left page-title">Edit Contact</h4>
               <h4 v-if="!this.$route.params.id" class="pull-left page-title">New Contact</h4>
           </div>
-          
+
           <!-- Row:1 Contact Info -->
           <div class="row">
             <div class="col-md-2">
@@ -56,7 +56,20 @@
                           </select>
                         </div>
                       <div class="col-md-6">
-                          <input type="text" class="form-control" placeholder="Name" id="first_name" v-model="form.first_name" ref="firstName" maxlength="100" required>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="first_name"
+                          id="first_name"
+                          placeholder="Name"
+                          ref="firstName"
+                          v-model="form.first_name"
+                          data-vv-as="name"
+                          v-validate="'required'"
+                          data-vv-validate-on="blur"
+                          maxlength="100"
+                        />
+                        <span class="error" v-if="errors.first('first_name')">{{ errors.first('first_name') }}</span>
                       </div>
                   </div>
                   <div class="form-group form-general m-b-20">
@@ -69,20 +82,29 @@
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left ">Display Name *</label>
                     <div class="col-md-8">
-                      <select id="display_code" v-model="form.display_code" class="form-control" required>
+                      <select name="display_code" id="display_code" v-model="form.display_code" data-vv-as="display name" title="Select display name" class="form-control" v-validate="'required'" data-vv-validate-on="blur">
                         <!-- <option :value="0">{{ displayNameFormat1 }}</option> -->
-                        <option :value="1">{{ displayNameFormat2 }}</option> 
+                        <option :value="1">{{ displayNameFormat2 }}</option>
                         <option :value="2">{{ displayNameFormat3 }}</option>
                       </select>
+                      <span class="error" v-if="errors.first('display_code')">{{ errors.first('display_code') }}</span>
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left">Email</label>
                     <div class="col-md-8">
-                      <input type="email" class="form-control" placeholder="" id="email" v-model="form.email" maxlength="255">
-                      <div v-if="form.errors && form.errors.email" class="alert alert-danger">
-                        {{ form.errors && form.errors.email && form.errors.email[0] }}
-                      </div>
+                      <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        placeholder=""
+                        id="email"
+                        v-model="form.email"
+                        maxlength="255"
+                        data-vv-validate-on="blur"
+                        v-validate="'email'"
+                      />
+                      <span class="error" v-if="errors.first('email')">{{ errors.first('email') }}</span>
                     </div>
                   </div>
                   <div class="form-group form-general m-b-20">
@@ -103,15 +125,25 @@
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left">Website</label>
                     <div class="col-md-8">
-                      <input type="text" class="form-control" placeholder="" maxlength="255" id="website"
-                            v-model="form.website">
+                      <input
+                        type="text"
+                        name="website"
+                        class="form-control"
+                        placeholder=""
+                        maxlength="255"
+                        id="website"
+                        v-model="form.website"
+                        data-vv-validate-on="blur"
+                        v-validate="'url'"
+                      />
+                      <span class="error" v-if="errors.first('website')">{{ errors.first('website') }}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          </div> 
+          </div>
 
           <!-- Row:2 Contact Address -->
           <div class="row">
@@ -125,12 +157,12 @@
               </div>
             </div>
             <div class="col-md-9">
-              
+
               <!-- Right Panel : 2 Contact Address Form -->
               <div class="panel panel-default">
                 <div class="panel-body">
                   <div class="form-horizontal">
-                    
+
                     <!-- Billing Address Goes Here -->
                     <div class="col-md-6" style="padding-left:0px">
                       <div class="form-group form-general m-b-10">
@@ -194,10 +226,20 @@
                       <div class="form-group form-general m-b-10">
                         <label class="col-md-4 control-label text-left">Zip Code</label>
                         <div class="col-md-8">
-                          <input type="text" class="form-control" placeholder="" maxlength="5" id="billing_zip"
-                            @keyup="inputZip(form.billing_zip, $event)"
-                            @blur="inputZip(form.billing_zip, $event)"
-                            v-model="form.billing_zip">
+                          <input
+                            class="form-control"
+                            data-vv-as="billing zip code"
+                            data-vv-validate-on="blur"
+                            id="billing_zip"
+                            maxlength="5"
+                            name="billing_zip"
+                            placeholder="Zip code"
+                            ref="billing_zip"
+                            type="text"
+                            v-model="form.billing_zip"
+                            v-validate="'numeric|min:5|max:5'"
+                          />
+                          <span class="error" v-if="errors.first('billing_zip')">{{ errors.first('billing_zip') }}</span>
                         </div>
                       </div>
                     </div>
@@ -261,10 +303,20 @@
                       <div class="form-group form-general m-b-10">
                         <label class="col-md-4 control-label text-left">Zip Code</label>
                         <div class="col-md-8">
-                          <input type="text" class="form-control" placeholder="" minlength="5" maxlength="5" id="shipping_zip"
-                          @keyup="inputZip(form.shipping_zip, $event)"
-                           @blur="inputZip(form.shipping_zip, $event)"
-                           v-model="form.shipping_zip">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Zip code"
+                            maxlength="5"
+                            data-vv-as="shipping zip code"
+                            id="shipping_zip"
+                            ref="shipping_zip"
+                            name="shipping_zip"
+                            v-model="form.shipping_zip"
+                            v-validate="'numeric|min:5|max:5'"
+                            data-vv-validate-on="blur"
+                          />
+                          <span class="error" v-if="errors.first('shipping_zip')">{{ errors.first('shipping_zip') }}</span>
                         </div>
                       </div>
                     </div>
@@ -307,11 +359,11 @@
                   <div class="form-horizontal">
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">
-                        Notes <br> 
+                        Notes <br>
                         <small style="color: #aaa">(For Internal Use)</small>
                       </label>
                       <div class="col-md-8">
-                        <textarea id="notes" v-model="form.notes" class="form-control m-l-15" rows="4" 
+                        <textarea id="notes" v-model="form.notes" class="form-control m-l-15" rows="4"
                         style="
                         resize:vertical;
                         margin-left:0px"></textarea>
@@ -863,7 +915,7 @@
 
         this.list.billing_region_list = await Regional.regionList(this.form.billing_district)
         this.list.shipping_region_list = await Regional.regionList(this.form.shipping_district)
-        
+
         if(res.data.data.contact.billing_country===res.data.data.contact.shipping_country&&
            res.data.data.contact.billing_province===res.data.data.contact.shipping_province&&
            res.data.data.contact.billing_district===res.data.data.contact.shipping_district&&
@@ -882,77 +934,61 @@
         phone_number = $event.target.value = $event.target.value.replace(/\D/g, '')
       },
 
-      inputZip (zipCode, $event) {
-        zipCode = $event.target.value = $event.target.value.replace(/\D/g, '')
-
-        if (($event.target.value.length < 5 && $event.target.value.length > 0) || $event.target.value.length > 5){
-          this.zipAlert = true
-          return
-        } else {
-          this.zipAlert = false
-          return
-        }
-      },
-
       /**
        * Save contact
        */
-      async save () {
+      async save() {
+        this.$validator.validateAll().then(async result => {
+          if (result) {
+            // Display name
+            if (this.form.display_code === 1) {
+              this.form.display_name = this.form.first_name
+            }
 
-        try {
-          // Display name
-          if (this.form.display_code === 1) {
-            this.form.display_name = this.form.first_name
-          }
+            if (this.form.display_code === 2) {
+              this.form.display_name = this.form.company_name
+            }
 
-          if (this.form.display_code === 2) {
-            this.form.display_name = this.form.company_name
-          }
+            if (this.form.is_sameAddress === 'true') {
+              this.form.shipping_country = this.form.billing_country
+              this.form.shipping_province = this.form.billing_province
+              this.form.shipping_district = this.form.billing_district
+              this.form.shipping_region = this.form.billing_region
+              this.form.shipping_address = this.form.billing_address
+              this.form.shipping_zip = this.form.billing_zip
+            }
 
-          if(this.form.is_sameAddress === 'true'){
-            this.form.shipping_country = this.form.billing_country
-            this.form.shipping_province = this.form.billing_province
-            this.form.shipping_district = this.form.billing_district
-            this.form.shipping_region = this.form.billing_region
-            this.form.shipping_address = this.form.billing_address
-            this.form.shipping_zip = this.form.billing_zip
-          }
+            const contactId = this.$route.params.id
+            const url = contactId ? `contacts/${contactId}/update` : `contacts`
 
-          let url
-          const contactId = this.$route.params.id
+            this.saving = true
 
-          if (contactId) {
-            url = `contacts/${contactId}/update`
+            const data = _.cloneDeep(this.form)
+            delete data['originalData']
+            delete data['errors']
+
+            // This is weird. But I must convert Boolean to String to make it work.
+            data.is_customer = String(this.form.is_customer)
+            data.is_reseller = String(this.form.is_reseller)
+            data.is_vendor = String(this.form.is_vendor)
+            data.is_dropshipper = String(this.form.is_dropshipper)
+
+            const res = await Axios.post(url, data)
+
+            if (!responseOk(res.data.code)) {
+              swal_error(res)
+            } else {
+              this.dirtyForm = false
+              this.$router.push({name: 'contact.index'})
+              swal_success(res)
+            }
+
+            this.saving = false
+
           } else {
-            url = `contacts`
+            Alert.error('There are errors on the form. Please fix them before continuing.')
           }
-
-          this.saving = true
-
-          const data = _.cloneDeep(this.form)
-          delete data['originalData']
-          delete data['errors']
-
-          // This is weird. But I must convert Boolean to String to make it work.
-          data.is_customer = String(this.form.is_customer)
-          data.is_reseller = String(this.form.is_reseller)
-          data.is_vendor = String(this.form.is_vendor)
-          data.is_dropshipper = String(this.form.is_dropshipper)
-
-          const res = await Axios.post(url, data)
-
-          if (!responseOk(res.data.code)) {
-            this.saving = false
-            return swal_error(res)
-          }else{
-            this.dirtyForm = false
-            this.saving = false
-            this.$router.push({name: 'contact.index'})
-            return swal_success(res)
-            
-          }
-        }
-        catch(err) {
+        }).catch(err => {
           this.saving = false
           console.error(err)
           if (err.hasOwnProperty('response')) {
@@ -964,8 +1000,7 @@
               this.form.errors = err.response.data.data
             }
           }
-        }
-
+        })
       },
     },
   }
