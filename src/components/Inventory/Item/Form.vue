@@ -526,7 +526,12 @@
       },
 
       async validate() {
-        this.save()
+
+        if (this.form.images.length < 6){
+          this.save()
+        } else {
+          Alert.error('Uploaded images must be less than 6')
+        }
       },
 
       async saveStockQuantity() {
@@ -544,7 +549,6 @@
           this.form.weight = parseInt(this.form.weight)
 
           let res
-
           if (this.$route.params.id) {
             if (this.stockAlert) {
               Alert.error('New value must be greater than original value')
