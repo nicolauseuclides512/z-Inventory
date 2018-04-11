@@ -38,7 +38,7 @@
                     <div class="form-group">
                       <div class="col-md-2 pl-0">
                         <select class="form-control" v-model="firstVariant.name" @change="generateVariant">
-                          <option v-for="(v, k) in list.variants" :value="k">{{ v }}</option>
+                          <option v-for="(v, k) in firstVariantList" :value="k">{{ v }}</option>
                         </select>
                       </div>
                       <div class="col-md-7">
@@ -68,7 +68,7 @@
                     <div class="form-group">
                       <div class="col-md-2 pl-0">
                         <select class="form-control" v-model="secondVariant.name" @change="generateVariant">
-                          <option v-for="(v, k) in list.variants" :value="k">{{ v }}</option>
+                          <option v-for="(v, k) in secondVariantList" :value="k">{{ v }}</option>
                         </select>
                       </div>
                       <div class="col-md-7">
@@ -95,7 +95,7 @@
                     <div class="form-group">
                       <div class="col-md-2 pl-0">
                         <select class="form-control" v-model="thirdVariant.name" @change="generateVariant">
-                          <option v-for="(v, k) in list.variants" :value="k">{{ v }}</option>
+                          <option v-for="(v, k) in thirdVariantList" :value="k">{{ v }}</option>
                         </select>
                       </div>
                       <div class="col-md-7">
@@ -168,7 +168,7 @@
                       <tr v-for="v in list.items">
                         <td>
                           <input type="text" class="form-control form-white" v-model="v.item_name" style="margin-bottom:8px">
-                          <!-- <div v-if="firstVariant.show && firstVariant.values.length" style="float:left"> 
+                          <!-- <div v-if="firstVariant.show && firstVariant.values.length" style="float:left">
                             <div class="label label-info m-b-10">
                               {{ v.item_attributes[firstVariant.name] | removeNonAlphaNum}}
                             </div>
@@ -321,6 +321,42 @@
           },
           items: [],
         },
+      }
+    },
+
+    computed: {
+      firstVariantList() {
+        const variants = [this.secondVariant.name, this.thirdVariant.name]
+        const result = Object.keys(this.list.variants).filter((variant) => variants.indexOf(variant) === -1)
+
+        const finalResult = {}
+        for (let r of result) {
+          finalResult[r] = r
+        }
+
+        return finalResult
+      },
+      secondVariantList() {
+        const variants = [this.firstVariant.name, this.thirdVariant.name]
+        const result = Object.keys(this.list.variants).filter((variant) => variants.indexOf(variant) === -1)
+
+        const finalResult = {}
+        for (let r of result) {
+          finalResult[r] = r
+        }
+
+        return finalResult
+      },
+      thirdVariantList() {
+        const variants = [this.firstVariant.name, this.secondVariant.name]
+        const result = Object.keys(this.list.variants).filter((variant) => variants.indexOf(variant) === -1)
+
+        const finalResult = {}
+        for (let r of result) {
+          finalResult[r] = r
+        }
+
+        return finalResult
       }
     },
 
