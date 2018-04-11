@@ -389,227 +389,221 @@
 </template>
 
 <script>
-import Str from "@/helpers/Str";
-import Axios from "axios";
-import { Alert } from "src/helpers";
-import Form from "src/helpers/Form";
-import { responseOk, swal_error, swal_success } from "helpers";
+  import Axios from 'axios'
+  import Form from '@/helpers/Form'
+  import { Alert } from '@/helpers'
+  import { swal_error, swal_success } from 'helpers'
 
-export default {
-  name: "StockAdjustmentForm",
+  export default {
+    name: 'StockAdjustmentForm',
 
-  watch: {
-    "form.details.adjust_qty": {
-      handler(val, oldVal) {
-        console.log(_.cloneDeep(val));
+    watch: {
+      'form.details.adjust_qty': {
+        handler (val, oldVal) {
+          console.log(_.cloneDeep(val))
+        },
+        deep: true
       },
-      deep: true
+      'form.details.on_hand_qty': {
+        handler (val, oldVal) {
+          console.log(_.cloneDeep(val))
+        },
+        deep: true
+      }
     },
-    "form.details.on_hand_qty": {
-      handler(val, oldVal) {
-        console.log(_.cloneDeep(val));
-      },
-      deep: true
-    }
-  },
 
-  data() {
-    return {
-      dirtyForm: false,
+    data () {
+      return {
+        dirtyForm: false,
 
-      list: {
-        items: [],
-        reasons: []
-      },
-      form: new Form({
-        stock_adjustment_id: null,
-        stock_adjustment_date: new Date().toISOString().substr(0, 10),
-        reference_number: "",
-        is_applied: false,
-        is_void: false,
-        notes: "",
-        details: [
-          {
-            item_id: null,
-            reason_id: null,
-            database_qty: null,
-            adjust_qty: null,
-            on_hand_qty: null
-          }
-        ]
+        list: {
+          items: [],
+          reasons: []
+        },
+        form: new Form({
+          stock_adjustment_id: null,
+          stock_adjustment_date: new Date().toISOString().substr(0, 10),
+          reference_number: '',
+          is_applied: false,
+          is_void: false,
+          notes: '',
+          details: [
+            {
+              item_id: null,
+              reason_id: null,
+              database_qty: null,
+              adjust_qty: null,
+              on_hand_qty: null
+            }
+          ]
+        })
+      }
+    },
+
+    beforeRouteLeave (to, from, next) {
+      if (this.dirtyForm) {
+        const leave = confirm('Are you sure leave this page?')
+        if (!leave) return next(false)
+      }
+      return next()
+    },
+
+    async mounted () {
+      // Edit mode
+      const stockId = this.$route.params.id
+      if (!stockId) {
+        // this.form.stock_adjustment_id = Str.random()
+      } else {
+        this.getDetails(stockId)
+      }
+
+      const [createResponse, itemsResponse] = await Promise.all([
+        this.initialize(),
+        this.getItems()
+      ])
+
+      this.list.items = itemsResponse.data.data
+
+      this.list.reasons = createResponse.data.data.reasons
+      if (!this.$route.params.id) {
+        this.form.stock_adjustment_id =
+          createResponse.data.data.next_stock_adjustment_number
+      }
+
+      this.dirtyForm = true
+      $('#adjustment_date_picker').flatpickr({
+        altInput: true
       })
-    };
-  },
-
-  beforeRouteLeave(to, from, next) {
-    if (this.dirtyForm) {
-      const leave = confirm("Are you sure leave this page?");
-      if (!leave) return next(false);
-    }
-    return next();
-  },
-
-  async mounted() {
-    // Edit mode
-    const stockId = this.$route.params.id;
-    if (!stockId) {
-      // this.form.stock_adjustment_id = Str.random()
-    } else {
-      this.getDetails(stockId);
-    }
-
-    const [createResponse, itemsResponse] = await Promise.all([
-      this.initialize(),
-      this.getItems()
-    ]);
-
-    this.list.items = itemsResponse.data.data;
-
-    this.list.reasons = createResponse.data.data.reasons;
-    if (!this.$route.params.id) {
-      this.form.stock_adjustment_id =
-        createResponse.data.data.next_stock_adjustment_number;
-    }
-
-    this.dirtyForm = true;
-    $("#adjustment_date_picker").flatpickr({
-      altInput: true
-    });
-  },
-
-  methods: {
-    async initialize() {
-      return await Axios.get(`stock_adjustments/create`);
     },
 
-    async getItems() {
-      return await Axios.get(`items`, {
-        params: {
-          page: 1,
-          per_page: 100,
-          sort: "created_at.desc",
-          filter: "all",
-          q: "",
-          leaf_only: true
-        }
-      });
-    },
+    methods: {
+      async initialize () {
+        return await Axios.get(`stock_adjustments/create`)
+      },
 
-    async getDetails(stockId) {
-      const res = await Axios.get(`stock_adjustments/${stockId}`);
-      this.form.details = res.data.data.details;
-      this.form.details.database_qty = res.data.data.details[0].stock_quantity;
-      if (this.$route.params.id) {
-        this.form.stock_adjustment_id = res.data.data.stock_adjustment_number;
-      }
-    },
-
-    addNew() {
-      this.form.details.push({});
-    },
-
-    async selectItem(item) {
-      const res = await Axios.get(`items/${item.item_id}`);
-      item.database_qty = res.data.data.stock_quantity;
-      item.code_sku = res.data.data.code_sku;
-      //item.track_inventory = res.data.data.track_inventory;
-    },
-
-    async save(ev) {
-      try {
-        const data = {
-          stock_adjustment_id: this.form.stock_adjustment_id,
-          stock_adjustment_date: this.form.stock_adjustment_date,
-          reference_number: this.form.reference_number,
-          notes: this.form.notes,
-          details: this.form.details
-        };
-
-        if (ev.target.dataset.type === "save-as-draft") {
-          data.is_applied = false;
-          data.is_void = false;
-          this.dirtyForm = false;
-        } else {
-          data.is_applied = true;
-          data.is_void = false;
-          this.dirtyForm = false;
-        }
-
-        let counter_null = 0;
-
-        for (let counter = 0; counter < data.details.length; counter++) {
-          if (!data.details[counter].reason_id) {
-            counter_null++;
+      async getItems () {
+        return await Axios.get(`items`, {
+          params: {
+            page: 1,
+            per_page: 100,
+            sort: 'created_at.desc',
+            filter: 'all',
+            q: '',
+            leaf_only: true
           }
+        })
+      },
+
+      async getDetails (stockId) {
+        const res = await Axios.get(`stock_adjustments/${stockId}`)
+        this.form.details = res.data.data.details
+        this.form.details.database_qty = res.data.data.details[0].stock_quantity
+        if (this.$route.params.id) {
+          this.form.stock_adjustment_id = res.data.data.stock_adjustment_number
         }
+      },
 
-        if (counter_null === 0) {
-          const stockAdjusmentId = this.$route.params.id
-          const url = stockAdjusmentId ? `stock_adjustments/${stockAdjusmentId}` : `stock_adjustments`
-          const res = await Axios.post(url, data);
+      addNew () {
+        this.form.details.push({})
+      },
 
-          if (!responseOk(res.data.code)) {
-            return swal_error(res.data.message);
+      async selectItem (item) {
+        const res = await Axios.get(`items/${item.item_id}`)
+        item.database_qty = res.data.data.stock_quantity
+        item.code_sku = res.data.data.code_sku
+        //item.track_inventory = res.data.data.track_inventory;
+      },
+
+      async save (ev) {
+        try {
+          const data = {
+            stock_adjustment_id: this.form.stock_adjustment_id,
+            stock_adjustment_date: this.form.stock_adjustment_date,
+            reference_number: this.form.reference_number,
+            notes: this.form.notes,
+            details: this.form.details
+          }
+
+          if (ev.target.dataset.type === 'save-as-draft') {
+            data.is_applied = false
+            data.is_void = false
+            this.dirtyForm = false
           } else {
-            swal_success(res);
-            this.$router.push({ name: "stock_adjustment.index" });
+            data.is_applied = true
+            data.is_void = false
+            this.dirtyForm = false
+          }
+
+          let counter_null = 0
+
+          for (let counter = 0; counter < data.details.length; counter++) {
+            if (!data.details[counter].reason_id) {
+              counter_null++
+            }
+          }
+
+          if (counter_null === 0) {
+            const stockAdjusmentId = this.$route.params.id
+            const url = stockAdjusmentId ? `stock_adjustments/${stockAdjusmentId}` : `stock_adjustments`
+            const res = await Axios.post(url, data)
+            swal_success(res)
+            this.$router.push({ name: 'stock_adjustment.index' })
           }
         }
-      }
-      catch (err) {
-        const errorMessage = _.first(Object.values(err.response.data.data)[0])
-        if (err.response && err.response.data) {
-          Alert.error(errorMessage)
+        catch (err) {
+          const errorMessage = _.first(Object.values(err.response.data.data)[0])
+          if (err.response && err.response.data) {
+            Alert.error(errorMessage)
+          }
         }
+      },
+
+      changeAdjustValue (detail) {
+        let on_hand_qty = 0
+        let database_qty = 0
+
+        if (detail.on_hand_qty) {
+          on_hand_qty = parseInt(detail.on_hand_qty)
+        } else {
+          on_hand_qty = 0
+        }
+
+        if (detail.database_qty) {
+          database_qty = parseInt(detail.database_qty)
+        } else {
+          database_qty = 0
+        }
+
+        detail.adjust_qty = on_hand_qty - database_qty
+      },
+
+      changeOnHandValue (detail) {
+        let database_qty = 0
+        let adjust_qty = 0
+
+        if (detail.database_qty) {
+          database_qty = parseInt(detail.database_qty)
+        } else {
+          database_qty = 0
+        }
+
+        if (detail.adjust_qty) {
+          adjust_qty = parseInt(detail.adjust_qty)
+        } else {
+          adjust_qty = 0
+        }
+
+        detail.on_hand_qty = database_qty + adjust_qty
+      },
+
+      removeProduct (product) {
+        const index = this.form.details.indexOf(product)
+        this.form.details.splice(index, 1)
+      },
+
+      cancel () {
+        this.$router.push('/items/stock_adjustment')
       }
-    },
-
-    changeAdjustValue(detail) {
-      let on_hand_qty = 0;
-      let database_qty = 0;
-
-      if (detail.on_hand_qty) {
-        on_hand_qty = parseInt(detail.on_hand_qty);
-      } else {
-        on_hand_qty = 0;
-      }
-
-      if (detail.database_qty) {
-        database_qty = parseInt(detail.database_qty);
-      } else {
-        database_qty = 0;
-      }
-
-      detail.adjust_qty = on_hand_qty - database_qty;
-    },
-
-    changeOnHandValue(detail) {
-      let database_qty = 0;
-      let adjust_qty = 0;
-
-      if (detail.database_qty) {
-        database_qty = parseInt(detail.database_qty);
-      } else {
-        database_qty = 0;
-      }
-
-      if (detail.adjust_qty) {
-        adjust_qty = parseInt(detail.adjust_qty);
-      } else {
-        adjust_qty = 0;
-      }
-
-      detail.on_hand_qty = database_qty + adjust_qty;
-    },
-
-    removeProduct(product) {
-      const index = this.form.details.indexOf(product);
-      this.form.details.splice(index, 1);
-    },
-
-    cancel() {
-      this.$router.push("/items/stock_adjustment");
     }
   }
-};
 </script>
