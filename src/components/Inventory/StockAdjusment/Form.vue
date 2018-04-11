@@ -526,12 +526,12 @@ export default {
         };
 
         if (ev.target.dataset.type === "save-as-draft") {
-          data.is_applied = "false";
-          data.is_void = "false";
+          data.is_applied = false;
+          data.is_void = false;
           this.dirtyForm = false;
         } else {
-          data.is_applied = "true";
-          data.is_void = "false";
+          data.is_applied = true;
+          data.is_void = false;
           this.dirtyForm = false;
         }
 
