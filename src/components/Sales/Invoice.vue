@@ -1,7 +1,7 @@
 <template>
   <div style="box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .2);">
 
-    <div class="sahito-invoice" v-if="value" style="min-height:842px">
+    <div class="sahito-invoice" v-if="value" style="min-height: 842px">
       <div v-if="value.invoice_status === 'DRAFT'">
         <div class="ribbon-draft"><span>{{ value.invoice_status }}</span></div>
       </div>
@@ -21,13 +21,13 @@
         <div class="ribbon"><span>{{ salesOrder.invoice_status }}</span></div>
       </div>
 
-      <div class="row sahito-invoice-content" style="padding:67px 25px 0px 45px;margin-left:0px;margin-right:0px;margin-bottom:30px;">
+      <div class="row sahito-invoice-content" style="padding: 67px 25px 0 45px;margin-left:0; margin-right:0; margin-bottom: 30px;">
         <div class="col-md-8 pull-left" >
             <div class="media m-b-30">
                 <a v-show="logo != null" class="pull-left">
                     <img alt="" :src="logo" class="media-object thumb-sm" style="width: auto; height: auto; max-width: 240px; max-height: 100px;">
                 </a>
-                <div class="media-body" style="padding-top:15px;">
+                <div class="media-body" style="padding-top: 15px;">
                     <h4>{{ company_name }}</h4>
                     <small>{{ company_address }}</small>
                     <br>
@@ -45,14 +45,14 @@
             </div>
         </div>
         <div class="col-md-4 text-right pull-right">
-          <h1 class="page-title text-right" style="font-size: 32pt; font-weight: normal; margin-bottom: 0px;">INVOICE</h1>
+          <h1 class="page-title text-right" style="font-size: 32pt; font-weight: normal; margin-bottom: 0;">INVOICE</h1>
           <p class="inv-code">{{ value.invoice_number }}</p>
           <p class="inv-balance">Balance Due</p>
           <h4 v-if="value.invoice_status === 'PAID'">0</h4>
           <h4 v-else >{{ value.balance_due | money }}</h4>
         </div>
       </div>
-      <div class="row sahito-invoice-content " v-if="value.contact" style="padding:0px 25px 0px 45px;margin-left:0px;margin-right:0px">
+      <div class="row sahito-invoice-content " v-if="value.contact" style="padding:0 25px 0 45px; margin-left: 0; margin-right:0;">
         <div class="col-md-4">
           <!-- <div class="office-desc">
             <h4>{{ company_name }}</h4>
@@ -75,8 +75,8 @@
             <p style="color: black;">{{ buyer_zip }} {{ buyer_country }}</p>
           </div>
         </div>
-        <div class="col-md-8" style="padding-right:0px">
-          <div class="col-md-9 col-md-offset-3 invoice-date" style="margin-top: 0px; top: 35px;">
+        <div class="col-md-8" style="padding-right: 0">
+          <div class="col-md-9 col-md-offset-3 invoice-date" style="margin-top: 0; top: 35px;">
             <div class="form-group">
               <div class="col-md-6">Invoice Date:</div>
               <div class="col-md-6 invoice-date-term">
@@ -104,11 +104,11 @@
           </div>
         </div>
       </div>
-      <div class="row sahito-invoice-content pt-0" style="padding:0px 25px 0px 45px;margin-left:0px;margin-right:0px">
+      <div class="row sahito-invoice-content pt-0" style="padding:0 25px 0 45px; margin-left: 0; margin-right: 0;">
 
         <div class="col-md-12">
           <div class="border-1 table-responsive mt-20">
-            <table class="table sahito-invoice-table-inside" style="margin-bottom:0px">
+            <table class="table sahito-invoice-table-inside" style="margin-bottom: 0;">
               <thead>
               <tr class="grey-background">
                 <!-- <th>#</th> -->
@@ -122,17 +122,17 @@
               <tbody v-if="value.invoice_details">
               <tr v-for="(item, index) in value.invoice_details">
                 <!-- <td>{{ index +1 }}</td> -->
-                <td style="font-weight:400">{{ item.item_name }}</td>
+                <td style="font-weight: 400;">{{ item.item_name }}</td>
                 <td>
-                  <p class="qty-amount" style="font-weight: normal; margin-bottom:0px">{{ item.item_quantity }}</p>
-                  <p class="qty-type text-muted" style="font-weight: normal;margin-bottom:0px">{{ item.uom }}</p>
+                  <p class="qty-amount" style="font-weight: normal; margin-bottom: 0;">{{ item.item_quantity }}</p>
+                  <p class="qty-type text-muted" style="font-weight: normal; margin-bottom: 0;">{{ item.uom }}</p>
                 </td>
-                <td class="text-left" style="font-weight: normal">{{ parseInt(item.item_rate) | money }}</td>
-                <td class="text-left" style="font-weight: normal">
+                <td class="text-left" style="font-weight: normal;">{{ parseInt(item.item_rate) | money }}</td>
+                <td class="text-left" style="font-weight: normal;">
                   <span v-if="item.discount_amount_type === 'fixed'">{{ Number(item.discount_amount_value) | money }}</span>
                   <span v-else>{{ Number(item.discount_amount_value) }}%</span>
                 </td>
-                <td class="text-left" style="font-weight:400"><span>Rp</span><span>{{ item.amount | decimalformat }}</span></td>
+                <td class="text-left" style="font-weight: 400;"><span>Rp</span><span>{{ item.amount | decimalformat }}</span></td>
               </tr>
               <tr class="sub-total">
                 <td colspan="3"></td>
@@ -159,15 +159,15 @@
               </tr>
               <tr class="total">
                 <td colspan="3"></td>
-                <td class="text-left" colspan="1" style=" font-weight:400; border-bottom: 1px solid rgb(221, 221, 221);">Total</td>
-                <td colspan="1" style=" font-weight:400; border-bottom: 1px solid rgb(221, 221, 221);"><span>Rp</span><span>{{ value.total | decimalformat }}</span></td>
+                <td class="text-left" colspan="1" style="font-weight: 400; border-bottom: 1px solid rgb(221, 221, 221);">Total</td>
+                <td colspan="1" style="font-weight: 400; border-bottom: 1px solid rgb(221, 221, 221);"><span>Rp</span><span>{{ value.total | decimalformat }}</span></td>
               </tr>
               <tr class="sub-total" v-for="(item, index) in paymentList">
                 <td colspan="3"></td>
                 <td class="text-left" colspan="1">Paid at {{ item.date | date('short') }}</td>
                 <td colspan="1"><span>Rp</span><span>{{ item.amount | decimalformat }}</span></td>
               </tr>
-              <tr class="sub-total" style="border-bottom-color:  white;">
+              <tr class="sub-total" style="border-bottom-color: white;">
                 <td colspan="3"></td>
                 <td class="text-left" colspan="1" style="background: rgb(240, 240, 240);">Balance Due</td>
                 <td colspan="1" style="background: rgb(240, 240, 240);"><span>Rp</span><span>{{ value.balance_due | decimalformat }}</span></td>
@@ -357,7 +357,7 @@ pre{
   font-family: 'Proxima Nova', Georgia, sans-serif;
   border:none;
   box-shadow: none;
-  padding: 0px;
+  padding: 0;
   background: transparent;
 }
 td span{
