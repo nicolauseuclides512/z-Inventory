@@ -34,6 +34,7 @@
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <vuelist
+                      :loading="true"
                       @change="selectProduct"
                       @search="searchProduct"
                       :options="list.product_list"
@@ -321,6 +322,7 @@
                       <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
                         <div v-if="!ui.showAddNewContactField">
                           <vuelist
+                            :loading="loadingContact"
                             @change="selectContact"
                             @search="searchContact"
                             :options="list.contact_list"
@@ -621,6 +623,8 @@
 
     data() {
       return {
+        loadingList: false,
+        loadingContact: false,
         dirtyForm: false,
         salesOrderEdit: {},
         ui: {
@@ -853,6 +857,8 @@
       },
 
       async fetchContactList() {
+
+        this.loadingContact = true;
         try {
           const res = await axios.get("contacts", {
             params: {
@@ -869,7 +875,9 @@
           }
 
           this.list.contact_list = res.data.data;
+          this.loadingContact = false;
         } catch (err) {
+          this.loadingContact = false;
           console.error(err)
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
@@ -878,6 +886,8 @@
       },
 
       async fetchProductList() {
+
+        this.loadingList = true;
         const product_list_response = await axios.get("items", {
           params: {
             page: 1,
@@ -890,6 +900,7 @@
         });
 
         this.list.product_list = product_list_response.data.data;
+        this.loadingList = false;
       },
 
       async salesChannel(params = {}) {
@@ -1087,6 +1098,7 @@
         this.selected_product = product;
 
         Vue.nextTick(() => {
+          console.log(product)
           this.selected_product = null;
         });
 
@@ -1102,17 +1114,20 @@
 
           swal_error(res);
         } else {
-
-          this.form.details.push({
-            stock_quantity: product.stock_quantity,
-            item_id: product.item_id,
-            item_name: product.item_name,
-            item_quantity: product.item_quantity || 1,
-            item_rate: product.sales_rate,
-            discount_contact_id: product.discount_contact_id,
-            discount_amount_type: product.discount_amount_type || "fixed",
-            discount_amount_value: product.discount_amount_value || 0
-          });
+          if(_.map(this.form.details, 'item_id').indexOf(product.item_id) == -1){
+            this.form.details.push({
+              stock_quantity: product.stock_quantity,
+              item_id: product.item_id,
+              item_name: product.item_name,
+              item_quantity: product.item_quantity || 1,
+              item_rate: product.sales_rate,
+              discount_contact_id: product.discount_contact_id,
+              discount_amount_type: product.discount_amount_type || "fixed",
+              discount_amount_value: product.discount_amount_value || 0
+            })
+          }else{
+            Alert.error('Selected item is already on the list!')
+          }
         }
       },
 
