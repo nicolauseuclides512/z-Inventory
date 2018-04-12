@@ -554,7 +554,11 @@
       },
 
       async validate() {
-        this.save()
+        if (this.form.images.length < 6){
+          this.save()
+        } else {
+          Alert.error('Uploaded images must be less than 6')
+        }
       },
 
       toggleVariantListModal() {
