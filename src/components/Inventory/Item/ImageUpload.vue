@@ -50,7 +50,7 @@
 
           </div>
         </div>
-        <div v-if="images.length < defaultLimiter" v-show="images.length" class="uploaded-wrap">
+        <div v-if="images.length < limit" v-show="images.length" class="uploaded-wrap">
             <div class="image-uploader-container-item">
               <div v-if="uploading" class="add-new-image-btn p-0">
                 <SpinnerSmall ></SpinnerSmall>
@@ -77,7 +77,19 @@
       SpinnerSmall: () => import('@/components/Helpers/SpinnerSmall'),
     },
 
-    props: ['limit','images','uploading'],
+    props: {
+      limit: {
+        type: Number,
+        default: 999
+      },
+      images: {
+        type:Array
+      },
+      uploading: {
+        type: Boolean,
+        default: false
+      },
+    },
 
     data () {
       return {
@@ -85,16 +97,12 @@
         inputElement: null,
         fileUploader: null,
         formUploader: null,
-        defaultLimiter: 999,
       };
     },
 
 
     mounted () {
       this.initialize()
-      if(this.limit){
-        this.defaultLimiter = this.limit
-      }
     },
 
     methods: {
