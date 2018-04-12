@@ -522,7 +522,7 @@
         this.list.weight_units = res.data.data.weight_units
         this.form.default_weight_unit = res.data.data.default_weight_unit
         this.url = res.data.data.url
-        this.form.oldStockValue = res.data.data.item.stock_quantity
+        this.form.oldStockValue = (res.data.data.item && res.data.data.item.stock_quantity) ? res.data.data.item.stock_quantity : 0
       },
 
       async validate() {
