@@ -52,11 +52,10 @@
       }
     },
 
-
     computed: {
       tax_included: {
         get() {
-          return store.state.settings.tax.taxIncluded
+          return store.getters['settings/tax/isTaxIncluded']
         },
         set(value) {
           store.commit('settings/tax/TAX_INCLUDED', value)
@@ -64,6 +63,15 @@
       }
     },
 
+    watch: {
+      tax_included(newtax){
+        if(newtax == 0){
+          return false
+        }else if(newtax == 1){
+          return true
+        }
+      }
+    },
 
     methods: {
 

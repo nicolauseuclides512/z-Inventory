@@ -2,13 +2,13 @@ import axios from 'axios'
 import { responseOk } from 'src/helpers'
 
 const state = {
-  taxIncluded: true
+  isTaxIncluded: true
 }
 
 
 const mutations = {
-  TAX_INCLUDED(state, payload) {
-    state.taxIncluded = payload
+  TAX_INCLUDED (state, payload) {
+    state.isTaxIncluded = payload
   }
 }
 
@@ -19,7 +19,7 @@ const actions = {
 
     const form = {
       settings: {
-        'web.item.price.tax_included': state.taxIncluded
+        'web.item.price.tax_included': state.isTaxIncluded
       }
     }
 
@@ -37,9 +37,22 @@ const actions = {
   }
 }
 
+const getters = {
+  isTaxIncluded(state) {
+    if(state.isTaxIncluded == 0){
+      return false
+    }else if(state.isTaxIncluded == 1){
+      return true
+    }else{
+      return state.isTaxIncluded
+    }
+  }
+}
+
 export default {
   namespaced: true,
   state,
+  getters,
   mutations,
   actions,
 }

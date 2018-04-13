@@ -157,6 +157,7 @@
        */
       save () {
         store.dispatch('settings/store_detail/save')
+        store.dispatch('settings/tax/save')
       },
 
 
