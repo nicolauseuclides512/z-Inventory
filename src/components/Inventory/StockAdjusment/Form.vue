@@ -122,8 +122,11 @@
                         <td>
                           <div class="col-md-12 pl-pr-0">
                             <select class="form-control" v-model="detail.item_id" @change="selectItem(detail)" required title="Item name">
-                              <option v-for="item in list.items" :value="item.item_id" v-if="item.track_inventory" >
-                                  {{ item.item_name }}
+                              <option :value="detail.item_id" v-if="detail">
+                                {{ detail.item_name }}
+                              </option>
+                              <option v-for="item in items" :value="item.item_id" v-if="item.track_inventory" >
+                                {{ item.item_name }}
                               </option>
                             </select><br>
                             <span v-if="!$route.params.id"  v-show="detail.item_id != null"> <small >SKU Code : {{detail.code_sku }}</small></span>
@@ -440,6 +443,16 @@
       }
     },
 
+    computed: {
+      items() {
+        return this.list.items.filter((item) => {
+          return ! this.form.details.find((selectedItem) => {
+            return selectedItem.item_id === item.item_id
+          })
+        })
+      }
+    },
+
     beforeRouteLeave (to, from, next) {
       if (this.dirtyForm) {
         const leave = confirm('Are you sure leave this page?')
@@ -517,6 +530,8 @@
         const res = await Axios.get(`items/${item.item_id}`)
         item.database_qty = res.data.data.stock_quantity
         item.code_sku = res.data.data.code_sku
+        item.item_name = res.data.data.item_name
+        item.item_id = res.data.data.item_id
         //item.track_inventory = res.data.data.track_inventory;
       },
 
