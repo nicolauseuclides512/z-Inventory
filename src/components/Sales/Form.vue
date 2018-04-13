@@ -34,7 +34,7 @@
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <vuelist
-                      :loading="true"
+                      :loading="loadingList"
                       @change="selectProduct"
                       @search="searchProduct"
                       :options="list.product_list"
@@ -886,7 +886,6 @@
       },
 
       async fetchProductList() {
-
         this.loadingList = true;
         const product_list_response = await axios.get("items", {
           params: {
