@@ -514,6 +514,10 @@
           this.form.uom_id = res.data.data.uoms[0].uom_id
         }
 
+        if (!this.form.images) {
+          this.form.images = []
+        }
+
         this.list.uoms = res.data.data.uoms
         this.list.accounts = res.data.data.accounts
         this.list.taxes = res.data.data.taxes
