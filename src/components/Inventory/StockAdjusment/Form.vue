@@ -504,7 +504,13 @@
       },
 
       addNew () {
-        this.form.details.push({})
+        this.form.details.push({
+          adjust_qty: null,
+          database_qty: null,
+          item_id: null,
+          on_hand_qty: null,
+          reason_id: null,
+        })
       },
 
       async selectItem (item) {
