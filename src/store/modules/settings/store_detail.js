@@ -52,12 +52,15 @@ const actions = {
 
   async save({dispatch}) {
     try {
-      const [store_detail, tax] = await Promise.all([
+      const [
+        store_detail,
+        // tax
+      ] = await Promise.all([
         dispatch('updateStoreDetail'),
-        dispatch('updateTax'),
+        // dispatch('updateTax'),
       ])
 
-      if (!responseOk(store_detail.data.code) || !responseOk(tax.data.code) ) {
+      if (!responseOk(store_detail.data.code) ) {
         Alert.error('Failed to save')
         return
       }
@@ -86,7 +89,7 @@ const actions = {
   async updateTax({rootState}) {
     return await axios.post('settings/tax', {
       settings: {
-        'web.item.price.tax_included': !!rootState.settings.tax.taxIncluded
+        'web.item.price.tax_included': rootState.settings.tax.isTaxIncluded
       }
     })
   }

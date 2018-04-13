@@ -12,6 +12,7 @@
       <input
         type="text"
         ref="text_filter"
+        placeholder="Search..."
         v-model.trim="search"
         @keyup="doSearch"
         @keyup.esc="clearOrClose"
@@ -19,8 +20,10 @@
       />
 
       <span class="indicator" v-show="isCalculating"> {{ searchIndicator }} </span>
-
-      <ul>
+      <div class="d-flex text-center" v-if="loading">
+        <SpinnerSmall></SpinnerSmall>
+      </div>
+      <ul v-if="!loading">
         <li v-for="(option, index) in filteredOptions"
             :data-index="index"
             :data-value="stringify(option)"
@@ -48,6 +51,10 @@
 
     name: 'Vuelist',
 
+    components: {
+      SpinnerSmall: () => import('@/components/Helpers/SpinnerSmall'),
+    },
+
     // filters: {
     //   stringify(object) {
     //     return JSON.stringify(object, null, 2);
@@ -55,6 +62,10 @@
     // },
 
     props: {
+      loading:{
+        type: Boolean,
+        default: false
+      },
 
       debounce: {
         type: Number,
