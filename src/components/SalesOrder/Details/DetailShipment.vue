@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <div class="container">
+  <div class="detail-sales-order-shipment">
+    <div v-if="!loadingShipmentData" class="container">
+      <!-- <code><pre>{{shipmentList}}</pre></code> -->
       <div class="row p-20 pb-0">
         <div class="btn-toolbar" role="toolbar" aria-label="shipment">
           <button
@@ -95,53 +96,54 @@
 
         </div>
       </div>
-      <div v-if="!shipmentList.length" class="text-center" style="padding-top: 60px">
+      <div v-if="!shipmentList.length && !loadingShipmentData" class="text-center" style="padding-top: 60px">
         <h3>No shipment yet</h3>
       </div>
-      <div v-else>
-        <div class="row p-20 m-b-20">
+      <div v-if="shipmentList.length > 0 && !loadingShipmentData">
+        <div class="row p-20 m-b-20" v-for="shipment,index in shipmentList" :key="shipment.shipment_id+index">
           <div class="col-md-12">
             <div class="row mb-15">
               <label class="col-md-4 control-label text-left"><strong>Shipment Order#</strong></label>
-              <div class="col-md-7">
-                {{ shipmentList[0].shipment_order_number }}
+              <div class="col-md-7 shipment_order_number">
+                {{ shipment.shipment_order_number }}
               </div>
             </div>
             <div class="row mb-15">
               <label class="col-md-4 control-label text-left"><strong>Date of Shipment</strong></label>
-              <div class="col-md-7">
-                {{ shipmentList[0].date | date('short') }}
+              <div class="col-md-7 shipment-date">
+                {{ shipment.date | date('short') }}
               </div>
             </div>
             <div class="row mb-15">
               <label class="col-md-4 control-label text-left"><strong>Carrier</strong></label>
-              <div class="col-md-7">
-                {{ shipmentList[0].carrier.name }}
+              <div class="col-md-7 carrier-name">
+                {{ shipment.carrier.name }}
               </div>
             </div>
             <div class="row mb-15">
               <label class="col-md-4 control-label text-left"><strong>Tracking</strong></label>
               <div class="col-md-7">
-                <span class="text-muted">#</span> {{ shipmentList[0].tracking_number }}
+                <span class="text-muted">#</span> {{ shipment.tracking_number }}
               </div>
             </div>
             <div class="row mb-15">
               <label class="col-md-4 control-label text-left"><strong>Status</strong></label>
-              <div class="col-md-7">
+              <div class="col-md-7 shipment-is_delivered">
                 <span class="label label-info">
-                  {{ shipmentList[0].is_delivered ? 'Delivered' : 'Not delivered yet'}}
+                  {{ shipment.is_delivered ? 'Delivered' : 'Not delivered yet'}}
                 </span>
-                <small class="label label-success" v-if="salesOrder.shipment_status === 'SHIPPED'">
-                  {{ salesOrder.shipment_status | removeUnderScore }}
+                <small class="label label-success salesOrder-shipment_status" v-if="salesOrders.contact.shipment_status === 'SHIPPED'">
+                  {{ salesOrders.contact.shipment_status || removeUnderScore }}
                 </small>
-                <small class="label label-danger" v-else>
-                  {{ salesOrder.shipment_status | removeUnderScore }}
-                </small>
+                <!-- <small class="label label-danger salesOrder-shipment_status" v-else>
+                  {{ salesOrders.shipment_status || removeUnderScore }}
+                </small> -->
               </div>
             </div>
           </div>
         </div>
         <div class="row p-20 btop-1">
+          <!-- <code><pre>{{salesOrders}}</pre></code> -->
           <div class="col-md-12">
             <div class="row mb-15">
               <label class="col-md-4 control-label text-left">
@@ -149,52 +151,64 @@
               </label>
               <div class="col-md-7">
                 <a href="javascript:void(0);">
-                  {{ salesOrder.contact ? salesOrder.contact.display_name : ''}}
+                  {{ salesOrders.contact.contact ? salesOrders.contact.contact.display_name : ''}}
                 </a>
               </div>
             </div>
-            <div class="row mb-15">
+            <div
+              class="row mb-15"
+              v-if="
+                salesOrders.contact.shipping_address ||
+                salesOrders.contact.shipping_region ||
+                salesOrders.contact.shipping_district ||
+                salesOrders.contact.shipping_country ||
+                salesOrders.contact.shipping_province ||
+                salesOrders.contact.shipping_zip
+            ">
               <label class="col-md-4 control-label text-left"><strong>Shipment Address</strong></label>
             </div>
-            <div class="row mb-15">
+            <div class="row mb-15" v-if="salesOrders.contact.shipping_address">
               <label class="col-md-4 control-label text-left light">Alamat</label>
               <div class="col-md-7">
-                {{ salesOrder.shipping_address }}
+                {{ salesOrders.contact.shipping_address }}
               </div>
             </div>
-            <div class="row mb-15">
+            <div class="row mb-15" v-if="salesOrders.contact.shipping_region">
               <label class="col-md-4 control-label text-left light">Region</label>
               <div class="col-md-7">
-                {{ shipping_region_name }}
+                {{ salesOrders.contact.shipping_region }}
               </div>
             </div>
-            <div class="row mb-15">
+            <div class="row mb-15" v-if="salesOrders.contact.shipping_district">
               <label class="col-md-4 control-label text-left light">District</label>
               <div class="col-md-7">
-                {{ shipping_district_name }}
+                {{ salesOrders.contact.shipping_district }}
               </div>
             </div>
-            <div class="row mb-15">
+            <div v-if="salesOrders.contact.shipping_province" class="row mb-15">
               <label class="col-md-4 control-label text-left light">Province</label>
               <div class="col-md-7">
-                {{ shipping_province_name }}
+                {{ salesOrders.contact.shipping_province }}
               </div>
             </div>
-            <div class="row mb-15">
+            <div class="row mb-15" v-if="salesOrders.contact.shipping_zip">
               <label class="col-md-4 control-label text-left light">Kode Pos</label>
               <div class="col-md-7">
-                {{ salesOrder.shipping_zip }}
+                {{ salesOrders.contact.shipping_zip }}
               </div>
             </div>
-            <div class="row mb-15">
+            <div class="row mb-15" v-if="salesOrders.contact.shipping_country">
               <label class="col-md-4 control-label text-left light">Country</label>
               <div class="col-md-7">
-                {{ shipping_country_name }}
+                {{ salesOrders.contact.shipping_country }}
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="spinner" v-if="loadingShipmentData">
+      <Spinner></Spinner>
     </div>
   </div>
 </template>
@@ -202,18 +216,33 @@
 <script>
 
   import axios from 'axios'
+  import {
+    mapGetters
+  } from 'vuex'
 
   export default {
     name: 'DetailShipment',
-
+    components:{
+      Spinner: () => import('@/components/Helpers/Spinner')
+    },
     props: {
       shipmentList: {
         type: Array,
         default: [],
       },
-      salesOrder: {
-        type: Object,
+      loadingShipmentData:{
+        type: Boolean,
+        default: false
       },
+      // salesOrder: {
+      //   type: Object,
+      // },
+    },
+
+    computed: {
+      ...mapGetters({
+        salesOrders: 'salesOrders/salesOrderData'
+      })
     },
 
     data() {
@@ -229,10 +258,10 @@
         this.$emit('deleteShipment')
       },
       async viewShipmentLabels() {
-        let me = this;
+        let that = this;
         const pdfWindow = window.open()
 
-        const url = window.BASE_URL + `/sales_orders/shipments/download-labels?ids=` + me.shipmentList[0].shipment_id
+        const url = window.BASE_URL + `/sales_orders/shipments/download-labels?ids=` + that.shipmentList[0].shipment_id
 
         const response = await axios.get(url, {
           responseType: 'arraybuffer',

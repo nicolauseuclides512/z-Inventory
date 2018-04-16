@@ -7,7 +7,8 @@ const CONSTANT = {
   INVOICES: 'INVOICES',
   PAYMENTS: 'PAYMENTS',
   CREATE_PAYMENT: 'CREATE_PAYMENT',
-  PAYMENT_METHOD_LIST: 'PAYMENT_METHOD_LIST'
+  PAYMENT_METHOD_LIST: 'PAYMENT_METHOD_LIST',
+  SHIPMENT_LIST: 'SHIPMENT_LIST'
 }
 
 const state = {
@@ -17,9 +18,13 @@ const state = {
   payments: [],
   createPayment: {},
   paymentMethodList: {},
+  shipmentList: [],
 }
 
 const mutations = {
+  [CONSTANT.SHIPMENT_LIST] (state, value) {
+    state.shipmentList = value
+  },
   [CONSTANT.SALES_ORDER_LIST] (state, value) {
     state.salesOrderList = value
   },
@@ -41,6 +46,42 @@ const mutations = {
 }
 
 const actions = {
+
+  async saveShipment({state}, sales_order_id: number) {
+    const data = {
+      shipment_order_number: null,
+      date: dateFormat(new Date(), 'YYYY-MM-DD'),
+      carrier_id: null,
+      carrier_name: null, // This field only for view, not send to server.
+      tracking_number: null,
+      notes: '',
+    }
+
+    try {
+      const res = axios.post(`sales_orders/${sales_order_id}/shipments`, data)
+
+      commit('SHIPMENT')
+      this.form.shipment.date = dateFormat(new Date(), 'YYYY-MM-DD')
+      this.form.shipment.shipment_order_number = ''
+      this.form.shipment.tracking_number = ''
+      this.form.shipment.carrier_id = ''
+      this.form.shipment.carrier_name = ''
+      this.form.shipment.notes = ''
+
+      this.currentTab = 'shipment'
+
+      swal_success(res)
+
+      $('#shipment').modal('hide')
+
+    } catch (err) {
+      console.error(err)
+      if (err.hasOwnProperty('response')) {
+        swal_error(err.response)
+      }
+    }
+  },
+
   async getList ({state, commit}, options) {
     try {
       const defaultParams = {
@@ -133,7 +174,11 @@ const actions = {
 
 }
 
-const getters = {}
+const getters = {
+  salesOrderData(state) {
+    return state.salesOrder
+  },
+}
 
 
 export default {

@@ -24,8 +24,10 @@
   import Form from '@/helpers/Form'
   import List from './List'
   import Detail from './Detail'
-  import {mapState} from 'vuex'
-
+  import {
+    mapState,
+    // mapGetters
+  } from 'vuex'
   export default {
     name: 'SalesOrderDetail',
 
@@ -40,7 +42,11 @@
       }
     },
 
-    computed: {},
+    // computed: {
+    //   ...mapGetters({
+    //     salesOrders: 'salesOrders/salesOrderData'
+    //   })
+    // },
 
     async mounted () {
       //load content if users directly hit url

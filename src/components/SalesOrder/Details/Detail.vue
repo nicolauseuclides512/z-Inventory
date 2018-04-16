@@ -157,7 +157,7 @@
                   <tr v-show="!paymentList.length > 0">
                     <td colspan="5" class="text-muted text-center">No payment received</td>
                   </tr>
-                  <tr v-for="payment in paymentList" v-show="paymentList.length > 0">
+                  <tr v-for="payment,index in paymentList" v-show="paymentList.length > 0" :key="index">
                     <td style="padding: 12px 8px;">
                       {{ payment.date | date('short') }}
                     </td>
@@ -195,9 +195,10 @@
 
           <div :class="{ 'tab-pane': true, active: currentTab == 'shipment' }" id="shipment"
                v-if="currentTab == 'shipment'">
-            <DetailShipment
+          <DetailShipment
+              :loadingShipmentData="loadingShipmentData"
               :shipment-list="shipmentList"
-              :sales-order="salesOrder"
+              :salesOrder="salesOrder"
               @edit-shipment="editShipment"
               @delete-shipment="deleteShipment"
             ></DetailShipment>
@@ -231,7 +232,6 @@
   import Axios from 'axios'
   import {mapState} from 'vuex'
   import Form from '@/helpers/Form'
-  import store from 'src/store'
   import Invoice from '@/components/Sales/Invoice'
   import PaymentForm from './PaymentForm';
   import DetailShipment from './DetailShipment.vue'
@@ -248,10 +248,13 @@
 
     data () {
       return {
+        loadingShipmentData: false,
+        shipmentList: [],
         invoiceComponent: false,
         loading: false,
         sendingEmail: false,
         currentTab: 'invoice',
+        salesOrderId: this.$route.params.id,
       }
     },
 
@@ -262,25 +265,26 @@
         paymentList: 'payments',
         createPayment: 'createPayment',
       }),
-
-      shipmentList: {
-        get() {
-          return this.$store.state.sales.shipmentList ? this.$store.state.sales.shipmentList : []
-        },
-        set(value) {
-          this.$store.commit('sales/SHIPMENT_LIST', value)
-        },
-      }
     },
 
     async mounted () {
       this.invoiceComponent = Invoice
       this.loading = true
-      const salesOrderId = this.$route.params.id
-      this.$store.dispatch('salesOrders/selectSalesOrder', salesOrderId)
+      this.fetchShipmentData()
+      this.salesOrderId = this.$route.params.id
+      this.$store.dispatch('salesOrders/selectSalesOrder', this.salesOrderId)
         .then(() => {
           this.loading = false
+        }).catch(err => {
+          this.loading = false
+          console.log('error! ', err)
         })
+    },
+
+    watch: {
+      $route(to,form){
+        this.fetchShipmentData()
+      }
     },
 
     methods: {
@@ -289,19 +293,23 @@
        * Fetch shipment daata
        */
       async fetchShipmentData() {
+        this.loadingShipmentData = true
         try {
           const sales_order_id = parseInt(this.$route.params.id)
 
           const res = await Axios.get(`sales_orders/${sales_order_id}/shipments`)
 
           this.shipmentList = res.data.data
+          this.loadingShipmentData = false
 
         } catch (err) {
+          this.loadingShipmentData = false
           console.error(err)
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
           }
         }
+        this.loadingShipmentData = false
       },
 
       /**
@@ -316,7 +324,6 @@
           try {
             const sales_order_id = this.salesOrderItems.sales_order_id
 
-            // Fetch shipment data
             this.fetchShipmentData()
             const shipment_ids = []
             this.shipmentList.forEach(item => {
@@ -332,7 +339,6 @@
               return swal_error(res)
             }
 
-            // Refresh shipment data
             this.fetchShipmentData()
 
             return swal_success(res)
@@ -365,8 +371,6 @@
           this.form.shipment = res.data.data.shipment
           this.form.shipment.carrier_name = res.data.data.carrier.carrier_name
 
-          // const date = dateFormat(res.data.data.shipment.date, 'YYYY-MM-DD')
-          // this.shipment_date.setDate(date)
 
           $('#shipment-modal-edit').modal('show')
 
@@ -382,8 +386,6 @@
       switchTab (tabName) {
         this.currentTab = tabName
         if (tabName == 'shipment') {
-
-        alert(tabName)
           this.fetchShipmentData()
         }
       },
@@ -396,7 +398,6 @@
         const pdfWindow = window.open()
         const salesOrderId = this.$route.params.id
 
-        // Fetch invoice list
         const invoiceId = this.invoiceList[0].invoice_id
 
         const url = window.BASE_URL + `/sales_orders/${salesOrderId}/invoices/${invoiceId}/pdf`
