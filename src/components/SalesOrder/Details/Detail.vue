@@ -197,7 +197,7 @@
                v-if="currentTab == 'shipment'">
           <DetailShipment
               :loadingShipmentData="loadingShipmentData"
-              :shipment-list="shipmentList"
+              :shipmentList="shipmentList"
               :salesOrder="salesOrder"
               @edit-shipment="editShipment"
               @delete-shipment="deleteShipment"

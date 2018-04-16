@@ -1,11 +1,11 @@
 <template>
   <div class="detail-sales-order-shipment">
-    <div v-if="!loadingShipmentData" class="container">
+    <div v-if="shipmentList && !loadingShipmentData" class="container">
       <!-- <code><pre>{{shipmentList}}</pre></code> -->
       <div class="row p-20 pb-0">
         <div class="btn-toolbar" role="toolbar" aria-label="shipment">
           <button
-            v-show="shipmentList.length"
+            v-if="shipmentList.length"
             type="button"
             class="btn btn-default"
             data-toggle="tooltip"
@@ -88,7 +88,7 @@
             data-toggle="tooltip"
             data-placement="top"
             title="Delete"
-            v-show="shipmentList.length"
+            v-if="shipmentList.length"
             @click="deleteShipment"
           >
             <i class="fa fa-trash"></i>
@@ -227,8 +227,7 @@
     },
     props: {
       shipmentList: {
-        type: Array,
-        default: [],
+        type: Array
       },
       loadingShipmentData:{
         type: Boolean,
