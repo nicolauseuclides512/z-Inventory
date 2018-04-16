@@ -107,23 +107,21 @@
     <div class="row" v-if="!loading && Object.keys(salesOrder).length">
       <div class="col-md-12">
         <ul class="nav nav-tabs navtab-bg nav-justified" style="margin-left: 5px;">
-          <li :class="{ tab: true, active: currentTab == 'invoice' }"
-              style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
+          <li :class="{ tab: true, active: currentTab == 'invoice' }" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
             <a href="javascript:void(0);" @click="switchTab('invoice')">
               <span class="hidden-xs">INVOICE</span>
             </a>
           </li>
-          <li :class="{ tab: true, active: currentTab == 'payment' }"
-              style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
+          <li :class="{ tab: true, active: currentTab == 'payment' }" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
             <a href="javascript:void(0);" @click="switchTab('payment')">
               <span class="hidden-xs">PAYMENT</span>
             </a>
           </li>
-          <!-- <li :class="{ tab: true, active: currentTab == 'shipment' }">
+          <li :class="{ tab: true, active: currentTab == 'shipment' }" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
             <a href="javascript:void(0);" @click="switchTab('shipment')">
               <span class="hidden-xs">SHIPMENT</span>
             </a>
-          </li> -->
+          </li>
         </ul>
 
         <div class="tab-content p-0 tab-content-clear tab-content--contact">
@@ -233,8 +231,10 @@
   import Axios from 'axios'
   import {mapState} from 'vuex'
   import Form from '@/helpers/Form'
+  import store from 'src/store'
   import Invoice from '@/components/Sales/Invoice'
   import PaymentForm from './PaymentForm';
+  import DetailShipment from './DetailShipment.vue'
 
   export default {
     name: 'Detail',
@@ -243,6 +243,7 @@
       Spinner: () => import('@/components/Helpers/Spinner'),
       Invoice,
       PaymentForm,
+      DetailShipment,
     },
 
     data () {
@@ -260,7 +261,16 @@
         invoiceList: 'invoices',
         paymentList: 'payments',
         createPayment: 'createPayment',
-      })
+      }),
+
+      shipmentList: {
+        get() {
+          return this.$store.state.sales.shipmentList ? this.$store.state.sales.shipmentList : []
+        },
+        set(value) {
+          this.$store.commit('sales/SHIPMENT_LIST', value)
+        },
+      }
     },
 
     async mounted () {
@@ -275,8 +285,107 @@
 
     methods: {
 
+      /**
+       * Fetch shipment daata
+       */
+      async fetchShipmentData() {
+        try {
+          const sales_order_id = parseInt(this.$route.params.id)
+
+          const res = await Axios.get(`sales_orders/${sales_order_id}/shipments`)
+
+          this.shipmentList = res.data.data
+
+        } catch (err) {
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
+        }
+      },
+
+      /**
+       * Delete shipment
+       */
+      async deleteShipment() {
+        Alert.confirm({
+          title: 'Do you really want to delete this shipment?',
+          text: 'Deleted this shipment cannot be recovered. Do you still want to continue?',
+        }, async () => {
+
+          try {
+            const sales_order_id = this.salesOrderItems.sales_order_id
+
+            // Fetch shipment data
+            this.fetchShipmentData()
+            const shipment_ids = []
+            this.shipmentList.forEach(item => {
+              shipment_ids.push(item.shipment_id)
+            })
+
+            const delete_ids = shipment_ids.join(',')
+
+            const url = `sales_orders/${sales_order_id}/shipments?ids=${delete_ids}`
+
+            const res = await Axios.delete(url)
+            if (!responseOk(res.data.code)) {
+              return swal_error(res)
+            }
+
+            // Refresh shipment data
+            this.fetchShipmentData()
+
+            return swal_success(res)
+
+          } catch (err) {
+            console.error(err)
+            if (err.hasOwnProperty('response')) {
+              swal_error(err.response)
+            }
+          }
+
+        })
+
+      },
+
+      /**
+       * Update shipment data
+       */
+      editShipment() {
+        try {
+          const sales_order_id = this.salesOrderItems.sales_order_id
+          this.fetchShipmentData()
+          const shipment_id = this.shipmentList[0].shipment_id
+
+          const res = Axios.get(`sales_orders/${sales_order_id}/shipments/${shipment_id}/edit`)
+          if (!responseOk(res.data.code)) {
+            return swal_error(res)
+          }
+
+          this.form.shipment = res.data.data.shipment
+          this.form.shipment.carrier_name = res.data.data.carrier.carrier_name
+
+          // const date = dateFormat(res.data.data.shipment.date, 'YYYY-MM-DD')
+          // this.shipment_date.setDate(date)
+
+          $('#shipment-modal-edit').modal('show')
+
+        } catch (err) {
+          console.error(err)
+          if (err.hasOwnProperty('response')) {
+            swal_error(err.response)
+          }
+        }
+      },
+
+
       switchTab (tabName) {
         this.currentTab = tabName
+        if (tabName == 'shipment') {
+
+        alert(tabName)
+          this.fetchShipmentData()
+        }
       },
 
       /**
