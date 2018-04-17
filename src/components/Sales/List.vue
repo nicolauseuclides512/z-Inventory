@@ -200,6 +200,7 @@
                             <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Channel</th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer</th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Status</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Shipment Status</th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Due Date</th>
                             <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Total</th>
                             <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Balance Due</th>
@@ -261,6 +262,9 @@
                                   </div>
                                 </div>
                                 <!-- {{ sale.sales_order_status.toLowerCase().replace(/_/g, ' ') | capitalize }} -->
+                              </td>
+                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                                {{ sale.shipment_status.replace(/_/g, ' ') }}
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.due_date | date('short') }}
