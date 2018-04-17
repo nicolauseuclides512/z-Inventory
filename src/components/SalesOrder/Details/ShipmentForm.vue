@@ -55,8 +55,8 @@
 
 <script>
   import axios from 'axios'
-  import store from 'src/store'
-  import dateFormat from 'date-fns/format'
+  // import store from 'src/store'
+  // import dateFormat from 'date-fns/format'
   import {Alert} from "../../../helpers";
   const Flatpickr = require('flatpickr').default
 
@@ -64,35 +64,37 @@
     name: 'ShipmentForm',
     props: [],
 
+    data(){
+      return{
+        // shipment_order_number: null,
+
+        date: new Date(),
+        tracking_number: null,
+        notes: '',
+        // carrierList: '',
+        carrier_id: 'Please Select Carrier',
+        salesOrderId: '',
+        carrierList: []
+      }
+    },
+
     computed: {
-      carrierList: {
-        get() { return store.state.sales.shipment.carrierList },
-        set(value) { store.commit('sales/shipment/CARRIERLIST', value) },
+      shipment_order_number() {
+        return this.salesOrderId + new Date().toISOString()
       },
-      shipment_order_number: {
-        get() { return store.state.sales.shipment.shipment_order_number },
-        set(value) { store.commit('sales/shipment/SHIPMENT_ORDER_NUMBER', value) },
-      },
-      date: {
-        get() { return store.state.sales.shipment.date },
-        set(value) { store.commit('sales/shipment/DATE', value) },
-      },
-      carrier_id: {
-        get() { return store.state.sales.shipment.carrier_id },
-        set(value) { store.commit('sales/shipment/CARRIER_ID', value) },
-      },
-      tracking_number: {
-        get() { return store.state.sales.shipment.tracking_number },
-        set(value) { store.commit('sales/shipment/TRACKING_NUMBER', value) },
-      },
-      notes: {
-        get() { return store.state.sales.shipment.notes },
-        set(value) { store.commit('sales/shipment/NOTES', value) },
-      },
+      // carrierList: {
+      //   get() { return this.$store.state.sales.shipment.carrierList },
+      //   set(value) { this.$store.commit('sales/shipment/CARRIERLIST', value) },
+      // },
+      // carrier_id: {
+      //   get() { return this.$store.state.sales.shipment.carrier_id },
+      //   set(value) { this.$store.commit('sales/shipment/CARRIER_ID', value) },
+      // },
     },
 
     mounted() {
-      this.getCarriers()
+      this.salesOrderId = parseInt(this.$route.params.id)
+      this.createShipment(this.salesOrderId)
 
       $('.flatpickr').flatpickr({
         defaultDate: new Date(),
@@ -103,26 +105,57 @@
     },
 
     methods: {
-      getCarriers() {
-        store.dispatch('sales/shipment/getCarriers')
+      createShipment(salesOrderId) {
+        // this.$store.dispatch('sales/shipment/getCarriers')
+        axios.get(`/sales_orders/${salesOrderId}/shipments/create`).then(
+          res => {
+            // console.log(res.data.data)
+            const response = res.data.data
+            this.carrierList = _.filter(response.carrier, 'status')
+          }).catch(err =>{
+            Alert.error('error! '+ err.response.message)
+            console.log(err.response)
+          })
       },
 
+      // watch: {
+      //   '$route'(to, from) {
+      //     console.log(to,form)
+      //     // if(to !== form){
+      //     //   this.salesOrderId = parseInt(this.$route.params.id)
+      //     // }
+      //   },
+      // },
+
       save() {
+        let salesOrderId = this.$route.params.id
         if (!this.tracking_number) {
           Alert.error('Tracking number is required');
           return;
         }
-
-        const sales_order_id = parseInt(this.$route.params.id)
-        store.dispatch('sales/shipment/save', sales_order_id)
-          .then(res => {
+        try{
+          axios.post(`/sales_orders/${salesOrderId}/shipments`, {
+            'shipment_order_number': this.shipment_order_number,
+            'date': this.date,
+            'carrier_id': this.carrier_id,
+            'tracking_number': this.tracking_number,
+            'notes': this.notes,
+          }).then(res => {
             swal_success(res)
-          })
-          .catch(err => {
+            // console.log(res)
+            this.$emit('close')
+          }).catch(err => {
             swal_error(err.response)
           })
+        } catch (err) {
+          err =>{
+            console.log(err.response)
+          }
+        }
       }
-    }
+
+    },
+
   }
 </script>
 

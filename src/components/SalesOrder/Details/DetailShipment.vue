@@ -1,7 +1,7 @@
 <template>
   <div class="detail-sales-order-shipment">
     <div v-if="shipmentList && !loadingShipmentData" class="container">
-      <code><pre>{{shipmentList}}</pre></code>
+      <!-- <code><pre>{{shipmentList}}</pre></code> -->
       <div class="row p-20 pb-0">
         <div class="btn-toolbar" role="toolbar" aria-label="shipment">
           <button
@@ -143,7 +143,7 @@
           </div>
         </div>
         <div class="row p-20 btop-1">
-          <code><pre>{{salesOrders}}</pre></code>
+          <!-- <code><pre>{{salesOrders}}</pre></code> -->
           <div class="col-md-12">
             <div class="row mb-15">
               <label class="col-md-4 control-label text-left">

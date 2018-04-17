@@ -1,7 +1,8 @@
-import axios from 'axios'
-import dateFormat from 'date-fns/format'
+import axios from 'axios';
+import dateFormat from 'date-fns/format';
 import {responseOk} from "src/helpers";
 import Carrier from "../../../helpers/Carrier";
+
 
 const state = {
   carrierList: [],
@@ -36,8 +37,6 @@ const actions = {
         if (!responseOk(res.data.code)) {
           reject(res)
         }
-        // this.form.shipment.carrier_id = res.data.data.carrier.carrier_id
-        // this.form.shipment.carrier_name = res.data.data.carrier.carrier_name
 
         resolve(res)
 
@@ -47,16 +46,16 @@ const actions = {
     })
   },
 
-  save({state}, sales_order_id: number): Promise {
+  save({state}, sales_order_id, formData): Promise {
     const url = `sales_orders/${sales_order_id}/shipments`
-
-    const data = {
-      shipment_order_number: sales_order_id + new Date().toISOString(),
-      date: state.date,
-      carrier_id: state.carrier_id,
-      tracking_number: state.tracking_number,
-      notes: state.notes,
-    }
+    const data = formData
+    // const data = {
+    //   shipment_order_number: sales_order_id + new Date().toISOString(),
+    //   date: state.date,
+    //   carrier_id: state.carrier_id,
+    //   tracking_number: state.tracking_number,
+    //   notes: state.notes,
+    // }
 
     return new Promise((resolve, reject) => {
       axios.post(url, data).then(res => {
@@ -78,8 +77,6 @@ const actions = {
         if (!responseOk(res.data.code)) {
           reject(res)
         }
-        // this.form.shipment.carrier_id = res.data.data.carrier.carrier_id
-        // this.form.shipment.carrier_name = res.data.data.carrier.carrier_name
 
         resolve(res)
 

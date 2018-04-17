@@ -226,6 +226,8 @@
       :invoiceList="invoiceList"
     />
     <ShipmentForm
+      v-if="modalShipment"
+      @close="closeModalShipment()"
     />
 
     <!-- =========================== -->
@@ -261,6 +263,7 @@
 
     data () {
       return {
+        modalShipment: false,
         loadingShipmentData: false,
         shipmentList: [],
         invoiceComponent: false,
@@ -301,6 +304,11 @@
     },
 
     methods: {
+      closeModalShipment(){
+        this.fetchShipmentData()
+        $('#shipment-modal-add').modal('hide')
+        this.modalShipment = false
+      },
 
       /**
        * Fetch shipment daata
@@ -442,6 +450,7 @@
       },
 
       async showModalShipment(detail) {
+        this.modalShipment = true
         let sales_order_id = parseInt(this.$route.params.id)
         await this.$store.dispatch('sales/shipment/create', sales_order_id)
         $('#shipment-modal-add').modal('show')
