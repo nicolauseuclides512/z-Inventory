@@ -40,7 +40,7 @@
             <div class="pull-right">
             <div class="pull-left" style="margin-right: 10px;">
               <router-link
-                :to="{ name: 'sales.edit', param: { id: salesOrder.sales_order_id } }"
+                :to="{ name: 'sales.edit', param: { id: salesOrderId } }"
                 v-if="(salesOrder.invoice_status !== 'VOID') && (salesOrder.invoice_status !== 'PAID')"
                 class="btn btn-default waves-effect waves-light m-b-5"
               >
@@ -206,8 +206,8 @@
               :loadingShipmentData="loadingShipmentData"
               :shipmentList="shipmentList"
               :salesOrder="salesOrder"
-              @edit-shipment="editShipment"
-              @delete-shipment="deleteShipment"
+              @editShipment="editShipment"
+              @deleteShipment="deleteShipment"
             ></DetailShipment>
           </div>
         </div>
@@ -248,6 +248,7 @@
   import ShipmentForm from './ShipmentForm'
   import DetailShipment from './DetailShipment.vue'
   import Spinner from '@/components/Helpers/Spinner'
+  import { swal_error, swal_success } from '../../../helpers';
 
 
   export default {
@@ -263,6 +264,7 @@
 
     data () {
       return {
+        packageNotFound: false,
         modalShipment: false,
         loadingShipmentData: false,
         shipmentList: [],
@@ -321,6 +323,11 @@
           const res = await Axios.get(`sales_orders/${sales_order_id}/shipments`)
 
           this.shipmentList = res.data.data
+          // if(res.data.message == 'skip get shipment cause Package not found') {
+          //   this.packageNotFound = true
+          // }else{
+          //   this.packageNotFound = false
+          // }
           this.loadingShipmentData = false
 
         } catch (err) {
@@ -343,7 +350,7 @@
         }, async () => {
 
           try {
-            const sales_order_id = this.salesOrderItems.sales_order_id
+            const sales_order_id = this.salesOrderId
 
             this.fetchShipmentData()
             const shipment_ids = []
@@ -356,14 +363,12 @@
             const url = `sales_orders/${sales_order_id}/shipments?ids=${delete_ids}`
 
             const res = await Axios.delete(url)
-            if (!responseOk(res.data.code)) {
+            if(res.data.code == 200){
+              this.fetchShipmentData()
+              return swal_success(res)
+            }else{
               return swal_error(res)
             }
-
-            this.fetchShipmentData()
-
-            return swal_success(res)
-
           } catch (err) {
             console.error(err)
             if (err.hasOwnProperty('response')) {
@@ -380,14 +385,14 @@
        */
       editShipment() {
         try {
-          const sales_order_id = this.salesOrderItems.sales_order_id
+          const sales_order_id = this.salesOrderId
           this.fetchShipmentData()
           const shipment_id = this.shipmentList[0].shipment_id
 
           const res = Axios.get(`sales_orders/${sales_order_id}/shipments/${shipment_id}/edit`)
-          if (!responseOk(res.data.code)) {
-            return swal_error(res)
-          }
+          // if (!responseOk(res.data.code)) {
+          //   return swal_error(res)
+          // }
 
           this.form.shipment = res.data.data.shipment
           this.form.shipment.carrier_name = res.data.data.carrier.carrier_name

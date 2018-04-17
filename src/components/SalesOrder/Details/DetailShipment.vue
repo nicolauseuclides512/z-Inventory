@@ -1,5 +1,11 @@
 <template>
   <div class="detail-sales-order-shipment">
+    <div class="not-found container" v-if="!loadingShipmentData && !shipmentList">
+      <div v-if="!shipmentList && !loadingShipmentData" class="text-center" style="padding-top: 60px">
+        <!-- <h3 class="text-danger" v-if="packageNotFound">Package not found!</h3> -->
+        <h3> No shipment yet</h3>
+      </div>
+    </div>
     <div v-if="shipmentList && !loadingShipmentData" class="container">
       <!-- <code><pre>{{shipmentList}}</pre></code> -->
       <div class="row p-20 pb-0">
@@ -96,9 +102,6 @@
 
         </div>
       </div>
-      <div v-if="!shipmentList.length && !loadingShipmentData" class="text-center" style="padding-top: 60px">
-        <h3>No shipment yet</h3>
-      </div>
       <div v-if="shipmentList.length > 0 && !loadingShipmentData">
         <div class="row p-20 m-b-20" v-for="shipment,index in shipmentList" :key="shipment.shipment_id+index">
           <div class="col-md-12">
@@ -132,9 +135,11 @@
                 <span class="label label-info">
                   {{ shipment.is_delivered ? 'Delivered' : 'Not delivered yet'}}
                 </span>
-                <small class="label label-success salesOrder-shipment_status" v-if="salesOrders.shipment_status === 'SHIPPED'">
+
+                <!-- <small class="label label-success salesOrder-shipment_status" v-if="salesOrders.shipment_status === 'SHIPPED'">
                   {{ salesOrders.shipment_status || removeUnderScore }}
-                </small>
+                </small> -->
+
                 <!-- <small class="label label-danger salesOrder-shipment_status" v-else>
                   {{ salesOrders.shipment_status || removeUnderScore }}
                 </small> -->
@@ -229,6 +234,9 @@
       shipmentList: {
         type: Array
       },
+      // packageNotFound:{
+      //   type: Boolean
+      // },
       loadingShipmentData:{
         type: Boolean,
         default: false
@@ -245,7 +253,8 @@
     },
 
     data() {
-      return {}
+      return {
+      }
     },
 
     methods: {
