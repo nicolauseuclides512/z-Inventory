@@ -1,7 +1,7 @@
 <template>
   <div class="detail-sales-order-shipment">
     <div v-if="shipmentList && !loadingShipmentData" class="container">
-      <!-- <code><pre>{{shipmentList}}</pre></code> -->
+      <code><pre>{{shipmentList}}</pre></code>
       <div class="row p-20 pb-0">
         <div class="btn-toolbar" role="toolbar" aria-label="shipment">
           <button
@@ -132,8 +132,8 @@
                 <span class="label label-info">
                   {{ shipment.is_delivered ? 'Delivered' : 'Not delivered yet'}}
                 </span>
-                <small class="label label-success salesOrder-shipment_status" v-if="salesOrders.contact.shipment_status === 'SHIPPED'">
-                  {{ salesOrders.contact.shipment_status || removeUnderScore }}
+                <small class="label label-success salesOrder-shipment_status" v-if="salesOrders.shipment_status === 'SHIPPED'">
+                  {{ salesOrders.shipment_status || removeUnderScore }}
                 </small>
                 <!-- <small class="label label-danger salesOrder-shipment_status" v-else>
                   {{ salesOrders.shipment_status || removeUnderScore }}
@@ -143,7 +143,7 @@
           </div>
         </div>
         <div class="row p-20 btop-1">
-          <!-- <code><pre>{{salesOrders}}</pre></code> -->
+          <code><pre>{{salesOrders}}</pre></code>
           <div class="col-md-12">
             <div class="row mb-15">
               <label class="col-md-4 control-label text-left">
@@ -151,56 +151,56 @@
               </label>
               <div class="col-md-7">
                 <a href="javascript:void(0);">
-                  {{ salesOrders.contact.contact ? salesOrders.contact.contact.display_name : ''}}
+                  {{ salesOrders.contact ? salesOrders.contact.display_name : ''}}
                 </a>
               </div>
             </div>
             <div
               class="row mb-15"
               v-if="
-                salesOrders.contact.shipping_address ||
-                salesOrders.contact.shipping_region ||
-                salesOrders.contact.shipping_district ||
-                salesOrders.contact.shipping_country ||
-                salesOrders.contact.shipping_province ||
-                salesOrders.contact.shipping_zip
+                salesOrders.shipping_address ||
+                salesOrders.shipping_region ||
+                salesOrders.shipping_district ||
+                salesOrders.shipping_country ||
+                salesOrders.shipping_province ||
+                salesOrders.shipping_zip
             ">
               <label class="col-md-4 control-label text-left"><strong>Shipment Address</strong></label>
             </div>
-            <div class="row mb-15" v-if="salesOrders.contact.shipping_address">
+            <div class="row mb-15" v-if="salesOrders.shipping_address">
               <label class="col-md-4 control-label text-left light">Alamat</label>
               <div class="col-md-7">
-                {{ salesOrders.contact.shipping_address }}
+                {{ salesOrders.shipping_address }}
               </div>
             </div>
-            <div class="row mb-15" v-if="salesOrders.contact.shipping_region">
+            <div class="row mb-15" v-if="salesOrders.shipping_region">
               <label class="col-md-4 control-label text-left light">Region</label>
               <div class="col-md-7">
-                {{ salesOrders.contact.shipping_region }}
+                {{ salesOrders.shipping_region }}
               </div>
             </div>
-            <div class="row mb-15" v-if="salesOrders.contact.shipping_district">
+            <div class="row mb-15" v-if="salesOrders.shipping_district">
               <label class="col-md-4 control-label text-left light">District</label>
               <div class="col-md-7">
-                {{ salesOrders.contact.shipping_district }}
+                {{ salesOrders.shipping_district }}
               </div>
             </div>
-            <div v-if="salesOrders.contact.shipping_province" class="row mb-15">
+            <div v-if="salesOrders.shipping_province" class="row mb-15">
               <label class="col-md-4 control-label text-left light">Province</label>
               <div class="col-md-7">
-                {{ salesOrders.contact.shipping_province }}
+                {{ salesOrders.shipping_province }}
               </div>
             </div>
-            <div class="row mb-15" v-if="salesOrders.contact.shipping_zip">
+            <div class="row mb-15" v-if="salesOrders.shipping_zip">
               <label class="col-md-4 control-label text-left light">Kode Pos</label>
               <div class="col-md-7">
-                {{ salesOrders.contact.shipping_zip }}
+                {{ salesOrders.shipping_zip }}
               </div>
             </div>
-            <div class="row mb-15" v-if="salesOrders.contact.shipping_country">
+            <div class="row mb-15" v-if="salesOrders.shipping_country">
               <label class="col-md-4 control-label text-left light">Country</label>
               <div class="col-md-7">
-                {{ salesOrders.contact.shipping_country }}
+                {{ salesOrders.shipping_country }}
               </div>
             </div>
           </div>
