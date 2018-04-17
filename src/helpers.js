@@ -114,31 +114,32 @@ export const swal_success = (res) => {
  *       Because it's shorter than Alert.error(res.data)
  */
 export const swal_error = (res) => {
+  if(res){
+    let message, title
 
-  let message, title
+    if (!res.data.message) {
+      title = 'Whoops, something went wrong!'
+    } else {
+      title = res.data.message
+    }
 
-  if (!res.data.message) {
-    title = 'Whoops, something went wrong!'
-  } else {
-    title = res.data.message
-  }
-
-  if (_.size(res.data.errors) > 0) {
-    message = '<ul>'
-    _.each(res.data.errors, (item, index) => {
-      _.each(item, error => {
-        message += `<li>${error}</li>`
+    if (_.size(res.data.errors) > 0) {
+      message = '<ul>'
+      _.each(res.data.errors, (item, index) => {
+        _.each(item, error => {
+          message += `<li>${error}</li>`
+        })
       })
-    })
-    message += '</ul>'
-  }
+      message += '</ul>'
+    }
 
-  swal({
-    title: title,
-    html: message,
-    type: 'error',
-    showConfirmButton: true,
-  }).catch(swal.noop)
+    swal({
+      title: title,
+      html: message,
+      type: 'error',
+      showConfirmButton: true,
+    }).catch(swal.noop)
+  }
 }
 
 /**

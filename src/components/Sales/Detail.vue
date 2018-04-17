@@ -288,13 +288,13 @@
                             </a>
                           </li>
                           <li>
-                            <!-- <a
+                            <a
                               @click="showModalShipment()"
                               data-toggle="dropdown"
                               aria-expanded="false"
                             >
                               Shipment
-                            </a> -->
+                            </a>
                           </li>
                         </ul>
                       </div>
@@ -346,11 +346,11 @@
                           <span class="hidden-xs">PAYMENT</span>
                         </a>
                       </li>
-                      <!-- <li :class="{ tab: true, active: currentTab == 'shipment' }">
+                      <li :class="{ tab: true, active: currentTab == 'shipment' }">
                         <a href="javascript:void(0);" @click="switchTab('shipment')">
                           <span class="hidden-xs">SHIPMENT</span>
                         </a>
-                      </li> -->
+                      </li>
                     </ul>
 
                     <div class="tab-content p-0 tab-content-clear tab-content--contact">
@@ -640,7 +640,7 @@
 
       shipmentList: {
         get() {
-          return store.state.sales.shipmentList ? store.state.sales.shipmentList : []
+          return this.$store.state.sales.shipmentList ? this.$store.state.sales.shipmentList : []
         },
         set(value) {
           store.commit('sales/SHIPMENT_LIST', value)
@@ -694,7 +694,7 @@
 
       sort: {
         get() {
-          return store.state.sales.sort
+          return this.$store.state.sales.sort
         },
         set(value) {
           store.commit('sales/SORT', value)
