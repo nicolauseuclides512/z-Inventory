@@ -55,8 +55,6 @@
 
 <script>
   import axios from 'axios'
-  // import store from 'src/store'
-  // import dateFormat from 'date-fns/format'
   import {Alert} from "../../../helpers";
   const Flatpickr = require('flatpickr').default
 
@@ -66,12 +64,10 @@
 
     data(){
       return{
-        // shipment_order_number: null,
 
         date: new Date(),
         tracking_number: null,
         notes: '',
-        // carrierList: '',
         carrier_id: 'Please Select Carrier',
         salesOrderId: '',
         carrierList: []
@@ -82,14 +78,6 @@
       shipment_order_number() {
         return this.salesOrderId + new Date().toISOString()
       },
-      // carrierList: {
-      //   get() { return this.$store.state.sales.shipment.carrierList },
-      //   set(value) { this.$store.commit('sales/shipment/CARRIERLIST', value) },
-      // },
-      // carrier_id: {
-      //   get() { return this.$store.state.sales.shipment.carrier_id },
-      //   set(value) { this.$store.commit('sales/shipment/CARRIER_ID', value) },
-      // },
     },
 
     mounted() {
@@ -106,10 +94,8 @@
 
     methods: {
       createShipment(salesOrderId) {
-        // this.$store.dispatch('sales/shipment/getCarriers')
         axios.get(`/sales_orders/${salesOrderId}/shipments/create`).then(
           res => {
-            // console.log(res.data.data)
             const response = res.data.data
             this.carrierList = _.filter(response.carrier, 'status')
           }).catch(err =>{
@@ -118,14 +104,6 @@
           })
       },
 
-      // watch: {
-      //   '$route'(to, from) {
-      //     console.log(to,form)
-      //     // if(to !== form){
-      //     //   this.salesOrderId = parseInt(this.$route.params.id)
-      //     // }
-      //   },
-      // },
 
       save() {
         let salesOrderId = this.$route.params.id
@@ -142,7 +120,6 @@
             'notes': this.notes,
           }).then(res => {
             swal_success(res)
-            // console.log(res)
             this.$emit('close')
           }).catch(err => {
             swal_error(err.response)

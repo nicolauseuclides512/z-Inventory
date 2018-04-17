@@ -219,7 +219,7 @@
     <!-- =========================== -->
 
     <!-- =========================== -->
-    <!-- Payment Record Form Modal   -->
+    <!-- Payment & Shipment Record Form Modal   -->
     <!-- =========================== -->
 
     <PaymentForm
@@ -231,7 +231,7 @@
     />
 
     <!-- =========================== -->
-    <!-- END Payment Record Form Modal -->
+    <!-- END Payment & Shipment Record Form Modal -->
     <!-- =========================== -->
 
 
