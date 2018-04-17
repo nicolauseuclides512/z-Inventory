@@ -133,7 +133,10 @@
             </div>
           </div>
           <div class="clearfix">
-            <span class="text-muted">{{ salesOrder.invoice_date | date('short') }}</span>
+            <div class="pull-left"><span class="text-muted">{{ salesOrder.invoice_date | date('short') }}</span></div>
+            <div class="pull-right">
+              {{ salesOrder.shipment_status.replace(/_/g, ' ') }}
+            </div>
           </div>
         </td>
       </tr>
