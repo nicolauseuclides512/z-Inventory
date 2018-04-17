@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import paymentMethodList from 'src/helpers/PaymentMethodList'
-import shipment from './shipment';
+// import shipment from './shipment';
 
 
 const CONSTANT = {
