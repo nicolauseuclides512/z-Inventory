@@ -64,6 +64,13 @@
                   >
                     Payment
                   </a>
+                  <a
+                    @click="showModalShipment()"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Shipment
+                  </a>
                 </li>
               </ul>
             </div>
@@ -218,6 +225,8 @@
     <PaymentForm
       :invoiceList="invoiceList"
     />
+    <ShipmentForm
+    />
 
     <!-- =========================== -->
     <!-- END Payment Record Form Modal -->
@@ -233,15 +242,19 @@
   import {mapState} from 'vuex'
   import Form from '@/helpers/Form'
   import Invoice from '@/components/Sales/Invoice'
-  import PaymentForm from './PaymentForm';
+  import PaymentForm from './PaymentForm'
+  import ShipmentForm from './ShipmentForm'
   import DetailShipment from './DetailShipment.vue'
+  import Spinner from '@/components/Helpers/Spinner'
+
 
   export default {
     name: 'Detail',
 
     components: {
-      Spinner: () => import('@/components/Helpers/Spinner'),
+      Spinner,
       Invoice,
+      ShipmentForm,
       PaymentForm,
       DetailShipment,
     },
@@ -426,6 +439,12 @@
 
       showModalPayment () {
         $('#payment-modal').modal('show')
+      },
+
+      async showModalShipment(detail) {
+        let sales_order_id = parseInt(this.$route.params.id)
+        await this.$store.dispatch('sales/shipment/create', sales_order_id)
+        $('#shipment-modal-add').modal('show')
       },
 
     }
