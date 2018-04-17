@@ -13,6 +13,13 @@
       <div class="panel-body">
         <form method="POST" class="form-horizontal m-t-20" @submit.prevent>
 
+          <div v-if="$route.query.thanks">
+            <h3>Thank you!</h3>
+            One more step to go. You’ve just been sent an email with a confirmation link.
+            To confirm your subscription, check your email inbox and click the link in that email.
+            <hr>
+          </div>
+
           <div v-if="!emailIsTrue" class="form-group">
             <div class="col-xs-12">
               <input class="form-control input-lg"
