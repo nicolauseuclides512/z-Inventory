@@ -1,5 +1,5 @@
 <template>
-  <div class="content-page-full" style="padding-right: 0px;">
+  <div class="content-page-full" style="padding-right: 0;">
     <div v-if="checkedList.length > 0 && !loadingSalesOrders" class="float-CheckOpt">
         <div class="container">
            <div class="clearfix">
@@ -30,26 +30,26 @@
                 </a>
                 <ul class="dropdown-menu" role="menu" style="top: 117px;left: 210px;position: fixed;">
                   <li class="dropdown-header">FILTER BY</li>
-                  <li :class="{ active: filter == 'all' }">
+                  <li :class="{ active: filter === 'all' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'all' })">All</a>
                   </li>
                   <li class="divider"></li>
-                  <li :class="{ active: filter == 'draft' }">
+                  <li :class="{ active: filter === 'draft' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'draft' })">Draft</a>
                   </li>
-                  <li :class="{ active: filter == 'paid' }">
+                  <li :class="{ active: filter === 'paid' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'paid' })">Paid</a>
                   </li>
-                  <li :class="{ active: filter == 'unpaid' }">
+                  <li :class="{ active: filter === 'unpaid' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'unpaid' })">Unpaid</a>
                   </li>
-                  <li :class="{ active: filter == 'partially_paid' }">
+                  <li :class="{ active: filter === 'partially_paid' }">
                     <a href="javascript:void(0);" @click="getList({ filter: 'partially_paid' })">Partially Paid</a>
                   </li>
-                  <li :class="{ active: filter == 'overdue' }">
+                  <li :class="{ active: filter === 'overdue' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'overdue' })">Overdue</a>
                   </li>
-                  <li :class="{ active: filter == 'void' }">
+                  <li :class="{ active: filter === 'void' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'void' })">Void</a>
                   </li>
                 </ul>
@@ -83,32 +83,32 @@
 
                 <ul class="dropdown-menu" role="menu" style="top: 117px;left: 210px;position: fixed;">
                   <li class="dropdown-header">FILTER BY</li>
-                  <li :class="{ active: filter == 'all' }">
+                  <li :class="{ active: filter === 'all' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'all' })">All</a>
                   </li>
                   <li class="divider"></li>
-                  <li :class="{ active: filter == 'draft' }">
+                  <li :class="{ active: filter === 'draft' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'draft' })">Draft</a>
                   </li>
-                  <li :class="{ active: filter == 'paid' }">
+                  <li :class="{ active: filter === 'paid' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'paid' })">Paid</a>
                   </li>
-                  <li :class="{ active: filter == 'unpaid' }">
+                  <li :class="{ active: filter === 'unpaid' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'unpaid' })">Unpaid</a>
                   </li>
-                  <li :class="{ active: filter == 'partially_paid' }">
+                  <li :class="{ active: filter === 'partially_paid' }">
                     <a href="javascript:void(0);" @click="getList({ filter: 'partially_paid' })">Partially Paid</a>
                   </li>
-                  <li :class="{ active: filter == 'overdue' }">
+                  <li :class="{ active: filter === 'overdue' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'overdue' })">Overdue</a>
                   </li>
-                  <!-- <li :class="{ active: filter == 'shipped' }">
+                  <!-- <li :class="{ active: filter === 'shipped' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'shipped' })">Shipped</a>
                   </li>
-                  <li :class="{ active: filter == 'not_yet_shipped' }">
+                  <li :class="{ active: filter === 'not_yet_shipped' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'not_yet_shipped' })">Not shipped</a>
                   </li> -->
-                  <li :class="{ active: filter == 'void' }">
+                  <li :class="{ active: filter === 'void' }">
                     <a href="javascript:void(0);" @click="changeFilter({ filter: 'void' })">Void</a>
                   </li>
                 </ul>
@@ -184,7 +184,7 @@
                       <div class="sales-table-wrapper" v-else>
                         <table
                           class="table table-hover default-table sahito-list-item-group-list--table sahito-sales-order-table">
-                          <thead style="box-shadow: rgb(221, 221, 221) 0px 4px 2px -2px;">
+                          <thead style="box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;">
                           <tr>
                             <th class="col-checkbox">
                               <div class="checkbox checkbox-single checkbox-success">
@@ -219,7 +219,7 @@
                               </td>
                               <td>
                                 <a href="javascript:void(0);" @click="overviewToggle(sale.sales_order_id)">
-                                  <i v-if="overview.sales_order_id == sale.sales_order_id"
+                                  <i v-if="overview.sales_order_id === sale.sales_order_id"
                                      class="ion-minus-round text-green"></i>
                                   <i v-else="" class="ion-plus-round text-green"></i>
                                 </a>
@@ -294,13 +294,13 @@
                                   <span class="ion-ios7-more-outline" style="color:#03a2cd; font-size:1.5em; padding:px"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu" style="right: 40px;left: initial;top: initial;">
-                                  <li v-if="sale.invoice_status != 'VOID' && sale.invoice_status != 'PAID'">
+                                  <li v-if="sale.invoice_status !== 'VOID' && sale.invoice_status !== 'PAID'">
                                     <router-link :to="{ name: 'sales.edit', params: { id: sale.sales_order_id } }"
                                                  href="javascript:void(0)">
                                       Edit
                                     </router-link>
                                   </li>
-                                  <li v-if="(sale.invoice_status === 'UNPAID' || 'OVERDUE') && sale.sales_order_status != 'DRAFT' && sale.invoice_status != 'VOID' && sale.invoice_status != 'PAID'">
+                                  <li v-if="(sale.invoice_status === 'UNPAID' || 'OVERDUE') && sale.sales_order_status !== 'DRAFT' && sale.invoice_status !== 'VOID' && sale.invoice_status !== 'PAID'">
                                     <a href="javascript:void(0);" @click="gotoDetailPayment(sale)">
                                       Record Payment
                                     </a>
@@ -315,7 +315,7 @@
                                       Print Invoice
                                     </a>
                                   </li>
-                                  <li v-if="sale.sales_order_status != 'DRAFT'">
+                                  <li v-if="sale.sales_order_status !== 'DRAFT'">
                                     <a href="javascript:void(0);" @click="printShipmentLabel(sale.sales_order_id)">
                                       Print Shipment Label
                                     </a>
