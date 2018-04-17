@@ -873,7 +873,7 @@
           }
 
           swal_success(res)
-          this.$router.push({name: 'auth.register.thankyou'})
+          this.$router.push({name: 'auth.login', query: {thanks: true}})
 
           this.loading = false
 
