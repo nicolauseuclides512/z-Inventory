@@ -98,22 +98,24 @@
 
       async updatePerPage () {
         try {
-          this.loading = true
+          if (Object.keys(this.pageContext).length) {
 
-          const url = this.pageContext.current_page_url
-            .replace(/(?:per_page=)(\d+)/, `per_page=${this.per_page}`)
-            .replace(/(?:page=)(\d+)/, 'page=1')
+            this.loading = true
 
-          const res = await Axios.get(url)
-          if (!responseOk(res.data.code)) {
+            const url = this.pageContext.current_page_url
+              .replace(/(?:per_page=)(\d+)/, `per_page=${this.per_page}`)
+              .replace(/(?:page=)(\d+)/, 'page=1')
+
+            const res = await Axios.get(url)
+            if (!responseOk(res.data.code)) {
+              this.loading = false
+              return swal_error(res)
+            }
+
+            this.$emit('updated', res.data)
+
             this.loading = false
-            return swal_error(res)
           }
-
-          this.$emit('updated', res.data)
-
-          this.loading = false
-
         }
         catch (err) {
           console.error(err)
