@@ -4,7 +4,7 @@
       <div class="panel-heading">
         <div class="bg-overlay" style="padding-left:15px; padding-top:15px;">
           <div class="zuragan-logo-login">
-            <img src="/static/images/zuragan_logo_login.png" height="62" width="125">
+            <img src="/static/images/zuragan_logo_login.png" style="width: 125px; height: 62px;">
           </div>
         </div>
       </div>
@@ -40,11 +40,10 @@
               <input class="form-control input-lg"
                      style="text-transform: lowercase;"
                      type="email"
-                     id="email"
+                     id="email2"
                      required
                      placeholder="Email"
                      autocomplete="off"
-                     autofocus
                      v-model="form.username"
               />
             </div>
@@ -55,6 +54,7 @@
               <input class="form-control input-lg"
                      type="password"
                      id="password"
+                     ref="password"
                      required
                      placeholder="Password"
                      autocomplete="off"
@@ -85,7 +85,7 @@
           <div class="form-group text-center m-t-30">
             <div class="col-xs-12" v-if="!notVerified">
               <button v-if="!loading && !emailIsTrue" id="submit" type="submit" class="btn btn-primary btn-lg w-lg waves-effect waves-light" @click="checkMail">Log In</button>
-              <button v-if="!loading && emailIsTrue" id="submit" type="submit" class="btn btn-primary btn-lg w-lg waves-effect waves-light" @click="login">Log In</button>
+              <button v-if="!loading && emailIsTrue" id="submit2" type="submit" class="btn btn-primary btn-lg w-lg waves-effect waves-light" @click="login">Log In</button>
               <button v-if="loading" id="loading-button" type="button" class="btn btn-default btn-lg w-lg waves-effect waves-light" disabled>
                 <i class="fa fa-spin fa-spinner"></i> Log In
               </button>
@@ -176,7 +176,7 @@
         try {
           this.loading = true
           const res = await this.formEmail.post(`register/check_avail_email`)
-          if (res.data.code == 200) {
+          if (res.data.code === 200) {
             this.$router.push({
               name: 'auth.register',
               query: {
@@ -184,7 +184,7 @@
               }
             })
           }
-          if (res.data.code == 202) {
+          if (res.data.code === 202) {
             this.$router.push({
               name: 'auth.register.company',
               query: {
@@ -196,7 +196,7 @@
         }
         catch (err) {
           const errCode = err.response.data.code
-          if (errCode == 400) {
+          if (errCode === 400) {
             if (err.response.data.data && err.response.data.data.email && err.response.data.data.email.length) {
               swal({
                 title: res.data.data.email[0],
@@ -205,9 +205,11 @@
               })
             }
           }
-          if (errCode == 409) {
+          // User already registered
+          if (errCode === 409) {
             this.emailIsTrue = true;
             this.form.username = this.formEmail.email
+            this.$nextTick(() => this.$refs.password.focus())
           }
           else{
             swal({
