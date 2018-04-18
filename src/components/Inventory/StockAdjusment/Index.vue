@@ -109,7 +109,7 @@
     data () {
       return {
         currentSortColumn: 'created_at',
-        ascendingSort: 'desc',
+        ascendingSort: 'asc',
         paginate: {},
         list: {
           items: [],
@@ -132,7 +132,7 @@
           const defaultParams = {
             page: 1,
             per_page: 15,
-            sort: 'created_at.desc',
+            sort: 'created_at.asc',
             filter_by: '',
             q: getParameterByName('q'),
           }
