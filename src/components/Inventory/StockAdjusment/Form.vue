@@ -483,6 +483,15 @@
           createResponse.data.data.next_stock_adjustment_number
       }
 
+      // For edit: current selected item
+      this.list.items.map((item) => {
+        this.form.details.map((detail) => {
+          if (item.item_id === detail.item_id) {
+            detail.item_name = item.item_name
+          }
+        })
+      })
+
       this.dirtyForm = true
       $('#adjustment_date_picker').flatpickr({
         altInput: true
