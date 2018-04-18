@@ -312,7 +312,6 @@
         this.fetchShipmentData()
         this.modalShipment = false
         $('#shipment-modal-add').modal('hide')
-        // alert('close modal')
       },
 
       /**
@@ -471,10 +470,8 @@
         if(editData == true){
           this.modalShipment = true
           $('#shipment-modal-add').modal('show')
-          // alert('is edit')
           // console.log(this.modalShipment, editData)
         }else{
-          // alert('not edit')
           this.modalShipment = true
           this.formEditShipment= {}
           let sales_order_id = parseInt(this.$route.params.id)

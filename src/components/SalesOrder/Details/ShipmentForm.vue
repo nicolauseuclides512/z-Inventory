@@ -5,7 +5,8 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title">Add Shipment</h4>
+            <h4 v-if="!isEdit" class="modal-title">Add Shipment</h4>
+            <h4 v-else class="modal-title">Edit Shipment</h4>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -77,14 +78,17 @@
       shipment_order_number() {
         return this.salesOrderId + new Date().toISOString()
       },
+      isEdit(){
+        return !_.isEmpty(this.editShipment)
+      }
     },
 
     mounted() {
+
       this.salesOrderId = parseInt(this.$route.params.id)
       this.createShipment(this.salesOrderId)
-      if(this.editShipment){
-        $('#shipment-modal-add').modal('show')
-        // alert('mounted to edit')
+      $('#shipment-modal-add').modal('show')
+      if(this.isEdit){
         // console.log(this.editShipment)
         // this.shipment_order_number = this.editShipment.shipment_order_number
         this.carrier_id = this.editShipment.carrier_id
@@ -102,6 +106,7 @@
     },
 
     methods: {
+
       createShipment(salesOrderId) {
         axios.get(`/sales_orders/${salesOrderId}/shipments/create`).then(
           res => {
@@ -119,18 +124,16 @@
 
       save() {
         let salesOrderId = this.$route.params.id
-        let url
+        let url = `/sales_orders/${salesOrderId}/shipments`
 
         if (!this.tracking_number) {
           Alert.error('Tracking number is required');
           return;
         }
 
-        if(this.editShipment){
+        if(this.isEdit){
           let shipmentId = this.editShipment.shipment_id
           url = `/sales_orders/${salesOrderId}/shipments/${shipmentId}/update`
-        }else{
-          url = `/sales_orders/${salesOrderId}/shipments`
         }
 
         try{
