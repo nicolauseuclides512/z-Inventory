@@ -108,7 +108,7 @@
 
     data () {
       return {
-        currentSortColumn: 'stock_adjustment.create',
+        currentSortColumn: 'created_at',
         ascendingSort: 'desc',
         paginate: {},
         list: {
@@ -132,7 +132,7 @@
           const defaultParams = {
             page: 1,
             per_page: 15,
-            sort: 'stock_adjustment.create.asc',
+            sort: 'created_at.desc',
             filter_by: '',
             q: getParameterByName('q'),
           }
