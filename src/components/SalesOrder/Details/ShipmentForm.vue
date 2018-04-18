@@ -45,7 +45,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" @click="save" class="btn btn-info waves-effect waves-light m-t-15">Save</button>
-            <button type="button" class="btn btn-default waves-effect m-t-15" data-dismiss="modal">Cancel</button>
+            <button type="button" @click="close" class="btn btn-default waves-effect m-t-15">Cancel</button>
           </div>
         </div>
       </div>
@@ -60,15 +60,14 @@
 
   export default {
     name: 'ShipmentForm',
-    props: [],
+    props: ['editShipment'],
 
     data(){
       return{
-
         date: new Date(),
         tracking_number: null,
         notes: '',
-        carrier_id: 'Please Select Carrier',
+        carrier_id: '',
         salesOrderId: '',
         carrierList: []
       }
@@ -83,7 +82,17 @@
     mounted() {
       this.salesOrderId = parseInt(this.$route.params.id)
       this.createShipment(this.salesOrderId)
-
+      if(this.editShipment){
+        $('#shipment-modal-add').modal('show')
+        // alert('mounted to edit')
+        // console.log(this.editShipment)
+        // this.shipment_order_number = this.editShipment.shipment_order_number
+        this.carrier_id = this.editShipment.carrier_id
+        this.tracking_number = this.editShipment.tracking_number
+        this.notes = this.editShipment.notes
+        this.carrier_id = this.editShipment.carrier_id
+        // this.date = this.editShipment.date
+      }
       $('.flatpickr').flatpickr({
         defaultDate: new Date(),
         dateFormat: 'Y-m-d',
@@ -104,15 +113,30 @@
           })
       },
 
+      close(){
+        this.$emit('close')
+      },
 
       save() {
         let salesOrderId = this.$route.params.id
+        let url
+
         if (!this.tracking_number) {
           Alert.error('Tracking number is required');
           return;
         }
+
+        if(this.editShipment){
+          let shipmentId = this.editShipment.shipment_id
+          url = `/sales_orders/${salesOrderId}/shipments/${shipmentId}/update`
+          alert('wkwkwkkw')
+          this.$emit('close')
+        }else{
+          url = `/sales_orders/${salesOrderId}/shipments`
+        }
+
         try{
-          axios.post(`/sales_orders/${salesOrderId}/shipments`, {
+          axios.post(url, {
             'shipment_order_number': this.shipment_order_number,
             'date': this.date,
             'carrier_id': this.carrier_id,
