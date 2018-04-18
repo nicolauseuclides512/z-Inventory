@@ -129,8 +129,6 @@
         if(this.editShipment){
           let shipmentId = this.editShipment.shipment_id
           url = `/sales_orders/${salesOrderId}/shipments/${shipmentId}/update`
-          alert('wkwkwkkw')
-          this.$emit('close')
         }else{
           url = `/sales_orders/${salesOrderId}/shipments`
         }
