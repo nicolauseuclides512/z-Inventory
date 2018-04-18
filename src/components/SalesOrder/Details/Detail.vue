@@ -227,7 +227,8 @@
     />
     <ShipmentForm
       v-if="modalShipment"
-      @close="closeModalShipment()"
+      @close="closeModalShipment"
+      :editShipment="formEditShipment"
     />
 
     <!-- =========================== -->
@@ -273,6 +274,7 @@
         sendingEmail: false,
         currentTab: 'invoice',
         salesOrderId: this.$route.params.id,
+        formEditShipment:{}
       }
     },
 
@@ -295,7 +297,7 @@
           this.loading = false
         }).catch(err => {
           this.loading = false
-          console.log('error! ', err)
+          console.error('error! ', err)
         })
     },
 
@@ -308,8 +310,9 @@
     methods: {
       closeModalShipment(){
         this.fetchShipmentData()
-        $('#shipment-modal-add').modal('hide')
         this.modalShipment = false
+        $('#shipment-modal-add').modal('hide')
+        // alert('close modal')
       },
 
       /**
@@ -386,22 +389,32 @@
       editShipment() {
         try {
           const sales_order_id = this.salesOrderId
-          this.fetchShipmentData()
+          // this.fetchShipmentData()
           const shipment_id = this.shipmentList[0].shipment_id
 
-          const res = Axios.get(`sales_orders/${sales_order_id}/shipments/${shipment_id}/edit`)
+          Axios.get(`sales_orders/${sales_order_id}/shipments/${shipment_id}/edit`).then(
+            res => {
+              // console.log('res.data.data.shipment', res.data.data.shipment)
+              this.formEditShipment = res.data.data.shipment
+              // console.log(this.formEditShipment)
+              this.showModalShipment(true)
+            }
+          ).catch(
+            err => {
+              console.errror(err)
+            }
+          )
           // if (!responseOk(res.data.code)) {
           //   return swal_error(res)
           // }
 
-          this.form.shipment = res.data.data.shipment
-          this.form.shipment.carrier_name = res.data.data.carrier.carrier_name
+          // this.form.shipment.carrier_name = res.data.data.carrier.carrier_name
 
 
           $('#shipment-modal-edit').modal('show')
 
         } catch (err) {
-          console.error(err)
+          console.log(err)
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
           }
@@ -454,11 +467,21 @@
         $('#payment-modal').modal('show')
       },
 
-      async showModalShipment(detail) {
-        this.modalShipment = true
-        let sales_order_id = parseInt(this.$route.params.id)
-        await this.$store.dispatch('sales/shipment/create', sales_order_id)
-        $('#shipment-modal-add').modal('show')
+      showModalShipment(editData) {
+        if(editData == true){
+          this.modalShipment = true
+          $('#shipment-modal-add').modal('show')
+          // alert('is edit')
+          // console.log(this.modalShipment, editData)
+        }else{
+          // alert('not edit')
+          this.modalShipment = true
+          this.formEditShipment= {}
+          let sales_order_id = parseInt(this.$route.params.id)
+          this.$store.dispatch('sales/shipment/create', sales_order_id)
+          $('#shipment-modal-add').modal('show')
+        }
+
       },
 
     }

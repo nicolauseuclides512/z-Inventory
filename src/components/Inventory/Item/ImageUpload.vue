@@ -42,7 +42,7 @@
                 <span v-if="image.is_main" class="set-as-primary-btn">Primary image</span>
                 <div class="image-uploader-container-item-action clearfix">
                   <a href="javascript:void(0);" @click="remove(image)" title="Remove image" class="delete-btn">&times;</a>
-                  <a v-if="!image.is_main" href="javascript:void(0);" @click="setAsPrimary(image)" title="Set as primary image" class="set-as-primary-btn"> Set as primary </a>
+                  <a v-if="!image.is_main" href="javascript:void(0);" @click="setAsPrimary(image)" title="Set as primary image" class="set-as-primary-btn set"> Set as primary </a>
                 </div>
 
               </div>
@@ -378,6 +378,9 @@
     border-radius: 2px;
     font-weight: bold;
     background: #006090;
+    &.set{
+      background: #acacac;
+    }
   }
 
   .add-new-image-btn {
