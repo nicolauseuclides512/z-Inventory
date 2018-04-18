@@ -139,6 +139,12 @@
 
           params = _.merge(defaultParams, params)
 
+          for (let key in params) {
+            if (params.hasOwnProperty(key) && !params[key]) {
+              delete params[key]
+            }
+          }
+
           const res = await Axios.get('stock_adjustments/history/item', {params: params})
 
           this.list.items = res.data.data
