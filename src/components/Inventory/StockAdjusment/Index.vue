@@ -1,9 +1,9 @@
 <template>
   <div class="content-page-full" style="min-height:350px">
     <div class="content sahito-user">
-      <div class="container" style="padding:0px; margin:0px">
+      <div class="container" style="padding: 0; margin: 0;">
         <div class="row">
-          <div class="col-sm-12" style="padding:0px 10px 10px 0px;">
+          <div class="col-sm-12" style="padding: 0 10px 10px 0;">
             <a class="pull-left page-title" data-toggle="dropdown" aria-expanded="false">
               <h4>Adjustment History</h4>
             </a>
@@ -16,21 +16,21 @@
               </button>
               <ul class="dropdown-menu" role="menu" style="top: 35px;">
                 <li class="dropdown-header">SORT BY</li>
-                <li :class="{ active: currentSortColumn == 'stock_adjustments.created_at' }">
+                <li :class="{ active: currentSortColumn === 'stock_adjustments.created_at' }">
                   <a href="javascript:void(0);" id="sort-by-stock_adjustments.created_at"
                     @click="sortItemsBy('stock_adjustments.created_at')">Newest</a>
                 </li>
-                <li :class="{ active: currentSortColumn == 'reference_number' }">
+                <li :class="{ active: currentSortColumn === 'reference_number' }">
                   <a href="javascript:void(0);" id="sort-by-reference_number" @click="sortItemsBy('reference_number')">Reference Number</a>
                 </li>
-                <li :class="{ active: currentSortColumn == 'stock_adjustments.updated_at\n' }">
+                <li :class="{ active: currentSortColumn === 'stock_adjustments.updated_at\n' }">
                   <a href="javascript:void(0);" id="sort-by-stock_adjustments.updated_at" @click="sortItemsBy('name')">Last Updated</a>
                 </li>
-                <li :class="{ active: currentSortColumn == 'stock_adjustment_date' }">
+                <li :class="{ active: currentSortColumn === 'stock_adjustment_date' }">
                   <a href="javascript:void(0);" id="sort-by-stock_adjustment_date"
                     @click="sortItemsBy('stock_adjustment_date')">Stock Adjustment Date</a>
                 </li>
-                <li :class="{ active: currentSortColumn == 'stock_adjustment_number' }">
+                <li :class="{ active: currentSortColumn === 'stock_adjustment_number' }">
                   <a href="javascript:void(0);" id="sort-by-stock_adjustment_number"
                     @click="sortItemsBy('stock_adjustment_number')">Stock adjustment Number</a>
                 </li>
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12" style="padding-left: 0px">
+          <div class="col-md-12" style="padding-left: 0;">
             <div class="panel panel-default">
               <div class="panel-body">
                 <div class="row">
