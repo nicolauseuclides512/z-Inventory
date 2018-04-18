@@ -111,6 +111,7 @@
             </div>
             <div class="pull-right">
               <span v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span>
+              <span v-else-if="salesOrder.sales_order_status === 'DRAFT'">OPEN</span>
               <span v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
             </div>
           </div>

@@ -241,6 +241,7 @@
                               </td>
                               <td style="cursor: pointer; width:126px" @click="showDetail(sale)">
                                 <span v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue in {{ sale.due_date | diffInDays }} day(s)</span>
+                                <span v-else-if="sale.sales_order_status === 'DRAFT'">OPEN</span>
                                 <span v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
