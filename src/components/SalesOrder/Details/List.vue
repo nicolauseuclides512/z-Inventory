@@ -109,33 +109,15 @@
             <div class="pull-left">
               <small class="text-muted">#{{ salesOrder.sales_order_number }}</small>
             </div>
-            <div class="pull-right" style="font-size: 1.1em">
-              <div v-if="salesOrder.sales_order_status === 'DRAFT'">
-                <span style="color:#C4C4C4; font-size:13px;">{{ salesOrder.sales_order_status }}</span>
-              </div>
-              <div v-else>
-                <div v-if="salesOrder.invoice_status === 'PAID'">
-                  <span style="color:#319B31; font-size:13px;">PAID</span>
-                </div>
-                <div v-else-if="salesOrder.invoice_status === 'UNPAID'">
-                  <span style="color:#1C8AD9; font-size:13px;">UNPAID</span>
-                </div>
-                <div v-else-if="salesOrder.invoices[0].invoice_status === 'PARTIALLY_PAID'">
-                  <span style="color:#319B31; font-size:13px;">PARTIALLY PAID</span>
-                </div>
-                <div v-else-if="salesOrder.invoice_status === 'OVERDUE'">
-                  <span style="color:#E33636; font-size:13px;">OVERDUE</span>
-                </div>
-                <div v-else-if="salesOrder.invoice_status === 'VOID'">
-                  <span style="color:#000000; font-size:13px;">VOID</span>
-                </div>
-              </div>
+            <div class="pull-right">
+              <span v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span>
+              <span v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
             </div>
           </div>
           <div class="clearfix">
             <div class="pull-left"><span class="text-muted">{{ salesOrder.invoice_date | date('short') }}</span></div>
             <div class="pull-right">
-              {{ salesOrder.shipment_status.replace(/_/g, ' ') }}
+              {{ salesOrder.shipment_status | normalizeStatus }}
             </div>
           </div>
         </td>
@@ -155,6 +137,7 @@
 
 <script>
   import Axios from 'axios'
+  import difference_in_days from 'date-fns/difference_in_days'
   import Form from '@/helpers/Form'
   import {mapState} from 'vuex'
   import Pagination from '@/components/Pagination'
@@ -164,6 +147,15 @@
 
     components: {
       Pagination,
+    },
+
+    filters: {
+      normalizeStatus(text) {
+        return text.replace(/_/gi, ' ').toLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase())
+      },
+      diffInDays(date) {
+        return difference_in_days(new Date(), date)
+      }
     },
 
     data () {

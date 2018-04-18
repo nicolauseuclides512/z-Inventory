@@ -240,31 +240,11 @@
                                   {{ sale.contact.display_name }}
                               </td>
                               <td style="cursor: pointer; width:126px" @click="showDetail(sale)">
-                                <div v-if="sale.sales_order_status === 'DRAFT'">
-                                  <span style="color:#C4C4C4; font-size:13px">{{ sale.sales_order_status }}</span>
-                                </div>
-                                <div v-else>
-                                    <!--{{ sale.invoice_status }}-->
-                                  <div v-if="sale.invoice_status === 'PAID'">
-                                    <span style="color:#319B31; font-size:13px;">PAID</span>
-                                  </div>
-                                  <div v-else-if="sale.invoice_status === 'UNPAID'">
-                                    <span style="color:#1C8AD9; font-size:13px">UNPAID</span>
-                                  </div>
-                                  <div v-else-if="sale.invoices[0].invoice_status === 'PARTIALLY_PAID'">
-                                    <span style="color:#319B31; font-size:13px">PARTIALLY PAID</span>
-                                  </div>
-                                  <div v-else-if="sale.invoice_status === 'OVERDUE'">
-                                    <span style="color:#E33636; font-size:13px">OVERDUE</span>
-                                  </div>
-                                  <div v-else-if="sale.invoice_status === 'VOID'">
-                                    <span style="color:#000000; font-size:13px">VOID</span>
-                                  </div>
-                                </div>
-                                <!-- {{ sale.sales_order_status.toLowerCase().replace(/_/g, ' ') | capitalize }} -->
+                                <span v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue in {{ sale.due_date | diffInDays }} day(s)</span>
+                                <span v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
-                                {{ sale.shipment_status.replace(/_/g, ' ') }}
+                                {{ sale.shipment_status | normalizeStatus }}
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.due_date | date('short') }}
@@ -464,6 +444,7 @@
 
 <script>
   import axios from 'axios'
+  import difference_in_days from 'date-fns/difference_in_days'
   import store from 'src/store'
   import {getParameterByName} from 'src/helpers'
   import Pagination from '../Pagination.vue'
@@ -472,6 +453,16 @@
 
   export default {
     name: 'List',
+
+    filters: {
+      normalizeStatus(text) {
+        return text.replace(/_/gi, ' ').toLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase())
+      },
+      diffInDays(date) {
+        return difference_in_days(new Date(), date)
+      },
+    },
+
     data() {
       return {
         checkedAll: false
