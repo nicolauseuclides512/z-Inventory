@@ -509,6 +509,7 @@
 
       async getDetails (stockId) {
         const res = await Axios.get(`stock_adjustments/${stockId}`)
+        this.form = res.data.data
         this.form.details = res.data.data.details
         this.form.details.database_qty = res.data.data.details[0].stock_quantity
         if (this.$route.params.id) {
@@ -550,7 +551,9 @@
             data.is_void = false
             this.dirtyForm = false
           } else {
-            data.is_applied = true
+            // I don't know the reason behind of this, but this "boolean" MUST a "string".
+            // Or server can't set this as applied.
+            data.is_applied = 'true'
             data.is_void = false
             this.dirtyForm = false
           }
