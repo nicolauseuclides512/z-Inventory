@@ -17,7 +17,7 @@
             v-if="sidebarEnlarged"
             style="padding: 15px 7px 15px 7px;"
           >
-            <span><i class="ion-plus-round"></i></span>
+            <span><i class="ion-ios7-plus-empty "></i></span>
           </router-link>
           <router-link id="nev-left-sales" :to="{ name: 'sales.index', query: { filter: 'all', sort: 'created_at.desc' }}" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="icon-sales" style="font-size:23px"></i><span> Sales Orders</span>
@@ -29,7 +29,7 @@
             v-if="sidebarEnlarged"
             style="padding: 15px 7px 15px 7px;"
           >
-            <span><i class="ion-plus-round "></i></span>
+            <span><i class="ion-ios7-plus-empty " style="font-size:23px"></i></span>
           </router-link>
           <router-link id="nev-left-contacts" :to="{ name: 'contact.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="icon-contact" style="font-size:23px"></i><span> Contacts </span>
@@ -43,7 +43,7 @@
             v-if="sidebarEnlarged"
             style="padding: 15px 7px 15px 7px;"
           >
-            <span><i class="ion-plus-round "></i></span>
+            <span><i class="ion-ios7-plus-empty  "></i></span>
           </router-link>
           <router-link id="nev-left-items" :to="{ name: 'item.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="icon-item_2" style="font-size:23px"></i><span>Item List</span>
@@ -57,7 +57,7 @@
             v-if="sidebarEnlarged"
             style="padding: 15px 7px 15px 7px;"
           >
-            <span><i class="ion-plus-round "></i></span>
+            <span><i class="ion-ios7-plus-empty  " style="font-size:23px"></i></span>
           </router-link>
           <router-link id="nev-left-items" :to="{ name: 'item.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="icon-item" style="font-size:23px"></i><span>Item Variant</span>
@@ -189,5 +189,9 @@
 
 span{
   font-family: 'Nanum Gothic', sans-serif;
+}
+
+i{
+  font-size: 23px
 }
 </style>
