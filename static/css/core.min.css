@@ -24057,7 +24057,7 @@ MIT License: https://github.com/driftyco/ionicons
 }
 
 .topbar .topbar-left {
-    background-color: #1c8ad9;
+    background-color: #00c6ff;
     float: left;
     height: 50px;
     position: relative;
@@ -24199,7 +24199,7 @@ input.search-bar:-ms-input-placeholder {
 }
 
 .side-menu.left {
-    background: linear-gradient(to bottom, #1c8ad9, #1c8ad9, #7fc7c8);
+    background: linear-gradient(to bottom, #00c6ff, #0072ff);
     box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
     position: absolute;
     top: 50px

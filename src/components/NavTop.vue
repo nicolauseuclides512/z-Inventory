@@ -12,8 +12,8 @@
           <!--<span>Zuragan</span>
         </router-link>-->
         <a id="nav-top-logo" href="/" class="logo">
-          <span><img src="/static/images/zuragan_logo_login.png" height="40"></span>
-          <div id="icon" style="display:none"><img src="/static/images/iconzuragan.png" height="40"></div>
+          <span><img src="/static/images/iconzuragan.png" height="40"></span>
+          <!-- <div id="icon" style="display:none"><img src="/static/images/iconzuragan.png" height="40"></div> -->
         </a>
       </div>
     </div>
