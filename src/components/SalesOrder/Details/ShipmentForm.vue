@@ -21,10 +21,9 @@
                   <div class="form-group">
                     <label class="col-md-3 control-label">Carrier</label>
                     <div class="col-md-7">
-                      <select id="carrier" class="form-control" title="Carrier" v-model="carrier_id">
-                        <option v-for="carrier in carrierList" :key="carrier.code" :value="carrier.id">
-                          {{ carrier.name }}
-                        </option>
+                      <select id="carrier" :disabled="isEdit" class="form-control" title="Carrier" v-model="carrier_id">
+                        <option v-if="!isEdit" v-for="carrier in carrierList" :key="carrier.code" :value="carrier.id">{{ carrier.name }}</option>
+                        <option v-if="isEdit" :value="editShipment.carrier.id">{{ editShipment.carrier.name }}</option>
                       </select>
                     </div>
                   </div>
@@ -89,7 +88,7 @@
       this.createShipment(this.salesOrderId)
       $('#shipment-modal-add').modal('show')
       if(this.isEdit){
-        // console.log(this.editShipment)
+        console.log(this.editShipment)
         // this.shipment_order_number = this.editShipment.shipment_order_number
         this.carrier_id = this.editShipment.carrier_id
         this.tracking_number = this.editShipment.tracking_number
