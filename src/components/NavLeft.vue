@@ -35,32 +35,22 @@
             <i class="icon-contact" style="font-size:23px"></i><span> Contacts </span>
           </router-link>
         </li>
-        </li>
-                <li v-if="sidebarEnlarged">
-          <router-link
-            :to="{ name: 'item.create' }"
-            class="waves-effect waves-light pull-right"
-            v-if="sidebarEnlarged"
-            style="padding: 15px 7px 15px 7px;"
-          >
-            <span><i class="ion-ios7-plus-empty  "></i></span>
-          </router-link>
+        
+        <li v-if="sidebarEnlarged">
           <router-link id="nev-left-items" :to="{ name: 'item.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="icon-item_2" style="font-size:23px"></i><span>Item List</span>
           </router-link>
         </li>
+
+        <li v-if="sidebarEnlarged">
+          <router-link id="nev-left-items" :to="{ name: 'item.create' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
+            <i class="icon-item_3" style="font-size:23px"></i><span>Create Item</span>
+          </router-link>
+        </li>
 		
 		<li v-if="sidebarEnlarged">
-          <router-link
-            :to="{ name: 'item.create_variant' }"
-            class="waves-effect waves-light pull-right"
-            v-if="sidebarEnlarged"
-            style="padding: 15px 7px 15px 7px;"
-          >
-            <span><i class="ion-ios7-plus-empty  " style="font-size:23px"></i></span>
-          </router-link>
-          <router-link id="nev-left-items" :to="{ name: 'item.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-            <i class="icon-item" style="font-size:23px"></i><span>Item Variant</span>
+          <router-link id="nev-left-items" :to="{ name: 'item.create_variant' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
+            <i class="icon-item" style="font-size:23px"></i><span>Create Variant</span>
           </router-link>
         </li>
 		

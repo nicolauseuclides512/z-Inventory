@@ -2233,7 +2233,7 @@ select.select2-dropdown-open {
 
 .sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr td.col-checkbox,
 .sahito-list .sahito-list-item-group .sahito-list-item-group-list--table tr td.col-checkbox {
-    width: 5%;
+    width: 1%;
     vertical-align: middle;
     text-align: right
 }
@@ -2751,6 +2751,34 @@ h5.title {
     line-height: normal;
     padding-left: 10px;
 }
+
 .label-void{
     background: black !important;
+}
+
+.sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr td.col-checkbox {
+    padding: 0;
+}
+
+.sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr td.col-checkbox .checkbox {
+    width: 30px;
+}
+
+
+.sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr:first-child td.col-checkbox .checkbox {
+    padding-top: 10px;
+    width: 30px;
+}
+
+.sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr th.col-checkbox .checkbox {
+    width: 22px;
+}
+
+.sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr th.col-checkbox {
+    width: 3%;
+}
+
+.sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr td:last-child {
+    padding: 22px 11px;
+    text-align: right !important;
 }
