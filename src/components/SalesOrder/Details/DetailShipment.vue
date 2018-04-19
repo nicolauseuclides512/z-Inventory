@@ -105,31 +105,31 @@
       <div v-if="shipmentList.length > 0 && !loadingShipmentData">
         <div class="row p-20 m-b-20" v-for="shipment,index in shipmentList" :key="shipment.shipment_id+index">
           <div class="col-md-12">
-            <div class="row mb-15">
+            <div class="row mb-15 shipment-order">
               <label class="col-md-4 control-label text-left"><strong>Shipment Order#</strong></label>
               <div class="col-md-7 shipment_order_number">
                 {{ shipment.shipment_order_number }}
               </div>
             </div>
-            <div class="row mb-15">
+            <div class="row mb-15 date-shipment">
               <label class="col-md-4 control-label text-left"><strong>Date of Shipment</strong></label>
               <div class="col-md-7 shipment-date">
                 {{ shipment.date | date('short') }}
               </div>
             </div>
-            <div class="row mb-15">
+            <div class="row mb-15 carrier-name">
               <label class="col-md-4 control-label text-left"><strong>Carrier</strong></label>
               <div class="col-md-7 carrier-name">
                 {{ shipment.carrier.name }}
               </div>
             </div>
-            <div class="row mb-15">
+            <div class="row mb-15 tracking-number">
               <label class="col-md-4 control-label text-left"><strong>Tracking</strong></label>
               <div class="col-md-7">
                 <span class="text-muted">#</span> {{ shipment.tracking_number }}
               </div>
             </div>
-            <div class="row mb-15">
+            <div class="row mb-15 status-delivery">
               <label class="col-md-4 control-label text-left"><strong>Status</strong></label>
               <div class="col-md-7 shipment-is_delivered">
                 <span class="label label-info">
@@ -143,6 +143,12 @@
                 <!-- <small class="label label-danger salesOrder-shipment_status" v-else>
                   {{ salesOrders.shipment_status || removeUnderScore }}
                 </small> -->
+              </div>
+            </div>
+            <div class="row mb-15 shipment-notes">
+              <label class="col-md-4 control-label text-left"><strong>Notes</strong></label>
+              <div class="col-md-7">
+                <p>{{ shipment.notes }}</p>
               </div>
             </div>
           </div>
