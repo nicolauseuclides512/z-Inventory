@@ -161,7 +161,7 @@
                         </th>
                         <!-- <th></th> -->
                         <th></th>
-                        <th style="width: 25%; font-size:1.1em; font-weight:normal">
+                        <th style="width: 50%; font-size:1.1em; font-weight:normal">
                           <a href="#" @click="sortItemsBy('item_name')" style="color:#000">Name</a>
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'item_name'"></i>
                           <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'item_name'"></i>
@@ -171,14 +171,14 @@
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'sku'"></i>
                           <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'sku'"></i>
                         </th>
-                        <th style="width: 25%; font-size:1.1em; font-weight:normal">
+                        <!-- <th style="width: 15%; font-size:1.1em; font-weight:normal">
                           <a href="#" @click="sortItemsBy('description')" style="color:#000">Description</a>
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'description'"></i>
                           <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'description'"></i>
-                        </th>
-                        <th class="text-center" style="width: 15%; font-size:1.1em; font-weight:normal">
+                        </th> -->
+                        <th class="text-center" style="width: 20%; font-size:1.1em; font-weight:normal">
                           <!-- <a href="#" @click="sortItemsBy('inventory_stock')" style="color:#000">Stock Available</a> -->
-                          Stock Available
+                          Stock on Hand
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                           <i class="fa fa-sort-desc"
                              v-if="! ascendingSort && currentSortColumn === 'inventory_stock'"></i>
@@ -205,8 +205,8 @@
                         </td> -->
                         <td style="padding: 14px 8px;">
                           <a href="javascript:void(0)" v-if="item.children.length" @click="toggleChildren(item)">
-                            <i class="ion-chevron-right" v-if="!item.expanded"></i>
-                            <i class="ion-chevron-down" v-if="item.expanded"></i>
+                            <i class="ion-plus-round" v-if="!item.expanded"></i>
+                            <i class="ion-minus-round" v-if="item.expanded"></i>
                           </a>
                         </td>
                         <td style="padding: 14px 8px !important;">
@@ -223,7 +223,7 @@
                         <td class="text-center" style="padding: 14px 8px !important;">
                           {{ item.code_sku ? item.code_sku : '-' }}
                         </td>
-                        <td style="padding: 14px 8px !important;"><span v-if="!item.children.length">{{ item.description | truncItemDesc}}</span></td>
+                        <!-- <td style="padding: 14px 8px !important;"><span v-if="!item.children.length">{{ item.description | truncItemDesc}}</span></td> -->
                         <td class="text-center" style="padding: 14px 8px !important;">
                           <span v-if="(item.track_inventory == true) && (!item.children.length)">
                             <inline-editable
@@ -245,7 +245,7 @@
                         </td>
                       </tr>
 
-                      <tr v-if="item.expanded" v-for="child in item.children">
+                      <tr v-if="item.expanded" v-for="child in item.children" style="background-color:#eff0f1">
                         <td class="col-checkbox" style="width: 46px">
                           <div class="checkbox checkbox-single checkbox-success">
                           </div>
@@ -253,9 +253,9 @@
                         <!-- <td></td> -->
                         <td class="col-icon_collapse" style="width: 23px">
                         </td>
-                        <td class="name">{{ child.item_name }}</td>
+                        <td class="name" style="padding-left:24px">{{ child.item_name }}</td>
                         <td class="sku">{{ child.code_sku }}</td>
-                        <td>{{ child.description | truncItemDesc }}</td>
+                        <!-- <td>{{ child.description | truncItemDesc }}</td> -->
                         <td class="available">
                           <inline-editable v-if="(child.track_inventory == true)"
                             :item="child"
@@ -630,4 +630,6 @@
     transform: rotate(90deg);
     margin-right: 10px;
   }
+
+
 </style>

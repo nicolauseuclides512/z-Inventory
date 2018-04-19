@@ -5,6 +5,7 @@
       <a href="javascript:;" @click="showInlineEditor($event)">
         <span v-if="output">{{ newValue | money }}</span>
         <span v-else>{{ newValue }}</span>
+        <span><i class="ion-ios7-pricetag-outline" style="color:#2FA3E6"></i></span>
       </a>
     </div>
 
@@ -103,6 +104,7 @@
 
 <style scoped>
   a {
-    border-bottom: 1px dashed;
+    /* border-bottom: 1px dashed; */
+    color:#000;
   }
 </style>
