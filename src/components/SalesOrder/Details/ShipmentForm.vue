@@ -88,7 +88,6 @@
       this.createShipment(this.salesOrderId)
       $('#shipment-modal-add').modal('show')
       if(this.isEdit){
-        console.log(this.editShipment)
         // this.shipment_order_number = this.editShipment.shipment_order_number
         this.carrier_id = this.editShipment.carrier_id
         this.tracking_number = this.editShipment.tracking_number
