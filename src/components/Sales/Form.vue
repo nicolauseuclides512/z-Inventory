@@ -545,11 +545,11 @@
                       Create Invoice and New
                     </a>
                   </li>
-                  <li>
+                  <!-- <li>
                     <a href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">
                       Create Invoice and Duplicate
                     </a>
-                  </li>
+                  </li> -->
                 </ul>
               </div>
             </div>
