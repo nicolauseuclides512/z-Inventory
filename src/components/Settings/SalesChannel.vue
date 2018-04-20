@@ -77,8 +77,8 @@
                     </div> -->
                   </td>
                   <td>
-                    <button @click="remove(channel)" type="button" class="btn btn-default waves-effect">
-                      <i class="fa fa-trash"></i>
+                    <button @click="remove(channel)" type="button" class="btn btn-default waves-effect" style="border:none; box-shadow:none; background:transparent">
+                      <i class="ion-ios7-trash-outline text-danger" style="font-size:20px"></i>
                     </button>
                   </td>
                 </tr>
@@ -216,3 +216,7 @@
     },
   }
 </script>
+<style lang="scss" scoped>
+
+</style>
+
