@@ -145,8 +145,11 @@
             </div>
           </div>
 
-          <div :class="{ 'tab-pane': true, active: currentTab == 'payment'}" id="payment"
-               v-if="currentTab == 'payment'">
+          <div
+            id="payment"
+            :class="{ 'tab-pane': true, active: currentTab === 'payment'}"
+            v-if="currentTab === 'payment'"
+          >
             <div class="row p-15">
               <div class="border-1 table-responsive mt-20">
                 <table class="table sahito-invoice-table">
@@ -172,7 +175,7 @@
                       <span class="text-muted">#</span> {{ payment.reference_number }}
                     </td>
                     <td style="padding: 12px 8px;">
-                      {{ payment.payment_mode_name }}
+                      {{ payment.payment_mode_name }}: {{ payment.payment_account_name }}
                     </td>
                     <td class="text-right" style="padding: 12px 8px;">
                       {{ payment.amount | money }}
