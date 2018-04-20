@@ -213,9 +213,9 @@
                       <span style="margin-right:15px">{{salesOrder.sales_order_number}}</span>
                       <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
-                                title="View as PDF" @click="viewInvoice"><i class="fa fa-file-pdf-o"></i></button>
+                                title="View as PDF" @click="viewInvoice"><i class="icon-pdf"></i></button>
                         <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
-                                title="Print" @click="viewInvoice"><i class="fa fa-print"></i></button>
+                                title="Print" @click="viewInvoice"><i class="icon-print"></i></button>
                         <button
                           type="button"
                           class="btn btn-default"
@@ -225,7 +225,7 @@
                           :disabled="sendingEmail"
                           @click="sendInvoiceAsMail"
                         >
-                          <i class="fa fa-envelope-o" v-if="!sendingEmail"></i>
+                          <i class="icon-email" v-if="!sendingEmail"></i>
                           <i class="fa fa-spin fa-spinner" v-else="sendingEmail"></i>
                         </button>
                       </div>

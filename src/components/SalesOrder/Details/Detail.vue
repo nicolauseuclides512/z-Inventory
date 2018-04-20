@@ -18,9 +18,11 @@
               <span style="margin-right:15px" class="SO-id"># {{salesOrder.sales_order_number}}</span>
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
-                        title="View as PDF" @click="viewInvoice"><i class="fa fa-file-pdf-o"></i></button>
+                        title="View as PDF" @click="viewInvoice"
+                        style="border:none; box-shadow:none; background:transparent"><i class="icon-pdf" style="font-size:20px"></i></button>
                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
-                        title="Print" @click="viewInvoice"><i class="fa fa-print"></i></button>
+                        title="Print" @click="viewInvoice"
+                        style="border:none; box-shadow:none; background:transparent"><i class="icon-print" style="font-size:20px"></i></button>
                 <button
                   type="button"
                   class="btn btn-default"
@@ -29,8 +31,8 @@
                   title="Send as mail"
                   :disabled="sendingEmail"
                   @click="sendInvoiceAsMail"
-                >
-                  <i class="fa fa-envelope-o" v-if="!sendingEmail"></i>
+                  style="border:none; box-shadow:none; background:transparent">
+                  <i class="icon-email" v-if="!sendingEmail" style="font-size:20px"></i>
                   <i class="fa fa-spin fa-spinner" v-else="sendingEmail"></i>
                 </button>
               </div>
