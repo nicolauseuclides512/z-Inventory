@@ -47,18 +47,21 @@
                           @change="changeFirstVariantValues"
                         ></Vuetagger>
                       </div>
-                      <div class="col-md-1 pl-0" v-if="!secondVariant.show && !thirdVariant.show">
-                        <button type="button" @click="addMoreVariant"
-                                class="btn btn-info btn-custom waves-effect waves-light m-b-5">
-                          <i data-v-46bab2ea="" class="fa fa-plus"></i>
-                        </button>
-                      </div>
+                      
                       <div class="col-md-1 pl-0"  v-if="secondVariant.show || thirdVariant.show">
                         <button type="button" @click="hideFirstVariant"
-                                class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
-                          <i class="md md-delete"></i>
+                                class="btn waves-effect waves-light m-b-5"
+                                style="border:none; box-shadow:none; background:transparent">
+                          <i class="ion-ios7-trash-outline text-danger" style="font-size:20px"></i>
                         </button>
                       </div>
+                    </div>
+                    <div v-if="!secondVariant.show && !thirdVariant.show">
+                        <button type="button" @click="addMoreVariant"
+                                class="btn waves-effect waves-light m-b-5"
+                                style="border:none; box-shadow:none; background:transparent; padding:0">
+                          <span style="color:#2FA3E6">+ Add Variant</span>
+                        </button>
                     </div>
                   </div>
                 </div>
@@ -76,17 +79,20 @@
                       </div>
                       <div class="col-md-1 pl-0" v-if="firstVariant.show || thirdVariant.show" style="width:50px">
                         <button type="button" @click="hideSecondVariant"
-                                class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
-                          <i class="md md-delete"></i>
+                                class="btn waves-effect waves-light m-b-5"
+                                style="border:none; box-shadow:none; background:transparent">
+                          <i class="ion-ios7-trash-outline text-danger" style="font-size:20px"></i>
                         </button>
                       </div>
-                      <div class="col-md-1 pl-0" v-if="(!thirdVariant.show && firstVariant.show) || (!firstVariant.show && !thirdVariant.show )">
-                        <button type="button" @click="addMoreVariant"
-                                class="btn btn-info btn-custom waves-effect waves-light m-b-5">
-                          <i data-v-46bab2ea="" class="fa fa-plus"></i>
-                        </button>
-                      </div>
+                      
                     </div>
+                    <div class="col-md-1 pl-0" v-if="(!thirdVariant.show && firstVariant.show) || (!firstVariant.show && !thirdVariant.show )">
+                        <button type="button" @click="addMoreVariant"
+                                class="btn waves-effect waves-light m-b-5"
+                                style="border:none; box-shadow:none; background:transparent; padding:0">
+                          <span style="color:#2FA3E6">+ Add Variant</span>
+                        </button>
+                      </div>
                   </div>
                 </div>
 
@@ -101,19 +107,22 @@
                       <div class="col-md-7">
                         <Vuetagger :value="thirdVariant.values" @change="changeThirdVariantValues"></Vuetagger>
                       </div>
-                      <div class="col-md-1 pl-0" v-if="(secondVariant.show && !firstVariant.show) || (firstVariant.show && !secondVariant.show ) || (!firstVariant.show && !secondVariant.show )">
-                        <button type="button" @click="addMoreVariant"
-                                class="btn btn-info btn-custom waves-effect waves-light m-b-5">
-                          <i data-v-46bab2ea="" class="fa fa-plus"></i>
-                        </button>
-                      </div>
+                      
                       <div class="col-md-1 pl-0" v-if="firstVariant.show || secondVariant.show">
                         <button type="button" @click="hideThirdVariant"
-                                class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
-                          <i class="md md-delete"></i>
+                                class="btn waves-effect waves-light m-b-5"
+                                style="border:none; box-shadow:none; background:transparent">
+                          <i class="ion-ios7-trash-outline text-danger" style="font-size:20px"></i>
                         </button>
                       </div>
                     </div>
+                    <div class="col-md-1 pl-0" v-if="(secondVariant.show && !firstVariant.show) || (firstVariant.show && !secondVariant.show ) || (!firstVariant.show && !secondVariant.show )">
+                        <button type="button" @click="addMoreVariant"
+                                class="btn waves-effect waves-light m-b-5"
+                                style="border:none; box-shadow:none; background:transparent; padding:0">
+                          <span style="color:#2FA3E6">+ Add Variant</span>
+                        </button>
+                      </div>
                   </div>
                 </div>
 
@@ -229,8 +238,11 @@
                         <td v-if="item.track_inventory == 'true'" style="vertical-align:text-top"><input type="number" min="0" step="1" class="form-control form-white" v-model.number="v.stock_quantity"></td>
                         <td style="vertical-align:text-top"><input type="number" step="1" class="form-control form-white" v-model.number="v.sales_rate"></td>
                         <td style="vertical-align:text-top">
-                          <button type="button" @click="removeItem(v)" class="btn btn-danger btn-custom waves-effect">
-                            <i class="ion-trash-b"></i>
+                          <button type="button" 
+                                  @click="removeItem(v)" 
+                                  class="btn waves-effect"
+                                  style="border:none; box-shadow:none; background:transparent">
+                            <i class="ion-ios7-trash-outline text-danger" style="font-size:20px"></i>
                           </button>
                         </td>
                       </tr>
