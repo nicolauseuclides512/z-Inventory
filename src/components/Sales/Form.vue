@@ -30,7 +30,7 @@
 
         <div class="row">
           <div class="col-md-9" style="margin-left: 0px">
-            <div class="panel panel-default" style="margin-bottom:10px">
+            <div class="header-pannel panel panel-default" style="margin-bottom:10px">
               <div class="panel-body" style="padding:0px">
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
@@ -40,7 +40,7 @@
                       @search="searchProduct"
                       :options="list.product_list"
                       :value="selected_product"
-                      placeholder="Select product"
+                      placeholder="Select roduct"
                       keyid="item_id"
                       label="item_name"
                     ></vuelist>
@@ -48,11 +48,11 @@
                 </div>
               </div>
             </div>
-            <div class="panel panel-default">
+            <div class="top-pannel panel panel-default">
               <!-- <div class="panel-heading">
                 <h3 class="panel-title">Items</h3>
               </div> -->
-              <div class="panel-body" style="padding:10px 10px 10px 10px">
+              <div class="panel-body midd-pannel" style="padding:10px 10px 10px 10px">
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="sahito-list-contact table-responsive">
@@ -64,7 +64,7 @@
                             style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
                             width="40.85%">Item
                           </td>
-<!--                           <td
+                          <!--<td
                             style="padding-left: 10px; padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
                             width='10%'></td> -->
                           <td
@@ -83,7 +83,7 @@
                             style="padding-top:8px; padding-bottom:8px; font-size:14px;border-bottom: 1.5px solid #ddd"
                             class="text-right" width="11.5%">Amount
                           </td>
-                          <td style="box-shadow: 0px solid; border: 0px solid; width:28px"></td>
+                          <!-- <td style="box-shadow: 0px solid; border: 0px solid; width:28px"></td> -->
                         </tr>
                         </thead>
                         <tbody style="color:#000;">
@@ -96,7 +96,7 @@
                           </td> -->
                           <td v-text="product.item_name" width='40.85%' style="padding-left:10px; size:14px"></td>
                           <!-- <td width='10%' style="padding: 15px 8px 15px 10px"></td> -->
-                          <td width="16.75%">
+                          <td width="7%">
                             <input
                               @blur="changeProductQty(product)"
                               type="number"
@@ -107,9 +107,9 @@
                               style="padding-left:5px; padding-right:0px">
                           </td>
 
-                          <td width="10.65%">
+                          <td width="16.65%">
                             <vue-numeric v-model.number="product.item_rate" :min="0" :max="99999999" separator="."
-                                         class="form-control custom" style="padding:6px; width:89px"></vue-numeric>
+                                         class="form-control custom" style="padding:6px;"></vue-numeric>
                           </td>
 
                           <td width="20.25%">
@@ -144,6 +144,7 @@
                         </tr>
                         </tbody>
                       </table>
+                      <table v-if="form.details.length < 1" class="empty-table"></table>
                       <table class="table" style="font-size:1.05em">
                         <thead>
                         <th style="width: 67.6%; border-bottom: 0px"></th>
@@ -160,13 +161,13 @@
                           </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
-                        <tr class="total">
+                        <!-- <tr class="total">
                           <td class="text-right"
                               style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
                           <td class="text-left" style="padding-left:8px; color:#000">PPN 10%</td>
                           <td class="text-right" style="padding-right:8px; color:#000">{{ tax_value }}</td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
-                        </tr>
+                        </tr> -->
                         <tr class="total">
                           <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
@@ -186,7 +187,7 @@
                                 v-model="form.adjustment_value"
                                 :minus="true"
                                 separator="."
-                                style="max-width: 95%; border: 1px solid #eee"
+                                style="border: 1px solid #eee"
                                 maxlength="20"
                                 class="form-control form-white text-right"
                                 placeholder=""
@@ -216,7 +217,7 @@
               </div>
             </div>
 
-            <div class="panel panel-default">
+            <div class="panel panel-default bottom-pannel">
               <!-- <div class="panel-heading">
                 <h3 class="panel-title">Notes</h3>
               </div> -->
@@ -271,7 +272,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="container">
+                    <!-- <div class="container">
                       <div class="row m-b-20">
                         <div class="col-md-12 pl-pr-0">
                           <div class="form-group col-md-12 form-general-newOrder m-b-20">
@@ -281,20 +282,21 @@
                               <vuetagger
                                 :value="invoice_emails"
                                 @change="updateEmail"
+
                                 pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
                               ></vuetagger>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-3 right-pannel">
             <!-- <div class="panel panel-default">
                <div class="panel-heading">
                 <h3 class="panel-title">Sales Order Number</h3>
@@ -326,15 +328,15 @@
                         <!-- <div v-if="!ui.showAddNewContactField"> -->
                         <div class="customer-list-dropdown">
                           <vuelist
+                            v-if="!ui.showAddNewContactField"
                             :loading="loadingContact"
                             @change="selectContact"
                             @search="searchContact"
                             :options="list.contact_list"
                             :value="selected_contact && selected_contact.contact_id"
-                            placeholder="Select a customer"
+                            placeholder="Select Customer"
                             keyid="contact_id"
                             label="display_name"
-                            style="box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1); background-color:#eee; width:95%"
                           ></vuelist>
                           <button class="btn btn-add-customer btn-block" @click="showModalCustomer">
                             Add New Customer
@@ -346,7 +348,7 @@
                           + Add New Contact
                         </div> -->
                         <div v-if="ui.showAddNewContactField">
-                          <div class="form-group" style="width:95%">
+                          <div class="form-group" style="">
                             <input
                               type="text"
                               name="name"
@@ -355,7 +357,7 @@
                               v-model="newContact.display_name"
                             />
                           </div>
-                          <div class="form-group" style="width:95%">
+                          <div class="form-group" style="">
                             <textarea
                               type="text"
                               name="address"
@@ -366,7 +368,7 @@
                               v-model="newContact.billing_address"
                             ></textarea>
                           </div>
-                          <div class="form-group" style="width:95%">
+                          <div class="form-group" style="">
                             <input
                               type="number"
                               name="phone"
@@ -377,30 +379,30 @@
                               v-model="newContact.phone"
                             />
                           </div>
-                          <div class="form-group" style="width:95%">
+                          <div class="form-group" style="">
                             <input type="email" name="email" class="form-control" placeholder="Client's email"
                                    style="text-transform: lowercase;"
                                    v-model="newContact.email">
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-1" v-if="selected_contact || ui.showAddNewContactField" style="padding-left:0">
-                        <a @click="clearSelectedContact" href="javascript:void(0)" class="text-danger">
-                          <i class="ion-close-round" style="font-size:13.3px"></i>
-                        </a>
-                      </div>
                       <!--<div class="col-md-1" v-if="!selected_contact">-->
                       <!--<a href="javascript:void(0)" onclick="window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>-->
                       <!--</div>-->
                     </div>
-                    <div class="normal-mode" v-if="selected_contact">
-                      <div class="col-md-10" style="padding-left: 8px; margin-bottom:15px">
-                        <h4 class="text-bold">{{selected_contact.display_name}}</h4>
-                        <div class="billing-address">
-                          Billing Address
+                    <div class="normal-mode selected-contact" v-if="selected_contact">
+                      <div class="col-md-10 contact-wrap" style="padding-left: 8px; margin-bottom:15px">
+                        <div class="contact-list">
+                          <span>Billing Address</span>
+                          <span>
                           <a href="javascript:void(0)" @click="editSelectedContact">
                             <i class="fa fa-fw fa-pencil"></i>
                           </a>
+                          <a @click="clearSelectedContact" v-if="selected_contact || ui.showAddNewContactField" href="javascript:void(0)" class="text-danger close-button contact-button">
+                            <i class="ion-close-round" style="font-size:13.3px"></i>
+                          </a>
+                          </span>
+
                         </div>
                         <div class="billing-address" v-text="selected_contact.billing_address"></div>
                         <div class="billing-region-detail" v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
@@ -413,44 +415,28 @@
                         <div class="contact-mobile" >Mobile {{ selected_contact.mobile ? selected_contact.mobile : '-' }}</div>
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label style="font-weight:400">Sales Order Date</label>
-                      <div class="input-group">
-                        <input v-model="form.invoice_date" required class="flatpickr form-control">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label style="font-weight:400">Due Date</label>
-                      <div class="input-group">
-                        <input v-model="form.due_date" class="flatpickr-due form-control">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                      </div>
-                    </div>
-                    <div v-if="list.channels.length">
-                      <div class="form-group" style="margin-bottom: 0px">
-                        <label style="font-weight: normal" v-if="!selected_sales_channel">Sales from:</label>
-                        <div v-if="selected_sales_channel">
-                          <label class="pull-left" style="font-weight: normal" >Sales from:</label>
-                          <label class="pull-right" style="font-weight: normal; padding-right:45px; font-size:15px" >{{selected_sales_channel.sales_channel.channel_name }}</label>
-                        </div>
+                    <div v-if="list.channels.length" class="channels-length">
+                      <div class="form-group list-wrap" style="margin-bottom:0px">
+                        <!-- <div v-if="selected_sales_channel" class="channel-list">
+                          <span>
+                            <label style="font-weight: normal" >Sales from:</label>
+                            <label>{{selected_sales_channel.sales_channel.channel_name }}</label>
+                          </span>
+                          <a v-if="selected_sales_channel" style="padding-left:0" @click="clearSelectedSalesChannel" href="javascript:void(0)" class="text-danger close-button channel-button">
+                            <i class="ion-close-round" style="font-size:13.3px"></i>
+                          </a>
+                        </div> -->
                       </div>
                       <div class="normal-mode">
-                        <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
+                        <div class="col-md-12" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
                           <vuelist
                             @change="selectSalesChannel"
                             :options="list.channels"
                             :value="selected_sales_channel"
-                            placeholder="Search a sales channel"
+                            placeholder="Select Sales Channel"
                             keyid="id"
                             label="store_name"
-                            style="width:93%"
                           ></vuelist>
-                        </div>
-                        <div class="col-md-1" v-if="selected_sales_channel" style="padding-left:0">
-                          <a @click="clearSelectedSalesChannel" href="javascript:void(0)" class="text-danger">
-                            <i class="ion-close-round" style="font-size:13.3px"></i>
-                          </a>
                         </div>
                       </div>
                     </div>
@@ -458,6 +444,26 @@
                       <label style="font-weight: normal">Go to <i>Settings</i> >> <i>Sales Channel</i> to add your first
                         sales channel</label>
                     </div>
+                    <div class="col-md-12 pl-pr-0">
+                    <div class="form-group">
+                      <label style="font-weight:400">Order Date</label>
+                      <div class="input-group">
+                        <input v-model="form.invoice_date" required class="flatpickr form-control">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="col-md-12 pl-pr-0">
+                      <div class="form-group">
+                      <label style="font-weight:400">Due Date</label>
+                      <div class="input-group">
+                        <input v-model="form.due_date" class="flatpickr-due form-control">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                      </div>
+                    </div>
+                    </div>
+                    
+                    
                   </div>
                 </div>
               </div>
@@ -475,7 +481,7 @@
                         <label style="font-weight: normal" v-if="selected_sales_channel">Sales from: {{ selected_sales_channel.sales_channel.channel_name }}</label>
                       </div>
                       <div class="normal-mode">
-                        <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
+                        <div class="col-md-12" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
                           <vuelist
                             @change="selectSalesChannel"
                             :options="list.channels"
@@ -510,12 +516,12 @@
               </router-link>
             </div>
             <div class="col-md-6 text-right">
-              <button v-if="!this.$route.params.id" type="button" class="btn btn-default" data-value="save_as_draft"
-                      @click="save($event)">Save as Draft
+              <button v-if="!this.$route.params.id" type="button" class="btn btn-default" data-value="save_as_draft" style="margin-right:25px"
+                      @click="save($event)">Save as Quote
               </button>
               <div class="btn-group dropup">
                 <button type="button" class="btn btn-primary" data-value="save_and_close"
-                        @click="save($event)">Save then Close
+                        @click="save($event)">Create Invoice
                 </button>
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                   <span class="caret"></span>
@@ -523,17 +529,17 @@
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li>
                     <a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">
-                      Save then Pay
+                      Create Invoice then Pay
                     </a>
                   </li>
                   <li>
                     <a href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">
-                      Save and New
+                      Create Invoice and New
                     </a>
                   </li>
                   <li>
                     <a href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">
-                      Save and Duplicate
+                      Create Invoice and Duplicate
                     </a>
                   </li>
                 </ul>
@@ -1273,7 +1279,47 @@
   };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .panel-body.midd-pannel {
+    border: 1px solid #cecece;
+  }
+  .right-pannel{
+    .ion-ios7-arrow-down:before,
+    .fa-calendar:before{
+      color: #3ea9e8;
+    }
+    input{
+      background: #eaeaea
+    }
+    input.flatpickr-due.form-control.flatpickr-input.form-control.input {
+      background: #eeeeee;
+    }
+    input.flatpickr.form-control.flatpickr-input.form-control.input {
+      background: #eaeaea;
+    }
+    .main.text-muted {
+      background: #eaeaea;
+    }
+  }
+  .customer-wrapper{
+    
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    .vuelist{
+      box-shadow: none;
+      background: #eee;
+      width:100%;
+      .list{
+        width:100% !important;        
+      }
+      .main.text-muted{
+        background-color:#eee !important;
+      }
+    }
+  }
   .flatpickr {
     background: white;
   }
@@ -1288,6 +1334,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-color: #3ea9e8;
+    color: #3ea9e8;    
   }
 
   .btn-add-customer{
@@ -1298,4 +1346,74 @@
     color: white;
     background: #89b5eb;
   }
+  textarea{
+    border: none;
+    resize: none;
+  }
+  textarea:hover{
+    border: 1px solid #ddd
+  }
+  textarea:focus{
+    border: 1px solid #ddd
+  }
+  textarea::-webkit-resizer {
+  display: none;
+}
+
+.panel.panel-default.bottom-pannel {
+  background: #eee;
+  box-shadow: none;
+  .panel .panel-body {
+    padding: 20px 0;
+  }
+  textarea {
+    background: transparent;
+  } 
+}
+table.empty-table {
+  display: table;
+  height: 100px;
+}
+
+.right-pannel .channels-length .ion-ios7-arrow-down:before {
+  color: #3ea9e8;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+}
+
+.channels-length,
+.normal-mode.selected-contact {
+  display: block;
+  width: 100%;
+  position: relative;
+  overflow: visible;
+}
+.close-button {
+  position: relative;
+  display: inline-block;
+}
+.channel-list {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.normal-mode.selected-contact {
+  height: 40px;
+}
+.contact-wrap,
+.form-group.list-wrap {
+  display: block;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.contact-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 </style>

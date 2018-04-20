@@ -271,10 +271,13 @@
 </script>
 
 <style scoped>
+.vuelist{
+  position: relative;
+}
 
 .list {
   position: absolute;
-  width: 94.5%;
+  width: 100%;
   z-index: 10;
   background: white;
   border: 1px solid #cecece;

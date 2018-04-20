@@ -2782,3 +2782,35 @@ h5.title {
     padding: 22px 11px;
     text-align: right !important;
 }
+.customer-wrapper .vuelist .main.text-muted{ background-color:#eee !important; }
+
+.right-pannel.col-md-3 input.flatpickr.form-control.flatpickr-input.form-control.input,
+.right-pannel.col-md-3 input.flatpickr-due.form-control.flatpickr-input.form-control.input,
+.right-pannel.col-md-3 .main.text-muted{
+    background: #eee !important;
+    position:relative;
+    box-shadow: none;
+}
+.right-pannel.col-md-3 .main.text-muted{
+    color: #3ea9e8;
+}
+.right-pannel.col-md-3 span.input-group-addon {
+    position: absolute;
+    z-index: 3;
+    right: 10px;
+    top: 2px;
+    background: transparent;
+}
+
+.right-pannel.col-md-3 .input-group{
+    width: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.right-pannel .ion-ios7-arrow-down:before,
+.right-pannel .fa-calendar:before{
+      color: #3ea9e8;
+}
