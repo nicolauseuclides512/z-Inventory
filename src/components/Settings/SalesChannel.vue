@@ -32,6 +32,7 @@
                     type="text"
                     class="form-control form-white"
                     id="sales_channel_name"
+                    placeholder="Sales Channel Name"
                     required
                   />
                 </div>
