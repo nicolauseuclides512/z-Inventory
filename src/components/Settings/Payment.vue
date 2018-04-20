@@ -99,8 +99,8 @@
                 {{ bank.account_number }}
               </div>
               <div class="col-md-3 text-right" style="padding-top: padding-top: 3%;">
-                <button type="button" @click="remove(bank)" class="btn btn-default waves-effect">
-                  <i class="fa fa-trash"></i>
+                <button type="button" @click="remove(bank)" class="btn btn-default waves-effect" style="border:none; box-shadow:none; background:transparent">
+                  <i class="ion-ios7-trash-outline text-danger" style="font-size:20px"></i>
                 </button>
               </div>
             </div>
