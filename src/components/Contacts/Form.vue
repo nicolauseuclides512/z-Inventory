@@ -35,10 +35,10 @@
                           <input type="checkbox" id="inlineCheckbox2" v-model="form.is_dropshipper">
                           <label for="inlineCheckbox2">Dropshipper</label>
                         </div>
-                        <div class="checkbox checkbox-success checkbox-inline">
+                        <!-- <div class="checkbox checkbox-success checkbox-inline">
                           <input type="checkbox" id="inlineCheckbox3" v-model="form.is_vendor">
                           <label for="inlineCheckbox3">Vendor</label>
-                        </div>
+                        </div> -->
                         <div class="checkbox checkbox-success checkbox-inline">
                           <input type="checkbox" id="inlineCheckbox4" v-model="form.is_reseller">
                           <label for="inlineCheckbox4">Resellers</label>
