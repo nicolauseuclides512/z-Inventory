@@ -167,10 +167,10 @@
           <div class="container p-b-10 m-b-20">
             <div class="row">
               <div class="col-md-12 text-center">
-                <button type="submit" class="btn btn-info waves-effect waves-light" :disabled="saving">Save</button>
                 <button type="button" @click="resetForm" class="btn btn-default waves-effect" :disabled="saving">
                   Cancel
                 </button>
+                <button type="submit" class="btn btn-info waves-effect waves-light" :disabled="saving">Save</button>
               </div>
             </div>
           </div>

@@ -85,8 +85,8 @@
           <div class="container p-b-10 m-b-20">
             <div class="row">
               <div class="col-md-12 text-center">
-                <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>
                 <button type="button" @click="resetForm" class="btn btn-default waves-effect">Cancel</button>
+                <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>
               </div>
             </div>
           </div>
