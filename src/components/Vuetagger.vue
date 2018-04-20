@@ -196,4 +196,7 @@
   .vuetagger-input:focus ~.reminder{
    display: inline;
   }
+  .reminder{
+    color:#ccc
+  }
 </style>
