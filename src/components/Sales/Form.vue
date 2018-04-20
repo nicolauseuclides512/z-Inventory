@@ -40,7 +40,7 @@
                       @search="searchProduct"
                       :options="list.product_list"
                       :value="selected_product"
-                      placeholder="Select roduct"
+                      placeholder="Select Product"
                       keyid="item_id"
                       label="item_name"
                     ></vuelist>
@@ -427,9 +427,11 @@
                           </a>
                         </div> -->
                       </div>
-                      <div class="normal-mode">
-                        <div class="col-md-12" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
-                          <vuelist
+                      <div class="form-horizontal">
+                        <div class="form-group form-general m-b-10">
+                          <label class="col-md-3 control-label text-left">Channel</label>
+                          <div class="col-md-9">
+                            <vuelist
                             @change="selectSalesChannel"
                             :options="list.channels"
                             :value="selected_sales_channel"
@@ -440,26 +442,32 @@
                         </div>
                       </div>
                     </div>
+                    </div>
                     <div v-else>
                       <label style="font-weight: normal">Go to <i>Settings</i> >> <i>Sales Channel</i> to add your first
                         sales channel</label>
                     </div>
+
                     <div class="col-md-12 pl-pr-0">
-                    <div class="form-group">
-                      <label style="font-weight:400">Order Date</label>
-                      <div class="input-group">
-                        <input v-model="form.invoice_date" required class="flatpickr form-control">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                      <div class="form-horizontal">
+                          <div class="form-group form-general m-b-10">
+                            <label class="col-md-3 control-label text-left">Date</label>
+                            <div class="col-md-9">
+                              <div class="input-group">
+                          <input v-model="form.invoice_date" required class="flatpickr form-control">
+                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                        </div>
                       </div>
-                    </div>
-                    </div>
-                    <div class="col-md-12 pl-pr-0">
-                      <div class="form-group">
-                      <label style="font-weight:400">Due Date</label>
-                      <div class="input-group">
-                        <input v-model="form.due_date" class="flatpickr-due form-control">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                      </div>
+                      <div class="form-group form-general m-b-10">
+                        <label class="col-md-3 control-label text-left">Due Date</label>
+                        <div class="col-md-9">
+                          <div class="input-group">
+                          <input v-model="form.due_date" class="flatpickr-due form-control">
+                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                          </div>
+                        </div>
                     </div>
                     </div>
                     
@@ -528,20 +536,29 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li>
+                    <a v-if="this.$route.params.id && this.form.is_invoiceDraft==='DRAFT'" href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">
+                      Convert to Invoice then Pay
+                    </a>
                     <a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">
                       Create Invoice then Pay
                     </a>
                   </li>
                   <li>
-                    <a href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">
-                      Create Invoice and New
+                    <a v-if="this.$route.params.id && this.form.is_invoiceDraft==='DRAFT'" href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">
+                      Convert to Invoice and New
+                    </a>
+                    <a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">
+                      Create Invoice then Pay
                     </a>
                   </li>
-                  <li>
-                    <a href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">
-                      Create Invoice and Duplicate
+                  <!-- <li>
+                    <a v-if="this.$route.params.id && this.form.is_invoiceDraft==='DRAFT'" href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">
+                      Convert to Invoice and Duplicate
                     </a>
-                  </li>
+                    <a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">
+                      Create Invoice then Pay
+                    </a>
+                  </li> -->
                 </ul>
               </div>
             </div>
@@ -857,6 +874,7 @@
         this.form.carrier_service = sales_order.carrier_service;
         this.form.my_sales_channel_id = sales_order.my_sales_channel_id;
         this.form.my_sales_channel = sales_order.my_sales_channel;
+        this.form.is_invoiceDraft = sales_order.invoice_status;
       },
 
       dueDateTime(setDate) {
