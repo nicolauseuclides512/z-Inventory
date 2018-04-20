@@ -196,7 +196,7 @@
                               <div class="placeholder-collapse"></div>
                             </th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em; color:#000; width:97px">Date</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; width:72px">Order#</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; width:85px">Order#</th>
                             <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Channel</th>
                             <!-- <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Ref#</th> -->
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer</th>
