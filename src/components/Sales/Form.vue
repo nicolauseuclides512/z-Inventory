@@ -176,7 +176,7 @@
                               v-model.trim="form.adjustment_name"
                               type="text"
                               class="form-control form-white"
-                              style="max-width: 300px; border: 1px solid #eee; padding-left:8px"
+                              style="max-width: 300px; border: 1px dashed #ddd; padding-left:8px"
                               placeholder="Adjustment"
                             />
                           </td>
