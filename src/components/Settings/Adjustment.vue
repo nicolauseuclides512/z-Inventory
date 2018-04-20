@@ -37,8 +37,8 @@
             <td>{{ index + 1 }}</td>
             <td>{{ reason.reason }}</td>
             <td>
-              <button class="btn btn-default" @click="remove(reason)">
-                <i class="fa fa-trash"></i>
+              <button class="btn btn-default" style="border:none; box-shadow:none; background:transparent" @click="remove(reason)">
+                <i class="ion-ios7-trash-outline text-danger" style="font-size:20px"></i>
               </button>
             </td>
           </tr>
