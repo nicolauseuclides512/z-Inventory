@@ -64,7 +64,7 @@
                   >
                     Payment
                   </a>
-                  <a
+                  <a v-if="!shipmentList || !shipmentList.length"
                     @click="showModalShipment()"
                     data-toggle="dropdown"
                     aria-expanded="false"
@@ -396,9 +396,7 @@
 
           Axios.get(`sales_orders/${sales_order_id}/shipments/${shipment_id}/edit`).then(
             res => {
-              // console.log('res.data.data.shipment', res.data.data.shipment)
               this.formEditShipment = res.data.data.shipment
-              // console.log(this.formEditShipment)
               this.showModalShipment(true)
             }
           ).catch(
@@ -473,7 +471,6 @@
         if(editData == true){
           this.modalShipment = true
           $('#shipment-modal-add').modal('show')
-          // console.log(this.modalShipment, editData)
         }else{
           this.modalShipment = true
           this.formEditShipment= {}
