@@ -200,9 +200,9 @@
                             <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Channel</th>
                             <!-- <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Ref#</th> -->
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer</th>
-                            <th class="text-right" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Total</th>
-                            <th class="text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Invoice Status</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Shipment Date</th>
+                            <th class="text-right" style="font-weight:400; padding-right:16px; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Total</th>
+                            <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; width:126px">Payment</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Ship Date</th>
                             <th class="text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Status</th>
                             <!-- <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Due Date</th> -->
                             
@@ -221,7 +221,7 @@
                                   <label></label>
                                 </div>
                               </td>
-                              <td>
+                              <td  style="padding-left:0; padding-right:0">
                                 <a href="javascript:void(0);" @click="overviewToggle(sale.sales_order_id)">
                                   <i v-if="overview.sales_order_id === sale.sales_order_id"
                                      class="ion-minus-round text-green"></i>
@@ -243,15 +243,15 @@
                               <td class="text-left" @click="showDetail(sale)" style="cursor:pointer">
                                   {{ sale.contact.display_name }}
                               </td>
-                               <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
-                              <td class="text-center" style="cursor: pointer; width:126px;" @click="showDetail(sale)">
+                               <td class="text-right" style="cursor: pointer; padding-right:16px" @click="showDetail(sale)">{{ sale.total | money }}</td>
+                              <td class="text-left" style="cursor: pointer; width:126px;" @click="showDetail(sale)">
                                 <!-- <span v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue {{ sale.due_date | diffInDays }} day(s)</span> -->
                                 <span v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue</span>
                                 <span v-else-if="sale.sales_order_status === 'DRAFT'">Open</span>
                                 <span v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
                               </td>
                               <td class="text-left"><!-- Shipment Date goes here--></td>
-                              <td class="text-center" style="cursor: pointer;" @click="showDetail(sale)">
+                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.shipment_status | normalizeStatus }}
                               </td>
                               <!-- <td style="cursor: pointer;" @click="showDetail(sale)">
