@@ -107,7 +107,7 @@
           </div>
           <div class="clearfix">
             <div class="pull-left">
-              <small class="text-muted">#{{ salesOrder.sales_order_number }}</small>
+              <div class="text-muted">#{{ salesOrder.sales_order_number }} | {{ salesOrder.invoice_date | date('short') }}</div>
             </div>
             <div class="pull-right payment-status">
               <span class="label label-danger" v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span>
@@ -116,12 +116,12 @@
               <span class="label label-info" v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
             </div>
           </div>
-          <div class="clearfix">
+          <!-- <div class="clearfix">
             <div class="pull-left"><span class="text-muted">{{ salesOrder.invoice_date | date('short') }}</span></div>
             <div class="pull-right shipment-status label" :class="{'label-info': salesOrder.shipment_status == 'NOT_YET_SHIPPED'}">
               {{ salesOrder.shipment_status | normalizeStatus }}
             </div>
-          </div>
+          </div> -->
         </td>
       </tr>
     </table>
