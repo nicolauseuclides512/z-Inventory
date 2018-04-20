@@ -536,29 +536,20 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li>
-                    <a v-if="this.$route.params.id && this.form.is_invoiceDraft==='DRAFT'" href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">
-                      Convert to Invoice then Pay
-                    </a>
                     <a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">
                       Create Invoice then Pay
                     </a>
                   </li>
                   <li>
-                    <a v-if="this.$route.params.id && this.form.is_invoiceDraft==='DRAFT'" href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">
-                      Convert to Invoice and New
-                    </a>
-                    <a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">
-                      Create Invoice then Pay
+                    <a href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">
+                      Create Invoice and New
                     </a>
                   </li>
-                  <!-- <li>
-                    <a v-if="this.$route.params.id && this.form.is_invoiceDraft==='DRAFT'" href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">
-                      Convert to Invoice and Duplicate
+                  <li>
+                    <a href="javascript:void(0);" data-value="save_then_duplicate" @click="save($event)">
+                      Create Invoice and Duplicate
                     </a>
-                    <a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">
-                      Create Invoice then Pay
-                    </a>
-                  </li> -->
+                  </li>
                 </ul>
               </div>
             </div>
