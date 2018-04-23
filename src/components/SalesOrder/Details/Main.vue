@@ -1,5 +1,5 @@
 <template>
-  <div class="content-page">
+  <div class="content-page" style="padding: 0px;">
 
     <iframe id="iframe-print" src="about:blank" style="display: none"></iframe>
 

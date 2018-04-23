@@ -1,5 +1,5 @@
 <template>
-  <div class="content-page-full" style="padding-right: 0;">
+  <div class="content-page-full" style="padding:0px;">
     <div v-if="checkedList.length > 0 && !loadingSalesOrders" class="float-CheckOpt">
         <div class="container">
            <div class="clearfix">

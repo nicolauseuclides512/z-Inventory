@@ -1,5 +1,5 @@
 <template>
-  <div class="content-page-full">
+  <div class="content-page-full" style="padding:0px">
     <div v-show="isChecked" class="float-CheckOpt">
         <div class="container">
            <div class="clearfix">
