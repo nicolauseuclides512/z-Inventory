@@ -2,24 +2,61 @@
   <div style="box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .2);">
 
     <div class="sahito-invoice" v-if="value" style="min-height: 842px">
+
+      <!--
       <div v-if="value.invoice_status === 'DRAFT'">
-        <div class="ribbon-draft"><span>{{ value.invoice_status }}</span></div>
+        <div class="ribbon-draft"><span class="ribbon-text">{{ value.invoice_status }}</span></div>
       </div>
       <div v-else-if="salesOrder.invoice_status === 'UNPAID'">
-        <div class="ribbon-unpaid"><span>{{ value.sales_order.invoice_status }}</span></div>
+        <div class="ribbon-unpaid"><span class="ribbon-text">{{ value.sales_order.invoice_status }}</span></div>
       </div>
       <div v-else-if="value.sales_order.invoice_status === 'OVERDUE'">
-        <div class="ribbon-overdue"><span>{{ value.sales_order.invoice_status }}</span></div>
+        <div class="ribbon-overdue"><span class="ribbon-text">{{ value.sales_order.invoice_status }}</span></div>
       </div>
       <div v-else-if="value.invoice_status === 'PARTIALLY_PAID'">
-        <div class="ribbon-partially"><span>{{ value.invoice_status.replace(/_/, ' ') }}</span></div>
+        <div class="ribbon-partially"><span class="ribbon-text">{{ value.invoice_status.replace(/_/, ' ') }}</span></div>
       </div>
       <div v-else-if="value.invoice_status === 'VOID'">
-        <div class="ribbon-void"><span>{{ value.invoice_status }}</span></div>
+        <div class="ribbon-void"><span class="ribbon-text">{{ value.invoice_status }}</span></div>
       </div>
       <div v-else>
-        <div class="ribbon"><span>{{ salesOrder.invoice_status }}</span></div>
+        <div class="ribbon"><span class="ribbon-text">{{ salesOrder.invoice_status }}</span></div>
       </div>
+       -->
+      <div v-if="value.invoice_status && !salesOrder.invoice_status" class="ribbon-wrapper">
+        <div
+          class="ribbon-payment"
+          :class="{
+          'unpaid': value.invoice_status == 'UNPAID',
+          'partial': value.invoice_status == 'PARTIALLY_PAID',
+          'void': value.invoice_status == 'VOID',
+          'draft': value.invoice_status == 'DRAFT',
+          'sent': value.invoice_status == 'SENT',
+          }" >
+          {{ value.invoice_status }}
+        </div>
+      </div>
+
+      <div v-if="salesOrder.invoice_status" class="ribbon-wrapper">
+        <div
+          class="ribbon-payment"
+          :class="{
+          'unpaid': value.invoice_status == 'UNPAID',
+          'overdue': salesOrder.invoice_status == 'OVERDUE',
+          'partial': salesOrder.invoice_status == 'PARTIALLY_PAID',
+          'void': salesOrder.invoice_status == 'VOID',
+          'draft': salesOrder.invoice_status == 'DRAFT',
+          'sent': salesOrder.invoice_status == 'SENT',
+          }" >
+          {{ salesOrder.invoice_status }}
+        </div>
+      </div>
+      <!-- <div class="ribbon-shipment" :class="{
+        'not-shipped': salesOrder.shipment_status == 'NOT_YET_SHIPPED',
+        'draft': salesOrder.shipment_status == 'DRAFT',
+        }" >
+        {{ salesOrder.shipment_status }}
+      </div> -->
 
       <div class="row sahito-invoice-content" style="padding: 67px 25px 0 45px;margin-left:0; margin-right:0; margin-bottom: 30px;">
         <div class="col-md-8 pull-left" >
@@ -191,168 +228,169 @@
 </template>
 
 <script>
-import Axios from "axios";
-import Regional from "helpers/regional";
-import has from "has";
+  import Axios from "axios";
+  import Regional from "helpers/regional";
+  import has from "has";
 
-export default {
-  name: "Invoice",
+  export default {
+    name: "Invoice",
 
-  props: {
-    value: {
-      type: [Object, Array],
-      required: true
-    },
-    salesOrder: {
-      type: [Object, Array],
-      required: true
-    },
-    paymentList: {
-      type: [Object, Array],
-      required: true
-    }
-  },
-
-  watch: {
-    value() {
-      this.getBuyerinfo()
-    }
-  },
-
-  data() {
-    return {
-      invoice: {},
-      //logo: "http://placehold.it/250?text=No+Logo",
-      logo:null,
-      company_name: "",
-      company_address: "",
-      company_zip: "",
-      company_country: "",
-      company_province: "",
-      company_district: "",
-      company_region: "",
-      company_phone: '',
-      company_email: '',
-
-      buyer_name: "",
-      buyer_address: "",
-      buyer_region: "",
-      buyer_district: "",
-      buyer_province: "",
-      buyer_zip: "",
-      buyer_country: "",
-      buyer_phone: "",
-      buyer_mobile: ""
-    };
-  },
-
-  mounted() {
-    this.getOrganizationInfo();
-    this.getBuyerinfo();
-  },
-
-  methods: {
-    async getOrganizationInfo() {
-      const orgId = Cookie.get("organization_id");
-      const url = `organizations/${orgId}`;
-      const res = await Axios.get(url);
-      this.logo = res.data.data.multi_res_logo
-        ? res.data.data.multi_res_logo.small
-        : null
-
-      this.company_name = res.data.data.name;
-      this.company_address = res.data.data.address;
-      this.company_zip = res.data.data.zip;
-      this.company_phone = res.data.data.phone
-      this.company_email = res.data.data.primary_contact.email
-
-      const countries = await Regional.countryList();
-      const country = await countries.find(
-        item => item.id === res.data.data.country_id
-      );
-      this.company_country =
-        country && has(country, "name") ? country.name : "";
-
-      const provinces = await Regional.provinceList(res.data.data.country_id);
-      const province = await provinces.find(
-        item => item.id === res.data.data.province_id
-      );
-      this.company_province =
-        province && has(province, "name") ? province.name : "";
-
-      const districts = await Regional.districtList(res.data.data.province_id);
-      const district = await districts.find(
-        item => item.id === res.data.data.district_id
-      );
-      this.company_district =
-        district && has(district, "name") ? district.name : "";
-
-      const regions = await Regional.regionList(res.data.data.district_id);
-      const region = await regions.find(
-        item => item.id === res.data.data.region_id
-      );
-      this.company_region = region && has(region, "name") ? region.name : "";
+    props: {
+      value: {
+        type: [Object, Array],
+        required: true
+      },
+      salesOrder: {
+        type: [Object, Array],
+        required: true
+      },
+      paymentList: {
+        type: [Object, Array],
+        required: true
+      }
     },
 
-    async getBuyerinfo() {
-      this.buyer_name = this.value.contact.display_name;
+    watch: {
+      value() {
+        this.getBuyerinfo()
+      }
+    },
 
-      this.buyer_phone = this.value.contact.phone;
-      this.buyer_mobile = this.value.contact.mobile;
+    data() {
+      return {
+        invoice: {},
+        //logo: "http://placehold.it/250?text=No+Logo",
+        logo:null,
+        company_name: "",
+        company_address: "",
+        company_zip: "",
+        company_country: "",
+        company_province: "",
+        company_district: "",
+        company_region: "",
+        company_phone: '',
+        company_email: '',
 
-      this.buyer_address = this.value.billing_address
-        ? this.value.billing_address
-        : this.value.contact.billing_address;
-      this.buyer_zip = this.value.billing_zip
-        ? this.value.billing_zip
-        : this.value.contact.billing_zip;
+        buyer_name: "",
+        buyer_address: "",
+        buyer_region: "",
+        buyer_district: "",
+        buyer_province: "",
+        buyer_zip: "",
+        buyer_country: "",
+        buyer_phone: "",
+        buyer_mobile: ""
+      };
+    },
 
-      const countries = await Regional.countryList();
-      const buyer_country_id = this.value.billing_country
-        ? this.value.billing_country
-        : this.value.contact.billing_country;
-      if (buyer_country_id) {
+    mounted() {
+      this.getOrganizationInfo();
+      this.getBuyerinfo();
+    },
+
+    methods: {
+      async getOrganizationInfo() {
+        const orgId = Cookie.get("organization_id");
+        const url = `organizations/${orgId}`;
+        const res = await Axios.get(url);
+        this.logo = res.data.data.multi_res_logo
+          ? res.data.data.multi_res_logo.small
+          : null
+
+        this.company_name = res.data.data.name;
+        this.company_address = res.data.data.address;
+        this.company_zip = res.data.data.zip;
+        this.company_phone = res.data.data.phone
+        this.company_email = res.data.data.primary_contact.email
+
+        const countries = await Regional.countryList();
         const country = await countries.find(
-          item => item.id === buyer_country_id
+          item => item.id === res.data.data.country_id
         );
-        this.buyer_country = has(country, "name") ? country.name : "";
-      }
+        this.company_country =
+          country && has(country, "name") ? country.name : "";
 
-      const provinces = await Regional.provinceList(buyer_country_id);
-      const buyer_province_id = this.value.billing_province
-        ? this.value.billing_province
-        : this.value.contact.billing_province;
-      if (buyer_province_id) {
+        const provinces = await Regional.provinceList(res.data.data.country_id);
         const province = await provinces.find(
-          item => item.id === buyer_province_id
+          item => item.id === res.data.data.province_id
         );
-        this.buyer_province = has(province, "name") ? province.name : "";
-      }
+        this.company_province =
+          province && has(province, "name") ? province.name : "";
 
-      const districts = await Regional.districtList(buyer_province_id);
-      const buyer_district_id = this.value.billing_district
-        ? this.value.billing_district
-        : this.value.contact.billing_district;
-      if (buyer_district_id) {
+        const districts = await Regional.districtList(res.data.data.province_id);
         const district = await districts.find(
-          item => item.id === buyer_district_id
+          item => item.id === res.data.data.district_id
         );
-        this.buyer_district = has(district, "name") ? district.name : "";
-      }
+        this.company_district =
+          district && has(district, "name") ? district.name : "";
 
-      const regions = await Regional.regionList(buyer_district_id);
-      const buyer_region_id = this.value.billing_region
-        ? this.value.billing_region
-        : this.value.contact.billing_region;
-      if (buyer_region_id) {
-        const region = await regions.find(item => item.id === buyer_region_id);
-        this.buyer_region = has(region, "name") ? region.name : "";
+        const regions = await Regional.regionList(res.data.data.district_id);
+        const region = await regions.find(
+          item => item.id === res.data.data.region_id
+        );
+        this.company_region = region && has(region, "name") ? region.name : "";
+      },
+
+      async getBuyerinfo() {
+        this.buyer_name = this.value.contact.display_name;
+
+        this.buyer_phone = this.value.contact.phone;
+        this.buyer_mobile = this.value.contact.mobile;
+
+        this.buyer_address = this.value.billing_address
+          ? this.value.billing_address
+          : this.value.contact.billing_address;
+        this.buyer_zip = this.value.billing_zip
+          ? this.value.billing_zip
+          : this.value.contact.billing_zip;
+
+        const countries = await Regional.countryList();
+        const buyer_country_id = this.value.billing_country
+          ? this.value.billing_country
+          : this.value.contact.billing_country;
+        if (buyer_country_id) {
+          const country = await countries.find(
+            item => item.id === buyer_country_id
+          );
+          this.buyer_country = has(country, "name") ? country.name : "";
+        }
+
+        const provinces = await Regional.provinceList(buyer_country_id);
+        const buyer_province_id = this.value.billing_province
+          ? this.value.billing_province
+          : this.value.contact.billing_province;
+        if (buyer_province_id) {
+          const province = await provinces.find(
+            item => item.id === buyer_province_id
+          );
+          this.buyer_province = has(province, "name") ? province.name : "";
+        }
+
+        const districts = await Regional.districtList(buyer_province_id);
+        const buyer_district_id = this.value.billing_district
+          ? this.value.billing_district
+          : this.value.contact.billing_district;
+        if (buyer_district_id) {
+          const district = await districts.find(
+            item => item.id === buyer_district_id
+          );
+          this.buyer_district = has(district, "name") ? district.name : "";
+        }
+
+        const regions = await Regional.regionList(buyer_district_id);
+        const buyer_region_id = this.value.billing_region
+          ? this.value.billing_region
+          : this.value.contact.billing_region;
+        if (buyer_region_id) {
+          const region = await regions.find(item => item.id === buyer_region_id);
+          this.buyer_region = has(region, "name") ? region.name : "";
+        }
       }
     }
-  }
-};
+  };
 </script>
- <style scoped>
+
+<style scoped lang="scss">
 pre{
   font-family: 'Proxima Nova', Georgia, sans-serif;
   border:none;
@@ -366,4 +404,154 @@ td span{
 td span:first-child{ /* compatible to >=IE7 */
     float:left;
 }
- </style>
+
+// .ribbon-payment,
+// .ribbon-salesorder,
+// .ribbon-shipment{
+//   font-size: 10px;
+//   font-weight: 700;
+//   color: #fff;
+//   text-transform: uppercase;
+//   text-align: center;
+//   line-height: 20px;
+//   transform: rotate(-45deg);
+//   width: 100px;
+//   display: block;
+//   background: #45a9e7;
+//   box-shadow: 0 3px 10px -5px #000;
+//   position: absolute;
+//   top: 19px;
+//   left: -21px;
+//   &:before{
+//     content: "";
+//     position: absolute;
+//     left: 0;
+//     top: 100%;
+//     z-index: -1;
+//     border-right: 3px solid #45a9e7;
+//     border-left: 3px solid transparent;
+//     border-bottom: 3px solid transparent;
+//     border-top: 3px solid #45a9e7;
+//   }
+// }
+
+// .ribbon-payment{
+//   top: -8px;
+// }
+// .ribbon-salesorder{
+//   top: 20px;
+// }
+
+.ribbon-wrapper{
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right;
+}
+.ribbon-payment{
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  width: 100px;
+  display: block;
+  background: #1C8AD9;
+  background: linear-gradient(#1C8AD9, #1C8AD9);
+  box-shadow: 0 3px 10px -5px #000;
+  position: absolute;
+  top: 19px;
+  left: -21px;
+  &:before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid #1C8AD9;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #1C8AD9;
+  }
+  &:after{
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid transparent;
+    border-right: 3px solid #1C8AD9;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #1C8AD9;
+  }
+
+  &.draft{
+    background: #C4C4C4;
+    background: linear-gradient(#C4C4C4, #C4C4C4);
+    &:before{
+      border-left: 3px solid #C4C4C4;
+      border-top: 3px solid #C4C4C4;
+    }
+    &:after{
+      border-right: 3px solid #C4C4C4;
+      border-top: 3px solid #C4C4C4;
+    }
+  }
+  &.overdue{
+    background: #E33636;
+    background: linear-gradient(#E33636, #E33636);
+    &:before{
+      border-left: 3px solid #E33636;
+      border-top: 3px solid #E33636;
+    }
+    &:after{
+      border-right: 3px solid #E33636;
+      border-top: 3px solid #E33636;
+    }
+  }
+  &.void{
+    background: #000000;
+    background: linear-gradient(#000000, #000000);
+    &:before{
+      border-left: 3px solid #000000;
+      border-top: 3px solid #000000;
+    }
+    &:after{
+      border-right: 3px solid #000000;
+      border-top: 3px solid #000000;
+    }
+  }
+  &.unpaid{
+    background: #1C8AD9;
+    background: linear-gradient(#1C8AD9, #1C8AD9);
+    &:before{
+      border-left: 3px solid #1C8AD9;
+      border-top: 3px solid #1C8AD9;
+    }
+    &:after{
+      border-right: 3px solid #1C8AD9;
+      border-top: 3px solid #1C8AD9;
+    }
+  }
+  &.partial{
+    background: #E6E600;
+    background: linear-gradient(#E6E600, #E6E600);
+    &:before{
+      border-left: 3px solid #E6E600;
+      border-top: 3px solid #E6E600;
+    }
+    &:after{
+      border-right: 3px solid #E6E600;
+      border-top: 3px solid #E6E600;
+    }
+  }
+}
+
+</style>

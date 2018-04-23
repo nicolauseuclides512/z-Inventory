@@ -985,7 +985,7 @@ select.select2-dropdown-open {
     min-height: 500px
 }
 
-.sahito-invoice-pdf .ribbon,
+/* .sahito-invoice-pdf .ribbon,
 .sahito-invoice .ribbon {
     position: absolute;
     left: -5px;
@@ -1043,121 +1043,121 @@ select.select2-dropdown-open {
     border-top: 3px solid #319B31
 }
 
-.sahito-invoice-pdf .ribbon-draft, 
-.sahito-invoice .ribbon-draft { 
-    position: absolute; 
-    left: -5px; 
-    top: -5px; 
-    z-index: 1; 
-    overflow: hidden; 
-    width: 75px; 
-    height: 75px; 
-    text-align: right 
-} 
- 
-.sahito-invoice-pdf .ribbon-draft span, 
-.sahito-invoice .ribbon-draft span { 
-    font-size: 10px; 
-    font-weight: 700; 
-    color: #000; 
-    text-transform: uppercase; 
-    text-align: center; 
-    line-height: 20px; 
-    transform: rotate(-45deg); 
-    -webkit-transform: rotate(-45deg); 
-    width: 100px; 
-    display: block; 
-    background: #C4C4C4; 
-    background: linear-gradient(#C4C4C4, #C4C4C4); 
-    box-shadow: 0 3px 10px -5px #000; 
-    position: absolute; 
-    top: 19px; 
-    left: -21px 
-} 
- 
-.sahito-invoice-pdf .ribbon-draft span:before, 
-.sahito-invoice .ribbon-draft span:before { 
-    content: ""; 
-    position: absolute; 
-    left: 0; 
-    top: 100%; 
-    z-index: -1; 
-    border-left: 3px solid #C4C4C4; 
-    border-right: 3px solid transparent; 
-    border-bottom: 3px solid transparent; 
-    border-top: 3px solid #C4C4C4 
-} 
- 
-.sahito-invoice-pdf .ribbon-draft span:after, 
-.sahito-invoice .ribbon-draft span:after { 
-    content: ""; 
-    position: absolute; 
-    right: 0; 
-    top: 100%; 
-    z-index: -1; 
-    border-left: 3px solid transparent; 
-    border-right: 3px solid #C4C4C4; 
-    border-bottom: 3px solid transparent; 
-    border-top: 3px solid #C4C4C4 
-} 
- 
-.sahito-invoice-pdf .ribbon-overdue, 
-.sahito-invoice .ribbon-overdue { 
-    position: absolute; 
-    left: -5px; 
-    top: -5px; 
-    z-index: 1; 
-    overflow: hidden; 
-    width: 75px; 
-    height: 75px; 
-    text-align: right 
-} 
- 
-.sahito-invoice-pdf .ribbon-overdue span, 
-.sahito-invoice .ribbon-overdue span { 
-    font-size: 10px; 
-    font-weight: 700; 
-    color: #fff; 
-    text-transform: uppercase; 
-    text-align: center; 
-    line-height: 20px; 
-    transform: rotate(-45deg); 
-    -webkit-transform: rotate(-45deg); 
-    width: 100px; 
-    display: block; 
-    background: #E33636; 
-    background: linear-gradient(#E33636, #E33636); 
-    box-shadow: 0 3px 10px -5px #000; 
-    position: absolute; 
-    top: 19px; 
-    left: -21px 
-} 
- 
-.sahito-invoice-pdf .ribbon-overdue span:before, 
-.sahito-invoice .ribbon-overdue span:before { 
-    content: ""; 
-    position: absolute; 
-    left: 0; 
-    top: 100%; 
-    z-index: -1; 
-    border-left: 3px solid #E33636; 
-    border-right: 3px solid transparent; 
-    border-bottom: 3px solid transparent; 
-    border-top: 3px solid #E33636 
-} 
- 
-.sahito-invoice-pdf .ribbon-overdue span:after, 
-.sahito-invoice .ribbon-overdue span:after { 
-    content: ""; 
-    position: absolute; 
-    right: 0; 
-    top: 100%; 
-    z-index: -1; 
-    border-left: 3px solid transparent; 
-    border-right: 3px solid #E33636; 
-    border-bottom: 3px solid transparent; 
-    border-top: 3px solid #E33636 
-} 
+.sahito-invoice-pdf .ribbon-draft,
+.sahito-invoice .ribbon-draft {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right
+}
+
+.sahito-invoice-pdf .ribbon-draft span,
+.sahito-invoice .ribbon-draft span {
+    font-size: 10px;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    width: 100px;
+    display: block;
+    background: #C4C4C4;
+    background: linear-gradient(#C4C4C4, #C4C4C4);
+    box-shadow: 0 3px 10px -5px #000;
+    position: absolute;
+    top: 19px;
+    left: -21px
+}
+
+.sahito-invoice-pdf .ribbon-draft span:before,
+.sahito-invoice .ribbon-draft span:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid #C4C4C4;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #C4C4C4
+}
+
+.sahito-invoice-pdf .ribbon-draft span:after,
+.sahito-invoice .ribbon-draft span:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid transparent;
+    border-right: 3px solid #C4C4C4;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #C4C4C4
+}
+
+.sahito-invoice-pdf .ribbon-overdue,
+.sahito-invoice .ribbon-overdue {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right
+}
+
+.sahito-invoice-pdf .ribbon-overdue span,
+.sahito-invoice .ribbon-overdue span {
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    width: 100px;
+    display: block;
+    background: #E33636;
+    background: linear-gradient(#E33636, #E33636);
+    box-shadow: 0 3px 10px -5px #000;
+    position: absolute;
+    top: 19px;
+    left: -21px;
+}
+
+.sahito-invoice-pdf .ribbon-overdue span:before,
+.sahito-invoice .ribbon-overdue span:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid #E33636;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #E33636
+}
+
+.sahito-invoice-pdf .ribbon-overdue span:after,
+.sahito-invoice .ribbon-overdue span:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid transparent;
+    border-right: 3px solid #E33636;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #E33636
+}
 
 
 .sahito-invoice-pdf .ribbon-void,
@@ -1332,7 +1332,7 @@ select.select2-dropdown-open {
     border-right: 3px solid #1C8AD9;
     border-bottom: 3px solid transparent;
     border-top: 3px solid #1C8AD9
-}
+} */
 
 .sahito-invoice-pdf .sahito-invoice-content .col-md-4 img,
 .sahito-invoice .sahito-invoice-content .col-md-4 img {

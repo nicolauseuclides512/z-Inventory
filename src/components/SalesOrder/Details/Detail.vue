@@ -11,12 +11,11 @@
     <!-- =========================== -->
 
     <div v-if="!loading && Object.keys(salesOrder).length">
-      <div class="row">
+      <div class="row top-detail-row">
         <div class="col-md-12">
           <div class="clearfix m-b-30">
-            <h4 class="pull-left page-title m-0">
-              <span class="text-muted">#</span>
-              <span style="margin-right:15px">{{salesOrder.sales_order_number}}</span>
+            <h4 class="pull-left page-title m-0 left-detail-title">
+              <span style="margin-right:15px" class="SO-id"># {{salesOrder.sales_order_number}}</span>
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
                         title="View as PDF" @click="viewInvoice"><i class="fa fa-file-pdf-o"></i></button>
