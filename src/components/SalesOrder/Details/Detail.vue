@@ -19,10 +19,16 @@
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
                         title="View as PDF" @click="viewInvoice"
-                        style="border:none; box-shadow:none; background:transparent"><i class="icon-pdf" style="font-size:20px"></i></button>
+                        style="padding:6px 10px 0px 10px"
+                        ><i class="icon-pdf" style="font-size:20px"></i></button>
                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
                         title="Print" @click="viewInvoice"
-                        style="border:none; box-shadow:none; background:transparent"><i class="icon-print" style="font-size:20px"></i></button>
+                        style="padding:6px 10px 0px 10px"
+                        ><i class="icon-print" style="font-size:20px"></i></button>
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
+                        title="Print Shipping Label" @click=""
+                        style="padding:6px 10px 0px 10px"
+                        ><i class="icon-label" style="font-size:20px"></i></button>       
                 <button
                   type="button"
                   class="btn btn-default"
@@ -31,7 +37,8 @@
                   title="Send as mail"
                   :disabled="sendingEmail"
                   @click="sendInvoiceAsMail"
-                  style="border:none; box-shadow:none; background:transparent">
+                  style="padding:5px 10px 1px 10px"
+                  >
                   <i class="icon-email" v-if="!sendingEmail" style="font-size:20px"></i>
                   <i class="fa fa-spin fa-spinner" v-else="sendingEmail"></i>
                 </button>
