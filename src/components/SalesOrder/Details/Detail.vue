@@ -54,7 +54,7 @@
                       salesOrder.invoice_status === 'PARTIALLY_PAID') &&
                       salesOrder.sales_order_status != 'DRAFT'"
               >
-                Record <span class="caret"></span>
+                Create <span class="caret"></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                 <li>
