@@ -187,15 +187,19 @@
                     <td>
                       <div class="clearfix">
                         <div class="pull-left">
-                          <!--<a class="btn btn-default btn-sm" href="javascript:void(0);" title="Edit this payment" @click="editPayment(payment)"><i class="fa fa-pencil"></i></a>-->
                           <!--<a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="alert('API not available')" title="Send payment receipt to customer">-->
                           <!--<i class="fa fa-envelope"></i>-->
                           <!--</a>-->
                         </div>
                         <div class="pull-right">
                           <a class="btn btn-default btn-sm" href="javascript:void(0);"
-                             title="Delete this payment" @click="deletePayment(payment)"><i
-                            class="fa fa-trash"></i></a>
+                             title="Edit this payment" @click="updatePayment(payment)">
+                            <i class="fa fa-trash"></i>
+                          </a>
+                          <a class="btn btn-default btn-sm" href="javascript:void(0);"
+                             title="Delete this payment" @click="deletePayment(payment)">
+                            <i class="fa fa-trash"></i>
+                          </a>
                         </div>
                       </div>
                     </td>
