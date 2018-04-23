@@ -178,7 +178,8 @@
                       <span class="text-muted">#</span> {{ payment.reference_number }}
                     </td>
                     <td style="padding: 12px 8px;">
-                      {{ payment.payment_mode_name }}: {{ payment.payment_account_name }}
+                      {{ payment.payment_mode_name }}<span v-if="payment.payment_mode_name !== 'Cash'">:</span>
+                      {{ payment.payment_account_name }}
                     </td>
                     <td class="text-right" style="padding: 12px 8px;">
                       {{ payment.amount | money }}
