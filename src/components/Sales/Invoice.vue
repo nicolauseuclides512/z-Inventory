@@ -51,12 +51,16 @@
           {{ salesOrder.invoice_status }}
         </div>
       </div>
-      <!-- <div class="ribbon-shipment" :class="{
-        'not-shipped': salesOrder.shipment_status == 'NOT_YET_SHIPPED',
-        'draft': salesOrder.shipment_status == 'DRAFT',
-        }" >
-        {{ salesOrder.shipment_status }}
-      </div> -->
+
+      <div v-if="salesOrder.shipment_status" class="ribbon-wrapper shipment">
+        <div class="ribbon-payment " :class="{
+          'not-shipped': salesOrder.shipment_status == 'NOT_YET_SHIPPED',
+          'shipped': salesOrder.shipment_status == 'SHIPPED',
+          'draft': salesOrder.shipment_status == 'DRAFT',
+          }" >
+          {{ salesOrder.shipment_status }}
+        </div>
+      </div>
 
       <div class="row sahito-invoice-content" style="padding: 67px 25px 0 45px;margin-left:0; margin-right:0; margin-bottom: 30px;">
         <div class="col-md-8 pull-left" >
@@ -553,5 +557,25 @@ td span:first-child{ /* compatible to >=IE7 */
     }
   }
 }
-
+.ribbon-wrapper.shipment {
+  width: 130px;
+  left: -5px;
+  height: 131px;
+  top: -5px;
+  background: #ff000000;
+  .ribbon-payment {
+    width: 212px;
+    left: -56px;
+    top: 30px;
+    text-indent: -18px;
+    &:after{
+      right: 41px !important;
+      top: 20px !important;
+    }
+    &:before{
+      left: 26px;
+      top: 19px;
+    }
+  }
+}
 </style>
