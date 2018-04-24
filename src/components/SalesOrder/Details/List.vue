@@ -36,8 +36,8 @@
         </ul>
       </div>
       <div class="pull-right">
-        <router-link :to="{ name: 'sales.create' }" class="btn btn-info waves-effect waves-light mb-15">
-          New <i class="ion-plus"></i>
+        <router-link :to="{ name: 'sales.create' }" class="btn btn-info waves-effect waves-light mb-15 btn-new">
+          <i class="ion-plus"></i> New 
         </router-link>
         <button class="btn btn-default waves-effect waves-light mb-15" data-toggle="dropdown">
           <i class="fa fa-bars"></i>
@@ -318,5 +318,8 @@
   }
   .label{
     text-transform: capitalize;
+  }
+  .btn-new{
+    width:80px
   }
 </style>
