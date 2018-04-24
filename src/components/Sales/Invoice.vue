@@ -495,65 +495,75 @@ td span:first-child{ /* compatible to >=IE7 */
     border-bottom: 3px solid transparent;
     border-top: 3px solid #1C8AD9;
   }
-
+  &.shipped {
+    background: #77a800;
+    &:before{
+      border-left: 3px solid darken(#77a800,20);
+      border-top: 3px solid darken(#77a800,20);
+    }
+    &:after{
+      border-right: 3px solid darken(#77a800,20);
+      border-top: 3px solid darken(#77a800,20);
+    }
+  }
   &.draft{
     background: #C4C4C4;
     background: linear-gradient(#C4C4C4, #C4C4C4);
     &:before{
-      border-left: 3px solid #C4C4C4;
-      border-top: 3px solid #C4C4C4;
+      border-left: 3px solid darken(#C4C4C4,20);
+      border-top: 3px solid darken(#C4C4C4,20);
     }
     &:after{
-      border-right: 3px solid #C4C4C4;
-      border-top: 3px solid #C4C4C4;
+      border-right: 3px solid darken(#C4C4C4,20);
+      border-top: 3px solid darken(#C4C4C4,20);
     }
   }
   &.overdue{
     background: #E33636;
     background: linear-gradient(#E33636, #E33636);
     &:before{
-      border-left: 3px solid #E33636;
-      border-top: 3px solid #E33636;
+      border-left: 3px solid darken(#E33636,20);
+      border-top: 3px solid darken(#E33636,20);
     }
     &:after{
-      border-right: 3px solid #E33636;
-      border-top: 3px solid #E33636;
+      border-right: 3px solid darken(#E33636,20);
+      border-top: 3px solid darken(#E33636,20);
     }
   }
   &.void{
     background: #000000;
     background: linear-gradient(#000000, #000000);
     &:before{
-      border-left: 3px solid #000000;
-      border-top: 3px solid #000000;
+      border-left: 3px solid lighten(#000,20);
+      border-top: 3px solid lighten(#000,20);
     }
     &:after{
-      border-right: 3px solid #000000;
-      border-top: 3px solid #000000;
+      border-right: 3px solid lighten(#000,20);
+      border-top: 3px solid lighten(#000,20);
     }
   }
   &.unpaid{
     background: #1C8AD9;
     background: linear-gradient(#1C8AD9, #1C8AD9);
     &:before{
-      border-left: 3px solid #1C8AD9;
-      border-top: 3px solid #1C8AD9;
+      border-left: 3px solid darken(#1C8AD9,20);
+      border-top: 3px solid darken(#1C8AD9,20);
     }
     &:after{
-      border-right: 3px solid #1C8AD9;
-      border-top: 3px solid #1C8AD9;
+      border-right: 3px solid darken(#1C8AD9,20);
+      border-top: 3px solid darken(#1C8AD9,20);
     }
   }
   &.partial{
     background: #E6E600;
     background: linear-gradient(#E6E600, #E6E600);
     &:before{
-      border-left: 3px solid #E6E600;
-      border-top: 3px solid #E6E600;
+      border-left: 3px solid dakren(#E6E600, 20);
+      border-top: 3px solid dakren(#E6E600, 20);
     }
     &:after{
-      border-right: 3px solid #E6E600;
-      border-top: 3px solid #E6E600;
+      border-right: 3px solid dakren(#E6E600, 20);
+      border-top: 3px solid dakren(#E6E600, 20);
     }
   }
 }

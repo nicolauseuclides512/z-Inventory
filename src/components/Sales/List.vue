@@ -199,8 +199,8 @@
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Order #</th>
                             <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Channel</th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Status</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Shipment Status</th>
+                            <th class="payment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Payment Status</th>
+                            <th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Shipment Status</th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Due Date</th>
                             <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Total</th>
                             <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Balance Due</th>
@@ -239,12 +239,12 @@
                               <td class="text-left" @click="showDetail(sale)" style="cursor:pointer">
                                   {{ sale.contact.display_name }}
                               </td>
-                              <td style="cursor: pointer; width:126px" @click="showDetail(sale)">
-                                <span v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue in {{ sale.due_date | diffInDays }} day(s)</span>
-                                <span v-else-if="sale.sales_order_status === 'DRAFT'">OPEN</span>
-                                <span v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
+                              <td class="payment-status" style="cursor: pointer; width:126px" @click="showDetail(sale)">
+                                <span class="text-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue in {{ sale.due_date | diffInDays }} day(s)</span>
+                                <span class="" v-else-if="sale.sales_order_status === 'DRAFT'">OPEN</span>
+                                <span class="text-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
                               </td>
-                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                              <td class="shipment-status" style="cursor: pointer;" @click="showDetail(sale)">
                                 {{ sale.shipment_status | normalizeStatus }}
                               </td>
                               <td style="cursor: pointer;" @click="showDetail(sale)">
