@@ -1,5 +1,6 @@
 <template>
   <div class="content-page">
+    <!-- <testValidation/> -->
     <div class="content" style="padding-left: 0px; padding-right: 0px">
       <form action="POST" @submit.prevent>
 
@@ -320,6 +321,9 @@
                     </div> -->
                     <div class="normal-mode">
                       <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
+                        <div class="button-wrap">
+                          <ModalAddCustomer/>
+                        </div>
                         <div v-if="!ui.showAddNewContactField">
                           <vuelist
                             :loading="loadingContact"
@@ -333,10 +337,10 @@
                             style="box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1); background-color:#eee; width:95%"
                           ></vuelist>
                         </div>
-                        <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()"
+                        <!-- <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()"
                              class="add-new-contact-btn" style="width:95%">
                           + Add New Contact
-                        </div>
+                        </div> -->
                         <div v-if="ui.showAddNewContactField">
                           <div class="form-group" style="width:95%">
                             <input
@@ -552,12 +556,16 @@
   import Router from "src/router";
   import Form from "../../helpers/Form";
   import dateFormat from "date-fns/format";
-  import VueNumeric from 'vue-numeric'
+  import VueNumeric from 'vue-numeric';
+  import ModalAddCustomer from '@/components/Sales/Modal/ModalAddCustomer';
+  // import testValidation from '@/components/Sales/Modal/testValidation';
 
   export default {
     name: "SalesOrderForm",
 
     components: {
+      // testValidation,
+      ModalAddCustomer,
       Vuelist,
       Vuetagger,
       VueNumeric,
