@@ -322,9 +322,9 @@
                     <div class="normal-mode">
                       <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
                         <div class="button-wrap">
-                          <ModalAddCustomer/>
                         </div>
-                        <div v-if="!ui.showAddNewContactField">
+                        <!-- <div v-if="!ui.showAddNewContactField"> -->
+                        <div class="customer-list-dropdown">
                           <vuelist
                             :loading="loadingContact"
                             @change="selectContact"
@@ -336,6 +336,10 @@
                             label="display_name"
                             style="box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1); background-color:#eee; width:95%"
                           ></vuelist>
+                          <button class="btn btn-add-customer btn-block" @click="showModalCustomer">
+                            Add New Customer
+                          </button>
+                          <ModalAddCustomer v-if="isShownModalAddCustomer" @close="hideModalCustomer" @fetchContactList="fetchContactList"/>
                         </div>
                         <!-- <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()"
                              class="add-new-contact-btn" style="width:95%">
@@ -621,16 +625,9 @@
       }
     },
 
-    beforeRouteLeave (to, from, next) {
-      if (this.dirtyForm) {
-        const leave = confirm('Are you sure leave this page?')
-        if (!leave) return next(false)
-      }
-      return next()
-    },
-
     data() {
       return {
+        isShownModalAddCustomer: false,
         loadingList: false,
         loadingContact: false,
         dirtyForm: false,
@@ -707,6 +704,14 @@
       };
     },
 
+    beforeRouteLeave (to, from, next) {
+      if (this.dirtyForm) {
+        const leave = confirm('Are you sure leave this page?')
+        if (!leave) return next(false)
+      }
+      return next()
+    },
+
     mounted() {
       $('input, textarea, select').on('change blur', (event) => {
         this.dirtyForm = true
@@ -717,6 +722,13 @@
     },
 
     methods: {
+      showModalCustomer(){
+        this.isShownModalAddCustomer = true
+        $('#modal-add-customer').modal('show')
+      },
+      hideModalCustomer(){
+        this.isShownModalAddCustomer = false
+      },
       async initialize() {
         try {
           if (this.$route.params.id) {
@@ -1279,6 +1291,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .btn-add-customer{
+    width: 95%;
   }
 
   .add-new-contact-btn:hover {

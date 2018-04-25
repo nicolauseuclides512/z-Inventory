@@ -1,8 +1,8 @@
 <template>
   <div class="modal-add-customer-wrap">
-    <button @click="showModalAddCustomer">
+    <!-- <button class="btn btn-add-customer btn-block" @click="showModalAddCustomer">
       Add New Customer
-    </button>
+    </button> -->
     <div id="modal-add-customer" class="modal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -77,19 +77,23 @@
           phone: '',
           email: '',
           is_customer:'true', // hidden
-          display_code:1,
-          contact_status:1,
-          is_sameAddress:true,
+          display_code:1,  // hidden
+          contact_status:1, // hidden
+          is_sameAddress:true, // hidden
         }
       }
     },
     mounted() {
-        // $('#modal-add-customer').modal('show')
+      $('#modal-add-customer').modal('show')
     },
     methods: {
+      hideModalAddCustomer(){
+        $('#modal-add-customer').modal('hide')
+      },
       showModalAddCustomer(){
         $('#modal-add-customer').modal('show')
       },
+
       getCarriers() {
         store.dispatch('sales/shipment/getCarriers')
       },
@@ -99,17 +103,18 @@
 
         this.$validator.validateAll().then((result) => {
           if (result) {
-            // console.log(result)
-            // eslint-disable-next-line
-            // alert('Form is valid!');
             try{
-              axios.post(`/contacts`, {...this.model,
-              display_name: this.displayName
-              }).then(res => {
+              axios.post(`/contacts`,
+                {
+                  ...this.model,
+                  display_name: this.displayName
+                }
+              ).then(res => {
                 swal_success(res)
-                this.$emit('close')
+                this.hideModalAddCustomer()
+                this.$emit('fetchContactList')
+                console.log('alo')
               }).catch(err => {
-                // swal_error(err.response)
                 swal_mapError(err.response)
               })
             }catch (err) {
@@ -130,5 +135,8 @@
 <style scoped lang="scss">
   textarea {
     resize: none;
+  }
+  .btn-add-customer{
+    width: 95%;
   }
 </style>
