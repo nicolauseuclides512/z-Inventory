@@ -142,6 +142,21 @@ export const swal_error = (res) => {
   }
 }
 
+//alert for multiple array of error message
+export const swal_mapError = (response) => {
+
+  let errorMessage
+
+  if (response.data && response.data.data){
+    errorMessage = _.map(Object.values(response.data.data),errorMessage =>{return (`\n`+_.first(errorMessage)+` `) }).toString()
+    swal({
+      title: errorMessage ,
+      type: 'error',
+      showConfirmButton: true,
+    })
+  } return
+
+}
 /**
  * http://stackoverflow.com/a/901144/300582
  * @param name
