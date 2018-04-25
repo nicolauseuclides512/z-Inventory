@@ -8,12 +8,23 @@
               <h3>Report</h3>
             </div>
             <div class="pull-right">
-              <label>Start date</label>
-              <input id="start_date" v-model="start_date" class="flatpickr" title="Start date" style="padding: 5px 10px;">
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <label>End date</label>
-              <input id="end_date" v-model="end_date" class="flatpickr" title="End date" style="padding: 5px 10px;">
-              <!--<button @click="submit" class="btn btn-primary"><i class="fa fa-send"></i> Submit</button>-->
+              <label>Date Range</label>
+              <select v-model="dateRangeChooser" class="form-control" @change="changerangedate()">
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="quarter">This Quarter</option>
+                <option value="year">This Year</option>
+                <option value="custom">Custom</option>
+              </select>
+              <div v-if="this.dateRangeChooser==='custom'">
+                <label>Start date</label>
+                <input id="start_date" v-model="start_date" class="flatpickr" title="Start date" style="padding: 5px 10px;">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <label>End date</label>
+                <input id="end_date" v-model="end_date" class="flatpickr" title="End date" style="padding: 5px 10px;">
+                <!--<button @click="submit" class="btn btn-primary"><i class="fa fa-send"></i> Submit</button>-->
+              </div>
             </div>
           </div>
         </div>
@@ -42,6 +53,12 @@
   import Items from "./Items";
   import start_of_month from 'date-fns/start_of_month'
   import end_of_month from 'date-fns/end_of_month'
+  import start_of_quarter from 'date-fns/start_of_quarter'
+  import end_of_quarter from 'date-fns/end_of_quarter'
+  import start_of_week from 'date-fns/start_of_week'
+  import end_of_week from 'date-fns/end_of_week'
+  import start_of_year from 'date-fns/start_of_year'
+  import end_of_year from 'date-fns/end_of_year'
   import date_format from 'date-fns/format'
 
   export default {
@@ -51,6 +68,7 @@
 
     data() {
       return {
+        dateRangeChooser:'today',
         start_date: date_format(start_of_month(new Date()), 'YYYY-MM-DD'),
         end_date: date_format(end_of_month(new Date()), 'YYYY-MM-DD'),
       }
@@ -67,7 +85,33 @@
     methods: {
       submit() {
         //
-      }
+      },
+      changerangedate(){
+        switch(this.dateRangeChooser){
+          case 'today':
+            this.start_date=date_format(new Date(), 'YYYY-MM-DD');
+            this.end_date=date_format(new Date(), 'YYYY-MM-DD');
+            break;
+          case 'week':
+            this.start_date=date_format(start_of_week(new Date()), 'YYYY-MM-DD');
+            this.end_date=date_format(end_of_week(new Date()), 'YYYY-MM-DD');
+            break;
+          case 'month':
+            this.start_date=date_format(start_of_month(new Date()), 'YYYY-MM-DD');
+            this.end_date=date_format(end_of_month(new Date()), 'YYYY-MM-DD');
+            break;
+          case 'quarter':
+            this.start_date=date_format(start_of_quarter(new Date()), 'YYYY-MM-DD');
+            this.end_date=date_format(end_of_quarter(new Date()), 'YYYY-MM-DD');
+            break;
+          case 'year':
+            this.start_date=date_format(start_of_year(new Date()), 'YYYY-MM-DD');
+            this.end_date=date_format(end_of_year(new Date()), 'YYYY-MM-DD');
+            break;
+          case 'custom':
+            break;
+        }
+      },
     }
   }
 </script>
