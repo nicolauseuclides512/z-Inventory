@@ -240,7 +240,6 @@
       @close="closeModalShipment"
       :editShipment="formEditShipment"
     />
-
     <!-- =========================== -->
     <!-- END Payment & Shipment Record Form Modal -->
     <!-- =========================== -->
