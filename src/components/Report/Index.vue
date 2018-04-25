@@ -7,8 +7,8 @@
             <div class="pull-left">
               <h3>Report</h3>
             </div>
-            <div class="pull-right">
-              <label>Date Range</label>
+            <div class="pull-left">
+              <label>Date Range</label>&nbsp;&nbsp;&nbsp;&nbsp;
               <select v-model="dateRangeChooser" class="form-control" @change="changerangedate()">
                 <option value="today">Today</option>
                 <option value="week">This Week</option>
@@ -17,6 +17,8 @@
                 <option value="year">This Year</option>
                 <option value="custom">Custom</option>
               </select>
+            </div>
+            <div class="pull-right">
               <div v-if="this.dateRangeChooser==='custom'">
                 <label>Start date</label>
                 <input id="start_date" v-model="start_date" class="flatpickr" title="Start date" style="padding: 5px 10px;">
