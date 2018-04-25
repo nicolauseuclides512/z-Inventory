@@ -23,10 +23,11 @@ window.Vue = Vue
 window.Cookie = Cookie
 
 // Load helpers
-import { Alert, swal_success, swal_error } from './helpers'
+import { Alert, swal_success, swal_error, swal_mapError } from './helpers'
 window.Alert = Alert
 window.swal_success = swal_success
 window.swal_error = swal_error
+window.swal_mapError = swal_mapError
 
 // Load custom filters
 require('./filters.js')

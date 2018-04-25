@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="form-group">
-                  <input type="text" name="phone"  id="formPhone" placeholder="Phone Number" v-model="model.phone" v-validate="'required|numeric|min:7|max:16'" v-bind:class="{'form-control': true, 'error': errors.has('phone') }">
+                  <input type="text" name="phone"  id="formPhone" placeholder="Phone Number" v-model="model.phone" v-validate="'required|numeric|max:15'" v-bind:class="{'form-control': true, 'error': errors.has('phone') }">
                   <span v-show="errors.has('phone')" class="text-danger">{{ errors.first('phone') }}</span>
                 </div>
 
@@ -99,7 +99,7 @@
 
         this.$validator.validateAll().then((result) => {
           if (result) {
-            console.log(result)
+            // console.log(result)
             // eslint-disable-next-line
             // alert('Form is valid!');
             try{
@@ -109,7 +109,8 @@
                 swal_success(res)
                 this.$emit('close')
               }).catch(err => {
-                swal_error(err.response)
+                // swal_error(err.response)
+                swal_mapError(err.response)
               })
             }catch (err) {
               err =>{
