@@ -62,7 +62,7 @@
       </div>
       <div class="row">
         <div class="col-md-12 p-0 text-center">
-          <span ><h4>{COMPANY NAME}</h4></span>
+          <span ><h4>{{this.orgName}}</h4></span>
           <span v-if="reportType==='customer'"><h2 class="report-title">Sales by Customer</h2></span>
           <span v-if="reportType==='item'"><h2 class="report-title">Sales by Items</h2></span>
           <span v-if="dateRangeChooser==='today'">Today Sales - {{start_date | date('short')}}</span>
@@ -82,6 +82,8 @@
 </template>
 
 <script>
+import Axios from 'axios'
+import Cookie from 'js-cookie'
 import Flatpickr from "flatpickr";
 import MonthlyReport from "./MonthlyReport";
 import Contacts from "./Contacts";
@@ -95,6 +97,8 @@ import end_of_week from "date-fns/end_of_week";
 import start_of_year from "date-fns/start_of_year";
 import end_of_year from "date-fns/end_of_year";
 import date_format from "date-fns/format";
+const orgId = Cookie.get('organization_id')
+
 
 export default {
   name: "Report",
@@ -103,6 +107,7 @@ export default {
 
   data() {
     return {
+      orgName:'',
       dateRangeChooser: "month",
       reportType:"item",
       start_date: date_format(start_of_month(new Date()), "YYYY-MM-DD"),
@@ -111,6 +116,13 @@ export default {
   },
 
   mounted() {
+    try{
+      const res = Axios.get(`organizations/${orgId}`);
+      this.orgName = res.data.name;
+    }catch (err) {
+      console.error(err)
+    }
+    
     $("#start_date").flatpickr({});
     $("#end_date").flatpickr({});
   },

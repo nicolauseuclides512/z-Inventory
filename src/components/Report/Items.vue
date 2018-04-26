@@ -6,7 +6,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div id="report-items">
                             <div v-if="items.length > 0">
-                                <table class="table table-striped">
+                                <table class="table">
                                     <thead>
                                         <tr>
                                             <th class="text-left">Item Name</th>
@@ -17,6 +17,10 @@
                                         <tr v-for="item in items">
                                             <td class="text-left item-name">{{ item.item_name }}</td>
                                             <td class="amount">{{ item.sales_amount | money }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right row-total">Total</td>
+                                            <td class="row-total">{{ total | money }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -58,6 +62,13 @@
     mounted() {
       this.getItemReport();
     },
+    
+    computed: {
+      total() {
+        return this.items.map(item => item.sales_amount)
+          .reduce((a, b) => a + b, 0);
+      }
+    },
 
     methods: {
 
@@ -90,5 +101,8 @@
   }
   .item-name{
     width:50%
+  }
+  .row-total{
+    background-color: #eee
   }
 </style>

@@ -6,7 +6,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div id="report-contacts">
                             <div v-if="items.length > 0">
-                                <table class="table table-striped">
+                                <table class="table">
                                     <thead>
                                         <tr>
                                             <th class="text-left display-name">Customer Name</th>
@@ -17,6 +17,10 @@
                                         <tr v-for="item in items">
                                             <td class="text-left">{{ item.customer_name }}</td>
                                             <td>{{ item.sales_amount | money }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right row-total">Total</td>
+                                            <td class="row-total">{{ total | money }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -46,6 +50,13 @@
       },
       end_date() {
         this.getCustomerReport();
+      }
+    },
+
+    computed: {
+      total() {
+        return this.items.map(item => item.sales_amount)
+          .reduce((a, b) => a + b, 0);
       }
     },
 
@@ -90,5 +101,8 @@
   }
   .display-name{
     width:50%
+  }
+  .row-total{
+    background-color: #eee
   }
 </style>
