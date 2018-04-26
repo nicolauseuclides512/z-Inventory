@@ -6,7 +6,7 @@
     <div id="modal-add-customer" class="modal">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-customer-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           </div>
           <div class="modal-body">
@@ -112,8 +112,10 @@
               ).then(res => {
                 swal_success(res)
                 this.hideModalAddCustomer()
+                console.log(res.data.data.contact_id)
                 this.$emit('fetchContactList')
-                console.log('alo')
+                this.$emit('selectContact', res.data.data)
+                // console.log('alo')
               }).catch(err => {
                 swal_mapError(err.response)
               })
@@ -138,5 +140,11 @@
   }
   .btn-add-customer{
     width: 95%;
+  }
+  button.close{
+    font-size: 30px;
+  }
+  h4.modal-title{
+    margin-bottom: 24px;
   }
 </style>

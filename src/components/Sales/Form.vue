@@ -339,7 +339,7 @@
                           <button class="btn btn-add-customer btn-block" @click="showModalCustomer">
                             Add New Customer
                           </button>
-                          <ModalAddCustomer v-if="isShownModalAddCustomer" @close="hideModalCustomer" @fetchContactList="fetchContactList"/>
+                          <ModalAddCustomer v-if="isShownModalAddCustomer" @selectContact="selectContact($event)" @close="hideModalCustomer" @fetchContactList="fetchContactList"/>
                         </div>
                         <!-- <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()"
                              class="add-new-contact-btn" style="width:95%">
@@ -395,25 +395,22 @@
                     </div>
                     <div class="normal-mode" v-if="selected_contact">
                       <div class="col-md-10" style="padding-left: 8px; margin-bottom:15px">
-                        <div>
+                        <h4 class="text-bold">{{selected_contact.display_name}}</h4>
+                        <div class="billing-address">
                           Billing Address
                           <a href="javascript:void(0)" @click="editSelectedContact">
                             <i class="fa fa-fw fa-pencil"></i>
                           </a>
                         </div>
-                        <div v-text="selected_contact.billing_address"></div>
-                        <div
-                          v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
-                        <div
-                          v-text="selected_contact.billing_district_detail && selected_contact.billing_district_detail.name"></div>
-                        <div
-                          v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
-                        <div v-text="selected_contact.billing_zip"></div>
-                        <div
-                          v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
-                        <div>&nbsp;</div>
-                        <div>Phone: {{ selected_contact.phone ? selected_contact.phone : '-' }}</div>
-                        <div>Mobile {{ selected_contact.mobile ? selected_contact.mobile : '-' }}</div>
+                        <div class="billing-address" v-text="selected_contact.billing_address"></div>
+                        <div class="billing-region-detail" v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
+                        <div class="billing-district-detail"v-text="selected_contact.billing_district_detail && selected_contact.billing_district_detail.name"></div>
+                        <div class="billing-province-detail" v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
+                        <div class="billing-zip" v-text="selected_contact.billing_zip"></div>
+                        <div class="billing-country-detail" v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
+                        <hr/>
+                        <div class="contact-phone">Phone: {{ selected_contact.phone ? selected_contact.phone : '-' }}</div>
+                        <div class="contact-mobile" >Mobile {{ selected_contact.mobile ? selected_contact.mobile : '-' }}</div>
                       </div>
                     </div>
                     <div class="form-group">
