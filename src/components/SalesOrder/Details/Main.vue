@@ -5,12 +5,12 @@
 
     <div class="content bgr-white" style="padding: 20px;">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 side-list-sales">
           <List
             @selectSalesOrder="selectSalesOrder($event)"
           />
         </div>
-        <div class="col-md-8" style="border-left: 1px solid #f0f0f0;">
+        <div class="col-md-8 main-detail-sales" style="border-left: 1px solid #f0f0f0;">
           <Detail
           />
         </div>
@@ -68,5 +68,8 @@
 </script>
 
 <style scoped lang="scss">
-
+.side-list-sales {
+  height: calc(100vh - 130px);
+  overflow-y: scroll;
+}
 </style>
