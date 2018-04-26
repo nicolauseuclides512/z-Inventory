@@ -4,14 +4,14 @@
        <div class="container">
         <div class="row" style="padding: 5px 0;">
           <div class="clearfix">
-            <div class="pull-left col-md-3">
+            <div class="pull-left col-md-2 p-0 left-header">
               <div class="form-horizontal">
                 <div class="form-group form-general">
-                <h3 class="col-md-4 control-label text-right pr-0">Report</h3>
-                <div class="div-col-8">
-                <select class="report-type-chooser">
-                  <option value="">by Customer</option>
-                  <option value="">by Items</option>
+                <h3 class="col-md-4 control-label text-left p-0 head-report">Report</h3>
+                <div class="col-md-8 p-0">
+                <select v-model="reportType" class="form-control report-type-chooser">
+                  <option value="customer">by Customer</option>
+                  <option value="item">by Items</option>
                 </select>
               </div>
               </div>
@@ -22,7 +22,7 @@
                   <div class="form-horizontal">
                     <div class="form-group form-general">
                       <!-- <label class="col-md-4 control-label text-right pr-0">Date Range</label> -->
-                        <div class="col-md-12">
+                        <div class="col-md-12 chooser-wrapper-wrapper">
                           <select v-model="dateRangeChooser" class="form-control chooser-wrapper" @change="changerangedate()">
                             <option value="today">Today</option>
                             <option value="week">This Week</option>
@@ -46,7 +46,7 @@
                   </div>
                 </div>
                 </div>
-                <div v-if="this.dateRangeChooser==='custom'" class="pull-right col-md-3 date-wrapper">
+                <div v-if="this.dateRangeChooser==='custom'" class="pull-right col-md-4 date-wrapper">
                   <div class="form-horizontal">
                   <div class="form-group form-general">
                     <label class="col-md-4 control-label text-right pr-0">Start Date</label>
@@ -61,15 +61,15 @@
         </div>
       </div>
 
-      <div class="row">
+      <!-- <div class="row">
         <monthly-report :start_date="start_date" :end_date="end_date"></monthly-report>
-      </div>
+      </div> -->
 
       <div class="row">
-        <div class="col-md-6">
+        <div v-if="reportType==='customer'" class="col-md-6">
           <contacts :start_date="start_date" :end_date="end_date"></contacts>
         </div>
-        <div class="col-md-6">
+        <div v-if="reportType==='item'" class="col-md-6">
           <items :start_date="start_date" :end_date="end_date"></items>
         </div>
       </div>
@@ -100,6 +100,7 @@ export default {
   data() {
     return {
       dateRangeChooser: "today",
+      reportType:"item",
       start_date: date_format(start_of_month(new Date()), "YYYY-MM-DD"),
       end_date: date_format(end_of_month(new Date()), "YYYY-MM-DD")
     };
@@ -156,6 +157,9 @@ export default {
 };
 </script>
  <style scoped lang="scss">
+ .chooser-wrapper-wrapper{
+   padding-right: 0px
+ }
 .chooser-wrapper {
   padding-left: 0px;
   padding-right: 0px;
@@ -167,16 +171,24 @@ export default {
 .header-report{
   margin:0px
 }
+
 .report-type-chooser{
-  margin-top:10px;
+  margin-top:0px;
   padding:0px;
   background-color: transparent;
   border: hidden;
   font-size:24px;
+  cursor: pointer;
   option{
-    font-size:12px
+    font-size:14px
   }
-
+}
+.head-report{
+  margin-top:2px;
+  width: 75px
+}
+.left-header{
+  width: 240px
 }
 </style>
  
