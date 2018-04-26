@@ -457,7 +457,7 @@
           $('#shipment-modal-edit').modal('show')
 
         } catch (err) {
-          console.log(err)
+          // console.log(err)
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
           }
