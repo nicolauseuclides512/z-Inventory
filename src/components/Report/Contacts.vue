@@ -19,7 +19,7 @@
                                             <td>{{ item.sales_amount | money }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="text-right row-total">Total</td>
+                                            <td class="text-left row-total">Total</td>
                                             <td class="row-total">{{ total | money }}</td>
                                         </tr>
                                     </tbody>
