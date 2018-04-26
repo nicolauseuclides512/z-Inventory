@@ -21,22 +21,22 @@
                 </div>
 
                 <div class="form-group">
-                  <input type="email" name="email"  id="formEmail" placeholder="Email" v-model="model.email" v-validate="'required|email'" v-bind:class="{'form-control': true, 'error': errors.has('email') }">
+                  <input type="email" name="email"  id="formEmail" placeholder="Email" v-model="model.email" v-validate="'email'" v-bind:class="{'form-control': true, 'error': errors.has('email') }">
                   <span v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</span>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" name="phone"  id="formPhone" placeholder="Phone Number" v-model="model.phone" v-validate="'required|numeric|max:15'" v-bind:class="{'form-control': true, 'error': errors.has('phone') }">
+                  <input type="text" name="phone"  id="formPhone" placeholder="Phone Number" v-model="model.phone" v-validate="'numeric|max:15| min:9'" v-bind:class="{'form-control': true, 'error': errors.has('phone') }">
                   <span v-show="errors.has('phone')" class="text-danger">{{ errors.first('phone') }}</span>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" name="company_name"  placeholder="Company Name" id="company_name" v-model="model.company_name" v-validate="'required'" v-bind:class="{'form-control': true, 'error': errors.has('company_name') }">
+                  <input type="text" name="company_name"  placeholder="Company Name" id="company_name" v-model="model.company_name" v-validate="" v-bind:class="{'form-control': true, 'error': errors.has('company_name') }">
                   <span v-show="errors.has('company_name')" class="text-danger">{{ errors.first('company_name') }}</span>
                 </div>
 
                 <div class="form-group">
-                  <textarea name="address" placeholder="Address" id="formaddress" class="form-control" rows="3" v-model="model.address" v-validate="'required|max:50|min:3'" v-bind:class="{'form-control': true, 'error': errors.has('address') }"></textarea>
+                  <textarea name="address" placeholder="Address" id="formaddress" class="form-control" rows="3" v-model="model.address" v-validate="'max:500|min:3'" v-bind:class="{'form-control': true, 'error': errors.has('address') }"></textarea>
                   <span v-show="errors.has('address')" class="text-danger">{{ errors.first('address') }}</span>
                 </div>
               </div>

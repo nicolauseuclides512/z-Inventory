@@ -1114,7 +1114,7 @@
         this.selected_product = product;
 
         Vue.nextTick(() => {
-          console.log(product)
+          // console.log(product)
           this.selected_product = null;
         });
 
