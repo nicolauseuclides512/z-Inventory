@@ -1,9 +1,6 @@
 <template>
   <fieldset>
     <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Sales by Items</h3>
-            </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -12,14 +9,14 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="text-right">Item Name</th>
+                                            <th class="text-left">Item Name</th>
                                             <th>Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="item in items">
-                                            <td class="text-right">{{ item.item_name }}</td>
-                                            <td>{{ item.sales_amount | money }}</td>
+                                            <td class="text-left item-name">{{ item.item_name }}</td>
+                                            <td class="amount">{{ item.sales_amount | money }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -83,5 +80,15 @@
     min-height: auto;
     max-height: 400px;
     overflow: auto;
+  }
+  .panel-default{
+    border:none !important;
+    box-shadow:none !important;
+  }
+  .amount{
+    width:50%
+  }
+  .item-name{
+    width:50%
   }
 </style>

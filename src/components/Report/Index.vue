@@ -1,6 +1,6 @@
 <template>
-  <div class="content-page-full">
-    <div class="content">
+  <div class="content-page-full p-0">
+    <div class="content full-width sahito-user bgr-white page-wrapper">
        <div class="container">
         <div class="row" style="padding: 5px 0;">
           <div class="clearfix">
@@ -17,7 +17,7 @@
               </div>
               </div>
             </div>
-              <div class="pull-right col-md-9 p-0">
+              <div class="pull-right col-md-9 p-0 wrapper-form">
                 <div class="pull-right col-md-2">
                   <div class="form-horizontal">
                     <div class="form-group form-general">
@@ -60,16 +60,18 @@
           </div>
         </div>
       </div>
-
-      <!-- <div class="row">
-        <monthly-report :start_date="start_date" :end_date="end_date"></monthly-report>
-      </div> -->
-
       <div class="row">
-        <div v-if="reportType==='customer'" class="col-md-6">
+        <div class="col-md-12 p-0 text-center">
+          Mil Corp<br/>
+          Sales by Customer <br/>
+          From {{start_date}} To {{end_date}}
+        </div>
+      </div>
+      <div class="row">
+        <div v-if="reportType==='customer'" class="col-md-12">
           <contacts :start_date="start_date" :end_date="end_date"></contacts>
         </div>
-        <div v-if="reportType==='item'" class="col-md-6">
+        <div v-if="reportType==='item'" class="col-md-12">
           <items :start_date="start_date" :end_date="end_date"></items>
         </div>
       </div>
@@ -161,10 +163,12 @@ export default {
    padding-right: 0px
  }
 .chooser-wrapper {
+  margin-top:8px;
   padding-left: 0px;
   padding-right: 0px;
 }
 .date-wrapper {
+  margin-top:8px;
   padding-left: 0px;
   padding-right: 0px;
 }
@@ -173,7 +177,7 @@ export default {
 }
 
 .report-type-chooser{
-  margin-top:0px;
+  margin-top:9px;
   padding:0px;
   background-color: transparent;
   border: hidden;
@@ -188,7 +192,11 @@ export default {
   width: 75px
 }
 .left-header{
+  left:10px;
   width: 240px
+}
+.wrapper-form{
+  margin-right:30px
 }
 </style>
  
