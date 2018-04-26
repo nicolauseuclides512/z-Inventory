@@ -62,9 +62,11 @@
       </div>
       <div class="row">
         <div class="col-md-12 p-0 text-center">
-          Mil Corp<br/>
-          Sales by Customer <br/>
-          From {{start_date}} To {{end_date}}
+          <span ><h4>{COMPANY NAME}</h4></span>
+          <span v-if="reportType==='customer'"><h2 class="report-title">Sales by Customer</h2></span>
+          <span v-if="reportType==='item'"><h2 class="report-title">Sales by Items</h2></span>
+          <span v-if="dateRangeChooser==='today'">Today Sales - {{start_date | date('short')}}</span>
+          <span v-else>From {{start_date | date('short')}} To {{end_date | date('short')}}</span>
         </div>
       </div>
       <div class="row">
@@ -101,7 +103,7 @@ export default {
 
   data() {
     return {
-      dateRangeChooser: "today",
+      dateRangeChooser: "month",
       reportType:"item",
       start_date: date_format(start_of_month(new Date()), "YYYY-MM-DD"),
       end_date: date_format(end_of_month(new Date()), "YYYY-MM-DD")
@@ -197,6 +199,9 @@ export default {
 }
 .wrapper-form{
   margin-right:30px
+}
+.report-title{
+  margin-top:0px
 }
 </style>
  
