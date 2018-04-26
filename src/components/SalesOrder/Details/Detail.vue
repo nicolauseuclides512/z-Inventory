@@ -258,7 +258,7 @@
   import ShipmentForm from './ShipmentForm'
   import DetailShipment from './DetailShipment.vue'
   import Spinner from '@/components/Helpers/Spinner'
-  import { swal_error, swal_success } from '../../../helpers';
+  import { swal_error, swal_success, responseOk, swal_mapError } from '../../../helpers';
 
 
   export default {
@@ -298,16 +298,17 @@
 
     async mounted () {
       this.invoiceComponent = Invoice
-      this.loading = true
       this.fetchShipmentData()
-      this.salesOrderId = this.$route.params.id
-      this.$store.dispatch('salesOrders/selectSalesOrder', this.salesOrderId)
-        .then(() => {
-          this.loading = false
-        }).catch(err => {
-          this.loading = false
-          console.error('error! ', err)
-        })
+      this.loadDetail()
+    // this.loading = true
+    //   this.salesOrderId = this.$route.params.id
+    //   this.$store.dispatch('salesOrders/selectSalesOrder', this.salesOrderId)
+    //     .then(() => {
+    //       this.loading = false
+    //     }).catch(err => {
+    //       this.loading = false
+    //       console.error('error! ', err)
+    //     })
     },
 
     watch: {
@@ -317,6 +318,42 @@
     },
 
     methods: {
+
+      loadDetail(){
+        this.loading = true
+        this.salesOrderId = this.$route.params.id
+        this.$store.dispatch('salesOrders/selectSalesOrder', this.salesOrderId)
+          .then(() => {
+            this.loading = false
+          }).catch(err => {
+            this.loading = false
+            console.error('error! ', err)
+          })
+      },
+
+      cancelSalesOrder(salesOrder) {
+        Alert.confirm({
+          title: 'Are you sure?',
+          confirmButtonText: 'Mark as void',
+        }, async () => {
+          const sales_order_id = salesOrder.sales_order_id
+          const invoice_id = salesOrder.invoices[0].invoice_id
+          const url = `sales_orders/${sales_order_id}/invoices/${invoice_id}/mark_as_void`
+
+          await Axios.get(url).then(res => {
+            if (responseOk(res.data.code)) {
+              swal_success(res)
+              this.loadDetail()
+              // this.fetchShipmentData()
+            } else {
+              swal_error('Error! ', res)
+            }
+          }).catch(err => {
+            swal_error(err.response)
+          })
+        })
+      },
+
       closeModalShipment(){
         this.fetchShipmentData()
         this.modalShipment = false
