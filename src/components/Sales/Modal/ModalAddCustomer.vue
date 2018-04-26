@@ -26,12 +26,12 @@
                 </div>
 
                 <div class="form-group">
-                  <input type="text" name="phone"  id="formPhone" placeholder="Phone Number" v-model="model.phone" v-validate="'numeric|max:15| min:9'" v-bind:class="{'form-control': true, 'error': errors.has('phone') }">
+                  <input type="text" name="phone"  id="formPhone" placeholder="Phone Number" v-model="model.phone" v-validate="'numeric|max:15|min:9'" v-bind:class="{'form-control': true, 'error': errors.has('phone') }">
                   <span v-show="errors.has('phone')" class="text-danger">{{ errors.first('phone') }}</span>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" name="company_name"  placeholder="Company Name" id="company_name" v-model="model.company_name" v-validate="" v-bind:class="{'form-control': true, 'error': errors.has('company_name') }">
+                  <input type="text" name="company_name"  placeholder="Company Name" id="company_name" v-model="model.company_name" v-bind:class="{'form-control': true, 'error': errors.has('company_name') }">
                   <span v-show="errors.has('company_name')" class="text-danger">{{ errors.first('company_name') }}</span>
                 </div>
 
@@ -40,7 +40,10 @@
                   <span v-show="errors.has('address')" class="text-danger">{{ errors.first('address') }}</span>
                 </div>
               </div>
-              <button  :disabled="errors.any()" type="submit" class="btn btn-info waves-effect waves-light m-t-15">Save</button>
+              <button  :disabled="errors.any() || saving" type="submit" class="btn btn-info waves-effect waves-light m-t-15">
+                <span v-if="!saving">Save</span>
+                <span v-if="saving">Saving...</span>
+                </button>
               <button type="reset" class="btn btn-default waves-effect m-t-15" data-dismiss="modal">Cancel</button>
             </form>
           </div>
@@ -80,6 +83,7 @@
           display_code:1,  // hidden
           contact_status:1, // hidden
           is_sameAddress:true, // hidden
+          saving: false
         }
       }
     },
@@ -100,6 +104,7 @@
 
       save() {
         let url = '/contacts';
+        this.saving = true;
 
         this.$validator.validateAll().then((result) => {
           if (result) {
@@ -110,6 +115,7 @@
                   display_name: this.displayName
                 }
               ).then(res => {
+                this.saving = false
                 swal_success(res)
                 this.hideModalAddCustomer()
                 console.log(res.data.data.contact_id)
@@ -117,15 +123,18 @@
                 this.$emit('selectContact', res.data.data)
                 // console.log('alo')
               }).catch(err => {
+                this.saving = false
                 swal_mapError(err.response)
               })
             }catch (err) {
+                this.saving = false
               err =>{
                 console.log(err.response)
               }
             }
             return;
           }else{
+            this.saving = false
             Alert.error('Customer form is not valid!');
           }
         });
@@ -146,5 +155,10 @@
   }
   h4.modal-title{
     margin-bottom: 24px;
+  }
+  .modal-customer-header {
+    display: block;
+    width: 100%;
+    overflow: hidden;
   }
 </style>
