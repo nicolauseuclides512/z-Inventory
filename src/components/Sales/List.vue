@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="content full-width sahito-user bgr-white" style="min-height:620px">
-      <div class="container">
+      <div class="container page-wrapper">
         <div v-if="!salesList.length && !loadingSalesOrders" class="text-center" style="color: #a9a9a9;">
           <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12 mark-default-wrapper" id="mark_default" v-if="!checkedList.length > 0">
@@ -184,9 +184,9 @@
                       <div class="sales-table-wrapper" v-else>
                         <table
                           class="table table-hover default-table sahito-list-item-group-list--table sahito-sales-order-table">
-                          <thead style="box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;">
+                          <thead style="box-shadow: rgb(221, 221, 221) 0 4px 2px -2px; border-top:1px solid rgb(221, 221, 221)">
                           <tr>
-                            <th class="col-checkbox">
+                            <th class="col-checkbox column-check">
                               <div class="checkbox checkbox-single checkbox-success" style="top:4px; padding-left:0px; padding-right:0px">
                                 <input type="checkbox" v-model="checkedAll" id="all" @click="checkAll">
                                 <label></label>
@@ -215,7 +215,7 @@
                           <tbody>
                           <template v-for="(sale, index) in salesList">
                             <tr>
-                              <td class="col-checkbox">
+                              <td class="col-checkbox column-check-row">
                                 <div class="checkbox checkbox-single checkbox-success" style="top:4px; padding-left:0px; padding-right:0px">
                                   <input type="checkbox" v-model="checkedList" :value="sale">
                                   <label></label>
@@ -817,5 +817,14 @@
   }
   .mark-default-wrapper{
     padding:0px;
+  }
+  .page-wrapper{
+    padding:0px
+  }
+  .column-check{
+    padding-left:20px
+  }
+  .column-check-row{
+    padding-left:12px !important
   }
 </style>
