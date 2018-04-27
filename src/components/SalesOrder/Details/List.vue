@@ -110,14 +110,14 @@
               <small class="text-muted">#{{ salesOrder.sales_order_number }}</small>
             </div>
             <div class="pull-right payment-status">
-              <span class="text-danger" v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span>
-              <span class="text-muted" v-else-if="salesOrder.sales_order_status === 'DRAFT'">OPEN</span>
-              <span v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
+              <span class="label label-danger" v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span>
+              <span class="label label-default" v-else-if="salesOrder.sales_order_status === 'DRAFT'">OPEN</span>
+              <span class="label label-info" v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
             </div>
           </div>
           <div class="clearfix">
             <div class="pull-left"><span class="text-muted">{{ salesOrder.invoice_date | date('short') }}</span></div>
-            <div class="pull-right shipment-status " :class="{'text-info': salesOrder.shipment_status == 'NOT_YET_SHIPPED'}">
+            <div class="pull-right shipment-status label" :class="{'label-info': salesOrder.shipment_status == 'NOT_YET_SHIPPED'}">
               {{ salesOrder.shipment_status | normalizeStatus }}
             </div>
           </div>
@@ -308,5 +308,8 @@
 
   table tr td:last-child {
     padding-right: 10px;
+  }
+  .shipment-status.label{
+    margin-top: 10px;
   }
 </style>

@@ -198,12 +198,13 @@
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em; color:#000">Date</th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Order #</th>
                             <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Channel</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer</th>
-                            <th class="payment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Payment Status</th>
-                            <th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Shipment Status</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Due Date</th>
-                            <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Total</th>
-                            <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Balance Due</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer Name</th>
+                            <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Amount</th>
+                            <th class="payment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Invoice Status</th>
+                            <th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Shipment Date</th>
+                            <th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Status</th>
+                            <!-- <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Due Date</th> -->
+                            <!-- <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Balance Due</th> -->
                             <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
 
                             <th class="text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Action</th>
@@ -231,29 +232,28 @@
                               <td style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
                                 {{ sale.sales_order_number }}
                               </td>
-                              <td class="text-left" style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
-                                <div v-if="sale.my_sales_channel">
-                                   {{ sale.my_sales_channel.sales_channel.channel_name }}
-                                </div>
+                              <td class="text-center" style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
+                                   {{ (sale.my_sales_channel)?sale.my_sales_channel.sales_channel.channel_name:'-' }}
                               </td>
                               <td class="text-left" @click="showDetail(sale)" style="cursor:pointer">
                                   {{ sale.contact.display_name }}
                               </td>
-                              <td class="payment-status" style="cursor: pointer; width:126px" @click="showDetail(sale)">
-                                <span class="text-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue in {{ sale.due_date | diffInDays }} day(s)</span>
-                                <span class="" v-else-if="sale.sales_order_status === 'DRAFT'">OPEN</span>
-                                <span class="text-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
-                              </td>
-                              <td class="shipment-status" style="cursor: pointer;" @click="showDetail(sale)">
-                                {{ sale.shipment_status | normalizeStatus }}
-                              </td>
-                              <td style="cursor: pointer;" @click="showDetail(sale)">
-                                {{ sale.due_date | date('short') }}
-                              </td>
                               <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
-                              <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">
-                                {{ sale.invoices[0].balance_due | money}}
-                              </td>
+                            <td class="shipment-status" style="font-size: 17px !important;">
+                              <span class="label" :class="{'label-info': sale.invoice_status == 'UNPAID','label-void': sale.invoice_status == 'VOID','label-danger': sale.invoice_status == 'OVERDUE','label-success': sale.invoice_status == 'PAID' }">
+                                {{sale.invoice_status.split("_").join(" ").toLowerCase()}}
+                              </span></td>
+                            <td class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">{{((sale.shipment_date)?(sale.shipment_date| date('short')):'-')}}</td>
+                            <td class="payment-status" style="cursor: pointer; width:126px" @click="showDetail(sale)">
+                              <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue in {{ sale.due_date | diffInDays }} day(s)</span>
+                              <span class="" v-else-if="sale.sales_order_status === 'DRAFT'">OPEN</span>
+                              <span class="label label-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
+                            </td>
+                              <!-- <td class="shipment-status" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.shipment_status | normalizeStatus }}</td>
+                              <td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.due_date | date('short') }}</td>
+                              <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.invoices[0].balance_due | money}}</td> -->
+
+
                               <!-- <td style="cursor: pointer;" @click="showDetail(sale)">
                                 <div v-if="sale.invoice_status === 'VOID'">
                                   <i class="fa fa-circle text-black"></i>
@@ -292,7 +292,7 @@
                                   </li>
                                   <li>
                                     <a href="javascript:void(0);" @click="downloadInvoice(sale.sales_order_id)">
-                                      Download Invoice
+                                      Convert to Invoice
                                     </a>
                                   </li>
                                   <li>
@@ -302,7 +302,7 @@
                                   </li>
                                   <li v-if="sale.sales_order_status !== 'DRAFT'">
                                     <a href="javascript:void(0);" @click="printShipmentLabel(sale.sales_order_id)">
-                                      Print Shipment Label
+                                      Print Label Kirim
                                     </a>
                                   </li>
                                   <!--<li><a href="javascript:void(0);">Email Invoice</a></li>-->
@@ -797,3 +797,12 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+td.shipment-status {
+  font-size: 17px !important;
+}
+.label-void {
+    background: black;
+}
+</style>
