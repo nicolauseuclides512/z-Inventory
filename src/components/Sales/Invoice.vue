@@ -86,7 +86,8 @@
             </div>
         </div>
         <div class="col-md-4 text-right pull-right">
-          <h1 class="page-title text-right" style="font-size: 32pt; font-weight: normal; margin-bottom: 0;">INVOICE</h1>
+          <h1 v-if="salesOrder.invoice_status == 'DRAFT'" class="page-title text-right" style="font-size: 32pt; font-weight: normal; margin-bottom: 0;">ORDER</h1>
+          <h1 v-else class="page-title text-right" style="font-size: 32pt; font-weight: normal; margin-bottom: 0;">INVOICE</h1>
           <p class="inv-code">{{ value.invoice_number }}</p>
           <p class="inv-balance">Balance Due</p>
           <h4 v-if="value.invoice_status === 'PAID'">0</h4>
