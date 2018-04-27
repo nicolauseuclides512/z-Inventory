@@ -161,5 +161,9 @@
     display: block;
     width: 100%;
     overflow: hidden;
+    position: absolute;
+    left: 0;
+    padding: 20px;
+    top: 0;
   }
 </style>
