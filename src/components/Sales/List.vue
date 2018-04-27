@@ -23,7 +23,7 @@
       <div class="container">
         <div v-if="!salesList.length && !loadingSalesOrders" class="text-center" style="color: #a9a9a9;">
           <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0" style="padding-left:33px">
+              <div class="col-md-12 col-sm-12 col-xs-12 mark-default-wrapper" id="mark_default" v-if="!checkedList.length > 0">
                 <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
                    aria-expanded="false">
                   <h4><span>Status: </span> {{ currentFilter }} <span class="caret"></span></h4>
@@ -74,7 +74,7 @@
         <div v-if="salesList.length && !loadingSalesOrders">
           <div class="container full-width-header p-b-10">
             <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0" style="padding-left:18px">
+              <div class="col-md-12 col-sm-12 col-xs-12 mark-default-wrapper" id="mark_default" v-if="!checkedList.length > 0">
 
                 <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
                    aria-expanded="false">
@@ -806,13 +806,16 @@
 </script>
 
 <style lang="scss" scoped>
-td.shipment-status {
-  font-size: 17px !important;
-}
-.label-void {
-  background: black;
-}
-.label{
-  text-transform: capitalize;
-}
+  td.shipment-status {
+    font-size: 17px !important;
+  }
+  .label-void {
+    background: black;
+  }
+  .label{
+    text-transform: capitalize;
+  }
+  .mark-default-wrapper{
+    padding:0px;
+  }
 </style>
