@@ -1,5 +1,5 @@
 <template>
-  <div class="content-page-full" style="padding:0px;">
+  <div class="content-page-full" style="padding-right: 0;">
     <div v-if="checkedList.length > 0 && !loadingSalesOrders" class="float-CheckOpt">
         <div class="container">
            <div class="clearfix">
@@ -20,10 +20,10 @@
       </div>
     </div>
     <div class="content full-width sahito-user bgr-white" style="min-height:620px">
-      <div class="container page-wrapper">
+      <div class="container">
         <div v-if="!salesList.length && !loadingSalesOrders" class="text-center" style="color: #a9a9a9;">
           <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12 mark-default-wrapper" id="mark_default" v-if="!checkedList.length > 0">
+              <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0" style="padding-left:33px">
                 <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
                    aria-expanded="false">
                   <h4><span>Status: </span> {{ currentFilter }} <span class="caret"></span></h4>
@@ -74,7 +74,7 @@
         <div v-if="salesList.length && !loadingSalesOrders">
           <div class="container full-width-header p-b-10">
             <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12 mark-default-wrapper" id="mark_default" v-if="!checkedList.length > 0">
+              <div class="col-md-12 col-sm-12 col-xs-12" id="mark_default" v-if="!checkedList.length > 0" style="padding-left:18px">
 
                 <a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
                    aria-expanded="false">
@@ -184,10 +184,10 @@
                       <div class="sales-table-wrapper" v-else>
                         <table
                           class="table table-hover default-table sahito-list-item-group-list--table sahito-sales-order-table">
-                          <thead style="box-shadow: rgb(221, 221, 221) 0 4px 2px -2px; border-top:1px solid rgb(221, 221, 221)">
+                          <thead style="box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;">
                           <tr>
-                            <th class="col-checkbox column-check">
-                              <div class="checkbox checkbox-single checkbox-success" style="top:4px; padding-left:0px; padding-right:0px">
+                            <th class="col-checkbox">
+                              <div class="checkbox checkbox-single checkbox-success">
                                 <input type="checkbox" v-model="checkedAll" id="all" @click="checkAll">
                                 <label></label>
                               </div>
@@ -195,33 +195,31 @@
                             <th id="icon_collapse" style="padding-top:  15px;padding-bottom:  15px;">
                               <div class="placeholder-collapse"></div>
                             </th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em; color:#000; width:97px">Date</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; width:85px">Order#</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em; color:#000">Date</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Order #</th>
                             <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Channel</th>
-                            <!-- <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Ref#</th> -->
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer</th>
-                            <th class="text-right" style="font-weight:400; padding-right:16px; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Total</th>
-                            <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; width:126px">Payment</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Ship Date</th>
-                            <th class="text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Status</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer Name</th>
+                            <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Amount</th>
+                            <th class="payment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Invoice Status</th>
+                            <th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Shipment Date</th>
+                            <th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Status</th>
                             <!-- <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Due Date</th> -->
-                            
                             <!-- <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Balance Due</th> -->
                             <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
 
-                            <th class="text-right" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Action</th>
+                            <th class="text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Action</th>
                           </tr>
                           </thead>
                           <tbody>
                           <template v-for="(sale, index) in salesList">
                             <tr>
-                              <td class="col-checkbox column-check-row">
-                                <div class="checkbox checkbox-single checkbox-success" style="top:4px; padding-left:0px; padding-right:0px">
+                              <td class="col-checkbox">
+                                <div class="checkbox checkbox-single checkbox-success" style="top:4px">
                                   <input type="checkbox" v-model="checkedList" :value="sale">
                                   <label></label>
                                 </div>
                               </td>
-                              <td  style="padding-left:0; padding-right:0">
+                              <td>
                                 <a href="javascript:void(0);" @click="overviewToggle(sale.sales_order_id)">
                                   <i v-if="overview.sales_order_id === sale.sales_order_id"
                                      class="ion-minus-round text-green"></i>
@@ -231,36 +229,32 @@
                               <td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.invoice_date |
                                 date('short') }}
                               </td>
-                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                              <td style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
                                 {{ sale.sales_order_number }}
                               </td>
-                              <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">
-                                <div v-if="sale.my_sales_channel">
-                                   {{ sale.my_sales_channel.sales_channel.channel_name }}
-                                </div>
+                              <td class="text-center" style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
+                                   {{ (sale.my_sales_channel)?sale.my_sales_channel.sales_channel.channel_name:'-' }}
                               </td>
-                              <!-- <td>Ref# goes here</td> -->
                               <td class="text-left" @click="showDetail(sale)" style="cursor:pointer">
                                   {{ sale.contact.display_name }}
                               </td>
-                               <td class="text-right" style="cursor: pointer; padding-right:16px" @click="showDetail(sale)">{{ sale.total | money }}</td>
-                              <td class="text-left" style="cursor: pointer; width:126px;" @click="showDetail(sale)">
-                                <!-- <span v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue {{ sale.due_date | diffInDays }} day(s)</span> -->
-                                <span v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue</span>
-                                <span v-else-if="sale.sales_order_status === 'DRAFT'">Open</span>
-                                <span v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
-                              </td>
-                              <td class="text-left"><!-- Shipment Date goes here--></td>
-                              <td class="text-right" style="cursor: pointer;" @click="showDetail(sale)">
-                                {{ sale.shipment_status | normalizeStatus }}
-                              </td>
-                              <!-- <td style="cursor: pointer;" @click="showDetail(sale)">
-                                {{ sale.due_date | date('short') }}
-                              </td> -->
-                             
-                              <!-- <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">
-                                {{ sale.invoices[0].balance_due | money}}
-                              </td> -->
+                              <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
+                            <td class="shipment-status" style="font-size: 15px !important;">
+                              <span class="label" :class="{'label-info': sale.invoice_status == 'UNPAID','label-void': sale.invoice_status == 'VOID','label-danger': sale.invoice_status == 'OVERDUE','label-success': sale.invoice_status == 'PAID' }">
+                                {{sale.invoice_status.split("_").join(" ").toLowerCase()}}
+                              </span></td>
+                            <td class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">{{((sale.shipment_date)?(sale.shipment_date| date('short')):'-')}}</td>
+                            <td class="payment-status" style="cursor: pointer; width:126px" @click="showDetail(sale)">
+                              <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue in {{ sale.due_date | diffInDays }} day(s)</span>
+                              <span class="label-default" v-else-if="sale.sales_order_status === 'DRAFT'">Open</span>
+                              <span class="label label-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</span>
+                              <span class="label label-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
+                            </td>
+                              <!-- <td class="shipment-status" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.shipment_status | normalizeStatus }}</td>
+                              <td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.due_date | date('short') }}</td>
+                              <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.invoices[0].balance_due | money}}</td> -->
+
+
                               <!-- <td style="cursor: pointer;" @click="showDetail(sale)">
                                 <div v-if="sale.invoice_status === 'VOID'">
                                   <i class="fa fa-circle text-black"></i>
@@ -806,25 +800,13 @@
 </script>
 
 <style lang="scss" scoped>
-  td.shipment-status {
-    font-size: 17px !important;
-  }
-  .label-void {
-    background: black;
-  }
-  .label{
-    text-transform: capitalize;
-  }
-  .mark-default-wrapper{
-    padding:0px;
-  }
-  .page-wrapper{
-    padding:0px
-  }
-  .column-check{
-    padding-left:20px
-  }
-  .column-check-row{
-    padding-left:12px !important
-  }
+td.shipment-status {
+  font-size: 17px !important;
+}
+.label-void {
+  background: black;
+}
+.label{
+  text-transform: capitalize;
+}
 </style>
