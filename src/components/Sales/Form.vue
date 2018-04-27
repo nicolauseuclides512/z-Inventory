@@ -33,7 +33,7 @@
             <div class="header-pannel panel panel-default" style="margin-bottom:10px">
               <div class="panel-body" style="padding:0px">
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="col-xs-12">
                     <vuelist
                       :loading="loadingList"
                       @change="selectProduct"
@@ -54,7 +54,7 @@
               </div> -->
               <div class="panel-body midd-pannel" style="padding:10px 10px 10px 10px">
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="col-xs-12">
                     <div class="sahito-list-contact table-responsive">
                       <table class="table table-hover default-table sahito-list-contact--table">
                         <thead style="box-shadow: 0 4px 2px -2px #ddd;">
@@ -223,7 +223,7 @@
               </div> -->
               <div class="panel-body">
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="col-xs-12">
                     <div class="container">
                       <div class="row m-b-20">
                         <div class="col-md-12 pl-pr-0">
@@ -303,7 +303,7 @@
               </div>
               <div class="panel-body">
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="col-xs-12">
                     <div class="form-group" style="text-align: center;margin-bottom: 0px">
                       <h4 style="color: #bbb">{{ sales_order_number }}</h4>
                     </div>
@@ -317,7 +317,7 @@
               </div> -->
               <div class="panel-body" style="padding:0px">
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="col-xs-12">
                     <!-- <div class="form-group" style="margin-bottom: 0px">
                       <label style="font-weight: normal">Invoice to:</label>
                     </div> -->
@@ -347,7 +347,7 @@
                              class="add-new-contact-btn" style="width:95%">
                           + Add New Contact
                         </div> -->
-                        <div v-if="ui.showAddNewContactField">
+                        <!-- <div v-if="ui.showAddNewContactField">
                           <div class="form-group" style="">
                             <input
                               type="text"
@@ -384,16 +384,17 @@
                                    style="text-transform: lowercase;"
                                    v-model="newContact.email">
                           </div>
-                        </div>
+                        </div> -->
                       </div>
                       <!--<div class="col-md-1" v-if="!selected_contact">-->
                       <!--<a href="javascript:void(0)" onclick="window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>-->
                       <!--</div>-->
                     </div>
                     <div class="normal-mode selected-contact" v-if="selected_contact">
-                      <div class="col-md-10 contact-wrap" style="padding-left: 8px; margin-bottom:15px">
+                      <div class="col-md-12 contact-wrap" style="padding-left: 8px; margin-bottom:15px">
+                        <h4 class="text-bold">{{selected_contact.display_name}}</h4>
                         <div class="contact-list">
-                          <span>Billing Address</span>
+                          <div class="billing-wrapper">Billing Address</div>
                           <span>
                           <a href="javascript:void(0)" @click="editSelectedContact">
                             <i class="fa fa-fw fa-pencil"></i>
@@ -404,7 +405,6 @@
                           </span>
 
                         </div>
-                        <div class="billing-address" v-text="selected_contact.name"></div>
                         <div class="billing-address" v-text="selected_contact.billing_address"></div>
                         <div class="billing-region-detail" v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
                         <div class="billing-district-detail"v-text="selected_contact.billing_district_detail && selected_contact.billing_district_detail.name"></div>
@@ -444,7 +444,7 @@
                       </div>
                     </div>
                     </div>
-                    <div v-else>
+                    <div class="d-block channel-info" v-else>
                       <label style="font-weight: normal">Go to <i>Settings</i> >> <i>Sales Channel</i> to add your first
                         sales channel</label>
                     </div>
@@ -483,7 +483,7 @@
               </div>
               <div class="panel-body">
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="col-xs-12">
                     <div v-if="list.channels.length">
                       <div class="form-group" style="margin-bottom: 0px" >
                         <label style="font-weight: normal" v-if="!selected_sales_channel">Sales from:</label>
@@ -1423,6 +1423,7 @@ table.empty-table {
 }
 .contact-list {
     display: flex;
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
 }
