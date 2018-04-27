@@ -2751,3 +2751,6 @@ h5.title {
     line-height: normal;
     padding-left: 10px;
 }
+.label-void{
+    background: black !important;
+}

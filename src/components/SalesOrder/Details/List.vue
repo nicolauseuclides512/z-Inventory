@@ -111,7 +111,8 @@
             </div>
             <div class="pull-right payment-status">
               <span class="label label-danger" v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span>
-              <span class="label label-default" v-else-if="salesOrder.sales_order_status === 'DRAFT'">OPEN</span>
+              <span class="label label-default" v-else-if="salesOrder.sales_order_status === 'DRAFT'">Open</span>
+              <span class="label label-void" v-else-if="salesOrder.sales_order_status === 'CANCELED'">Void</span>
               <span class="label label-info" v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
             </div>
           </div>
@@ -310,6 +311,12 @@
     padding-right: 10px;
   }
   .shipment-status.label{
-    margin-top: 10px;
+    line-height: 17px;
+    margin-top: 5px;
+    padding: 0 5px;
+
+  }
+  .label{
+    text-transform: capitalize;
   }
 </style>
