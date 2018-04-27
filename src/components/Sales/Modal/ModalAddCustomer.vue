@@ -122,13 +122,16 @@
                 console.log(res.data.data.contact_id)
                 this.$emit('fetchContactList')
                 this.$emit('selectContact', res.data.data)
+                this.$emit('close')
                 // console.log('alo')
               }).catch(err => {
                 this.saving = false
                 swal_mapError(err.response)
+                this.$emit('close')
               })
             }catch (err) {
                 this.saving = false
+                this.$emit('close')
               err =>{
                 console.log(err.response)
               }

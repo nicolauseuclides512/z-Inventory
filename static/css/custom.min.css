@@ -2812,5 +2812,12 @@ h5.title {
 
 .right-pannel .ion-ios7-arrow-down:before,
 .right-pannel .fa-calendar:before{
-      color: #3ea9e8;
+    color: #3ea9e8;
+}
+
+.d-block{
+    display: block;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
 }
