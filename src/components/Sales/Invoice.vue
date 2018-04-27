@@ -58,7 +58,7 @@
           'shipped': salesOrder.shipment_status == 'SHIPPED',
           'draft': salesOrder.shipment_status == 'DRAFT',
           }" >
-          {{ salesOrder.shipment_status }}
+          {{ salesOrder.shipment_status.split("_").join(" ")}}
         </div>
       </div>
 
