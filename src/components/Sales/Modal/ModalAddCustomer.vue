@@ -84,7 +84,8 @@
           contact_status:1, // hidden
           is_sameAddress:true, // hidden
           saving: false
-        }
+        },
+        saving: false
       }
     },
     mounted() {
