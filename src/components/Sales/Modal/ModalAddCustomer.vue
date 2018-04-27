@@ -149,7 +149,7 @@
     resize: none;
   }
   .btn-add-customer{
-    width: 95%;
+    width: 100%;
   }
   button.close{
     font-size: 30px;

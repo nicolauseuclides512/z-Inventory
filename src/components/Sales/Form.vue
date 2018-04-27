@@ -321,8 +321,8 @@
                     <!-- <div class="form-group" style="margin-bottom: 0px">
                       <label style="font-weight: normal">Invoice to:</label>
                     </div> -->
-                    <div class="normal-mode">
-                      <div class="col-md-11" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
+                    <div class="right-panel-wrap d-flex">
+                      <div class="col-md-12" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
                         <div class="button-wrap">
                         </div>
                         <!-- <div v-if="!ui.showAddNewContactField"> -->
@@ -404,6 +404,7 @@
                           </span>
 
                         </div>
+                        <div class="billing-address" v-text="selected_contact.name"></div>
                         <div class="billing-address" v-text="selected_contact.billing_address"></div>
                         <div class="billing-region-detail" v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
                         <div class="billing-district-detail"v-text="selected_contact.billing_district_detail && selected_contact.billing_district_detail.name"></div>
@@ -470,8 +471,8 @@
                         </div>
                     </div>
                     </div>
-                    
-                    
+
+
                   </div>
                 </div>
               </div>
@@ -1311,7 +1312,7 @@
     }
   }
   .customer-wrapper{
-    
+
     position: relative;
     display: block;
     width: 100%;
@@ -1322,7 +1323,7 @@
       background: #eee;
       width:100%;
       .list{
-        width:100% !important;        
+        width:100% !important;
       }
       .main.text-muted{
         background-color:#eee !important;
@@ -1344,11 +1345,11 @@
     justify-content: center;
     align-items: center;
     border-color: #3ea9e8;
-    color: #3ea9e8;    
+    color: #3ea9e8;
   }
 
   .btn-add-customer{
-    width: 95%;
+    width: 100%;
   }
 
   .add-new-contact-btn:hover {
@@ -1377,7 +1378,7 @@
   }
   textarea {
     background: transparent;
-  } 
+  }
 }
 table.empty-table {
   display: table;
