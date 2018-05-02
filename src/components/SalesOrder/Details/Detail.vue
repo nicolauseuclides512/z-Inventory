@@ -6,7 +6,7 @@
       <Spinner></Spinner>
     </div>
 
-      <!-- Quick Overview              -->
+      <!-- Quick Overview  -->
 
     <div v-if="!loading && Object.keys(salesOrder).length">
       <div class="row top-detail-row">
@@ -53,10 +53,19 @@
               </router-link>
             </div>
             <div class="dropdown pull-left" style="margin-right: 10px;">
-              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
-                v-if="salesOrder.sales_order_status != 'DRAFT'"
-                >
-                Create <span class="caret"></span>
+            <button
+              class="btn btn-default dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              v-if="
+                (salesOrder.invoice_status == 'PAID' ||
+                salesOrder.invoice_status == 'UNPAID' ||
+                salesOrder.invoice_status == 'OVERDUE' ||
+                salesOrder.invoice_status === 'PARTIALLY_PAID') &&
+                salesOrder.sales_order_status != 'DRAFT'"
+              >
+                Create
+                <span class="caret"></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                 <li>
@@ -68,7 +77,8 @@
                     >
                     Payment
                   </a>
-                  <a v-if="!shipmentList || !shipmentList.length"
+                  <a
+                    v-if="!shipmentList || !shipmentList.length"
                     @click="showModalShipment()"
                     data-toggle="dropdown"
                     aria-expanded="false"
@@ -208,15 +218,18 @@
             </div>
           </div>
 
-          <div :class="{ 'tab-pane': true, active: currentTab == 'shipment' }" id="shipment"
-               v-if="currentTab == 'shipment'">
+          <div
+            :class="{ 'tab-pane': true, active: currentTab == 'shipment' }"
+            id="shipment"
+            v-if="currentTab == 'shipment'"
+            >
           <DetailShipment
-              :loadingShipmentData="loadingShipmentData"
-              :shipmentList="shipmentList"
-              :salesOrder="salesOrder"
-              @editShipment="editShipment"
-              @deleteShipment="deleteShipment"
-            ></DetailShipment>
+            :loadingShipmentData="loadingShipmentData"
+            :shipmentList="shipmentList"
+            :salesOrder="salesOrder"
+            @editShipment="editShipment"
+            @deleteShipment="deleteShipment"
+            />
           </div>
         </div>
       </div>
