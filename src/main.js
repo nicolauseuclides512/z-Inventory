@@ -35,9 +35,31 @@ require('./filters.js')
 // Load custom validators
 // require('./validators.js')
 
-const infiniteScroll = require('vue-infinite-scroll').default
-
+// import infiniteScroll from 'vue-infinite-scroll.default'
 // Vue.use(infiniteScroll)
+
+import VueMultianalytics from 'vue-multianalytics'
+
+// if(process.env.NODE_ENV == 'production'){
+  let gaConfig = {
+    appName: 'Zuragan Web App',
+    appVersion: '0.1.0',
+    trackingId: process.env.GA_ID,
+    debug: false,
+  }
+
+  // let mixpanelConfig = {
+  //   token: process.env.MIXPANEL_TOKEN
+  // }
+
+  Vue.use(VueMultianalytics, {
+    modules: {
+      ga: gaConfig,
+      // mixpanel: mixpanelConfig
+    }
+  })
+// }
+
 
 window.HOSTNAME = 'ontelstudio.com'
 let baseUrl = process.env.API_BASE_URL
