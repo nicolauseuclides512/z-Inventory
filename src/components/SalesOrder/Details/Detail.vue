@@ -1,14 +1,12 @@
 <template>
-  <div>
+  <div class="sales-order-details">
 
     <div v-if="loading && !Object.keys(salesOrder).length"
          style="height: 100vh; display: flex; align-items: center; justify-content: center;">
       <Spinner></Spinner>
     </div>
 
-    <!-- =========================== -->
-    <!-- Quick Overview              -->
-    <!-- =========================== -->
+      <!-- Quick Overview              -->
 
     <div v-if="!loading && Object.keys(salesOrder).length">
       <div class="row top-detail-row">
@@ -26,9 +24,9 @@
                         style="padding:6px 10px 0px 10px"
                         ><i class="icon-print" style="font-size:20px"></i></button>
                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
-                        title="Print Shipping Label" @click=""
+                        title="Print Shipping Label" @click="'javascript:void(0)'"
                         style="padding:6px 10px 0px 10px"
-                        ><i class="icon-label" style="font-size:20px"></i></button>       
+                        ><i class="icon-label" style="font-size:20px"></i></button>
                 <button
                   type="button"
                   class="btn btn-default"
@@ -40,7 +38,7 @@
                   style="padding:5px 10px 1px 10px"
                   >
                   <i class="icon-email" v-if="!sendingEmail" style="font-size:20px"></i>
-                  <i class="fa fa-spin fa-spinner" v-else="sendingEmail"></i>
+                  <i class="fa fa-spin fa-spinner" v-else></i>
                 </button>
               </div>
 
@@ -51,18 +49,13 @@
                 :to="{ name: 'sales.edit', param: { id: salesOrderId } }"
                 v-if="(salesOrder.invoice_status !== 'VOID') && (salesOrder.invoice_status !== 'PAID')"
                 class="btn btn-default waves-effect waves-light m-b-5"
-              >
-                Edit
+                >Edit
               </router-link>
             </div>
             <div class="dropdown pull-left" style="margin-right: 10px;">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
-                      v-if="(salesOrder.invoice_status == 'PAID' ||
-                      salesOrder.invoice_status == 'UNPAID' ||
-                      salesOrder.invoice_status == 'OVERDUE' ||
-                      salesOrder.invoice_status === 'PARTIALLY_PAID') &&
-                      salesOrder.sales_order_status != 'DRAFT'"
-              >
+                v-if="salesOrder.sales_order_status != 'DRAFT'"
+                >
                 Create <span class="caret"></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
@@ -72,14 +65,14 @@
                     data-toggle="dropdown"
                     aria-expanded="false"
                     v-if="salesOrder.invoice_status !== 'PAID'"
-                  >
+                    >
                     Payment
                   </a>
                   <a v-if="!shipmentList || !shipmentList.length"
                     @click="showModalShipment()"
                     data-toggle="dropdown"
                     aria-expanded="false"
-                  >
+                    >
                     Shipment
                   </a>
                 </li>
@@ -88,9 +81,10 @@
 
 
             <div class="pull-left" style="margin-right: 10px;">
-              <button class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown"
-                      aria-expanded="false"
-                      v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE' || salesOrder.invoice_status === 'DRAFT'">
+              <button
+                class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown"
+                aria-expanded="false"
+                v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE' || salesOrder.invoice_status === 'DRAFT'">
                 More <i class="ion-arrow-down-b"></i>
               </button>
               <ul class="dropdown-menu" role="menu" style="top: 35px; left:initial; right:20px">
@@ -114,13 +108,9 @@
       </div>
     </div>
 
-    <!-- =========================== -->
-    <!-- END Quick Overview          -->
-    <!-- =========================== -->
+      <!-- END Quick Overview          -->
 
-    <!-- =========================== -->
-    <!-- Detail Body                 -->
-    <!-- =========================== -->
+      <!-- Detail Body                 -->
 
     <div class="row" v-if="!loading && Object.keys(salesOrder).length">
       <div class="col-md-12">
@@ -145,13 +135,12 @@
         <div class="tab-content p-0 tab-content-clear tab-content--contact">
           <div :class="{ 'tab-pane': true, active: currentTab == 'invoice' }" id="invoice" v-if="currentTab == 'invoice'">
             <div class="row p-15" style="padding:20px 15px 15px 15px;">
-              <div v-for="invoice in invoiceList">
-                <component
-                  :is="invoiceComponent"
+              <div v-for="(invoice,index) in invoiceList" :key="index">
+                <invoice
                   :value="invoice"
                   :sales-order="salesOrder"
                   :payment-list="paymentList"
-                ></component>
+                  />
               </div>
             </div>
           </div>
@@ -178,7 +167,7 @@
                   <tr v-show="!paymentList.length > 0">
                     <td colspan="5" class="text-muted text-center">No payment received</td>
                   </tr>
-                  <tr v-for="payment,index in paymentList" v-show="paymentList.length > 0" :key="index">
+                  <tr v-for="(payment, index) in paymentList" v-show="paymentList.length > 0" :key="index">
                     <td style="padding: 12px 8px;">
                       {{ payment.date | date('short') }}
                     </td>
@@ -233,13 +222,8 @@
       </div>
     </div>
 
-    <!-- =========================== -->
-    <!-- END Detail Body             -->
-    <!-- =========================== -->
-
-    <!-- =========================== -->
-    <!-- Payment & Shipment Record Form Modal   -->
-    <!-- =========================== -->
+    <!-- END Detail Body  -->
+    <!-- Payment & Shipment Record Form Modal -->
 
     <PaymentForm
       :invoiceList="invoiceList"
@@ -249,9 +233,7 @@
       @close="closeModalShipment"
       :editShipment="formEditShipment"
     />
-    <!-- =========================== -->
     <!-- END Payment & Shipment Record Form Modal -->
-    <!-- =========================== -->
 
 
 
@@ -307,20 +289,14 @@
 
     async mounted () {
       this.invoiceComponent = Invoice
-      this.fetchShipmentData()
+      // fetchShipmentData()
       this.loadDetail()
-    // this.loading = true
-    //   this.salesOrderId = this.$route.params.id
-    //   this.$store.dispatch('salesOrders/selectSalesOrder', this.salesOrderId)
-    //     .then(() => {
-    //       this.loading = false
-    //     }).catch(err => {
-    //       this.loading = false
-    //       console.error('error! ', err)
-    //     })
     },
 
     watch: {
+      // salesOrder(SO){
+      //   console.log(SO)
+      // },
       $route(to,form){
         this.fetchShipmentData()
       }
@@ -369,9 +345,6 @@
         $('#shipment-modal-add').modal('hide')
       },
 
-      /**
-       * Fetch shipment daata
-       */
       async fetchShipmentData() {
         this.loadingShipmentData = true
         try {
@@ -397,18 +370,13 @@
         this.loadingShipmentData = false
       },
 
-      /**
-       * Delete shipment
-       */
       async deleteShipment() {
         Alert.confirm({
           title: 'Do you really want to delete this shipment?',
           text: 'Deleted this shipment cannot be recovered. Do you still want to continue?',
         }, async () => {
-
           try {
             const sales_order_id = this.salesOrderId
-
             this.fetchShipmentData()
             const shipment_ids = []
             this.shipmentList.forEach(item => {
@@ -426,20 +394,15 @@
             }else{
               return swal_error(res)
             }
-          } catch (err) {
+          }catch (err) {
             console.error(err)
             if (err.hasOwnProperty('response')) {
               swal_error(err.response)
             }
           }
-
         })
-
       },
 
-      /**
-       * Update shipment data
-       */
       editShipment() {
         try {
           const sales_order_id = this.salesOrderId
@@ -456,34 +419,28 @@
               console.errror(err)
             }
           )
-          // if (!responseOk(res.data.code)) {
-          //   return swal_error(res)
-          // }
-
-          // this.form.shipment.carrier_name = res.data.data.carrier.carrier_name
 
 
           $('#shipment-modal-edit').modal('show')
 
         } catch (err) {
-          // console.log(err)
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
           }
         }
       },
 
-
       switchTab (tabName) {
         this.currentTab = tabName
         if (tabName == 'shipment') {
           this.fetchShipmentData()
+        }else if(tabName == 'payment'){
+          this.$store.dispatch('salesOrders/getPayments', this.salesOrderId)
+        }else {
+          this.$store.dispatch('salesOrders/getInvoices', this.salesOrderId)
         }
       },
 
-      /**
-       * View invoice
-       */
       async viewInvoice () {
         this.loading = true
         const pdfWindow = window.open()
@@ -506,9 +463,6 @@
         this.loading = false
       },
 
-      /**
-       * Send invoice as mail
-       */
       async sendInvoiceAsMail () {
         const sales_order_id = parseInt(this.$route.params.id)
         const invoice_id = parseInt(this.invoiceList[0].invoice_id)
@@ -549,7 +503,6 @@
   .tabs-vertical > li.active > a,
   .tabs-vertical > li.active > a:focus,
   .tabs-vertical > li.active > a:hover {
-    /* border-top: 3px solid #337ab7; */
     color: white;
     border-top: 1px solid #03a2cd;
     border-left: 1px solid #03a2cd;

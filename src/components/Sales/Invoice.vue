@@ -39,14 +39,14 @@
 
       <div v-if="salesOrder.invoice_status" class="ribbon-wrapper">
         <div
-          class="ribbon-payment"
+          class="ribbon-payment shipment"
           :class="{
-          'unpaid': value.invoice_status == 'UNPAID',
-          'overdue': salesOrder.invoice_status == 'OVERDUE',
-          'partial': salesOrder.invoice_status == 'PARTIALLY_PAID',
-          'void': salesOrder.invoice_status == 'VOID',
-          'draft': salesOrder.invoice_status == 'DRAFT',
-          'sent': salesOrder.invoice_status == 'SENT',
+            'unpaid': value.invoice_status == 'UNPAID',
+            'overdue': salesOrder.invoice_status == 'OVERDUE',
+            'partial': salesOrder.invoice_status == 'PARTIALLY_PAID',
+            'void': salesOrder.invoice_status == 'VOID',
+            'draft': salesOrder.invoice_status == 'DRAFT',
+            'sent': salesOrder.invoice_status == 'SENT',
           }" >
           {{ salesOrder.invoice_status }}
         </div>
@@ -291,6 +291,7 @@
     mounted() {
       this.getOrganizationInfo();
       this.getBuyerinfo();
+
     },
 
     methods: {
@@ -338,7 +339,6 @@
 
       async getBuyerinfo() {
         this.buyer_name = this.value.contact.display_name;
-
         this.buyer_phone = this.value.contact.phone;
         this.buyer_mobile = this.value.contact.mobile;
 

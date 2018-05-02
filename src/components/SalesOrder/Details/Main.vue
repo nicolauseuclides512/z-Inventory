@@ -6,13 +6,10 @@
     <div class="content bgr-white" style="padding: 20px;">
       <div class="row">
         <div class="col-md-4 side-list-sales">
-          <List
-            @selectSalesOrder="selectSalesOrder($event)"
-          />
+          <List @selectSalesOrder="selectSalesOrder($event)" />
         </div>
         <div class="col-md-8 main-detail-sales" style="border-left: 1px solid #f0f0f0;">
-          <Detail
-          />
+          <Detail />
         </div>
       </div>
     </div>
@@ -50,7 +47,7 @@
 
     async mounted () {
       //load content if users directly hit url
-      this.selectSalesOrder(this.salesOrderRoute)
+      // this.selectSalesOrder(this.salesOrderRoute)
     },
 
     methods: {

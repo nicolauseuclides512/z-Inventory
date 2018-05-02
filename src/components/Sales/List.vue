@@ -491,7 +491,7 @@
     },
 
     mounted() {
-      store.dispatch('sales/initialize')
+      // store.dispatch('sales/initialize')
       this.getList({
         filter: this.$route.query.filter || 'all',
         sort: this.$route.query.sort || 'created_at.desc',
