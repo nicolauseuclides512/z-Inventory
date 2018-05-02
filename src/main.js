@@ -29,6 +29,7 @@ window.swal_success = swal_success
 window.swal_error = swal_error
 window.swal_mapError = swal_mapError
 
+
 // Load custom filters
 require('./filters.js')
 
@@ -39,23 +40,25 @@ require('./filters.js')
 // Vue.use(infiniteScroll)
 
 import VueMultianalytics from 'vue-multianalytics'
-
+Vue.prototype.ga = window.ga
 // if(process.env.NODE_ENV == 'production'){
   let gaConfig = {
     appName: 'Zuragan Web App',
     appVersion: '0.1.0',
-    trackingId: process.env.GA_ID,
+    // trackingId: process.env.GA_ID,
+    trackingId: 'UA-104614950-3',
     debug: false,
   }
 
-  // let mixpanelConfig = {
+  let mixpanelConfig = {
   //   token: process.env.MIXPANEL_TOKEN
-  // }
+    token: '43cf762e0c11bd4af0b2e54cc0c2df28'
+  }
 
   Vue.use(VueMultianalytics, {
     modules: {
       ga: gaConfig,
-      // mixpanel: mixpanelConfig
+      mixpanel: mixpanelConfig
     }
   })
 // }

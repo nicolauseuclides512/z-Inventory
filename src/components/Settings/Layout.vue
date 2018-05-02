@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="settings-layout">
     <div id="wrapper" :class="{ enlarged: !sidebarEnlarged }">
 
       <nav-top :sidebar="sidebarEnlarged"></nav-top>

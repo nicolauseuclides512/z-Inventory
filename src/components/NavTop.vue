@@ -260,6 +260,7 @@
       async getUsername() {
         const res = await axios.get(`profile`)
         this.username = res.data.data.email
+        ga('set', 'userId', this.username)
       },
 
 

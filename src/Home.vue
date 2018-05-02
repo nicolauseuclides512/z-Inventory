@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="home-app">
     <div id="wrapper" :class="{ enlarged: !sidebarEnlarged }">
 
       <nav-top :sidebar="sidebarEnlarged" @burger-menu-clicked="sidebarEnlarged = !sidebarEnlarged"></nav-top>
       <nav-left></nav-left>
 
-            <!-- <page-title></page-title> -->
+            <page-title></page-title>
 
             <router-view></router-view>
 
@@ -29,6 +29,11 @@
       sidebarEnlarged () {
         return store.state.global.sidebarEnlarged
       },
+    },
+
+    mounted(){
+      // ga('set', 'userId', Cookie.get('access_token'))
+      // console.log(Cookie.get('access_token'))
     },
 
     events: {
