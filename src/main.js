@@ -41,6 +41,8 @@ require('./filters.js')
 
 import VueMultianalytics from 'vue-multianalytics'
 Vue.prototype.ga = window.ga
+Vue.prototype.mixpanel = window.mixpanel
+
 // if(process.env.NODE_ENV == 'production'){
   let gaConfig = {
     appName: 'Zuragan Web App',
