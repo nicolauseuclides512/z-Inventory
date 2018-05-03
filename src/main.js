@@ -52,7 +52,7 @@ Vue.prototype.ga = window.ga
 
   let mixpanelConfig = {
   //   token: process.env.MIXPANEL_TOKEN
-    token: '43cf762e0c11bd4af0b2e54cc0c2df28'
+    token: '946153a6f2bb0d44ff8fa88188b21a6d'
   }
 
   Vue.use(VueMultianalytics, {
