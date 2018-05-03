@@ -34,7 +34,7 @@
     mounted(){
       // ga('set', 'userId', Cookie.get('access_token'))
       // console.log(Cookie.get('access_token'))
-      mixpanel.track("visited home after login");
+      window.mixpanel.track("Visited dev server");
 
     },
 

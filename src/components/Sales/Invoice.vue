@@ -48,7 +48,7 @@
             'draft': salesOrder.invoice_status == 'DRAFT',
             'sent': salesOrder.invoice_status == 'SENT',
           }" >
-          {{ salesOrder.invoice_status }}
+          {{ (salesOrder.invoice_status == 'DRAFT')?'OPEN':salesOrder.invoice_status }}
         </div>
       </div>
 
@@ -508,15 +508,15 @@ td span:first-child{ /* compatible to >=IE7 */
     }
   }
   &.draft{
-    background: #C4C4C4;
-    background: linear-gradient(#C4C4C4, #C4C4C4);
+    background: #767676;
+    background: linear-gradient(#767676, #767676);
     &:before{
-      border-left: 3px solid darken(#C4C4C4,20);
-      border-top: 3px solid darken(#C4C4C4,20);
+      border-left: 3px solid darken(#767676,20);
+      border-top: 3px solid darken(#767676,20);
     }
     &:after{
-      border-right: 3px solid darken(#C4C4C4,20);
-      border-top: 3px solid darken(#C4C4C4,20);
+      border-right: 3px solid darken(#767676,20);
+      border-top: 3px solid darken(#767676,20);
     }
   }
   &.overdue{
