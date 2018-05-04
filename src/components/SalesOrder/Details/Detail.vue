@@ -317,6 +317,40 @@
 
     methods: {
 
+      markAsSentSalesOrder(salesOrder) {
+        Alert.confirm({
+          title: 'Are you sure?',
+          confirmButtonText: 'Mark as sent (confirm)',
+        }, async () => {
+          const sales_order_id = this.salesOrderId
+          const invoice_id =  this.invoiceList[0].invoice_id
+          const url = `sales_orders/${sales_order_id}/invoices/${invoice_id}/mark_as_sent`
+          const res = await Axios.get(url)
+          if (responseOk(res.data.code)) {
+            swal_success(res)
+            this.refreshCurrentSalesOrderData()
+          } else {
+            swal_error(res)
+          }
+        })
+      },
+
+      async refreshCurrentSalesOrderData() {
+        const sales_order_id = this.salesOrderId
+
+        const sales_order = await axios.get(`sales_orders/${sales_order_id}`)
+        store.commit('sales/SALES_ORDER', sales_order.data.data)
+
+        const invoice = await axios.get(`sales_orders/${data.sales_order_id}/invoices/${data.invoice_id}`)
+        store.commit('sales/INVOICE', invoice.data.data)
+
+        const payment_list = await axios.get(`sales_orders/${data.sales_order_id}/invoices/${data.invoice_id}/payments`)
+        store.commit('sales/PAYMENT_LIST', payment_list.data.data)
+
+        // this.getInvoiceList(sales_order_id)
+      },
+
+
       loadDetail(){
         this.loading = true
         this.salesOrderId = this.$route.params.id
@@ -334,8 +368,8 @@
           title: 'Are you sure?',
           confirmButtonText: 'Mark as void',
         }, async () => {
-          const sales_order_id = salesOrder.sales_order_id
-          const invoice_id = salesOrder.invoices[0].invoice_id
+          const sales_order_id = this.salesOrderId
+          const invoice_id = this.invoiceList[0].invoice_id
           const url = `sales_orders/${sales_order_id}/invoices/${invoice_id}/mark_as_void`
 
           await Axios.get(url).then(res => {
