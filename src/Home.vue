@@ -15,6 +15,7 @@
 
 <script>
   import store from './store'
+  import VueMultianalytics from 'vue-multianalytics'
 
   export default {
     name: 'Home',
@@ -34,7 +35,11 @@
     mounted(){
       // ga('set', 'userId', Cookie.get('access_token'))
       // console.log(Cookie.get('access_token'))
-      window.mixpanel.track("Visited dev server");
+      // window.mixpanel.track("Visited Localhost")
+      // this.$ma.trackEvent('this from multi analytics!')
+
+      this.$ma.trackEvent({action: 'visited dashboard!'})
+
 
     },
 

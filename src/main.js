@@ -63,7 +63,10 @@ Vue.prototype.mixpanel = window.mixpanel
       mixpanel: mixpanelConfig
     }
   })
-// }
+
+  // this.$ma.trackEvent('this from multi analytics!')
+
+  // }
 
 
 window.HOSTNAME = 'ontelstudio.com'
