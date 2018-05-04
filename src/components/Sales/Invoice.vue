@@ -2,7 +2,7 @@
   <div style="box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .2);">
 
     <div class="sahito-invoice" v-if="value" style="min-height: 842px">
-
+      <!-- <pre>{{value}}</pre> -->
       <!--
       <div v-if="value.invoice_status === 'DRAFT'">
         <div class="ribbon-draft"><span class="ribbon-text">{{ value.invoice_status }}</span></div>
@@ -204,7 +204,7 @@
                 <td class="text-left" colspan="1" style="font-weight: 400; border-bottom: 1px solid rgb(221, 221, 221);">Total</td>
                 <td colspan="1" style="font-weight: 400; border-bottom: 1px solid rgb(221, 221, 221);"><span>Rp</span><span>{{ value.total | decimalformat }}</span></td>
               </tr>
-              <tr class="sub-total" v-for="(item, index) in paymentList">
+              <tr class="sub-total" v-for="(item, index) in paymentList" :key="index">
                 <td colspan="3"></td>
                 <td class="text-left" colspan="1">Paid at {{ item.date | date('short') }}</td>
                 <td colspan="1"><span>Rp</span><span>{{ item.amount | decimalformat }}</span></td>
@@ -240,20 +240,11 @@
   export default {
     name: "Invoice",
 
-    props: {
-      value: {
-        type: [Object, Array],
-        required: true
-      },
-      salesOrder: {
-        type: [Object, Array],
-        required: true
-      },
-      paymentList: {
-        type: [Object, Array],
-        required: true
-      }
-    },
+    props: [
+      'value',
+      'salesOrder',
+      'paymentList'
+    ],
 
     watch: {
       value() {
@@ -289,8 +280,8 @@
     },
 
     mounted() {
-      this.getOrganizationInfo();
-      this.getBuyerinfo();
+      this.getOrganizationInfo()
+      this.getBuyerinfo()
 
     },
 

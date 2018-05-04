@@ -99,10 +99,6 @@
         $('#modal-add-customer').modal('show')
       },
 
-      getCarriers() {
-        store.dispatch('sales/shipment/getCarriers')
-      },
-
       save() {
         let url = '/contacts';
         this.saving = true;

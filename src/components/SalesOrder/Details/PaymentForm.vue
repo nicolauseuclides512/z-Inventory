@@ -168,7 +168,8 @@
     methods: {
       fetch() {
         const salesOrderId = parseInt(this.$route.params.id)
-        this.$store.dispatch('salesOrders/createPayment', salesOrderId)
+        const invoiceId = this.invoiceList[this.invoiceList.length - 1].invoice_id
+        this.$store.dispatch('salesOrders/createPayment', salesOrderId, invoiceId)
           .then(async (createPayment) => {
             this.form.amount = createPayment.due_payment
           })

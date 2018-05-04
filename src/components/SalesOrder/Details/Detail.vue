@@ -146,10 +146,10 @@
           <div :class="{ 'tab-pane': true, active: currentTab == 'invoice' }" id="invoice" v-if="currentTab == 'invoice'">
             <div class="row p-15" style="padding:20px 15px 15px 15px;">
               <div v-for="(invoice,index) in invoiceList" :key="index">
-                <invoice
+                <Invoice
                   :value="invoice"
-                  :sales-order="salesOrder"
-                  :payment-list="paymentList"
+                  :salesOrder="salesOrder"
+                  :paymentList="paymentList"
                   />
               </div>
             </div>
@@ -239,6 +239,7 @@
     <!-- Payment & Shipment Record Form Modal -->
 
     <PaymentForm
+      v-if="currentTab == 'payment'"
       :invoiceList="invoiceList"
     />
     <ShipmentForm
@@ -301,9 +302,11 @@
     },
 
     async mounted () {
-      this.invoiceComponent = Invoice
+      // this.invoiceComponent = Invoice
       // fetchShipmentData()
       this.loadDetail()
+      this.$store.dispatch('salesOrders/getInvoices', this.salesOrderId)
+      // console.log('salesorder',_.first(this.salesOrder.sales_order_details))
     },
 
     watch: {

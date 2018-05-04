@@ -111,7 +111,7 @@ const actions = {
   async selectSalesOrder ({dispatch}, salesOrderId) {
     return Promise.all([
       dispatch('getSalesOrder', salesOrderId),
-      dispatch('getPayments', salesOrderId),
+      // dispatch('getPayments', salesOrderId),
     ])
   },
 
@@ -163,15 +163,21 @@ const actions = {
     }
   },
 
-  async createPayment ({state, commit, dispatch}, salesOrderId) {
-    return dispatch('getInvoices', salesOrderId)
-      .then(async (invoices) => {
-        const firstInvoice = invoices[0]
-        const createPaymentResponse = await Axios.get(`sales_orders/${salesOrderId}/invoices/${firstInvoice.invoice_id}/payments/create`)
-        commit(CONSTANT.CREATE_PAYMENT, createPaymentResponse.data.data)
-        commit(CONSTANT.PAYMENT_METHOD_LIST, createPaymentResponse.data.data.payment_method)
-        return state.createPayment
-      })
+  async createPayment ({state, commit, dispatch}, salesOrderId, invoicesId) {
+    // return dispatch('getInvoices', salesOrderId)
+      // .then(async (invoices) => {
+        try {
+          const firstInvoice = invoices[0]
+          const createPaymentResponse = await Axios.get(`sales_orders/${salesOrderId}/invoices/${invoicesId}/payments/create`)
+          commit(CONSTANT.CREATE_PAYMENT, createPaymentResponse.data.data)
+          commit(CONSTANT.PAYMENT_METHOD_LIST, createPaymentResponse.data.data.payment_method)
+          return state.createPayment
+        }
+        catch (err){
+          console.log(err.response)
+        }
+      // }
+    // )
   }
 
 }
