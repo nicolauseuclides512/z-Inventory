@@ -893,7 +893,7 @@
 
         this.loadingContact = true;
         try {
-          const res = await axios.get("contacts", {
+          const res = await axios.get(`contacts?include_area=true`, {
             params: {
               page: 1,
               per_page: 9999,
@@ -1087,7 +1087,7 @@
         this.dirtyForm = true;
         try {
           const contact_id = contact.contact_id
-          const res = await axios.get(`contacts/${contact_id}`);
+          const res = await axios.get(`contacts/${contact_id}?include_area=true`);
           if (!responseOk(res.data.code)) {
             throw new Error(res.data.message)
           }
