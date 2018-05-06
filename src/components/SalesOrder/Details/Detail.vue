@@ -57,12 +57,7 @@
               class="btn btn-default dropdown-toggle"
               type="button"
               data-toggle="dropdown"
-              v-if="
-                (salesOrder.invoice_status == 'PAID' ||
-                salesOrder.invoice_status == 'UNPAID' ||
-                salesOrder.invoice_status == 'OVERDUE' ||
-                salesOrder.invoice_status === 'PARTIALLY_PAID') &&
-                salesOrder.sales_order_status != 'DRAFT'"
+              v-if="createablePayment || createableShipment"
               >
                 Create
                 <span class="caret"></span>
@@ -73,15 +68,15 @@
                     @click="showModalPayment()"
                     data-toggle="dropdown"
                     aria-expanded="false"
-                    v-if="salesOrder.invoice_status !== 'PAID'"
+                    v-if="createablePayment"
                     >
                     Payment
                   </a>
                   <a
-                    v-if="!shipmentList || !shipmentList.length"
                     @click="showModalShipment()"
                     data-toggle="dropdown"
                     aria-expanded="false"
+                    v-if="createableShipment"
                     >
                     Shipment
                   </a>
@@ -94,22 +89,19 @@
               <button
                 class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown"
                 aria-expanded="false"
-                v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE' || salesOrder.invoice_status === 'DRAFT'">
-                More <i class="ion-arrow-down-b"></i>
+                v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE')"
+                @click="cancelSalesOrder(salesOrder)"
+                >
+                Mark as Void
               </button>
-              <ul class="dropdown-menu" role="menu" style="top: 35px; left:initial; right:20px">
-                <li>
-                  <a v-if="salesOrder.invoice_status === 'DRAFT'"
-                     @click="markAsSentSalesOrder(salesOrder)"
-                     style="cursor: pointer;">
-                    Mark as Sent
-                  </a>
-                  <a v-if="salesOrder.invoice_status === 'UNPAID' || salesOrder.invoice_status === 'OVERDUE'"
-                     @click="cancelSalesOrder(salesOrder)" style="cursor: pointer;">
-                    Mark as Void
-                  </a>
-                </li>
-              </ul>
+              <button
+                class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown"
+                aria-expanded="false"
+                v-if="(salesOrder.invoice_status === 'DRAFT')"
+                @click="markAsSentSalesOrder(salesOrder)"
+                >
+                Confirm
+              </button>
             </div>
 
           </div>
@@ -299,6 +291,16 @@
         paymentList: 'payments',
         createPayment: 'createPayment',
       }),
+      createablePayment() {
+        if(this.salesOrder){
+          return (this.salesOrder.invoice_status !== 'PAID' && this.salesOrder.invoice_status !== 'DRAFT' && this.salesOrder.invoice_status !== 'VOID')?true:false
+        }
+      },
+      createableShipment(){
+        if(this.salesOrder){
+          return (this.salesOrder.invoice_status !== 'VOID' && this.salesOrder.shipment_status !== 'SHIPPED')?true:false
+        }
+      }
     },
 
     async mounted () {
@@ -322,8 +324,8 @@
 
       markAsSentSalesOrder(salesOrder) {
         Alert.confirm({
-          title: 'Are you sure?',
-          confirmButtonText: 'Mark as sent (confirm)',
+          title: 'Are you sure to mark as sent?',
+          confirmButtonText: 'Confirm',
         }, async () => {
           const sales_order_id = this.salesOrderId
           const invoice_id =  this.invoiceList[0].invoice_id
@@ -520,6 +522,8 @@
       },
 
       showModalPayment () {
+        // alert('halo')
+        this.currentTab = 'payment'
         $('#payment-modal').modal('show')
       },
 
