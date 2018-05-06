@@ -37,10 +37,9 @@
       // console.log(Cookie.get('access_token'))
       // window.mixpanel.track("Visited Localhost")
       // this.$ma.trackEvent('this from multi analytics!')
-
-      this.$ma.trackEvent({action: 'visited dashboard!'})
-
-
+      if(process.env.NODE_ENV == 'production'){
+        this.$ma.trackEvent({action: 'visited dashboard!'})
+      }
     },
 
     events: {

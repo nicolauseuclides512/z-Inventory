@@ -43,7 +43,7 @@ import VueMultianalytics from 'vue-multianalytics'
 Vue.prototype.ga = window.ga
 Vue.prototype.mixpanel = window.mixpanel
 
-// if(process.env.NODE_ENV == 'production'){
+if(process.env.NODE_ENV == 'production'){
   let gaConfig = {
     appName: 'Zuragan Web App',
     appVersion: '0.1.0',
@@ -64,9 +64,7 @@ Vue.prototype.mixpanel = window.mixpanel
     }
   })
 
-  // this.$ma.trackEvent('this from multi analytics!')
-
-  // }
+}
 
 
 window.HOSTNAME = 'ontelstudio.com'
