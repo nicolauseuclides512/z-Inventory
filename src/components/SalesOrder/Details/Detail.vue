@@ -155,7 +155,7 @@
             v-if="currentTab === 'payment'"
           >
             <div class="row p-15">
-              <div class="border-1 table-responsive mt-20">
+              <div class="border-1 table-responsive mt-20" v-if="!loadingPayment">
                 <table class="table sahito-invoice-table">
                   <caption><h3>Payment Receival</h3></caption>
                   <thead>
@@ -209,6 +209,9 @@
                   </tbody>
                 </table>
               </div>
+              <div class="loading-payment" v-if="loadingPayment">
+                <Spinner/>
+              </div>
             </div>
           </div>
 
@@ -250,7 +253,7 @@
 
 <script>
   import Axios from 'axios'
-  import {mapState} from 'vuex'
+  import {mapState, mapGetters} from 'vuex'
   import Form from '@/helpers/Form'
   import Invoice from '@/components/Sales/Invoice'
   import PaymentForm from './PaymentForm'
@@ -293,6 +296,9 @@
         invoiceList: 'invoices',
         paymentList: 'payments',
         createPayment: 'createPayment',
+      }),
+      ...mapGetters({
+        loadingPayment: 'salesOrders/loadingPayment'
       }),
       createablePayment() {
         if(this.salesOrder){

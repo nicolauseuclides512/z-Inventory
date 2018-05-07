@@ -2,17 +2,6 @@ import Axios from 'axios'
 import paymentMethodList from 'src/helpers/PaymentMethodList'
 // import shipment from './shipment';
 
-
-const CONSTANT = {
-  SALES_ORDER_LIST: 'SALES_ORDER_LIST',
-  SALES_ORDER: 'SALES_ORDER',
-  INVOICES: 'INVOICES',
-  PAYMENTS: 'PAYMENTS',
-  CREATE_PAYMENT: 'CREATE_PAYMENT',
-  PAYMENT_METHOD_LIST: 'PAYMENT_METHOD_LIST',
-  SHIPMENT_LIST: 'SHIPMENT_LIST'
-}
-
 const state = {
   salesOrderList: [],
   salesOrder: {},
@@ -21,30 +10,35 @@ const state = {
   createPayment: {},
   paymentMethodList: {},
   shipmentList: [],
+  loadingPayment:false,
+  loadingShipment:false
 }
 
 const mutations = {
-  [CONSTANT.SHIPMENT_LIST] (state, value) {
+  SHIPMENT_LIST (state, value) {
     state.shipmentList = value
   },
-  [CONSTANT.SALES_ORDER_LIST] (state, value) {
+  SALES_ORDER_LIST (state, value) {
     state.salesOrderList = value
   },
-  [CONSTANT.SALES_ORDER] (state, value) {
+  SALES_ORDER (state, value) {
     state.salesOrder = value
   },
-  [CONSTANT.INVOICES] (state, value) {
+  INVOICES (state, value) {
     state.invoices = value
   },
-  [CONSTANT.PAYMENTS] (state, value) {
+  PAYMENTS (state, value) {
     state.payments = value
   },
-  [CONSTANT.CREATE_PAYMENT] (state, value) {
+  CREATE_PAYMENT (state, value) {
     state.createPayment = value
   },
-  [CONSTANT.PAYMENT_METHOD_LIST] (state, value) {
+  PAYMENT_METHOD_LIST (state, value) {
     state.paymentMethodList = value
   },
+  LOADING_PAYMENT(state, value){
+    state.loadingPayment = value
+  }
 }
 
 const actions = {
@@ -97,7 +91,7 @@ const actions = {
       const params = Object.assign({}, defaultParams, options)
 
       const response = await Axios.get(`sales_orders`, {params})
-      commit(CONSTANT.SALES_ORDER_LIST, response.data.data)
+      commit('SALES_ORDER_LIST', response.data.data)
       return state.salesOrderList
     }
     catch (err) {
@@ -118,7 +112,7 @@ const actions = {
   async getSalesOrder ({state, commit}, salesOrderId) {
     try {
       const {data} = await Axios.get(`sales_orders/${salesOrderId}`)
-      commit(CONSTANT.SALES_ORDER, data.data)
+      commit('SALES_ORDER', data.data)
       return state.salesOrder
     }
     catch (err) {
@@ -133,7 +127,7 @@ const actions = {
     try {
       return Axios.get(`sales_orders/${salesOrderId}/invoices`)
         .then(({data}) => {
-          commit(CONSTANT.INVOICES, data.data)
+          commit('INVOICES', data.data)
           return state.invoices
         })
     }
@@ -146,16 +140,19 @@ const actions = {
   },
 
   async getPayments ({state, commit, dispatch}, salesOrderId) {
+    commit('LOADING_PAYMENT', true)
     try {
       return dispatch('getInvoices', salesOrderId)
         .then(async (invoices) => {
           const lastInvoice = invoices[invoices.length - 1]
           const paymentsResponse = await Axios.get(`sales_orders/${salesOrderId}/invoices/${lastInvoice.invoice_id}/payments`)
-          commit(CONSTANT.PAYMENTS, paymentsResponse.data.data)
+          commit('PAYMENTS', paymentsResponse.data.data)
+          commit('LOADING_PAYMENT', false)
           return state.payments
         })
     }
     catch (err) {
+      commit('LOADING_PAYMENT', false)
       console.error(err)
       if (err.hasOwnProperty('response')) {
         //
@@ -173,16 +170,16 @@ const actions = {
           // console.log('salesOrderId',salesOrderId)
           // const firstInvoice = invoices[0]
           const createPaymentResponse = await Axios.get(`sales_orders/${salesOrderId}/invoices/${firstInvoice}/payments/create`)
-          commit(CONSTANT.CREATE_PAYMENT, createPaymentResponse.data.data)
-          commit(CONSTANT.PAYMENT_METHOD_LIST, createPaymentResponse.data.data.payment_method)
+          commit('CREATE_PAYMENT', createPaymentResponse.data.data)
+          commit('PAYMENT_METHOD_LIST', createPaymentResponse.data.data.payment_method)
           throw state.createPayment
           // return state.createPayment
           // await Axios.get(`sales_orders/${salesOrderId}/invoices/${invoiceId}/payments/create`)
           // .then(
           //   res => {
           //     const createPaymentResponse = res.data.data
-          //     commit(CONSTANT.CREATE_PAYMENT, createPaymentResponse.data.data)
-          //     commit(CONSTANT.PAYMENT_METHOD_LIST, createPaymentResponse.data.data.payment_method)
+          //     commit('CREATE_PAYMENT', createPaymentResponse.data.data)
+          //     commit('PAYMENT_METHOD_LIST', createPaymentResponse.data.data.payment_method)
           //     console.log(createPaymentResponse)
           //   }
           // ).catch(err => {
@@ -209,6 +206,9 @@ const getters = {
   salesOrderData(state) {
     return state.salesOrder
   },
+  loadingPayment(state){
+    return state.loadingPayment
+  }
   // paymentList(state){
   //   return state.payments
   // }
