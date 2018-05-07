@@ -35,7 +35,7 @@
             <i class="icon-contact" style="font-size:23px"></i><span> Contacts </span>
           </router-link>
         </li>
-        
+
         <li v-if="sidebarEnlarged">
           <router-link id="nev-left-items" :to="{ name: 'item.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="icon-item_2" style="font-size:23px"></i><span>Item List</span>
@@ -47,23 +47,23 @@
             <i class="icon-item_3" style="font-size:23px"></i><span>Create Item</span>
           </router-link>
         </li>
-		
+
 		<li v-if="sidebarEnlarged">
           <router-link id="nev-left-items" :to="{ name: 'item.create_variant' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="icon-item" style="font-size:23px"></i><span>Create Variant</span>
           </router-link>
         </li>
-		
+
 		<li v-if="sidebarEnlarged">
           <router-link id="nev-left-sales" :to="{ name: 'stock_adjustment.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="icon-stock2" style="font-size:23px"></i><span>Stock Adjustment</span>
           </router-link>
         </li>
-		
+
 		<li v-if="sidebarEnlarged">
-          <router-link id="nev-left-stock-adjustment" :to="{ name: 'stock_summary.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
+          <!-- <router-link id="nev-left-stock-adjustment" :to="{ name: 'stock_summary.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="icon-stock" style="font-size:23px"></i><span>Stock Summary</span>
-          </router-link>
+          </router-link> -->
         </li>
 
         <!--<dropdown-menu id="nav-left-sales" title="Sales" icon="md-shopping-cart">-->
@@ -113,13 +113,13 @@
               <i class="icon-stock2" style="font-size:23px"></i><span>Stock Adjustment</span>
           </router-link>
         </li>
-        <li v-if="!sidebarEnlarged">
+        <!-- <li v-if="!sidebarEnlarged">
           <router-link id="nav-left-items" :to="{ name: 'stock_summary.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
               <i class="icon-stock" style="font-size:23px"></i><span>Stock Summary</span>
           </router-link>
-        </li>
+        </li> -->
         <!-- END -->
-        
+
         <li>
           <router-link id="nev-left-report" :to="{ name: 'report.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
             <i class="icon-stat" style="font-size:23px"></i><span> Report </span>
