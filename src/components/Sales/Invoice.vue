@@ -164,7 +164,7 @@
               </tr>
               </thead>
               <tbody v-if="value.invoice_details">
-              <tr v-for="(item, index) in value.invoice_details" :key="index">
+              <tr v-for="(item, index) in value.invoice_details" :key="index+item.uom">
                 <!-- <td>{{ index +1 }}</td> -->
                 <td style="font-weight: 400;">{{ item.item_name }}</td>
                 <td>
@@ -206,7 +206,7 @@
                 <td class="text-left" colspan="1" style="font-weight: 400; border-bottom: 1px solid rgb(221, 221, 221);">Total</td>
                 <td colspan="1" style="font-weight: 400; border-bottom: 1px solid rgb(221, 221, 221);"><span>Rp</span><span>{{ value.total | decimalformat }}</span></td>
               </tr>
-              <tr class="sub-total" v-for="(item, index) in paymentList" :key="index">
+              <tr class="sub-total" v-for="(item, index) in paymentList" :key="index+item.amount+item.date">
                 <td colspan="3"></td>
                 <td class="text-left" colspan="1">Paid at {{ item.date | date('short') }}</td>
                 <td colspan="1"><span>Rp</span><span>{{ item.amount | decimalformat }}</span></td>
