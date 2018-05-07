@@ -259,9 +259,14 @@
 
       async getUsername() {
         // const res = await axios.get(`profile`)
-        const auth = Cookie.get('auth')
-        const authObj = JSON.parse(auth)
-        this.username = authObj.email
+        if(Cookie.get('auth')){
+          const auth = Cookie.get('auth')
+          const authObj = JSON.parse(auth)
+          this.username = authObj.email
+        }else{
+          const res = await axios.get(`profile`)
+          this.username = res.data.data.email
+        }
         // ga('set', 'userId', this.username)
       },
 
