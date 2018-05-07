@@ -193,10 +193,10 @@
                           <!--</a>-->
                         </div>
                         <div class="pull-right">
-                          <a class="btn btn-default btn-sm" href="javascript:void(0);"
+                          <!-- <a class="btn btn-default btn-sm" href="javascript:void(0);"
                              title="Edit this payment" @click="updatePayment(payment)">
                             <i class="fa fa-pencil"></i>
-                          </a>
+                          </a> -->
                           <a class="btn btn-default btn-sm" href="javascript:void(0);"
                              title="Delete this payment" @click="deletePayment(payment)">
                             <i class="fa fa-trash"></i>
