@@ -307,7 +307,7 @@
       },
       createableShipment(){
         if(this.salesOrder){
-          return (this.salesOrder.invoice_status !== 'VOID' && this.salesOrder.shipment_status !== 'SHIPPED')?true:false
+          return (this.salesOrder.invoice_status !== 'VOID' && this.salesOrder.invoice_status !== 'DRAFT' && this.salesOrder.shipment_status !== 'SHIPPED')?true:false
         }
       }
     },
