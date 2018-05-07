@@ -303,7 +303,7 @@
                                   </li>
                                   <li v-if="sale.sales_order_status !== 'DRAFT'">
                                     <a href="javascript:void(0);" @click="printShipmentLabel(sale.sales_order_id)">
-                                      Print Label Kirim
+                                      Print Shipment Label
                                     </a>
                                   </li>
                                   <!--<li><a href="javascript:void(0);">Email Invoice</a></li>-->
