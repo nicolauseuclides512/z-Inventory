@@ -331,6 +331,38 @@
     },
 
     methods: {
+      async deletePayment(payment) {
+        Alert.confirm({
+          title: 'Do you really want to delete this payment?',
+          text: 'Delete this payment and your data payment will be lost.',
+        }, async () => {
+
+          try {
+            const sales_order_id = this.$route.params.id
+            const invoice_id = payment.invoice_id
+            const payment_id = payment.payment_id
+
+            const url = `sales_orders/${sales_order_id}/invoices/${invoice_id}/payments?ids=${payment_id}`
+
+            const res = await Axios.delete(url)
+            if (!responseOk(res.data.code)) {
+              return swal_error(res)
+            }
+
+            // Refresh payment list data
+            this.fetchPaymentData()
+
+            swal_success(res)
+
+          } catch (err) {
+            console.error(err)
+            if (err.hasOwnProperty('response')) {
+              swal_error(err.response)
+            }
+          }
+        })
+
+      },
 
       markAsSentSalesOrder(salesOrder) {
         Alert.confirm({
