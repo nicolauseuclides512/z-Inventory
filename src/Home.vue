@@ -16,6 +16,7 @@
 <script>
   import store from './store'
   import VueMultianalytics from 'vue-multianalytics'
+  import Cookie from 'js-cookie'
 
   export default {
     name: 'Home',
@@ -33,7 +34,10 @@
     },
 
     mounted(){
-      // ga('set', 'userId', Cookie.get('access_token'))
+
+      const auth = Cookie.get('auth')
+      const authObj = JSON.parse(auth)
+      ga('set', 'userId', authObj.email)
       // console.log(Cookie.get('access_token'))
       // window.mixpanel.track("Visited Localhost")
       // this.$ma.trackEvent('this from multi analytics!')
