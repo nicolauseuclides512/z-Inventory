@@ -253,11 +253,29 @@
           if (this.form.remember) {
             options.expires = 14
           }
-
           Cookie.set('token_type', res.data.data.token_type, options)
           Cookie.set('access_token', res.data.data.access_token, options)
           Cookie.set('refresh_token', res.data.data.refresh_token, options)
           Cookie.set('organization_id', res.data.data.organization_id, options)
+
+          // console.log(res.data.data)
+          const authData = res.data.data
+          Cookie.set('auth', JSON.stringify(authData))
+
+          // {
+          //   "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQwNTE5MjQzMTQ5YzBmMWMyZWEyNTQ1ZmEwOWNkM2RmZDQ2ZGExOWE5MDE0OGY0NDA1ODcwODc4Yjg0YzI0MzM0N2UyN2I4YjdlNTk5NTg2In0.eyJhdWQiOiIyIiwianRpIjoiNDA1MTkyNDMxNDljMGYxYzJlYTI1NDVmYTA5Y2QzZGZkNDZkYTE5YTkwMTQ4ZjQ0MDU4NzA4NzhiODRjMjQzMzQ3ZTI3YjhiN2U1OTk1ODYiLCJpYXQiOjE1MjU2ODgyNDAsIm5iZiI6MTUyNTY4ODI0MCwiZXhwIjoxNTI2OTg0MjQwLCJzdWIiOiI5Iiwic2NvcGVzIjpbXX0.iKIEExGAUkP8o-IbSoK0xI5Ld1VXmQwlX-fA19pTuT2NhS97y64YXjU_hjIqc0U9fkCSJoXA4kt3GWPu7_N5XNNMea9Rnna6E5o6POyTXE7OMz28SRv51IT5TzEhuKA1UEFgyE4HaqIzCi7qqQE7oXdz_wqQV3UvITBNASb3LufsCH30Cnehv94QDgvECENGsbIjxm2saI586nZM8toja5PasShKHS2OtguAKurOi4HbQ9-fBijwv8FHRMKGw72uYH-EoGd85-zncEeQSEsWd0j0jS_XbyryZDWvlyMjgqiaDQjEiHMoydR6zPiuzk1RAoQRCd-7DLHB7NNPBc-NeQpAaNphWdK6phFkqNEJxF6QRp6JpKjegJ2labliiT02CdvUMwO-8vs-EYbYUIGod3XIqjHYq9oc4CdNyoZndV_nVNhJQjsbG8fMphj5e050fsbIC0-WvrysDCS752xwyHhTGA-Zo_GRfGE0eFhwk_85c_rsoNwOMq-J9N8ljdT0UAZkZN0epNo5aNmc-CBoWnKCgm4MuMRs1sUJz13aPb_6rFLqWJLOSQjqcXLATAKPrhEeMKvUzSo4bXUArRUfPyYw16U9c2fDwO7mUmb_htK2o_KvEeldtQsuggeESawE6ws7NEYEd7gzQhRDnBM_eCp7jVhXc-UvIC2LwygTRPg",
+          //   "email": "rebotak@gmail.com",
+          //   "expires_in": 1296000,
+          //   "organization_id": 9,
+          //   "refresh_token": "def502001220b990e49a172714ebc702ab2b687d37cb224cbf283acd2a0138804309a659e97de1e93e2532eefa49152fb5bdc30c97c1fd33d06959dd348f158f897c56f38e1e5ef4f3c63519f335b5d642d7a82d28231feba1732ded23d98a72c1e11af93594692f41951c09ec5a8e1d14c351679e5fc6bfa4eccdda4f5776231914e42e7cfca09743dad9cad5df957254bca24964fdaf58b6ef755fa1d15ed6bcfa20c651b71421ce1765dac3b444efa7be45dd5070fad03215796ce81de9c27c565187f6fd6eac4c2787025b792d86a7932870722e3aae737179eb77b12accd3bc2dbb55111604a047feef169e5ca569b3555f7beef1fa30f0cf838673e6544eeb3664c2d90e47e7c3ad014662911b1831f073cedfe9fe669ce2a7511c1f9b557923cab365649ade1cb14ab301a7954e8ed662bdff924cc8c74f2531a7bcd0e3d34c1ab43e3b39f620eb71a435ca61fe0c477b007e2549e2e3f1b64f2583",
+          //   "token_type": "Bearer",
+          //   "user_id": 9,
+          //   "username": "rebotak"
+          // }
+
+
+          // const auth = Cookie.get('auth')
+          // const authObj = JSON.parse(auth)
 
           axios.defaults.headers.common['Authorization'] = Cookie.get('token_type') + ' ' + Cookie.get('access_token')
           axios.defaults.headers.common['X-Header-Organization-Id'] = Cookie.get('organization_id')
