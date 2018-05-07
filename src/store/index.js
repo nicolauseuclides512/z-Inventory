@@ -14,6 +14,7 @@ import sales from './modules/sales'
 import salesDetail from './modules/sales/detail'
 import salesForm from './modules/sales/form'
 import salesOrders from './modules/sales_orders/index'
+import * as paymentList from './modules/sales_orders/paymentslist'
 
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
@@ -29,5 +30,6 @@ export default new Vuex.Store({
     salesDetail,
     salesForm,
     salesOrders,
+    paymentList
   }
 })
