@@ -171,11 +171,12 @@ const actions = {
           // const salesOrderId = payload.salesOrderId
           // console.log('invoicesId',invoicesId)
           // console.log('salesOrderId',salesOrderId)
-          // const firstInvoice = invoices[0].invoice_id
+          // const firstInvoice = invoices[0]
           const createPaymentResponse = await Axios.get(`sales_orders/${salesOrderId}/invoices/${firstInvoice}/payments/create`)
           commit(CONSTANT.CREATE_PAYMENT, createPaymentResponse.data.data)
           commit(CONSTANT.PAYMENT_METHOD_LIST, createPaymentResponse.data.data.payment_method)
           throw state.createPayment
+          // return state.createPayment
           // await Axios.get(`sales_orders/${salesOrderId}/invoices/${invoiceId}/payments/create`)
           // .then(
           //   res => {
@@ -208,6 +209,9 @@ const getters = {
   salesOrderData(state) {
     return state.salesOrder
   },
+  // paymentList(state){
+  //   return state.payments
+  // }
 }
 
 

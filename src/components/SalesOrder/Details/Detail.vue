@@ -320,6 +320,7 @@
       // },
       $route(to,form){
         this.fetchShipmentData()
+        this.fetchPaymentData()
       }
     },
 
@@ -423,6 +424,11 @@
           }
         }
         this.loadingShipmentData = false
+      },
+
+      async fetchPaymentData() {
+        const sales_order_id = parseInt(this.$route.params.id)
+        this.$store.dispatch('salesOrders/getPayments', sales_order_id)
       },
 
       async deleteShipment() {

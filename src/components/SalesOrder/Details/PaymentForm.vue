@@ -156,9 +156,8 @@
     },
 
     async mounted () {
-
-      $('#payment-modal').modal('show')
       this.fetch()
+      $('#payment-modal').modal('show')
       $('.flatpickr').flatpickr({
         defaultDate: new Date(),
         dateFormat: 'Y-m-d',
@@ -181,6 +180,12 @@
             // console.log(createPayment)
             this.form.amount = createPayment.due_payment
             this.paymentMethodList = createPayment.payment_method
+          })
+          .catch(err => {
+            console.error(err)
+            if(err.response){
+              console.log(err.response)
+            }
           })
       },
 
