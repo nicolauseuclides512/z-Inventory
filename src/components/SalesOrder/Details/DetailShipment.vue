@@ -1,5 +1,8 @@
 <template>
   <div class="detail-sales-order-shipment">
+    <!-- <pre>
+      {{shipmentList}}
+    </pre> -->
     <div class="not-found container" v-if="!loadingShipmentData && !shipmentList">
       <div v-if="!shipmentList && !loadingShipmentData" class="text-center" style="padding-top: 60px">
         <!-- <h3 class="text-danger" v-if="packageNotFound">Package not found!</h3> -->
@@ -23,39 +26,31 @@
           </button>
 
           <div class="btn-group">
-            <button
+            <!-- <button
               type="button" class="btn btn-default"
               data-toggle="tooltip"
               data-placement="top"
               title="View package list and shipment label"
             >
-              <i class="fa fa-file-pdf-o"></i>
+              <i class="fa fa-file-pdf-o"></i> -->
             </button>
             <button
               type="button"
               class="btn btn-default dropdown-toggle"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+              @click="viewShipmentLabels"
             >
-              <span class="caret" data-toggle="tooltip" data-placement="top" title="More options"></span>
-              <span class="sr-only">Toggle Dropdown</span>
+              <i class="fa fa-file-pdf-o"></i>
             </button>
-            <ul class="dropdown-menu">
-              <!--<li>-->
-                <!--<a href="javascript:void(0)" data-toggle="tooltip" data-placement="top">-->
-                  <!--View package list-->
-                <!--</a>-->
-              <!--</li>-->
+            <!-- <ul class="dropdown-menu">
               <li>
                 <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" v-on:click="viewShipmentLabels">
                   View shipment label
                 </a>
               </li>
-            </ul>
+            </ul> -->
           </div>
 
-          <div class="btn-group">
+          <!-- <div class="btn-group">
             <button
               type="button"
               class="btn btn-default"
@@ -86,7 +81,7 @@
                 </a>
               </li>
             </ul>
-          </div>
+          </div> -->
 
           <button
             type="button"
@@ -272,10 +267,11 @@
         this.$emit('deleteShipment')
       },
       async viewShipmentLabels() {
-        let that = this;
         const pdfWindow = window.open()
+        const salesOrderId = parseInt(this.$route.params.id)
 
-        const url = window.BASE_URL + `/sales_orders/shipments/download-labels?ids=` + that.shipmentList[0].shipment_id
+// /shipments/bulk-label?ids=62
+        const url = window.BASE_URL + `/sales_orders/shipments/bulk-label?ids=` + salesOrderId
 
         const response = await axios.get(url, {
           responseType: 'arraybuffer',
