@@ -164,7 +164,7 @@
               </tr>
               </thead>
               <tbody v-if="value.invoice_details">
-              <tr v-for="(item, index) in value.invoice_details">
+              <tr v-for="(item, index) in value.invoice_details" :key="index">
                 <!-- <td>{{ index +1 }}</td> -->
                 <td style="font-weight: 400;">{{ item.item_name }}</td>
                 <td>

@@ -143,6 +143,7 @@
             'notes': this.notes,
           }).then(res => {
             swal_success(res)
+            this.$store.dispatch('salesOrders/getList', {})
             this.$emit('close')
           }).catch(err => {
             swal_error(err.response)

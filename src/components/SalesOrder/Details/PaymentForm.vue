@@ -223,6 +223,8 @@
                 $('#payment-modal-add').modal('hide')
 
                 this.ui.saving = false
+
+                this.$store.dispatch('salesOrders/getList', {})
               }
           }).catch(
             err => {

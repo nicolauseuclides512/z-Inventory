@@ -338,6 +338,7 @@
           if (responseOk(res.data.code)) {
             swal_success(res)
             this.refreshCurrentSalesOrderData()
+            this.$store.dispatch('salesOrders/getList', {})
           } else {
             swal_error(res)
           }
@@ -385,6 +386,7 @@
             if (responseOk(res.data.code)) {
               swal_success(res)
               this.loadDetail()
+              this.$store.dispatch('salesOrders/getList', {})
               // this.fetchShipmentData()
             } else {
               swal_error('Error! ', res)
