@@ -2821,3 +2821,7 @@ h5.title {
     width: 100%;
     overflow: hidden;
 }
+
+.clickable{
+    cursor: pointer;
+}

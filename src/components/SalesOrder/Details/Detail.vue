@@ -65,6 +65,7 @@
               <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                 <li>
                   <a
+                    class="clickable"
                     @click="showModalPayment()"
                     data-toggle="dropdown"
                     aria-expanded="false"
@@ -73,6 +74,7 @@
                     Payment
                   </a>
                   <a
+                    class="clickable"
                     @click="showModalShipment()"
                     data-toggle="dropdown"
                     aria-expanded="false"
@@ -231,7 +233,7 @@
     <!-- Payment & Shipment Record Form Modal -->
 
     <PaymentForm
-      v-if="currentTab == 'payment'"
+      v-if="modalPayment"
       :invoiceList="invoiceList"
     />
     <ShipmentForm
@@ -273,6 +275,7 @@
       return {
         packageNotFound: false,
         modalShipment: false,
+        modalPayment: false,
         loadingShipmentData: false,
         shipmentList: [],
         invoiceComponent: false,
@@ -523,7 +526,7 @@
 
       showModalPayment () {
         // alert('halo')
-        this.currentTab = 'payment'
+        this.modalPayment = true
         $('#payment-modal').modal('show')
       },
 

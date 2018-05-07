@@ -39,7 +39,7 @@
                       @change="changePaymentMode(form.payment_mode_id)"
                       class="form-control"
                     >
-                      <option v-for="p in paymentMethodList" :value="p.mode_id">
+                      <option v-for="(p,idx) in paymentMethodList" :key="idx" :value="p.mode_id">
                         {{ p.mode_name }}
                       </option>
                     </select>
@@ -53,7 +53,7 @@
                 <div class="form-group row" v-if="form.payment_mode_id === 1">
                   <label class="col-md-3 control-label">Deposit To</label>
                   <div class="col-md-8">
-                    <div v-for="p in paymentMethodDetails">
+                    <div v-for="(p,index) in paymentMethodDetails" :key="index">
                       <div class="cnt_min">
                         <input type="radio" v-model="form.payment_account_id" :value="p.account_id"/>
                         <div class="selection_bank">
@@ -130,6 +130,7 @@
 
     data () {
       return {
+        paymentMethodList:[],
         ui: {
           saving: false,
         },
@@ -150,13 +151,14 @@
     computed: {
       ...mapState('salesOrders', {
         createPayment: 'createPayment',
-        paymentMethodList: 'paymentMethodList',
+        // paymentMethodList: 'paymentMethodList',
       })
     },
 
     async mounted () {
-      this.fetch()
 
+      $('#payment-modal').modal('show')
+      this.fetch()
       $('.flatpickr').flatpickr({
         defaultDate: new Date(),
         dateFormat: 'Y-m-d',
@@ -167,11 +169,18 @@
 
     methods: {
       fetch() {
+        // console.log(_.first(this.invoiceList).invoice_id.toString())
         const salesOrderId = parseInt(this.$route.params.id)
-        const invoiceId = this.invoiceList[this.invoiceList.length - 1].invoice_id
-        this.$store.dispatch('salesOrders/createPayment', salesOrderId, invoiceId)
-          .then(async (createPayment) => {
+        const invoiceId = parseInt(this.invoiceList[this.invoiceList.length - 1].invoice_id)
+        // console.log('invoiceId', invoiceId)
+        // console.log('salesOrderId', salesOrderId)
+        // this.$store.dispatch('salesOrders/createPayment', {salesOrderId, invoiceId})
+        Axios.get(`sales_orders/${salesOrderId}/invoices/${invoiceId}/payments/create`)
+          .then( (res) => {
+            const createPayment = res.data.data
+            // console.log(createPayment)
             this.form.amount = createPayment.due_payment
+            this.paymentMethodList = createPayment.payment_method
           })
       },
 

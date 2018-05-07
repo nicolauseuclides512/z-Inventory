@@ -163,19 +163,41 @@ const actions = {
     }
   },
 
-  async createPayment ({state, commit, dispatch}, salesOrderId, invoicesId) {
+  async createPayment ({state, commit, dispatch}, {salesOrderId, invoiceId}) {
     // return dispatch('getInvoices', salesOrderId)
       // .then(async (invoices) => {
         try {
-          const firstInvoice = invoices[0]
-          const createPaymentResponse = await Axios.get(`sales_orders/${salesOrderId}/invoices/${invoicesId}/payments/create`)
+          // let invoicesId = payload.invoicesId
+          // const salesOrderId = payload.salesOrderId
+          // console.log('invoicesId',invoicesId)
+          // console.log('salesOrderId',salesOrderId)
+          // const firstInvoice = invoices[0].invoice_id
+          const createPaymentResponse = await Axios.get(`sales_orders/${salesOrderId}/invoices/${firstInvoice}/payments/create`)
           commit(CONSTANT.CREATE_PAYMENT, createPaymentResponse.data.data)
           commit(CONSTANT.PAYMENT_METHOD_LIST, createPaymentResponse.data.data.payment_method)
-          return state.createPayment
+          throw state.createPayment
+          // await Axios.get(`sales_orders/${salesOrderId}/invoices/${invoiceId}/payments/create`)
+          // .then(
+          //   res => {
+          //     const createPaymentResponse = res.data.data
+          //     commit(CONSTANT.CREATE_PAYMENT, createPaymentResponse.data.data)
+          //     commit(CONSTANT.PAYMENT_METHOD_LIST, createPaymentResponse.data.data.payment_method)
+          //     console.log(createPaymentResponse)
+          //   }
+          // ).catch(err => {
+          //     if (err.response){
+          //       // console.log(err.response)
+          //     }else return //console.error(err)
+          //   }
+          // )
         }
         catch (err){
-          console.log(err.response)
+          if(err.response){
+            // console.log(err.response)
+          }else return //console.error(err)
         }
+
+        return state.createPayment
       // }
     // )
   }
