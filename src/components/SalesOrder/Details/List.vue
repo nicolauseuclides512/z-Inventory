@@ -37,7 +37,7 @@
       </div>
       <div class="pull-right">
         <router-link :to="{ name: 'sales.create' }" class="btn btn-info waves-effect waves-light mb-15 btn-new">
-          <i class="ion-plus"></i> New 
+          <i class="ion-plus"></i> New
         </router-link>
         <button class="btn btn-default waves-effect waves-light mb-15" data-toggle="dropdown">
           <i class="fa fa-bars"></i>
@@ -199,14 +199,12 @@
        */
       async viewBulkInvoice () {
 
-        let ids = _.map(this.checkedList, function (so) {
-          return so.sales_order_id
-        })
-
+        let ids = this.checkedList
+        // alert(ids)
         const pdfWindow = window.open()
         const url = window.BASE_URL + `/sales_orders/invoices/bulk-pdf?ids=${ids.join()}`
 
-        const response = await axios.get(url, {
+        const response = await Axios.get(url, {
           responseType: 'arraybuffer',
           headers: {
             'Content-Type': 'application/pdf',
@@ -222,17 +220,14 @@
        * View Shipment Labels
        */
       async viewShipmentLabels () {
-        let me = this;
 
-        let soId = _.map(me.checkedList, function (o) {
-          return o.sales_order_id
-        })
+        let soId = this.checkedList
 
         const pdfWindow = window.open()
 
         const url = window.BASE_URL + `/sales_orders/shipments/bulk-label?ids=` + soId.join()
 
-        const response = await axios.get(url, {
+        const response = await Axios.get(url, {
           responseType: 'arraybuffer',
           headers: {
             'Content-Type': 'application/pdf',
