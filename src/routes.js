@@ -184,7 +184,7 @@ export default [
       },
 
       // {
-      //   path: '/sales/:id/details',
+      //   path: '/sales/:id/detail',
       //   name: 'sales.details',
       //   component: () => import('./components/Sales/Detail'),
       // },
