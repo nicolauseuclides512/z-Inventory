@@ -89,9 +89,11 @@
           <h1 v-if="salesOrder.invoice_status == 'DRAFT'" class="page-title text-right" style="font-size: 32pt; font-weight: normal; margin-bottom: 0;">ORDER</h1>
           <h1 v-else class="page-title text-right" style="font-size: 32pt; font-weight: normal; margin-bottom: 0;">INVOICE</h1>
           <p class="inv-code">{{ value.invoice_number }}</p>
-          <p class="inv-balance">Balance Due</p>
-          <h4 v-if="value.invoice_status === 'PAID'">0</h4>
-          <h4 v-else >{{ value.balance_due | money }}</h4>
+          <span v-if="value.balance_due > 0" class="balance-due">
+            <p class="inv-balance">Balance Due</p>
+            <h4 v-if="value.invoice_status === 'PAID'">0</h4>
+            <h4 v-else >{{ value.balance_due | money }}</h4>
+          </span>
         </div>
       </div>
       <div class="row sahito-invoice-content " v-if="value.contact" style="padding:0 25px 0 45px; margin-left: 0; margin-right:0;">
