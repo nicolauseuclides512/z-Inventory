@@ -72,33 +72,32 @@
             </div>
 
             <div class="pull-left" style="margin-right: 10px;">
-
-            <button
-              class="btn btn-default dropdown-toggle"
-              type="button"
-              data-toggle="dropdown"
-              v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE') || (salesOrder.invoice_status === 'DRAFT')"
-              >
-                More
-                <span class="caret"></span>
+              <button
+                  class="btn btn-default dropdown-toggle"
+                  type="button"
+                  v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE' || salesOrder.invoice_status === 'DRAFT')"
+                  data-toggle="dropdown"
+                  >
+                  More
+                  <span class="caret"></span>
               </button>
-              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2" style="top: 32px;right: 20px;">
-                <li>
+              <ul class="dropdown-menu dropdown-menu-right more-dropdown" aria-labelledby="dropdownMenu1">
+                <li v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE')">
                   <a
                     class="clickable"
+                    @click="cancelSalesOrder(salesOrder)"
                     data-toggle="dropdown"
                     aria-expanded="false"
-                    v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE')"
-                    @click="cancelSalesOrder(salesOrder)"
                     >
                     Mark as Void
                   </a>
+                </li>
+                <li v-if="(salesOrder.invoice_status === 'DRAFT')">
                   <a
                     class="clickable"
+                    @click="markAsSentSalesOrder(salesOrder)"
                     data-toggle="dropdown"
                     aria-expanded="false"
-                    v-if="(salesOrder.invoice_status === 'DRAFT')"
-                    @click="markAsSentSalesOrder(salesOrder)"
                     >
                     Confirm
                   </a>
@@ -628,5 +627,8 @@
     border-left: 1px solid #03a2cd;
     border-right: 1px solid #03a2cd;
     border-bottom: 1px solid #03a2cd;
+  }
+  .more-dropdown{
+    top:35px
   }
 </style>
