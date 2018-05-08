@@ -186,7 +186,7 @@
                           class="table table-hover default-table sahito-list-item-group-list--table sahito-sales-order-table">
                           <thead style="box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;">
                           <tr>
-                            <th class="col-checkbox">
+                            <th class="col-checkbox head-check">
                               <div class="checkbox checkbox-single checkbox-success">
                                 <input type="checkbox" v-model="checkedAll" id="all" @click="checkAll">
                                 <label></label>
@@ -811,5 +811,8 @@ td.shipment-status {
 }
 .content-wrapper{
   padding:0px
+}
+.head-check{
+  padding-left:5px;
 }
 </style>
