@@ -196,18 +196,18 @@
                               <div class="placeholder-collapse"></div>
                             </th>
                             <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em; color:#000">Date</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Order #</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Order#</th>
                             <th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Channel</th>
-                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer Name</th>
-                            <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Amount</th>
-                            <th class="payment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Invoice Status</th>
-                            <th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Shipment Date</th>
+                            <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer</th>
+                            <th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Total</th>
+                            <th class="payment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Payment</th>
+                            <th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Ship Date</th>
                             <th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Status</th>
                             <!-- <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Due Date</th> -->
                             <!-- <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Balance Due</th> -->
                             <!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
 
-                            <th class="text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Action</th>
+                            <th class="text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000;text-align: right !important;">Action</th>
                           </tr>
                           </thead>
                           <tbody>
@@ -240,7 +240,7 @@
                               </td>
                               <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
                             <td class="shipment-status" style="font-size: 15px !important;">
-                              <span class="label" 
+                              <span class="label"
                                 :class="{
                                   'label-info': sale.invoice_status == 'UNPAID',
                                   'label-void': sale.invoice_status == 'VOID',
