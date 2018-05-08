@@ -246,7 +246,7 @@
               <div class="panel-body">
                 <div class="row">
                   <div class="col-xs-12">
-                    <div class="container">
+                    <div class="container term-notes-style">
                       <div class="row m-b-20">
                         <div class="col-md-12 pl-pr-0">
                           <div class="form-group col-md-12 form-general-newOrder m-b-20">
@@ -262,7 +262,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="container">
+                    <div class="container term-notes-style">
                       <div class="row m-b-20">
                         <div class="col-md-12 pl-pr-0">
                           <div class="form-group col-md-12 form-general-newOrder m-b-20">
@@ -278,7 +278,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="container">
+                    <div class="container term-notes-style">
                       <div class="row m-b-20">
                         <div class="col-md-12 pl-pr-0">
                           <div class="form-group col-md-12 form-general-newOrder m-b-20">
@@ -1456,5 +1456,8 @@ table.empty-table {
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
+}
+.term-notes-style{
+  padding-left: 0px
 }
 </style>
