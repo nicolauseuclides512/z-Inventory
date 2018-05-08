@@ -269,8 +269,7 @@
       async viewShipmentLabels() {
         const pdfWindow = window.open()
         const salesOrderId = parseInt(this.$route.params.id)
-
-// /shipments/bulk-label?ids=62
+        // /shipments/bulk-label?ids=62
         const url = window.BASE_URL + `/sales_orders/shipments/bulk-label?ids=` + salesOrderId
 
         const response = await axios.get(url, {

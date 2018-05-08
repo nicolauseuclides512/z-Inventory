@@ -24,7 +24,7 @@
                         style="padding:6px 10px 0px 10px"
                         ><i class="icon-print" style="font-size:20px"></i></button>
                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
-                        title="Print Shipping Label" @click="'javascript:void(0)'"
+                        title="Print Shipping Label" @click="viewShipmentLabels"
                         style="padding:6px 10px 0px 10px"
                         ><i class="icon-label" style="font-size:20px"></i></button>
                 <button
@@ -331,6 +331,23 @@
     },
 
     methods: {
+      async viewShipmentLabels() {
+        const pdfWindow = window.open()
+        const salesOrderId = parseInt(this.$route.params.id)
+        // /shipments/bulk-label?ids=62
+        const url = window.BASE_URL + `/sales_orders/shipments/bulk-label?ids=` + salesOrderId
+
+        const response = await Axios.get(url, {
+          responseType: 'arraybuffer',
+          headers: {
+            'Content-Type': 'application/pdf',
+          },
+        })
+
+        const file = new Blob([response.data], {type: 'application/pdf'})
+        const fileURL = URL.createObjectURL(file)
+        pdfWindow.location = fileURL
+      },
       async deletePayment(payment) {
         Alert.confirm({
           title: 'Do you really want to delete this payment?',
