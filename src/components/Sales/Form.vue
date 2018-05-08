@@ -161,13 +161,13 @@
                           </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
-                        <!-- <tr class="total">
+                        <tr class="total">
                           <td class="text-right"
                               style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
                           <td class="text-left" style="padding-left:8px; color:#000">PPN 10%</td>
                           <td class="text-right" style="padding-right:8px; color:#000">{{ tax_value }}</td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
-                        </tr> -->
+                        </tr>
                         <tr class="total">
                           <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
@@ -185,6 +185,28 @@
                               <span class="input-group-addon" style="color:  #666;">Rp</span>
                               <vue-numeric
                                 v-model="form.adjustment_value"
+                                :minus="true"
+                                separator="."
+                                style="border: 1px solid #eee"
+                                maxlength="20"
+                                class="form-control form-white text-right"
+                                placeholder=""
+                              ></vue-numeric>
+                            </div>
+                          </td>
+                          <td style="width:28px; border:0px solid; color:#fff">0</td>
+                        </tr>
+                        <tr class="total">
+                          <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
+                          </td>
+                          <td class="text-right" style="padding-left: 0px; padding-bottom:24px">
+                            <span style="white-space: nowrap;"><small>Shipping Charge</small></span>
+                          </td>
+                          <td style="padding-right: 0px; padding-bottom:24px">
+                            <div class="input-group pull-right">
+                              <span class="input-group-addon" style="color:  #666;">Rp</span>
+                              <vue-numeric
+                                v-model="form.shipping_charge"
                                 :minus="true"
                                 separator="."
                                 style="border: 1px solid #eee"
@@ -626,11 +648,13 @@
         }
 
         let adjustmentValue = 0;
-        if (_.isNumber(_.toNumber(this.form.adjustment_value))) {
+        let shippingCharge = 0;
+        if (_.toNumber(this.form.adjustment_value) || _.toNumber(this.form.shipping_charge)) {
           adjustmentValue = _.toNumber(this.form.adjustment_value);
+          shippingCharge = _.toNumber(this.form.shipping_charge);
         }
 
-        return this.subtotal + taxValue + adjustmentValue;
+        return this.subtotal + taxValue + adjustmentValue + shippingCharge;
       },
 
       invoice_emails() {
@@ -688,6 +712,7 @@
           shipping_rate: 0,
           adjustment_name: "",
           adjustment_value: 0,
+          shipping_charge: 0,
           internal_notes: "",
           customer_notes: "",
           term_and_condition: "",
@@ -841,6 +866,7 @@
         this.form.shipping_rate = sales_order.shipping_rate;
         this.form.adjustment_name = sales_order.adjustment_name;
         this.form.adjustment_value = Number(sales_order.adjustment_value);
+        this.form.shipping_charge = Number(sales_order.shipping_charge);
         this.form.internal_notes = sales_order.internal_notes;
         this.form.customer_notes = sales_order.customer_notes;
         this.form.term_and_condition = sales_order.term_and_condition;
@@ -1259,6 +1285,7 @@
           shipping_rate: 0,
           adjustment_name: "",
           adjustment_value: 0,
+          shipping_charge: 0,
           internal_notes: "",
           customer_notes: "",
           term_and_condition: "",
