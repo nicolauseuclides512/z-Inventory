@@ -211,7 +211,7 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <template v-for="(sale, index) in salesList">
+                          <template v-for="sale in salesList">
                             <tr>
                               <td class="col-checkbox">
                                 <div class="checkbox checkbox-single checkbox-success" style="top:4px">
@@ -239,8 +239,8 @@
                                   {{ sale.contact.display_name }}
                               </td>
                               <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
-                            <td class="shipment-status" style="font-size: 15px !important;">
-                              <span class="label" :class="{'label-info': sale.invoice_status == 'UNPAID','label-void': sale.invoice_status == 'VOID','label-danger': sale.invoice_status == 'OVERDUE','label-success': sale.invoice_status == 'PAID' }">
+                            <td class="shipment-status invoice" style="font-size: 15px !important;">
+                              <span class="label" :class="{'label-info': sale.invoice_status == 'UNPAID','label-void': sale.invoice_status == 'VOID','label-danger': sale.invoice_status == 'OVERDUE','label-success': sale.invoice_status == 'PAID', 'label-default': sale.invoice_status == 'DRAFT' }">
                                 {{sale.invoice_status.split("_").join(" ").toLowerCase()}}
                               </span></td>
                             <td class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">{{((sale.shipment_date)?(sale.shipment_date| date('short')):'-')}}</td>
@@ -286,9 +286,9 @@
                                       Edit
                                     </router-link>
                                   </li>
-                                  <li v-if="(sale.invoice_status === 'UNPAID' || 'OVERDUE') && sale.sales_order_status !== 'DRAFT' && sale.invoice_status !== 'VOID' && sale.invoice_status !== 'PAID'">
+                                  <li v-if="(sale.invoice_status === 'UNPAID' || 'OVERDUE'|| 'DRAFT') && sale.sales_order_status !== 'DRAFT' && sale.invoice_status !== 'VOID' && sale.invoice_status !== 'PAID'">
                                     <a href="javascript:void(0);" @click="gotoDetailPayment(sale)">
-                                      Record Payment
+                                      Create Payment
                                     </a>
                                   </li>
                                   <li>
