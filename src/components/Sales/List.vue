@@ -239,8 +239,15 @@
                                   {{ sale.contact.display_name }}
                               </td>
                               <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
-                            <td class="shipment-status invoice" style="font-size: 15px !important;">
-                              <span class="label" :class="{'label-info': sale.invoice_status == 'UNPAID','label-void': sale.invoice_status == 'VOID','label-danger': sale.invoice_status == 'OVERDUE','label-success': sale.invoice_status == 'PAID', 'label-default': sale.invoice_status == 'DRAFT' }">
+                            <td class="shipment-status" style="font-size: 15px !important;">
+                              <span class="label" 
+                                :class="{
+                                  'label-info': sale.invoice_status == 'UNPAID',
+                                  'label-void': sale.invoice_status == 'VOID',
+                                  'label-danger': sale.invoice_status == 'OVERDUE',
+                                  'label-success': sale.invoice_status == 'PAID',
+                                  'label-success-part': sale.invoice_status == 'PARTIALLY_PAID',
+                                  'label-default': sale.invoice_status == 'DRAFT' }">
                                 {{sale.invoice_status.split("_").join(" ").toLowerCase()}}
                               </span></td>
                             <td class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">{{((sale.shipment_date)?(sale.shipment_date| date('short')):'-')}}</td>

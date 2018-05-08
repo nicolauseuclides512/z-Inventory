@@ -7310,6 +7310,9 @@ a.label:hover {
 .label-success {
     background-color: #5cb85c
 }
+.label-success-part {
+    background-color: #5cb85c
+}
 
 .label-success[href]:focus,
 .label-success[href]:hover {
