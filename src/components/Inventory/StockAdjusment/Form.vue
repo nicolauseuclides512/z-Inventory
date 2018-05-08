@@ -359,24 +359,29 @@
                   <div class="col-md-6 text-right">
                     <div class="col-md-6 col-md-offset-6">
                       <div class="btn-group dropup">
-                        <button @click="save($event)" data-type="save-as-draft" type="submit" class="btn btn-primary waves-effect waves-light">
-                          Save as Draft
+                        <button
+                          data-type="save-and-close"
+                          @click="save($event)"
+                          type="submit"
+                          class="btn btn-primary waves-effect waves-light"
+                          >
+                          Save and Close
                         </button>
-                        <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light"
+                        <!-- <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light"
                                 data-toggle="dropdown" aria-expanded="false"><i class="caret"></i></button>
                         <ul class="dropdown-menu" role="menu">
                           <li>
                             <button
                               @click="save($event)"
+                              data-type="save-as-draft"
                               type="submit"
                               class="btn"
                               style="background: none; border: none; box-shadow: none;"
-                              data-type="save-and-close"
                             >
                               Save and Close
                             </button>
                           </li>
-                        </ul>
+                        </ul> -->
                       </div>
                     </div>
                   </div>
