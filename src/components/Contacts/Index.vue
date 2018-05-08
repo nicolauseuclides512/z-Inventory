@@ -23,7 +23,7 @@
     <div class="content full-width sahito-user bgr-white">
       <div class="container">
         <!-- Full list -->
-        <div class="container full-width-header p-b-10">
+        <div class="container full-width-header p-b-10 header-wrapper">
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
 
@@ -466,3 +466,8 @@
     },
   }
 </script>
+<style lang="scss" scoped>
+  .header-wrapper{
+    padding-left:0px
+  }
+</style>
