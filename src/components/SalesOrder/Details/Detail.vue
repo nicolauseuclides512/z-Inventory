@@ -13,20 +13,20 @@
         <div class="col-md-12">
           <div class="clearfix m-b-30">
             <h4 class="pull-left page-title m-0 left-detail-title">
-              <span style="margin-right:15px" class="SO-id"># {{salesOrder.sales_order_number}}</span>
+              <span style="margin-right:15px" class="SO-id">{{salesOrder.sales_order_number}}</span>
+            </h4>
+            <div class="pull-right">
+            <div class="pull-left" style="margin-right: 10px;">
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
                         title="View as PDF" @click="viewInvoice"
-                        style="padding:6px 10px 0px 10px"
-                        ><i class="icon-pdf" style="font-size:20px"></i></button>
+                        ><i class="fa fa-file-pdf-o"></i></button>
                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
                         title="Print" @click="viewInvoice"
-                        style="padding:6px 10px 0px 10px"
-                        ><i class="icon-print" style="font-size:20px"></i></button>
+                        ><i class="fa fa-print" ></i></button>
                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top"
                         title="Print Shipping Label" @click="viewShipmentLabels"
-                        style="padding:6px 10px 0px 10px"
-                        ><i class="icon-label" style="font-size:20px"></i></button>
+                        ><i class="fa fa-tags" ></i></button>
                 <button
                   type="button"
                   class="btn btn-default"
@@ -35,15 +35,12 @@
                   title="Send as mail"
                   :disabled="sendingEmail"
                   @click="sendInvoiceAsMail"
-                  style="padding:5px 10px 1px 10px"
                   >
-                  <i class="icon-email" v-if="!sendingEmail" style="font-size:20px"></i>
+                  <i class="fa fa-envelope-o" v-if="!sendingEmail"></i>
                   <i class="fa fa-spin fa-spinner" v-else></i>
                 </button>
               </div>
-
-            </h4>
-            <div class="pull-right">
+            </div>
             <div class="pull-left" style="margin-right: 10px;">
               <router-link
                 :to="{ name: 'sales.edit', param: { id: salesOrderId } }"

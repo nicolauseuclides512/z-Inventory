@@ -107,7 +107,7 @@
           </div>
           <div class="clearfix">
             <div class="pull-left">
-              <div class="text-muted">#{{ salesOrder.sales_order_number }} | {{ salesOrder.invoice_date | date('short') }}</div>
+              <div class="text-muted">{{ salesOrder.sales_order_number }} | {{ salesOrder.invoice_date | date('short') }}</div>
             </div>
             <div class="pull-right payment-status">
               <span class="label label-danger" v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span>
