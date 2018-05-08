@@ -128,7 +128,7 @@
               <label class="col-md-4 control-label text-left"><strong>Status</strong></label>
               <div class="col-md-7 shipment-is_delivered">
                 <span class="label label-info">
-                  {{ shipment.is_delivered ? 'Delivered' : 'Not delivered yet'}}
+                  {{salesOrders.shipment_status | normalizeStatus}}
                 </span>
 
                 <!-- <small class="label label-success salesOrder-shipment_status" v-if="salesOrders.shipment_status === 'SHIPPED'">
@@ -230,6 +230,11 @@
     name: 'DetailShipment',
     components:{
       Spinner: () => import('@/components/Helpers/Spinner')
+    },
+    filters: {
+      normalizeStatus(text) {
+        return text.replace(/_/gi, ' ').toLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase())
+      },
     },
     props: {
       shipmentList: {
