@@ -89,7 +89,7 @@
             </div>
             <!-- Mark as Active/Inactive END -->
 
-            <div class="container full-width-header p-b-10" v-if="!checkedItems.length">
+            <div class="container full-width-header p-b-10 header-wrapper" v-if="!checkedItems.length">
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <a href="javascript:void(0);" id="filter-by-toggle" class="dropdown-toggle pull-left page-title"
@@ -629,6 +629,9 @@
   [data-toggle="collapse"] i {
     transform: rotate(90deg);
     margin-right: 10px;
+  }
+  .header-wrapper{
+    padding-left: 0px
   }
 
 
