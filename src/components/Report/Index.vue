@@ -112,6 +112,7 @@ export default {
       orgName:'',
       dateRangeChooser: "month",
       reportType:"item",
+      today_date:null,
       start_date: date_format(start_of_month(new Date()), "YYYY-MM-DD"),
       end_date: date_format(end_of_month(new Date()), "YYYY-MM-DD")
     };
@@ -147,8 +148,9 @@ export default {
     changerangedate() {
       switch (this.dateRangeChooser) {
         case "today":
-          this.start_date = date_format(new Date(), "YYYY-MM-DD");
-          this.end_date = date_format(addDays(this.start_date,1), "YYYY-MM-DD");
+          this.today_date = date_format(new Date(), "YYYY-MM-DD");
+          this.start_date = date_format(addDays(this.today_date,-1), "YYYY-MM-DD");
+          this.end_date = this.today_date;
           break;
         case "week":
           this.start_date = date_format(
