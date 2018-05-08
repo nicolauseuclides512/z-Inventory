@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div v-if="salesOrder.shipment_status" class="ribbon-wrapper shipment">
+      <!-- <div v-if="salesOrder.shipment_status" class="ribbon-wrapper shipment">
         <div class="ribbon-payment " :class="{
           'not-shipped': salesOrder.shipment_status == 'NOT_YET_SHIPPED',
           'shipped': salesOrder.shipment_status == 'SHIPPED',
@@ -60,7 +60,7 @@
           }" >
           {{ salesOrder.shipment_status.split("_").join(" ")}}
         </div>
-      </div>
+      </div> -->
 
       <div class="row sahito-invoice-content" style="padding: 67px 25px 0 45px;margin-left:0; margin-right:0; margin-bottom: 30px;">
         <div class="col-md-8 pull-left" >
