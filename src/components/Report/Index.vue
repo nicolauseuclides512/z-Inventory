@@ -65,7 +65,7 @@
           <span ><h4>{{orgName}}</h4></span>
           <span v-if="reportType==='customer'"><h2 class="report-title">Sales by Customer</h2></span>
           <span v-if="reportType==='item'"><h2 class="report-title">Sales by Items</h2></span>
-          <span v-if="dateRangeChooser==='today'">Today Sales - {{start_date | date('short')}}</span>
+          <span v-if="dateRangeChooser==='today'">Today Sales - {{end_date | date('short')}}</span>
           <span v-else>From {{start_date | date('short')}} To {{end_date | date('short')}}</span>
         </div>
       </div>
