@@ -53,39 +53,23 @@
               </router-link>
             </div>
             <div class="dropdown pull-left" style="margin-right: 10px;">
-            <button
-              class="btn btn-default dropdown-toggle"
-              type="button"
-              data-toggle="dropdown"
-              v-if="createablePayment || createableShipment"
-              >
-                Create
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                <li>
-                  <a
-                    class="clickable"
-                    @click="showModalPayment()"
-                    data-toggle="dropdown"
-                    aria-expanded="false"
-                    v-if="createablePayment"
-                    >
-                    Payment
-                  </a>
-                  <a
-                    class="clickable"
-                    @click="showModalShipment()"
-                    data-toggle="dropdown"
-                    aria-expanded="false"
-                    v-if="createableShipment"
-                    >
-                    Shipment
-                  </a>
-                </li>
-              </ul>
+              <button
+                  class="btn btn-info dropdown-toggle"
+                  type="button"
+                  v-if="createablePayment"
+                  @click="showModalPayment()"
+                  >
+                  Add Payment
+                </button>
+                  <button
+                  class="btn btn-default dropdown-toggle"
+                  type="button"
+                  v-if="createableShipment"
+                  @click="showModalShipment()"
+                  >
+                  Create Shipment
+                </button>
             </div>
-
 
             <div class="pull-left" style="margin-right: 10px;">
 
