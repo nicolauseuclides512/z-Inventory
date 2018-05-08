@@ -395,14 +395,14 @@
                         <h4 class="text-bold">{{selected_contact.display_name}}</h4>
                         <div class="contact-list">
                           <div class="billing-wrapper">Billing Address</div>
-                          <span>
+                          <!-- <span>
                           <a href="javascript:void(0)" @click="editSelectedContact">
                             <i class="fa fa-fw fa-pencil"></i>
                           </a>
                           <a @click="clearSelectedContact" v-if="selected_contact || ui.showAddNewContactField" href="javascript:void(0)" class="text-danger close-button contact-button">
                             <i class="ion-close-round" style="font-size:13.3px"></i>
                           </a>
-                          </span>
+                          </span> -->
 
                         </div>
                         <div class="billing-address" v-text="selected_contact.billing_address"></div>
