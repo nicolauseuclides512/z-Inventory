@@ -530,7 +530,7 @@
               </button>
               <div class="btn-group dropup">
                 <button type="button" class="btn btn-primary" data-value="save_and_close"
-                        @click="save($event)">Create Invoice
+                        @click="save($event)">{{saveOrCreate}}Invoice
                 </button>
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                   <span class="caret"></span>
@@ -538,12 +538,12 @@
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li>
                     <a href="javascript:void(0);" data-value="save_and_pay" @click="save($event)">
-                      Create Invoice then Pay
+                      {{saveOrCreate}}Invoice then Pay
                     </a>
                   </li>
                   <li>
                     <a href="javascript:void(0);" data-value="save_then_create_new" @click="save($event)">
-                      Create Invoice and New
+                      {{saveOrCreate}}Invoice and New
                     </a>
                   </li>
                   <!-- <li>
@@ -597,6 +597,9 @@
     },
 
     computed: {
+      saveOrCreate(){
+        return (this.$route.params.id)?'Save ':'Create '
+      },
       subtotal() {
         let subtotal = 0;
 
