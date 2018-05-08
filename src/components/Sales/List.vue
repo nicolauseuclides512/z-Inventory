@@ -486,6 +486,7 @@
     watch: {
       '$route'(to, from) {
         if (to.query) {
+          // console.log(to.query)
           this.getList({
             q: to.query.q,
             filter: to.query.filter,
@@ -591,10 +592,12 @@
     methods: {
 
       getList(options = {}) {
+        // console.log(options)
         store.dispatch('sales/getList', options)
       },
 
       changeFilter(options = {}) {
+        // console.log(options)
         this.$router.push({
           name: 'sales.index',
           query: {

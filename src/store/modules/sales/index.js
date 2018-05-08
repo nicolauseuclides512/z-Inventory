@@ -143,7 +143,7 @@ const actions = {
       commit('LOADING_SALES_LIST', true)
       const res = await axios.get(`sales_orders`, {params})
       commit('SALES_LIST', res.data.data)
-      commit('PAGE_CONTEXT', res.data.paginate)
+      // commit('PAGE_CONTEXT', res.data.paginate)
       commit('LOADING_SALES_LIST', false)
       return res.data.data
     } catch (err) {
