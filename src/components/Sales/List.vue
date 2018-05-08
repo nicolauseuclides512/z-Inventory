@@ -240,7 +240,7 @@
                               </td>
                               <td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
                             <td class="shipment-status" style="font-size: 15px !important;">
-                              <span class="label"
+                              <!-- <span class="label"
                                 :class="{
                                   'label-info': sale.invoice_status == 'UNPAID',
                                   'label-void': sale.invoice_status == 'VOID',
@@ -249,7 +249,11 @@
                                   'label-success-part': sale.invoice_status == 'PARTIALLY_PAID',
                                   'label-default': sale.invoice_status == 'DRAFT' }">
                                 {{sale.invoice_status.split("_").join(" ").toLowerCase()}}
-                              </span></td>
+                              </span> -->
+                              <span>
+                                {{sale.invoice_status | normalizeStatus}}
+                              </span>
+                              </td>
                             <td class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">{{((sale.shipment_date)?(sale.shipment_date| date('short')):'-')}}</td>
                             <td class="payment-status" style="cursor: pointer; width:126px" @click="showDetail(sale)">
                               <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue in {{ sale.due_date | diffInDays }} day(s)</span>
@@ -832,5 +836,33 @@ td.shipment-status {
 .table-header-style{
   box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;
   border-top: 1px solid #ddd 
+}
+.label{
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  background-color: transparent;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .5em;
+  &.label-danger{
+      color: #ef5350;
+      border: 1.5px solid #ef5350
+  }
+  &.label-default{
+      color: #777;
+      border: 1.5px solid #777
+  }
+  &.label-void{
+      color: #000000;
+      border: 1.5px solid #000000
+  }
+  &.label-info{
+      color: #2FA3E6;
+      border: 1.5px solid #2FA3E6
+  }
 }
 </style>
