@@ -184,7 +184,7 @@
                       <div class="sales-table-wrapper" v-else>
                         <table
                           class="table table-hover default-table sahito-list-item-group-list--table sahito-sales-order-table">
-                          <thead style="box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;">
+                          <thead class="table-header-style">
                           <tr>
                             <th class="col-checkbox head-check">
                               <div class="checkbox checkbox-single checkbox-success">
@@ -828,5 +828,9 @@ td.shipment-status {
 .title-wrapper{
   padding-left: 0px;
   padding-right: 0px;
+}
+.table-header-style{
+  box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;
+  border-top: 1px solid #ddd 
 }
 </style>

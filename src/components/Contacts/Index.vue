@@ -158,7 +158,7 @@
             <div class="col-md-12 p-10">
               <div class="sahito-list-contact table-responsive">
                 <table class="table table-hover default-table sahito-list-contact--table">
-                  <thead style="box-shadow: rgb(221, 221, 221) 0px 4px 2px -2px; font-weight: 400; color: rgb(0, 0, 0);">
+                  <thead class="table-header-style">
                   <tr>
                     <th class="col-checkbox">
                       <div class="checkbox checkbox-single checkbox-success">
@@ -470,4 +470,8 @@
   .header-wrapper{
     padding-left:0px
   }
+  .table-header-style{
+  box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;
+  border-top: 1px solid #ddd 
+}
 </style>
