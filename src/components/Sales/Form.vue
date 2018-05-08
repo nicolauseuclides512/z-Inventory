@@ -155,9 +155,8 @@
                         <tbody>
                         <tr class="total">
                           <td class="text-right"></td>
-                          <td class="text-left" style="padding-left:8px; padding-top:24px; color:#000">Sub total</td>
-                          <td class="text-right" style="padding-right:8px; padding-top:24px; color:#000">{{ subtotal |
-                            money }}
+                          <td class="text-left subtotal-row">Sub total</td>
+                          <td class="text-right subtotal-row">{{ subtotal | money }}
                           </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
@@ -171,7 +170,7 @@
                         <tr class="total">
                           <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
-                          <td class="text-right" style="padding-left: 0px; padding-bottom:24px">
+                          <td class="text-right adjustment-row">
                             <input
                               v-model.trim="form.adjustment_name"
                               type="text"
@@ -180,7 +179,7 @@
                               placeholder="Adjustment"
                             />
                           </td>
-                          <td style="padding-right: 0px; padding-bottom:24px">
+                          <td class="adjustment-textfield-row">
                             <div class="input-group pull-right">
                               <span class="input-group-addon" style="color:  #666;">Rp</span>
                               <vue-numeric
@@ -1459,5 +1458,25 @@ table.empty-table {
 }
 .term-notes-style{
   padding-left: 0px
+}
+.subtotal-row{
+  padding-left:8px;
+  padding-top:24px;
+  padding-bottom:24px;
+  color:#000
+}
+.adjustment-row{
+  padding-left:0px;
+  padding-right:0px;
+  padding-top:24px;
+  padding-bottom:24px;
+  color:#000
+}
+.adjustment-textfield-row{
+  padding-left:8px;
+  padding-right:0px;
+  padding-top:24px;
+  padding-bottom:24px;
+  color:#000
 }
 </style>
