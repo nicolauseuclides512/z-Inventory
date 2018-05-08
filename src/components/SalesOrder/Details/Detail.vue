@@ -88,22 +88,38 @@
 
 
             <div class="pull-left" style="margin-right: 10px;">
-              <button
-                class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown"
-                aria-expanded="false"
-                v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE')"
-                @click="cancelSalesOrder(salesOrder)"
-                >
-                Mark as Void
+
+            <button
+              class="btn btn-default dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE') || (salesOrder.invoice_status === 'DRAFT')"
+              >
+                More
+                <span class="caret"></span>
               </button>
-              <button
-                class="btn btn-default waves-effect waves-light m-b-5" data-toggle="dropdown"
-                aria-expanded="false"
-                v-if="(salesOrder.invoice_status === 'DRAFT')"
-                @click="markAsSentSalesOrder(salesOrder)"
-                >
-                Confirm
-              </button>
+              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2" style="top: 32px;right: 20px;">
+                <li>
+                  <a
+                    class="clickable"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                    v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE')"
+                    @click="cancelSalesOrder(salesOrder)"
+                    >
+                    Mark as Void
+                  </a>
+                  <a
+                    class="clickable"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                    v-if="(salesOrder.invoice_status === 'DRAFT')"
+                    @click="markAsSentSalesOrder(salesOrder)"
+                    >
+                    Confirm
+                  </a>
+                </li>
+              </ul>
             </div>
 
           </div>
