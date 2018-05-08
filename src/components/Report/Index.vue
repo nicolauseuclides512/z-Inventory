@@ -97,6 +97,7 @@ import end_of_week from "date-fns/end_of_week";
 import start_of_year from "date-fns/start_of_year";
 import end_of_year from "date-fns/end_of_year";
 import date_format from "date-fns/format";
+import addDays from "date-fns/add_days"
 import { swal_success } from '../../helpers';
 const orgId = Cookie.get('organization_id')
 
@@ -147,7 +148,7 @@ export default {
       switch (this.dateRangeChooser) {
         case "today":
           this.start_date = date_format(new Date(), "YYYY-MM-DD");
-          this.end_date = date_format(new Date(), "YYYY-MM-DD");
+          this.end_date = date_format(addDays(this.start_date,1), "YYYY-MM-DD");
           break;
         case "week":
           this.start_date = date_format(
