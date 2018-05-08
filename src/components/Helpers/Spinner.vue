@@ -1,10 +1,9 @@
 <template>
-  <div class="text-center" style="color: #a9a9a9; padding-top: 60px;">
-    <i class="fa fa-5x fa-spin fa-circle-o-notch"></i>
-    <div class="lead" style="padding: 30px 0 5px;">
-      Loading
-      <br>
-      <small>Please wait...</small>
+  <div class="text-center spinner-wrap">
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
     </div>
   </div>
 </template>
@@ -16,5 +15,49 @@
 </script>
 
 <style scoped lang="scss">
+.spinner-wrap {
+  width: 100%;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  min-height: 250px;
+}
+.spinner {
+  margin: 100px auto 0;
+  width: 70px;
+  text-align: center;
+  > div {
+    width: 18px;
+    height: 18px;
+    background-color: rgba(4, 193, 249, 0.54);
 
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay .6s infinite ease-in-out both;
+    animation: sk-bouncedelay .6s infinite ease-in-out both;
+  }
+  .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+  }
+  .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+  }
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
 </style>

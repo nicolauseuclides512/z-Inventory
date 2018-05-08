@@ -213,9 +213,7 @@
         </div>
       </div>
     </div>
-    <div class="spinner" v-if="loadingShipmentData">
-      <Spinner></Spinner>
-    </div>
+      <Spinner v-if="loadingShipmentData"/>
   </div>
 </template>
 
