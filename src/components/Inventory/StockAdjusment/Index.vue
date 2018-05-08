@@ -74,11 +74,11 @@
                                   <i v-else class="ion-plus-round text-green"></i>
                                 </a>
                               </td>
-                              <td v-if="groupItem.reason_summary.reason_description">
+                              <td v-if="groupItem.reason_summary[0].reason_description">
                                 <router-link :to="{ name: 'stock_adjustment.edit', params: { id: groupItem.stock_adjustment_id } }">
                                     {{ groupItem.stock_adjustment_number }}
                                 </router-link></td>
-                              <td v-if="!groupItem.reason_summary.reason_description">{{ groupItem.stock_adjustment_number }}</td>
+                              <td v-if="!groupItem.reason_summary[0].reason_description">{{ groupItem.stock_adjustment_number }}</td>
                               <td v-if="groupItem.reference_number">#{{ groupItem.reference_number }}</td>
                               <td v-if="!groupItem.reference_number">-</td>
                               <td>{{ groupItem.status }}</td>
