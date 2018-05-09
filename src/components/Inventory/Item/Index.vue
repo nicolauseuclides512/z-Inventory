@@ -232,6 +232,7 @@
                               @update="saveStockQuantity"
                             />
                           </span>
+                          <span v-else-if="(item.track_inventory == false) && (!item.children.length)"><i class="ion-ios7-infinite "></i></span>
                         </td>
                         <td class="text-left" style="padding: 14px 8px !important;">
                           <span v-if="!item.children.length">
