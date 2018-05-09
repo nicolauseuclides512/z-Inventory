@@ -317,4 +317,32 @@
   .btn-new{
     width:80px
   }
+  .label{
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  background-color: transparent;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .5em;
+  &.label-danger{
+      color: #ef5350;
+      border: 1.5px solid #ef5350
+  }
+  &.label-default{
+      color: #777;
+      border: 1.5px solid #777
+  }
+  &.label-void{
+      color: #000000;
+      border: 1.5px solid #000000
+  }
+  &.label-info{
+      color: #2FA3E6;
+      border: 1.5px solid #2FA3E6
+  }
+}
 </style>
