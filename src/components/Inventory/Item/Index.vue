@@ -226,6 +226,7 @@
                         <td class="text-center" style="padding: 14px 8px !important;">
                           <span v-if="(item.track_inventory == true) && (!item.children.length)">
                             <inline-editable
+                              :isAdd="true"
                               :item="item"
                               :value.sync="item.stock_quantity"
                               @update="saveStockQuantity"
@@ -634,7 +635,7 @@
   }
   .table-header-style{
   box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;
-  border-top: 1px solid #ddd 
+  border-top: 1px solid #ddd
 }
 
 </style>

@@ -16,7 +16,11 @@
         <div class="input-group col-sx-12">
           <input type="number" v-model="newValue" class="form-control" min="0" required>
           <div class="input-group-btn">
-            <button type="submit" class="btn btn-primary editable-submit btn-sm waves-effect waves-light"><i class="md md-done"></i></button>
+            <button type="submit" class="btn btn-primary editable-submit btn-sm waves-effect waves-light">
+              <span v-if="isAdd">Add</span>
+              <i v-else class="md md-done"></i>
+            </button>
+
             <button type="button" @click="hideInlineEditor" class="btn editable-cancel btn-sm waves-effect waves-light"><i class="md md-clear"></i></button>
           </div>
         </div>
@@ -33,6 +37,7 @@
 
 
     props: {
+      isAdd: false,
       item: null,
       value: null,
       output: null,
