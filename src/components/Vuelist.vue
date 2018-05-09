@@ -283,6 +283,7 @@
   border: 1px solid #cecece;
   border-top: none;
   padding: 4px;
+  box-shadow: #999 0 1px 1px 0px;
 }
 
 .main {
@@ -300,7 +301,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
+} 
 
 .arrow {
   position: absolute;
