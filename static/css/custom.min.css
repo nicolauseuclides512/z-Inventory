@@ -2751,7 +2751,7 @@ h5.title {
 }
 
 .label-void{
-    background: black !important;
+    background: black;
 }
 
 .sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr td.col-checkbox {
