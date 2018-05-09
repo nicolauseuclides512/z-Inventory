@@ -56,7 +56,7 @@
                   v-if="createablePayment"
                   @click="showModalPayment()"
                   >
-                  Add Payment
+                  Record Payment
                 </button>
                   <button
                   class="btn btn-default dropdown-toggle"

@@ -99,10 +99,10 @@
         <td @click="showDetail(salesOrder)">
           <div class="clearfix">
             <div class="pull-left">
-              <strong style="font-size: 1.1em">{{ salesOrder.contact.display_name }}</strong>
+              <span style="font-size: 1.1em">{{ salesOrder.contact.display_name }}</span>
             </div>
             <div class="pull-right">
-              <strong>{{ salesOrder.total | money }}</strong>
+              <span>{{ salesOrder.total | money }}</span>
             </div>
           </div>
           <div class="clearfix">
