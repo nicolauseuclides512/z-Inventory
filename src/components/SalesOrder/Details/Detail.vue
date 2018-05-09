@@ -57,8 +57,8 @@
                   @click="showModalPayment()"
                   >
                   Record Payment
-                </button>
-                  <button
+              </button>
+                <button
                   class="btn btn-default dropdown-toggle"
                   type="button"
                   v-if="createableShipment"
@@ -66,13 +66,22 @@
                   >
                   Create Shipment
                 </button>
+                <button
+                  class="btn btn-info dropdown-toggle"
+                  type="button"
+                  v-if="salesOrder.invoice_status === 'DRAFT'"
+                  @click="markAsSentSalesOrder(salesOrder)"
+                  >
+                  Convert to Invoice
+                </button>
+                
             </div>
 
             <div class="pull-left" style="margin-right: 10px;">
               <button
                   class="btn btn-default dropdown-toggle"
                   type="button"
-                  v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE' || salesOrder.invoice_status === 'DRAFT')"
+                  v-if="(salesOrder.invoice_status == 'UNPAID' || salesOrder.invoice_status == 'OVERDUE')"
                   data-toggle="dropdown"
                   >
                   More
@@ -87,16 +96,6 @@
                     aria-expanded="false"
                     >
                     Mark as Void
-                  </a>
-                </li>
-                <li v-if="(salesOrder.invoice_status === 'DRAFT')">
-                  <a
-                    class="clickable"
-                    @click="markAsSentSalesOrder(salesOrder)"
-                    data-toggle="dropdown"
-                    aria-expanded="false"
-                    >
-                    Confirm
                   </a>
                 </li>
               </ul>
