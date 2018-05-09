@@ -33,7 +33,7 @@
 
       </div>
 
-      <div v-if="ui.show_bank_form">
+      <div>
         <div class="row">
           <div class="col-md-12">
             <div class="form-horizontal p-10">
