@@ -479,8 +479,8 @@
               <!-- </div>
             </div> -->
 
-          <!-- </div> -->
-          <!-- <div class="container bt-1 p-b-10 m-b-20">
+            <!-- </div> -->
+            <!-- <div class="container bt-1 p-b-10 m-b-20">
             <div class="row">
               <div class="col-md-12">
                 <ul class="nav nav-tabs nav-tabs-clear nav-grey btp-1 tabs" style="width: 100%;"> -->
@@ -701,6 +701,7 @@
               </div>
             </div>
           </div> -->
+
           <div class="float-save">
             <div class="container">
               <div class="clearfix">
@@ -823,14 +824,13 @@
         const firstName = this.form.first_name ? this.form.first_name : '(First Name)'
         const lastName = this.form.last_name ? this.form.last_name : '(Last Name)'
 
-//        return salutation + ' ' + firstName + ' ' + lastName
+      //return salutation + ' ' + firstName + ' ' + lastName
         return salutation + ' ' + firstName
       },
 
       displayNameFormat3 () {
         return this.form.company_name ? this.form.company_name : 'Company name'
       },
-
     },
 
     beforeRouteLeave (to, from, next) {
@@ -840,7 +840,6 @@
       }
       return next()
     },
-
 
     async mounted () {
       $('input').on('change', (event) => {
