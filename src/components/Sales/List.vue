@@ -251,7 +251,7 @@
                                 {{sale.invoice_status.split("_").join(" ").toLowerCase()}}
                               </span> -->
                               <span>
-                                <div v-if="sale.invoice_status === 'DRAFT'">
+                                <div v-if="sale.invoice_status === 'DRAFT' || sale.invoice_status === 'VOID'">
                                   -
                                 </div>
                                 <div v-else>
