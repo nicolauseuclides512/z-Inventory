@@ -378,11 +378,11 @@
                                           </thead>
                                           <tbody>
                                           <tr v-for="order in orderList">
-                                            <td style="font-size: 1em;">{{ order.item_name }}</td>
-                                            <td style="font-size: 1em;">
+                                            <td class="text-left" style="font-size: 1em;">{{ order.item_name }}</td>
+                                            <td class="text-left" style="font-size: 1em;">
                                               <p class="qty-amount">{{ order.item_quantity }} {{ order.uom }}</p>
                                             </td>
-                                            <td style="font-size: 1em;">{{ order.item_rate | money }}</td>
+                                            <td class="text-left" style="font-size: 1em;">{{ order.item_rate | money }}</td>
                                             <td class="text-left" style="font-size: 1em;">
                                               <span v-if="order.discount_amount_type === 'fixed'">{{ Number(order.discount_amount_value) | money}}</span>
                                               <span v-if="order.discount_amount_type === 'percentage'">{{ Number(order.discount_amount_value) }}%</span>
