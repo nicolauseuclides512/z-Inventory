@@ -55,12 +55,12 @@
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <table class="table table-hover sahito-list-contact--table">
                       <thead>
-                      <tr>
-                        <th>Date</th>
+                      <tr class="table-header-row">
+                        <th class="table-header-th">Date</th>
                         <th></th>
-                        <th>Adjustment ID</th>
-                        <th>Reference Number</th>
-                        <th>Status</th>
+                        <th class="table-header-th">Adjustment ID</th>
+                        <th class="table-header-th">Reference Number</th>
+                        <!-- <th class="table-header-th">Status</th> -->
                         <th class="outer-head-reason">Reason</th>
                       </tr>
                       </thead>
@@ -81,7 +81,7 @@
                               <td v-if="!groupItem.reason_summary[0].reason_description">{{ groupItem.stock_adjustment_number }}</td>
                               <td v-if="groupItem.reference_number">#{{ groupItem.reference_number }}</td>
                               <td v-if="!groupItem.reference_number">-</td>
-                              <td>{{ groupItem.status }}</td>
+                              <!-- <td>{{ groupItem.status }}</td> -->
                               <td v-if="groupItem.reason_summary[0].reason_description">
                                 <span v-for="(groupItem,index) in groupItem.reason_summary" v-if="groupItem.reason_description" class="label label-info" style="margin-right: 5px;" :key="index">
                                   {{ groupItem.line_count }} {{ groupItem.reason_description }}
@@ -253,7 +253,9 @@ export default {
   padding-left: 12px;
 }
 .outer-head-reason{
-  width:280px
+  width:280px;
+  font-weight: 400;
+  color: #000000
 }
 .inner-head-name{
   color:#000000;
@@ -288,5 +290,12 @@ export default {
   padding-top: 12px;
   padding-bottom: 10px;
   width:280px
+}
+.table-header-row{
+  border-top: 1px solid #ddd;
+}
+.table-header-th{
+  font-weight: 400;
+  color: #000000
 }
 </style>
