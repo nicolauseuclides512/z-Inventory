@@ -91,7 +91,7 @@
             <button type="submit" class="btn btn-info waves-effect waves-light m-t-15">
               Save
             </button>
-            <button type="button" class="btn btn-default waves-effect m-t-15" data-dismiss="modal">Cancel</button>
+            <button type="button" @click="close" class="btn btn-default waves-effect m-t-15">Cancel</button>
           </div>
         </div>
       </div>
@@ -167,6 +167,10 @@
     },
 
     methods: {
+
+      close(){
+        this.$emit('close')
+      },
       fetch() {
         // console.log(_.first(this.invoiceList).invoice_id.toString())
         const salesOrderId = parseInt(this.$route.params.id)
@@ -215,15 +219,11 @@
             res => {
               // console.log(res)
               if(responseOk(res.data.code)){
-
                 this.$emit('success', res.data.data)
-
                 swal_success(res)
-
-                $('#payment-modal-add').modal('hide')
-
+                $('#payment-modal').modal('hide')
+                this.$emit('close')
                 this.ui.saving = false
-
                 this.$store.dispatch('salesOrders/getList', {})
               }
           }).catch(

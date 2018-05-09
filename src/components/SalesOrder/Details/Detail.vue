@@ -234,6 +234,7 @@
     <PaymentForm
       v-if="modalPayment"
       :invoiceList="invoiceList"
+      @close="closeModalPayment"
     />
     <ShipmentForm
       v-if="modalShipment"
@@ -446,6 +447,12 @@
             swal_error(err.response)
           })
         })
+      },
+
+      closeModalPayment(){
+        this.fetchPaymentData()
+        this.modalPayment = false
+        $('#payment-modal').modal('hide')
       },
 
       closeModalShipment(){
