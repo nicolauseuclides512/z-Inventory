@@ -251,7 +251,12 @@
                                 {{sale.invoice_status.split("_").join(" ").toLowerCase()}}
                               </span> -->
                               <span>
-                                {{sale.invoice_status | normalizeStatus}}
+                                <div v-if="sale.invoice_status === 'DRAFT'">
+                                  -
+                                </div>
+                                <div v-else>
+                                  {{sale.invoice_status | normalizeStatus}}  
+                                </div>
                               </span>
                               </td>
                             <td class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">
