@@ -67,7 +67,7 @@
 <style scoped lang="scss">
 .side-list-sales,
 .main-detail-sales {
-  height: calc(100vh - 130px);
+  height: calc(100vh - 50px);
   overflow-y: scroll;
 }
 
