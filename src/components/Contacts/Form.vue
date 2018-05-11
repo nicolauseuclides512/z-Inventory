@@ -47,30 +47,30 @@
                     </div>
                     <div class="form-group form-general m-b-20">
                       <label class="col-md-2 control-label text-left">Name *</label>
-                        <div class="col-md-2">
+                        <!-- <div class="col-md-2">
                           <select id="salutation_id" v-model="form.salutation_id" class="form-control" title="Salutation">
                             <option :value="null"></option>
                             <option v-for="salutation in list.salutation_list" :value="salutation.salutation_id">
                               {{ salutation.name }}
                             </option>
                           </select>
+                        </div> -->
+                        <div class="col-md-8">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="first_name"
+                            id="first_name"
+                            placeholder="Name"
+                            ref="firstName"
+                            v-model="form.first_name"
+                            data-vv-as="name"
+                            v-validate="'required'"
+                            data-vv-validate-on="blur"
+                            maxlength="100"
+                          />
+                          <span class="error" v-if="errors.first('first_name')">{{ errors.first('first_name') }}</span>
                         </div>
-                      <div class="col-md-6">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="first_name"
-                          id="first_name"
-                          placeholder="Name"
-                          ref="firstName"
-                          v-model="form.first_name"
-                          data-vv-as="name"
-                          v-validate="'required'"
-                          data-vv-validate-on="blur"
-                          maxlength="100"
-                        />
-                        <span class="error" v-if="errors.first('first_name')">{{ errors.first('first_name') }}</span>
-                      </div>
                   </div>
                   <div class="form-group form-general m-b-20">
                     <label class="col-md-2 control-label text-left">Company Name</label>
@@ -733,7 +733,7 @@
   import Vuelist from '../Vuelist'
   import Form from 'src/helpers/Form'
   import sharedMethods from './sharedMethods.js'
-  import Salutation from 'src/helpers/Salutation'
+  // import Salutation from 'src/helpers/Salutation'
   import Regional from 'src/helpers/regional'
   import {responseOk, swal_error, swal_success} from 'helpers'
 
@@ -752,7 +752,7 @@
         currentTab: 'address',
 
         list: {
-          salutation_list: [],
+          // salutation_list: [],
           billing_country_list: [],
           billing_province_list: [],
           billing_district_list: [],
@@ -769,11 +769,11 @@
           is_dropshipper: false,
           is_reseller: false,
           contact_type: null,
-          salutation_id: null,
+          // salutation_id: null,
           currency_id: null,
           payment_term_id: null,
           first_name: '',
-          last_name: '',
+          // last_name: '',
           display_name: null,
           display_code: null,
           email: '',
@@ -806,26 +806,26 @@
 
     computed: {
 
-      displayNameFormat1 () {
-        const first_name = this.form.first_name ? this.form.first_name : '(First Name)'
-        const last_name = this.form.last_name ? this.form.last_name : '(Last Name)'
+      // displayNameFormat1 () {
+      //   const first_name = this.form.first_name ? this.form.first_name : '(First Name)'
+      //   const last_name = this.form.last_name ? this.form.last_name : '(Last Name)'
 
-        return first_name + ' ' + last_name
-      },
+      //   return first_name + ' ' + last_name
+      // },
 
       displayNameFormat2 () {
-        let salutation_name = this.list.salutation_list.find(item => item.salutation_id === this.form.salutation_id)
+        // let salutation_name = this.list.salutation_list.find(item => item.salutation_id === this.form.salutation_id)
 
-        if (!salutation_name) {
-          salutation_name = ''
-        }
+        // if (!salutation_name) {
+        //   salutation_name = ''
+        // }
 
-        const salutation = salutation_name ? salutation_name.name : ''
+        // const salutation = salutation_name ? salutation_name.name : ''
         const firstName = this.form.first_name ? this.form.first_name : '(First Name)'
-        const lastName = this.form.last_name ? this.form.last_name : '(Last Name)'
+        // const lastName = this.form.last_name ? this.form.last_name : '(Last Name)'
 
       //return salutation + ' ' + firstName + ' ' + lastName
-        return salutation + ' ' + firstName
+        return /*salutation + ' ' + */firstName
       },
 
       displayNameFormat3 () {
@@ -861,7 +861,7 @@
       async initCreate () {
         const res = await Axios.get(`contacts/create`)
 
-        this.list.salutation_list = await Salutation.get()
+        // this.list.salutation_list = await Salutation.get()
 
         const country_list = await Regional.countryList()
         this.list.billing_country_list = country_list
@@ -892,7 +892,7 @@
         const res = await Axios.get(`contacts/${contact_id}/edit`)
         this.form = new Form(res.data.data.contact)
 
-        this.list.salutation_list = await Salutation.get()
+        // this.list.salutation_list = await Salutation.get()
 
         const country_list = await Regional.countryList()
         this.list.billing_country_list = country_list
