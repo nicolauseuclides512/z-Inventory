@@ -226,8 +226,8 @@
                                   <i v-else="" class="ion-plus-round text-green"></i>
                                 </a>
                               </td>
-                              <td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.invoice_date |
-                                date('short') }}
+                              <td style="cursor: pointer;" @click="showDetail(sale)">
+                                {{ sale.invoice_date | date('short') }}
                               </td>
                               <td style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
                                 {{ sale.sales_order_number }}
@@ -254,9 +254,13 @@
                                 {{sale.invoice_status | normalizeStatus}}
                               </span>
                               </td>
-                            <td class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">{{((sale.shipment_date)?(sale.shipment_date| date('short')):'-')}}</td>
+                            <td class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">
+                              <!-- {{((sale.shipment_date)?(sale.shipment_date| date('short')):'-')}} -->
+                              </td>
                             <td class="payment-status" style="cursor: pointer; width:126px" @click="showDetail(sale)">
-                              <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">Overdue in {{ sale.due_date | diffInDays }} day(s)</span>
+                              <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
+                                <!-- Overdue in {{ sale.due_date | diffInDays }} day(s) -->
+                              </span>
                               <span class="label label-default" v-else-if="sale.sales_order_status === 'DRAFT'">Open</span>
                               <span class="label label-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</span>
                               <span class="label label-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
