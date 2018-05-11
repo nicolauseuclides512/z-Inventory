@@ -8,15 +8,15 @@
                             <div v-if="items.length > 0">
                                 <table class="table">
                                     <thead>
-                                        <tr>
+                                        <tr class="header-row">
                                             <th class="text-left display-name">Customer Name</th>
                                             <th class="amount">Amount</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="content-table">
                                         <tr v-for="item in items">
-                                            <td class="text-left">{{ item.customer_name }}</td>
-                                            <td>{{ item.sales_amount | money }}</td>
+                                            <td class="text-left display-name">{{ item.customer_name }}</td>
+                                            <td class="amount">{{ item.sales_amount | money }}</td>
                                         </tr>
                                         <tr>
                                             <td class="text-left row-total">Total</td>
@@ -86,7 +86,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   #report-contacts {
     min-height: auto;
     max-height: 400px;
@@ -96,13 +96,36 @@
     border:none !important;
     box-shadow:none !important;
   }
-  .amount{
-    width:50%
+  .header-row{
+    border-top: 1px solid #ddd;
+    th{
+      font-weight: 400;
+      font-size: 1.2em;
+      color:#000
+    }
   }
-  .display-name{
-    width:50%
-  }
-  .row-total{
-    background-color: #eee
+
+  .content-table{
+    tr{
+      .amount{
+        width:50%;
+        color:#000;
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+      .display-name{
+        width:50%;
+        color:#000;
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+      .row-total{
+        background-color: #eee;
+        color:#000;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        font-size: 1.2em
+      }
+    }
   }
 </style>
