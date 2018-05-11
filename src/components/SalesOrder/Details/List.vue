@@ -110,8 +110,8 @@
               <div class="text-muted">{{ salesOrder.sales_order_number }} | {{ salesOrder.invoice_date | date('short') }}</div>
             </div>
             <div class="pull-right payment-status">
-              <span class="label label-danger" v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span>
-              <span class="label label-default" v-else-if="salesOrder.sales_order_status === 'DRAFT'">Open</span>
+              <!-- <span class="label label-danger" v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span> -->
+              <span class="label label-default" v-if="salesOrder.sales_order_status === 'DRAFT'">Open</span>
               <span class="label label-void" v-else-if="salesOrder.sales_order_status === 'CANCELED'">Void</span>
               <span class="label label-info" v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
             </div>

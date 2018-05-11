@@ -266,10 +266,10 @@
                               <small v-else>-</small>
                               </td>
                             <td class="payment-status" style="cursor: pointer; width:126px" @click="showDetail(sale)">
-                              <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
+                              <!-- <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
                                 Overdue in {{ sale.due_date | diffInDays }} day(s)
-                              </span>
-                              <span class="label label-default" v-else-if="sale.sales_order_status === 'DRAFT'">Open</span>
+                              </span> -->
+                              <span class="label label-default" v-if="sale.sales_order_status === 'DRAFT'">Open</span>
                               <span class="label label-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</span>
                               <span class="label label-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
                             </td>
