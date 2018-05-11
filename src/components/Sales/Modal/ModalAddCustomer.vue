@@ -14,52 +14,94 @@
             <form v-on:submit.prevent="save">
               <div class="form-new-customer personal-info">
 
-                <div class="form-group d-flex">
-
                   <!-- <select id="salutation_id" v-model="model.salutation" class="form-control" title="Salutation">
                     <option :value="null"></option>
                     <option v-for="(salutation,i) in list.salutation_list" :value="salutation" :key="i">
                       {{ salutation }}
                     </option>
                   </select> -->
-                  <input type="text" name="FullName" id="first_name" placeholder="Name" v-model="model.first_name" v-validate="'required'" v-bind:class="{'form-control': true, 'error': errors.has('first_name') }">
+
+                    <div class="form-group d-flex label-wrap">
+                      <label class="control-label text-left">Type</label>
+                      <div class="input">
+                        <div class="checkbox checkbox-success checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox1" v-model="model.is_customer">
+                          <label for="inlineCheckbox1">Customer</label>
+                        </div>
+                        <div class="checkbox checkbox-success checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox2" v-model="model.is_dropshipper">
+                          <label for="inlineCheckbox2">Dropshipper</label>
+                        </div>
+                        <div class="checkbox checkbox-success checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox4" v-model="model.is_reseller">
+                          <label for="inlineCheckbox4">Resellers</label>
+                        </div>
+                      </div>
+                    </div>
+                <div class="form-group">
+                  <div class="d-flex label-wrap">
+                    <label for="FullName">Name</label>
+                    <input type="text" name="FullName" id="first_name" placeholder="Name" v-model="model.first_name" v-validate="'required'" v-bind:class="{'form-control': true, 'error': errors.has('first_name') }" />
+                  </div>
                   <span v-show="errors.has('first_name')" class="text-danger">{{ errors.first('first_name') }}</span>
                 </div>
 
                 <div class="form-group">
-                  <input type="email" name="email"  id="formEmail" placeholder="Email" v-model="model.email" v-validate="'email'" v-bind:class="{'form-control': true, 'error': errors.has('email') }">
+                  <div class="d-flex label-wrap">
+                    <label for="email">Email</label>
+                    <input type="email" name="email"  id="formEmail" placeholder="Email" v-model="model.email" v-validate="'email'" v-bind:class="{'form-control': true, 'error': errors.has('email') }" />
+                  </div>
                   <span v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</span>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" name="phone"  id="formPhone" placeholder="Phone Number" v-model="model.phone" v-validate="'numeric|max:15|min:9'" v-bind:class="{'form-control': true, 'error': errors.has('phone') }">
-                  <span v-show="errors.has('phone')" class="text-danger">{{ errors.first('phone') }}</span>
+
+                  <div class="d-flex label-wrap">
+                    <label for="phone">Phone</label>
+                    <div class="row" style="flex:1;">
+                      <div class="col-xs-6">
+                        <input type="text" name="phone"  id="formPhone" placeholder="Work Number" v-model="model.phone" v-validate="'numeric|max:15|min:9'" v-bind:class="{'form-control': true, 'error': errors.has('phone') }"/>
+                      <span v-show="errors.has('phone')" class="text-danger">{{ errors.first('phone') }}</span>
+                      </div>
+                      <div class="col-xs-6">
+                        <input type="text" name="mobile"  id="formMobile" placeholder="Mobile Number" v-model="model.mobile" v-validate="'numeric|max:15|min:9'" v-bind:class="{'form-control': true, 'error': errors.has('mobile') }"/>
+                      <span v-show="errors.has('mobile')" class="text-danger">{{ errors.first('mobile') }}</span>
+                      </div>
+
+                    </div>
+
+                  </div>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" name="company_name"  placeholder="Company Name" id="company_name" v-model="model.company_name" v-bind:class="{'form-control': true, 'error': errors.has('company_name') }">
+
+                  <div class="d-flex label-wrap">
+                    <label for="company_name">Company Name</label>
+                    <input type="text" name="company_name"  placeholder="Company Name" id="company_name" v-model="model.company_name" v-bind:class="{'form-control': true, 'error': errors.has('company_name') }">
+                  </div>
                   <span v-show="errors.has('company_name')" class="text-danger">{{ errors.first('company_name') }}</span>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" name="website" v-validate="'url'" placeholder="Website" id="website" v-model="model.website" v-bind:class="{'form-control': true, 'error': errors.has('website') }">
+
+                  <div class="d-flex label-wrap">
+                    <label for="website">Website</label>
+                    <input type="text" name="website" v-validate="'url'" placeholder="Website" id="website" v-model="model.website" v-bind:class="{'form-control': true, 'error': errors.has('website') }">
+                  </div>
                   <span v-show="errors.has('website')" class="text-danger">{{ errors.first('website') }}</span>
                 </div>
 
               </div>
 
-              <div class="same-address checkbox checkbox-success">
-                <input
-                  v-model="model.is_sameAddress"
-                  type="checkbox"
-                  id="sameAddress"
-                />
-                <label for="sameAddress">Same address between Billing and Shipping</label>
+              <div class="same-address">
+                <h3>Billing & Shipping Address</h3>
               </div>
-
               <div class="form-new-customer row address-detail">
                 <div class="col-sm-6">
+                  <h4 v-if="!model.is_sameAddress">Billing Address</h4>
                   <div class="form-group">
+                  <div class="d-flex label-wrap">
+                    <label for="website">Province</label>
                     <select
                     placeholder="Province"
                     id="billing_province_id"
@@ -75,62 +117,92 @@
                         {{ province.name }}
                       </option>
                     </select>
+                    </div>
                   </div>
                   <div class="form-group">
-                    <select
-                      placeholder="District"
-                      id="billing_district_id"
-                      v-model="model.billing_district"
-                      class="form-control"
-                      @change="updateBillingRegionList" :disabled="!list.billing_district_list.length">
-                      <option :value="null" selected>Select Billing District</option>
-                      <option :key="idx" v-for="(district,idx) in list.billing_district_list" :value="district.id">
-                        {{ district.name }}
-                      </option>
-                    </select>
+                    <div class="d-flex label-wrap">
+                      <label for="website">District</label>
+                      <select
+                        placeholder="District"
+                        id="billing_district_id"
+                        v-model="model.billing_district"
+                        class="form-control"
+                        @change="updateBillingRegionList" :disabled="!list.billing_district_list.length">
+                        <option :value="null" selected>Select Billing District</option>
+                        <option :key="idx" v-for="(district,idx) in list.billing_district_list" :value="district.id">
+                          {{ district.name }}
+                        </option>
+                      </select>
+                    </div>
                   </div>
                   <div class="form-group">
-                    <select
-                      placeholder="Region"
-                      id="billing_region_id"
-                      v-model="model.billing_region"
-                      class="form-control"
-                      :disabled="!list.billing_region_list.length"
-                      >
-                      <option :value="null" selected>Select Billing Region</option>
-                      <option :key="idx" v-for="(region,idx) in list.billing_region_list" :value="region.id">
-                        {{ region.name }}
-                      </option>
-                    </select>
+                    <div class="d-flex label-wrap">
+                      <label for="website">Region</label>
+                      <select
+                        placeholder="Region"
+                        id="billing_region_id"
+                        v-model="model.billing_region"
+                        class="form-control"
+                        :disabled="!list.billing_region_list.length"
+                        >
+                        <option :value="null" selected>Select Billing Region</option>
+                        <option :key="idx" v-for="(region,idx) in list.billing_region_list" :value="region.id">
+                          {{ region.name }}
+                        </option>
+                      </select>
+                    </div>
                   </div>
                   <div class="form-group">
-                    <input type="text" name="zip" id="shippingZip" placeholder="Billing Zip" v-model="model.billing_zip" v-validate="'numeric|max:5'" v-bind:class="{'form-control': true, 'error': errors.has('zip') }">
-                    <span v-show="errors.has('zip')" class="text-danger">{{ errors.first('zip') }}</span>
-                  </div>
-                  <div class="form-group">
-                    <textarea name="address" placeholder="Billing Street/Address" id="formaddress" class="form-control" rows="3" v-model="model.billing_address" v-validate="'max:500|min:3'" v-bind:class="{'form-control': true, 'error': errors.has('billing_address') }"></textarea>
+                    <div class="d-flex label-wrap">
+                      <label for="website">Street</label>
+                      <textarea name="address" placeholder="Billing Street/Address" id="formaddress" class="form-control" rows="3" v-model="model.billing_address" v-validate="'max:500|min:3'" v-bind:class="{'form-control': true, 'error': errors.has('billing_address') }"></textarea>
+                    </div>
                     <span v-show="errors.has('billing_address')" class="text-danger">{{ errors.first('billing_address') }}</span>
                   </div>
-                </div>
-                <div v-if="!model.is_sameAddress" class="col-sm-6">
                   <div class="form-group">
-                    <select
-                    placeholder="Province"
-                    id="billing_province_id"
-                    v-model="model.shipping_province"
-                    class="form-control"
-                    @change="updateShippingDistrictList" :disabled="!list.shipping_province_list.length"
-                      >
-                      <option :value="null" >Select Shipping Province</option>
-                      <option
-                        :key="idx"
-                        v-for="(province,idx) in list.shipping_province_list" :value="province.id"
+                    <div class="d-flex label-wrap">
+                      <label for="website">Zip</label>
+                      <input type="text" name="zip" id="shippingZip" placeholder="Billing Zip" v-model="model.billing_zip" v-validate="'numeric|max:5'" v-bind:class="{'form-control': true, 'error': errors.has('zip') }">
+                    </div>
+                    <span v-show="errors.has('zip')" class="text-danger">{{ errors.first('zip') }}</span>
+                  </div>
+
+
+                  <div class="same-address no-border checkbox checkbox-success">
+                    <input
+                      v-model="model.is_sameAddress"
+                      type="checkbox"
+                      id="sameAddress"
+                    />
+                    <label for="sameAddress">Same address between Billing and Shipping</label>
+                  </div>
+                </div>
+
+                <div v-if="!model.is_sameAddress" class="col-sm-6">
+                  <h4>Shipping Address</h4>
+                  <div class="form-group">
+                    <div class="d-flex label-wrap">
+                      <label for="website">Province</label>
+                      <select
+                      placeholder="Province"
+                      id="billing_province_id"
+                      v-model="model.shipping_province"
+                      class="form-control"
+                      @change="updateShippingDistrictList" :disabled="!list.shipping_province_list.length"
                         >
-                        {{ province.name }}
-                      </option>
-                    </select>
+                        <option :value="null" >Select Shipping Province</option>
+                        <option
+                          :key="idx"
+                          v-for="(province,idx) in list.shipping_province_list" :value="province.id"
+                          >
+                          {{ province.name }}
+                        </option>
+                      </select>
+                      </div>
                   </div>
                   <div class="form-group">
+                  <div class="d-flex label-wrap">
+                    <label for="website">District</label>
                     <select
                       placeholder="District"
                       id="shipping_district_id"
@@ -143,7 +215,10 @@
                       </option>
                     </select>
                   </div>
+                  </div>
                   <div class="form-group">
+                  <div class="d-flex label-wrap">
+                    <label for="website">Region</label>
                     <select
                       placeholder="Region"
                       id="shipping_region_id"
@@ -157,13 +232,21 @@
                       </option>
                     </select>
                   </div>
+                  </div>
+
                   <div class="form-group">
-                    <input type="text" name="shippingzip" id="shippingZip" placeholder="Shipping Zip" v-model="model.shipping_zip" v-validate="'numeric|max:5'" v-bind:class="{'form-control': true, 'error': errors.has('shippingzip') }">
-                    <span v-show="errors.has('shippingzip')" class="text-danger">{{ errors.first('zip') }}</span>
+                  <div class="d-flex label-wrap">
+                    <label for="website">Street</label>
+                    <textarea name="address" placeholder="Shipping Street/Address" id="formaddress" class="form-control" rows="3" v-model="model.shipping_address" v-validate="'max:500|min:3'" v-bind:class="{'form-control': true, 'error': errors.has('shipping_address') }"></textarea>
+                  </div>
+                    <span v-show="errors.has('shipping_address')" class="text-danger">{{ errors.first('shipping_address') }}</span>
                   </div>
                   <div class="form-group">
-                    <textarea name="address" placeholder="Shipping Street/Address" id="formaddress" class="form-control" rows="3" v-model="model.shipping_address" v-validate="'max:500|min:3'" v-bind:class="{'form-control': true, 'error': errors.has('shipping_address') }"></textarea>
-                    <span v-show="errors.has('shipping_address')" class="text-danger">{{ errors.first('shipping_address') }}</span>
+                  <div class="d-flex label-wrap">
+                    <label for="website">Zip</label>
+                    <input type="text" name="shippingzip" id="shippingZip" placeholder="Shipping Zip" v-model="model.shipping_zip" v-validate="'numeric|max:5'" v-bind:class="{'form-control': true, 'error': errors.has('shippingzip') }">
+                  </div>
+                    <span v-show="errors.has('shippingzip')" class="text-danger">{{ errors.first('zip') }}</span>
                   </div>
 
                 </div>
@@ -240,6 +323,7 @@
           shipping_province: null,
           shipping_country: null,
           phone: '',
+          mobile: '',
           email: '',
           is_customer:'true', // hidden
           display_code:1,  // hidden
@@ -354,7 +438,6 @@
                 {
                   ...this.model,
                   display_name: this.displayName,
-                  mobile: this.model.phone
                 }
               ).then(res => {
                 this.saving = false
@@ -397,6 +480,17 @@
         cursor: pointer;
         margin-bottom: 20px;
         height: 20px;
+        padding: 40px 0 20px;
+        display: flex;
+        align-items: center;
+        margin-top: 40px;
+        border-top: gainsboro 1px solid;
+        width: 100%;
+        &.no-border{
+          border:none;
+          padding:  20px;
+          margin-top: 20px;
+        }
         label{
           font-weight: normal;
         }
@@ -413,7 +507,7 @@
     font-size: 30px;
   }
   h4.modal-title{
-    margin-bottom: 24px;
+    margin-bottom: 80px;
   }
   .modal-customer-header {
     display: block;
@@ -421,15 +515,28 @@
     overflow: hidden;
     position: absolute;
     left: 0;
-    padding: 20px;
+    padding: 40px 20px;
     top: 0;
+    background-color: #ddd;
   }
   select#salutation_id {
     width: 70px;
     padding: 0 0 0 10px;
     margin-right: 10px;
   }
-  input#first_name {
-    flex: 1;
+  .label-wrap{
+    overflow: hidden;
+    width: 100%;
+    justify-content: center;
+    label{
+      display: block;
+      width: 120px;
+    }
+    select,
+    textarea,
+    input,
+    .input{
+      flex: 1;
+    }
   }
 </style>
