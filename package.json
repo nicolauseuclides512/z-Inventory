@@ -28,6 +28,7 @@
     "vue": "^2.5.2",
     "vue-infinite-scroll": "^2.0.2",
     "vue-multianalytics": "^1.9.4",
+    "vue-multiselect": "^2.1.0",
     "vue-numeric": "^2.3.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",

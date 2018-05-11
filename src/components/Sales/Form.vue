@@ -27,7 +27,6 @@
             </div>
           </div>
         </div> -->
-
         <div class="row">
           <div class="col-md-9" style="margin-left: 0px">
             <div class="header-pannel panel panel-default" style="margin-bottom:10px">
@@ -87,7 +86,7 @@
                         </tr>
                         </thead>
                         <tbody style="color:#000;">
-                        <tr v-for="product in form.details">
+                        <tr v-for="(product,i) in form.details" :key="i">
                           <!-- <td width='10%' style="padding: 15px 8px 15px 10px">
                             <a href="#" class="pull-left">
                               <img alt="" :src="tesimgProduct" class="media-object thumb-sm"
@@ -117,7 +116,7 @@
                               <select style="padding-left: 0px; font-size:12px; padding-right: 0px;width: 47px;"
                                       v-model="product.discount_amount_type" @change="updateDiscountType(product)"
                                       class="form-control">
-                                <option v-for="value, key in list.discount_unit" :value="key" v-text="value"
+                                <option v-for="(value, key) in list.discount_unit" :value="key" :key="key" v-text="value"
                                         style="font-size:12px"></option>
                               </select>
                             </div>
@@ -160,11 +159,33 @@
                           </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
-                        <tr class="total">
+                        <tr v-if="form.tax_included !== 0" class="total">
                           <td class="text-right"
                               style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
                           <td class="text-left" style="padding-left:8px; color:#000">PPN 10%</td>
                           <td class="text-right" style="padding-right:8px; color:#000">{{ tax_value }}</td>
+                          <td style="width:28px; border:0px solid; color:#fff">0</td>
+                        </tr>
+                        <tr class="total">
+                          <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
+                          </td>
+                          <td class="text-right" style="padding-left: 0px; padding-bottom:24px">
+                            <span style="white-space: nowrap;"><small>Shipping Charge</small></span>
+                          </td>
+                          <td style="padding-right: 0px; padding-bottom:24px">
+                            <div class="input-group pull-right">
+                              <span class="input-group-addon" style="color:  #666;">Rp</span>
+                              <vue-numeric
+                                v-model="form.shipping_charge"
+                                :minus="true"
+                                separator="."
+                                style="border: 1px solid #eee"
+                                maxlength="20"
+                                class="form-control form-white text-right"
+                                placeholder=""
+                              ></vue-numeric>
+                            </div>
+                          </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
                         <tr class="total">
@@ -184,28 +205,6 @@
                               <span class="input-group-addon" style="color:  #666;">Rp</span>
                               <vue-numeric
                                 v-model="form.adjustment_value"
-                                :minus="true"
-                                separator="."
-                                style="border: 1px solid #eee"
-                                maxlength="20"
-                                class="form-control form-white text-right"
-                                placeholder=""
-                              ></vue-numeric>
-                            </div>
-                          </td>
-                          <td style="width:28px; border:0px solid; color:#fff">0</td>
-                        </tr>
-                        <tr class="total">
-                          <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
-                          </td>
-                          <td class="text-right" style="padding-left: 0px; padding-bottom:24px">
-                            <span style="white-space: nowrap;"><small>Shipping Charge</small></span>
-                          </td>
-                          <td style="padding-right: 0px; padding-bottom:24px">
-                            <div class="input-group pull-right">
-                              <span class="input-group-addon" style="color:  #666;">Rp</span>
-                              <vue-numeric
-                                v-model="form.shipping_charge"
                                 :minus="true"
                                 separator="."
                                 style="border: 1px solid #eee"
@@ -239,9 +238,6 @@
             </div>
 
             <div class="panel panel-default bottom-pannel">
-              <!-- <div class="panel-heading">
-                <h3 class="panel-title">Notes</h3>
-              </div> -->
               <div class="panel-body">
                 <div class="row">
                   <div class="col-xs-12">
@@ -293,24 +289,6 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="container">
-                      <div class="row m-b-20">
-                        <div class="col-md-12 pl-pr-0">
-                          <div class="form-group col-md-12 form-general-newOrder m-b-20">
-                            <label class="control-label">Invoice Email</label>
-                            <span v-if="ui.invalidInvoiceEmail" style="color: red;">( Invalid email address )</span>
-                            <div>
-                              <vuetagger
-                                :value="invoice_emails"
-                                @change="updateEmail"
-
-                                pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$"
-                              ></vuetagger>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
                   </div>
                 </div>
               </div>
@@ -318,31 +296,14 @@
           </div>
 
           <div class="col-md-3 right-pannel">
-            <!-- <div class="panel panel-default">
-               <div class="panel-heading">
-                <h3 class="panel-title">Sales Order Number</h3>
-              </div>
-              <div class="panel-body">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="form-group" style="text-align: center;margin-bottom: 0px">
-                      <h4 style="color: #bbb">{{ sales_order_number }}</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
             <div class="panel panel-default" style="box-shadow:none; background-color:#eee; ">
-              <!-- <div class="panel-heading">
-                <h3 class="panel-title">Contacts</h3>
-              </div> -->
               <div class="panel-body" style="padding:0px">
                 <div class="row">
                   <div class="col-xs-12">
                     <!-- <div class="form-group" style="margin-bottom: 0px">
                       <label style="font-weight: normal">Invoice to:</label>
                     </div> -->
-                    <div class="right-panel-wrap d-flex">
+                    <div class="right-panel-wrap d-flex" style="z-index:9999999">
                       <div class="col-md-12" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
                         <div class="button-wrap">
                         </div>
@@ -437,7 +398,7 @@
                         <div class="contact-mobile" >Mobile {{ selected_contact.mobile ? selected_contact.mobile : '-' }}</div>
                       </div>
                     </div>
-                    <div v-if="list.channels.length" class="channels-length">
+                    <div v-if="list.channels.length" class="channels-length" style="z-index:9;">
                       <div class="form-group list-wrap" style="margin-bottom:0px">
                         <!-- <div v-if="selected_sales_channel" class="channel-list">
                           <span>
@@ -453,14 +414,17 @@
                         <div class="form-group form-general m-b-10">
                           <label class="col-md-3 control-label text-left">Channel</label>
                           <div class="col-md-9">
-                            <vuelist
-                            @change="selectSalesChannel"
+                          <Multiselect
+                            v-model="selected_sales_channel"
                             :options="list.channels"
-                            :value="selected_sales_channel"
-                            placeholder="Select Sales Channel"
-                            keyid="id"
-                            label="store_name"
-                          ></vuelist>
+                            :searchable="true"
+                            :close-on-select="true"
+                            placeholder="Search..."
+                            track-by="id"
+                            :selectLabel="''"
+                            :deselectLabel="''"
+                            :custom-label="customLabel"
+                            />
                         </div>
                       </div>
                     </div>
@@ -498,43 +462,6 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Sales Info</h3>
-              </div>
-              <div class="panel-body">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div v-if="list.channels.length">
-                      <div class="form-group" style="margin-bottom: 0px" >
-                        <label style="font-weight: normal" v-if="!selected_sales_channel">Sales from:</label>
-                        <label style="font-weight: normal" v-if="selected_sales_channel">Sales from: {{ selected_sales_channel.sales_channel.channel_name }}</label>
-                      </div>
-                      <div class="normal-mode">
-                        <div class="col-md-12" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
-                          <vuelist
-                            @change="selectSalesChannel"
-                            :options="list.channels"
-                            :value="selected_sales_channel"
-                            placeholder="Search a sales channel"
-                            keyid="id"
-                            label="store_name"
-                        ></vuelist>
-                        </div>
-                        <div class="col-md-1" v-if="selected_sales_channel">
-                          <a @click="clearSelectedSalesChannel" href="javascript:void(0)" class="text-danger">
-                            <i class="ion-close-circled" style="font-size:12pt"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-else>
-                      <label style="font-weight: normal">Go to <i>Settings</i> >> <i>Sales Channel</i> to add your first sales channel</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
 
@@ -596,12 +523,15 @@
   import VueNumeric from 'vue-numeric';
   import ModalAddCustomer from '@/components/Sales/Modal/ModalAddCustomer';
   // import testValidation from '@/components/Sales/Modal/testValidation';
+  import Multiselect from 'vue-multiselect'
+  import 'vue-multiselect/dist/vue-multiselect.min.css'
 
   export default {
     name: "SalesOrderForm",
 
     components: {
       // testValidation,
+      Multiselect,
       ModalAddCustomer,
       Vuelist,
       Vuetagger,
@@ -633,7 +563,7 @@
 
       tax_value() {
         // NOTE: The "tax_included" from "Tax Setting", actually a boolean. But server give us 0 or 1.
-        return this.tax_included ? "Included" : this.subtotal * 0.1;
+        return (this.form.tax_included == 1) ? 'Included' : this.subtotal * 0.1;
       },
 
       grandTotal() {
@@ -695,7 +625,7 @@
         selected_product: null,
         selected_sales_channel: null,
         tesimgProduct: "http://placehold.it/70?text=No+image",
-        tax_included: 1,
+        // tax_included: 1,
         form: new Form({
           invoice_date: dateFormat(new Date(), "DD MMM YYYY"),
           due_date: dateFormat(new Date(), "DD MMM YYYY"),
@@ -761,6 +691,9 @@
     },
 
     methods: {
+      customLabel(option){
+        return option.sales_channel.channel_name +': '+ option.store_name
+      },
       showModalCustomer(){
         this.isShownModalAddCustomer = true
         $('#modal-add-customer').modal('show')
@@ -780,7 +713,7 @@
             this.edit(this.salesOrderEdit);
             this.list.discount_unit = res.data.data.discount_unit;
             this.list.weight_unit = res.data.data.weight_unit;
-            this.tax_included = res.data.data.tax_included;
+            this.form.tax_included = res.data.data.tax_included;
             this.sales_order_number = res.data.data.sales_order.sales_order_number;
             this.dateTime(this.salesOrderEdit.invoice_date);
             this.dueDateTime(this.salesOrderEdit.due_date);
@@ -791,7 +724,7 @@
             }
             this.list.discount_unit = res.data.data.discount_unit;
             this.list.weight_unit = res.data.data.weight_unit;
-            this.tax_included = res.data.data.tax_included;
+            this.form.tax_included = res.data.data.tax_included;
             this.sales_order_number = res.data.data.next_sales_order_number;
             this.dateTime(new Date());
             this.dueDateTime(new Date());
@@ -801,7 +734,7 @@
           await this.fetchProductList();
           await this.fetchTaxSetting();
         } catch (err) {
-          console.error(err)
+          // console.error(err)
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
           }
@@ -1010,6 +943,10 @@
        * That's why there is no "is_draft".
        */
       async save(evt) {
+
+        this.form.my_sales_channel_id = this.selected_sales_channel.id
+        this.form.my_sales_channel = this.selected_sales_channel.store_name
+
         try {
           if (!this.form.due_date) this.form.due_date = this.form.invoice_date;
 
@@ -1463,20 +1400,24 @@ table.empty-table {
   padding-left:8px;
   padding-top:24px;
   padding-bottom:24px;
-  color:#000
+  color:#000;
 }
 .adjustment-row{
   padding-left:0px;
   padding-right:0px;
-  padding-top:24px;
+  padding-top:0;
   padding-bottom:24px;
-  color:#000
+  color:#000;
+  border: none;
+
 }
 .adjustment-textfield-row{
+  border: none;
   padding-left:8px;
   padding-right:0px;
-  padding-top:24px;
+  padding-top:0;
   padding-bottom:24px;
-  color:#000
+  color:#000;
 }
+
 </style>

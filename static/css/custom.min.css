@@ -2823,3 +2823,23 @@ h5.title {
 .clickable{
     cursor: pointer;
 }
+/* .right-pannel .multiselect__tags,
+.right-pannel .multiselect__tags * {
+  background: #eeeeef;
+} */
+.right-pannel .multiselect__tags {
+  border-color: gainsboro;
+  border-radius: 0;
+  color: #45a9e7;
+}
+.right-pannel .multiselect__select:before {
+  top: 10px;
+  font-family: Ionicons;
+  content: "\f151";
+  color: #3ea9e8;
+  border: none;
+  font-size: 20px;
+}
+.right-pannel .multiselect__option--highlight{
+  background: #50a1d6;
+}
