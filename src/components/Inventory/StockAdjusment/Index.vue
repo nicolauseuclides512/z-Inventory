@@ -56,38 +56,38 @@
                     <table class="table table-hover sahito-list-contact--table">
                       <thead>
                       <tr class="table-header-row">
-                        <th class="table-header-th">Date</th>
-                        <th></th>
-                        <th class="table-header-th">Adjustment ID</th>
-                        <th class="table-header-th">Reference Number</th>
+                        <th class="table-header-th-date">Date</th>
+                        <th class="table-header-th-expand"></th>
+                        <th class="table-header-th-adjID">Adjustment ID</th>
+                        <th class="table-header-th-ref">Reference Number</th>
                         <!-- <th class="table-header-th">Status</th> -->
-                        <th class="outer-head-reason">Reason</th>
+                        <th class="outer-head-reason-reason">Reason</th>
                       </tr>
                       </thead>
                       <tbody>
                         <template v-for="groupItem in list.stockAdj">
                             <tr>
-                              <td>{{ groupItem.stock_adjustment_date | date('short') }}</td>
-                              <td>
+                              <td class="outer-data">{{ groupItem.stock_adjustment_date | date('short') }}</td>
+                              <td class="outer-data">
                                 <a href="javascript:void(0);" @click="expandGroup(groupItem.stock_adjustment_id)">
                                   <i v-if="groupExpanded == groupItem.stock_adjustment_id" class="ion-minus-round text-green"></i>
                                   <i v-else class="ion-plus-round text-green"></i>
                                 </a>
                               </td>
-                              <td v-if="groupItem.reason_summary[0].reason_description">
+                              <td class="outer-data" v-if="groupItem.reason_summary[0].reason_description">
                                 <router-link :to="{ name: 'stock_adjustment.edit', params: { id: groupItem.stock_adjustment_id } }">
                                     {{ groupItem.stock_adjustment_number }}
                                 </router-link></td>
-                              <td v-if="!groupItem.reason_summary[0].reason_description">{{ groupItem.stock_adjustment_number }}</td>
-                              <td v-if="groupItem.reference_number">#{{ groupItem.reference_number }}</td>
-                              <td v-if="!groupItem.reference_number">-</td>
+                              <td class="outer-data" v-if="!groupItem.reason_summary[0].reason_description">{{ groupItem.stock_adjustment_number }}</td>
+                              <td class="outer-data" v-if="groupItem.reference_number">#{{ groupItem.reference_number }}</td>
+                              <td class="outer-data" v-if="!groupItem.reference_number">-</td>
                               <!-- <td>{{ groupItem.status }}</td> -->
-                              <td v-if="groupItem.reason_summary[0].reason_description">
+                              <td class="outer-data" v-if="groupItem.reason_summary[0].reason_description">
                                 <span v-for="(groupItem,index) in groupItem.reason_summary" v-if="groupItem.reason_description" class="label label-info" style="margin-right: 5px;" :key="index">
                                   {{ groupItem.line_count }} {{ groupItem.reason_description }}
                                 </span>
                               </td>
-                              <td v-if="!groupItem.reason_summary[0].reason_description">
+                              <td class="outer-data" v-if="!groupItem.reason_summary[0].reason_description">
                                 <span class="label label-default" style="margin-right: 5px;">Free Adjust to add stock</span></td>
                             </tr>
                             <tr class="expandable" v-if="groupExpanded == groupItem.stock_adjustment_id">
@@ -257,6 +257,12 @@ export default {
   font-weight: 400;
   color: #000000
 }
+.outer-data{
+  padding-top: 16px;
+  padding-bottom: 16px;
+  color:#000;
+  font-size: 1.05em
+}
 .inner-head-name{
   color:#000000;
   font-size: 1em;
@@ -294,10 +300,30 @@ export default {
 .table-header-row{
   border-top: 1px solid #ddd;
 }
-.table-header-th{
+.table-header-th-date{
+  font-weight: 400;
+  color: #000000;
+  width: 224px;
+}
+.table-header-th-expand{
+  font-weight: 400;
+  color: #000000;
+  width: 31px;
+}
+.table-header-th-adjID{
+  font-weight: 400;
+  color: #000000;
+  width: 275px;
+}
+.table-header-th-ref{
   font-weight: 400;
   color: #000000
-}.content-wrapper{
+}
+.table-header-th-reason{
+  font-weight: 400;
+  color: #000000
+}
+.content-wrapper{
   min-height: 100vh
 }
 
