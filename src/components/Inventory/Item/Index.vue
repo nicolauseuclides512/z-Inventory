@@ -236,6 +236,7 @@
                         <td class="text-left" style="padding: 14px 8px !important;">
                           <span v-if="!item.children.length">
                             <inline-editable
+                              :isMoney="true"
                               :item="item"
                               :value.sync="item.sales_rate"
                               @update="saveNewPrice"

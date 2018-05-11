@@ -14,7 +14,8 @@
       <form method="POST" @submit.prevent="save">
 
         <div class="input-group col-sx-12">
-          <input type="number" v-model="newValue" class="form-control" min="0" required>
+          <money v-if="isMoney" v-model="newValue" v-bind="money" class="form-control" />
+          <input v-else type="number" v-model="newValue" class="form-control" min="0" required>
           <div class="input-group-btn">
             <button type="submit" class="btn btn-primary editable-submit btn-sm waves-effect waves-light">
               <span v-if="isAdd">Add</span>
@@ -33,10 +34,12 @@
 </template>
 
 <script>
+  import {Money} from 'v-money'
   export default {
 
 
     props: {
+      isMoney:false,
       isAdd: false,
       item: null,
       value: null,
@@ -49,6 +52,15 @@
         newValue: null,
         editMode: false,
         originalValue: null,
+        price: 123.45,
+        money: {
+          // decimal: ',',
+          thousands: '.',
+          prefix: 'Rp ',
+          // suffix: ' #',
+          precision: 0,
+          masked: false
+        }
       }
     },
 
