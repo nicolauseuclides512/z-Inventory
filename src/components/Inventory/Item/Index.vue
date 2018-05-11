@@ -23,7 +23,7 @@
           </div>
       </div>
     </div>
-    <div class="content full-width sahito-user bgr-white">
+    <div class="content full-width sahito-user bgr-white content-wrapper">
       <div class="container">
         <div>
           <div v-if="list.items === null" class="text-center" style="color: #a9a9a9; padding-top: 60px;">
@@ -638,6 +638,8 @@
   .table-header-style{
   box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;
   border-top: 1px solid #ddd
+}.content-wrapper{
+  min-height: 100vh
 }
 
 </style>

@@ -20,7 +20,7 @@
           </div>
       </div>
     </div>
-    <div class="content full-width sahito-user bgr-white">
+    <div class="content full-width sahito-user bgr-white content-wrapper">
       <div class="container">
         <!-- Full list -->
         <div class="container full-width-header p-b-10 header-wrapper">
@@ -473,5 +473,8 @@
   .table-header-style{
   box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;
   border-top: 1px solid #ddd 
+}
+.content-wrapper{
+  min-height: 100vh
 }
 </style>

@@ -230,5 +230,8 @@ export default {
 .report-title{
   margin-top:0px
 }
+.page-wrapper{
+  min-height: 100vh
+}
 </style>
  
