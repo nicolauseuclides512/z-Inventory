@@ -161,7 +161,7 @@
                   <thead class="table-header-style">
                   <tr>
                     <th class="col-checkbox">
-                      <div class="checkbox checkbox-single checkbox-success">
+                      <div class="checkbox checkbox-single checkbox-success check-head-size-style">
                         <input type="checkbox" id="checkAll" @click="checkAll">
                         <label></label>
                       </div>
@@ -191,7 +191,7 @@
                   <tbody>
                   <tr v-for="(c, index) in contacts" :class="{ active: isChecked }">
                     <td class="col-checkbox">
-                      <div class="checkbox checkbox-single checkbox-success">
+                      <div class="checkbox checkbox-single checkbox-success check-size-style">
                         <input type="checkbox" :id="'list-' + index" :value="c.contact_id" v-model="checkedContacts">
                         <label></label>
                       </div>
@@ -476,5 +476,20 @@
 }
 .content-wrapper{
   min-height: 100vh
+}
+.check-head-size-style{
+  width:22px;
+  padding-left: 20px;
+  input[type=checkbox]{
+    left:20px
+  }
+}
+
+.check-size-style{
+  width:22px;
+  padding-left:20px;  
+  input[type=checkbox]{
+    left:0px
+  }
 }
 </style>
