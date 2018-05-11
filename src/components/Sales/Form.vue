@@ -107,8 +107,11 @@
                           </td>
 
                           <td width="16.65%">
-                            <vue-numeric v-model.number="product.item_rate" :min="0" :max="99999999" separator="."
-                                         class="form-control custom" style="padding:6px;"></vue-numeric>
+                              <money
+                                v-model="product.item_rate"
+                                v-bind="money"
+                                class="form-control custom"
+                                />
                           </td>
 
                           <td width="20.25%">
@@ -175,7 +178,7 @@
                           <td style="padding-right: 0px; padding-bottom:24px">
                             <div class="input-group pull-right">
                               <span class="input-group-addon" style="color:  #666;">Rp</span>
-                              <vue-numeric
+                              <!-- <vue-numeric
                                 v-model="form.shipping_charge"
                                 :minus="true"
                                 separator="."
@@ -183,12 +186,17 @@
                                 maxlength="20"
                                 class="form-control form-white text-right"
                                 placeholder=""
-                              ></vue-numeric>
+                              ></vue-numeric> -->
+                              <money
+                                v-model="form.adjustment_value"
+                                v-bind="money"
+                                class="form-control form-white text-right"
+                                />
                             </div>
                           </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
-                        <tr class="total">
+                        <!-- <tr class="total">
                           <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
                           <td class="text-right adjustment-row">
@@ -215,7 +223,7 @@
                             </div>
                           </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
-                        </tr>
+                        </tr> -->
                         <tr class="total">
                           <td class="no-bgr text-right"
                               style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
@@ -513,6 +521,7 @@
 
 <script>
   const Flatpickr = require("flatpickr");
+  import {Money} from 'v-money';
   import axios from "axios";
   import {responseOk} from 'src/helpers';
   import Vuelist from "../Vuelist";
@@ -595,6 +604,14 @@
 
     data() {
       return {
+        money: {
+          // decimal: ',',
+          thousands: '.',
+          prefix: '',
+          // suffix: ' #',
+          precision: 0,
+          masked: false
+        },
         isShownModalAddCustomer: false,
         loadingList: false,
         loadingContact: false,
@@ -639,7 +656,7 @@
           shipping_weight: 1,
           shipping_weight_unit: "gr",
           shipping_rate: 0,
-          adjustment_name: "",
+          adjustment_name: "Shipping Charge",
           adjustment_value: 0,
           shipping_charge: 0,
           internal_notes: "",

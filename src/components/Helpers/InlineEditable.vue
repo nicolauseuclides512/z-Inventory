@@ -52,7 +52,7 @@
         newValue: null,
         editMode: false,
         originalValue: null,
-        price: 123.45,
+        // price: 123.45,
         money: {
           // decimal: ',',
           thousands: '.',
