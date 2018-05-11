@@ -255,11 +255,14 @@
                               </span>
                               </td>
                             <td class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">
-                              <!-- {{((sale.shipment_date)?(sale.shipment_date| date('short')):'-')}} -->
+                              <small v-if="sale.shipment_date">
+                                {{sale.shipment_date | showShortDate}}
+                              </small>
+                              <small v-else>-</small>
                               </td>
                             <td class="payment-status" style="cursor: pointer; width:126px" @click="showDetail(sale)">
                               <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
-                                <!-- Overdue in {{ sale.due_date | diffInDays }} day(s) -->
+                                Overdue in {{ sale.due_date | diffInDays }} day(s)
                               </span>
                               <span class="label label-default" v-else-if="sale.sales_order_status === 'DRAFT'">Open</span>
                               <span class="label label-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</span>
@@ -467,11 +470,14 @@
   import Pagination from '../Pagination.vue'
   import Spinner from '@/components/Helpers/Spinner'
   import {mapGetters} from 'vuex'
-
+  import { format } from 'date-fns'
   export default {
     name: 'List',
 
     filters: {
+      showShortDate(date) {
+        return format(date, 'DD MMM YYYY')
+      },
       normalizeStatus(text) {
         return text.replace(/_/gi, ' ').toLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase())
       },
