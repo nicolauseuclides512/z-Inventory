@@ -152,21 +152,21 @@
                     <table class="table table-hover default-table sahito-list-contact--table">
                       <thead class="table-header-style">
                       <tr>
-                        <th class="col-checkbox" style="width: 5%">
+                        <th class="col-checkbox header-check">
                           <div class="checkbox checkbox-single checkbox-success">
                             <input type="checkbox" id="checkAll" @click="checkAll">
                             <label></label>
                           </div>
                         </th>
                         <!-- <th></th> -->
-                        <th></th>
-                        <th style="width: 50%; font-size:1.1em; font-weight:normal">
-                          <a href="#" @click="sortItemsBy('item_name')" style="color:#000">Name</a>
+                        <th class="header-expand"></th>
+                        <th class="header-item-name">
+                          <a href="#" @click="sortItemsBy('item_name')">Name</a>
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'item_name'"></i>
                           <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'item_name'"></i>
                         </th>
-                        <th class="text-center" style="width: 10%; font-size:1.1em; font-weight:normal">
-                          <a href="#" @click="sortItemsBy('description')" style="color:#000">SKU</a>
+                        <th class="text-center header-item-sku">
+                          <a href="#" @click="sortItemsBy('description')">SKU</a>
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'sku'"></i>
                           <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'sku'"></i>
                         </th>
@@ -175,14 +175,14 @@
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'description'"></i>
                           <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'description'"></i>
                         </th> -->
-                        <th class="text-center" style="width: 20%; font-size:1.1em; font-weight:normal">
+                        <th class="text-center header-item-stock" >
                           <!-- <a href="#" @click="sortItemsBy('inventory_stock')" style="color:#000">Stock Available</a> -->
                           Stock on Hand
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                           <i class="fa fa-sort-desc"
                              v-if="! ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                         </th>
-                        <th class="text-left" style="width: 20%; font-size:1.1em; font-weight:normal">
+                        <th class="text-left header-item-price">
                           <a href="#" @click="sortItemsBy('sales_rate')" style="color:#000">Price</a>
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'sales_rate'"></i>
                           <i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'sales_rate'"></i>
@@ -591,7 +591,7 @@
 </script>
 
 
-<style scoped>
+<style lang="scss" scoped>
   tbody {
     border: 0 !important;
   }
@@ -636,9 +636,54 @@
     padding-left: 0px
   }
   .table-header-style{
+    tr{
+      .header-check{
+        width:35px; 
+        font-size:1.1em !important; 
+        font-weight:normal;
+      }
+      .header-expand{
+        width: 28px; 
+        font-size:1.1em !important; 
+        font-weight:normal;
+      }
+      .header-item-name{
+        width: 40%; 
+        font-size:1.1em !important; 
+        font-weight:normal;
+        a{
+          color:#000
+        }
+      }
+      .header-item-sku{
+        width: 150px; 
+        font-size:1.1em !important; 
+        font-weight:normal;
+        a{
+          color:#000
+        }
+      }
+      .header-item-stock{
+        width: 20%; 
+        font-size:1.1em !important; 
+        font-weight:normal;
+        a{
+          color:#000
+        }
+      }
+      .header-item-price{
+        width: 170px; 
+        font-size:1.1em !important; 
+        font-weight:normal;
+        a{
+          color:#000
+        }
+      }
+    }
   box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;
   border-top: 1px solid #ddd
-}.content-wrapper{
+}
+.content-wrapper{
   min-height: 100vh
 }
 
