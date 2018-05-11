@@ -202,6 +202,7 @@
 
     data () {
       return {
+        zipAlert: false,
         loading: false,
         uploading: false,
         removing: false,
