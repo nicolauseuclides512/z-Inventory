@@ -331,7 +331,7 @@
                           false-value="false"
                           checked="unchecked"
                         />
-                        <label for="sameAddress">Same address between Billing and Shipping</label>
+                        <label for="sameAddress">Shipping address is same as billing address</label>
                       </div>
                     </div>
                     </div>
