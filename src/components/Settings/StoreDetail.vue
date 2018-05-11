@@ -75,7 +75,7 @@
                     </div>
                   </div>
 
-                  <tax></tax>
+                  <!-- <tax></tax> -->
 
                 </div>
               </div>
@@ -104,7 +104,7 @@
     name: 'StoreDetail',
 
     components: {
-      'tax': () => import('./Tax'),
+      // 'tax': () => import('./Tax'),
     },
 
     data () {

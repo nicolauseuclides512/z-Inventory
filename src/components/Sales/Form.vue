@@ -159,13 +159,13 @@
                           </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
-                        <tr v-if="form.tax_included !== 0" class="total">
+                        <!-- <tr v-if="form.tax_included !== 0" class="total">
                           <td class="text-right"
                               style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
                           <td class="text-left" style="padding-left:8px; color:#000">PPN 10%</td>
                           <td class="text-right" style="padding-right:8px; color:#000">{{ tax_value }}</td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
-                        </tr>
+                        </tr> -->
                         <tr class="total">
                           <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
@@ -567,14 +567,14 @@
       },
 
       grandTotal() {
-        let taxValue = 0;
-        if (_.isNumber(_.toNumber(this.tax_value))) {
-          taxValue = _.toNumber(this.tax_value);
-          // I know this is weird
-          if (isNaN(taxValue)) {
-            taxValue = 0;
-          }
-        }
+        // let taxValue = 0;
+        // if (_.isNumber(_.toNumber(this.tax_value))) {
+        //   taxValue = _.toNumber(this.tax_value);
+        //   // I know this is weird
+        //   if (isNaN(taxValue)) {
+        //     taxValue = 0;
+        //   }
+        // }
 
         let adjustmentValue = 0;
         let shippingCharge = 0;
@@ -583,7 +583,7 @@
           shippingCharge = _.toNumber(this.form.shipping_charge);
         }
 
-        return this.subtotal + taxValue + adjustmentValue + shippingCharge;
+        return this.subtotal + /*taxValue +*/ adjustmentValue + shippingCharge;
       },
 
       invoice_emails() {
@@ -625,7 +625,7 @@
         selected_product: null,
         selected_sales_channel: null,
         tesimgProduct: "http://placehold.it/70?text=No+image",
-        // tax_included: 1,
+        tax_included: 0,
         form: new Form({
           invoice_date: dateFormat(new Date(), "DD MMM YYYY"),
           due_date: dateFormat(new Date(), "DD MMM YYYY"),
@@ -661,7 +661,7 @@
           shipping_country: null,
           shipping_zip: null,
           shipping_fax: null,
-          tax_included: 1,
+          tax_included:0,
           is_draft: 0,
           carrier_code: "",
           carrier_name: "",
@@ -713,7 +713,7 @@
             this.edit(this.salesOrderEdit);
             this.list.discount_unit = res.data.data.discount_unit;
             this.list.weight_unit = res.data.data.weight_unit;
-            this.form.tax_included = res.data.data.tax_included;
+            // this.form.tax_included = res.data.data.tax_included;
             this.sales_order_number = res.data.data.sales_order.sales_order_number;
             this.dateTime(this.salesOrderEdit.invoice_date);
             this.dueDateTime(this.salesOrderEdit.due_date);
@@ -724,7 +724,7 @@
             }
             this.list.discount_unit = res.data.data.discount_unit;
             this.list.weight_unit = res.data.data.weight_unit;
-            this.form.tax_included = res.data.data.tax_included;
+            // this.form.tax_included = res.data.data.tax_included;
             this.sales_order_number = res.data.data.next_sales_order_number;
             this.dateTime(new Date());
             this.dueDateTime(new Date());
@@ -732,7 +732,7 @@
 
           await this.fetchContactList();
           await this.fetchProductList();
-          await this.fetchTaxSetting();
+          // await this.fetchTaxSetting();
         } catch (err) {
           // console.error(err)
           if (err.hasOwnProperty('response')) {
@@ -820,7 +820,7 @@
         this.form.shipping_country = sales_order.shipping_country;
         this.form.shipping_zip = sales_order.shipping_zip;
         this.form.shipping_fax = sales_order.shipping_fax;
-        this.form.tax_included = sales_order.tax_included;
+        // this.form.tax_included = sales_order.tax_included;
         this.form.is_draft = sales_order.is_draft;
         this.form.carrier_code = sales_order.carrier_code;
         this.form.carrier_name = sales_order.carrier_name;
@@ -924,8 +924,8 @@
 
       },
 
-      async fetchTaxSetting() {
-      },
+      // async fetchTaxSetting() {
+      // },
 
       async editSelectedContact() {
         window.open(`/contacts/${this.selected_contact.contact_id}/edit`);
@@ -944,8 +944,10 @@
        */
       async save(evt) {
 
-        this.form.my_sales_channel_id = this.selected_sales_channel.id
-        this.form.my_sales_channel = this.selected_sales_channel.store_name
+        if(this.selected_sales_channel){
+          this.form.my_sales_channel_id = this.selected_sales_channel.id
+          this.form.my_sales_channel = this.selected_sales_channel.store_name
+        }
 
         try {
           if (!this.form.due_date) this.form.due_date = this.form.invoice_date;
@@ -1241,7 +1243,7 @@
           shipping_country: null,
           shipping_zip: null,
           shipping_fax: null,
-          tax_included: 1,
+          tax_included: 0,
           is_draft: 0,
           carrier_code: "",
           carrier_name: "",

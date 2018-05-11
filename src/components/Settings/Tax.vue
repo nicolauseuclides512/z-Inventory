@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <div>
-      <div id="taxes">
+      <div id="taxes" class="tax-wrap">
         Tax
         <div class="container">
           <div class="row">
@@ -36,8 +34,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
 </template>
 
 <script>
