@@ -61,7 +61,7 @@
                         <th class="table-header-th-adjID">Adjustment ID</th>
                         <th class="table-header-th-ref">Reference Number</th>
                         <!-- <th class="table-header-th">Status</th> -->
-                        <th class="outer-head-reason-reason">Reason</th>
+                        <th class="outer-head-reason">Reason</th>
                       </tr>
                       </thead>
                       <tbody>
