@@ -124,22 +124,22 @@
                 <span class="text-muted">#</span> {{ shipment.tracking_number }}
               </div>
             </div>
-            <div class="row mb-15 status-delivery">
+            <!-- <div class="row mb-15 status-delivery">
               <label class="col-md-4 control-label text-left"><strong>Status</strong></label>
               <div class="col-md-7 shipment-is_delivered">
                 <span class="label label-info">
                   {{salesOrders.shipment_status | normalizeStatus}}
                 </span>
 
-                <!-- <small class="label label-success salesOrder-shipment_status" v-if="salesOrders.shipment_status === 'SHIPPED'">
+                <small class="label label-success salesOrder-shipment_status" v-if="salesOrders.shipment_status === 'SHIPPED'">
                   {{ salesOrders.shipment_status || removeUnderScore }}
-                </small> -->
+                </small>
 
-                <!-- <small class="label label-danger salesOrder-shipment_status" v-else>
+                <small class="label label-danger salesOrder-shipment_status" v-else>
                   {{ salesOrders.shipment_status || removeUnderScore }}
-                </small> -->
+                </small>
               </div>
-            </div>
+            </div> -->
             <div class="row mb-15 shipment-notes">
               <label class="col-md-4 control-label text-left"><strong>Notes</strong></label>
               <div class="col-md-7">
