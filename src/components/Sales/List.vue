@@ -233,7 +233,7 @@
                                 {{ sale.sales_order_number }}
                               </td>
                               <td class="text-center" style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
-                                   {{ (sale.my_sales_channel)?sale.my_sales_channel.sales_channel.channel_name:'-' }}
+                                   {{ (sale.my_sales_channel && sale.my_sales_channel.sales_channel && sale.my_sales_channel.sales_channel.channel_name )?sale.my_sales_channel.sales_channel.channel_name:'-' }}
                               </td>
                               <td class="text-left" @click="showDetail(sale)" style="cursor:pointer">
                                   {{ sale.contact.display_name }}
@@ -835,7 +835,7 @@ td.shipment-status {
 }
 .table-header-style{
   box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;
-  border-top: 1px solid #ddd 
+  border-top: 1px solid #ddd
 }
 .label{
   display: inline;
