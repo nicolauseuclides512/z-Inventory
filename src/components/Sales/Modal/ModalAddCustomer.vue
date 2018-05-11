@@ -16,12 +16,12 @@
 
                 <div class="form-group d-flex">
 
-                  <select id="salutation_id" v-model="model.salutation" class="form-control" title="Salutation">
+                  <!-- <select id="salutation_id" v-model="model.salutation" class="form-control" title="Salutation">
                     <option :value="null"></option>
                     <option v-for="(salutation,i) in list.salutation_list" :value="salutation" :key="i">
                       {{ salutation }}
                     </option>
-                  </select>
+                  </select> -->
                   <input type="text" name="FullName" id="first_name" placeholder="Name" v-model="model.first_name" v-validate="'required'" v-bind:class="{'form-control': true, 'error': errors.has('first_name') }">
                   <span v-show="errors.has('first_name')" class="text-danger">{{ errors.first('first_name') }}</span>
                 </div>
@@ -194,7 +194,7 @@
     name: 'ModalAddCustomer',
     computed: {
       displayName(){
-        return this.model.salutation+' '+this.model.first_name+' '+this.model.company_name
+        return this.model.first_name+' '+this.model.company_name
       }
     },
 
@@ -204,7 +204,7 @@
     data() {
       return {
         list: {
-          salutation_list: ['Mr','Mrs', 'Miss', 'Ms'],
+          // salutation_list: ['Mr','Mrs', 'Miss', 'Ms'],
           billing_country_list: [],
           billing_province_list: [],
           billing_district_list: [],
@@ -221,7 +221,7 @@
 
           shipping_zip: null,
           billing_province:null,
-          salutation:'',
+          // salutation:'',
           website: '',
           name:'',
           first_name:'',
