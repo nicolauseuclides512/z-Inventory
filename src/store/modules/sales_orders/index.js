@@ -11,7 +11,8 @@ const state = {
   paymentMethodList: {},
   shipmentList: [],
   loadingPayment:false,
-  loadingShipment:false
+  loadingShipment:false,
+  loadingSOData: false
 }
 
 const mutations = {
@@ -38,7 +39,10 @@ const mutations = {
   },
   LOADING_PAYMENT(state, value){
     state.loadingPayment = value
-  }
+  },
+  LOADING_SO_DATA(state, value){
+    state.loadingSOData = value
+  },
 }
 
 const actions = {
@@ -104,18 +108,23 @@ const actions = {
 
   async selectSalesOrder ({dispatch}, salesOrderId) {
     return Promise.all([
+      // commit('LOADING_SO_DATA', true),
       dispatch('getSalesOrder', salesOrderId),
+      // commit('LOADING_SO_DATA', false)
       // dispatch('getPayments', salesOrderId),
     ])
   },
 
   async getSalesOrder ({state, commit}, salesOrderId) {
     try {
+      commit('LOADING_SO_DATA', true)
       const {data} = await Axios.get(`sales_orders/${salesOrderId}`)
       commit('SALES_ORDER', data.data)
+      commit('LOADING_SO_DATA', false)
       return state.salesOrder
     }
     catch (err) {
+      commit('LOADING_SO_DATA', false)
       console.error(err)
       if (err.hasOwnProperty('response')) {
         //
@@ -206,6 +215,11 @@ const getters = {
   salesOrderData(state) {
     return state.salesOrder
   },
+
+  loadingSOData(state){
+    return state.loadingSOData
+  },
+
   loadingPayment(state){
     return state.loadingPayment
   }

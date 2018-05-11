@@ -1,7 +1,10 @@
 <template>
-  <div style="box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .2);">
+  <div class="invoice-wrap">
 
-    <div class="sahito-invoice" v-if="value" style="min-height: 842px">
+    <Spinner v-if="loadingSOData || loadingBuyer"/>
+
+
+    <div class="sahito-invoice" v-if="value && !loadingBuyer && !loadingSOData" style="min-height: 842px; box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .2);">
       <!-- <pre>{{value}}</pre> -->
       <!--
       <div v-if="value.invoice_status === 'DRAFT'">
@@ -242,7 +245,12 @@
   export default {
     name: "Invoice",
 
+    components: {
+      Spinner: () => import('@/components/Helpers/Spinner'),
+    },
+
     props: [
+      'loadingSOData',
       'value',
       'salesOrder',
       'paymentList'
@@ -256,6 +264,7 @@
 
     data() {
       return {
+        loadingBuyer: false,
         invoice: {},
         //logo: "http://placehold.it/250?text=No+Logo",
         logo:null,
@@ -329,8 +338,8 @@
         );
         this.company_region = region && has(region, "name") ? region.name : "";
       },
-
       async getBuyerinfo() {
+        this.loadingBuyer = true
         this.buyer_name = this.value.contact.display_name;
         this.buyer_phone = this.value.contact.phone;
         this.buyer_mobile = this.value.contact.mobile;
@@ -383,6 +392,8 @@
           const region = await regions.find(item => item.id === buyer_region_id);
           this.buyer_region = has(region, "name") ? region.name : "";
         }
+
+        this.loadingBuyer = false
       }
     }
   };

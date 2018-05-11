@@ -137,6 +137,7 @@
             <div class="row p-15" style="padding:20px 15px 15px 15px;">
               <div v-for="(invoice,index) in invoiceList" :key="index">
                 <Invoice
+                  :loadingSOData="loadingSOData"
                   :value="invoice"
                   :salesOrder="salesOrder"
                   :paymentList="paymentList"
@@ -295,7 +296,9 @@
         createPayment: 'createPayment',
       }),
       ...mapGetters({
-        loadingPayment: 'salesOrders/loadingPayment'
+        loadingPayment: 'salesOrders/loadingPayment',
+        loadingSOData: 'salesOrders/loadingSOData',
+
       }),
       createablePayment() {
         if(this.salesOrder){
