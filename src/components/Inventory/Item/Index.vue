@@ -153,7 +153,7 @@
                       <thead class="table-header-style">
                       <tr>
                         <th class="col-checkbox header-check">
-                          <div class="checkbox checkbox-single checkbox-success">
+                          <div class="checkbox checkbox-single checkbox-success check-head-size-style">
                             <input type="checkbox" id="checkAll" @click="checkAll">
                             <label></label>
                           </div>
@@ -192,7 +192,7 @@
                       <tbody v-for="item in list.items" :key="item.item_id">
                       <tr>
                         <td class="col-checkbox">
-                    <span class="checkbox checkbox-single checkbox-success">
+                    <span class="checkbox checkbox-single checkbox-success check-size-style">
                       <input type="checkbox" :id="'list-' + item.item_id" :value="item.item_id" v-model="checkedItems"
                              class="checkbox">
                       <label></label>
@@ -638,7 +638,7 @@
   .table-header-style{
     tr{
       .header-check{
-        width:35px; 
+        width:35px !important; 
         font-size:1.1em !important; 
         font-weight:normal;
       }
@@ -686,5 +686,19 @@
 .content-wrapper{
   min-height: 100vh
 }
+.check-head-size-style{
+  width:22px;
+  padding-left: 20px;
+  input[type=checkbox]{
+    left:20px
+  }
+}
 
+.check-size-style{
+  width:22px;
+  padding-left:20px;  
+  input[type=checkbox]{
+    left:0px
+  }
+}
 </style>
