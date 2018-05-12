@@ -34,15 +34,16 @@
     },
 
     mounted(){
-
-      const auth = Cookie.get('auth')
-      const authObj = JSON.parse(auth)
-      ga('set', 'userId', authObj.email)
-      // console.log(Cookie.get('access_token'))
-      // window.mixpanel.track("Visited Localhost")
-      // this.$ma.trackEvent('this from multi analytics!')
-      if(process.env.NODE_ENV == 'production'){
-        this.$ma.trackEvent({action: 'visited dashboard!'})
+      if( Cookie.get('auth') ){
+        // console.log(Cookie.get('access_token'))
+        // window.mixpanel.track("Visited Localhost")
+        // this.$ma.trackEvent('this from multi analytics!')
+        if(process.env.NODE_ENV == 'production'){
+          const auth = Cookie.get('auth')
+          const authObj = JSON.parse(auth)
+          ga('set', 'userId', authObj.email)
+          // this.$ma.trackEvent({action: 'visited dashboard!'})
+        }
       }
     },
 
