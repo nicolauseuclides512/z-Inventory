@@ -74,7 +74,7 @@
                   >
                   Convert to Invoice
                 </button>
-                
+
             </div>
 
             <div class="pull-left" style="margin-right: 10px;">
@@ -401,15 +401,16 @@
 
       async refreshCurrentSalesOrderData() {
         const sales_order_id = this.salesOrderId
+        this.$store.dispatch('salesOrders/selectSalesOrder', sales_order_id)
 
-        const sales_order = await axios.get(`sales_orders/${sales_order_id}`)
-        store.commit('sales/SALES_ORDER', sales_order.data.data)
+        // const sales_order = await Axios.get(`sales_orders/${sales_order_id}`)
+        // store.commit('sales/SALES_ORDER', sales_order.data.data)
 
-        const invoice = await axios.get(`sales_orders/${data.sales_order_id}/invoices/${data.invoice_id}`)
-        store.commit('sales/INVOICE', invoice.data.data)
+        // const invoice = await Axios.get(`sales_orders/${data.sales_order_id}/invoices/${data.invoice_id}`)
+        // store.commit('sales/INVOICE', invoice.data.data)
 
-        const payment_list = await axios.get(`sales_orders/${data.sales_order_id}/invoices/${data.invoice_id}/payments`)
-        store.commit('sales/PAYMENT_LIST', payment_list.data.data)
+        // const payment_list = await Axios.get(`sales_orders/${data.sales_order_id}/invoices/${data.invoice_id}/payments`)
+        // store.commit('sales/PAYMENT_LIST', payment_list.data.data)
 
         // this.getInvoiceList(sales_order_id)
       },
@@ -453,12 +454,14 @@
 
       closeModalPayment(){
         this.fetchPaymentData()
+        this.refreshCurrentSalesOrderData()
         this.modalPayment = false
         $('#payment-modal').modal('hide')
       },
 
       closeModalShipment(){
         this.fetchShipmentData()
+        this.refreshCurrentSalesOrderData()
         this.modalShipment = false
         $('#shipment-modal-add').modal('hide')
       },
