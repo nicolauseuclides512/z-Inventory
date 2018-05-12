@@ -1049,6 +1049,13 @@
               });
               break;
 
+            case "save_as_draft":
+              Router.push({
+                name: "sales.detail",
+                params: {id: sales_order_id}
+              });
+              break;
+
             case "save_then_create_new":
               Router.replace({name: "sales.create"});
               break;
