@@ -5,18 +5,14 @@ import Axios from 'axios'
 import Cookie from 'js-cookie'
 import { sync } from 'vuex-router-sync'
 import _ from 'lodash'
-
 import App from './App'
 import router from './router'
 import store from './store'
 // import VueMultianalytics from 'vue-multianalytics'
 import { Alert, swal_success, swal_error, swal_mapError } from './helpers'
 import VeeValidate from 'vee-validate';
-
-
 // import Select2 from './directives'
 // Vue.use(Select2)
-
 Vue.use(VeeValidate);
 Vue.config.productionTip = false
 Vue.prototype.$http = Axios
@@ -63,7 +59,7 @@ Vue.prototype.mixpanel = window.mixpanel
 window.HOSTNAME = 'ontelstudio.com'
 let baseUrl = process.env.API_BASE_URL
 if (baseUrl === 'undefined') {
-  baseUrl = 'https://development.zuragan.com/api/v1'
+	baseUrl = 'https://development.zuragan.com/api/v1'
 }
 
 Axios.defaults.baseURL = window.BASE_URL = baseUrl
@@ -73,21 +69,21 @@ Axios.defaults.headers.common['Content-Type'] = 'application/json'
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 Axios.interceptors.response.use((response) => response, async (error) => {
-  if(!navigator.onLine) {
-    Alert.error('Your browser can not connect to the server. Please check the internet connection.')
-  }
+	if(!navigator.onLine) {
+		Alert.error('Your browser can not connect to the server. Please check the internet connection.')
+	}
 
-  if (error.response.data.message === 'Unauthenticated.' && error.status !== 200 && error.config && !error.config.__isRetryRequest) {
-    await Axios.post('logout')
-    // Force user to logout
-    Cookie.remove('token_type')
-    Cookie.remove('access_token')
-    Cookie.remove('refresh_token')
-    Cookie.remove('organization_id')
-    router.replace('/login')
-    Alert.error('You don\'t have authorization to access that page.')
-  }
-  return Promise.reject(error)
+	if (error.response.data.message === 'Unauthenticated.' && error.status !== 200 && error.config && !error.config.__isRetryRequest) {
+		await Axios.post('logout')
+		// Force user to logout
+		Cookie.remove('token_type')
+		Cookie.remove('access_token')
+		Cookie.remove('refresh_token')
+		Cookie.remove('organization_id')
+		router.replace('/login')
+		Alert.error('You don\'t have authorization to access that page.')
+	}
+	return Promise.reject(error)
 })
 
 sync(store, router)
@@ -95,17 +91,17 @@ sync(store, router)
 const Bus = window.Bus = new Vue()
 
 Object.defineProperties(Vue.prototype, {
-  $bus: {
-    get: function () {
-      return Bus
-    }
-  }
+	$bus: {
+		get: function () {
+			return Bus
+		}
+	}
 })
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  store,
-  router,
-  render: h => h(App)
+	el: '#app',
+	store,
+	router,
+	render: h => h(App)
 })

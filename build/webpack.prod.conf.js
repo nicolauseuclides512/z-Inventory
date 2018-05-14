@@ -10,6 +10,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const today = new Date()
+const month = today.getMonth()+'-re-'
+const date = today.getDate()+'-bo-'
+const time = today.getTime()+'-tak'
+const timeStamp = month+''+date+''+time
 
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -26,8 +31,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('js/[name].[chunkhash].js')
+    filename: utils.assetsPath('js/[name].[hash:6].js?d=' + timeStamp),
+    chunkFilename: utils.assetsPath('js/[name].[hash:6].js?d=' + timeStamp)
   },
   plugins: [
     // service worker caching

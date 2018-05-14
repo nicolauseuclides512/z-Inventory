@@ -14,8 +14,12 @@ module.exports = {
     'html'
   ],
   // add your custom rules here
-  'rules': {
+  // extends: 'standard',
+  // 'extends': 'eslint:recommended',
+  rules: {
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    // 'indent': [2, 'tab'],
+    // 'no-tabs': 0
   }
 }
