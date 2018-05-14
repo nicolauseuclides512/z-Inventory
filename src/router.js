@@ -18,32 +18,32 @@ const router = new VueRouter({
   },
 })
 
-if(process.env.NODE_ENV == 'production'){
+// if(process.env.NODE_ENV == 'production'){
 
-  let gaConfig = {
-    appName: 'Zuragan Web App',
-    appVersion: '0.1.0',
-    // trackingId: process.env.GA_ID,
-    trackingId: 'UA-104614950-3',
-    debug: (process.env.NODE_ENV !== 'production')?true:false,
-  }
+//   let gaConfig = {
+//     appName: 'Zuragan Web App',
+//     appVersion: '0.1.0',
+//     // trackingId: process.env.GA_ID,
+//     trackingId: 'UA-104614950-3',
+//     debug: (process.env.NODE_ENV !== 'production')?true:false,
+//   }
 
-  let mixpanelConfig = {
-  //   token: process.env.MIXPANEL_TOKEN
-    token: '946153a6f2bb0d44ff8fa88188b21a6d'
-  }
+//   let mixpanelConfig = {
+//   //   token: process.env.MIXPANEL_TOKEN
+//     token: '946153a6f2bb0d44ff8fa88188b21a6d'
+//   }
 
-  Vue.use(VueMultianalytics, {
-    modules: {
-      mixpanel: mixpanelConfig,
-      ga: gaConfig,
-    },
-    routing: {
-      vueRouter: router,
-      preferredProperty: 'fullPath',
-    }
-  })
-}
+//   Vue.use(VueMultianalytics, {
+//     modules: {
+//       mixpanel: mixpanelConfig,
+//       ga: gaConfig,
+//     },
+//     routing: {
+//       vueRouter: router,
+//       preferredProperty: 'fullPath',
+//     }
+//   })
+// }
 
 /**
  * Setup authentication middleware
