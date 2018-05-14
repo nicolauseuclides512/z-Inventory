@@ -9,27 +9,24 @@ import _ from 'lodash'
 import App from './App'
 import router from './router'
 import store from './store'
+// import VueMultianalytics from 'vue-multianalytics'
+import { Alert, swal_success, swal_error, swal_mapError } from './helpers'
+import VeeValidate from 'vee-validate';
+
 
 // import Select2 from './directives'
 // Vue.use(Select2)
 
-import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);
-
 Vue.config.productionTip = false
-
 Vue.prototype.$http = Axios
 window.Vue = Vue
 window.Cookie = Cookie
-
 // Load helpers
-import { Alert, swal_success, swal_error, swal_mapError } from './helpers'
 window.Alert = Alert
 window.swal_success = swal_success
 window.swal_error = swal_error
 window.swal_mapError = swal_mapError
-
-
 // Load custom filters
 require('./filters.js')
 
@@ -39,32 +36,28 @@ require('./filters.js')
 // import infiniteScroll from 'vue-infinite-scroll.default'
 // Vue.use(infiniteScroll)
 
-import VueMultianalytics from 'vue-multianalytics'
 Vue.prototype.ga = window.ga
 Vue.prototype.mixpanel = window.mixpanel
 
-if(process.env.NODE_ENV == 'production'){
-  let gaConfig = {
-    appName: 'Zuragan Web App',
-    appVersion: '0.1.0',
-    // trackingId: process.env.GA_ID,
-    trackingId: 'UA-104614950-3',
-    debug: false,
-  }
-
-  let mixpanelConfig = {
-  //   token: process.env.MIXPANEL_TOKEN
-    token: '946153a6f2bb0d44ff8fa88188b21a6d'
-  }
-
-  Vue.use(VueMultianalytics, {
-    modules: {
-      ga: gaConfig,
-      mixpanel: mixpanelConfig
-    }
-  })
-
-}
+// if(process.env.NODE_ENV == 'production'){
+//   let gaConfig = {
+//     appName: 'Zuragan Web App',
+//     appVersion: '0.1.0',
+//     // trackingId: process.env.GA_ID,
+//     trackingId: 'UA-104614950-3',
+//     debug: false,
+//   }
+//   let mixpanelConfig = {
+//   //   token: process.env.MIXPANEL_TOKEN
+//     token: '946153a6f2bb0d44ff8fa88188b21a6d'
+//   }
+//   Vue.use(VueMultianalytics, {
+//     modules: {
+//       ga: gaConfig,
+//       mixpanel: mixpanelConfig
+//     }
+//   })
+// }
 
 
 window.HOSTNAME = 'ontelstudio.com'
