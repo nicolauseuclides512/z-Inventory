@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPromiseMiddleware from 'vuex-promise-middleware'
+
 Vue.use(Vuex)
 
 import global from './modules/global'
@@ -16,8 +18,14 @@ import salesForm from './modules/sales/form'
 import salesOrders from './modules/sales_orders/index'
 import * as paymentList from './modules/sales_orders/paymentslist'
 
+// request with middleware
+import * as example from './modules/examplerequest'
+
+const plugins = [VuexPromiseMiddleware]
+
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
+  plugins,
   modules: {
     global,
     login,
@@ -30,6 +38,7 @@ export default new Vuex.Store({
     salesDetail,
     salesForm,
     salesOrders,
+    example,
     paymentList
   }
 })

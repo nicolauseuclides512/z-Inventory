@@ -1,56 +1,62 @@
 <template>
-  <div class="home-app">
-    <div id="wrapper" :class="{ enlarged: !sidebarEnlarged }">
+	<div class="home-app">
+		<div id="wrapper" :class="{ enlarged: !sidebarEnlarged }">
+			<nav-top :sidebar="sidebarEnlarged" @burger-menu-clicked="sidebarEnlarged = !sidebarEnlarged"></nav-top>
+			<nav-left></nav-left>
+			<page-title></page-title>
+			<router-view></router-view>
 
-      <nav-top :sidebar="sidebarEnlarged" @burger-menu-clicked="sidebarEnlarged = !sidebarEnlarged"></nav-top>
-      <nav-left></nav-left>
-
-            <page-title></page-title>
-
-            <router-view></router-view>
-
-    </div>
-  </div>
+		<!-- <h1 v-if="!exampleData && exampleLoading">LOADING...</h1>
+		<h1>halo</h1>
+		<pre v-if="exampleData">{{exampleData}}</pre> -->
+		</div>
+	</div>
 </template>
 
 <script>
-  import store from './store'
-  import VueMultianalytics from 'vue-multianalytics'
-  import Cookie from 'js-cookie'
+	import store from './store'
+	import VueMultianalytics from 'vue-multianalytics'
+	import Cookie from 'js-cookie'
+//	import {mapGetters} from 'vuex'
 
-  export default {
-    name: 'Home',
+	export default {
+		name: 'Home',
 
-    components: {
-      'nav-top': () => import('./components/NavTop'),
-      'nav-left': () => import('./components/NavLeft'),
-      'page-title': () => import('./components/PageTitle'),
-    },
+		components: {
+			'nav-top': () => import('./components/NavTop'),
+			'nav-left': () => import('./components/NavLeft'),
+			'page-title': () => import('./components/PageTitle'),
+		},
 
-    computed: {
-      sidebarEnlarged () {
-        return store.state.global.sidebarEnlarged
-      },
-    },
+		computed: {
+			sidebarEnlarged () {
+				return store.state.global.sidebarEnlarged
+			},
+			// ...mapGetters({
+			// 	exampleData: 'example/data',
+			// 	exampleLoading: 'example/pending'
+			// }),
+		},
 
-    mounted(){
-      if( Cookie.get('auth') ){
-        // console.log(Cookie.get('access_token'))
-        // window.mixpanel.track("Visited Localhost")
-        // this.$ma.trackEvent('this from multi analytics!')
-        if(process.env.NODE_ENV == 'production'){
-          const auth = Cookie.get('auth')
-          const authObj = JSON.parse(auth)
-          ga('set', 'userId', authObj.email)
-          // this.$ma.trackEvent({action: 'visited dashboard!'})
-        }
-      }
-    },
+		mounted(){
+			if( Cookie.get('auth') ){
+				// console.log(Cookie.get('access_token'))
+				// window.mixpanel.track("Visited Localhost")
+				// this.$ma.trackEvent('this from multi analytics!')
+				if(process.env.NODE_ENV == 'production'){
+					const auth = Cookie.get('auth')
+					const authObj = JSON.parse(auth)
+					ga('set', 'userId', authObj.email)
+					// this.$ma.trackEvent({action: 'visited dashboard!'})
+				}
+			}
+			// this.$store.dispatch('example/RETRIEVE')
+		},
 
-    events: {
-      listenSearch (search) {
-        this.$broadcast('listenSearch', search)
-      },
-    },
-  }
+		events: {
+			listenSearch (search) {
+				this.$broadcast('listenSearch', search)
+			},
+		},
+	}
 </script>
