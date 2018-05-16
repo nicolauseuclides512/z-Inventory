@@ -17,13 +17,14 @@
 									<div class="form-group">
 										<label for="current_pass" class="col-sm-3 control-label">Current Password</label>
 										<div class="col-sm-6">
-											<input type="password"
-														 class="form-control form-trans"
-														 id="current_pass"
-														 v-model="passwords.current_pass"
-														 required
-														 placeholder="Enter your current password"
-											/>
+											<input
+												type="password"
+												class="form-control form-trans"
+												id="current_pass"
+												v-model="passwords.current_pass"
+												required
+												placeholder="Enter your current password"
+												/>
 											<div class="alert alert-warning" v-show="invalidCurrentPassword">
 												Current password is required.
 											</div>
@@ -35,13 +36,14 @@
 									<div class="form-group">
 										<label for="new_pass" class="col-sm-3 control-label">New Password</label>
 										<div class="col-sm-6">
-											<input type="password"
-														 class="form-control form-trans"
-														 id="new_pass"
-														 v-model="passwords.new_pass"
-														 required
-														 placeholder="Enter your new password"
-											/>
+											<input
+												type="password"
+												class="form-control form-trans"
+												id="new_pass"
+												v-model="passwords.new_pass"
+												required
+												placeholder="Enter your new password"
+												/>
 											<!-- <div class="alert alert-warning" v-show="validations.empty.new_pass">
 												Please provide new password
 											</div> -->
@@ -56,13 +58,14 @@
 									<div class="form-group">
 										<label for="reenter_pass" class="col-sm-3 control-label">Re-enter Password</label>
 										<div class="col-sm-6">
-											<input type="password"
-														 class="form-control form-trans"
-														 id="reenter_pass"
-														 v-model="passwords.reenter_pass"
-														 required
-														 placeholder="Confirm your password"
-											/>
+											<input
+												type="password"
+												class="form-control form-trans"
+												id="reenter_pass"
+												v-model="passwords.reenter_pass"
+												required
+												placeholder="Confirm your password"
+												/>
 											<!-- <div class="alert alert-warning" v-show="validations.empty.reenter_pass">
 												Please provide password confirmation
 											</div> -->
@@ -76,19 +79,20 @@
 									</div>
 									<div class="form-group">
 										<div class="col-sm-6 col-sm-offset-3">
-											<button type="submit"
-															id="submit"
-															class="btn btn-info waves-effect waves-light"
-															@click="save"
-															:disabled="changePasswordButton"
-											>
+											<button
+												type="submit"
+												id="submit"
+												class="btn btn-info waves-effect waves-light"
+												@click="save"
+												:disabled="changePasswordButton"
+												>
 												Save
 											</button>
-
-											<button class="btn btn-default waves-effect"
-															type="reset"
-															@click="reset"
-											>
+											<button
+												class="btn btn-default waves-effect"
+												type="reset"
+												@click="reset"
+												>
 												Cancel
 											</button>
 										</div>
