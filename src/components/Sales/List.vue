@@ -255,7 +255,7 @@
                                   -
                                 </div>
                                 <div v-else>
-                                  {{sale.invoice_status | normalizeStatus}}  
+                                  {{sale.invoice_status | normalizeStatus}}
                                 </div>
                               </span>
                               </td>
@@ -400,13 +400,13 @@
                                           <!--<td colspan="4" class="text-right text-bold">Shipment Charge</td>-->
                                           <!--<td>{{ overview.shipping_charge | money }}</td>-->
                                           <!--</tr>-->
-                                          <tr v-if="overview.adjustment_value > 0" class="sub-total">
+                                          <tr v-if="sale.invoices[0].adjustment_value > 0" class="sub-total">
                                             <td colspan="3" >
-                                            <td colspan="1" style="font-size: 1em;">{{ overview.adjustment_name ||
+                                            <td colspan="1" style="font-size: 1em;">{{ sale.invoices[0].adjustment_name ||
                                               'Adjustment' }}
                                             </td>
                                             <td class="text-right" style="font-size: 1em;">{{
-                                              Number(overview.adjustment_value) | money }}
+                                              Number(sale.invoices[0].adjustment_value) | money }}
                                             </td>
                                           </tr>
                                           <tr v-if="overview.tax > 0" class="sub-total">
@@ -474,7 +474,7 @@
   import {getParameterByName} from 'src/helpers'
   import Pagination from '../Pagination.vue'
   import Spinner from '@/components/Helpers/Spinner'
-  import {mapGetters} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
   import { format } from 'date-fns'
   export default {
     name: 'List',
@@ -609,11 +609,14 @@
     },
 
     methods: {
-
-      getList(options = {}) {
-        // console.log(options)
-        store.dispatch('sales/getList', options)
-      },
+			...mapActions({
+				getList: 'sales/getList',
+				overviewToggle: 'sales/overviewToggle',
+				invoiceList: 'sales/invoiceList',
+				markItemAsChecked:'sales/markItemAsChecked',
+				markitemAsUnChecked:'sales/markitemAsUnChecked',
+				clearAllCheckedItems:'sales/clearAllCheckedItems',
+			}),
 
       changeFilter(options = {}) {
         // console.log(options)
@@ -637,14 +640,6 @@
         })
         this.getList(options)
       },
-
-      /**
-       * Overview toggle
-       */
-      overviewToggle(sales_order_id) {
-        store.dispatch('sales/overviewToggle', sales_order_id)
-      },
-
       /**
        * Show detail of sales order
        */
@@ -689,7 +684,7 @@
         const pdfWindow = window.open()
 
         // Fetch invoice list
-        await store.dispatch(`sales/invoiceList`, parseInt(sales_order_id))
+        await this.invoiceList(parseInt(sales_order_id))
         const invoice_id = store.state.sales.invoiceList[0].invoice_id
 
         const url = window.BASE_URL + `/sales_orders/${sales_order_id}/invoices/${invoice_id}/pdf`
@@ -758,10 +753,10 @@
         sale.checked = !sale.checked
 
         if (sale.checked === true) {
-          store.dispatch('sales/markItemAsChecked', sale)
+          this.markItemAsChecked(sale)
           console.info(1)
         } else if (sale.checked === false) {
-          store.dispatch('sales/markItemAsUnChecked', sale)
+          this.markitemAsUnChecked(sale)
           console.info(0)
         }
 
@@ -776,15 +771,15 @@
 //        this.checkedAll = true
           _.each(this.salesList, item => {
             item.checked = true
-            store.dispatch('sales/markItemAsChecked', item)
+            this.markItemAsChecked(item)
           })
         } else {
           _.each(this.salesList, item => {
             item.checked = false
-            store.dispatch('sales/markItemAsUnChecked', item)
+            this.markItemAsUnChecked(item)
           })
           this.clearCheckedAll()
-          console.info(this.checkedList)
+          // console.info(this.checkedList)
         }
       },
 
@@ -795,9 +790,9 @@
         this.checkedAll = false
         _.each(this.salesList, item => {
           item.checked = false
-          store.dispatch('sales/markItemAsUnChecked', item)
+          this.markItemAsUnChecked(item)
         })
-        store.dispatch('sales/clearAllCheckedItems')
+        this.clearAllCheckedItems()
 //      this.checkedAll = false
       },
 
