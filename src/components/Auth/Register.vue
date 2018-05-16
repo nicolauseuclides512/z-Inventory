@@ -879,7 +879,7 @@
 
         } catch (err) {
             this.loading = false
-            console.log(err.error)
+            // console.log(err.error)
             if(err.error){
               if (err.error.hasOwnProperty('message') && err.error.message.hasOwnProperty('organization_portal')) {
                 this.errors.organization_portal = err.error.message.organization_portal[0]

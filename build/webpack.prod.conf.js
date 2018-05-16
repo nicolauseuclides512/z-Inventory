@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+// const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const today = new Date()
 const month = today.getMonth()+'-re-'
 const date = today.getDate()+'-bo-'
@@ -36,26 +36,26 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     // service worker caching
-    new SWPrecacheWebpackPlugin({
-      cacheId: 'zuragan-inventory-web-app',
-      filename: 'service-worker.js',
-      staticFileGlobs: ['dist/**/*.{js,html,css}'],
-      minify: true,
-      stripPrefix: 'dist/',
-      runtimeCaching: [
-      {
-        urlPattern: /^https:\/\/fonts\.googleapis\.com\//,
-        handler: 'cacheFirst'
-      },
-      {
-        urlPattern: /^https:\/\/fonts\.gstatic\.com\//,
-        handler: 'cacheFirst'
-      },
-      {
-        urlPattern: /^https:\/\/code\.getmdl\.io\//,
-        handler: 'cacheFirst'
-      }]
-    }),
+    // new SWPrecacheWebpackPlugin({
+    //   cacheId: 'zuragan-inventory-web-app',
+    //   filename: 'service-worker.js',
+    //   staticFileGlobs: ['dist/**/*.{js,html,css}'],
+    //   minify: true,
+    //   stripPrefix: 'dist/',
+    //   runtimeCaching: [
+    //   {
+    //     urlPattern: /^https:\/\/fonts\.googleapis\.com\//,
+    //     handler: 'cacheFirst'
+    //   },
+    //   {
+    //     urlPattern: /^https:\/\/fonts\.gstatic\.com\//,
+    //     handler: 'cacheFirst'
+    //   },
+    //   {
+    //     urlPattern: /^https:\/\/code\.getmdl\.io\//,
+    //     handler: 'cacheFirst'
+    //   }]
+    // }),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env

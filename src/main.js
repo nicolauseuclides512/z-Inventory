@@ -10,7 +10,9 @@ import router from './router'
 import store from './store'
 // import VueMultianalytics from 'vue-multianalytics'
 import { Alert, swal_success, swal_error, swal_mapError } from './helpers'
-import VeeValidate from 'vee-validate';
+import VeeValidate from 'vee-validate'
+import './registerServiceWorker'
+
 // import Select2 from './directives'
 // Vue.use(Select2)
 Vue.use(VeeValidate);
@@ -23,6 +25,7 @@ window.Alert = Alert
 window.swal_success = swal_success
 window.swal_error = swal_error
 window.swal_mapError = swal_mapError
+
 // Load custom filters
 require('./filters.js')
 

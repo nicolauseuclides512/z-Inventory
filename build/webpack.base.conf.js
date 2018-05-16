@@ -5,6 +5,8 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 // const babelCore = require("babel-core/register");
 // const babelPolyfill = require("babel-polyfill");
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -22,6 +24,29 @@ module.exports = {
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
+  plugins: [
+    // service worker caching
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'zuragan-inventory-web-app',
+      filename: 'service-worker.js',
+      staticFileGlobs: ['dist/**/*.{js,html,css}'],
+      minify: true,
+      stripPrefix: 'dist/',
+      runtimeCaching: [
+      {
+        urlPattern: /^https:\/\/fonts\.googleapis\.com\//,
+        handler: 'cacheFirst'
+      },
+      {
+        urlPattern: /^https:\/\/fonts\.gstatic\.com\//,
+        handler: 'cacheFirst'
+      },
+      {
+        urlPattern: /^https:\/\/code\.getmdl\.io\//,
+        handler: 'cacheFirst'
+      }]
+    }),
+  ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     modules: ['src', 'node_modules'],
