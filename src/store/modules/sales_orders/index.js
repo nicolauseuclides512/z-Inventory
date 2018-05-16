@@ -86,7 +86,7 @@ const actions = {
 		try {
 			const defaultParams = {
 				page: 1,
-				per_page: 30,
+				per_page: 20,
 				sort: 'created_at.desc',
 				filter: 'all',
 				q: '',

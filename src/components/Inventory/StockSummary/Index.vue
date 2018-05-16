@@ -145,7 +145,7 @@
         try {
           const defaultParams = {
             page: 1,
-            per_page: 15,
+            per_page: 20,
             sort: 'created_at.desc',
             filter_by: '',
             q: getParameterByName('q'),

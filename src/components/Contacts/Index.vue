@@ -308,7 +308,7 @@
 			getList(options = {}) {
 				const defaultOptions = {
 					page: 1,
-					per_page: 15,
+					per_page: 20,
 					sort: 'display_name.asc',
 					filter: 'all',
 					q: getParameterByName('q'),

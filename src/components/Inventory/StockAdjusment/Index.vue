@@ -185,7 +185,7 @@ export default {
       try {
         const defaultParams = {
           page: 1,
-          per_page: 15,
+          per_page: 20,
           sort: "created_at.asc",
           filter_by: "all",
           q: getParameterByName("q")

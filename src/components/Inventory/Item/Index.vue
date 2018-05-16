@@ -443,7 +443,7 @@
         try {
           const defaultParams = {
             page: 1,
-            per_page: 15,
+            per_page: 20,
             sort: "item_name.asc",
             filter_by: "status_all",
             q: getParameterByName("q")
@@ -638,42 +638,42 @@
   .table-header-style{
     tr{
       .header-check{
-        width:35px !important; 
-        font-size:1.1em !important; 
+        width:35px !important;
+        font-size:1.1em !important;
         font-weight:normal;
       }
       .header-expand{
-        width: 28px; 
-        font-size:1.1em !important; 
+        width: 28px;
+        font-size:1.1em !important;
         font-weight:normal;
       }
       .header-item-name{
-        width: 40%; 
-        font-size:1.1em !important; 
+        width: 40%;
+        font-size:1.1em !important;
         font-weight:normal;
         a{
           color:#000
         }
       }
       .header-item-sku{
-        width: 150px; 
-        font-size:1.1em !important; 
+        width: 150px;
+        font-size:1.1em !important;
         font-weight:normal;
         a{
           color:#000
         }
       }
       .header-item-stock{
-        width: 20%; 
-        font-size:1.1em !important; 
+        width: 20%;
+        font-size:1.1em !important;
         font-weight:normal;
         a{
           color:#000
         }
       }
       .header-item-price{
-        width: 170px; 
-        font-size:1.1em !important; 
+        width: 170px;
+        font-size:1.1em !important;
         font-weight:normal;
         a{
           color:#000
@@ -696,7 +696,7 @@
 
 .check-size-style{
   width:22px;
-  padding-left:20px;  
+  padding-left:20px;
   input[type=checkbox]{
     left:0px
   }
