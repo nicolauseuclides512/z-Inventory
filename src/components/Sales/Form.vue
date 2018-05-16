@@ -33,7 +33,7 @@
               <div class="panel-body" style="padding:0px">
                 <div class="row">
                   <div class="col-xs-12">
-                    <vuelist
+                    <!-- <vuelist
                       :loading="loadingList"
                       @change="selectProduct"
                       @search="searchProduct"
@@ -42,7 +42,18 @@
                       placeholder="Select Product"
                       keyid="item_id"
                       label="item_name"
-                    ></vuelist>
+                    ></vuelist> -->
+                    <Multiselect
+                      @input="selectProduct"
+                      :options="list.product_list"
+                      :searchable="true"
+                      :close-on-select="true"
+                      placeholder="Search Product..."
+                      track-by="item_id"
+                      label="item_name"
+                      :selectLabel="''"
+                      :deselectLabel="''"
+                      />
                   </div>
                 </div>
               </div>
@@ -317,7 +328,19 @@
                         </div>
                         <!-- <div v-if="!ui.showAddNewContactField"> -->
                         <div class="customer-list-dropdown">
-                          <vuelist
+                          <Multiselect
+                            class="select-contact"
+                            @input="selectContact"
+                            :options="list.contact_list"
+                            :searchable="true"
+                            :close-on-select="true"
+                            placeholder="Search Contact..."
+                            track-by="contact_id"
+                            label="display_name"
+                            :selectLabel="''"
+                            :deselectLabel="''"
+                            />
+                          <!-- <vuelist
                             v-if="!ui.showAddNewContactField"
                             :loading="loadingContact"
                             @change="selectContact"
@@ -327,7 +350,8 @@
                             placeholder="Select Customer"
                             keyid="contact_id"
                             label="display_name"
-                          ></vuelist>
+                          ></vuelist> -->
+
                           <button class="btn btn-add-customer btn-block" @click="showModalCustomer">
                             Add New Customer
                           </button>
@@ -524,7 +548,7 @@
   import {Money} from 'v-money';
   import axios from "axios";
   import {responseOk} from 'src/helpers';
-  import Vuelist from "../Vuelist";
+  // import Vuelist from "../Vuelist";
   import Vuetagger from "../Vuetagger";
   import Router from "src/router";
   import Form from "../../helpers/Form";
@@ -542,7 +566,7 @@
       // testValidation,
       Multiselect,
       ModalAddCustomer,
-      Vuelist,
+      // Vuelist,
       Vuetagger,
       VueNumeric,
     },
@@ -719,6 +743,8 @@
         this.isShownModalAddCustomer = false
       },
       async initialize() {
+        await this.fetchContactList();
+        await this.fetchProductList();
         try {
           if (this.$route.params.id) {
             const sales_order_id = this.$route.params.id;
@@ -746,9 +772,6 @@
             this.dateTime(new Date());
             this.dueDateTime(new Date());
           }
-
-          await this.fetchContactList();
-          await this.fetchProductList();
           // await this.fetchTaxSetting();
         } catch (err) {
           // console.error(err)
@@ -1310,17 +1333,17 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-    .vuelist{
-      box-shadow: none;
-      background: #eee;
-      width:100%;
-      .list{
-        width:100% !important;
-      }
-      .main.text-muted{
-        background-color:#eee !important;
-      }
-    }
+    // .vuelist{
+    //   box-shadow: none;
+    //   background: #eee;
+    //   width:100%;
+    //   .list{
+    //     width:100% !important;
+    //   }
+    //   .main.text-muted{
+    //     background-color:#eee !important;
+    //   }
+    // }
   }
   .flatpickr {
     background: white;
@@ -1444,6 +1467,13 @@ table.empty-table {
   padding-top:0;
   padding-bottom:24px;
   color:#000;
+}
+.customer-list-dropdown {
+  display: block;
+  z-index: 99;
+  position: relative;
+  width: 100%;
+  overflow: visible;
 }
 
 </style>
