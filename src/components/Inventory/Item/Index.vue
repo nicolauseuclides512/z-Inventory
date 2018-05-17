@@ -220,7 +220,11 @@
                           </router-link>
                         </td>
                         <td class="text-center" style="padding: 14px 8px !important;">
-                          {{ item.code_sku ? item.code_sku : '-' }}
+                          <div v-if="item.children.length">
+                          </div>
+                          <div v-else>
+                            {{ item.code_sku ? item.code_sku : '-' }}
+                          </div>
                         </td>
                         <!-- <td style="padding: 14px 8px !important;"><span v-if="!item.children.length">{{ item.description | truncItemDesc}}</span></td> -->
                         <td class="text-center" style="padding: 14px 8px !important;">
