@@ -312,7 +312,7 @@
 																	</li>
 																	<li v-if="(sale.invoice_status === 'UNPAID' || 'OVERDUE'|| 'DRAFT') && sale.sales_order_status !== 'DRAFT' && sale.invoice_status !== 'VOID' && sale.invoice_status !== 'PAID'">
 																		<a href="javascript:void(0);" @click="gotoDetailPayment(sale)">
-																			Create Payment
+																			Record Payment
 																		</a>
 																	</li>
 																	<li>
