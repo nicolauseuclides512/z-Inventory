@@ -198,8 +198,10 @@
        * @param {int} payment_mode_id
        */
       changePaymentMode (payment_mode_id) {
-        this.payment_account_id = ''
         this.paymentMethodDetails = this.paymentMethodList.find((p) => p.mode_id === payment_mode_id).details
+        if(this.paymentMethodDetails.length){
+          this.form.payment_account_id = _.first(this.paymentMethodDetails).account_id
+        }
       },
 
       gotoPaymentSettings () {
