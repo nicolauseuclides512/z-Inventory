@@ -44,9 +44,9 @@
 										<a href="javascript:void(0);" id="filter-by-customer"
 											 @click="filterContact('customer')">Customers</a>
 									</li>
-									<li :class="{ active: currentFilter === 'vendor' }">
+									<!-- <li :class="{ active: currentFilter === 'vendor' }">
 										<a href="javascript:void(0);" id="filter-by-vendor" @click="filterContact('vendor')">Vendors</a>
-									</li>
+									</li> -->
 									<li :class="{ active: currentFilter === 'dropshipper' }">
 										<a href="javascript:void(0);" id="filter-by-dropshipper" @click="filterContact('dropshipper')">Dropshippers</a>
 									</li>
