@@ -379,7 +379,7 @@
 
 			markAsSentSalesOrder(salesOrder) {
 				Alert.confirm({
-					title: 'Are you sure to mark as sent?',
+					title: 'Are you sure convert to invoice?',
 					confirmButtonText: 'Confirm',
 				}, async () => {
 					const sales_order_id = this.salesOrderId
