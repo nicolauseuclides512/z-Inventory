@@ -68,14 +68,13 @@
 										 <div class="col-md-4">
 											 <div class="input-group">
 												 <div class="input-group-addon">Rp</div>
-												 <input
-													v-model="form.sales_rate"
-													type="number"
-													min="1"
-													placeholder=""
-													class="form-control custom"
-													required
-												/>
+													<money
+														v-model="form.sales_rate"
+														placeholder="Price"
+														class="form-control custom"
+														required
+														v-bind="money"
+														/>
 											 </div>
 										 </div>
 									 </div>
@@ -442,6 +441,7 @@
 </template>
 
 <script>
+	import {Money} from 'v-money'
 	import Axios from 'axios'
 	import {responseOk} from 'src/helpers';
 	import Form from 'src/helpers/Form'
@@ -458,6 +458,12 @@
 
 		data() {
 			return {
+				money: {
+					thousands: '.',
+					prefix: '',
+					precision: 0,
+					masked: false
+				},
 				dirtyForm: false,
 				saveType: null,
 				variantListModal: false,
