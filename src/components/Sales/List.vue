@@ -58,7 +58,7 @@
 						</div>
 					<i class="fa fa-5x fa-shopping-cart"></i>
 					<div class="lead" style="padding: 30px 0 5px;">
-						<small>Sales order data not found.</small>
+						<div>Sales order data not found.</div>
 						<br>
 						Add your sales order!
 					</div>
@@ -233,14 +233,14 @@
 															<td style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
 																{{ sale.sales_order_number }}
 															</td>
-															<td class="text-center" style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
+															<td class="text-left" style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
 																	 {{ (sale.my_sales_channel && sale.my_sales_channel.sales_channel && sale.my_sales_channel.sales_channel.channel_name )?sale.my_sales_channel.sales_channel.channel_name:'-' }}
 															</td>
 															<td class="text-left" @click="showDetail(sale)" style="cursor:pointer">
 																	{{ sale.contact.display_name }}
 															</td>
 															<td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
-														<td class="shipment-status" style="font-size: 15px !important;">
+														<td class="shipment-status" style="font-size: 15px !important; cursor:pointer" @click="showDetail(sale)">
 															<!-- <span class="label"
 																:class="{
 																	'label-info': sale.invoice_status == 'UNPAID',
@@ -251,22 +251,21 @@
 																	'label-default': sale.invoice_status == 'DRAFT' }">
 																{{sale.invoice_status.split("_").join(" ").toLowerCase()}}
 															</span> -->
-															<span>
+
 																<div v-if="sale.invoice_status === 'DRAFT' || sale.invoice_status === 'VOID'">
 																	-
 																</div>
 																<div v-else>
 																	{{sale.invoice_status | normalizeStatus}}
 																</div>
-															</span>
 															</td>
-														<td class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">
-															<small v-if="sale.shipment_date">
+														<td class="shipment-status text-left" style="font-weight:400; font-size: 15px!important ;color:#000; cursor:pointer" @click="showDetail(sale)">
+															<div v-if="sale.shipment_date">
 																{{sale.shipment_date | showShortDate}}
-															</small>
-															<small v-else>-</small>
+															</div>
+															<div v-else>-</div>
 															</td>
-														<td class="payment-status" style="cursor: pointer; width:126px" @click="showDetail(sale)">
+														<td class="payment-status" style="cursor: pointer; width:126px; padding:8px" @click="showDetail(sale)">
 															<!-- <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
 																Overdue in {{ sale.due_date | diffInDays }} day(s)
 															</span> -->
@@ -315,8 +314,13 @@
 																			Record Payment
 																		</a>
 																	</li>
+																	<li v-if="(sale.invoice_status === 'PAID'||'UNPAID' ||'OVERDUE') && sale.invoice_status !== 'DRAFT' && sale.invoice_status !== 'VOID' && sale.shipment_status !== 'SHIPPED'">
+																		<a href="javascript:void(0);" @click="gotoDetailPayment(sale)">
+																			Create Shipment
+																		</a>
+																	</li>
 																	<li>
-																		<a href="javascript:void(0);" @click="downloadInvoice(sale.sales_order_id)">
+																		<a v-if="sale.invoice_status == 'DRAFT'" href="javascript:void(0);" @click="downloadInvoice(sale.sales_order_id)">
 																			Convert to Invoice
 																		</a>
 																	</li>
