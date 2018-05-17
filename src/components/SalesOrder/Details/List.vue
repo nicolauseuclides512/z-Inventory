@@ -337,9 +337,10 @@
     border: 1.5px solid #777
   }
   &.label-void{
-    color: #000000;
-    border: 1.5px solid #000000
-  }
+			background-color: #444 !important;
+			color: #fff;
+			border: 1.5px solid #444
+	}
   &.label-info{
     color: #2FA3E6;
     border: 1.5px solid #2FA3E6
