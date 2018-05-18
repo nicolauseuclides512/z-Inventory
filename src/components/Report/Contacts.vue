@@ -9,18 +9,18 @@
 																<table class="table">
 																		<thead>
 																				<tr class="header-row">
-																						<th class="text-left display-name">Customer Name</th>
-																						<th class="amount text-right">Amount</th>
+																						<th style=" width: 80%;" class="text-left display-name">Customer Name</th>
+																						<th class="amount text-left">Amount</th>
 																				</tr>
 																		</thead>
 																		<tbody class="content-table">
 																				<tr v-for="(item, idx) in items" :key="idx">
-																						<td class="text-left display-name">{{ item.customer_name }}</td>
-																						<td class="amount  text-right">{{ item.sales_amount | money }}</td>
+																						<td style=" width: 80%;" lass="text-left display-name">{{ item.customer_name }}</td>
+																						<td class="amount  text-right"><span class="pull-left">Rp.</span>{{ item.sales_amount | moneyNoCurrency }}</td>
 																				</tr>
 																				<tr>
-																						<td class="text-left row-total">Total</td>
-																						<td class="row-total  text-right">{{ total | money }}</td>
+																						<td style=" width: 80%;" class="text-left row-total">Total</td>
+																						<td class="row-total  text-right"><span class="pull-left">Rp.</span>{{ total | moneyNoCurrency }}</td>
 																				</tr>
 																		</tbody>
 																</table>
@@ -106,6 +106,9 @@
 	}
 
 	.content-table{
+td.amount.text-left .pull-left {
+    margin-right: 20px;
+}
 		tr{
 			.amount{
 				width:50%;

@@ -9,6 +9,13 @@ Vue.filter('money', (value, currency = 'Rp ', precision = 0, thousand = '.', dec
   return value
 })
 
+Vue.filter('moneyNoCurrency', (value, currency = '', precision = 0, thousand = '.', decimal = ',', format = '%s%v') => {
+  if (typeof value === 'number') {
+    return Accounting.formatMoney(value, currency, precision, thousand, decimal, format)
+  }
+  return value
+})
+
 Vue.filter('date', (value, dateFormat = 'YYYY-MM-DD') => {
 
   if (dateFormat === 'raw') {

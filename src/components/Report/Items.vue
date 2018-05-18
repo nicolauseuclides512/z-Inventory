@@ -9,18 +9,18 @@
                                 <table class="table">
                                     <thead>
                                         <tr class="header-row">
-                                            <th class="text-left">Item Name</th>
-                                            <th class="amount text-right">Amount</th>
+                                            <th class="text-left" style=" width: 80%;">Item Name</th>
+                                            <th class="amount text-left">Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody class="content-table">
                                         <tr v-for="(item,idx) in items" :key="idx">
                                             <td class="text-left item-name">{{ item.item_name }}</td>
-                                            <td class="amount">{{ item.sales_amount | money }}</td>
+                                            <td class="amount"><span class="pull-left">Rp.</span>{{ item.sales_amount | moneyNoCurrency }}</td>
                                         </tr>
                                         <tr>
                                             <td class="text-left row-total">Total</td>
-                                            <td class="row-total text-right">{{ total | money }}</td>
+                                            <td class="row-total text-right"><span class="pull-left">Rp.</span>{{ total | moneyNoCurrency }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
