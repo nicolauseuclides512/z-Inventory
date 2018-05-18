@@ -3,12 +3,6 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-// const babelCore = require("babel-core/register");
-// const babelPolyfill = require("babel-polyfill");
-// const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
-const workboxPlugin = require('workbox-webpack-plugin')
-// const DIST_DIR = 'dist'
-
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -26,40 +20,6 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   plugins: [
-    new workboxPlugin.GenerateSW({
-        swDest: 'sw.js',
-        clientsClaim: true,
-        skipWaiting: true,
-
-      // globDirectory: DIST_DIR,
-      globPatterns: ['**/*.{html,js,css}'],
-      // swDest: path.join(DIST_DIR, 'sw.js'),
-
-      globDirectory: './dist/',
-      // globPatterns: ['**/*.{html,js,css}'],
-      // swDest: './dist/service-worker.js'
-    }),
-    // service worker caching with SWPrecacheWebpackPlugin
-    // new SWPrecacheWebpackPlugin({
-    //   cacheId: 'zuragan-inventory-web-app',
-    //   filename: 'service-worker.js',
-    //   staticFileGlobs: ['dist/**/*.{js,html,css}'],
-    //   minify: true,
-    //   stripPrefix: 'dist/',
-    //   runtimeCaching: [
-    //   {
-    //     urlPattern: /^https:\/\/fonts\.googleapis\.com\//,
-    //     handler: 'cacheFirst'
-    //   },
-    //   {
-    //     urlPattern: /^https:\/\/fonts\.gstatic\.com\//,
-    //     handler: 'cacheFirst'
-    //   },
-    //   {
-    //     urlPattern: /^https:\/\/code\.getmdl\.io\//,
-    //     handler: 'cacheFirst'
-    //   }]
-    // }),
   ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],

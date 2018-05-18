@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 // const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const workboxPlugin = require('workbox-webpack-plugin')
 const today = new Date()
 const month = today.getMonth()+'-re-'
 const date = today.getDate()+'-bo-'
@@ -35,6 +36,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[name].[hash:6].js?d=' + timeStamp)
   },
   plugins: [
+    new workboxPlugin.GenerateSW({
+        swDest: 'sw.js',
+        clientsClaim: true,
+        skipWaiting: true,
+        globPatterns: ['**/*.{html,js,css}'],
+        globDirectory: './dist/',
+    }),
     // service worker caching
     // new SWPrecacheWebpackPlugin({
     //   cacheId: 'zuragan-inventory-web-app',
