@@ -32,13 +32,12 @@
 							<!--</div>-->
 
 							<div v-if="showVariant" id="mark_active">
-
 								<div v-if="firstVariant.show">
 									<div class="form-horizontal p-5">
 										<div class="form-group">
 											<div class="col-md-2 pl-0">
 												<select class="form-control" v-model="firstVariant.name" @change="generateVariant">
-													<option v-for="(v, k) in firstVariantList" :value="k">{{ v }}</option>
+													<option v-for="(v, k) in firstVariantList" :value="k" :key="k">{{ v }}</option>
 												</select>
 											</div>
 											<div class="col-md-7">
@@ -71,7 +70,7 @@
 										<div class="form-group">
 											<div class="col-md-2 pl-0">
 												<select class="form-control" v-model="secondVariant.name" @change="generateVariant">
-													<option v-for="(v, k) in secondVariantList" :value="k">{{ v }}</option>
+													<option v-for="(v, k) in secondVariantList" :value="k" :key="k">{{ v }}</option>
 												</select>
 											</div>
 											<div class="col-md-7">
@@ -101,7 +100,7 @@
 										<div class="form-group">
 											<div class="col-md-2 pl-0">
 												<select class="form-control" v-model="thirdVariant.name" @change="generateVariant">
-													<option v-for="(v, k) in thirdVariantList" :value="k">{{ v }}</option>
+													<option v-for="(v, k) in thirdVariantList" :value="k" :key="k">{{ v }}</option>
 												</select>
 											</div>
 											<div class="col-md-7">
@@ -125,7 +124,6 @@
 											</div>
 									</div>
 								</div>
-
 								<!-- <div class="row">
 									<button
 										v-if="!firstVariant.show || !secondVariant.show || !thirdVariant.show"
@@ -149,8 +147,6 @@
 								<!--</div>-->
 								<!--</div>-->
 								<!--</div>-->
-
-
 								<div v-if="list.items.length" class="col-md-12 pl-pr-0" style="padding-top: 30px" >
 									<h5 class="title" style="margin-top:0px">Generated Variant</h5>
 									<div class="table-responsive">
@@ -174,7 +170,7 @@
 											</tr>
 											</thead>
 											<tbody>
-											<tr v-for="v in list.items">
+											<tr v-for="(v,k) in list.items" :key="k">
 												<td>
 													<input type="text" class="form-control form-white" v-model="v.item_name" style="margin-bottom:8px">
 													<!-- <div v-if="firstVariant.show && firstVariant.values.length" style="float:left">
@@ -272,7 +268,6 @@
 			}), true)
 		}, [[]])
 	}
-
 	//  function cartesian () {
 	//    let r = [], arg = arguments, max = arg.length - 1
 	//
@@ -290,7 +285,6 @@
 	//    helper([], 0)
 	//    return r
 	//  }
-
 	export default {
 		name: 'VariantItem',
 
@@ -320,9 +314,7 @@
 				firstVariant: {name: 'color', show: true, values: []},
 				secondVariant: {name: 'size', show: false, values: []},
 				thirdVariant: {name: 'material', show: false, values: []},
-
 				list: {
-					// Backend haven't have any asset variant yet
 					variants: {
 						color: 'Color',
 						capacity: 'Capacity',
@@ -339,27 +331,13 @@
 
 		computed: {
 			firstVariantList() {
-				// const variants = [this.secondVariant.name, this.thirdVariant.name]
-				// return _.transform(this.list.variants, (result, value, key) => {
-				// 	variants.indexOf(key) < 0 ? result[key] = value: ''
-				// }, {})
-				return this.list.variants
-
+				return _.omit(this.list.variants, [this.secondVariant.name, this.thirdVariant.name])
 			},
 			secondVariantList() {
-				// const variants = [this.firstVariant.name, this.thirdVariant.name]
-				// return this.list.variants, (result, value, key) => {
-				// 	variants.indexOf(key) < 0 ? result[key] = value: ''
-				// }, {})
-				return this.list.variants
-
+				return _.omit(this.list.variants, [this.firstVariant.name, this.thirdVariant.name])
 			},
 			thirdVariantList() {
-				// const variants = [this.firstVariant.name, this.secondVariant.name]
-				// return _.transform(this.list.variants, (result, value, key) => {
-				// 	variants.indexOf(key) < 0 ? result[key] = value: ''
-				// }, {})
-				return this.list.variants
+				return _.omit(this.list.variants, [this.secondVariant.name, this.firstVariant.name])
 			}
 		},
 
@@ -465,7 +443,6 @@
 
 				})
 			},
-
 			changeFirstVariantValues(values) {
 				this.firstVariant.values = values
 				this.generateVariant()
@@ -541,9 +518,6 @@
 				}
 			},
 
-			addVariantValues(variant, halo) {
-				console.log(variant, halo, 'sdsds')
-			},
 
 			addVariantTypeValue(value) {
 				this.list.currentVariantTypes[value.toLowerCase()].values.push('shoet')
@@ -552,7 +526,6 @@
 			async updateChildren() {
 				this.$emit('children-updated', this.list.items)
 
-				// Variants!!
 				let variants = {}
 				variants[this.firstVariant.name] = this.firstVariant.values
 				variants[this.secondVariant.name] = this.secondVariant.values
