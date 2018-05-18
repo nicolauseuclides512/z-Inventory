@@ -703,7 +703,7 @@
           </div> -->
 
           <div class="float-save">
-            <div class="container">
+            <div class="container" style="padding-left:20px">
               <div class="clearfix">
                 <div class="pull-right">
                   <button v-if="!saving" type="submit" :disabled="saving" class="btn btn-primary waves-effect waves-light">

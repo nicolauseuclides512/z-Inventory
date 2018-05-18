@@ -499,7 +499,7 @@
 
         <div class="float-save">
           <div class="row">
-            <div class="col-md-6 text-left">
+            <div class="col-md-6 text-left" style="padding-left:30px">
               <router-link :to="{ name: 'sales.index' }" class="btn btn-default waves-effect">
                 <i class="fa fa-chevron-left"></i> Cancel
               </router-link>

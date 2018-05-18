@@ -1,416 +1,417 @@
 <template>
-	<div class="content-page">
-		<div class="content" style="padding-left: 0px; padding-right: 0px">
-			<!-- <div class="container"> -->
-				<form method="POST" id="form" @submit.prevent="validate">
-					<div class="col-md-12" style="padding-left:0px">
-								<h4 v-if="$route.params.id" class="pull-left page-title">Edit Item</h4>
-								<h4 v-if="!$route.params.id" class="pull-left page-title">Create Item</h4>
-							</div>
-					<div class="row">
-						<!-- Images -->
-						<div class="col-md-4">
-							<div class="panel panel-default" style="background-color:transparent; box-shadow:none">
-								<div class="panel-body" style="padding:0px">
-									<div class="form-group form-general">
-										<!-- <label class="col-md-2 control-label text-left">Images</label> -->
-										<div class="col-md-12 pl-pr-0">
-											<ImageUpload
-												:limit="5"
-												:uploading="uploading"
-												:images="form.item_medias"
-												@add="addImage"
-												@clear="clearImages"
-												@remove="removeImage"
-												@set-as-primary="setAsPrimary"
-											></ImageUpload>
-										</div>
-										<div class="col-md-12 pl-pr-0">
-											<small>You can upload up to 5 images.</small>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+  <div class="content-page">
+    <div class="content" style="padding-left: 0px; padding-right: 0px">
+      <!-- <div class="container"> -->
+        <form method="POST" id="form" @submit.prevent="validate">
+          <div class="col-md-12" style="padding-left:0px">
+                <h4 v-if="$route.params.id" class="pull-left page-title">Edit Item</h4>
+                <h4 v-if="!$route.params.id" class="pull-left page-title">Create Item</h4>
+              </div>
+          <div class="row">
+            <!-- Images -->
+            <div class="col-md-4">
+              <div class="panel panel-default" style="background-color:transparent; box-shadow:none">
+                <div class="panel-body" style="padding:0px">
+                  <div class="form-group form-general">
+                    <!-- <label class="col-md-2 control-label text-left">Images</label> -->
+                    <div class="col-md-12 pl-pr-0">
+                      <ImageUpload
+                        :limit="5"
+                        :uploading="uploading"
+                        :images="form.item_medias"
+                        @add="addImage"
+                        @clear="clearImages"
+                        @remove="removeImage"
+                        @set-as-primary="setAsPrimary"
+                      ></ImageUpload>
+                    </div>
+                    <div class="col-md-12 pl-pr-0">
+                      <small>You can upload up to 5 images.</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-						<!-- Info -->
-						<div class="col-md-8">
-							<div class="panel panel-default">
-									<div class="panel-body">
-										<div class="form-horizontal">
-										<div class="form-group form-general m-b-10">
-										<label class="col-md-2 control-label text-left">Item Name *</label>
-										<div class="col-md-9">
-											<input type="text"
-														 v-model="form.item_name"
-														 placeholder="Name of item"
-														 class="form-control"
-														 required
-											/>
-										</div>
-									</div>
+            <!-- Info -->
+            <div class="col-md-8">
+              <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="form-horizontal">
+                    <div class="form-group form-general m-b-10">
+                    <label class="col-md-2 control-label text-left">Item Name *</label>
+                    <div class="col-md-9">
+                      <input type="text"
+                             v-model="form.item_name"
+                             placeholder="Name of item"
+                             class="form-control"
+                             required
+                      />
+                    </div>
+                  </div>
 
-									<div class="form-group form-general m-b-10">
-										<label class="col-md-2 control-label text-left">Description</label>
-										<div class="col-md-9 custom-summernote">
-											<textarea v-model="form.description" class="form-control" rows="3"
-																style="resize:vertical"></textarea>
-										</div>
-									</div>
+                  <div class="form-group form-general m-b-10">
+                    <label class="col-md-2 control-label text-left">Description</label>
+                    <div class="col-md-9 custom-summernote">
+                      <textarea v-model="form.description" class="form-control" rows="3"
+                                style="resize:vertical"></textarea>
+                    </div>
+                  </div>
 
-									</div>
-									</div>
-							</div>
+                  </div>
+                  </div>
+              </div>
 
-							<!--Price -->
-							<div class="panel panel-default" >
-									<div class="panel-body" >
-										<div class="form-horizontal">
-											<div class="form-group form-general m-b-10">
-										<label class="col-md-2 control-label text-left">Price *</label>
-										<div class="col-md-4">
-											<div class="input-group">
-												<div class="input-group-addon">Rp</div>
-													<money
-														v-model="form.sales_rate"
-														placeholder="Price"
-														class="form-control custom"
-														required
-														v-bind="money"
-														/>
-											</div>
-										</div>
-									</div>
-										</div>
-									</div>
-							</div>
+              <!--Price -->
+              <div class="panel panel-default" >
+                  <div class="panel-body" >
+                    <div class="form-horizontal">
+                      <div class="form-group form-general m-b-10">
+                    <label class="col-md-2 control-label text-left">Price *</label>
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <div class="input-group-addon">Rp</div>
+                        <input
+                          v-model="form.sales_rate"
+                          type="number"
+                          min="1"
+                          placeholder=""
+                          class="form-control custom"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+              </div>
 
-							<!--Stock -->
-							<div class="panel panel-default" >
-									<div class="panel-body" >
-										<div class="form-horizontal">
-											<div class="form-group form-general m-b-10">
-										<label class="col-md-2 control-label text-left">SKU</label>
-										<div class="col-md-4">
-											<input v-model="form.code_sku" type="text" min="0" placeholder=""
-														 class="form-control" maxlength="15">
-										</div>
-									</div>
-									<div class="form-group form-general m-b-10">
-											<label class="col-md-2 control-label text-left">UOM</label>
-											<div class="col-md-4 ">
-												<select id="uom_id" v-model="form.uom_id" class="form-control">
-													<option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name" :key="uom.uom_id"></option>
-												</select>
-											</div>
-										</div>
-									<div class="form-group form-general m-b-10">
-										<label class="col-md-2 control-label text-left">Inventory Policy</label>
-										<div class="col-md-4">
-											<!-- <div class="checkbox checkbox-success checkbox-inline">
-												<input
-													v-model="form.track_inventory"
-													type="checkbox"
-													id="track-inventory"
-													true-value="true"
-													false-value="false"
-													checked="checked"
-												/>
-												<label for="track-inventory">Track Inventory for this item</label> -->
-												<select v-model="form.track_inventory" class="form-control" @change="changeTrackInventoryStatus">
-													<option value="false">Do not track</option>
-													<option value="true">Track inventory for this item</option>
-												</select>
-											</div>
-										</div>
-									<div id="stock-quantity" v-if="typeof form.track_inventory === 'boolean' && form.track_inventory === true || typeof form.track_inventory === 'string' && form.track_inventory === 'true'">
-										<div class="form-group form-general m-b-10">
-											<label class="col-md-2 control-label text-left">Stock</label>
-											<div class="col-md-4">
-												<input v-model.number="form.stock_quantity" type="number" min="0" placeholder="" class="form-control" @blur="saveStockQuantity($event)">
-											</div>
-										</div>
-									</div>
-									<div id="show-stock" v-if="form.track_inventory == true">
-										<div class="form-group form-general m-b-10">
-											<label class="col-md-2 control-label text-left"></label>
-											<div class="col-md-8">
-												<div class="alert alert-danger" v-if="stockAlert">New value must be greater than original value!</div>
-											</div>
-										</div>
-									</div>
-										</div>
-									</div>
-							</div>
-							<!-- Shipping -->
-							<div class="panel panel-default" >
-									<div class="panel-body" >
-										<div class="form-horizontal">
-											<div class="col-md-12" style="padding-left: 0px;">
+              <!--Stock -->
+              <div class="panel panel-default" >
+                  <div class="panel-body" >
+                    <div class="form-horizontal">
+                      <div class="form-group form-general m-b-10">
+                    <label class="col-md-2 control-label text-left">SKU</label>
+                    <div class="col-md-4">
+                      <input v-model="form.code_sku" type="text" min="0" placeholder=""
+                             class="form-control" maxlength="15">
+                    </div>
+                  </div>
+                  <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left">UOM</label>
+                      <div class="col-md-4 ">
+                        <select id="uom_id" v-model="form.uom_id" class="form-control">
+                          <option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
+                        </select>
+                      </div>
+                    </div>
+                  <div class="form-group form-general m-b-10">
+                    <label class="col-md-2 control-label text-left">Inventory Policy</label>
+                    <div class="col-md-4">
+                      <!-- <div class="checkbox checkbox-success checkbox-inline">
+                        <input
+                          v-model="form.track_inventory"
+                          type="checkbox"
+                          id="track-inventory"
+                          true-value="true"
+                          false-value="false"
+                          checked="checked"
+                        />
+                        <label for="track-inventory">Track Inventory for this item</label> -->
+                        <select v-model="form.track_inventory" class="form-control" @change="changeTrackInventoryStatus">
+                          <option value="false">Do not track</option>
+                          <option value="true">Track inventory for this item</option>
+                        </select>
+                      </div>
+                    </div>
+                  <div id="stock-quantity" v-if="typeof form.track_inventory === 'boolean' && form.track_inventory === true || typeof form.track_inventory === 'string' && form.track_inventory === 'true'">
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left">Stock</label>
+                      <div class="col-md-4">
+                        <input v-model.number="form.stock_quantity" type="number" min="0" placeholder="" class="form-control" @blur="saveStockQuantity($event)">
+                      </div>
+                    </div>
+                  </div>
+                  <div id="show-stock" v-if="form.track_inventory == true">
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left"></label>
+                      <div class="col-md-8">
+                        <div class="alert alert-danger" v-if="stockAlert">New value must be greater than original value!</div>
+                      </div>
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+              </div>
+              <!-- Shipping -->
+              <div class="panel panel-default" >
+                  <div class="panel-body" >
+                    <div class="form-horizontal">
+                      <div class="col-md-12" style="padding-left: 0px;">
 
-										<div class="form-group form-general m-b-10">
-											<label class="col-md-2 control-label text-left">Dimension (cm)</label>
-											<div class="col-md-4 p-0">
-												<div class="col-md-3 pr-0">
-												<input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control" style="font-size:12px; padding:6px">
-											</div>
-											<div class="col-md-3 pl-pr-0 text-center form-custom-link" style="width:25px">x</div>
-											<div class="col-md-3 pl-pr-0">
-												<input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control" style="font-size:12px; padding:6px">
-											</div>
-											<div class="col-md-3 pl-pr-0 text-center form-custom-link" style="width:25px">x</div>
-											<div class="col-md-3 pl-pr-0">
-												<input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control" style="font-size:12px; padding:6px">
-											</div>
-											</div>
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left">Dimension (cm)</label>
+                      <div class="col-md-4 p-0">
+                        <div class="col-md-3 pr-0">
+                        <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control" style="font-size:12px; padding:6px">
+                      </div>
+                      <div class="col-md-3 pl-pr-0 text-center form-custom-link" style="width:25px">x</div>
+                      <div class="col-md-3 pl-pr-0">
+                        <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control" style="font-size:12px; padding:6px">
+                      </div>
+                      <div class="col-md-3 pl-pr-0 text-center form-custom-link" style="width:25px">x</div>
+                      <div class="col-md-3 pl-pr-0">
+                        <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control" style="font-size:12px; padding:6px">
+                      </div>
+                      </div>
 
-										</div>
-										<div class="form-group form-general m-b-10">
-											<label class="col-md-2 control-label text-left ">Weight *</label>
-											<div class="col-md-4">
-												<div class="input-group">
-													<input v-model="form.weight" type="number" min="1" placeholder="" required
-																 class="form-control">
-													<span class="input-group-addon">gram</span>
-												</div>
-											</div>
-										</div>
-									</div>
-										</div>
-									</div>
-							</div>
-						</div>
-					</div>
+                    </div>
+                    <div class="form-group form-general m-b-10">
+                      <label class="col-md-2 control-label text-left ">Weight *</label>
+                      <div class="col-md-4">
+                        <div class="input-group">
+                          <input v-model="form.weight" type="number" min="1" placeholder="" required
+                                 class="form-control">
+                          <span class="input-group-addon">gram</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
 
-					<!-- <div class="container full-width-header bt-1 p-b-10 m-b-20">
-						<div class="row">
-							<div class="col-md-12">
-								<h4 v-if="$route.params.id" class="pull-left page-title">Edit Item</h4>
-								<h4 v-if="!$route.params.id" class="pull-left page-title">Create Item</h4>
-							</div>
-						</div>
-					</div> -->
-
-
-					<!-- <div class="container bt-1 m-b-20">
-						<div class="row">
-							<div class="col-md-12 p-b-20">
-								<h5 class="title">Info</h5>
-								<div class="form-horizontal">
-									<div class="form-group form-general m-b-20">
-										<label class="col-md-2 control-label text-left text-danger">Item Name</label>
-										<div class="col-md-9">
-											<input
-												type="text"
-												v-model="form.item_name"
-												placeholder="Name of item"
-												class="form-control"
-												required
-											/>
-										</div>
-									</div>
+          <!-- <div class="container full-width-header bt-1 p-b-10 m-b-20">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 v-if="$route.params.id" class="pull-left page-title">Edit Item</h4>
+                <h4 v-if="!$route.params.id" class="pull-left page-title">Create Item</h4>
+              </div>
+            </div>
+          </div> -->
 
 
-									<div class="form-group form-general m-b-20">
-										<label class="col-md-2 control-label text-left">Images</label>
-										<div class="col-md-9">
-											<ImageUpload
-												:images="form.item_medias"
-												@add="addImage"
-												@clear="clearImages"
-												@remove="removeImage"
-												@set-as-primary="setAsPrimary"
-											></ImageUpload>
-										</div>
-									</div>
+          <!-- <div class="container bt-1 m-b-20">
+            <div class="row">
+              <div class="col-md-12 p-b-20">
+                <h5 class="title">Info</h5>
+                <div class="form-horizontal">
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left text-danger">Item Name</label>
+                    <div class="col-md-9">
+                      <input
+                        type="text"
+                        v-model="form.item_name"
+                        placeholder="Name of item"
+                        class="form-control"
+                        required
+                      />
+                    </div>
+                  </div>
 
 
-									<div class="form-group form-general m-b-20">
-										<label class="col-md-2 control-label text-left">Description</label>
-										<div class="col-md-9 custom-summernote">
-											<textarea v-model="form.description" class="form-control" rows="3"
-																style="max-width: 796px; max-height: 500px; min-width: 550px; min-height: 110px;"></textarea>
-										</div>
-									</div>
-									<div class="form-group form-general m-b-20">
-										<label class="col-md-2 control-label text-left text-danger">SKU</label>
-										<div class="col-md-3">
-											<input v-model="form.code_sku" type="text" min="0" placeholder="" required="required"
-														 class="form-control" maxlength="15">
-										</div>
-									</div>
-									<div class="form-group form-general m-b-20">
-										<label class="col-md-2 control-label text-left text-danger">Price</label>
-										<div class="col-md-2">
-											<div class="input-group">
-												<div class="input-group-addon">Rp</div>
-												<input
-													v-model="form.sales_rate"
-													type="number"
-													min="1"
-													placeholder=""
-													class="form-control custom"
-													required
-												/>
-											</div>
-										</div>
-									</div>
-									<div class="form-group form-general m-b-20">
-										<div class="col-md-12 control-label text-left">
-											<div class="checkbox checkbox-success checkbox-inline">
-												<input
-													type="checkbox"
-													id="track-inventory"
-													v-model="form.track_inventory"
-													@click="changeTrackInventoryStatus"
-													true-value="true"
-													false-value="false"
-												/>
-												<label for="track-inventory">Track Inventory for this item</label>
-											</div>
-										</div>
-									</div>
-									<div id="show-stock" v-if="form.track_inventory === 'true'">
-										<div class="form-group form-general m-b-20">
-											<label class="col-md-2 control-label text-left">Stock</label>
-											<div class="col-md-3">
-												<input v-model="form.stock_quantity" type="number" min="0" placeholder="" class="form-control">
-											</div>
-										</div>
-									</div>
-									<!--<div class="form-group form-general m-b-20">-->
-									<!--<div class="toggles-dropship">-->
-									<!--<label class="col-md-3 control-label text-left">Syncronize stock to Lazada</label>-->
-									<!--<input type="checkbox" title="Syncronize stock to Lazada">-->
-									<!--</div>-->
-									<!--</div>-->
-
-									<!--<div>-->
-									<!--<div class="form-horizontal p-5">-->
-									<!--<div class="form-group form-general m-b-20">-->
-									<!--<div class="col-md-1"></div>-->
-									<!--<div class="col-md-3 pl-pr-0">-->
-									<!--<input type="text" placeholder="Seller SKU in Lazada" required="required" class="form-control">-->
-									<!--</div>-->
-									<!--<div class="col-md-1">-->
-									<!--<button type="button" class="btn btn-danger btn-custom waves-effect"><i class="ion-trash-b"></i></button>-->
-									<!--</div>-->
-									<!--</div>-->
-									<!--</div>-->
-									<!--</div>-->
-
-								<!-- </div>
-							</div>
-						</div>
-					</div> -->
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left">Images</label>
+                    <div class="col-md-9">
+                      <ImageUpload
+                        :images="form.item_medias"
+                        @add="addImage"
+                        @clear="clearImages"
+                        @remove="removeImage"
+                        @set-as-primary="setAsPrimary"
+                      ></ImageUpload>
+                    </div>
+                  </div>
 
 
-					<!-- Shipping -->
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left">Description</label>
+                    <div class="col-md-9 custom-summernote">
+                      <textarea v-model="form.description" class="form-control" rows="3"
+                                style="max-width: 796px; max-height: 500px; min-width: 550px; min-height: 110px;"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left text-danger">SKU</label>
+                    <div class="col-md-3">
+                      <input v-model="form.code_sku" type="text" min="0" placeholder="" required="required"
+                             class="form-control" maxlength="15">
+                    </div>
+                  </div>
+                  <div class="form-group form-general m-b-20">
+                    <label class="col-md-2 control-label text-left text-danger">Price</label>
+                    <div class="col-md-2">
+                      <div class="input-group">
+                        <div class="input-group-addon">Rp</div>
+                        <input
+                          v-model="form.sales_rate"
+                          type="number"
+                          min="1"
+                          placeholder=""
+                          class="form-control custom"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group form-general m-b-20">
+                    <div class="col-md-12 control-label text-left">
+                      <div class="checkbox checkbox-success checkbox-inline">
+                        <input
+                          type="checkbox"
+                          id="track-inventory"
+                          v-model="form.track_inventory"
+                          @click="changeTrackInventoryStatus"
+                          true-value="true"
+                          false-value="false"
+                        />
+                        <label for="track-inventory">Track Inventory for this item</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="show-stock" v-if="form.track_inventory === 'true'">
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-2 control-label text-left">Stock</label>
+                      <div class="col-md-3">
+                        <input v-model="form.stock_quantity" type="number" min="0" placeholder="" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <!--<div class="form-group form-general m-b-20">-->
+                  <!--<div class="toggles-dropship">-->
+                  <!--<label class="col-md-3 control-label text-left">Syncronize stock to Lazada</label>-->
+                  <!--<input type="checkbox" title="Syncronize stock to Lazada">-->
+                  <!--</div>-->
+                  <!--</div>-->
 
-					<!-- <div class="container m-b-20">
-						<div class="row">
-							<div class="col-md-12 p-b-20">
-								<h5 class="title">Shipping</h5>
-								<div class="form-horizontal">
-									<div class="col-md-6" style="padding-left: 0px;">
-										<div class="form-group form-general m-b-20">
-											<label class="col-md-4 control-label text-left">UOM</label>
-											<div class="col-md-8 pl-pr-0">
-												<select id="uom_id" v-model="form.uom_id" class="form-control">
-													<option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
-												</select>
-											</div>
-										</div>
-										<div class="form-group form-general m-b-20">
-											<label class="col-md-4 control-label text-left text-danger">Dimension (cm)</label>
-											<div class="col-md-2 pl-pr-0">
-												<input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control">
-											</div>
-											<div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
-											<div class="col-md-2 pl-pr-0">
-												<input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control">
-											</div>
-											<div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
-											<div class="col-md-2 pl-pr-0">
-												<input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control">
-											</div>
-										</div>
-										<div class="form-group form-general m-b-20">
-											<label class="col-md-4 control-label text-left text-danger">Weight</label>
-											<div class="col-md-4 pl-pr-0">
-												<div class="input-group">
-													<input v-model="form.weight" type="number" min="1" placeholder="" required
-																 class="form-control">
-													<span class="input-group-addon">gram</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div> -->
+                  <!--<div>-->
+                  <!--<div class="form-horizontal p-5">-->
+                  <!--<div class="form-group form-general m-b-20">-->
+                  <!--<div class="col-md-1"></div>-->
+                  <!--<div class="col-md-3 pl-pr-0">-->
+                  <!--<input type="text" placeholder="Seller SKU in Lazada" required="required" class="form-control">-->
+                  <!--</div>-->
+                  <!--<div class="col-md-1">-->
+                  <!--<button type="button" class="btn btn-danger btn-custom waves-effect"><i class="ion-trash-b"></i></button>-->
+                  <!--</div>-->
+                  <!--</div>-->
+                  <!--</div>-->
+                  <!--</div>-->
+
+                <!-- </div>
+              </div>
+            </div>
+          </div> -->
 
 
-					<div class="float-save">
-						<div class="container">
+          <!-- Shipping -->
 
-							<div class="clearfix">
-								<div class="pull-left">
-									<button class="btn btn-default waves-effect" type="button" @click="cancel">
-										<i class="fa fa-chevron-left"></i> Cancel
-									</button>
-								</div>
+          <!-- <div class="container m-b-20">
+            <div class="row">
+              <div class="col-md-12 p-b-20">
+                <h5 class="title">Shipping</h5>
+                <div class="form-horizontal">
+                  <div class="col-md-6" style="padding-left: 0px;">
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-4 control-label text-left">UOM</label>
+                      <div class="col-md-8 pl-pr-0">
+                        <select id="uom_id" v-model="form.uom_id" class="form-control">
+                          <option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-4 control-label text-left text-danger">Dimension (cm)</label>
+                      <div class="col-md-2 pl-pr-0">
+                        <input v-model="form.dimension_l" type="number" min="1" placeholder="L" class="form-control">
+                      </div>
+                      <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
+                      <div class="col-md-2 pl-pr-0">
+                        <input v-model="form.dimension_w" type="number" min="1" placeholder="W" class="form-control">
+                      </div>
+                      <div class="col-md-1 pl-pr-0 text-center form-custom-link">x</div>
+                      <div class="col-md-2 pl-pr-0">
+                        <input v-model="form.dimension_h" type="number" min="1" placeholder="H" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group form-general m-b-20">
+                      <label class="col-md-4 control-label text-left text-danger">Weight</label>
+                      <div class="col-md-4 pl-pr-0">
+                        <div class="input-group">
+                          <input v-model="form.weight" type="number" min="1" placeholder="" required
+                                 class="form-control">
+                          <span class="input-group-addon">gram</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
 
-								<div class="pull-right">
-									<div class="btn-group dropup">
-										<button class="btn btn-primary waves-effect waves-light"
-														id="save"
-														@click="saveType = 'save'"
-														data-name="save"
-										>
-											<!--@click="save"-->
-											Save
-										</button>
-										<button type="button" id="cancel" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-														aria-haspopup="true" aria-expanded="false">
-											<span class="caret"></span>
-											<span class="sr-only">Toggle Dropdown</span>
-										</button>
-										<!--<ul class="dropdown-menu dropdown-menu-right">-->
-										<!--<li><a href="#" id="save-and-new" @click.prevent="save" data-name="save-and-new">Save and New</a></li>-->
-										<!--<li><a href="#" id="save-and-clone" @click.prevent="save" data-name="save-and-clone">Save and Clone</a>-->
-										<!--</li>-->
-										<!--</ul>-->
 
-										<ul class="dropdown-menu dropdown-menu-right">
-											<li>
-												<button style="text-decoration: none;color: #1d1d1d"
-																class="btn btn-link waves-effect waves-light btn-block" id="save-and-new"
-																@click="saveType = 'save-and-new'"
-																data-name="save-and-new">Save and New
-												</button>
-											</li>
-											<li>
-												<button style="text-decoration: none;color: #1d1d1d"
-																class="btn btn-link waves-effect waves-light btn-block" id="save-and-clone"
-																@click="saveType = 'save-and-clone'"
-																data-name="save-and-clone">Save and Clone
-												</button>
-											</li>
-										</ul>
-									</div>
+          <div class="float-save">
+            <div class="container" style="padding-left:20px">
 
-								</div>
-							</div>
+              <div class="clearfix">
+                <div class="pull-left">
+                  <button class="btn btn-default waves-effect" type="button" @click="cancel">
+                    <i class="fa fa-chevron-left"></i> Cancel
+                  </button>
+                </div>
 
-						</div>
-					</div>
+                <div class="pull-right">
+                  <div class="btn-group dropup">
+                    <button class="btn btn-primary waves-effect waves-light"
+                            id="save"
+                            @click="saveType = 'save'"
+                            data-name="save"
+                    >
+                      <!--@click="save"-->
+                      Save
+                    </button>
+                    <button type="button" id="cancel" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <!--<ul class="dropdown-menu dropdown-menu-right">-->
+                    <!--<li><a href="#" id="save-and-new" @click.prevent="save" data-name="save-and-new">Save and New</a></li>-->
+                    <!--<li><a href="#" id="save-and-clone" @click.prevent="save" data-name="save-and-clone">Save and Clone</a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
 
-				</form>
-			<!-- </div> -->
-		</div>
-	</div>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      <li>
+                        <button style="text-decoration: none;color: #1d1d1d"
+                                class="btn btn-link waves-effect waves-light btn-block" id="save-and-new"
+                                @click="saveType = 'save-and-new'"
+                                data-name="save-and-new">Save and New
+                        </button>
+                      </li>
+                      <li>
+                        <button style="text-decoration: none;color: #1d1d1d"
+                                class="btn btn-link waves-effect waves-light btn-block" id="save-and-clone"
+                                @click="saveType = 'save-and-clone'"
+                                data-name="save-and-clone">Save and Clone
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </form>
+      <!-- </div> -->
+    </div>
+  </div>
 </template>
 
 <script>

@@ -353,8 +353,8 @@
 
               <div class="float-save">
                 <div class="row">
-                  <div class="col-md-6 text-left">
-                    <button class="btn btn-default waves-effect" type="button" @click="cancel">Cancel</button>
+                  <div class="col-md-6 text-left" style="padding-left:30px">
+                    <button class="btn btn-default waves-effect" type="button" @click="cancel"><i class="fa fa-chevron-left"></i>Cancel</button>
                   </div>
                   <div class="col-md-6 text-right">
                     <div class="col-md-6 col-md-offset-6">
