@@ -4,7 +4,7 @@
 			<div class="container" style="padding: 0; margin: 0;">
 				<div class="row">
 					<div class="col-md-12" style="padding-left: 0;">
-						<div class="panel panel-default content-wrapper">
+						<div class="panel panel-default content-wrapper" style="margin-bottom:0px">
 							<div class="panel-body">
 								<div class="row">
 								<div class="col-sm-12" style="padding: 0 10px 10px 0;">
