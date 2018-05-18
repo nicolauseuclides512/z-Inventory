@@ -10,17 +10,17 @@
                                     <thead>
                                         <tr class="header-row">
                                             <th class="text-left">Item Name</th>
-                                            <th>Amount</th>
+                                            <th class="amount text-right">Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody class="content-table">
-                                        <tr v-for="item in items">
+                                        <tr v-for="(item,idx) in items" :key="idx">
                                             <td class="text-left item-name">{{ item.item_name }}</td>
                                             <td class="amount">{{ item.sales_amount | money }}</td>
                                         </tr>
                                         <tr>
                                             <td class="text-left row-total">Total</td>
-                                            <td class="row-total">{{ total | money }}</td>
+                                            <td class="row-total text-right">{{ total | money }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -62,7 +62,7 @@
     mounted() {
       this.getItemReport();
     },
-    
+
     computed: {
       total() {
         return this.items.map(item => item.sales_amount)
@@ -96,8 +96,8 @@
     border:none !important;
     box-shadow:none !important;
   }
-  
-  
+
+
   .header-row{
     border-top: 1px solid #ddd;
     th{
@@ -108,8 +108,12 @@
   }
 
   .content-table{
+    th.amount{
+      text-align: right;
+    }
     tr{
       .amount{
+        text-align: right;
         width:50%;
         color:#000;
         padding-top: 12px;
