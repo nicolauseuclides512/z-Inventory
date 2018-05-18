@@ -230,17 +230,17 @@
 															<td style="cursor: pointer;" @click="showDetail(sale)">
 																{{ sale.invoice_date | date('short') }}
 															</td>
-															<td style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
+															<td style="cursor: pointer; font-size: 1.05em" @click="showDetail(sale)">
 																{{ sale.sales_order_number }}
 															</td>
-															<td class="text-left" style="cursor: pointer; font-size:13px" @click="showDetail(sale)">
+															<td class="text-left" style="cursor: pointer; font-size: 1.05em" @click="showDetail(sale)">
 																	 {{ (sale.my_sales_channel && sale.my_sales_channel.sales_channel && sale.my_sales_channel.sales_channel.channel_name )?sale.my_sales_channel.sales_channel.channel_name:'-' }}
 															</td>
-															<td class="text-left" @click="showDetail(sale)" style="cursor:pointer">
+															<td class="text-left" @click="showDetail(sale)" style="cursor:pointer; font-size: 1.05em">
 																	{{ sale.contact.display_name }}
 															</td>
 															<td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
-														<td class="shipment-status" style="font-size: 15px !important; cursor:pointer" @click="showDetail(sale)">
+														<td class="shipment-status" style="font-size: 1.05em !important; cursor:pointer" @click="showDetail(sale)">
 															<!-- <span class="label"
 																:class="{
 																	'label-info': sale.invoice_status == 'UNPAID',
@@ -259,7 +259,7 @@
 																	{{sale.invoice_status | normalizeStatus}}
 																</div>
 															</td>
-														<td class="shipment-status text-left" style="font-weight:400; font-size: 15px!important ;color:#000; cursor:pointer" @click="showDetail(sale)">
+														<td class="shipment-status text-left" style="font-weight:400; font-size: 1.05em!important ;color:#000; cursor:pointer" @click="showDetail(sale)">
 															<div v-if="sale.shipment_date">
 																{{sale.shipment_date | showShortDate}}
 															</div>
