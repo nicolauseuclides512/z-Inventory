@@ -90,7 +90,7 @@
 															<td class="outer-data" v-if="!groupItem.reason_summary[0].reason_description">
 																<span class="label label-default" style="margin-right: 5px;">Free Adjust to add stock</span></td>
 														</tr>
-														<tr class="expandable" v-if="groupExpanded == groupItem.stock_adjustment_id">
+														<tr class="expandable" v-if="(groupExpanded === groupItem.stock_adjustment_id)">
 															<td colspan="6" class="p-0 bt-0">
 																	<table class="table sales-order-inner-table">
 																			<tbody>
@@ -261,7 +261,11 @@ export default {
 	padding-top: 16px;
 	padding-bottom: 16px;
 	color:#000;
-	font-size: 1.05em
+	font-size: 1.05em;
+	.label.label-info{
+		margin: 2.5px 5px 2.5px 0;
+		display: inline-block;
+	}
 }
 .inner-head-name{
 	color:#000000;
@@ -326,5 +330,4 @@ export default {
 .content-wrapper{
 	min-height: 100vh
 }
-
 </style>
