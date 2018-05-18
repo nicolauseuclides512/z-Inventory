@@ -557,7 +557,6 @@
   import ModalAddCustomer from '@/components/Sales/Modal/ModalAddCustomer';
   // import testValidation from '@/components/Sales/Modal/testValidation';
   import Multiselect from 'vue-multiselect'
-  import 'vue-multiselect/dist/vue-multiselect.min.css'
 
   export default {
     name: "SalesOrderForm",
