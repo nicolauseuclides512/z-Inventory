@@ -53,7 +53,8 @@
 							</div>
 								<div class="row">
 									<div class="col-md-12 col-sm-12 col-xs-12">
-										<table class="table table-hover sahito-list-contact--table">
+										<Spinner v-if="listLoading"/>
+										<table v-else class="table table-hover sahito-list-contact--table">
 											<thead>
 											<tr class="table-header-row">
 												<th class="table-header-th-date">Date</th>
@@ -149,10 +150,12 @@ export default {
 	name: "StockAdjustmentIndex",
 
 	components: {
-		Pagination: () => import("@/components/Pagination")
+		Pagination: () => import("@/components/Pagination"),
+		Spinner: () => import("@/components/Helpers/Spinner")
 	},
 	data() {
 		return {
+			listLoading: false,
 			groupExpanded: 0,
 			currentSortColumn: "created_at",
 			ascendingSort: "asc",
@@ -182,6 +185,7 @@ export default {
 		},
 
 		async getList(params = {}) {
+			this.listLoading = true
 			try {
 				const defaultParams = {
 					page: 1,
@@ -206,6 +210,7 @@ export default {
 			} catch (err) {
 				console.error(err);
 			}
+			this.listLoading = false
 		},
 
 		refreshList() {
