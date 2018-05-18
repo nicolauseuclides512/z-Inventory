@@ -1,0 +1,32 @@
+.multiselect {
+	min-height: 30px !important;
+}
+.multiselect__tags {
+	min-height: 30px !important;
+	border-radius: 2px !important;
+	padding: 2px 6px !important;
+	vertical-align: middle !important;
+	line-height: 28px !important;
+	border-color: gainsboro !important;
+}
+span.multiselect__input,
+span.multiselect__single,
+input.multiselect__input,
+input.multiselect__single{
+	margin: 0 auto;
+	line-height: 25px;
+	font-size: 13px;
+	color: grey;
+	text-transform: capitalize;
+}
+span.multiselect__option {
+  font-size: 13px;
+}
+span.multiselect__option.multiselect__option--highlight {
+  background: #4498de;
+}
+.multiselect__select{
+  z-index: 999;
+  height: 30px;
+  padding: 0;
+}
