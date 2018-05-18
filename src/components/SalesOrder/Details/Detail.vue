@@ -1,12 +1,9 @@
 <template>
 	<div class="sales-order-details">
-
-		<div v-if="loading && !Object.keys(salesOrder).length" style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+		<div v-if="loading || !Object.keys(salesOrder).length" style="height: 100vh; display: flex; align-items: center; justify-content: center;">
 			<Spinner></Spinner>
 		</div>
-
 			<!-- Quick Overview  -->
-
 		<div v-if="!loading && Object.keys(salesOrder).length">
 			<div class="row top-detail-row">
 				<div class="col-md-12">
