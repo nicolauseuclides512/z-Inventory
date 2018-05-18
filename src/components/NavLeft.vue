@@ -104,8 +104,13 @@
           </router-link>
         </li>
         <li v-if="!sidebarEnlarged">
-          <router-link id="nav-left-items" :to="{ name: 'item.index' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
-              <i class="icon-item" style="font-size:23px"></i><span>Item Variant</span>
+          <router-link id="nav-left-items" :to="{ name: 'item.create' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
+              <i class="icon-item_3" style="font-size:23px"></i><span>Create Item</span>
+          </router-link>
+        </li>
+        <li v-if="!sidebarEnlarged">
+          <router-link id="nav-left-items" :to="{ name: 'item.create_variant' }" class="waves-effect waves-light" style="padding-right: 5px; padding-left: 0px">
+              <i class="icon-item" style="font-size:23px"></i><span>Create Variant</span>
           </router-link>
         </li>
         <li v-if="!sidebarEnlarged">
