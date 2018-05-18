@@ -77,7 +77,7 @@
 									<div class="form-group form-general m-b-20">
 										<label class="col-md-3 control-label text-left">Phone *</label>
 										<div class="col-md-5">
-											<input type="text" name="phone" required id="phone" placeholder="Phone" v-model="form.phone" v-validate="'required|min:9|max:15'" v-bind:class="{'form-control': true, 'error': errors.has('phone') }" />
+											<input type="text" name="phone" required id="phone" placeholder="Phone" v-model="form.phone" v-validate="'min:9|max:15'" v-bind:class="{'form-control': true, 'error': errors.has('phone') }" />
 											<span v-show="errors.has('phone')" class="text-danger">{{ errors.first('phone') }}</span>
 										</div>
 									</div>
@@ -145,7 +145,7 @@
 									<div class="form-group form-general m-b-20">
 										<label class="col-md-3 control-label text-left">Zip/Postal Code *</label>
 										<div class="col-md-5">
-											<input type="text" name="zip" required id="zip" placeholder="Zip/Postal Code" v-model="form.zip" v-validate="'required|min:5|max:5'" v-bind:class="{'form-control': true, 'error': errors.has('zip') }" />
+											<input type="text" name="zip" required id="zip" placeholder="Zip/Postal Code" v-model="form.zip" v-validate="'min:5|max:5'" v-bind:class="{'form-control': true, 'error': errors.has('zip') }" />
 											<span v-show="errors.has('zip')" class="text-danger">{{ errors.first('zip') }}</span>
 
 										</div>
