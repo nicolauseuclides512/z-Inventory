@@ -10,17 +10,17 @@
 																		<thead>
 																				<tr class="header-row">
 																						<th class="text-left display-name">Customer Name</th>
-																						<th class="amount">Amount</th>
+																						<th class="amount text-right">Amount</th>
 																				</tr>
 																		</thead>
 																		<tbody class="content-table">
-																				<tr v-for="item in items">
+																				<tr v-for="(item, idx) in items" :key="idx">
 																						<td class="text-left display-name">{{ item.customer_name }}</td>
-																						<td class="amount">{{ item.sales_amount | money }}</td>
+																						<td class="amount  text-right">{{ item.sales_amount | money }}</td>
 																				</tr>
 																				<tr>
 																						<td class="text-left row-total">Total</td>
-																						<td class="row-total">{{ total | money }}</td>
+																						<td class="row-total  text-right">{{ total | money }}</td>
 																				</tr>
 																		</tbody>
 																</table>
