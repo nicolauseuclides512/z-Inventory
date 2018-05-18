@@ -189,7 +189,7 @@
 									</tr>
 									</thead>
 									<tbody>
-									<tr v-for="(c, index) in contacts" :class="{ active: isChecked }">
+									<tr v-for="(c, index) in contacts" :key="index">
 										<td class="col-checkbox">
 											<div class="checkbox checkbox-single checkbox-success check-size-style">
 												<input type="checkbox" :id="'list-' + index" :value="c.contact_id" v-model="checkedContacts">
