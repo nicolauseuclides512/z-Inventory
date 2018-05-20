@@ -113,6 +113,8 @@
               <!-- <span class="label label-danger" v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span> -->
               <span class="label label-default" v-if="salesOrder.sales_order_status === 'DRAFT'">Open</span>
               <span class="label label-void" v-else-if="salesOrder.sales_order_status === 'CANCELED'">Void</span>
+              <span class="label label-wait-ship" v-else-if="salesOrder.sales_order_status === 'AWAITING_SHIPMENT'">{{ salesOrder.sales_order_status | normalizeStatus }}</span>
+              <span class="label label-wait-pay" v-else-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT'">{{ salesOrder.sales_order_status | normalizeStatus }}</span>
               <span class="label label-info" v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
             </div>
           </div>
@@ -344,6 +346,14 @@
   &.label-info{
     color: #2FA3E6;
     border: 1.5px solid #2FA3E6
+  }
+  &.label-wait-ship{
+    color: #009933;
+    border: 1.5px solid #009933
+  }
+  &.label-wait-pay{
+    color: #cca300;
+    border: 1.5px solid #cca300
   }
 }
 </style>

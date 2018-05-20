@@ -271,6 +271,8 @@
 															</span> -->
 															<span class="label label-default" v-if="sale.sales_order_status === 'DRAFT'">Open</span>
 															<span class="label label-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</span>
+															<span class="label label-wait-ship" v-else-if="sale.sales_order_status === 'AWAITING_SHIPMENT'">{{ sale.sales_order_status | normalizeStatus }}</span>
+															<span class="label label-wait-pay" v-else-if="sale.sales_order_status === 'AWAITING_PAYMENT'">{{ sale.sales_order_status | normalizeStatus }}</span>
 															<span class="label label-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
 														</td>
 															<!-- <td class="shipment-status" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.shipment_status | normalizeStatus }}</td>
@@ -879,6 +881,14 @@ td.shipment-status {
 	&.label-info{
 			color: #2FA3E6;
 			border: 1.5px solid #2FA3E6
+	}
+	&.label-wait-ship{
+		color: #009933;
+		border: 1.5px solid #009933
+	}
+	&.label-wait-pay{
+		color: #cca300;
+		border: 1.5px solid #cca300
 	}
 }
 </style>
