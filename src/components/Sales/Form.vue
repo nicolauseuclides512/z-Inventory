@@ -560,7 +560,7 @@
   import ModalAddCustomer from '@/components/Sales/Modal/ModalAddCustomer';
   // import testValidation from '@/components/Sales/Modal/testValidation';
   import Multiselect from 'vue-multiselect'
-	import {mapGetters} from 'vuex'
+	// import {mapGetters} from 'vuex'
 
   export default {
     name: "SalesOrderForm",
@@ -744,6 +744,7 @@
         return option.sales_channel.channel_name +': '+ option.store_name
       },
       showModalCustomer(){
+        this.editContactData = {}
         this.isShownModalAddCustomer = true
         $('#modal-add-customer').modal('show')
       },
@@ -995,9 +996,12 @@
           }
         ).then(
           data =>{
-            this.showModalCustomer()
+            this.isShownModalAddCustomer = true
+            $('#modal-add-customer').modal('show')
           }
-        )
+        ).catch(err =>{
+          swal.error('Error, unable to get customer data!')
+        })
 
       },
 
@@ -1501,10 +1505,12 @@ table.empty-table {
 }
 .customer-list-dropdown {
   display: block;
-  z-index: 99;
+  z-index: 20;
   position: relative;
   width: 100%;
   overflow: visible;
 }
-
+.multiselect{
+  z-index: 2;
+}
 </style>

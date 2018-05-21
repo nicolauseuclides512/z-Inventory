@@ -302,7 +302,7 @@
           shipping_district_list: [],
           shipping_region_list: [],
         },
-        model: new Form({
+        model: {
           is_customer: false,
           is_dropshipper: false,
           is_reseller: false,
@@ -335,7 +335,7 @@
           contact_status:1, // hidden
           is_sameAddress: true, // hidden
           saving: false
-        }),
+        },
         saving: false
       }
     },
@@ -396,7 +396,7 @@
 
       async initContact(){
         if(this.editContactData){
-          this.model = new Form(this.editContactData)
+          this.model = this.editContactData
         }
         const country_list = await Regional.countryList()
         this.list.billing_country_list = country_list
