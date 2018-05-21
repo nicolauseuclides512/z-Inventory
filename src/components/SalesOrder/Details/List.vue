@@ -352,8 +352,8 @@
     border: 1.5px solid #009933
   }
   &.label-wait-pay{
-    color: #cca300;
-    border: 1.5px solid #cca300
+    color: #ff5905;
+    border: 1.5px solid #ff5905
   }
 }
 </style>
