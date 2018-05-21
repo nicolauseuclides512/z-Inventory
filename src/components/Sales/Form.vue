@@ -355,7 +355,7 @@
                           <button class="btn btn-add-customer btn-block" @click="showModalCustomer">
                             Add New Customer
                           </button>
-                          <ModalAddCustomer v-if="isShownModalAddCustomer" @selectContact="selectContact($event)" @close="hideModalCustomer" @fetchContactList="fetchContactList"/>
+                          <ModalAddCustomer v-if="isShownModalAddCustomer" :editContactData="editContactData" @selectContact="selectContact($event)" @close="hideModalCustomer" @fetchContactList="fetchContactList"/>
                         </div>
                         <!-- <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()"
                              class="add-new-contact-btn" style="width:95%">
@@ -406,13 +406,16 @@
                     </div>
                     <div class="normal-mode selected-contact" v-if="selected_contact">
                       <div class="col-md-12 contact-wrap" style="padding-left: 8px; margin-bottom:15px">
+                        <!-- {{selected_contact}} -->
                         <h4 class="text-bold">{{selected_contact.display_name}}</h4>
                         <div class="contact-list">
                           <div class="billing-wrapper">Billing Address</div>
-                          <!-- <span>
+                          <span>
                           <a href="javascript:void(0)" @click="editSelectedContact">
                             <i class="fa fa-fw fa-pencil"></i>
                           </a>
+                          </span>
+                          <!-- <span>
                           <a @click="clearSelectedContact" v-if="selected_contact || ui.showAddNewContactField" href="javascript:void(0)" class="text-danger close-button contact-button">
                             <i class="ion-close-round" style="font-size:13.3px"></i>
                           </a>
@@ -557,6 +560,7 @@
   import ModalAddCustomer from '@/components/Sales/Modal/ModalAddCustomer';
   // import testValidation from '@/components/Sales/Modal/testValidation';
   import Multiselect from 'vue-multiselect'
+	import {mapGetters} from 'vuex'
 
   export default {
     name: "SalesOrderForm",
@@ -580,6 +584,10 @@
     },
 
     computed: {
+      // ...mapGetters({
+      //   editContactData: 'editContact/data',
+      //   editContactLoading: 'editContact/pending'
+      // }),
       saveOrCreate(){
         return (this.$route.params.id)?'Save ':'Create '
       },
@@ -627,6 +635,7 @@
 
     data() {
       return {
+        editContactData:{},
         money: {
           // decimal: ',',
           thousands: '.',
@@ -740,6 +749,7 @@
       },
       hideModalCustomer(){
         this.isShownModalAddCustomer = false
+        $('#modal-add-customer').modal('hide')
       },
       async initialize() {
         await this.fetchContactList();
@@ -967,7 +977,28 @@
       // },
 
       async editSelectedContact() {
-        window.open(`/contacts/${this.selected_contact.contact_id}/edit`);
+        // window.open(`/contacts/${this.selected_contact.contact_id}/edit`);
+        // alert('edit, coy!')
+        // alert(this.selected_contact.contact_id)
+        const contact_id = this.selected_contact.contact_id
+        // wkwkwk
+        // this.$store.dispatch('editContact/RETRIEVE',contact_id).then(
+        //   res => {
+        //     // console.log('halo',this.editContactData)
+        //     this.showModalCustomer()
+        //   }
+        // )
+        await axios.get(`contacts/${contact_id}/edit`).then(
+          res => {
+          this.editContactData = res.data.data.contact
+          // console.log(this.editContactData)
+          }
+        ).then(
+          data =>{
+            this.showModalCustomer()
+          }
+        )
+
       },
 
       /**
@@ -1409,6 +1440,7 @@ table.empty-table {
 
 .channels-length,
 .normal-mode.selected-contact {
+  z-index: 10;
   display: block;
   width: 100%;
   position: relative;

@@ -20,6 +20,7 @@ import * as paymentList from './modules/sales_orders/paymentslist'
 
 // request with middleware
 import * as example from './modules/examplerequest'
+import * as editContact from './modules/contact/editcontact'
 
 const plugins = [VuexPromiseMiddleware]
 
@@ -39,6 +40,7 @@ export default new Vuex.Store({
     salesForm,
     salesOrders,
     example,
-    paymentList
+    paymentList,
+    editContact,
   }
 })

@@ -270,6 +270,7 @@
   import Vue from 'vue';
   import VeeValidate from 'vee-validate';
   import Regional from 'src/helpers/regional';
+  import Form from 'src/helpers/Form';
 
   Vue.use(VeeValidate);
 
@@ -284,6 +285,10 @@
     created(){
     },
 
+    props:[
+      'editContactData'
+    ],
+
     data() {
       return {
         list: {
@@ -297,7 +302,7 @@
           shipping_district_list: [],
           shipping_region_list: [],
         },
-        model: {
+        model: new Form({
           is_customer: false,
           is_dropshipper: false,
           is_reseller: false,
@@ -330,7 +335,7 @@
           contact_status:1, // hidden
           is_sameAddress: true, // hidden
           saving: false
-        },
+        }),
         saving: false
       }
     },
@@ -338,8 +343,13 @@
       $('#modal-add-customer').modal('show')
       this.initContact()
     },
-    methods: {
+    watch:{
+      editContactData(newContactData){
+        this.model = new Form(newContactData)
+      }
 
+    },
+    methods: {
       async updateBillingCountryList () {
         this.list.billing_country_list = await Regional.countryList()
         this.list.billing_province_list = []
@@ -385,8 +395,9 @@
       },
 
       async initContact(){
-        console.log('helo')
-
+        if(this.editContactData){
+          this.model = new Form(this.editContactData)
+        }
         const country_list = await Regional.countryList()
         this.list.billing_country_list = country_list
         this.list.shipping_country_list = country_list
@@ -419,7 +430,11 @@
       },
 
       save() {
-        let url = '/contacts';
+        let url = '/contacts'
+        if(this.editContactData && this.editContactData.contact_id){
+          url = `/contacts/${this.editContactData.contact_id}/update`
+          // alert('wkwkw')
+        }
         this.saving = true;
 
         if (this.model.is_sameAddress === true) {
@@ -434,7 +449,7 @@
         this.$validator.validateAll().then((result) => {
           if (result) {
             try{
-              axios.post(`/contacts`,
+              axios.post(url,
                 {
                   ...this.model,
                   display_name: this.displayName,
@@ -450,19 +465,21 @@
                 // console.log('alo')
               }).catch(err => {
                 this.saving = false
-                swal_mapError(err.response)
                 this.$emit('close')
+                swal_mapError(err.response)
               })
             }catch (err) {
                 this.saving = false
                 this.$emit('close')
               err =>{
                 console.log(err.response)
+          this.$emit('close')
               }
             }
             return;
           }else{
             this.saving = false
+            this.$emit('close')
             Alert.error('Customer form is not valid!');
           }
         });
