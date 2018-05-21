@@ -8479,7 +8479,9 @@ button.close {
 
 .modal-open .modal {
 	overflow-x: hidden;
-	overflow-y: auto
+	overflow-y: auto;
+	z-index: 9999;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-dialog {
@@ -8511,12 +8513,12 @@ button.close {
 
 .modal-backdrop.fade {
 	opacity: 0;
-	filter: alpha(opacity=0)
+	/* filter: alpha(opacity=0) */
 }
 
 .modal-backdrop.in {
-	opacity: .5;
-	filter: alpha(opacity=50)
+	opacity: 0;
+	/* filter: alpha(opacity=50) */
 }
 
 .modal-header {
@@ -28505,3 +28507,6 @@ input.es-input:focus {
 .right-pannel .multiselect .multiselect__tags .multiselect__input{
 	background: transparent !important;
 }
+/* .content-page{
+	z-index: 8;
+} */
