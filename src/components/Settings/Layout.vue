@@ -2,8 +2,8 @@
   <div class="settings-layout">
     <div id="wrapper" :class="{ enlarged: !sidebarEnlarged }">
 
-      <nav-top :sidebar="sidebarEnlarged"></nav-top>
-      <nav-left></nav-left>
+      <NavTop :sidebar="sidebarEnlarged"></NavTop>
+      <NavLeft></NavLeft>
 
       <router-view></router-view>
 
@@ -19,9 +19,9 @@
     name: 'SettingsLayout',
 
     components: {
-      'nav-top': () => import('components/NavTop'),
-      'nav-left': () => import('components/NavLeft'),
-      'page-title': () => import('components/PageTitle'),
+      'NavTop': () => import('components/NavTop'),
+      'NavLeft': () => import('components/NavLeft'),
+      // 'PageTitle': () => import('components/PageTitle'),
     },
 
     computed: {

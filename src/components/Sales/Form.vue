@@ -1343,6 +1343,7 @@
     border: 1px solid #cecece;
   }
   .right-pannel{
+    // z-index: 1;
     .ion-ios7-arrow-down:before,
     .fa-calendar:before{
       color: #3ea9e8;

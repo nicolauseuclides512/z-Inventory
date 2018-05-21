@@ -2,13 +2,13 @@
   <div>
     <div id="wrapper" :class="{ enlarged: !sidebarEnlarged }">
 
-      <nav-top :sidebar="sidebarEnlarged"></nav-top>
-      <nav-left></nav-left>
+      <NavTop :sidebar="sidebarEnlarged"></NavTop>
+      <NavLeft></NavLeft>
 
       <div class="content-page">
         <div class="content full-width sahito-user bgr-white">
           <div class="container">
-            <!-- <page-title></page-title> -->
+            <!-- <PageTitle></PageTitle> -->
 
             <router-view></router-view>
 
@@ -25,9 +25,9 @@
     name: 'Main',
 
     components: {
-      'nav-top': () => import('components/NavTop.vue'),
-      'nav-left': () => import('components/NavLeft.vue'),
-      'page-title': () => import('components/PageTitle.vue'),
+      'NavTop': () => import('components/NavTop.vue'),
+      'NavLeft': () => import('components/NavLeft.vue'),
+      // 'PageTitle': () => import('components/PageTitle.vue'),
     },
 
     data () {

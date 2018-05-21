@@ -1,9 +1,9 @@
 <template>
 	<div class="home-app">
 		<div id="wrapper" :class="{ enlarged: !sidebarEnlarged }">
-			<nav-top :sidebar="sidebarEnlarged" @burger-menu-clicked="sidebarEnlarged = !sidebarEnlarged"></nav-top>
-			<nav-left></nav-left>
-			<page-title></page-title>
+			<NavTop :sidebar="sidebarEnlarged" @burger-menu-clicked="sidebarEnlarged = !sidebarEnlarged"></NavTop>
+			<NavLeft></NavLeft>
+			<!-- <PageTitle></PageTitle> -->
 			<router-view></router-view>
 
 		<!-- <h1 v-if="!exampleData && exampleLoading">LOADING...</h1>
@@ -23,9 +23,9 @@
 		name: 'Home',
 
 		components: {
-			'nav-top': () => import('./components/NavTop'),
-			'nav-left': () => import('./components/NavLeft'),
-			'page-title': () => import('./components/PageTitle'),
+			'NavTop': () => import('./components/NavTop'),
+			'NavLeft': () => import('./components/NavLeft'),
+			// 'PageTitle': () => import('./components/PageTitle'),
 		},
 
 		computed: {
