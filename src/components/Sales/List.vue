@@ -269,11 +269,11 @@
 															<!-- <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
 																Overdue in {{ sale.due_date | diffInDays }} day(s)
 															</span> -->
-															<span class="label label-default" v-if="sale.sales_order_status === 'DRAFT'">Open</span>
-															<span class="label label-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</span>
-															<span class="label label-wait-ship" v-else-if="sale.sales_order_status === 'AWAITING_SHIPMENT'">{{ sale.sales_order_status | normalizeStatus }}</span>
-															<span class="label label-wait-pay" v-else-if="sale.sales_order_status === 'AWAITING_PAYMENT'">{{ sale.sales_order_status | normalizeStatus }}</span>
-															<span class="label label-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
+															<div class="label label-default" v-if="sale.sales_order_status === 'DRAFT'">Open</div>
+															<div class="label label-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</div>
+															<div class="label label-wait-ship" v-else-if="sale.sales_order_status === 'AWAITING_SHIPMENT'">{{ sale.sales_order_status | normalizeStatus }}</div>
+															<div class="label label-wait-pay" v-else-if="sale.sales_order_status === 'AWAITING_PAYMENT'">{{ sale.sales_order_status | normalizeStatus }}</div>
+															<div class="label label-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</div>
 														</td>
 															<!-- <td class="shipment-status" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.shipment_status | normalizeStatus }}</td>
 															<td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.due_date | date('short') }}</td>
@@ -864,16 +864,16 @@ td.shipment-status {
 	border-top: 1px solid #ddd
 }
 .label{
-	display: inline;
+	display: inline-block;
 	padding: .2em .6em .3em;
 	font-size: 75%;
 	font-weight: 700;
 	line-height: 1;
 	background-color: transparent;
 	text-align: center;
-	white-space: nowrap;
 	vertical-align: baseline;
 	border-radius: .5em;
+	width: 100%;
 	&.label-danger{
 			color: #ef5350;
 			border: 1.5px solid #ef5350
