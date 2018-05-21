@@ -312,8 +312,8 @@
 				showVariant: true,
 
 				firstVariant: {name: 'color', show: true, values: []},
-				secondVariant: {name: 'size', show: false, values: []},
-				thirdVariant: {name: 'material', show: false, values: []},
+				secondVariant: {name: '', show: false, values: []},
+				thirdVariant: {name: '', show: false, values: []},
 				list: {
 					variants: {
 						color: 'Color',
