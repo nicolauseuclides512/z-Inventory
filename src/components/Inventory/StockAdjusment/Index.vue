@@ -22,7 +22,7 @@
 											<li class="dropdown-header">SORT BY</li>
 											<li :class="{ active: currentSortColumn === 'stock_adjustments.created_at' }">
 												<a href="javascript:void(0);" id="sort-by-stock_adjustments.created_at"
-													@click="sortItemsBy('stock_adjustments.created_at')">Newest</a>
+													@click="sortItemsBy('stock_adjustment_date')">Newest</a>
 											</li>
 											<li :class="{ active: currentSortColumn === 'reference_number' }">
 												<a href="javascript:void(0);" id="sort-by-reference_number" @click="sortItemsBy('reference_number')">Reference Number</a>
