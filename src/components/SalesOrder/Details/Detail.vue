@@ -254,7 +254,8 @@
 	import ShipmentForm from './ShipmentForm'
 	import DetailShipment from './DetailShipment.vue'
 	import Spinner from '@/components/Helpers/Spinner'
-	import { swal_error, swal_success, responseOk, swal_mapError } from '../../../helpers';
+	import { swal_error, swal_success, responseOk, swal_mapError } from '../../../helpers'
+	import swal from 'sweetalert2';
 
 
 	export default {
@@ -387,7 +388,12 @@
 					const url = `sales_orders/${sales_order_id}/invoices/${invoice_id}/mark_as_sent`
 					const res = await Axios.get(url)
 					if (responseOk(res.data.code)) {
-						swal_success(res)
+						swal({
+							title: "Convert to invoice is success.",
+							type: 'success',
+							timer: 2000,
+							showConfirmButton: false,
+						})
 						this.refreshCurrentSalesOrderData()
 						this.$store.dispatch('salesOrders/getList', {})
 					} else {
