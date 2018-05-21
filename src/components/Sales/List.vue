@@ -394,13 +394,17 @@
 																							<span v-if="order.discount_amount_type === 'fixed'">{{ Number(order.discount_amount_value) | money}}</span>
 																							<span v-if="order.discount_amount_type === 'percentage'">{{ Number(order.discount_amount_value) }}%</span>
 																						</td>
-																						<td class="text-right" style="font-size: 1em;">{{ order.amount | money }}
+																						<td class="text-right" style="font-size: 1em;">
+																							<span class="pull-left">Rp.</span>
+																							{{ order.amount | moneyNoCurrency }}
 																						</td>
 																					</tr>
 																					<tr class="sub-total">
 																						<td colspan="3" style="border-top: 1px solid #dedede"></td>
 																						<td colspan="1" style="font-size: 1em; border-top: 1px solid #dedede">Sub Total</td>
-																						<td class="text-right" style="font-size: 1em; border-top: 1px solid #dedede">{{ overview.sub_total | money }}
+																						<td class="text-right" style="font-size: 1em; border-top: 1px solid #dedede">
+																							<span class="pull-left">Rp.</span>
+																							{{ overview.sub_total | moneyNoCurrency }}
 																						</td>
 																					</tr>
 																					<!--<tr class="sub-total">-->
@@ -412,8 +416,9 @@
 																						<td colspan="1" style="font-size: 1em;">{{ sale.invoices[0].adjustment_name ||
 																							'Adjustment' }}
 																						</td>
-																						<td class="text-right" style="font-size: 1em;">{{
-																							Number(sale.invoices[0].adjustment_value) | money }}
+																						<td class="text-right" style="font-size: 1em;">
+																							<span class="pull-left">Rp.</span>
+																							{{Number(sale.invoices[0].adjustment_value) | moneyNoCurrency }}
 																						</td>
 																					</tr>
 																					<tr v-if="overview.tax > 0" class="sub-total">
@@ -421,7 +426,10 @@
 																						<td style="font-size: 1em;">Tax</td>
 																						<td class="text-right" style="font-size: 1em;">
 																							<span v-if="overview.tax === -1">Included</span>
-																							<span v-else>{{ overview.tax | money }}</span>
+																							<span v-else>
+																								<span class="pull-left">Rp.</span>
+																								{{ overview.tax | moneyNoCurrency }}
+																							</span>
 																						</td>
 																					</tr>
 																					<tr class="balance-due">
@@ -429,8 +437,9 @@
 																						<td class="text-bold" style="background-color:#e5e5e5; font-size: 1em;">Total
 																						</td>
 																						<td class="text-right text-bold"
-																								style="background-color:#e5e5e5; font-color: #000000; font-size: 1em;">{{
-																							overview.total | money }}
+																								style="background-color:#e5e5e5; font-color: #000000; font-size: 1em;">
+																								<span class="pull-left">Rp.</span>
+																								{{overview.total | moneyNoCurrency }}
 																						</td>
 																					</tr>
 																					</tbody>
@@ -887,7 +896,7 @@ td.shipment-status {
 		border: 1.5px solid #009933
 	}
 	&.label-wait-pay{
-		color: #ff5905;
+		color: #cca300;
 		border: 1.5px solid #ff5905
 	}
 }
