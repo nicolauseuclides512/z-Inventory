@@ -335,9 +335,9 @@
 							Axios.put(`organizations/${organization_id}`, data).then(
 								res =>{
 									if (responseOk(res.status)) {
-										store.commit('settings/organization/ZIP', this.form.zip)
 										swal_success(res)
 										this.loading = false
+										this.$store.commit('settings/organization/ZIP', this.form.zip)
 									}
 								}
 							)
