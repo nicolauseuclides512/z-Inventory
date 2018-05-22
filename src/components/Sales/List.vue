@@ -288,7 +288,7 @@
 																		</a>
 																	</li>
 																	<li>
-																		<a v-if="sale.invoice_status == 'DRAFT'" href="javascript:void(0);" @click="downloadInvoice(sale.sales_order_id)">
+																		<a v-if="sale.invoice_status == 'DRAFT'" href="javascript:void(0);" @click="markAsSentSalesOrder(sale.sales_order_id)">
 																			Convert to Invoice
 																		</a>
 																	</li>
@@ -472,11 +472,12 @@
 	import axios from 'axios'
 	import difference_in_days from 'date-fns/difference_in_days'
 	import store from 'src/store'
-	import {getParameterByName} from 'src/helpers'
+	import {getParameterByName, responseOk,swal_error} from 'src/helpers'
 	import Pagination from '../Pagination.vue'
 	import Spinner from '@/components/Helpers/Spinner'
 	import {mapGetters, mapActions} from 'vuex'
 	import { format } from 'date-fns'
+	import swal from 'sweetalert2'
 	export default {
 		name: 'List',
 
@@ -854,6 +855,28 @@
 					query: {state: 'shipment'},
 				}
 				this.$router.push(routeOptions)
+			},
+			async markAsSentSalesOrder(sales_order_id) {
+				Alert.confirm({
+					title: 'Are you sure convert to invoice?',
+					confirmButtonText: 'Confirm',
+				}, async () => {
+					await this.invoiceList(parseInt(sales_order_id))
+					const invoice_id = store.state.sales.invoiceList[0].invoice_id
+					const url = `sales_orders/${sales_order_id}/invoices/${invoice_id}/mark_as_sent`
+					const res = await axios.get(url)
+					if (responseOk(res.data.code)) {
+						swal({
+							title: "Convert to invoice is success.",
+							type: 'success',
+							timer: 2000,
+							showConfirmButton: false,
+						})
+						this.getList()
+					} else {
+						swal_error(res)
+					}
+				})
 			},
 
 		},
