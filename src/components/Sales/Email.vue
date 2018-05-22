@@ -1,5 +1,5 @@
 <template>
-  <div class="content-page" style="padding-bottom:20px">
+  <div class="content-page" style="padding:0px">
     <div class="content full-width sahito-user bgr-white">
       <div class="container">
 
