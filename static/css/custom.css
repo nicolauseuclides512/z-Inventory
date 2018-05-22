@@ -30,3 +30,7 @@ span.multiselect__option.multiselect__option--highlight {
   height: 30px;
   padding: 0;
 }
+
+#modal-add-customer .modal-content .modal-body{
+padding: 0;
+}
