@@ -896,8 +896,8 @@ td.shipment-status {
 		border: 1.5px solid #009933
 	}
 	&.label-wait-pay{
-		color: #cca300;
-		border: 1.5px solid #ff5905
+		color: #ffc100;
+		border: 1.5px solid #ffc100
 	}
 }
 </style>
