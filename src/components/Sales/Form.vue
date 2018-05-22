@@ -404,7 +404,7 @@
                       <!--<a href="javascript:void(0)" onclick="window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>-->
                       <!--</div>-->
                     </div>
-                    <div class="normal-mode selected-contact" style="z-index:9" v-if="selected_contact">
+                    <div class="selected-contact" style="z-index:9" v-if="selected_contact">
                       <div class="col-md-12 contact-wrap" style="padding-left: 8px; margin-bottom:15px">
                         <!-- {{selected_contact}} -->
                         <h4 class="text-bold">{{selected_contact.display_name}}</h4>
@@ -1451,8 +1451,7 @@ table.empty-table {
 }
 
 .channels-wrap,
-.normal-mode.selected-contact {
-  z-index: 10;
+.selected-contact {
   display: block;
   width: 100%;
   position: relative;
@@ -1469,8 +1468,9 @@ table.empty-table {
   align-items: center;
   justify-content: space-between;
 }
-.normal-mode.selected-contact {
-  height: 40px;
+.selected-contact {
+  height: auto;
+  overflow:hidden;
 }
 .contact-wrap,
 .form-group.list-wrap {
