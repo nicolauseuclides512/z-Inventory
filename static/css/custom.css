@@ -32,5 +32,8 @@ span.multiselect__option.multiselect__option--highlight {
 }
 
 #modal-add-customer .modal-content .modal-body{
-padding: 0;
+	padding: 0;
+}
+.swal2-container.swal2-center.swal2-fade.swal2-shown {
+	z-index: 10000;
 }
