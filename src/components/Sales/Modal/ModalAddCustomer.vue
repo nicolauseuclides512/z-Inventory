@@ -10,8 +10,9 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           </div>
           <div class="modal-body">
-            <h4 class="modal-title">Add New Contact</h4>
-            <form v-on:submit.prevent="save">
+            <h4 v-if="!editContactData" class="modal-title">Add New Contact</h4>
+            <h4 v-else class="modal-title">Edit Contact</h4>
+            <form v-if="!loadingEditContact" v-on:submit.prevent="save">
               <div class="form-new-customer personal-info">
 
                   <!-- <select id="salutation_id" v-model="model.salutation" class="form-control" title="Salutation">
@@ -258,6 +259,8 @@
                 </button>
               <button type="reset" class="btn btn-default waves-effect m-t-15" data-dismiss="modal">Cancel</button>
             </form>
+            <Spinner v-else />
+
           </div>
         </div>
       </div>
@@ -276,6 +279,9 @@
 
   export default {
     name: 'ModalAddCustomer',
+    components:{
+      Spinner: () => import('@/components/Helpers/Spinner'),
+    },
     computed: {
       displayName(){
         return this.model.first_name+' '+this.model.company_name
@@ -286,6 +292,7 @@
     },
 
     props:[
+      'loadingEditContact',
       'editContactData'
     ],
 
@@ -524,7 +531,7 @@
     font-size: 30px;
   }
   h4.modal-title{
-    margin-bottom: 80px;
+    margin-bottom: 40px;
   }
   .modal-customer-header {
     display: block;
@@ -532,7 +539,7 @@
     overflow: hidden;
     position: absolute;
     left: 0;
-    padding: 40px 20px;
+    padding: 20px;
     top: 0;
     background-color: #ddd;
   }

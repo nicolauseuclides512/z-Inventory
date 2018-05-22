@@ -355,7 +355,7 @@
                           <button class="btn btn-add-customer btn-block" @click="showModalCustomer">
                             Add New Customer
                           </button>
-                          <ModalAddCustomer v-if="isShownModalAddCustomer" :editContactData="editContactData" @selectContact="selectContact($event)" @close="hideModalCustomer" @fetchContactList="fetchContactList"/>
+                          <ModalAddCustomer :loadingEditContact="loadingEditContact" v-if="isShownModalAddCustomer" :editContactData="editContactData" @selectContact="selectContact($event)" @close="hideModalCustomer" @fetchContactList="fetchContactList"/>
                         </div>
                         <!-- <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()"
                              class="add-new-contact-btn" style="width:95%">
@@ -635,6 +635,7 @@
 
     data() {
       return {
+        loadingEditContact: false,
         editContactData:{},
         money: {
           // decimal: ',',
@@ -977,7 +978,8 @@
       // async fetchTaxSetting() {
       // },
 
-      async editSelectedContact() {
+      editSelectedContact() {
+        this.loadingEditContact = true
         // window.open(`/contacts/${this.selected_contact.contact_id}/edit`);
         // alert('edit, coy!')
         // alert(this.selected_contact.contact_id)
@@ -989,17 +991,22 @@
         //     this.showModalCustomer()
         //   }
         // )
-        await axios.get(`contacts/${contact_id}/edit`).then(
+
+        this.isShownModalAddCustomer = true
+        $('#modal-add-customer').modal('show')
+        axios.get(`contacts/${contact_id}/edit`).then(
           res => {
           this.editContactData = res.data.data.contact
+          this.loadingEditContact = false
           // console.log(this.editContactData)
           }
-        ).then(
-          data =>{
-            this.isShownModalAddCustomer = true
-            $('#modal-add-customer').modal('show')
-          }
-        ).catch(err =>{
+        )
+        // .then(
+        //   data =>{
+        //   }
+        // )
+        .catch(err =>{
+          this.loadingEditContact = false
           swal.error('Error, unable to get customer data!')
         })
 
