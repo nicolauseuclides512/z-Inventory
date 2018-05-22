@@ -136,6 +136,7 @@
   import { Alert, responseOk, swal_error } from "../../helpers";
   import Salutation from "../../helpers/Salutation";
   import dateFormat from 'date-fns/format'
+  import swal from 'sweetalert2'
 
   export default {
 
@@ -357,8 +358,19 @@
             swal_error(err.response)
           }
         }
-
+        swal({
+							title: "Email was sent.",
+							type: 'success',
+							timer: 2000,
+							showConfirmButton: false,
+						})
         this.sending = false
+        this.$router.push({
+					name: 'sales.detail',
+					params: {
+						id: this.$route.params.sales_order_id
+					},
+				})
       },
 
 
