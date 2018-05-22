@@ -322,7 +322,7 @@
                     <!-- <div class="form-group" style="margin-bottom: 0px">
                       <label style="font-weight: normal">Invoice to:</label>
                     </div> -->
-                    <div class="right-panel-wrap d-flex" style="z-index:9999999">
+                    <div class="customer-list-wrap d-flex" style="z-index:9">
                       <div class="col-md-12" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
                         <div class="button-wrap">
                         </div>
@@ -433,7 +433,7 @@
                         <div class="contact-mobile" >Mobile {{ selected_contact.mobile ? selected_contact.mobile : '-' }}</div>
                       </div>
                     </div>
-                    <div v-if="list.channels.length" class="channels-length" style="z-index:9;">
+                    <div v-if="list.channels.length" class="channels-wrap" style="z-index:9;">
                       <div class="form-group list-wrap" style="margin-bottom:0px">
                         <!-- <div v-if="selected_sales_channel" class="channel-list">
                           <span>
@@ -1442,7 +1442,7 @@ table.empty-table {
   height: 100px;
 }
 
-.right-pannel .channels-length .ion-ios7-arrow-down:before {
+.right-pannel .channels-wrap .ion-ios7-arrow-down:before {
   color: #3ea9e8;
   position: absolute;
   top: 10px;
@@ -1450,7 +1450,7 @@ table.empty-table {
   background: white;
 }
 
-.channels-length,
+.channels-wrap,
 .normal-mode.selected-contact {
   z-index: 10;
   display: block;
