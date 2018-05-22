@@ -404,7 +404,7 @@
                       <!--<a href="javascript:void(0)" onclick="window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>-->
                       <!--</div>-->
                     </div>
-                    <div class="normal-mode selected-contact" v-if="selected_contact">
+                    <div class="normal-mode selected-contact" style="z-index:9" v-if="selected_contact">
                       <div class="col-md-12 contact-wrap" style="padding-left: 8px; margin-bottom:15px">
                         <!-- {{selected_contact}} -->
                         <h4 class="text-bold">{{selected_contact.display_name}}</h4>
