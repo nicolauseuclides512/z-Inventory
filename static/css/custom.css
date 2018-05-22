@@ -37,3 +37,13 @@ span.multiselect__option.multiselect__option--highlight {
 .swal2-container.swal2-center.swal2-fade.swal2-shown {
 	z-index: 10000;
 }
+
+.modal-open .modal{
+	padding: 40px 0;
+}
+.topbar{
+	z-index: 50;
+}
+.float-save{
+	z-index: 20;
+}
