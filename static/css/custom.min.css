@@ -689,6 +689,7 @@ select.select2-dropdown-open {
 	padding: 20px;
 	padding-bottom: 90px;
 	margin-left: 160px;
+	margin-top: 50px;
 	overflow: hidden
 }
 
@@ -708,6 +709,7 @@ select.select2-dropdown-open {
 	background: #EEEEEE;
 	padding: 20px 10px 20px 20px;
 	margin-left: 160px;
+	margin-top: 50px;
 	overflow: hidden;
 }
 
