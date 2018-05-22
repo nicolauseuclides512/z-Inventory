@@ -89,20 +89,20 @@
 									</li>
 									<li class="divider"></li>
 									<li :class="{ active: filter === 'draft' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'draft' })">Draft</a>
+										<a href="javascript:void(0);" @click="changeFilter({ filter: 'draft' })">Open</a>
 									</li>
 									<li :class="{ active: filter === 'paid' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'paid' })">Paid</a>
+										<a href="javascript:void(0);" @click="changeFilter({ filter: 'awaiting_payment' })">Awaiting Payment</a>
 									</li>
 									<li :class="{ active: filter === 'unpaid' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'unpaid' })">Unpaid</a>
+										<a href="javascript:void(0);" @click="changeFilter({ filter: 'awaiting_shipment' })">Awaiting Shipment</a>
 									</li>
 									<li :class="{ active: filter === 'partially_paid' }">
-										<a href="javascript:void(0);" @click="getList({ filter: 'partially_paid' })">Partially Paid</a>
+										<a href="javascript:void(0);" @click="getList({ filter: 'fulfilled' })">Fulfilled</a>
 									</li>
-									<li :class="{ active: filter === 'overdue' }">
+									<!-- <li :class="{ active: filter === 'overdue' }">
 										<a href="javascript:void(0);" @click="changeFilter({ filter: 'overdue' })">Overdue</a>
-									</li>
+									</li> -->
 									<!-- <li :class="{ active: filter === 'shipped' }">
 										<a href="javascript:void(0);" @click="changeFilter({ filter: 'shipped' })">Shipped</a>
 									</li>
@@ -110,7 +110,7 @@
 										<a href="javascript:void(0);" @click="changeFilter({ filter: 'not_yet_shipped' })">Not shipped</a>
 									</li> -->
 									<li :class="{ active: filter === 'void' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'void' })">Void</a>
+										<a href="javascript:void(0);" @click="changeFilter({ filter: 'canceled' })">Void</a>
 									</li>
 								</ul>
 
