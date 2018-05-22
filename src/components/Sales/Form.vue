@@ -135,13 +135,20 @@
                               </select>
                             </div>
                             <div class="col-md-8">
-                              <vue-numeric
-                                v-model.number="product.discount_amount_value"
+
+                              <money v-if="product.discount_amount_type == 'fixed'"
+                                v-model="product.discount_amount_value"
+                                v-bind="money"
                                 @change="updateDiscountValue(product)"
-                                separator=","
+                                class="form-control custom"
+                                style="padding:6px; width:89px"
+                                />
+                              <input v-else
+                                type="number"
+                                v-model="product.discount_amount_value"
+                                @change="updateDiscountValue(product)"
                                 class="form-control"
-                                style="padding:6px; width:89px">
-                              </vue-numeric>
+                                style="padding:6px; width:89px"/>
                             </div>
                           </td>
 
@@ -556,7 +563,7 @@
   import Router from "src/router";
   import Form from "../../helpers/Form";
   import dateFormat from "date-fns/format";
-  import VueNumeric from 'vue-numeric';
+  // import VueNumeric from 'vue-numeric';
   import ModalAddCustomer from '@/components/Sales/Modal/ModalAddCustomer';
   // import testValidation from '@/components/Sales/Modal/testValidation';
   import Multiselect from 'vue-multiselect'
@@ -571,7 +578,7 @@
       ModalAddCustomer,
       // Vuelist,
       Vuetagger,
-      VueNumeric,
+      // VueNumeric,
     },
 
     watch: {
