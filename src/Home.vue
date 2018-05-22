@@ -3,6 +3,7 @@
 		<div id="wrapper" :class="{ enlarged: !sidebarEnlarged }">
 			<NavTop :sidebar="sidebarEnlarged" @burger-menu-clicked="sidebarEnlarged = !sidebarEnlarged"></NavTop>
 			<NavLeft></NavLeft>
+			<div class="stucker"></div>
 			<!-- <PageTitle></PageTitle> -->
 			<router-view></router-view>
 
@@ -60,3 +61,13 @@
 		},
 	}
 </script>
+<style lang="scss" scoped>
+.stucker{
+	display: block;
+	width: 100%;
+	margin: 0;
+	height: 50px;
+	overflow: hidden;
+	position: relative;
+}
+</style>
