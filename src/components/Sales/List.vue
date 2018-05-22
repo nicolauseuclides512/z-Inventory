@@ -472,7 +472,7 @@
 								</div>
 							</div>
 							<div class="col-md-12 pr-20 text-right">
-								<pagination :page-context="page_context" :result="salesList" @updated="updatePagination"></pagination>
+								<Pagination :page-context="page_context" :result="salesList" @updated="updatePagination"></Pagination>
 							</div>
 						</div>
 					</div>
