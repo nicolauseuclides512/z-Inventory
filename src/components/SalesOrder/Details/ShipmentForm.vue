@@ -124,10 +124,10 @@
         let salesOrderId = this.$route.params.id
         let url = `/sales_orders/${salesOrderId}/shipments`
 
-        if (!this.tracking_number) {
-          Alert.error('Tracking number is required');
-          return;
-        }
+        // if (!this.tracking_number) {
+        //   Alert.error('Tracking number is required');
+        //   return;
+        // }
 
         if(this.isEdit){
           let shipmentId = this.editShipment.shipment_id
