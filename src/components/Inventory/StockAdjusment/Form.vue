@@ -5,7 +5,7 @@
 
         <form method="POST" @submit.prevent>
           <div class="col-md-12" style="padding-left:0px">
-            <h4 class="pull-left page-title" v-if="$route.name == 'stock_adjustment.edit'">Edit Stock Adjusment</h4>
+            <h4 class="pull-left page-title" v-if="isEdit">Detail Stock Adjusment</h4>
             <h4 class="pull-left page-title" v-else>Add Stock Adjusment</h4>
           </div>
           <!-- Row 1 : INFO -->
@@ -28,15 +28,14 @@
                     <div class="form-group form-general m-b-10">
                       <label class="col-md-2 control-label text-left">Adjustment ID</label>
                       <div class="col-md-4">
-
-                          <input v-model="form.stock_adjustment_id"
-                                disabled
-                                required
-                                type="text"
-                                placeholder=""
-                                class="form-control"
+                          <input
+                            v-model="form.stock_adjustment_id"
+                            disabled
+                            required
+                            type="text"
+                            placeholder=""
+                            class="form-control"
                           />
-
                       </div>
                     </div>
                     <div class="form-group form-general m-b-10">
@@ -50,6 +49,7 @@
                               v-model="form.stock_adjustment_date"
                               type="text"
                               required
+                              :disabled="isEdit"
                               class="form-control bg-white"
                               placeholder="yyyy-mm-dd"
                               id="adjustment_date_picker"
@@ -63,8 +63,13 @@
 
                           <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-fw fa-hashtag"></i></span>
-                            <input v-model="form.reference_number" type="text" placeholder="" class="form-control"
-                                  id="reference_number">
+                            <input
+                              :disabled="isEdit"
+                              v-model="form.reference_number"
+                              type="text"
+                              placeholder=""
+                              class="form-control"
+                              id="reference_number">
                           </div>
 
                       </div>
@@ -73,6 +78,7 @@
                       <label class="col-md-2 control-label text-left">Notes</label>
                       <div class="col-md-6">
                          <textarea
+                            :disabled="isEdit"
                             v-model="form.notes"
                             class="form-control"
                             id="notes"
@@ -121,7 +127,12 @@
                         <td class="text-center">{{ index+1 }}</td>
                         <td>
                           <div class="col-md-12 pl-pr-0">
-                            <select class="form-control" v-model="detail.item_id" @change="selectItem(detail)" required title="Item name">
+                            <select
+                              class="form-control"
+                              :disabled="isEdit"
+                              v-model="detail.item_id"
+                              @change="selectItem(detail)"
+                              required title="Item name">
                               <option :value="detail.item_id" v-if="detail">
                                 {{ detail.item_name }}
                               </option>
@@ -141,7 +152,7 @@
                             @keyup="changeAdjustValue(detail)"
                             @change="changeAdjustValue(detail)"
                             required
-                            :disabled="!detail.item_id"
+                            :disabled="!detail.item_id || isEdit"
                             title="On hand quantity"
                             class="vertical-spin form-control"
                             type="number"
@@ -155,7 +166,7 @@
                             @keyup="changeOnHandValue(detail)"
                             @change="changeOnHandValue(detail)"
                             required
-                            :disabled="!detail.item_id"
+                            :disabled="!detail.item_id || isEdit"
                             title="Adjustment quantity"
                             class="vertical-spin form-control"
                             type="number"
@@ -164,14 +175,14 @@
                             data-bts-button-up-class="btn btn-primary">
                         </td>
                         <td>
-                          <select required title="Reason" class="form-control" v-model="detail.reason_id" :disabled="!detail.item_id">
+                          <select required title="Reason" class="form-control" v-model="detail.reason_id" :disabled="!detail.item_id || isEdit">
                             <option v-for="reason in list.reasons" :value="reason.reason_id">
                               {{ reason.reason }}
                             </option>
                           </select>
                         </td>
                         <td style="vertical-align: middle; background-color:#ffffff; border:0px solid; width:28px" v-if="detail.item_id">
-                          <a @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
+                          <a v-if="!isEdit" @click="removeProduct(product)" href="javascript:void(0);" class="text-danger"><i
                             class="ion-close-round"></i></a>
                         </td>
                       </tr>
@@ -358,7 +369,7 @@
                   </div>
                   <div class="col-md-6 text-right">
                     <div class="col-md-6 col-md-offset-6">
-                      <div class="btn-group dropup">
+                      <div v-if="!isEdit" class="btn-group dropup">
                         <button
                           data-type="save-and-close"
                           @click="save($event)"
@@ -449,6 +460,9 @@
     },
 
     computed: {
+      isEdit(){
+        return this.$route.name == 'stock_adjustment.edit'
+      },
       items() {
         return this.list.items.filter((item) => {
           return ! this.form.details.find((selectedItem) => {
