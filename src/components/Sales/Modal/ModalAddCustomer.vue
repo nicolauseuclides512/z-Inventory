@@ -10,8 +10,8 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           </div>
           <div class="modal-body">
-            <h4 v-if="!editContactData" class="modal-title">Add New Contact</h4>
-            <h4 v-else class="modal-title">Edit Contact</h4>
+            <h4 v-if="!editContactData.contact_id && !loadingEditContact" class="modal-title">Add New Contact</h4>
+            <h4  v-if="editContactData.contact_id && !loadingEditContact" class="modal-title">Edit Contact</h4>
             <form v-if="!loadingEditContact" v-on:submit.prevent="save">
               <div class="form-new-customer personal-info">
 

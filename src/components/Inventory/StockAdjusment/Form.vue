@@ -176,7 +176,7 @@
                         </td>
                         <td>
                           <select required title="Reason" class="form-control" v-model="detail.reason_id" :disabled="!detail.item_id || isEdit">
-                            <option v-for="reason in list.reasons" :value="reason.reason_id">
+                            <option v-for="(reason,idx) in list.reasons" :key="idx" :value="reason.reason_id">
                               {{ reason.reason }}
                             </option>
                           </select>
