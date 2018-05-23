@@ -529,7 +529,9 @@
 
 		computed: {
 			pageRange() {
-				if(this.paginate.has_more_pages){
+				if(this.paginate.count == this.paginate.total){
+					return '1 - '+ this.paginate.total
+				}else if(this.paginate.has_more_pages){
 					return ((this.paginate.count * (this.paginate.current_page -1))+1) +' - '+ (this.paginate.count*this.paginate.current_page)
 				}else{
 					return (this.paginate.total - this.paginate.current_page)+' - '+(this.paginate.total)
