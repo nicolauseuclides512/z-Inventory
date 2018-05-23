@@ -30,28 +30,39 @@
         <div
           class="ribbon-payment"
           :class="{
-          'unpaid': value.invoice_status == 'UNPAID',
-          'partial': value.invoice_status == 'PARTIALLY_PAID',
-          'void': value.invoice_status == 'VOID',
-          'draft': value.invoice_status == 'DRAFT',
-          'sent': value.invoice_status == 'SENT',
+            'unpaid-not-shipped': value.invoice_status == 'UNPAID' && salesOrder.shipment_status == 'NOT_YET_SHIPPED',
+            'unpaid-shipped': value.invoice_status == 'UNPAID' && salesOrder.shipment_status == 'SHIPPED',
+            'paid-not-shipped': value.invoice_status == 'PAID' && salesOrder.shipment_status == 'NOT_YET_SHIPPED',
+            'paid-shipped': value.invoice_status == 'PAID' && salesOrder.shipment_status == 'SHIPPED',
+            'overdue-not-shipped': value.invoice_status == 'OVERDUE' && salesOrder.shipment_status == 'NOT_YET_SHIPPED',
+            'overdue-shipped': value.invoice_status == 'OVERDUE' && salesOrder.shipment_status == 'SHIPPED',
+            'partial-not-shipped': value.invoice_status == 'PARTIALLY_PAID' && salesOrder.shipment_status == 'NOT_YET_SHIPPED',
+            'partial-shipped': value.invoice_status == 'PARTIALLY_PAID' && salesOrder.shipment_status == 'SHIPPED',
+            'void': value.invoice_status == 'VOID',
+            'draft': value.invoice_status == 'DRAFT',
+            'sent': value.invoice_status == 'SENT',
           }" >
-          {{ value.invoice_status }}
+          {{ value.invoice_status | normalizeStatus}}
         </div>
       </div>
 
       <div v-if="salesOrder.invoice_status" class="ribbon-wrapper">
         <div
-          class="ribbon-payment shipment"
+          class="ribbon-payment"
           :class="{
-            'unpaid': value.invoice_status == 'UNPAID',
-            'overdue': salesOrder.invoice_status == 'OVERDUE',
-            'partial': salesOrder.invoice_status == 'PARTIALLY_PAID',
+            'unpaid-not-shipped': salesOrder.invoice_status == 'UNPAID' && salesOrder.shipment_status == 'NOT_YET_SHIPPED',
+            'unpaid-shipped': salesOrder.invoice_status == 'UNPAID' && salesOrder.shipment_status == 'SHIPPED',
+            'paid-not-shipped': salesOrder.invoice_status == 'PAID' && salesOrder.shipment_status == 'NOT_YET_SHIPPED',
+            'paid-shipped': salesOrder.invoice_status == 'PAID' && salesOrder.shipment_status == 'SHIPPED',
+            'overdue-not-shipped': salesOrder.invoice_status == 'OVERDUE' && salesOrder.shipment_status == 'NOT_YET_SHIPPED',
+            'overdue-shipped': salesOrder.invoice_status == 'OVERDUE' && salesOrder.shipment_status == 'SHIPPED',
+            'partial-not-shipped': salesOrder.invoice_status == 'PARTIALLY_PAID' && salesOrder.shipment_status == 'NOT_YET_SHIPPED',
+            'partial-shipped': salesOrder.invoice_status == 'PARTIALLY_PAID' && salesOrder.shipment_status == 'SHIPPED',
             'void': salesOrder.invoice_status == 'VOID',
             'draft': salesOrder.invoice_status == 'DRAFT',
             'sent': salesOrder.invoice_status == 'SENT',
           }" >
-          {{ (salesOrder.invoice_status == 'DRAFT')?'OPEN':salesOrder.invoice_status }}
+          {{ (salesOrder.invoice_status == 'DRAFT')?'OPEN':salesOrder.invoice_status | normalizeStatus}}
         </div>
       </div>
 
@@ -244,7 +255,11 @@
 
   export default {
     name: "Invoice",
-
+    filters:{
+      normalizeStatus(text) {
+				return text.replace(/_/gi, ' ').toLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase())
+			}
+    },
     components: {
       Spinner: () => import('@/components/Helpers/Spinner'),
     },
@@ -500,54 +515,41 @@ td span:first-child{ /* compatible to >=IE7 */
     border-bottom: 3px solid transparent;
     border-top: 3px solid #1C8AD9;
   }
-  &.shipped {
-    background: #77a800;
+  &.paid-shipped {
+    background: #1C8AD9;
     &:before{
-      border-left: 3px solid darken(#77a800,20);
-      border-top: 3px solid darken(#77a800,20);
+      border-left: 3px solid darken(#1C8AD9,20);
+      border-top: 3px solid darken(#1C8AD9,20);
     }
     &:after{
-      border-right: 3px solid darken(#77a800,20);
-      border-top: 3px solid darken(#77a800,20);
+      border-right: 3px solid darken(#1C8AD9,20);
+      border-top: 3px solid darken(#1C8AD9,20);
+    }
+  }
+  &.paid-not-shipped {
+    background: #009933;
+    &:before{
+      border-left: 3px solid darken(#009933,20);
+      border-top: 3px solid darken(#009933,20);
+    }
+    &:after{
+      border-right: 3px solid darken(#009933,20);
+      border-top: 3px solid darken(#009933,20);
     }
   }
   &.draft{
-    background: #767676;
-    background: linear-gradient(#767676, #767676);
+    background: #aaa;
+    background: linear-gradient(#aaa, #aaa);
     &:before{
-      border-left: 3px solid darken(#767676,20);
-      border-top: 3px solid darken(#767676,20);
+      border-left: 3px solid darken(#aaa,20);
+      border-top: 3px solid darken(#aaa,20);
     }
     &:after{
-      border-right: 3px solid darken(#767676,20);
-      border-top: 3px solid darken(#767676,20);
+      border-right: 3px solid darken(#aaa,20);
+      border-top: 3px solid darken(#aaa,20);
     }
   }
-  &.overdue{
-    background: #E33636;
-    background: linear-gradient(#E33636, #E33636);
-    &:before{
-      border-left: 3px solid darken(#E33636,20);
-      border-top: 3px solid darken(#E33636,20);
-    }
-    &:after{
-      border-right: 3px solid darken(#E33636,20);
-      border-top: 3px solid darken(#E33636,20);
-    }
-  }
-  &.void{
-    background: #000000;
-    background: linear-gradient(#000000, #000000);
-    &:before{
-      border-left: 3px solid lighten(#000,20);
-      border-top: 3px solid lighten(#000,20);
-    }
-    &:after{
-      border-right: 3px solid lighten(#000,20);
-      border-top: 3px solid lighten(#000,20);
-    }
-  }
-  &.unpaid{
+  &.overdue-shipped{
     background: #1C8AD9;
     background: linear-gradient(#1C8AD9, #1C8AD9);
     &:before{
@@ -559,16 +561,76 @@ td span:first-child{ /* compatible to >=IE7 */
       border-top: 3px solid darken(#1C8AD9,20);
     }
   }
-  &.partial{
-    background: #E6E600;
-    background: linear-gradient(#E6E600, #E6E600);
+  &.overdue-not-shipped{
+    background: #ffc100;
+    background: linear-gradient(#ffc100, #ffc100);
     &:before{
-      border-left: 3px solid dakren(#E6E600, 20);
-      border-top: 3px solid dakren(#E6E600, 20);
+      border-left: 3px solid darken(#ffc100,20);
+      border-top: 3px solid darken(#ffc100,20);
     }
     &:after{
-      border-right: 3px solid dakren(#E6E600, 20);
-      border-top: 3px solid dakren(#E6E600, 20);
+      border-right: 3px solid darken(#ffc100,20);
+      border-top: 3px solid darken(#ffc100,20);
+    }
+  }
+  &.void{
+    background: #444;
+    background: linear-gradient(#444, #444);
+    &:before{
+      border-left: 3px solid darken(#444,20);
+      border-top: 3px solid darken(#444,20);
+    }
+    &:after{
+      border-right: 3px solid darken(#444,20);
+      border-top: 3px solid darken(#444,20);
+    }
+  }
+  &.unpaid-shipped{
+    background: #1C8AD9;
+    background: linear-gradient(#1C8AD9, #1C8AD9);
+    &:before{
+      border-left: 3px solid darken(#1C8AD9,20);
+      border-top: 3px solid darken(#1C8AD9,20);
+    }
+    &:after{
+      border-right: 3px solid darken(#1C8AD9,20);
+      border-top: 3px solid darken(#1C8AD9,20);
+    }
+  }
+  &.unpaid-not-shipped{
+    background: #ffc100;
+    background: linear-gradient(#ffc100, #ffc100);
+    &:before{
+      border-left: 3px solid darken(#ffc100,20);
+      border-top: 3px solid darken(#ffc100,20);
+    }
+    &:after{
+      border-right: 3px solid darken(#ffc100,20);
+      border-top: 3px solid darken(#ffc100,20);
+    }
+  }
+  &.partial-shipped{
+    background: #1C8AD9;
+    background: linear-gradient(#1C8AD9, #1C8AD9);
+    &:before{
+      border-left: 3px solid darken(#1C8AD9, 20);
+      border-top: 3px solid darken(#1C8AD9, 20);
+    }
+    &:after{
+      border-right: 3px solid darken(#1C8AD9, 20);
+      border-top: 3px solid darken(#1C8AD9, 20);
+    }
+  }
+  &.partial-not-shipped{
+    background: #ffc100;
+    background: linear-gradient(#ffc100, #ffc100);
+    &:before{
+      border-left: 3px solid darken(#ffc100, 20);
+      border-top: 3px solid darken(#ffc100, 20);
+    }
+    &:after{
+      border-right: 3px solid darken(#ffc100, 20);
+      border-top: 3px solid darken(#ffc100, 20);
     }
   }
 }
