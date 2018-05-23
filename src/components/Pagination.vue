@@ -167,7 +167,7 @@
             return swal_error(res)
           }
 
-          this.$emit('updated', res.data)
+          // this.$emit('updated', res.data)
 
           this.loadingNext = false
 

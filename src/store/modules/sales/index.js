@@ -27,7 +27,7 @@ const state = {
 	invoice: {},
 	orderList: [],
 	checkedList: [],
-	page_context: {},
+	paginate: {},
 	loadingSalesList: false,
 	salesOrderLoading: false,
 	q: '',
@@ -52,7 +52,7 @@ const mutations = {
 	DETAILS(state, payload) { state.details = payload },
 	INVOICE(state, payload) { state.invoice = payload },
 	ORDER_LIST(state, payload) { state.orderList = payload },
-	PAGE_CONTEXT(state, payload) { state.page_context = payload },
+	PAGINATE(state, payload) { state.paginate = payload },
 	CHECKED_ITEM(state, payload) {
 		if (Array.isArray(payload)) {
 			state.checkedList = payload
@@ -79,7 +79,6 @@ const actions = {
 	async initialize({dispatch}) {
 		await dispatch('getList')
 	},
-
 
 	async saveShipment({state}, sales_order_id: number) {
 		const data = {
@@ -137,13 +136,13 @@ const actions = {
 			filter: state.filter,
 		}
 
-		const params = Object.assign({}, defaultParams, userParams)
+		let params = Object.assign({}, defaultParams, userParams)
 
 		try {
 			commit('LOADING_SALES_LIST', true)
 			const res = await axios.get(`sales_orders`, {params})
 			commit('SALES_LIST', res.data.data)
-			commit('PAGE_CONTEXT', res.data.paginate)
+			commit('PAGINATE', res.data.paginate)
 			commit('LOADING_SALES_LIST', false)
 			return res.data.data
 		} catch (err) {

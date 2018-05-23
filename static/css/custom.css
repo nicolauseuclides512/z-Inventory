@@ -39,7 +39,7 @@ span.multiselect__option.multiselect__option--highlight {
 }
 
 .modal-open .modal{
-	padding: 40px 0;
+	padding: 0;
 }
 .topbar{
 	z-index: 50;

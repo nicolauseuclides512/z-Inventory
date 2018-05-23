@@ -22,57 +22,7 @@
 		</div>
 		<div class="content full-width sahito-user bgr-white" style="min-height:620px">
 			<div class="container">
-				<div v-if="!salesList.length && !loadingSalesOrders" class="text-center" style="color: #a9a9a9;">
-					<div class="row">
-							<div class="col-md-12 col-sm-12 col-xs-12 title-wrapper" id="mark_default" v-if="!checkedList.length > 0">
-								<a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
-									 aria-expanded="false">
-									<h4><span>Status: </span> {{ currentFilter }} <span class="caret"></span></h4>
-								</a>
-								<ul class="dropdown-menu" role="menu" style="top: 117px;left: 210px;position: fixed;">
-									<li class="dropdown-header">FILTER BY</li>
-									<li :class="{ active: filter === 'all' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'all' })">All</a>
-									</li>
-									<li class="divider"></li>
-									<li :class="{ active: filter === 'draft' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'draft' })">Draft</a>
-									</li>
-									<li :class="{ active: filter === 'paid' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'paid' })">Paid</a>
-									</li>
-									<li :class="{ active: filter === 'unpaid' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'unpaid' })">Unpaid</a>
-									</li>
-									<li :class="{ active: filter === 'partially_paid' }">
-										<a href="javascript:void(0);" @click="getList({ filter: 'partially_paid' })">Partially Paid</a>
-									</li>
-									<li :class="{ active: filter === 'overdue' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'overdue' })">Overdue</a>
-									</li>
-									<li :class="{ active: filter === 'void' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'void' })">Void</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					<i class="fa fa-5x fa-shopping-cart"></i>
-					<div class="lead" style="padding: 30px 0 5px;">
-						<div>Sales order data not found.</div>
-						<br>
-						Add your sales order!
-					</div>
-					<div>
-						<router-link :to="{ name: 'sales.create' }" href="javascript:void(0);"
-												 class="btn btn-info waves-effect waves-light m-b-5">
-							<i class="ion-plus"></i> <span> Create Sales Order </span>
-						</router-link>
-					</div>
-				</div>
-				<div v-if="loadingSalesOrders" class="loading">
-					<Spinner></Spinner>
-				</div>
-				<div v-if="salesList.length && !loadingSalesOrders">
+				<div class="content-list">
 					<div class="container full-width-header p-b-10">
 						<div class="row">
 							<div class="col-md-12 col-sm-12 col-xs-12 title-wrapper" id="mark_default" v-if="!checkedList.length > 0">
@@ -98,7 +48,7 @@
 										<a href="javascript:void(0);" @click="changeFilter({ filter: 'awaiting_shipment' })">Awaiting Shipment</a>
 									</li>
 									<li :class="{ active: filter === 'partially_paid' }">
-										<a href="javascript:void(0);" @click="getList({ filter: 'fulfilled' })">Fulfilled</a>
+										<a href="javascript:void(0);" @click="changeFilter({ filter: 'fulfilled' })">Fulfilled</a>
 									</li>
 									<!-- <li :class="{ active: filter === 'overdue' }">
 										<a href="javascript:void(0);" @click="changeFilter({ filter: 'overdue' })">Overdue</a>
@@ -171,8 +121,24 @@
 							</div> -->
 						</div>
 					</div>
-
-					<div class="container p-0">
+					<div v-if="loadingSalesOrders" class="loading">
+						<Spinner></Spinner>
+					</div>
+					<div class="empty-list d-flex" v-if="!salesList.length && !loadingSalesOrders">
+						<i class="fa fa-5x fa-shopping-cart"></i>
+						<div class="lead" style="padding: 30px 0 5px;">
+							<div>Sales order data not found.</div>
+							<br>
+							Add your sales order!
+						</div>
+						<div class="link-wrap">
+							<router-link :to="{ name: 'sales.create' }" href="javascript:void(0);"
+													class="btn btn-info waves-effect waves-light m-b-5">
+								<i class="ion-plus"></i> <span> Create Sales Order </span>
+							</router-link>
+						</div>
+					</div>
+					<div v-if="salesList.length && !loadingSalesOrders"  class="container p-0">
 						<div class="row sahito-list">
 							<div class="col-md-12">
 								<div class="sahito-list-contact table-responsive">
@@ -472,7 +438,26 @@
 								</div>
 							</div>
 							<div class="col-md-12 pr-20 text-right">
-								<Pagination :page-context="page_context" :result="salesList" @updated="updatePagination"></Pagination>
+								<!-- <Pagination :page-context="paginate" :result="salesList" @updated="updatePagination"></Pagination> -->
+								<!-- <pre>
+								{{paginate}}
+								</pre> -->
+
+								<div class="pagination-wrap d-flex">
+									<select id="pagination-per-page" title="Per page" style="height: 20px;" @change="changePerPage">
+										<option :selected="paginate.per_page == paginate.total" :value="paginate.total">All Sales</option>
+										<option :selected="paginate.per_page == 10" value="10">10 per page</option>
+										<option :selected="paginate.per_page == 15" value="15">15 per page</option>
+										<option :selected="paginate.per_page == 20" value="20">20 per page</option>
+										<option :selected="paginate.per_page == 30" value="30">30 per page</option>
+										<option :selected="paginate.per_page == 60" value="60">60 per page</option>
+										<option :selected="paginate.per_page == 100" value="100">100 per page</option></select>
+									<div class="page-marker">
+										<span @click="toPrevPage" v-if="paginate.current_page !== 1" class="clickable prev-button"><i class="ion-chevron-left"></i></span>
+										<span class="page-info">{{pageRange}} of {{paginate.total}}</span>
+										<span @click="toNextPage" v-if="paginate.has_more_pages" class="clickable next-button"><i class="ion-chevron-right"></i></span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -521,14 +506,11 @@
 		watch: {
 			'$route'(to, from) {
 				if (to.query) {
-					// console.log(to.query)
-					this.getList({
-						q: to.query.q,
-						filter: to.query.filter,
-						sort: to.query.sort,
-					})
+					// console.log('route changed', to.query)
+					this.getList(to.query)
 				} else {
-					this.getList()
+					// console.log('route changed', to.query)
+					this.getList(form.query)
 				}
 			},
 		},
@@ -539,11 +521,19 @@
 				filter: this.$route.query.filter || 'all',
 				sort: this.$route.query.sort || 'created_at.desc',
 				q: this.$route.query.q || '',
+				page: this.$route.query.page || '1',
+				per_page: this.$route.query.per_page || '20'
 			})
 		},
 
 		computed: {
-
+			pageRange() {
+				if(this.paginate.has_more_pages){
+					return ((this.paginate.count * (this.paginate.current_page -1))+1) +' - '+ (this.paginate.count*this.paginate.current_page)
+				}else{
+					return (this.paginate.total - this.paginate.current_page)+' - '+(this.paginate.total)
+				}
+			},
 			filter: {
 				get() {
 					return store.state.sales.filter
@@ -613,18 +603,44 @@
 				},
 			},
 
-			page_context: {
+			paginate: {
 				get() {
-					return store.state.sales.page_context
+					return store.state.sales.paginate
 				},
 				set(value) {
-					store.commit('sales/PAGE_CONTEXT', value)
+					store.commit('sales/PAGINATE', value)
 				},
 			},
 
 		},
 
 		methods: {
+			toPrevPage(){
+				this.$router.push({
+					name: 'sales.index',
+					query: {...this.$route.query,
+						page: this.paginate.current_page - 1
+					},
+				})
+			},
+			toNextPage(){
+				this.$router.push({
+					name: 'sales.index',
+					query: {...this.$route.query,
+						page: this.paginate.current_page + 1
+					},
+				})
+			},
+			changePerPage(e){
+				// console.log(e.target.value)
+				this.$router.push({
+					name: 'sales.index',
+					query: {...this.$route.query,
+						page: 1,
+						per_page: e.target.value || '20'
+					},
+				})
+			},
 			...mapActions({
 				getList: 'sales/getList',
 				overviewToggle: 'sales/overviewToggle',
@@ -638,23 +654,27 @@
 				// console.log(options)
 				this.$router.push({
 					name: 'sales.index',
-					query: {
+					query: {...this.$route.query,
+						page: 1,
 						filter: options.filter || this.currentFilter || 'all',
 						sort: options.sort || this.currentSortColumn || 'created_at.asc',
 					},
 				})
-				this.getList(options)
+				// console.log(options)
+				// this.getList(options)
 			},
 
 			changeSorter(sort) {
 				this.$router.push({
 					name: 'sales.index',
 					query: {
+						...this.$route.query,
+						page: 1,
 						filter: this.filter,
 						sort: sort,
 					},
 				})
-				this.getList(options)
+				// this.getList(options)
 			},
 			/**
 			 * Show detail of sales order
@@ -813,8 +833,9 @@
 			},
 
 			updatePagination(data) {
-				store.commit('sales/PAGE_CONTEXT', data.paginate)
-				store.commit('sales/SALES_LIST', data.data)
+				console.log(data)
+				store.commit('sales/PAGINATE', data.paginate)
+				// store.commit('sales/SALES_LIST', data.data)
 			},
 
 			gotoDetailPayment(sale) {
@@ -899,5 +920,15 @@ td.shipment-status {
 		color: #ffc100;
 		border: 1.5px solid #ffc100
 	}
+}
+.pagination-wrap.d-flex {
+	float: right;
+	margin: 15px 0;
+}
+select#pagination-per-page {
+	margin-right: 20px;
+}
+span.page-info {
+	margin: 0 5px;
 }
 </style>
