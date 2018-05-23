@@ -190,8 +190,9 @@
                         <tr class="total">
                           <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
-                          <td class="text-right" style="padding-left: 0px; padding-bottom:24px">
-                            <span style="white-space: nowrap;"><small>Shipping Charge</small></span>
+                          <td class="text-right" style="padding: 8px 0 24px 0;">
+                            <input class="form-control" style="padding: 0 0 0 10px;" placeholer="Shipping Charge" v-model="form.adjustment_name" type="text" />
+                            <!-- <span style="white-space: nowrap;"><small>Shipping Charge</small></span> -->
                           </td>
                           <td style="padding-right: 0px; padding-bottom:24px">
                             <div class="input-group pull-right">
