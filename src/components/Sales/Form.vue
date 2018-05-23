@@ -1,5 +1,7 @@
 <template>
   <div class="content-page">
+
+    <ModalAddCustomer :loadingEditContact="loadingEditContact" v-if="isShownModalAddCustomer" :editContactData="editContactData" @selectContact="selectContact($event)" @close="hideModalCustomer" @fetchContactList="fetchContactList"/>
     <!-- <testValidation/> -->
     <div class="content" style="padding-left: 0px; padding-right: 0px">
       <form action="POST" @submit.prevent>
@@ -363,7 +365,6 @@
                           <button class="btn btn-add-customer btn-block" @click="showModalCustomer">
                             Add New Customer
                           </button>
-                          <ModalAddCustomer :loadingEditContact="loadingEditContact" v-if="isShownModalAddCustomer" :editContactData="editContactData" @selectContact="selectContact($event)" @close="hideModalCustomer" @fetchContactList="fetchContactList"/>
                         </div>
                         <!-- <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()"
                              class="add-new-contact-btn" style="width:95%">
