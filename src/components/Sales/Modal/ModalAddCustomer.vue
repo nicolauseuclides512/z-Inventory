@@ -41,10 +41,23 @@
                     </div>
                 <div class="form-group">
                   <div class="d-flex label-wrap">
-                    <label for="FullName">Name</label>
-                    <input type="text" name="FullName" id="first_name" placeholder="Name" v-model="model.first_name" v-validate="'required'" v-bind:class="{'form-control': true, 'error': errors.has('first_name') }" />
+                    <label for="Name">Name*</label>
+                    <input type="text" name="Name" id="Name" placeholder="Name" v-model="model.first_name" v-validate="'required'" v-bind:class="{'form-control': true, 'error': errors.has('Name') }" />
                   </div>
-                  <span v-show="errors.has('first_name')" class="text-danger">{{ errors.first('first_name') }}</span>
+                  <span v-show="errors.has('Name')" class="text-danger">{{ errors.first('Name') }}</span>
+                </div>
+                <div class="form-group">
+                  <div class="d-flex label-wrap">
+                    <label for="DisplayName">Display Name*</label>
+                   <select name="DisplayName" id="DisplayName" v-model="model.display_name" v-validate="'required'" v-bind:class="{'form-control': true, 'error': errors.has('DisplayName') }">
+                     <option selected :value="displayName1">{{displayName1}}</option>
+                     <option :value="displayName2">{{displayName2}}</option>
+                   </select>
+
+                    <!-- <input type="text" name="displayName" id="DisplayName" placeholder="DisplayName" /> -->
+
+                  </div>
+                  <span v-show="errors.has('DisplayName')" class="text-danger">{{ errors.first('DisplayName') }}</span>
                 </div>
 
                 <div class="form-group">
@@ -283,8 +296,11 @@
       Spinner: () => import('@/components/Helpers/Spinner'),
     },
     computed: {
-      displayName(){
-        return this.model.first_name+' '+this.model.company_name
+      displayName1(){
+        return ((this.model.first_name)?this.model.first_name:'Full Name')
+      },
+      displayName2(){
+        return ((this.model.company_name)?this.model.company_name:"Company Name")
       }
     },
 
@@ -459,7 +475,7 @@
               axios.post(url,
                 {
                   ...this.model,
-                  display_name: this.displayName,
+                  // display_name: this.displayName,
                 }
               ).then(res => {
                 this.saving = false
