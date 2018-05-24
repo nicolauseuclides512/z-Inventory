@@ -178,8 +178,8 @@
 													</tr>
 													</thead>
 													<tbody>
-													<template v-for="sale in salesList">
-														<tr>
+													<template v-for="(sale,i) in salesList" >
+														<tr :key="i">
 															<td class="col-checkbox">
 																<div class="checkbox checkbox-single checkbox-success" style="top:4px">
 																	<input type="checkbox" v-model="checkedList" :value="sale">
@@ -206,41 +206,41 @@
 																	{{ sale.contact.display_name }}
 															</td>
 															<td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
-														<td class="shipment-status" style="font-size: 1.05em !important; cursor:pointer" @click="showDetail(sale)">
-															<!-- <span class="label"
-																:class="{
-																	'label-info': sale.invoice_status == 'UNPAID',
-																	'label-void': sale.invoice_status == 'VOID',
-																	'label-danger': sale.invoice_status == 'OVERDUE',
-																	'label-success': sale.invoice_status == 'PAID',
-																	'label-success-part': sale.invoice_status == 'PARTIALLY_PAID',
-																	'label-default': sale.invoice_status == 'DRAFT' }">
-																{{sale.invoice_status.split("_").join(" ").toLowerCase()}}
-															</span> -->
+															<td class="shipment-status" style="font-size: 1.05em !important; cursor:pointer" @click="showDetail(sale)">
+																<!-- <span class="label"
+																	:class="{
+																		'label-info': sale.invoice_status == 'UNPAID',
+																		'label-void': sale.invoice_status == 'VOID',
+																		'label-danger': sale.invoice_status == 'OVERDUE',
+																		'label-success': sale.invoice_status == 'PAID',
+																		'label-success-part': sale.invoice_status == 'PARTIALLY_PAID',
+																		'label-default': sale.invoice_status == 'DRAFT' }">
+																	{{sale.invoice_status.split("_").join(" ").toLowerCase()}}
+																</span> -->
 
-																<div v-if="sale.invoice_status === 'DRAFT' || sale.invoice_status === 'VOID'">
-																	-
+																	<div v-if="sale.invoice_status === 'DRAFT' || sale.invoice_status === 'VOID'">
+																		-
+																	</div>
+																	<div v-else>
+																		{{sale.invoice_status | normalizeStatus}}
+																	</div>
+																</td>
+															<td class="shipment-status text-left" style="font-weight:400; font-size: 1.05em!important ;color:#000; cursor:pointer" @click="showDetail(sale)">
+																<div v-if="sale.shipment_date">
+																	{{sale.shipment_date | showShortDate}}
 																</div>
-																<div v-else>
-																	{{sale.invoice_status | normalizeStatus}}
-																</div>
+																<div v-else>-</div>
+																</td>
+															<td class="payment-status" style="cursor: pointer; width:126px; padding:8px" @click="showDetail(sale)">
+																<!-- <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
+																	Overdue in {{ sale.due_date | diffInDays }} day(s)
+																</span> -->
+																<div class="label label-default" v-if="sale.sales_order_status === 'DRAFT'">Open</div>
+																<div class="label label-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</div>
+																<div class="label label-wait-ship" v-else-if="sale.sales_order_status === 'AWAITING_SHIPMENT'">{{ sale.sales_order_status | normalizeStatus }}</div>
+																<div class="label label-wait-pay" v-else-if="sale.sales_order_status === 'AWAITING_PAYMENT'">{{ sale.sales_order_status | normalizeStatus }}</div>
+																<div class="label label-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</div>
 															</td>
-														<td class="shipment-status text-left" style="font-weight:400; font-size: 1.05em!important ;color:#000; cursor:pointer" @click="showDetail(sale)">
-															<div v-if="sale.shipment_date">
-																{{sale.shipment_date | showShortDate}}
-															</div>
-															<div v-else>-</div>
-															</td>
-														<td class="payment-status" style="cursor: pointer; width:126px; padding:8px" @click="showDetail(sale)">
-															<!-- <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
-																Overdue in {{ sale.due_date | diffInDays }} day(s)
-															</span> -->
-															<div class="label label-default" v-if="sale.sales_order_status === 'DRAFT'">Open</div>
-															<div class="label label-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</div>
-															<div class="label label-wait-ship" v-else-if="sale.sales_order_status === 'AWAITING_SHIPMENT'">{{ sale.sales_order_status | normalizeStatus }}</div>
-															<div class="label label-wait-pay" v-else-if="sale.sales_order_status === 'AWAITING_PAYMENT'">{{ sale.sales_order_status | normalizeStatus }}</div>
-															<div class="label label-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</div>
-														</td>
 															<!-- <td class="shipment-status" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.shipment_status | normalizeStatus }}</td>
 															<td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.due_date | date('short') }}</td>
 															<td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.invoices[0].balance_due | money}}</td> -->
@@ -311,7 +311,7 @@
 																</ul>
 															</td>
 														</tr>
-														<tr class="">
+														<tr :key="i">
 															<td colspan="11" class="p-0 bt-0">
 																<table v-if="overview.sales_order_id === sale.sales_order_id"
 																			 class="table sales-order-inner-table">
@@ -350,7 +350,7 @@
 																					</tr>
 																					</thead>
 																					<tbody>
-																					<tr v-for="order in orderList">
+																					<tr v-for="(order,i) in orderList" :key="i">
 																						<td class="text-left" style="font-size: 1em;">{{ order.item_name }}</td>
 																						<td class="text-left" style="font-size: 1em;">
 																							<p class="qty-amount">{{ order.item_quantity }} {{ order.uom }}</p>
@@ -955,5 +955,11 @@ select#pagination-per-page {
 }
 span.page-info {
 	margin: 0 5px;
+}
+.empty-list {
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	margin-bottom: 30px;
 }
 </style>
