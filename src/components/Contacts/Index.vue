@@ -31,8 +31,8 @@
 							<div v-show="!isChecked">
 								<a href="javascript:void(0);" id="filter-menu" class="dropdown-toggle pull-left page-title"
 									 data-toggle="dropdown" aria-expanded="false">
-									<h4 :title="'Filter by ' + displayActiveCurrentFilter">
-										{{ displayActiveCurrentFilter }} Contacts <span class="caret"></span>
+									<h4 :title="'Filter by ' + currentFilter">
+										{{ currentFilter }} Contacts <span class="caret"></span>
 									</h4>
 								</a>
 								<ul class="dropdown-menu" role="menu" style="top: 117px;left: 210px;position: fixed;">
@@ -262,25 +262,17 @@
 			}
 		},
 
-
 		mounted() {
 			this.getList()
 		},
 
-
 		computed: {
-
 			isChecked() {
 				if (_.isEmpty(this.checkedContacts)) {
 					return false
 				}
 				return true
 			},
-
-			displayActiveCurrentFilter() {
-				return this.currentFilter.charAt(0).toUpperCase() + this.currentFilter.slice(1)
-			},
-
 		},
 
 		methods: {

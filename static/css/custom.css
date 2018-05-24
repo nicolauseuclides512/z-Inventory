@@ -64,3 +64,6 @@ span.multiselect__option.multiselect__option--highlight {
 	height: 32px;
 	padding: 0 8px;
 }
+.sahito-user h4{
+	text-transform: capitalize;
+}
