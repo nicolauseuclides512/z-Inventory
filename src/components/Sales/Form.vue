@@ -167,7 +167,7 @@
                         </tbody>
                       </table>
                       <table v-if="form.details.length < 1" class="empty-table"></table>
-                      <table class="table mbok-element-elementnya-dikasih-nama" style="font-size:1.05em">
+                      <table class="table hayo-ini-apa-namanya" style="font-size:1.05em">
                         <thead>
                         <th class="left-empty" style="width: 61.6%; border-bottom: 0px"></th>
                         <th style="width: 20%; border-bottom: 0px"></th>
@@ -325,110 +325,37 @@
 
           <div class="col-md-3 right-pannel">
             <div class="panel panel-default" style="box-shadow:none; background-color:#eee; ">
-              <div class="panel-body" style="padding:0px">
-                <div class="row">
+              <div class="panel-body row" style="padding:0px">
                   <div class="col-xs-12">
-                    <!-- <div class="form-group" style="margin-bottom: 0px">
-                      <label style="font-weight: normal">Invoice to:</label>
-                    </div> -->
-                    <div class="customer-list-wrap d-flex" style="z-index:9">
-                      <div class="col-md-12" style="padding-left: 0px; padding-right: 0px; padding-bottom: 10px">
-                        <div class="button-wrap">
-                        </div>
-                        <!-- <div v-if="!ui.showAddNewContactField"> -->
-                        <div class="customer-list-dropdown">
-                          <Multiselect
-                            class="select-contact"
-                            @input="selectContact"
-                            :options="list.contact_list"
-                            :searchable="true"
-                            :close-on-select="true"
-                            placeholder="Search Contact..."
-                            track-by="contact_id"
-                            label="display_name"
-                            :selectLabel="''"
-                            :deselectLabel="''"
-                            />
-                          <!-- <vuelist
-                            v-if="!ui.showAddNewContactField"
-                            :loading="loadingContact"
-                            @change="selectContact"
-                            @search="searchContact"
-                            :options="list.contact_list"
-                            :value="selected_contact && selected_contact.contact_id"
-                            placeholder="Select Customer"
-                            keyid="contact_id"
-                            label="display_name"
-                          ></vuelist> -->
-
-                          <button class="btn btn-add-customer btn-block" @click="showModalCustomer">
-                            Add New Customer
-                          </button>
-                        </div>
-                        <!-- <div v-if="!selected_contact && !ui.showAddNewContactField" @click="toggleAddNewContactField()"
-                             class="add-new-contact-btn" style="width:95%">
-                          + Add New Contact
-                        </div> -->
-                        <!-- <div v-if="ui.showAddNewContactField">
-                          <div class="form-group" style="">
-                            <input
-                              type="text"
-                              name="name"
-                              class="form-control"
-                              placeholder="Client's name"
-                              v-model="newContact.display_name"
-                            />
-                          </div>
-                          <div class="form-group" style="">
-                            <textarea
-                              type="text"
-                              name="address"
-                              class="form-control"
-                              placeholder="Client's address"
-                              style="resize:vertical"
-                              rows="4"
-                              v-model="newContact.billing_address"
-                            ></textarea>
-                          </div>
-                          <div class="form-group" style="">
-                            <input
-                              type="number"
-                              name="phone"
-                              id="phone"
-                              class="form-control"
-                              placeholder="Client's phone number"
-                              maxlength="15" minlength="9"
-                              v-model="newContact.phone"
-                            />
-                          </div>
-                          <div class="form-group" style="">
-                            <input type="email" name="email" class="form-control" placeholder="Client's email"
-                                   style="text-transform: lowercase;"
-                                   v-model="newContact.email">
-                          </div>
-                        </div> -->
-                      </div>
-                      <!--<div class="col-md-1" v-if="!selected_contact">-->
-                      <!--<a href="javascript:void(0)" onclick="window.open('/contacts/create')" class="btn btn-default"><i class="fa fa-plus"></i></a>-->
-                      <!--</div>-->
+                    <div class="customer-list-wrap d-flex" >
+                      <Multiselect
+                        class="customer-list-dropdown select-contact"
+                        @input="selectContact"
+                        :options="list.contact_list"
+                        :searchable="true"
+                        :close-on-select="true"
+                        placeholder="Search Contact..."
+                        track-by="contact_id"
+                        label="display_name"
+                        :selectLabel="''"
+                        :deselectLabel="''"
+                        />
+                      <button class="btn btn-add-customer btn-block" @click="showModalCustomer">
+                        Add New Customer
+                      </button>
                     </div>
-                    <div class="selected-contact" style="z-index:9" v-if="selected_contact">
-                      <div class="col-md-12 contact-wrap" style="padding-left: 8px; margin-bottom:15px">
-                        <!-- {{selected_contact}} -->
+                    <div class="selected-contact" v-if="selected_contact">
+                      <div class="contact-wrap" style="padding-left: 8px; margin-bottom:15px">
                         <h4 class="text-bold">{{selected_contact.display_name}}</h4>
                         <div class="contact-list">
                           <div class="billing-wrapper">Billing Address</div>
-                          <span>
-                          <a href="javascript:void(0)" @click="editSelectedContact">
+                          <span @click="editSelectedContact">
                             <i class="fa fa-fw fa-pencil"></i>
-                          </a>
                           </span>
-                          <!-- <span>
-                          <a @click="clearSelectedContact" v-if="selected_contact || ui.showAddNewContactField" href="javascript:void(0)" class="text-danger close-button contact-button">
+                          <!--
+                          <span @click="clearSelectedContact" v-if="selected_contact || ui.showAddNewContactField" class="text-danger close-button contact-button">
                             <i class="ion-close-round" style="font-size:13.3px"></i>
-                          </a>
                           </span> -->
-
                         </div>
                         <div class="billing-address" v-text="selected_contact.billing_address"></div>
                         <div class="billing-region-detail" v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
@@ -441,47 +368,30 @@
                         <div class="contact-mobile" >Mobile {{ selected_contact.mobile ? selected_contact.mobile : '-' }}</div>
                       </div>
                     </div>
-                    <div v-if="list.channels.length" class="channels-wrap" style="z-index:9;">
-                      <div class="form-group list-wrap" style="margin-bottom:0px">
-                        <!-- <div v-if="selected_sales_channel" class="channel-list">
-                          <span>
-                            <label style="font-weight: normal" >Sales from:</label>
-                            <label>{{selected_sales_channel.sales_channel.channel_name }}</label>
-                          </span>
-                          <a v-if="selected_sales_channel" style="padding-left:0" @click="clearSelectedSalesChannel" href="javascript:void(0)" class="text-danger close-button channel-button">
-                            <i class="ion-close-round" style="font-size:13.3px"></i>
-                          </a>
-                        </div> -->
-                      </div>
-                      <div class="form-horizontal">
-                        <div class="form-group form-general m-b-10">
-                          <label class="col-md-3 control-label text-left">Channel</label>
-                          <div class="col-md-9">
-                          <Multiselect
-                            v-model="selected_sales_channel"
-                            :options="list.channels"
-                            :searchable="true"
-                            :close-on-select="true"
-                            placeholder="Search..."
-                            track-by="id"
-                            :selectLabel="''"
-                            :deselectLabel="''"
-                            :custom-label="customLabel"
-                            />
-                        </div>
-                      </div>
+                    <div v-if="list.channels.length" class="form-horizontal form-group form-general channel-group">
+                        <label class="col-md-3 control-label text-left">Channel</label>
+                        <Multiselect
+                          class="col-md-9 chanel-select"
+                          v-model="selected_sales_channel"
+                          :options="list.channels"
+                          :searchable="true"
+                          :close-on-select="true"
+                          placeholder="Search..."
+                          track-by="id"
+                          :selectLabel="''"
+                          :deselectLabel="''"
+                          :custom-label="customLabel"
+                          />
                     </div>
-                    </div>
-                    <div class="d-block channel-info" v-else>
+                    <div class="d-block channel-info"  v-else>
                       <label style="font-weight: normal">Go to <i>Settings</i> >> <i>Sales Channel</i> to add your first
                         sales channel</label>
                     </div>
-
-                    <div class="col-md-12 pl-pr-0">
+                    <div class="col-md-12 pl-pr-0 clanedar-wrap" >
                       <div class="form-horizontal">
                           <div class="form-group form-general m-b-10">
                             <label class="col-md-3 control-label text-left">Date</label>
-                            <div class="col-md-9">
+                            <div class="col-md-9 date-picker-right">
                               <div class="input-group">
                           <input v-model="form.invoice_date" required class="flatpickr form-control">
                           <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -490,19 +400,17 @@
                       </div>
                       <div class="form-group form-general m-b-10">
                         <label class="col-md-3 control-label text-left">Due Date</label>
-                        <div class="col-md-9">
+                        <div class="col-md-9 date-picker-right">
                           <div class="input-group">
                           <input v-model="form.due_date" class="flatpickr-due form-control">
                           <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
                           </div>
                         </div>
+                      </div>
                     </div>
-                    </div>
-
-
                   </div>
-                </div>
+
               </div>
             </div>
           </div>
@@ -1358,7 +1266,6 @@
     border: 1px solid #cecece;
   }
   .right-pannel{
-    // z-index: 1;
     .ion-ios7-arrow-down:before,
     .fa-calendar:before{
       color: #3ea9e8;
@@ -1521,15 +1428,27 @@ table.empty-table {
 }
 .customer-list-dropdown {
   display: block;
-  z-index: 20;
+  margin-bottom: 10px;
   position: relative;
   width: 100%;
   overflow: visible;
 }
-.multiselect{
-  z-index: 2;
-}
 span.input-group-addon {
   padding: 6px;
+}
+.customer-list-wrap.d-flex {
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.channel-group{
+  display: flex;
+}
+.chanel-select {
+  flex: 1;
+  padding-right: 0;
+  padding-left: 15px;
+}
+.date-picker-right {
+  padding-right: 16px;
 }
 </style>
