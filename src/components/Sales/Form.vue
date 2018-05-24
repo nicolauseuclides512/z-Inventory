@@ -167,16 +167,16 @@
                         </tbody>
                       </table>
                       <table v-if="form.details.length < 1" class="empty-table"></table>
-                      <table class="table" style="font-size:1.05em">
+                      <table class="table mbok-element-elementnya-dikasih-nama" style="font-size:1.05em">
                         <thead>
-                        <th style="width: 67.6%; border-bottom: 0px"></th>
-                        <th style="width: 14%; border-bottom: 0px"></th>
+                        <th class="left-empty" style="width: 61.6%; border-bottom: 0px"></th>
+                        <th style="width: 20%; border-bottom: 0px"></th>
                         <th style="width: 18%; border-bottom: 0px"></th>
                         <th style="width:28px"></th>
                         </thead>
                         <tbody>
                         <tr class="total">
-                          <td class="text-right"></td>
+                          <td class="text-right left-empty"></td>
                           <td class="text-left subtotal-row">Sub total</td>
                           <td class="text-right subtotal-row">{{ subtotal | money }}
                           </td>
@@ -190,7 +190,7 @@
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr> -->
                         <tr class="total">
-                          <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
+                          <td class="left-empty" style="border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
                           <td class="text-right" style="padding: 8px 0 24px 0;">
                             <input class="form-control" style="padding: 0 0 0 10px;" placeholer="Shipping Charge" v-model="form.adjustment_name" type="text" />
@@ -246,8 +246,7 @@
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr> -->
                         <tr class="total">
-                          <td class="no-bgr text-right"
-                              style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
+                          <td class="no-bgr text-right left-empty" style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
                           <td class="text-left"
                               style="font-size: 20px; background-color: rgb(240, 240, 240);padding-left:8px; color:#000">
                             Total
@@ -1529,5 +1528,8 @@ table.empty-table {
 }
 .multiselect{
   z-index: 2;
+}
+span.input-group-addon {
+  padding: 6px;
 }
 </style>
