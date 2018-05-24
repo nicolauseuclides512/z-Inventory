@@ -359,7 +359,7 @@
                         </div>
                         <div class="billing-address" v-text="selected_contact.billing_address"></div>
                         <div class="billing-region-detail" v-text="selected_contact.billing_region_detail && selected_contact.billing_region_detail.name"></div>
-                        <div class="billing-district-detail"v-text="selected_contact.billing_district_detail && selected_contact.billing_district_detail.name"></div>
+                        <div class="billing-district-detail" v-text="selected_contact.billing_district_detail && selected_contact.billing_district_detail.name"></div>
                         <div class="billing-province-detail" v-text="selected_contact.billing_province_detail && selected_contact.billing_province_detail.name"></div>
                         <div class="billing-zip" v-text="selected_contact.billing_zip"></div>
                         <div class="billing-country-detail" v-text="selected_contact.billing_country_detail && selected_contact.billing_country_detail.name"></div>
@@ -821,7 +821,7 @@
 
         this.loadingContact = true;
         try {
-          const res = await axios.get(`contacts?include_area=true`, {
+          const res = await axios.get(`contacts`, {
             params: {
               page: 1,
               per_page: 9999,
