@@ -179,7 +179,7 @@
 													</thead>
 													<tbody>
 													<template v-for="(sale,i) in salesList" >
-														<tr :key="i">
+														<tr :key="i+'a2'">
 															<td class="col-checkbox">
 																<div class="checkbox checkbox-single checkbox-success" style="top:4px">
 																	<input type="checkbox" v-model="checkedList" :value="sale">
@@ -442,22 +442,7 @@
 								<!-- <pre>
 								{{paginate}}
 								</pre> -->
-
-								<div class="pagination-wrap d-flex">
-									<select id="pagination-per-page" title="Per page" style="height: 20px;" @change="changePerPage">
-										<option :selected="paginate.per_page == paginate.total" :value="paginate.total">All Sales</option>
-										<option :selected="paginate.per_page == 10" value="10">10 per page</option>
-										<option :selected="paginate.per_page == 15" value="15">15 per page</option>
-										<option :selected="paginate.per_page == 20" value="20">20 per page</option>
-										<option :selected="paginate.per_page == 30" value="30">30 per page</option>
-										<option :selected="paginate.per_page == 60" value="60">60 per page</option>
-										<option :selected="paginate.per_page == 100" value="100">100 per page</option></select>
-									<div class="page-marker">
-										<span @click="toPrevPage" v-if="paginate.current_page !== 1" class="clickable prev-button"><i class="ion-chevron-left"></i></span>
-										<span class="page-info">{{pageRange}} of {{paginate.total}}</span>
-										<span @click="toNextPage" v-if="paginate.has_more_pages" class="clickable next-button"><i class="ion-chevron-right"></i></span>
-									</div>
-								</div>
+								<JustPaginate :paginate="paginate"/>
 							</div>
 						</div>
 					</div>
@@ -473,7 +458,7 @@
 	import difference_in_days from 'date-fns/difference_in_days'
 	import store from 'src/store'
 	import {getParameterByName, responseOk,swal_error} from 'src/helpers'
-	import Pagination from '../Pagination.vue'
+	// import Pagination from '../Pagination.vue'
 	import Spinner from '@/components/Helpers/Spinner'
 	import {mapGetters, mapActions} from 'vuex'
 	import { format } from 'date-fns'
@@ -500,17 +485,18 @@
 		},
 
 		components: {
-			Pagination,
-			Spinner
+			JustPaginate: () => import('@/components/JustPaginate.vue'),
+			Spinner,
+
 		},
 
 		watch: {
-			'$route'(to, from) {
+			$route(to, from) {
 				if (to.query) {
 					// console.log('route changed', to.query)
 					this.getList(to.query)
 				} else {
-					// console.log('route changed', to.query)
+					// console.log('route changed', form.query)
 					this.getList(form.query)
 				}
 			},
@@ -579,11 +565,6 @@
 //        store.commit('sales/OVERVIEW', value)
 				},
 			},
-
-			// currentFilter() {
-			//   return store.getters['sales/currentFilter']
-			// },
-
 			checkedList: {
 				get() {
 					return store.state.sales.checkedList
@@ -654,7 +635,6 @@
 			}),
 
 			changeFilter(options = {}) {
-				// console.log(options)
 				this.$router.push({
 					name: 'sales.index',
 					query: {...this.$route.query,
