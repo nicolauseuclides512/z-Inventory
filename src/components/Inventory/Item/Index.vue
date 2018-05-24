@@ -561,20 +561,46 @@
         );
       },
 
-      sortItemsBy(column) {
-        let ascendingSort;
 
-        this.currentSortColumn = column;
-        this.ascendingSort = !this.ascendingSort;
 
-        if (this.ascendingSort) {
-          ascendingSort = "asc";
-        } else {
-          ascendingSort = "desc";
-        }
+			sortItemsBy(sort) {
 
-        this.getList({sort: `${column}.${ascendingSort}`});
-      },
+				this.currentSortColumn = sort
+				this.ascendingSort = !this.ascendingSort
+
+				let ascendingSort
+				if (this.ascendingSort) {
+					ascendingSort = 'asc'
+				} else {
+					ascendingSort = 'desc'
+				}
+
+				this.$router.push({
+					query: {
+						...this.$route.query,
+						page: 1,
+						filter: this.filter,
+						sort: sort+'.'+ascendingSort,
+					},
+				})
+
+			},
+
+
+      // oldSortItemsBy(column) {
+      //   let ascendingSort;
+
+      //   this.currentSortColumn = column;
+      //   this.ascendingSort = !this.ascendingSort;
+
+      //   if (this.ascendingSort) {
+      //     ascendingSort = "asc";
+      //   } else {
+      //     ascendingSort = "desc";
+      //   }
+
+      //   this.getList({sort: `${column}.${ascendingSort}`});
+      // },
 
       filterItem(filter) {
         this.getList({filter_by: filter});
