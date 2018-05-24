@@ -480,6 +480,8 @@
 
 		data() {
 			return {
+				currentFilter: 'all',
+				currentSortColumn: "created_at",
 				checkedAll: false
 			}
 		},
@@ -514,15 +516,6 @@
 		},
 
 		computed: {
-			pageRange() {
-				if(this.paginate.count == this.paginate.total){
-					return '1 - '+ this.paginate.total
-				}else if(this.paginate.has_more_pages){
-					return ((this.paginate.count * (this.paginate.current_page -1))+1) +' - '+ (this.paginate.count*this.paginate.current_page)
-				}else{
-					return (this.paginate.total - this.paginate.current_page)+' - '+(this.paginate.total)
-				}
-			},
 			filter: {
 				get() {
 					return store.state.sales.filter
@@ -551,7 +544,7 @@
 			},
 			...mapGetters({
 				loadingSalesOrders: 'sales/loadingSalesList',
-				currentFilter: 'sales/currentFilter'
+				// currentFilter: 'sales/currentFilter'
 			}),
 			// loadingSalesOrders() {
 			//   return store.getters['sales/loadingSalesList']
@@ -599,32 +592,6 @@
 		},
 
 		methods: {
-			toPrevPage(){
-				this.$router.push({
-					name: 'sales.index',
-					query: {...this.$route.query,
-						page: this.paginate.current_page - 1
-					},
-				})
-			},
-			toNextPage(){
-				this.$router.push({
-					name: 'sales.index',
-					query: {...this.$route.query,
-						page: this.paginate.current_page + 1
-					},
-				})
-			},
-			changePerPage(e){
-				// console.log(e.target.value)
-				this.$router.push({
-					name: 'sales.index',
-					query: {...this.$route.query,
-						page: 1,
-						per_page: e.target.value || '20'
-					},
-				})
-			},
 			...mapActions({
 				getList: 'sales/getList',
 				overviewToggle: 'sales/overviewToggle',
@@ -636,11 +603,10 @@
 
 			changeFilter(options = {}) {
 				this.$router.push({
-					name: 'sales.index',
 					query: {...this.$route.query,
 						page: 1,
 						filter: options.filter || this.currentFilter || 'all',
-						sort: options.sort || this.currentSortColumn || 'created_at.asc',
+						// sort: options.sort || this.currentSortColumn || 'created_at.asc',
 					},
 				})
 				// console.log(options)
@@ -649,7 +615,6 @@
 
 			changeSorter(sort) {
 				this.$router.push({
-					name: 'sales.index',
 					query: {
 						...this.$route.query,
 						page: 1,
@@ -657,8 +622,28 @@
 						sort: sort,
 					},
 				})
-				// this.getList(options)
 			},
+
+
+		newChangeSorter(sort) {
+			this.currentSortColumn = sort
+			this.ascendingSort = !this.ascendingSort
+			let ascendingSort
+			if (this.ascendingSort) {
+				ascendingSort = 'asc'
+			} else {
+				ascendingSort = 'desc'
+			}
+			this.$router.push({
+				query: {
+					...this.$route.query,
+					page: 1,
+					filter: this.filter,
+					sort: sort+'.'+ascendingSort,
+				},
+			})
+		},
+
 			/**
 			 * Show detail of sales order
 			 */
