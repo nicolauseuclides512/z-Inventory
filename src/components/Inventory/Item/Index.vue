@@ -282,7 +282,8 @@
                       </tbody>
                     </table>
 
-                    <pagination :page-context="paginate" :result="list.items" @updated="updatePagination"></pagination>
+                    <!-- <pagination :page-context="paginate" :result="list.items" @updated="updatePagination"></pagination> -->
+                    <JustPaginate :paginate="paginate" />
 
                   </div>
                 </div>
@@ -305,18 +306,20 @@
   export default {
     components: {
       "inline-editable": () => import("../../Helpers/InlineEditable.vue"),
-      Pagination: () => import("../../Pagination"),
+      // Pagination: () => import("../../Pagination"),
       Spinner: () => import('@/components/Helpers/Spinner'),
+			JustPaginate: ()=> import('@/components/JustPaginate')
     },
 
     watch: {
-      $route(to, from) {
-        if (to.query.q) {
-          this.getList({q: to.query.q});
-        } else {
-          this.getList();
-        }
-      }
+
+			$route(to, from) {
+				if (to.query) {
+					this.getList(to.query)
+				} else {
+					this.getList(form.query)
+				}
+			},
     },
 
     data() {
@@ -578,10 +581,10 @@
         this.currentFilter = filter;
       },
 
-      updatePagination(data) {
-        this.paginate = data.paginate;
-        this.list.items = data.data;
-      }
+      // updatePagination(data) {
+      //   this.paginate = data.paginate;
+      //   this.list.items = data.data;
+      // }
     },
 
     events: {

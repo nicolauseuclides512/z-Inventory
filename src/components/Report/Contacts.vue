@@ -52,7 +52,9 @@
 				this.getCustomerReport();
 			}
 		},
-
+		// components:{
+		// 	JustPaginate: ()=> import('@/components/JustPaginate')
+		// },
 		computed: {
 			total() {
 				return this.items.map(item => item.sales_amount)
