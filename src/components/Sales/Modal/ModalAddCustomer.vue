@@ -326,6 +326,7 @@
           shipping_region_list: [],
         },
         model: {
+          display_name: this.displayName1,
           is_customer: false,
           is_dropshipper: false,
           is_reseller: false,
