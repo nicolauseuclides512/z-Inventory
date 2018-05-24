@@ -214,7 +214,8 @@
 								</table>
 							</div>
 						</div>
-						<pagination :page-context="paginate" :result="contacts" @updated="updatePagination"></pagination>
+						<!-- <pagination :page-context="paginate" :result="contacts" @updated="updatePagination"></pagination> -->
+						<JustPaginate :paginate="paginate" />
 					</div>
 				</div>
 			</div>
@@ -235,17 +236,17 @@
 
 		components: {
 			Spinner: () => import('@/components/Helpers/Spinner'),
-			Pagination: () => import('../Pagination'),
+			JustPaginate: () => import('@/components/JustPaginate'),
 		},
 
 		watch: {
-			'$route'(to, from) {
-				if (to.query.q) {
-					this.getList({q: to.query.q})
+			$route(to, from) {
+				if (to.query) {
+					this.getList(to.query)
 				} else {
-					this.getList()
+					this.getList(form.query)
 				}
-			},
+			}
 		},
 
 		data() {
@@ -413,9 +414,9 @@
 					})
 			},
 
+			sortContactsBy(sort) {
 
-			sortContactsBy(column) {
-				this.currentSortColumn = column
+				this.currentSortColumn = sort
 				this.ascendingSort = !this.ascendingSort
 
 				let ascendingSort
@@ -425,11 +426,34 @@
 					ascendingSort = 'desc'
 				}
 
-				this.getList({
-					sort: `${column}.${ascendingSort}`,
-					filter: this.currentFilter,
+				this.$router.push({
+					query: {
+						...this.$route.query,
+						page: 1,
+						filter: this.filter,
+						sort: sort+'.'+ascendingSort,
+					},
 				})
+
 			},
+
+			// oldSortContactsBy(column) {
+			// 	this.currentSortColumn = column
+			// 	this.ascendingSort = !this.ascendingSort
+
+			// 	let ascendingSort
+			// 	if (this.ascendingSort) {
+			// 		ascendingSort = 'asc'
+			// 	} else {
+			// 		ascendingSort = 'desc'
+			// 	}
+			// 	console.log(column, ascendingSort)
+			// 	// this.getList({
+			// 	// 	sort: `${column}.${ascendingSort}`,
+			// 	// 	filter: this.currentFilter,
+			// 	// })
+
+			// },
 
 
 			filterContact(filter) {
