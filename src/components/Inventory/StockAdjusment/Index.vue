@@ -227,7 +227,7 @@ export default {
 		refreshList() {
 			this.list.items = [];
 			this.getList({
-				currentFilter: this.currentFilter,
+				// currentFilter: this.currentFilter,
 				sort: `${this.currentSortColumn}.${this.ascendingSort ? "asc" : "desc"}`
 			});
 		},

@@ -564,17 +564,14 @@
 
 
 			sortItemsBy(sort) {
-
 				this.currentSortColumn = sort
 				this.ascendingSort = !this.ascendingSort
-
 				let ascendingSort
 				if (this.ascendingSort) {
 					ascendingSort = 'asc'
 				} else {
 					ascendingSort = 'desc'
 				}
-
 				this.$router.push({
 					query: {
 						...this.$route.query,
@@ -583,7 +580,6 @@
 						sort: sort+'.'+ascendingSort,
 					},
 				})
-
 			},
 
 
