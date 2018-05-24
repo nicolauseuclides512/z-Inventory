@@ -550,15 +550,15 @@ td span:first-child{ /* compatible to >=IE7 */
     }
   }
   &.overdue-shipped{
-    background: #1C8AD9;
-    background: linear-gradient(#1C8AD9, #1C8AD9);
+    background: #ffc100;
+    background: linear-gradient(#ffc100, #ffc100);
     &:before{
-      border-left: 3px solid darken(#1C8AD9,20);
-      border-top: 3px solid darken(#1C8AD9,20);
+      border-left: 3px solid darken(#ffc100,20);
+      border-top: 3px solid darken(#ffc100,20);
     }
     &:after{
-      border-right: 3px solid darken(#1C8AD9,20);
-      border-top: 3px solid darken(#1C8AD9,20);
+      border-right: 3px solid darken(#ffc100,20);
+      border-top: 3px solid darken(#ffc100,20);
     }
   }
   &.overdue-not-shipped{
@@ -586,15 +586,15 @@ td span:first-child{ /* compatible to >=IE7 */
     }
   }
   &.unpaid-shipped{
-    background: #1C8AD9;
-    background: linear-gradient(#1C8AD9, #1C8AD9);
+    background: #ffc100;
+    background: linear-gradient(#ffc100, #ffc100);
     &:before{
-      border-left: 3px solid darken(#1C8AD9,20);
-      border-top: 3px solid darken(#1C8AD9,20);
+      border-left: 3px solid darken(#ffc100,20);
+      border-top: 3px solid darken(#ffc100,20);
     }
     &:after{
-      border-right: 3px solid darken(#1C8AD9,20);
-      border-top: 3px solid darken(#1C8AD9,20);
+      border-right: 3px solid darken(#ffc100,20);
+      border-top: 3px solid darken(#ffc100,20);
     }
   }
   &.unpaid-not-shipped{
@@ -610,15 +610,15 @@ td span:first-child{ /* compatible to >=IE7 */
     }
   }
   &.partial-shipped{
-    background: #1C8AD9;
-    background: linear-gradient(#1C8AD9, #1C8AD9);
+    background: #ffc100;
+    background: linear-gradient(#ffc100, #ffc100);
     &:before{
-      border-left: 3px solid darken(#1C8AD9, 20);
-      border-top: 3px solid darken(#1C8AD9, 20);
+      border-left: 3px solid darken(#ffc100, 20);
+      border-top: 3px solid darken(#ffc100, 20);
     }
     &:after{
-      border-right: 3px solid darken(#1C8AD9, 20);
-      border-top: 3px solid darken(#1C8AD9, 20);
+      border-right: 3px solid darken(#ffc100, 20);
+      border-top: 3px solid darken(#ffc100, 20);
     }
   }
   &.partial-not-shipped{
