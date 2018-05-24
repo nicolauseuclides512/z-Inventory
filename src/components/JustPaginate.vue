@@ -1,7 +1,7 @@
 <template>
 	<div class="pagination-wrap d-flex">
 		<select id="pagination-per-page" title="Per page" style="height: 20px;" @change="changePerPage">
-			<option :selected="paginate.per_page == paginate.total" :value="paginate.total">All Sales</option>
+			<option :selected="paginate.per_page == 'all'" :value="paginate.total">All</option>
 			<option :selected="paginate.per_page == 10" value="10">10 per page</option>
 			<option :selected="paginate.per_page == 15" value="15">15 per page</option>
 			<option :selected="paginate.per_page == 20" value="20">20 per page</option>
