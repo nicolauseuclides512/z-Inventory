@@ -130,8 +130,8 @@
 									</table>
 								</div>
 							</div>
-
-								<pagination :page-context="paginate" :result="list.items" @updated="updatePagination"></pagination>
+								<JustPaginate :paginate="paginate" />
+								<!-- <pagination :page-context="paginate" :result="list.items" @updated="updatePagination"></pagination> -->
 
 							</div>
 						</div>
@@ -151,7 +151,8 @@ export default {
 
 	components: {
 		Pagination: () => import("@/components/Pagination"),
-		Spinner: () => import("@/components/Helpers/Spinner")
+		Spinner: () => import("@/components/Helpers/Spinner"),
+		JustPaginate: () => import('@/components/JustPaginate')
 	},
 	data() {
 		return {
@@ -170,8 +171,18 @@ export default {
 	mounted() {
 		this.initialize();
 	},
-	methods: {
 
+	watch: {
+		$route(to, from) {
+			if (to.query) {
+				this.getList(to.query)
+			} else {
+				this.getList(form.query)
+			}
+		}
+	},
+
+	methods: {
 		expandGroup(id){
 			if( id == this.groupExpanded){
 				this.groupExpanded = 0
@@ -220,26 +231,28 @@ export default {
 				sort: `${this.currentSortColumn}.${this.ascendingSort ? "asc" : "desc"}`
 			});
 		},
-
-		async updatePagination(data) {
-			this.paginate = data.paginate;
-			this.list.items = data.data;
-		},
-
-		sortItemsBy(column) {
-			let ascendingSort;
-
-			this.currentSortColumn = column;
-			this.ascendingSort = !this.ascendingSort;
-
+		// async updatePagination(data) {
+		// 	this.paginate = data.paginate;
+		// 	this.list.items = data.data;
+		// },
+		sortItemsBy(sort) {
+			this.currentSortColumn = sort
+			this.ascendingSort = !this.ascendingSort
+			let ascendingSort
 			if (this.ascendingSort) {
-				ascendingSort = "asc";
+				ascendingSort = 'asc'
 			} else {
-				ascendingSort = "desc";
+				ascendingSort = 'desc'
 			}
-
-			this.getList({ sort: `${column}.${ascendingSort}` });
-		}
+			this.$router.push({
+				query: {
+					...this.$route.query,
+					page: 1,
+					filter: this.filter,
+					sort: sort+'.'+ascendingSort,
+				},
+			})
+		},
 	}
 };
 </script>
