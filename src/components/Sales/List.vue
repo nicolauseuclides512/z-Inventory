@@ -29,30 +29,26 @@
 
 								<a href="javascript:void(0);" class="dropdown-toggle pull-left page-title" data-toggle="dropdown"
 									 aria-expanded="false">
-									<h4><span>Status: </span>
-										<span v-if="currentFilter === 'draft'">Open</span>
-										<span v-else-if="currentFilter === 'canceled'">Void</span>
-										<span v-else>{{currentFilter | normalizeStatus}}</span>
-									<span class="caret"></span></h4>
+									<h4><span>Status: </span> {{ displayedActiveStatus }} <span class="caret"></span></h4>
 								</a>
 
 								<ul class="dropdown-menu" role="menu" style="top: 117px;left: 210px;position: fixed;">
 									<li class="dropdown-header">FILTER BY</li>
 									<li :class="{ active: filter === 'all' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'all' })">All</a>
+										<a href="javascript:void(0);" @click="changeFilter('all')">All</a>
 									</li>
 									<li class="divider"></li>
 									<li :class="{ active: filter === 'draft' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'draft' })">Open</a>
+										<a href="javascript:void(0);" @click="changeFilter('draft')">Open</a>
 									</li>
 									<li :class="{ active: filter === 'paid' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'awaiting_payment' })">Awaiting Payment</a>
+										<a href="javascript:void(0);" @click="changeFilter('awaiting_payment')">Awaiting Payment</a>
 									</li>
 									<li :class="{ active: filter === 'unpaid' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'awaiting_shipment' })">Awaiting Shipment</a>
+										<a href="javascript:void(0);" @click="changeFilter('awaiting_shipment')">Awaiting Shipment</a>
 									</li>
 									<li :class="{ active: filter === 'partially_paid' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'fulfilled' })">Fulfilled</a>
+										<a href="javascript:void(0);" @click="changeFilter('fulfilled')">Fulfilled</a>
 									</li>
 									<!-- <li :class="{ active: filter === 'overdue' }">
 										<a href="javascript:void(0);" @click="changeFilter({ filter: 'overdue' })">Overdue</a>
@@ -64,7 +60,7 @@
 										<a href="javascript:void(0);" @click="changeFilter({ filter: 'not_yet_shipped' })">Not shipped</a>
 									</li> -->
 									<li :class="{ active: filter === 'void' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'canceled' })">Void</a>
+										<a href="javascript:void(0);" @click="changeFilter('canceled')">Void</a>
 									</li>
 								</ul>
 
@@ -520,6 +516,10 @@
 		},
 
 		computed: {
+			displayedActiveStatus(){
+				return ((this.$route.query.filter == 'canceled')?'Void':(this.$route.query.filter == 'draft')?'Open':(this.$route.query.filter)?this.$route.query.filter.replace(/_/g," "):'All')
+				// return this.$route.query.filter.split("_").join(" ")
+			},
 			filter: {
 				get() {
 					return store.state.sales.filter
@@ -609,9 +609,9 @@
 				this.$router.push({
 					query: {...this.$route.query,
 						page: 1,
-						filter: options.filter || this.currentFilter || 'all',
+						filter: options || this.currentFilter || 'all',
 						// sort: options.sort || this.currentSortColumn || 'created_at.asc',
-						
+
 					},
 				})
 				this.currentFilter = options.filter
@@ -623,7 +623,7 @@
 					query: {
 						...this.$route.query,
 						page: 1,
-						filter: this.filter,
+						// filter: this.filter,
 						sort: sort,
 					},
 				})
