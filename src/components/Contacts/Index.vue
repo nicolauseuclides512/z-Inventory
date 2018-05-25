@@ -147,9 +147,12 @@
 						Add your contact!
 					</div>
 					<div>
-						<router-link :to="{ name: 'contact.create' }" href="javascript:void(0);"
-												 class="btn btn-info waves-light m-b-5" id="create-new-button">
-							<span>Create Contact </span> <i class="ion-plus"></i>
+						<router-link
+							:to="{ name: 'contact.create' }"
+							href="javascript:void(0);"
+							class="btn btn-info waves-light m-b-5"
+							id="create-new-button">
+							 <i class="ion-plus"></i> <span>&nbsp;Create Contact </span>
 						</router-link>
 					</div>
 				</div>
