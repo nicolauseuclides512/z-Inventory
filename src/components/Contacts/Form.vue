@@ -166,17 +166,17 @@
                     <!-- Billing Address Goes Here -->
                     <div class="col-md-6" style="padding-left:0px">
                       <div class="form-group form-general m-b-10">
-                        <div v-if="form.is_sameAddress === false" class="form-group form-general m-b-10">
+                        <div v-if="!form.is_sameAddress" class="form-group form-general m-b-10">
                           <label class="col-md-4 control-label text-left">Billing Address</label>
                         </div>
-                        <div v-if="form.is_sameAddress === true" class="form-group form-general m-b-10">
+                        <div v-else class="form-group form-general m-b-10">
                           <label class="col-md-6 control-label text-left">Billing & Shipping Address</label>
                         </div>
                         <label class="col-md-4 control-label text-left">Country</label>
                         <div class="col-md-8">
                           <select id="billing_country_id" v-model="form.billing_country" class="form-control">
                             <option :value="0" hidden disabled>Select Country</option>
-                            <option v-for="country in list.billing_country_list" :value="country.id" v-text="">
+                            <option v-for="country in list.billing_country_list" :value="country.id" :key="country.id" v-text="">
                               {{ country.name }}
                             </option>
                           </select>
@@ -188,7 +188,7 @@
                           <select id="billing_province_id" v-model="form.billing_province" class="form-control"
                                   @change="updateBillingDistrictList" :disabled="!list.billing_province_list.length">
                             <option :value="0" hidden disabled>Select Province</option>
-                            <option v-for="province in list.billing_province_list" :value="province.id">
+                            <option v-for="province in list.billing_province_list" :value="province.id" :key="province.id">
                               {{ province.name }}
                             </option>
                           </select>
@@ -200,7 +200,7 @@
                           <select id="billing_district_id" v-model="form.billing_district" class="form-control"
                                   @change="updateBillingRegionList" :disabled="!list.billing_district_list.length">
                             <option :value="0" hidden disabled>Select District</option>
-                            <option v-for="district in list.billing_district_list" :value="district.id">
+                            <option v-for="district in list.billing_district_list" :value="district.id" :key="district.id">
                               {{ district.name }}
                             </option>
                           </select>
@@ -254,7 +254,7 @@
                         <div class="col-md-8">
                           <select id="shipping_country_id" v-model="form.shipping_country" class="form-control">
                             <option :value="0" hidden disabled>Select Country</option>
-                            <option v-for="country in list.shipping_country_list" :value="country.id">
+                            <option v-for="country in list.shipping_country_list" :value="country.id" :key="country.id">
                               {{ country.name }}
                             </option>
                           </select>
@@ -796,7 +796,7 @@
           shipping_fax: '',
           notes: '',
           contact_status: 1,
-          is_sameAddress: true
+          is_sameAddress: false
         }),
       }
     },

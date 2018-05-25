@@ -149,7 +149,7 @@
 					<div>
 						<router-link :to="{ name: 'contact.create' }" href="javascript:void(0);"
 												 class="btn btn-info waves-light m-b-5" id="create-new-button">
-							<span>New </span> <i class="ion-plus"></i>
+							<span>Create Contact </span> <i class="ion-plus"></i>
 						</router-link>
 					</div>
 				</div>
