@@ -180,7 +180,7 @@
                           Stock on Hand
                           <i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                           <i class="fa fa-sort-desc"
-                             v-if="! ascendingSort && currentSortColumn === 'inventory_stock'"></i>
+                             v-if="!ascendingSort && currentSortColumn === 'inventory_stock'"></i>
                         </th>
                         <th class="text-left header-item-price">
                           <a href="#" @click="sortItemsBy('sales_rate')" style="color:#000">Price</a>
@@ -203,32 +203,32 @@
                           </a>
                         </td> -->
                         <td style="padding: 14px 8px;">
-                          <a href="javascript:void(0)" v-if="item.children.length" @click="toggleChildren(item)">
+                          <a href="javascript:void(0)" v-if="item.children && item.children.length" @click="toggleChildren(item)">
                             <i class="ion-plus-round" v-if="!item.expanded"></i>
                             <i class="ion-minus-round" v-if="item.expanded"></i>
                           </a>
                         </td>
                         <td style="padding: 14px 8px !important;">
-                          <router-link v-if="item.children.length"
+                          <router-link v-if="item.children && item.children.length"
                                        :to="{ name: 'item.edit_variant', params: { id: item.item_id } }"
                                        style="color:#000">
                             {{ item.item_name }}
                           </router-link>
-                          <router-link v-if="!item.children.length"
+                          <router-link v-if="item.children && !item.children.length"
                                        :to="{ name: 'item.edit', params: { id: item.item_id } } " style="color:#000">
                             {{ item.item_name }}
                           </router-link>
                         </td>
                         <td class="text-center" style="padding: 14px 8px !important;">
-                          <div v-if="item.children.length">
+                          <div v-if="item.children && item.children.length">
                           </div>
                           <div v-else>
                             {{ item.code_sku ? item.code_sku : '-' }}
                           </div>
                         </td>
-                        <!-- <td style="padding: 14px 8px !important;"><span v-if="!item.children.length">{{ item.description | truncItemDesc}}</span></td> -->
+                        <!-- <td style="padding: 14px 8px !important;"><span v-if="item.children && !item.children.length">{{ item.description | truncItemDesc}}</span></td> -->
                         <td class="text-center" style="padding: 14px 8px !important;">
-                          <span v-if="(item.track_inventory == true) && (!item.children.length)">
+                          <span v-if="(item.track_inventory == true) && (item.children && !item.children.length)">
                             <inline-editable
                               :isAdd="true"
                               :item="item"
@@ -236,10 +236,10 @@
                               @update="saveStockQuantity"
                             />
                           </span>
-                          <span v-else-if="(item.track_inventory == false) && (!item.children.length)"><i class="ion-ios7-infinite "></i></span>
+                          <span v-else-if="(item.track_inventory == false) && (item.children && !item.children.length)"><i class="ion-ios7-infinite "></i></span>
                         </td>
                         <td class="text-left" style="padding: 14px 8px !important;">
-                          <span v-if="!item.children.length">
+                          <span v-if="item.children && !item.children.length">
                             <inline-editable
                               :isMoney="true"
                               :item="item"
@@ -251,7 +251,7 @@
                         </td>
                       </tr>
 
-                      <tr v-if="item.expanded" v-for="child in item.children" style="background-color:#eff0f1">
+                      <tr v-if="item.expanded" v-for="(child,i) in item.children" style="background-color:#eff0f1" :key="i+'a'">
                         <td class="col-checkbox" style="width: 46px">
                           <div class="checkbox checkbox-single checkbox-success">
                           </div>
