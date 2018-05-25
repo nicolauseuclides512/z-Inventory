@@ -125,12 +125,10 @@
 						<Spinner></Spinner>
 					</div>
 					<div class="empty-list d-flex" v-if="!salesList.length && !loadingSalesOrders">
+					<!-- <div class="empty-list d-flex" v-if="true"> -->
 						<i class="fa fa-5x fa-shopping-cart"></i>
-						<div class="lead" style="padding: 30px 0 5px;">
-							<div>Sales order data not found.</div>
-							<br>
-							Add your sales order!
-						</div>
+						<span class="little-lead">Sales order data not found.</span>
+						<span class="lead">Add your sales order!</span>
 						<div class="link-wrap">
 							<router-link :to="{ name: 'sales.create' }" href="javascript:void(0);"
 													class="btn btn-info waves-effect waves-light m-b-5">
@@ -931,5 +929,16 @@ span.page-info {
 	align-items: center;
 	text-align: center;
 	margin-bottom: 30px;
+	color: darkgrey;
+	.little-lead {
+		font-size: 18px;
+		line-height: 20px;
+		margin: 40px auto 10px auto;
+	}
+	.lead {
+		font-size: 21px;
+		line-height: 20px;
+		margin-bottom: 30px;
+	}
 }
 </style>
