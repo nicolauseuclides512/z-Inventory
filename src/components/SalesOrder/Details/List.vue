@@ -16,7 +16,7 @@
 						<a href="javascript:void(0);" @click="changeFilter('draft')">Open</a>
 					</li>
 					<li :class="{ active: filter === 'paid' }">
-						<a href="javascript:void(0);" @click="changeFilter('awaiting_payment')">Awaiting Paymet</a>
+						<a href="javascript:void(0);" @click="changeFilter('awaiting_payment')">Awaiting Payment</a>
 					</li>
 					<li :class="{ active: filter === 'unpaid' }">
 						<a href="javascript:void(0);" @click="changeFilter('awaiting_shipment')">Awaiting Shipment</a>
