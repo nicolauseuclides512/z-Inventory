@@ -913,18 +913,18 @@
         this.list.billing_region_list = await Regional.regionList(this.form.billing_district)
         this.list.shipping_region_list = await Regional.regionList(this.form.shipping_district)
 
-        if(res.data.data.contact.billing_country===res.data.data.contact.shipping_country&&
-           res.data.data.contact.billing_province===res.data.data.contact.shipping_province&&
-           res.data.data.contact.billing_district===res.data.data.contact.shipping_district&&
-           res.data.data.contact.billing_region===res.data.data.contact.shipping_region&&
-           res.data.data.contact.billing_address===res.data.data.contact.shipping_address&&
-           res.data.data.contact.billing_zip===res.data.data.contact.shipping_zip
-           ){
-          this.form.is_sameAddress=true
-        }
-        else{
-          this.form.is_sameAddress=false
-        }
+        // if(res.data.data.contact.billing_country===res.data.data.contact.shipping_country&&
+        //    res.data.data.contact.billing_province===res.data.data.contact.shipping_province&&
+        //    res.data.data.contact.billing_district===res.data.data.contact.shipping_district&&
+        //    res.data.data.contact.billing_region===res.data.data.contact.shipping_region&&
+        //    res.data.data.contact.billing_address===res.data.data.contact.shipping_address&&
+        //    res.data.data.contact.billing_zip===res.data.data.contact.shipping_zip
+        //    ){
+        //   this.form.is_sameAddress=true
+        // }
+        // else{
+        //   this.form.is_sameAddress=false
+        // }
       },
 
       inputPhone (phone_number, $event) {
