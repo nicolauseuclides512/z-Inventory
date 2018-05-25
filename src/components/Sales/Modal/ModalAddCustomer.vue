@@ -48,10 +48,10 @@
                 </div>
                 <div class="form-group">
                   <div class="d-flex label-wrap">
-                    <label for="DisplayName">Display Name*</label>
-                   <select name="DisplayName" id="DisplayName" v-model="model.display_name" v-validate="'required'" v-bind:class="{'form-control': true, 'error': errors.has('DisplayName') }">
-                     <option selected :value="displayName1">{{displayName1}}</option>
-                     <option :value="displayName2">{{displayName2}}</option>
+                  <label for="DisplayName">Display Name*</label>
+                   <select name="DisplayName" id="DisplayName" v-model="model.display_code" v-validate="'required'" v-bind:class="{'form-control': true, 'error': errors.has('DisplayName') }">
+                     <option selected :value="1">{{displayName1}}</option>
+                     <option :value="2">{{displayName2}}</option>
                    </select>
 
                     <!-- <input type="text" name="displayName" id="DisplayName" placeholder="DisplayName" /> -->
@@ -326,7 +326,8 @@
           shipping_region_list: [],
         },
         model: {
-          display_name: this.displayName1,
+          display_name: '',
+          display_code:1,
           is_customer: false,
           is_dropshipper: false,
           is_reseller: false,
@@ -457,8 +458,8 @@
         let url = '/contacts'
         if(this.editContactData && this.editContactData.contact_id){
           url = `/contacts/${this.editContactData.contact_id}/update`
-          // alert('wkwkw')
         }
+
         this.saving = true;
 
         if (this.model.is_sameAddress === true) {
@@ -469,7 +470,11 @@
           this.model.shipping_address = this.model.billing_address
           this.model.shipping_zip = this.model.billing_zip
         }
-
+        if (this.model.display_code === 1) {
+          this.model.display_name = this.model.first_name
+        }else if (this.model.display_code === 2) {
+          this.model.display_name = this.model.company_name
+        }
         this.$validator.validateAll().then((result) => {
           if (result) {
             try{
