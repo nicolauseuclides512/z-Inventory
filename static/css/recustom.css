@@ -73,3 +73,6 @@ span.multiselect__option.multiselect__option--highlight {
 .text-capitalize{
 	text-transform: capitalize !important;
 }
+.min-80vh{
+	min-height: 80vh;
+}

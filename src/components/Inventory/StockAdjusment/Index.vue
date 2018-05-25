@@ -51,7 +51,7 @@
 									</div>
 								</div>
 							</div>
-								<div class="row">
+								<div class="row min-80vh">
 									<div class="col-md-12 col-sm-12 col-xs-12">
 										<Spinner v-if="listLoading"/>
 										<table v-else class="table table-hover sahito-list-contact--table">

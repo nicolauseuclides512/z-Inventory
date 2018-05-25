@@ -72,52 +72,53 @@
 				</a>
 			</div>
 		</div>
-		<Spinner v-if="loadingSOList"/>
-		<table class="table" v-if="!loadingSOList">
-			<tr v-for="salesOrder in salesOrderList" :key="salesOrder.sales_order_id" :class="{active: parseInt(salesOrder.sales_order_id) === parseInt($route.params.id)}">
-				<td width="1%" @click="addCheck">
-					<div class="checkbox checkbox-single checkbox-success">
-						<input
-							type="checkbox"
-							:title="salesOrder.sales_order_id"
-							v-model="checkedList"
-							:value="salesOrder.sales_order_id"
-						/>
-						<label></label>
-					</div>
-				</td>
-				<td @click="showDetail(salesOrder)">
-					<div class="clearfix">
-						<div class="pull-left">
-							<span style="font-size: 1.1em">{{ salesOrder.contact.display_name }}</span>
+		<div class="min-80vh">
+			<Spinner v-if="loadingSOList"/>
+			<table class="table" v-if="!loadingSOList">
+				<tr v-for="salesOrder in salesOrderList" :key="salesOrder.sales_order_id" :class="{active: parseInt(salesOrder.sales_order_id) === parseInt($route.params.id)}">
+					<td width="1%" @click="addCheck">
+						<div class="checkbox checkbox-single checkbox-success">
+							<input
+								type="checkbox"
+								:title="salesOrder.sales_order_id"
+								v-model="checkedList"
+								:value="salesOrder.sales_order_id"
+							/>
+							<label></label>
 						</div>
-						<div class="pull-right">
-							<span>{{ salesOrder.total | money }}</span>
+					</td>
+					<td @click="showDetail(salesOrder)">
+						<div class="clearfix">
+							<div class="pull-left">
+								<span style="font-size: 1.1em">{{ salesOrder.contact.display_name }}</span>
+							</div>
+							<div class="pull-right">
+								<span>{{ salesOrder.total | money }}</span>
+							</div>
 						</div>
-					</div>
-					<div class="clearfix">
-						<div class="pull-left">
-							<div class="text-muted">{{ salesOrder.sales_order_number }} | {{ salesOrder.invoice_date | date('short') }}</div>
+						<div class="clearfix">
+							<div class="pull-left">
+								<div class="text-muted">{{ salesOrder.sales_order_number }} | {{ salesOrder.invoice_date | date('short') }}</div>
+							</div>
+							<div class="pull-right payment-status">
+								<!-- <span class="label label-danger" v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span> -->
+								<span class="label label-default" v-if="salesOrder.sales_order_status === 'DRAFT'">Open</span>
+								<span class="label label-void" v-else-if="salesOrder.sales_order_status === 'CANCELED'">Void</span>
+								<span class="label label-wait-ship" v-else-if="salesOrder.sales_order_status === 'AWAITING_SHIPMENT'">{{ salesOrder.sales_order_status | normalizeStatus }}</span>
+								<span class="label label-wait-pay" v-else-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT'">{{ salesOrder.sales_order_status | normalizeStatus }}</span>
+								<span class="label label-info" v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
+							</div>
 						</div>
-						<div class="pull-right payment-status">
-							<!-- <span class="label label-danger" v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span> -->
-							<span class="label label-default" v-if="salesOrder.sales_order_status === 'DRAFT'">Open</span>
-							<span class="label label-void" v-else-if="salesOrder.sales_order_status === 'CANCELED'">Void</span>
-							<span class="label label-wait-ship" v-else-if="salesOrder.sales_order_status === 'AWAITING_SHIPMENT'">{{ salesOrder.sales_order_status | normalizeStatus }}</span>
-							<span class="label label-wait-pay" v-else-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT'">{{ salesOrder.sales_order_status | normalizeStatus }}</span>
-							<span class="label label-info" v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
-						</div>
-					</div>
-					<!-- <div class="clearfix">
-						<div class="pull-left"><span class="text-muted">{{ salesOrder.invoice_date | date('short') }}</span></div>
-						<div class="pull-right shipment-status label" :class="{'label-info': salesOrder.shipment_status == 'NOT_YET_SHIPPED'}">
-							{{ salesOrder.shipment_status | normalizeStatus }}
-						</div>
-					</div> -->
-				</td>
-			</tr>
-		</table>
-
+						<!-- <div class="clearfix">
+							<div class="pull-left"><span class="text-muted">{{ salesOrder.invoice_date | date('short') }}</span></div>
+							<div class="pull-right shipment-status label" :class="{'label-info': salesOrder.shipment_status == 'NOT_YET_SHIPPED'}">
+								{{ salesOrder.shipment_status | normalizeStatus }}
+							</div>
+						</div> -->
+					</td>
+				</tr>
+			</table>
+		</div>
 		<div class="row">
 			<JustPaginate :paginate="paginate"/>
 		</div>
