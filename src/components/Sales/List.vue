@@ -605,7 +605,8 @@
 
 			changeFilter(options = {}) {
 				this.$router.push({
-					query: {...this.$route.query,
+					query: {
+						...this.$route.query,
 						page: 1,
 						filter: options || this.currentFilter || 'all',
 						// sort: options.sort || this.currentSortColumn || 'created_at.asc',

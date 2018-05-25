@@ -70,3 +70,6 @@ span.multiselect__option.multiselect__option--highlight {
 .sahito-list .sahito-list-contact .sahito-list-item-group-list--table tr:first-child td {
 	white-space: nowrap;
 }
+.text-capitalize{
+	text-transform: capitalize !important;
+}

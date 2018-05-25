@@ -10,9 +10,11 @@ const state = {
 	createPayment: {},
 	paymentMethodList: {},
 	shipmentList: [],
+	loadingSOList:false,
 	loadingPayment:false,
 	loadingShipment:false,
-	loadingSOData: false
+	loadingSOData: false,
+	paginate: {}
 }
 
 const mutations = {
@@ -43,6 +45,12 @@ const mutations = {
 	LOADING_SO_DATA(state, value){
 		state.loadingSOData = value
 	},
+	LOADING_SO_LIST(state, value){
+		state.loadingSOList = value
+	},
+	PAGINATE(state,value){
+		state.paginate = value
+	}
 }
 
 const actions = {
@@ -83,6 +91,7 @@ const actions = {
 	},
 
 	async getList ({state, commit}, options) {
+		commit('LOADING_SO_LIST', true)
 		try {
 			const defaultParams = {
 				page: 1,
@@ -96,9 +105,12 @@ const actions = {
 
 			const response = await Axios.get(`sales_orders`, {params})
 			commit('SALES_ORDER_LIST', response.data.data)
+			commit('PAGINATE', response.data.paginate)
+			commit('LOADING_SO_LIST', false)
 			return state.salesOrderList
 		}
 		catch (err) {
+			commit('LOADING_SO_LIST', false)
 			console.error(err)
 			if (err.hasOwnProperty('response')) {
 				//
@@ -215,13 +227,17 @@ const getters = {
 	salesOrderData(state) {
 		return state.salesOrder
 	},
-
 	loadingSOData(state){
 		return state.loadingSOData
 	},
-
 	loadingPayment(state){
 		return state.loadingPayment
+	},
+	loadingSOList(state){
+		return state.loadingSOList
+	},
+	paginate(state){
+		return state.paginate
 	}
 	// paymentList(state){
 	//   return state.payments
