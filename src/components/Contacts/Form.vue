@@ -166,10 +166,10 @@
                     <!-- Billing Address Goes Here -->
                     <div class="col-md-6" style="padding-left:0px">
                       <div class="form-group form-general m-b-10">
-                        <div v-if="form.is_sameAddress =='false'" class="form-group form-general m-b-10">
+                        <div v-if="form.is_sameAddress === false" class="form-group form-general m-b-10">
                           <label class="col-md-4 control-label text-left">Billing Address</label>
                         </div>
-                        <div v-if="form.is_sameAddress =='true'" class="form-group form-general m-b-10">
+                        <div v-if="form.is_sameAddress === true" class="form-group form-general m-b-10">
                           <label class="col-md-6 control-label text-left">Billing & Shipping Address</label>
                         </div>
                         <label class="col-md-4 control-label text-left">Country</label>
@@ -244,10 +244,10 @@
                       </div>
                     </div>
 
-                      <!-- Shipping Address Goes Here -->
-                    <div v-show="form.is_sameAddress =='false' || this.$route.params.id" class="col-md-6" style="border-left:1px solid #eee">
+                    <!-- Shipping Address Goes Here -->
+                    <div v-if="!form.is_sameAddress" class="col-md-6" style="border-left:1px solid #eee">
                       <div class="form-group form-general m-b-10">
-                          <label class="col-md-4 control-label text-left">Shipping Address</label>
+                          <label class="col-md-4 control-label text-left" style="white-space: nowrap;">Shipping Address</label>
                         </div>
                       <div class="form-group form-general m-b-10">
                         <label class="col-md-4 control-label text-left">Country</label>
@@ -320,15 +320,13 @@
                         </div>
                       </div>
                     </div>
-                    <div v-if="!this.$route.params.id" class="col-md-8 pl-0">
+                    <div class="col-md-8 pl-0">
                       <div  class="form-group form-general m-b-10">
                       <div class="checkbox checkbox-success checkbox-inline">
                         <input
                           v-model="form.is_sameAddress"
                           type="checkbox"
                           id="sameAddress"
-                          true-value="true"
-                          false-value="false"
                           checked="unchecked"
                         />
                         <label for="sameAddress">Shipping address is same as billing address</label>
@@ -798,7 +796,7 @@
           shipping_fax: '',
           notes: '',
           contact_status: 1,
-          is_sameAddress:''
+          is_sameAddress: true
         }),
       }
     },
@@ -884,7 +882,7 @@
         this.list.billing_region_list = await Regional.regionList(this.form.billing_district)
         this.list.shipping_region_list = await Regional.regionList(this.form.shipping_district)
 
-        this.form.is_sameAddress='true'
+        this.form.is_sameAddress=true
       },
 
       async initEdit () {
@@ -922,10 +920,10 @@
            res.data.data.contact.billing_address===res.data.data.contact.shipping_address&&
            res.data.data.contact.billing_zip===res.data.data.contact.shipping_zip
            ){
-          this.form.is_sameAddress='true'
+          this.form.is_sameAddress=true
         }
-         else{
-          this.form.is_sameAddress='false'
+        else{
+          this.form.is_sameAddress=false
         }
       },
 
@@ -948,7 +946,7 @@
               this.form.display_name = this.form.company_name
             }
 
-            if (this.form.is_sameAddress === 'true') {
+            if (this.form.is_sameAddress === true) {
               this.form.shipping_country = this.form.billing_country
               this.form.shipping_province = this.form.billing_province
               this.form.shipping_district = this.form.billing_district
