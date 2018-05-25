@@ -166,7 +166,7 @@
                         </tr>
                         </tbody>
                       </table>
-                      <table v-if="form.details.length < 1" class="empty-table"></table>
+                      <table v-if="form.details.length && form.details.length < 1" class="empty-table"></table>
                       <table class="table hayo-ini-apa-namanya" style="font-size:1.05em">
                         <thead>
                         <th class="left-empty" style="width: 61.6%; border-bottom: 0px"></th>
@@ -827,7 +827,8 @@
               per_page: 9999,
               sort: "created_at.desc",
               filter: "all",
-              q: ""
+              q: "",
+              fields:"contact_id,display_name"
             }
           });
 
@@ -855,6 +856,7 @@
             sort: "created_at.desc",
             filter: "all",
             q: "",
+            fields: "item_id,stock_quantity,item_id,item_name,item_quantity,sales_rate,discount_contact_id,discount_amount_type,discount_amount_value",
             leaf_only: true
           }
         });
