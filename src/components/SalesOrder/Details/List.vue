@@ -301,7 +301,7 @@
 		width:80px;
 	}
 	.label{
-		display: inline;
+		display: inline-block;
 		padding: .2em .6em .3em;
 		font-size: 75%;
 		font-weight: 700;
@@ -311,6 +311,7 @@
 		white-space: nowrap;
 		vertical-align: baseline;
 		border-radius: .5em;
+		min-width: 110px;
 		&.label-danger{
 			color: #ef5350;
 			border: 1.5px solid #ef5350;
