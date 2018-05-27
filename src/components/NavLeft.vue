@@ -147,9 +147,13 @@
         </li>
 
       </ul>
+          <span class="app-version">
+            {{appVersion}}
+          </span>
       <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
+
   </div>
 </template>
 
@@ -157,7 +161,11 @@
   import store from '@/store'
 
   export default {
-
+    data(){
+      return {
+        appVersion: process.env.APP_VERSION
+      }
+    },
     components: {
       "dropdown-menu": () => import("./Nav/DropdownMenu.vue")
     },
@@ -188,5 +196,12 @@ span{
 
 i{
   font-size: 23px
+}
+span.app-version {
+  position: absolute;
+  color: white;
+  top: 10px;
+  right: 10px;
+  font-size: 8px;
 }
 </style>
