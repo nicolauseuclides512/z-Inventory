@@ -492,13 +492,13 @@
 
 		watch: {
 			$route(to, from) {
-				if (to.query) {
-					// console.log('route changed', to.query)
+				if (!_.isEqual(to.query,from.query)) {
 					this.getList(to.query)
-				} else {
-					// console.log('route changed', form.query)
-					this.getList(form.query)
 				}
+				// else {
+				// 	// console.log('route changed', form.query)
+				// 	this.getList(form.query)
+				// }
 			},
 		},
 

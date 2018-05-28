@@ -103,11 +103,9 @@
 				</div>
 			</div>
 		</div>
-
 			<!-- END Quick Overview          -->
 
 			<!-- Detail Body                 -->
-
 		<div class="row" v-if="!loading && Object.keys(salesOrder).length">
 			<div class="col-md-12">
 				<ul class="nav nav-tabs navtab-bg nav-justified" style="margin-left: 5px;">
@@ -224,10 +222,9 @@
 				</div>
 			</div>
 		</div>
-
 		<!-- END Detail Body  -->
-		<!-- Payment & Shipment Record Form Modal -->
 
+		<!-- Payment & Shipment Record Form Modal -->
 		<PaymentForm
 			v-if="modalPayment"
 			:invoiceList="invoiceList"
@@ -239,9 +236,6 @@
 			:editShipment="formEditShipment"
 		/>
 		<!-- END Payment & Shipment Record Form Modal -->
-
-
-
 	</div>
 </template>
 

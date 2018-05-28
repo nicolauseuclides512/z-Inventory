@@ -314,11 +314,12 @@
     watch: {
 
 			$route(to, from) {
-				if (to.query) {
+				if (!_.isEqual(to.query,from.query)) {
 					this.getList(to.query)
-				} else {
-					this.getList(form.query)
 				}
+        // else {
+				// 	this.getList(form.query)
+				// }
 			},
     },
 

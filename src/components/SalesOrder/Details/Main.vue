@@ -56,7 +56,7 @@
 					.then(() => {
 						this.$router.push({
 							path: `/sales/${salesOrderId}/detail`,
-							// replace: true,
+							replace: true,
 							query: this.$route.query
 						})
 					})
