@@ -3,7 +3,7 @@
 
 		<iframe id="iframe-print" src="about:blank" style="display: none"></iframe>
 
-		<div class="content bgr-white" style="padding: 20px;">
+		<div class="content bgr-white" >
 			<div class="row">
 				<div class="col-md-4 side-list-sales">
 					<List @selectSalesOrder="selectSalesOrder($event)" />
@@ -70,6 +70,8 @@
 .main-detail-sales {
 	height: calc(100vh - 50px);
 	overflow-y: scroll;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 </style>
