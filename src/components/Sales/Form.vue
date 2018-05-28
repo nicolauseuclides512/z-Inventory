@@ -349,8 +349,8 @@
                         <h4 class="text-bold">{{selected_contact.display_name}}</h4>
                         <div class="contact-list">
                           <div class="billing-wrapper">Billing Address</div>
-                          <span @click="editSelectedContact">
-                            <i class="fa fa-fw fa-pencil"></i>
+                          <span @click="editSelectedContact" class="clickable">
+                            <i class="fa fa-fw fa-pencil "></i>
                           </span>
                           <!--
                           <span @click="clearSelectedContact" v-if="selected_contact || ui.showAddNewContactField" class="text-danger close-button contact-button">
