@@ -3,6 +3,11 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+
+// const glob = require('glob');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const PurifyCSSPlugin = require('purifycss-webpack');
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -20,6 +25,10 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   plugins: [
+    //   new PurifyCSSPlugin({
+    //   // Give paths to parse for rules. These should be absolute!
+    //   paths: glob.sync(path.join(__dirname, 'app/*.html')),
+    // })
   ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],

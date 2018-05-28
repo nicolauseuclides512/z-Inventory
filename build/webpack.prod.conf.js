@@ -17,6 +17,10 @@ const date = today.getDate()+'-bo-'
 const time = today.getTime()+'-tak'
 const timeStamp = month+''+date+''+time
 
+const glob = require('glob');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack');
+
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : require('../config/prod.env')
@@ -91,6 +95,12 @@ const webpackConfig = merge(baseWebpackConfig, {
       ? { safe: true, map: { inline: false } }
       : { safe: true }
     }),
+
+    new PurifyCSSPlugin({
+      // Give paths to parse for rules. These should be absolute!
+      paths: glob.sync(path.join(__dirname, 'app/*.html')),
+    }),
+
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
