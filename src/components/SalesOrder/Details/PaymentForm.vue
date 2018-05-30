@@ -88,10 +88,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-info waves-effect waves-light m-t-15">
-              Save
-            </button>
             <button type="button" @click="close" class="btn btn-default waves-effect m-t-15">Cancel</button>
+            <button type="submit" class="btn btn-info waves-effect waves-light m-t-15">Save</button>
           </div>
         </div>
       </div>
