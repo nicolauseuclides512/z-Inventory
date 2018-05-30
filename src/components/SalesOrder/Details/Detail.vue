@@ -110,17 +110,17 @@
 			<div class="col-md-12">
 				<ul class="nav nav-tabs navtab-bg nav-justified" style="margin-left: 5px;">
 					<li :class="{ tab: true, active: currentTab == 'invoice' }" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
-						<a href="javascript:void(0);" @click="switchTab('invoice')">
+						<a @click="switchTab('invoice')">
 							<span class="hidden-xs">INVOICE</span>
 						</a>
 					</li>
 					<li :class="{ tab: true, active: currentTab == 'payment' }" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
-						<a href="javascript:void(0);" @click="switchTab('payment')">
+						<a @click="switchTab('payment')">
 							<span class="hidden-xs">PAYMENT</span>
 						</a>
 					</li>
 					<li :class="{ tab: true, active: currentTab == 'shipment' }" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;">
-						<a href="javascript:void(0);" @click="switchTab('shipment')">
+						<a @click="switchTab('shipment')">
 							<span class="hidden-xs">SHIPMENT</span>
 						</a>
 					</li>
@@ -163,6 +163,9 @@
 										<td colspan="5" class="text-muted text-center">No payment received</td>
 									</tr>
 									<tr v-for="(payment, index) in paymentList" v-show="paymentList.length > 0" :key="index">
+										<!-- <td>
+											{{payment.payment_id}}
+										</td> -->
 										<td style="padding: 12px 8px;">
 											{{ payment.date | date('short') }}
 										</td>
@@ -179,19 +182,20 @@
 										<td>
 											<div class="clearfix">
 												<div class="pull-left">
-													<!--<a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="alert('API not available')" title="Send payment receipt to customer">-->
+													<!--<span class="btn btn-default btn-sm" onclick="alert('API not available')" title="Send payment receipt to customer">-->
 													<!--<i class="fa fa-envelope"></i>-->
-													<!--</a>-->
+													<!--</span>-->
 												</div>
 												<div class="pull-right">
-													<!-- <a class="btn btn-default btn-sm" href="javascript:void(0);"
-														 title="Edit this payment" @click="updatePayment(payment)">
-														<i class="fa fa-pencil"></i>
-													</a> -->
-													<a class="btn btn-default btn-sm" href="javascript:void(0);"
+													<!-- <a class="btn btn-default btn-sm" title="Edit this payment" @click="updatePayment(payment)"> -->
+													<span class="btn btn-default btn-sm" title="Edit this payment" @click="editPayment(payment.payment_id)">
+														<!-- <i class="fa fa-pencil"></i> -->
+														{{payment.payment_id}}
+													</span>
+													<span class="btn btn-default btn-sm"
 														 title="Delete this payment" @click="deletePayment(payment)">
 														<i class="fa fa-trash"></i>
-													</a>
+													</span>
 												</div>
 											</div>
 										</td>
@@ -211,26 +215,27 @@
 						id="shipment"
 						v-if="currentTab == 'shipment'"
 						>
-					<DetailShipment
-						:loadingShipmentData="loadingShipmentData"
-						:shipmentList="shipmentList"
-						:salesOrder="salesOrder"
-						@editShipment="editShipment"
-						@deleteShipment="deleteShipment"
-						/>
+						<DetailShipment
+							:loadingShipmentData="loadingShipmentData"
+							:shipmentList="shipmentList"
+							:salesOrder="salesOrder"
+							@editShipment="editShipment"
+							@deleteShipment="deleteShipment"
+							/>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- END Detail Body  -->
 
-		<!-- Payment & Shipment Record Form Modal -->
-		<PaymentForm
+		<!-- Payment & Shipment Record Modal -->
+		<ModalPayment
+			:editPaymentId="editPaymentId"
 			v-if="modalPayment"
 			:invoiceList="invoiceList"
 			@close="closeModalPayment"
 		/>
-		<ShipmentForm
+		<ModalShipment
 			v-if="modalShipment"
 			@close="closeModalShipment"
 			:editShipment="formEditShipment"
@@ -244,8 +249,8 @@
 	import {mapState, mapGetters} from 'vuex'
 	import Form from '@/helpers/Form'
 	import Invoice from '@/components/Sales/Invoice'
-	import PaymentForm from './PaymentForm'
-	import ShipmentForm from './ShipmentForm'
+	import ModalPayment from './ModalPayment'
+	import ModalShipment from './ModalShipment'
 	import DetailShipment from './DetailShipment.vue'
 	import Spinner from '@/components/Helpers/Spinner'
 	import { swal_error, swal_success, responseOk, swal_mapError } from '../../../helpers'
@@ -258,8 +263,8 @@
 		components: {
 			Spinner,
 			Invoice,
-			ShipmentForm,
-			PaymentForm,
+			ModalShipment,
+			ModalPayment,
 			DetailShipment,
 		},
 
@@ -275,7 +280,8 @@
 				sendingEmail: false,
 				currentTab: 'invoice',
 				salesOrderId: this.$route.params.id,
-				formEditShipment:{}
+				formEditShipment:{},
+				editPaymentId: 0,
 			}
 		},
 
@@ -289,7 +295,6 @@
 			...mapGetters({
 				loadingPayment: 'salesOrders/loadingPayment',
 				loadingSOData: 'salesOrders/loadingSOData',
-
 			}),
 			createablePayment() {
 				if(this.salesOrder){
@@ -304,17 +309,11 @@
 		},
 
 		async mounted () {
-			// this.invoiceComponent = Invoice
-			// fetchShipmentData()
 			this.loadDetail()
 			this.$store.dispatch('salesOrders/getInvoices', this.salesOrderId)
-			// console.log('salesorder',_.first(this.salesOrder.sales_order_details))
 		},
 
 		watch: {
-			// salesOrder(SO){
-			//   console.log(SO)
-			// },
 			$route(to,form){
 				this.fetchShipmentData()
 				this.fetchPaymentData()
@@ -325,16 +324,13 @@
 			async viewShipmentLabels() {
 				const pdfWindow = window.open()
 				const salesOrderId = parseInt(this.$route.params.id)
-				// /shipments/bulk-label?ids=62
 				const url = window.BASE_URL + `/sales_orders/shipments/bulk-label?ids=` + salesOrderId
-
 				const response = await Axios.get(url, {
 					responseType: 'arraybuffer',
 					headers: {
 						'Content-Type': 'application/pdf',
 					},
 				})
-
 				const file = new Blob([response.data], {type: 'application/pdf'})
 				const fileURL = URL.createObjectURL(file)
 				pdfWindow.location = fileURL
@@ -344,24 +340,18 @@
 					title: 'Do you really want to delete this payment?',
 					text: 'Delete this payment and your data payment will be lost.',
 				}, async () => {
-
 					try {
 						const sales_order_id = this.$route.params.id
 						const invoice_id = payment.invoice_id
 						const payment_id = payment.payment_id
-
 						const url = `sales_orders/${sales_order_id}/invoices/${invoice_id}/payments?ids=${payment_id}`
-
 						const res = await Axios.delete(url)
 						if (!responseOk(res.data.code)) {
 							return swal_error(res)
 						}
-
 						// Refresh payment list data
 						this.fetchPaymentData()
-
 						swal_success(res)
-
 					} catch (err) {
 						console.error(err)
 						if (err.hasOwnProperty('response')) {
@@ -369,9 +359,7 @@
 						}
 					}
 				})
-
 			},
-
 			markAsSentSalesOrder(salesOrder) {
 				Alert.confirm({
 					title: 'Are you sure convert to invoice?',
@@ -395,24 +383,10 @@
 					}
 				})
 			},
-
 			async refreshCurrentSalesOrderData() {
 				const sales_order_id = this.salesOrderId
 				this.$store.dispatch('salesOrders/selectSalesOrder', sales_order_id)
-
-				// const sales_order = await Axios.get(`sales_orders/${sales_order_id}`)
-				// store.commit('sales/SALES_ORDER', sales_order.data.data)
-
-				// const invoice = await Axios.get(`sales_orders/${data.sales_order_id}/invoices/${data.invoice_id}`)
-				// store.commit('sales/INVOICE', invoice.data.data)
-
-				// const payment_list = await Axios.get(`sales_orders/${data.sales_order_id}/invoices/${data.invoice_id}/payments`)
-				// store.commit('sales/PAYMENT_LIST', payment_list.data.data)
-
-				// this.getInvoiceList(sales_order_id)
 			},
-
-
 			loadDetail(){
 				this.loading = true
 				this.salesOrderId = this.$route.params.id
@@ -424,7 +398,6 @@
 						console.error('error! ', err)
 					})
 			},
-
 			cancelSalesOrder(salesOrder) {
 				Alert.confirm({
 					title: 'Are you sure?',
@@ -433,13 +406,11 @@
 					const sales_order_id = this.salesOrderId
 					const invoice_id = this.invoiceList[0].invoice_id
 					const url = `sales_orders/${sales_order_id}/invoices/${invoice_id}/mark_as_void`
-
 					await Axios.get(url).then(res => {
 						if (responseOk(res.data.code)) {
 							swal_success(res)
 							this.loadDetail()
 							this.$store.dispatch('salesOrders/getList', {})
-							// this.fetchShipmentData()
 						} else {
 							swal_error('Error! ', res)
 						}
@@ -448,36 +419,26 @@
 					})
 				})
 			},
-
 			closeModalPayment(){
 				this.fetchPaymentData()
 				this.refreshCurrentSalesOrderData()
 				this.modalPayment = false
+				console.log('status modalPayment', this.modalPayment)
 				$('#payment-modal').modal('hide')
 			},
-
 			closeModalShipment(){
 				this.fetchShipmentData()
 				this.refreshCurrentSalesOrderData()
 				this.modalShipment = false
 				$('#shipment-modal-add').modal('hide')
 			},
-
 			async fetchShipmentData() {
 				this.loadingShipmentData = true
 				try {
 					const sales_order_id = parseInt(this.$route.params.id)
-
 					const res = await Axios.get(`sales_orders/${sales_order_id}/shipments`)
-
 					this.shipmentList = res.data.data
-					// if(res.data.message == 'skip get shipment cause Package not found') {
-					//   this.packageNotFound = true
-					// }else{
-					//   this.packageNotFound = false
-					// }
 					this.loadingShipmentData = false
-
 				} catch (err) {
 					this.loadingShipmentData = false
 					console.error(err)
@@ -487,12 +448,10 @@
 				}
 				this.loadingShipmentData = false
 			},
-
 			async fetchPaymentData() {
 				const sales_order_id = parseInt(this.$route.params.id)
 				this.$store.dispatch('salesOrders/getPayments', sales_order_id)
 			},
-
 			async deleteShipment() {
 				Alert.confirm({
 					title: 'Do you really want to delete this shipment?',
@@ -505,11 +464,8 @@
 						this.shipmentList.forEach(item => {
 							shipment_ids.push(item.shipment_id)
 						})
-
 						const delete_ids = shipment_ids.join(',')
-
 						const url = `sales_orders/${sales_order_id}/shipments?ids=${delete_ids}`
-
 						const res = await Axios.delete(url)
 						if(res.data.code == 200){
 							this.fetchShipmentData()
@@ -525,13 +481,10 @@
 					}
 				})
 			},
-
 			editShipment() {
 				try {
 					const sales_order_id = this.salesOrderId
-					// this.fetchShipmentData()
 					const shipment_id = this.shipmentList[0].shipment_id
-
 					Axios.get(`sales_orders/${sales_order_id}/shipments/${shipment_id}/edit`).then(
 						res => {
 							this.formEditShipment = res.data.data.shipment
@@ -542,17 +495,17 @@
 							console.errror(err)
 						}
 					)
-
-
 					$('#shipment-modal-edit').modal('show')
-
-				} catch (err) {
+				}catch (err) {
 					if (err.hasOwnProperty('response')) {
 						swal_error(err.response)
 					}
 				}
 			},
-
+			editPayment(paymentId) {
+				this.editPaymentId = paymentId
+				this.showModalPayment(true)
+			},
 			switchTab (tabName) {
 				this.currentTab = tabName
 				if (tabName == 'shipment') {
@@ -591,13 +544,16 @@
 				const invoice_id = parseInt(this.invoiceList[0].invoice_id)
 				this.$router.push({name: 'sales.email', params: {sales_order_id, invoice_id}})
 			},
-
-			showModalPayment () {
-				// alert('halo')
-				this.modalPayment = true
-				$('#payment-modal').modal('show')
+			showModalPayment (isEdit) {
+				if(isEdit == true){
+					this.modalPayment = true
+					$('#payment-modal').modal('show')
+				}else{
+					this.modalPayment = true
+					this.editPaymentId = 0
+					$('#payment-modal').modal('show')
+				}
 			},
-
 			showModalShipment(editData) {
 				if(editData == true){
 					this.modalShipment = true

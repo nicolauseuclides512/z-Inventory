@@ -59,7 +59,7 @@
   const Flatpickr = require('flatpickr').default
 
   export default {
-    name: 'ShipmentForm',
+    name: 'ModalShipment',
     props: ['editShipment'],
 
     data(){

@@ -109,27 +109,13 @@
   const Flatpickr = require('flatpickr').default
 
   export default {
-    name: 'PaymentForm',
+    name: 'ModalPayment',
 
     components: {
       VueNumeric
     },
 
-    props: ['editPaymentId','invoiceList'],
-    // props: {
-    //   editPaymentId:{
-    //     type: Number,
-    //     default: 0
-    //   },
-    //   invoiceList: {
-    //     type: Array,
-    //     default: () => { return [] }
-    //   },
-    //   salesOrderId:{
-    //     type: String || Number,
-    //     default: null
-    //   }
-    // },
+		props: ['editPaymentId','invoiceList'],
 
     watch: {
       '$route.params.id'() {
@@ -160,11 +146,7 @@
     computed: {
       ...mapState('salesOrders', {
         createPayment: 'createPayment',
-        // paymentMethodList: 'paymentMethodList',
       }),
-      // isEdit(){
-      //   return !_.isEmpty(this.editPayment)
-      // }
     },
 
     mounted () {
@@ -189,13 +171,11 @@
         this.$emit('close')
       },
       getEditPayment(){
-        this.fetch()
 				const invoiceId = this.invoiceList[0].invoice_id
 				const salesOrderId = this.$route.params.id
         const paymentId = this.editPaymentId
 
 				try {
-					// const shipment_id = this.shipmentList[0].shipment_id
 					Axios.get(`sales_orders/${salesOrderId}/invoices/${invoiceId}/payments/${paymentId}/edit`).then(
 						res => {
 							const formEditPayment = res.data.data.payment
@@ -203,7 +183,10 @@
               this.form.amount = formEditPayment.amount
               this.form.reference_number = formEditPayment.reference_number
               this.form.payment_mode_id = formEditPayment.payment_mode_id
-              this.form.payment_account_id = formEditPayment.payment_account_id
+							this.form.payment_account_id = formEditPayment.payment_account_id
+
+							this.paymentMethodList = res.data.data.payment_method
+							this.paymentMethodDetails = this.paymentMethodList.find((p) => p.mode_id === 1).details
 						}
 					).catch(
 						err => {
@@ -218,14 +201,9 @@
 				}
       },
       fetch() {
-        // console.log(_.first(this.invoiceList).invoice_id.toString())
         const salesOrderId = parseInt(this.$route.params.id)
         const invoiceId = parseInt(this.invoiceList[this.invoiceList.length - 1].invoice_id)
-        // console.log('invoiceId', invoiceId)
-        // console.log('salesOrderId', salesOrderId)
-        // this.$store.dispatch('salesOrders/createPayment', {salesOrderId, invoiceId})
         Axios.get(`sales_orders/${salesOrderId}/invoices/${invoiceId}/payments/create`)
-        // Axios.get(`sales_orders/${salesOrderId}/invoices/${invoiceId}/payments/75/edit`)
           .then( (res) => {
             const createPayment = res.data.data
             // console.log(createPayment)
@@ -237,7 +215,7 @@
           .catch(err => {
             console.error(err)
             if(err.response){
-              // console.log(err.response)
+              console.log(err.response)
             }
           })
       },
@@ -263,13 +241,19 @@
           this.ui.saving = true
 
           const salesOrderId = this.$route.params.id
-          const invoiceId = this.invoiceList[this.invoiceList.length - 1].invoice_id
+					const invoiceId = this.invoiceList[this.invoiceList.length - 1].invoice_id
+					let url
+					if(this.editPaymentId !== 0){
+						const paymentId = this.editPaymentId
+						url = `sales_orders/${salesOrderId}/invoices/${invoiceId}/payments/${paymentId}/update`
+					}else{
+						url = `sales_orders/${salesOrderId}/invoices/${invoiceId}/payments`
+					}
 
-          const url = `sales_orders/${salesOrderId}/invoices/${invoiceId}/payments`
           await Axios.post(url, this.form).then(
             res => {
-              // console.log(res)
-              if(responseOk(res.data.code)){
+              console.log(res)
+              if(responseOk(res.status)){
                 this.$emit('success', res.data.data)
                 swal_success(res)
                 $('#payment-modal').modal('hide')
@@ -289,7 +273,7 @@
           if (err.hasOwnProperty('response')) {
             swal_error(err.response)
           } else {
-            Alert.error('Can not save the payment '+ err)
+            Alert.error('Can not save the payment! '+ err)
           }
         }
       },
