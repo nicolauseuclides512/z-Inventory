@@ -15,13 +15,21 @@
                   <div class="col-md-6">
                     <div class="input-group">
                       <span class="input-group-addon">Rp</span>
-                      <vue-numeric
+                      <!-- <vue-numeric
                         v-model.number="form.amount"
                         required
                         class="form-control"
                         :min="0"
                         separator="."
-                      />
+                      /> -->
+
+													<money
+														v-model="form.amount"
+														placeholder="Amount"
+														class="form-control"
+														required
+														v-bind="money"
+														/>
                     </div>
                   </div>
                 </div>
@@ -100,7 +108,8 @@
 </template>
 
 <script>
-  import VueNumeric from 'vue-numeric'
+	import {Money} from 'v-money'
+	// import VueNumeric from 'vue-numeric'
   import Axios from 'axios'
   import Form from '@/helpers/Form'
   import {responseOk} from '@/helpers';
@@ -112,7 +121,7 @@
     name: 'ModalPayment',
 
     components: {
-      VueNumeric
+      // VueNumeric
     },
 
 		props: ['editPaymentId','invoiceList'],
@@ -125,6 +134,12 @@
 
     data () {
       return {
+				money: {
+					thousands: '.',
+					prefix: '',
+					precision: 0,
+					masked: false
+				},
         paymentMethodList:[],
         ui: {
           saving: false,

@@ -189,8 +189,8 @@
 												<div class="pull-right">
 													<!-- <a class="btn btn-default btn-sm" title="Edit this payment" @click="updatePayment(payment)"> -->
 													<span class="btn btn-default btn-sm" title="Edit this payment" @click="editPayment(payment.payment_id)">
-														<!-- <i class="fa fa-pencil"></i> -->
-														{{payment.payment_id}}
+														<i class="fa fa-pencil"></i>
+														<!-- {{payment.payment_id}} -->
 													</span>
 													<span class="btn btn-default btn-sm"
 														 title="Delete this payment" @click="deletePayment(payment)">
