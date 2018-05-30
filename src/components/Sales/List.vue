@@ -165,14 +165,13 @@
 														<th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Channel</th>
 														<th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer</th>
 														<th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Total</th>
-														<th class="payment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Payment</th>
-														<th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Ship Date</th>
-														<th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Status</th>
+														<th class="payment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; width: 106px;">Payment</th>
+														<th class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Shipment</th>
+														<th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; min-width: 146px;">Status</th>
 														<!-- <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Due Date</th> -->
 														<!-- <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Balance Due</th> -->
 														<!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
-
-														<th class="text-right" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Action</th>
+														<th style="width:37px"></th>
 													</tr>
 													</thead>
 													<tbody>
@@ -216,28 +215,32 @@
 																	{{sale.invoice_status.split("_").join(" ").toLowerCase()}}
 																</span> -->
 
-																	<div v-if="sale.invoice_status === 'DRAFT' || sale.invoice_status === 'VOID'">
+																	<span v-if="sale.invoice_status === 'DRAFT' || sale.invoice_status === 'VOID'">
 																		-
-																	</div>
-																	<div v-else>
+																	</span>
+																	<span v-else :class="{
+																		'status status-wait-ship': sale.sales_order_status ==='AWAITING_SHIPMENT',
+																		'status status-wait-pay': sale.sales_order_status ==='AWAITING_PAYMENT',
+																		'status status-info': sale.sales_order_status ==='FULFILLED'
+																	}">
 																		{{sale.invoice_status | normalizeStatus}}
-																	</div>
+																	</span>
 																</td>
-															<td class="shipment-status text-left" style="font-weight:400; font-size: 1.05em!important ;color:#000; cursor:pointer" @click="showDetail(sale)">
+															<td class="shipment-status text-center" style="font-weight:400; font-size: 1.05em!important ;color:#000; cursor:pointer" @click="showDetail(sale)">
 																<div v-if="sale.shipment_date">
-																	{{sale.shipment_date | showShortDate}}
+																	<span><i class="fa fa-circle status status-info"></i></span>
 																</div>
-																<div v-else>-</div>
+																<div v-else></div>
 																</td>
 															<td class="payment-status" style="cursor: pointer; width:126px; padding:8px" @click="showDetail(sale)">
 																<!-- <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
 																	Overdue in {{ sale.due_date | diffInDays }} day(s)
 																</span> -->
-																<div class="label label-default" v-if="sale.sales_order_status === 'DRAFT'">Open</div>
-																<div class="label label-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</div>
-																<div class="label label-wait-ship" v-else-if="sale.sales_order_status === 'AWAITING_SHIPMENT'">{{ sale.sales_order_status | normalizeStatus }}</div>
-																<div class="label label-wait-pay" v-else-if="sale.sales_order_status === 'AWAITING_PAYMENT'">{{ sale.sales_order_status | normalizeStatus }}</div>
-																<div class="label label-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</div>
+																<span class="status status-default" v-if="sale.sales_order_status === 'DRAFT'">Open</span>
+																<span class="status status-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</span>
+																<span class="status status-wait-ship" v-else-if="sale.sales_order_status === 'AWAITING_SHIPMENT'">{{ sale.sales_order_status | normalizeStatus }}</span>
+																<span class="status status-wait-pay" v-else-if="sale.sales_order_status === 'AWAITING_PAYMENT'">{{ sale.sales_order_status | normalizeStatus }}</span>
+																<span class="status status-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
 															</td>
 															<!-- <td class="shipment-status" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.shipment_status | normalizeStatus }}</td>
 															<td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.due_date | date('short') }}</td>
@@ -878,41 +881,24 @@ td.shipment-status {
 	box-shadow: rgb(221, 221, 221) 0 4px 2px -2px;
 	border-top: 1px solid #ddd
 }
-.label{
-	display: inline-block;
-	padding: .2em .6em .3em;
-	font-size: 75%;
-	font-weight: 700;
-	line-height: 1;
-	background-color: transparent;
-	text-align: center;
-	vertical-align: baseline;
-	border-radius: .5em;
-	width: 100%;
-	&.label-danger{
+.status{
+	&.status-danger{
 			color: #ef5350;
-			border: 1.5px solid #ef5350
 	}
-	&.label-default{
+	&.status-default{
 			color: #777;
-			border: 1.5px solid #777
 	}
-	&.label-void{
-			background-color: #444 !important;
-			color: #fff;
-			border: 1.5px solid #444
+	&.status-void{
+			color: #000;
 	}
-	&.label-info{
+	&.status-info{
 			color: #2FA3E6;
-			border: 1.5px solid #2FA3E6
 	}
-	&.label-wait-ship{
+	&.status-wait-ship{
 		color: #009933;
-		border: 1.5px solid #009933
 	}
-	&.label-wait-pay{
+	&.status-wait-pay{
 		color: #ffc100;
-		border: 1.5px solid #ffc100
 	}
 }
 .pagination-wrap.d-flex {
