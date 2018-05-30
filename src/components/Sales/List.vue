@@ -228,9 +228,11 @@
 																</td>
 															<td class="shipment-status text-center" style="font-weight:400; font-size: 1.05em!important ;color:#000; cursor:pointer" @click="showDetail(sale)">
 																<div v-if="sale.shipment_date">
-																	<span><i class="fa fa-circle status status-info"></i></span>
+																	<span><i class="fa fa-circle status status-void" style="font-size:12px"></i></span>
 																</div>
-																<div v-else></div>
+																<div v-else>
+																	<span><i class="fa fa-circle-thin" style="color:#ddd; font-size:12px"></i></span>
+																</div>
 																</td>
 															<td class="payment-status" style="cursor: pointer; width:126px; padding:8px" @click="showDetail(sale)">
 																<!-- <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
