@@ -161,12 +161,12 @@
 															<div class="placeholder-collapse"></div>
 														</th>
 														<th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em; color:#000">Date</th>
-														<th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Order#</th>
+														<th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; width:100px">Order#</th>
 														<th class="text-left" style="font-weight:400;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Channel</th>
 														<th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;width: 20%;color:#000">Customer</th>
 														<th class="text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Total</th>
 														<th class="payment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; width: 106px;">Payment</th>
-														<th class="shipment-status text-center" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Shipment</th>
+														<th class="shipment-status text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; width:100px">Shipment</th>
 														<th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; min-width: 146px;">Status</th>
 														<!-- <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Due Date</th> -->
 														<!-- <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Balance Due</th> -->
@@ -226,11 +226,11 @@
 																		{{sale.invoice_status | normalizeStatus}}
 																	</span>
 																</td>
-															<td class="shipment-status text-center" style="font-weight:400; font-size: 1.05em!important ;color:#000; cursor:pointer" @click="showDetail(sale)">
-																<div v-if="sale.shipment_date">
-																	<span><i class="fa fa-circle status status-void" style="font-size:12px"></i></span>
+															<td class="shipment-status text-center" style="font-weight:400; font-size: 1.05em!important ;color:#000; cursor:pointer; padding-left:15px" @click="showDetail(sale)">
+																<div v-if="sale.shipment_date" style="width:50px">
+																	<span><i class="fa fa-circle status status-default" style="font-size:12px"></i></span>
 																</div>
-																<div v-else>
+																<div v-else style="width:50px">
 																	<span><i class="fa fa-circle-thin" style="color:#ddd; font-size:12px"></i></span>
 																</div>
 																</td>
