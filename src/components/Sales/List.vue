@@ -193,7 +193,7 @@
 															<td style="cursor: pointer;" @click="showDetail(sale)">
 																{{ sale.invoice_date | date('short') }}
 															</td>
-															<td style="cursor: pointer; font-size: 1.05em" @click="showDetail(sale)">
+															<td style="cursor: pointer; font-size: 13px" @click="showDetail(sale)">
 																{{ sale.sales_order_number }}
 															</td>
 															<td class="text-left" style="cursor: pointer; font-size: 1.05em" @click="showDetail(sale)">
