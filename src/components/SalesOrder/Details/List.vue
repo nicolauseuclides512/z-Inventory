@@ -102,11 +102,11 @@
 							</div>
 							<div class="pull-right payment-status">
 								<!-- <span class="label label-danger" v-if="salesOrder.is_overdue" :title="salesOrder.due_date | date('short')">Overdue in {{ salesOrder.due_date | diffInDays }} day(s)</span> -->
-								<span class="label label-default" v-if="salesOrder.sales_order_status === 'DRAFT'">Open</span>
-								<span class="label label-void" v-else-if="salesOrder.sales_order_status === 'CANCELED'">Void</span>
-								<span class="label label-wait-ship" v-else-if="salesOrder.sales_order_status === 'AWAITING_SHIPMENT'">{{ salesOrder.sales_order_status | normalizeStatus }}</span>
-								<span class="label label-wait-pay" v-else-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT'">{{ salesOrder.sales_order_status | normalizeStatus }}</span>
-								<span class="label label-info" v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
+								<span class="status status-default" v-if="salesOrder.sales_order_status === 'DRAFT'">Open</span>
+								<span class="status status-void" v-else-if="salesOrder.sales_order_status === 'CANCELED'">Void</span>
+								<span class="status status-wait-ship" v-else-if="salesOrder.sales_order_status === 'AWAITING_SHIPMENT'">{{ salesOrder.sales_order_status | normalizeStatus }}</span>
+								<span class="status status-wait-pay" v-else-if="salesOrder.sales_order_status === 'AWAITING_PAYMENT'">{{ salesOrder.sales_order_status | normalizeStatus }}</span>
+								<span class="status status-info" v-else>{{ salesOrder.sales_order_status | normalizeStatus }}</span>
 							</div>
 						</div>
 						<!-- <div class="clearfix">
@@ -302,42 +302,24 @@
 	.btn-new{
 		width:80px;
 	}
-	.label{
-		display: inline-block;
-		padding: .2em .6em .3em;
-		font-size: 75%;
-		font-weight: 700;
-		line-height: 1;
-		background-color: transparent;
-		text-align: center;
-		white-space: nowrap;
-		vertical-align: baseline;
-		border-radius: .5em;
-		min-width: 110px;
-		&.label-danger{
+	.status{
+	&.status-danger{
 			color: #ef5350;
-			border: 1.5px solid #ef5350;
-		}
-		&.label-default{
-			color: #777;
-			border: 1.5px solid #777;
-		}
-		&.label-void{
-				background-color: #444 !important;
-				color: #fff;
-				border: 1.5px solid #444;
-		}
-		&.label-info{
-			color: #2FA3E6;
-			border: 1.5px solid #2FA3E6;
-		}
-		&.label-wait-ship{
-			color: #009933;
-			border: 1.5px solid #009933;
-		}
-		&.label-wait-pay{
-			color: #ffc100;
-			border: 1.5px solid #ffc100;
-		}
 	}
+	&.status-default{
+			color: #777;
+	}
+	&.status-void{
+			color: #000;
+	}
+	&.status-info{
+			color: #2FA3E6;
+	}
+	&.status-wait-ship{
+		color: #009933;
+	}
+	&.status-wait-pay{
+		color: #ffc100;
+	}
+}
 </style>
