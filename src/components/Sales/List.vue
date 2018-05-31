@@ -234,7 +234,7 @@
 																	<span><i class="fa fa-circle-thin" style="color:#ddd; font-size:12px"></i></span>
 																</div>
 																</td>
-															<td class="payment-status" style="cursor: pointer; width:126px; padding:8px" @click="showDetail(sale)">
+															<td class="payment-status" style="cursor: pointer; width:126px;" @click="showDetail(sale)">
 																<!-- <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
 																	Overdue in {{ sale.due_date | diffInDays }} day(s)
 																</span> -->
