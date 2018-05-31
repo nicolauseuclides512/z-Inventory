@@ -182,32 +182,33 @@
                           </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
-                        <!-- <tr v-if="form.tax_included !== 0" class="total">
-                          <td class="text-right"
-                              style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px"></td>
-                          <td class="text-left" style="padding-left:8px; color:#000">PPN 10%</td>
-                          <td class="text-right" style="padding-right:8px; color:#000">{{ tax_value }}</td>
-                          <td style="width:28px; border:0px solid; color:#fff">0</td>
-                        </tr> -->
                         <tr class="total">
                           <td class="left-empty" style="border-top-color: white; padding-bottom: 10px; padding-right: 0px">
                           </td>
-                          <td class="text-right" style="padding: 8px 0 24px 0;">
-                            <input class="form-control" style="padding: 0 0 0 10px;" placeholer="Shipping Charge" v-model="form.adjustment_name" type="text" />
-                            <!-- <span style="white-space: nowrap;"><small>Shipping Charge</small></span> -->
+                          <td class="text-right" style="padding: 8px 0 0 0;">
+                            <input class="form-control" style="padding: 0 0 0 10px;" placeholer="Shipping Charge" v-model="form.shipping_carrier_name" type="text" />
                           </td>
-                          <td style="padding-right: 0px; padding-bottom:24px">
+                          <td style="padding-right: 0px; padding-bottom:0">
                             <div class="input-group pull-right">
                               <span class="input-group-addon" style="color:  #666;">Rp</span>
-                              <!-- <vue-numeric
-                                v-model="form.shipping_charge"
-                                :minus="true"
-                                separator="."
-                                style="border: 1px solid #eee"
-                                maxlength="20"
+                              <money
+                                v-model="form.shipping_rate"
+                                v-bind="money"
                                 class="form-control form-white text-right"
-                                placeholder=""
-                              ></vue-numeric> -->
+                                />
+                            </div>
+                          </td>
+                          <td style="width:28px; border:0px solid; color:#fff">0</td>
+                        </tr>
+                        <tr class="total">
+                          <td class="left-empty" style="border-top-color: white; padding-bottom: 10px; padding-right: 0px">
+                          </td>
+                          <td class="text-right" style="border:none; padding: 8px 0 24px 0;">
+                            <input class="form-control" style="padding: 0 0 0 10px;" placeholer="Adjustment Name" v-model="form.adjustment_name" type="text" />
+                          </td>
+                          <td style="border:none; padding-right: 0px; padding-bottom:24px">
+                            <div class="input-group pull-right">
+                              <span class="input-group-addon" style="color:  #666;">Rp</span>
                               <money
                                 v-model="form.adjustment_value"
                                 v-bind="money"
@@ -217,34 +218,6 @@
                           </td>
                           <td style="width:28px; border:0px solid; color:#fff">0</td>
                         </tr>
-                        <!-- <tr class="total">
-                          <td style=" border-top-color: white; padding-bottom: 10px; padding-right: 0px">
-                          </td>
-                          <td class="text-right adjustment-row">
-                            <input
-                              v-model.trim="form.adjustment_name"
-                              type="text"
-                              class="form-control form-white"
-                              style="max-width: 300px; border: 1px dashed #ddd; padding-left:8px"
-                              placeholder="Adjustment"
-                            />
-                          </td>
-                          <td class="adjustment-textfield-row">
-                            <div class="input-group pull-right">
-                              <span class="input-group-addon" style="color:  #666;">Rp</span>
-                              <vue-numeric
-                                v-model="form.adjustment_value"
-                                :minus="true"
-                                separator="."
-                                style="border: 1px solid #eee"
-                                maxlength="20"
-                                class="form-control form-white text-right"
-                                placeholder=""
-                              ></vue-numeric>
-                            </div>
-                          </td>
-                          <td style="width:28px; border:0px solid; color:#fff">0</td>
-                        </tr> -->
                         <tr class="total">
                           <td class="no-bgr text-right left-empty" style="border-top-color: white; border-bottom-color: white; padding-bottom: 10px; padding-right: 0px"></td>
                           <td class="text-left"
@@ -605,8 +578,10 @@
           shipping_weight: 1,
           shipping_weight_unit: "gr",
           shipping_rate: 0,
-          adjustment_name: "Shipping Charge",
+          adjustment_name: 'Adjustment',
           adjustment_value: 0,
+          shipping_carrier_name:'Shipping Charge',
+          shipping_rate: 0,
           shipping_charge: 0,
           internal_notes: "",
           customer_notes: "",
@@ -763,6 +738,7 @@
         this.form.shipping_weight = sales_order.shipping_weight;
         this.form.shipping_weight_unit = sales_order.shipping_weight_unit;
         this.form.shipping_rate = sales_order.shipping_rate;
+        this.form.shipping_carrier_name = sales_order.shipping_carrier_name;
         this.form.adjustment_name = sales_order.adjustment_name;
         this.form.adjustment_value = Number(sales_order.adjustment_value);
         this.form.shipping_charge = Number(sales_order.shipping_charge);
@@ -1227,7 +1203,8 @@
           shipping_weight: 1,
           shipping_weight_unit: "gr",
           shipping_rate: 0,
-          adjustment_name: "",
+          shipping_carrier_name: '',
+          adjustment_name: '',
           adjustment_value: 0,
           shipping_charge: 0,
           internal_notes: "",

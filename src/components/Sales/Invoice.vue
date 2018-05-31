@@ -210,6 +210,11 @@
                     <span v-else>Rp</span><span>{{ value.tax | decimalformat }}</span>
                 </td>
               </tr>
+              <tr class="sub-total" v-if="value.shipping_rate > 0">
+                <td colspan="3"></td>
+                <td colspan="1" class="text-left">{{ value.shipping_carrier_name || 'Shipping Charge' }}</td>
+                <td colspan="1"><span>Rp</span><span>{{ Number(value.shipping_rate) | decimalformat }}</span></td>
+              </tr>
               <tr class="sub-total" v-if="value.adjustment_value > 0">
                 <td colspan="3"></td>
                 <td colspan="1" class="text-left">{{ value.adjustment_name || 'Adjustment' }}</td>
