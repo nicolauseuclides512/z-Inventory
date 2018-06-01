@@ -507,9 +507,9 @@
 
         let adjustmentValue = 0;
         let shippingCharge = 0;
-        if (_.toNumber(this.form.adjustment_value) || _.toNumber(this.form.shipping_charge)) {
+        if (_.toNumber(this.form.adjustment_value) || _.toNumber(this.form.shipping_rate)) {
           adjustmentValue = _.toNumber(this.form.adjustment_value);
-          shippingCharge = _.toNumber(this.form.shipping_charge);
+          shippingCharge = _.toNumber(this.form.shipping_rate);
         }
 
         return this.subtotal + /*taxValue +*/ adjustmentValue + shippingCharge;
