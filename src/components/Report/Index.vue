@@ -126,8 +126,18 @@ export default {
    },
 
 	mounted() {
-      $('#start_date').flatpickr()
-      $('#end_date').flatpickr()
+      $('#start_date').flatpickr(
+         {
+            altFormat: 'j M Y',
+            altInput: true,
+         }
+      )
+      $('#end_date').flatpickr(
+         {
+            altFormat: 'j M Y',
+            altInput: true,
+         }
+      )
 		try{
 			Axios.get(`organizations/${orgId}`).then(
 				res => {
