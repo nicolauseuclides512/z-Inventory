@@ -9,7 +9,7 @@
 				<div class="col-md-12">
 					<div class="clearfix m-b-30">
 						<h4 class="pull-left page-title m-0 left-detail-title">
-							<span style="margin-right:15px" class="SO-id">{{salesOrder.sales_order_number}}</span>
+							<span style="margin-right:15px" class="SO-id">{{invoiceList[0].sales_order.sales_order_number}}</span>
 						</h4>
 						<div class="pull-right">
 						<div class="pull-left" style="margin-right: 10px;">
