@@ -234,13 +234,21 @@
 												<td v-if="item.track_inventory == 'true'" style="vertical-align:text-top">
 													<money
 														v-model="v.stock_quantity"
+														placeholder=""
+														class="form-control form-white"
+														required
+														v-bind="money"
+														/>
+                                                </td>
+												<td style="vertical-align:text-top">
+                                                    <money
+														v-model="v.sales_rate"
 														placeholder="Price"
 														class="form-control form-white"
 														required
 														v-bind="money"
 														/>
                                                 </td>
-												<td style="vertical-align:text-top"><input type="number" step="1" class="form-control form-white" v-model.number="v.sales_rate"></td>
 												<td style="vertical-align:text-top">
 													<button type="button"
 																	@click="removeItem(v)"
