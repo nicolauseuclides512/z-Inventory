@@ -1,9 +1,10 @@
 {
   "name": "zuragan-web-app",
-  "version": "1.0.0",
+  "version": "2.1.1",
   "description": "Zuragan Invoice Web App",
-  "author": "Mulia Arifandi Nasution <mul14.net@gmail.com>",
-  "maintainer": "Alphaiz Rebotak <rebotak@gmail.com>",
+  "author-1": "Mulia Arifandi Nasution <mul14.net@gmail.com>",
+  "author-2": "Alphaiz Rebotak <rebotak@gmail.com>",
+  "author-3": "Daniel Risamasu",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
