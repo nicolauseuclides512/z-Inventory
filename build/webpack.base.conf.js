@@ -3,6 +3,11 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const today = new Date()
+const month = today.getMonth()+'-re-'
+const date = today.getDate()+'-bo-'
+const time = today.getTime()+'-tak'
+const timeStamp = month+''+date+''+time
 
 // const glob = require('glob');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -19,7 +24,8 @@ module.exports = {
   ],
   output: {
     path: config.build.assetsRoot,
-    filename: '[name].js',
+    // filename: '[name].js',
+    filename: '[name].[hash:6].js?d=' + timeStamp,
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
