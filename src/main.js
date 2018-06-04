@@ -11,7 +11,7 @@ import store from './store'
 // import VueMultianalytics from 'vue-multianalytics'
 import { Alert, swal_success, swal_error, swal_mapError } from './helpers'
 import VeeValidate from 'vee-validate'
-import 'vue-multiselect/dist/vue-multiselect.min.css'
+// import 'vue-multiselect/dist/vue-multiselect.min.css'
 // import './registerServiceWorker'
 
 // import Select2 from './directives'
