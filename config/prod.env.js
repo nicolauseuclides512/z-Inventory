@@ -9,5 +9,5 @@ module.exports = {
   GA_ID: '"UA-104614950-3"',
   NODE_ENV: '"production"',
   API_BASE_URL: '"' + apiUrl + '"',
-  APP_VERSION:'"v.2.1.0"'
+  APP_VERSION:'"v.2.1.1"'
 }
