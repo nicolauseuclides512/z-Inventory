@@ -97,7 +97,7 @@
 										<label class="col-md-2 control-label text-left">UOM</label>
 										<div class="col-md-4 ">
 											<select id="uom_id" v-model="form.uom_id" class="form-control">
-													<option v-for="uom in list.uoms" :value="uom.uom_id" v-text="uom.name"></option>
+													<option v-for="(uom,i) in list.uoms" :key="i" :value="uom.uom_id" v-text="uom.name"></option>
 											</select>
 										</div>
 									</div>
@@ -188,7 +188,7 @@
 									</div>
 								</div>
 								<div class="only-variant" v-else>
-									<Variant
+                                <Variant
 										v-if="!$route.params.id"
 										:item="form"
 										@remove="deleteChildrenItem"
