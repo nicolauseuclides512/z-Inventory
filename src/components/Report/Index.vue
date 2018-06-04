@@ -35,7 +35,8 @@
 										</div>
 								 </div>
 								</div>
-								<div v-if="this.dateRangeChooser==='custom'" class="pull-right col-md-4 date-wrapper">
+
+                        <div v-show="this.dateRangeChooser==='custom'" class="pull-right col-md-4 date-wrapper">
 									<div class="form-horizontal">
 									<div class="form-group form-general">
 										<label class="col-md-4 control-label text-right pr-0">End Range</label>
@@ -46,7 +47,8 @@
 									</div>
 								</div>
 								</div>
-								<div v-if="this.dateRangeChooser==='custom'" class="pull-right col-md-4 date-wrapper">
+
+								<div v-show="this.dateRangeChooser==='custom'" class="pull-right col-md-4 date-wrapper">
 									<div class="form-horizontal">
 									<div class="form-group form-general">
 										<label class="col-md-4 control-label text-right pr-0">Start Date</label>
@@ -56,6 +58,7 @@
 									</div>
 								</div>
 								</div>
+
 							</div>
 					</div>
 				</div>
@@ -116,13 +119,18 @@ export default {
 			start_date: date_format(start_of_month(new Date()), "YYYY-MM-DD"),
 			end_date: date_format(end_of_month(new Date()), "YYYY-MM-DD")
 		};
-	},
+   },
+
+   watch:{
+
+   },
 
 	mounted() {
+      $('#start_date').flatpickr()
+      $('#end_date').flatpickr()
 		try{
 			Axios.get(`organizations/${orgId}`).then(
 				res => {
-					console.log(res.data.data.name)
 					this.orgName = res.data.data.name
 					// swal_success(res)
 				}
@@ -136,9 +144,6 @@ export default {
 		}catch (err) {
 			console.error(err)
 		}
-
-		$("#start_date").flatpickr({});
-		$("#end_date").flatpickr({});
 	},
 
 	methods: {
