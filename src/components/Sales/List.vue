@@ -380,6 +380,16 @@
 																					<!--<td colspan="4" class="text-right text-bold">Shipment Charge</td>-->
 																					<!--<td>{{ overview.shipping_charge | money }}</td>-->
 																					<!--</tr>-->
+																					<tr v-if="sale.invoices[0].shipping_rate > 0" class="sub-total">
+																						<td colspan="3" >
+																						<td colspan="1" style="font-size: 1em;">{{ sale.invoices[0].shipping_carrier_name ||
+																							'Adjustment' }}
+																						</td>
+																						<td class="text-right" style="font-size: 1em;">
+																							<span class="pull-left">Rp.</span>
+																							{{Number(sale.invoices[0].shipping_rate) | moneyNoCurrency }}
+																						</td>
+																					</tr>
 																					<tr v-if="sale.invoices[0].adjustment_value > 0" class="sub-total">
 																						<td colspan="3" >
 																						<td colspan="1" style="font-size: 1em;">{{ sale.invoices[0].adjustment_name ||
