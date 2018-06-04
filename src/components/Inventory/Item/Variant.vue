@@ -239,7 +239,7 @@
 														required
 														v-bind="money"
 														/>
-                                                </td>
+                                    </td>
 												<td style="vertical-align:text-top">
                                                     <money
 														v-model="v.sales_rate"

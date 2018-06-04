@@ -15,7 +15,7 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr v-for="v in list.items">
+		<tr v-for="(v,keyopet) in list.items" :key="keyopet">
 			<td>
 				<input type="text" class="form-control form-white" v-model="v.item_name" title="" @keydown.prevent.enter>
 			</td>
@@ -46,17 +46,38 @@
 			</td>
 			<td align="center">
 					<input
-					type="checkbox"
-					id="track-inventory"
-					v-model="v.track_inventory"
-					true-value="true"
-					false-value="false"
-					class="checkbox-primary"
-					@keydown.prevent.enter
-				/>
+                  type="checkbox"
+                  id="track-inventory"
+                  v-model="v.track_inventory"
+                  true-value="true"
+                  false-value="false"
+                  class="checkbox-primary"
+                  @keydown.prevent.enter
+                  />
 			</td>
-			<td><input type="text" class="form-control form-white" v-model="v.stock_quantity" title="Stock" v-if="v.track_inventory"  @keydown.prevent.enter></td>
-			<td><input type="text" class="form-control form-white" v-model="v.sales_rate" title="" @keydown.prevent.enter></td>
+			<td>
+            <!-- <input type="text" class="form-control form-white" v-model="v.stock_quantity" title="Stock" v-if="v.track_inventory"  @keydown.prevent.enter> -->
+            <money
+               v-model="v.stock_quantity"
+               v-if="v.track_inventory"
+               @keydown.prevent.enter
+               placeholder=""
+               class="form-control form-white"
+               required
+               v-bind="money"
+               />
+         </td>
+			<td>
+            <!-- <input type="text" class="form-control money-kopet form-white" v-model="v.sales_rate" title="" @keydown.prevent.enter> -->
+            <money
+               v-model="v.sales_rate"
+               @keydown.prevent.enter
+               placeholder=""
+               class="form-control money-kopet form-white"
+               required
+               v-bind="money"
+               />
+         </td>
 			<td>
 				<button type="button" @click="updateItem(v)" class="btn btn-info btn-custom waves-effect">
 					<i class="fa fa-check"></i>
@@ -74,6 +95,7 @@
 	import Axios from 'axios'
 	import Form from '@/helpers/Form'
 	import { responseOk, swal_error, swal_success } from 'src/helpers'
+	import {Money} from 'v-money'
 
 	export default {
 		name: 'VariantList',
@@ -89,6 +111,12 @@
 
 		data () {
 			return {
+				money: {
+					thousands: '.',
+					prefix: '',
+					precision: 0,
+					masked: false
+				},
 				list: {
 					items: [],
 				},
