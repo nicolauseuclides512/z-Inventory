@@ -154,8 +154,8 @@
                             </div>
                           </td>
 
-                          <td width="11.5%" class="text-right" style="vertical-align: middle; padding-left:0px">{{
-                            amount(product) | money }}
+                          <td width="11.5%" class="text-right" style="vertical-align: middle; padding-left:0px"> <span class="pull-left">Rp.</span>{{
+                            amount(product) | moneyNoCurrency }}
                           </td>
 
                           <td style="vertical-align: middle; background-color:#ffffff; border:0px solid; width:28px">
@@ -190,7 +190,7 @@
                           </td>
                           <td style="padding-right: 0px; padding-bottom:0">
                             <div class="input-group pull-right">
-                              <span class="input-group-addon" style="color:  #666;">Rp</span>
+                              <span class="input-group-addon" style="color:  #666;">Rp.</span>
                               <money
                                 v-model="form.shipping_rate"
                                 v-bind="money"
@@ -208,7 +208,7 @@
                           </td>
                           <td style="border:none; padding-right: 0px; padding-bottom:24px">
                             <div class="input-group pull-right">
-                              <span class="input-group-addon" style="color:  #666;">Rp</span>
+                              <span class="input-group-addon" style="color:  #666;">Rp.</span>
                               <money
                                 v-model="form.adjustment_value"
                                 v-bind="money"

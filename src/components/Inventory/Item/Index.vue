@@ -341,7 +341,13 @@
     },
 
     mounted() {
-      this.getList();
+      this.getList({
+				filter: this.$route.query.filter || 'all',
+				// sort: this.$route.query.sort || 'created_at.desc',
+				// q: this.$route.query.q || '',
+				page: this.$route.query.page || '1',
+				per_page: this.$route.query.per_page || '60'
+			});
     },
 
     computed: {
