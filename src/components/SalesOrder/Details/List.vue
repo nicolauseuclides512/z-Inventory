@@ -2,6 +2,10 @@
 	<div class="sales-order-list-left-side">
 		<div class="clearfix" v-if="!checkedList.length > 0">
 			<div class="pull-left">
+            <span class="box-selectAll checkbox">
+               <input type="checkbox" name="selectAll" id="selectAll" @click="selectAll"/>
+               <label for="selectAll"></label>
+            </span>
 				<a href="javascript:void(0);" class="dropdown-toggle page-title" data-toggle="dropdown">
 					<h4 class="text-capitalize">{{ displayedActiveFilter }} <span class="caret"></span></h4>
 				</a>
@@ -191,6 +195,9 @@
 		},
 
 		methods: {
+         selectAll(){
+            this.checkedList = _.map(this.salesOrderList, 'sales_order_id')
+         },
 			changeFilter(filter){
 				this.$router.push({
 					query: {
@@ -321,5 +328,15 @@
 	&.status-wait-pay{
 		color: #ffc100;
 	}
+}
+.box-selectAll {
+   display: inline-block;
+   float: left;
+   margin-left: 11px;
+   margin-right: 0;
+   margin-top: 15px;
+}
+h4.text-capitalize{
+   display: inline-block;
 }
 </style>
