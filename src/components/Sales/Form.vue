@@ -1327,9 +1327,9 @@
   .panel .panel-body {
     padding: 20px 0;
   }
-  textarea {
-    background: transparent;
-  }
+//   textarea {
+   //  background: transparent;
+//   }
 }
 table.empty-table {
   display: table;
