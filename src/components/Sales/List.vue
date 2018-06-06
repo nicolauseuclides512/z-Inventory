@@ -9,7 +9,6 @@
 										 class="btn btn-default waves-effect waves-light m-b-5">Print Invoice</a>
 									<a href="javascript:void(0);" @click="viewShipmentLabels"
 										 class="btn btn-default waves-effect waves-light m-b-5">Print Shipment Label</a>
-									<!-- <h1 class="">{{checkedList.length}} checked</h1> -->
 								</div>
 						</div>
 						<div class="pull-right pt-10">
@@ -50,15 +49,6 @@
 									<li :class="{ active: filter === 'partially_paid' }">
 										<a href="javascript:void(0);" @click="changeFilter('fulfilled')">Fulfilled</a>
 									</li>
-									<!-- <li :class="{ active: filter === 'overdue' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'overdue' })">Overdue</a>
-									</li> -->
-									<!-- <li :class="{ active: filter === 'shipped' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'shipped' })">Shipped</a>
-									</li>
-									<li :class="{ active: filter === 'not_yet_shipped' }">
-										<a href="javascript:void(0);" @click="changeFilter({ filter: 'not_yet_shipped' })">Not shipped</a>
-									</li> -->
 									<li :class="{ active: filter === 'void' }">
 										<a href="javascript:void(0);" @click="changeFilter('canceled')">Void</a>
 									</li>
@@ -95,37 +85,16 @@
 											</a>
 										</li>
 										<li class="divider"></li>
-										<!--<li><a href="javascript:void(0);"><i class="md-file-download"></i> Import Invoices</a></li>-->
-										<!--<li><a href="javascript:void(0);"><i class="md-file-upload"></i> Export Invoices</a></li>-->
-										<!--<li class="divider"></li>-->
-										<!--<li><a href="javascript:void(0);"><i class="md-file-download"></i> Import Payments</a></li>-->
-										<!--<li><a href="javascript:void(0);"><i class="md-file-upload"></i> Export Payments</a></li>-->
-										<!--<li class="divider"></li>-->
-										<!--<li><a href="javascript:void(0);"><i class="fa fa-cog"></i> Invoice Preferences</a></li>-->
 										<li><a href="javascript:void(0);" @click="getList"><i class="md-refresh"></i> Refresh List</a></li>
 									</ul>
 								</div>
 							</div>
-							<!-- <div class="col-md-12 col-sm-12 col-xs-12" id="mark_active" v-if="checkedList.length > 0">
-								<div class="pull-left">
-									<a href="javascript:void(0);" @click="viewBulkInvoice"
-										 class="btn btn-default waves-effect waves-light m-b-5">Print Invoice</a>
-									<a href="javascript:void(0);" @click="viewShipmentLabels"
-										 class="btn btn-default waves-effect waves-light m-b-5">Print Shipment Label</a>
-								</div>
-								<div class="pull-right pt-10">
-									<a href="javascript:void(0);" @click="clearCheckedAll">
-										<i class="ion-android-close"></i>
-									</a>
-								</div>
-							</div> -->
 						</div>
 					</div>
 					<div v-if="loadingSalesOrders" class="loading">
 						<Spinner></Spinner>
 					</div>
 					<div class="empty-list d-flex" v-if="!salesList.length && !loadingSalesOrders">
-					<!-- <div class="empty-list d-flex" v-if="true"> -->
 						<i class="fa fa-5x fa-shopping-cart"></i>
 						<span class="little-lead">Sales order data not found.</span>
 						<span class="lead">Add your sales order!</span>
@@ -145,7 +114,6 @@
 											<div v-if="!salesList.length > 0">
 												<div class="text-muted text-center lead" style="padding: 30px 0 10px">No data</div>
 											</div>
-
 											<div class="sales-table-wrapper" v-else>
 												<table
 													class="table table-hover default-table sahito-list-item-group-list--table sahito-sales-order-table">
@@ -168,9 +136,6 @@
 														<th class="payment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; width: 106px;">Payment</th>
 														<th class="shipment-status text-left" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; width:100px">Shipment</th>
 														<th class="shipment-status" style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000; min-width: 146px;">Status</th>
-														<!-- <th style="font-weight:400; padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Due Date</th> -->
-														<!-- <th class="text-left" style="font-weight:400 ;padding-top:8px; padding-bottom:8px; font-size: 1.1em;color:#000">Balance Due</th> -->
-														<!-- <th style="font-weight:400; padding-top:14px; padding-bottom:14px;">SHIPMENT</th> -->
 														<th style="width:37px"></th>
 													</tr>
 													</thead>
@@ -204,17 +169,6 @@
 															</td>
 															<td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.total | money }}</td>
 															<td class="shipment-status" style="font-size: 1.05em !important; cursor:pointer" @click="showDetail(sale)">
-																<!-- <span class="label"
-																	:class="{
-																		'label-info': sale.invoice_status == 'UNPAID',
-																		'label-void': sale.invoice_status == 'VOID',
-																		'label-danger': sale.invoice_status == 'OVERDUE',
-																		'label-success': sale.invoice_status == 'PAID',
-																		'label-success-part': sale.invoice_status == 'PARTIALLY_PAID',
-																		'label-default': sale.invoice_status == 'DRAFT' }">
-																	{{sale.invoice_status.split("_").join(" ").toLowerCase()}}
-																</span> -->
-
 																	<span v-if="sale.invoice_status === 'DRAFT' || sale.invoice_status === 'VOID'">
 																		-
 																	</span>
@@ -235,39 +189,12 @@
 																</div>
 																</td>
 															<td class="payment-status" style="cursor: pointer; width:126px;" @click="showDetail(sale)">
-																<!-- <span class="label label-danger" v-if="sale.is_overdue" :title="sale.due_date | date('short')">
-																	Overdue in {{ sale.due_date | diffInDays }} day(s)
-																</span> -->
 																<span class="status status-default" v-if="sale.sales_order_status === 'DRAFT'">Open</span>
 																<span class="status status-void" v-else-if="sale.sales_order_status === 'CANCELED'">Void</span>
 																<span class="status status-wait-ship" v-else-if="sale.sales_order_status === 'AWAITING_SHIPMENT'">{{ sale.sales_order_status | normalizeStatus }}</span>
 																<span class="status status-wait-pay" v-else-if="sale.sales_order_status === 'AWAITING_PAYMENT'">{{ sale.sales_order_status | normalizeStatus }}</span>
 																<span class="status status-info" v-else>{{ sale.sales_order_status | normalizeStatus }}</span>
 															</td>
-															<!-- <td class="shipment-status" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.shipment_status | normalizeStatus }}</td>
-															<td style="cursor: pointer;" @click="showDetail(sale)">{{ sale.due_date | date('short') }}</td>
-															<td class="text-left" style="cursor: pointer;" @click="showDetail(sale)">{{ sale.invoices[0].balance_due | money}}</td> -->
-
-
-															<!-- <td style="cursor: pointer;" @click="showDetail(sale)">
-																<div v-if="sale.invoice_status === 'VOID'">
-																	<i class="fa fa-circle text-black"></i>
-																</div>
-																<div v-else-if="sale.sales_order_status === 'DRAFT'">
-																	<i class="fa fa-circle-o text-light-grey"></i>
-																</div>
-																<div
-																	v-else-if="sale.shipment_status === 'NOT_YET_SHIPPED' && sale.invoice_status === 'OVERDUE'">
-																	<i class="fa fa-circle-o text-danger"></i>
-																</div>
-																<div v-else-if="sale.shipment_status === 'NOT_YET_SHIPPED'">
-																	<i class="fa fa-circle-o text-green"></i>
-																</div>
-																<div v-else-if="sale.shipment_status === 'SHIPPED'">
-																	<i class="fa fa-circle text-green"></i>
-																</div>
-															</td> -->
-
 															<td class="text-center">
 																<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
 																	 aria-expanded="false">
@@ -305,12 +232,6 @@
 																			Print Shipment Label
 																		</a>
 																	</li>
-																	<!--<li><a href="javascript:void(0);">Email Invoice</a></li>-->
-																	<!-- <li v-if="sale.shipment_status === 'NOT_YET_SHIPPED'">
-																		<a href="javascript:void(0);" @click="gotoDetailShipment(sale)">
-																			Record Shipment
-																		</a>
-																	</li> -->
 																</ul>
 															</td>
 														</tr>
@@ -319,12 +240,6 @@
 																<table v-if="overview.sales_order_id === sale.sales_order_id"
 																			 class="table sales-order-inner-table">
 																	<tbody>
-																	<!-- <tr>
-																		<td class="col-checkbox">
-																		</td>
-																		<th>Customer</th>
-																		<th>Order Details</th>
-																	</tr> -->
 																	<tr>
 																		<td class="col-checkbox">
 																		</td>
@@ -400,10 +315,6 @@
 																							{{ overview.sub_total | moneyNoCurrency }}
 																						</td>
 																					</tr>
-																					<!--<tr class="sub-total">-->
-																					<!--<td colspan="4" class="text-right text-bold">Shipment Charge</td>-->
-																					<!--<td>{{ overview.shipping_charge | money }}</td>-->
-																					<!--</tr>-->
 																					<tr class="sub-total">
 																						<td colspan="3" class="shipment-detail" style="text-align:left !important"> 22 May 2018, Transfer Bank BCA</td>
 																						<td colspan="1" style="font-size: 1em;">
@@ -458,18 +369,6 @@
 																			</div>
 																		</td>
 																	</tr>
-																	<!-- <tr>
-																		<th class="col-checkbox">
-																		</th>
-																		<th>Payment Method</th>
-																	</tr>
-																	<tr>
-																		<td class="col-checkbox">
-																		</td>
-																		<td>
-																			<p>Bank Transfer</p>
-																		</td>
-																	</tr> -->
 																	</tbody>
 																</table>
 															</td>
@@ -483,10 +382,6 @@
 								</div>
 							</div>
 							<div class="col-md-12 pr-20 text-right">
-								<!-- <Pagination :page-context="paginate" :result="salesList" @updated="updatePagination"></Pagination> -->
-								<!-- <pre>
-								{{paginate}}
-								</pre> -->
 								<JustPaginate :paginate="paginate"/>
 							</div>
 						</div>
@@ -494,7 +389,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 </template>
 
@@ -503,14 +397,12 @@
 	import difference_in_days from 'date-fns/difference_in_days'
 	import store from 'src/store'
 	import {getParameterByName, responseOk,swal_error} from 'src/helpers'
-	// import Pagination from '../Pagination.vue'
 	import Spinner from '@/components/Helpers/Spinner'
 	import {mapGetters, mapActions} from 'vuex'
 	import { format } from 'date-fns'
 	import swal from 'sweetalert2'
 	export default {
 		name: 'List',
-
 		filters: {
 			showShortDate(date) {
 				return format(date, 'DD MMM YYYY')
@@ -522,7 +414,6 @@
 				return difference_in_days(new Date(), date)
 			},
 		},
-
 		data() {
 			return {
 				currentFilter: 'all',
@@ -534,23 +425,17 @@
 		components: {
 			JustPaginate: () => import('@/components/JustPaginate.vue'),
 			Spinner,
-
-		},
+    },
 
 		watch: {
 			$route(to, from) {
 				if (!_.isEqual(to.query,from.query)) {
 					this.getList(to.query)
 				}
-				// else {
-				// 	// console.log('route changed', form.query)
-				// 	this.getList(form.query)
-				// }
 			},
 		},
 
 		mounted() {
-			// store.dispatch('sales/initialize')
 			this.getList({
 				filter: this.$route.query.filter || 'all',
 				sort: this.$route.query.sort || 'created_at.desc',
@@ -563,7 +448,6 @@
 		computed: {
 			displayedActiveStatus(){
 				return ((this.$route.query.filter == 'canceled')?'Void':(this.$route.query.filter == 'draft')?'Open':(this.$route.query.filter)?this.$route.query.filter.replace(/_/g," "):'All')
-				// return this.$route.query.filter.split("_").join(" ")
 			},
 			filter: {
 				get() {
@@ -573,7 +457,6 @@
 					store.commit('sales/FILTER', value)
 				},
 			},
-
 			sort: {
 				get() {
 					return store.state.sales.sort
@@ -582,7 +465,6 @@
 					store.commit('sales/SORT', value)
 				},
 			},
-
 			overview: {
 				get() {
 					return store.state.sales.overview
@@ -610,13 +492,11 @@
 						sale.checked = false
 						return sale;
 					})
-//          return store.state.sales.salesList
 				},
 				set(value) {
 					store.commit('sales/SALES_LIST')
 				},
 			},
-
 			paginate: {
 				get() {
 					return store.state.sales.paginate
@@ -644,12 +524,10 @@
 						...this.$route.query,
 						page: 1,
 						filter: options || this.currentFilter || 'all',
-						// sort: options.sort || this.currentSortColumn || 'created_at.asc',
 
 					},
 				})
 				this.currentFilter = options.filter
-				// this.getList(options)
 			},
 
 			changeSorter(sort) {
@@ -657,7 +535,6 @@
 					query: {
 						...this.$route.query,
 						page: 1,
-						// filter: this.filter,
 						sort: sort,
 					},
 				})
@@ -696,10 +573,8 @@
 			},
 
 			printInvoice(sales_order_id: number) {
-				// Fetch all invoices
 				axios.get(`sales_orders/${sales_order_id}/invoices`).then(res => {
 					res.data.data.forEach(invoice => {
-						// TODO: Update this URL
 						window.open(`sales_orders/${sales_order_id}/invoices/` + invoice.invoice_id)
 					})
 				}).catch(err => {
@@ -726,7 +601,6 @@
 			async downloadInvoice(sales_order_id) {
 				const pdfWindow = window.open()
 
-				// Fetch invoice list
 				await this.invoiceList(parseInt(sales_order_id))
 				const invoice_id = store.state.sales.invoiceList[0].invoice_id
 
@@ -766,10 +640,6 @@
 				const fileURL = URL.createObjectURL(file)
 				pdfWindow.location = fileURL
 			},
-
-			/**
-			 * View bulk invoice
-			 */
 			async viewBulkInvoice() {
 
 				let ids = _.map(this.checkedList, function (so) {
@@ -805,13 +675,8 @@
 
 				this.checkedAll = false;
 			},
-
-			/**
-			 * Check all items
-			 */
 			checkAll(evt) {
 				if (!this.checkedAll) {
-//        this.checkedAll = true
 					_.each(this.salesList, item => {
 						item.checked = true
 						this.markItemAsChecked(item)
@@ -822,13 +687,8 @@
 						this.$store.dispatch('sales/markItemAsUnChecked',item)
 					})
 					this.clearCheckedAll()
-					// console.info(this.checkedList)
 				}
 			},
-
-			/**
-			 * Clear all checked items
-			 */
 			clearCheckedAll() {
 				this.checkedAll = false
 				_.each(this.salesList, item => {
@@ -836,13 +696,11 @@
 					this.$store.dispatch('sales/markItemAsUnChecked',item)
 				})
 				this.clearAllCheckedItems()
-//      this.checkedAll = false
 			},
 
 			updatePagination(data) {
 				console.log(data)
 				store.commit('sales/PAGINATE', data.paginate)
-				// store.commit('sales/SALES_LIST', data.data)
 			},
 
 			gotoDetailPayment(sale) {
@@ -932,13 +790,6 @@ td.shipment-status {
 	&.status-wait-pay{
 		color: #ffc100;
 	}
-}
-.pagination-wrap.d-flex {
-	float: right;
-	margin: 15px 0;
-}
-select#pagination-per-page {
-	margin-right: 20px;
 }
 span.page-info {
 	margin: 0 5px;
