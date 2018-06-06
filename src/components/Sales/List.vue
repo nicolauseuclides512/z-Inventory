@@ -377,7 +377,7 @@
 																					</tr>
 																					</thead>
 																					<tbody>
-																					<tr v-for="(order,i) in orderList" :key="i">
+																					<tr v-for="(order,i) in orderListSO" :key="i">
 																						<td class="text-left" style="font-size: 1em;">{{ order.item_name }}</td>
 																						<td class="text-left" style="font-size: 1em;">
 																							<p class="qty-amount">{{ order.item_quantity }} {{ order.uom }}</p>
@@ -592,21 +592,9 @@
 				},
 			},
 			...mapGetters({
+        orderListSO: 'sales/orderListSO',
 				loadingSalesOrders: 'sales/loadingSalesList',
-				// currentFilter: 'sales/currentFilter'
 			}),
-			// loadingSalesOrders() {
-			//   return store.getters['sales/loadingSalesList']
-			// },
-
-			orderList: {
-				get() {
-					return store.state.sales.orderList
-				},
-				set(value) {
-//        store.commit('sales/OVERVIEW', value)
-				},
-			},
 			checkedList: {
 				get() {
 					return store.state.sales.checkedList

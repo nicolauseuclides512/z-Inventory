@@ -264,17 +264,11 @@ const actions = {
 			commit('OVERVIEW', {})
 			return
 		}
-
 		try {
 			const res = await axios.get(`sales_orders/${sales_order_id}`)
 			if (!responseOk(res.data.code)) return swal_error(res)
-
-			await dispatch('getOrderList', sales_order_id)
-
 			commit('OVERVIEW', res.data.data)
-
 			return res.data.data
-
 		} catch (err) {
 			console.error(err)
 			if (err.hasOwnProperty('response')) {
@@ -303,8 +297,10 @@ const actions = {
 const getters = {
 	salesOrderLoading(state){
 		return state.salesOrderLoading
-	},
-
+  },
+  orderListSO(state){
+    return state.overview.sales_order_details
+  },
 	loadingSalesList(state) {
 		return state.loadingSalesList
 	},
