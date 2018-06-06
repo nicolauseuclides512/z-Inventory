@@ -106,7 +106,11 @@
                                    style="width: auto; height: auto; max-width: 70px; max-height: 70px;">
                             </a>
                           </td> -->
-                          <td v-text="product.item_name" width='40.85%' style="padding-left:10px; size:14px"></td>
+                          <td width='40.85%' style="padding-left:10px; size:14px">
+<!-- <pre>{{product}}</pre> -->
+{{product.item_name}}
+
+                          </td>
                           <!-- <td width='10%' style="padding: 15px 8px 15px 10px"></td> -->
                           <td width="7%">
                             <input
@@ -840,8 +844,9 @@
             leaf_only: true
           }
         });
-
-        this.list.product_list = product_list_response.data.data;
+        this.list.product_list = _.filter(product_list_response.data.data, product =>{
+          return product.stock_quantity > 0
+        });
         this.loadingList = false;
       },
 
