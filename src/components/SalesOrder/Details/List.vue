@@ -223,7 +223,7 @@
 				})
 			},
 			async getList (options = {}) {
-				this.$store.dispatch('salesOrders/getList', options)
+				this.$store.dispatch('salesOrders/getList', {...options, fields:'contact, due_date, invoice_date, is_overdue, sales_order_id, sales_order_number, sales_order_status, shipment_status, total'})
 			},
 			showDetail (salesOrder) {
 				this.$emit('selectSalesOrder', salesOrder.sales_order_id)
