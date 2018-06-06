@@ -316,7 +316,7 @@
 																						</td>
 																					</tr>
 																					<tr class="sub-total">
-																						<td colspan="3" class="shipment-detail" style="text-align:left !important"> 22 May 2018, Transfer Bank BCA</td>
+																						<td colspan="3" class="shipment-detail" style="text-align:left !important"> 22 May 2018, Transfer Bank BCA(static, waiting data from backend)</td>
 																						<td colspan="1" style="font-size: 1em;">
                                               <span v-if="sale.invoices[0].shipping_rate > 0" class="kapspul">
                                                 {{ sale.invoices[0].shipping_carrier_name || 'Adjustment' }}
