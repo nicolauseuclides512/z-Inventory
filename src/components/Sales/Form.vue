@@ -482,12 +482,16 @@
       },
       subtotal() {
         let subtotal = 0;
-
-        _.each(this.form.details, item => {
-          subtotal = subtotal + this.amount(item);
+        let wtf = []
+        wtf = _.map(this.form.details, item => {
+          if(this.amount(item) !== null){
+            return Number(this.amount(item))
+          }else{
+            return 0
+          }
         });
-
-        return subtotal;
+        subtotal = _.sum(wtf)
+        return subtotal
       },
 
       tax_value() {
@@ -1154,7 +1158,7 @@
        * @return {float|int}
        */
       sales_rate(item) {
-        return item.item_rate ? item.item_rate : item.sales_rate;
+        return (item.item_rate > 0) ? item.item_rate : 0;
       },
 
       /**
@@ -1162,25 +1166,21 @@
        */
       amount(item) {
         const sales_rate = this.sales_rate(item);
-
-        if (!item.discount_amount_value || !item.discount_amount_type) {
-          return parseFloat(sales_rate) * parseInt(item.item_quantity);
-        }
+        let amount
 
         if (item.discount_amount_type == "fixed") {
-          return (
-            (parseFloat(sales_rate) - parseFloat(item.discount_amount_value)) *
-            parseInt(item.item_quantity)
-          );
+          amount = (parseFloat(sales_rate) - parseFloat(item.discount_amount_value)) * parseInt(item.item_quantity)
         }
 
         if (item.discount_amount_type == "percentage") {
-          const discount =
-            parseFloat(sales_rate) * parseFloat(item.discount_amount_value) / 100;
-          return (
-            (parseFloat(sales_rate) - discount) * parseInt(item.item_quantity)
-          );
+          const discount = parseFloat(sales_rate) * parseFloat(item.discount_amount_value) / 100;
+          amount = (parseFloat(sales_rate) - discount) * parseInt(item.item_quantity)
         }
+
+        if (!item.discount_amount_value || !item.discount_amount_type) {
+          amount = parseFloat(sales_rate) * parseInt(item.item_quantity);
+        }
+        return Number(amount)
       },
 
       /**
