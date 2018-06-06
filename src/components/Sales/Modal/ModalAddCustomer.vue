@@ -265,8 +265,7 @@
 
                 </div>
               </div>
-
-              <button :disabled="errors.any() || saving" type="submit" class="btn btn-info waves-effect waves-light m-t-15">
+              <button :disabled="errors.any() || !model.display_code || !model.first_name || saving" type="submit" class="btn btn-info waves-effect waves-light m-t-15">
                 <span v-if="!saving">Save</span>
                 <span v-if="saving">Saving...</span>
                 </button>
