@@ -328,15 +328,39 @@
 																	<tr>
 																		<td class="col-checkbox">
 																		</td>
-																		<td style="width: 220px; vertical-align:top; border-right: 1px solid #dedede; ">
+																		<td style="width: 220px; vertical-align: top; border-right: 1px solid rgb(222, 222, 222);">
 																			<div v-if="sale.contact" style="margin-top:12px">
-																				<router-link
-																					:to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }"
-																					href="javascript:void(0);">
-																					<p> {{ sale.contact.display_name }}</p>
-																					<p>{{ sale.contact.phone }}</p>
-																					<p>{{ sale.contact.email }}</p>
-																				</router-link>
+                                        <table class="table sales-order-inner-table">
+																					<thead>
+                                            <tr class="inner-tr">
+                                              <th class="text-right" style="border: none !important; color:#000000; font-size: 1em; font-weight:400; background-color:#eee;">
+                                                <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }" >
+                                                  &nbsp; {{ sale.contact.display_name }}
+                                                </router-link>
+                                              </th>
+                                            <tr class="inner-tr">
+                                              <td style="border: none !important; color:#000000; font-size: 1em; font-weight:400; background-color:#eee;">
+                                                <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }" >
+                                                  &nbsp; {{ sale.contact.phone }}
+                                                </router-link>
+                                              </td>
+                                            <tr class="inner-tr">
+                                              <td style="color:#000000; font-size: 1em; font-weight:400; background-color:#eee;">
+                                                <router-link :to="{ name: 'contact.edit', params: {id: sale.contact.contact_id } }" >
+                                                  &nbsp; {{ sale.contact.email }}
+                                                </router-link>
+                                              </td>
+                                            </tr>
+																					</thead>
+																					<tbody>
+																					<tr>
+																						<td class="text-left" style="font-size: 1em;">Payment</td>
+																					</tr>
+																					<tr>
+																						<td class="text-left" style="font-size: 1em;">Shipment</td>
+																					</tr>
+																					</tbody>
+                                        </table>
 																			</div>
 																			<div v-else><span class="text-muted">&mdash;</span></div>
 																		</td>
@@ -344,7 +368,7 @@
 																			<div class="border-1 table-responsive">
 																				<table class="table sales-order-inner-table">
 																					<thead>
-																					<tr class="">
+																					<tr class="inner-tr">
 																						<th style="color:#000000; width: 330px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px">Item</th>
 																						<th style="color:#000000; width: 127px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px">Qty</th>
 																						<th style="color:#000000; width: 114px; font-size: 1em; font-weight:400; background-color:#eee; padding-top: 12px; padding-bottom: 10px">Price</th>
@@ -369,7 +393,7 @@
 																						</td>
 																					</tr>
 																					<tr class="sub-total">
-																						<td colspan="3" style="border-top: 1px solid #dedede"></td>
+																						<td class="transfer-detail" colspan="3" style="text-align:left; border-top: 1px solid #dedede"></td>
 																						<td colspan="1" style="font-size: 1em; border-top: 1px solid #dedede">Sub Total</td>
 																						<td class="text-right" style="font-size: 1em; border-top: 1px solid #dedede">
 																							<span class="pull-left">Rp.</span>
@@ -380,24 +404,32 @@
 																					<!--<td colspan="4" class="text-right text-bold">Shipment Charge</td>-->
 																					<!--<td>{{ overview.shipping_charge | money }}</td>-->
 																					<!--</tr>-->
-																					<tr v-if="sale.invoices[0].shipping_rate > 0" class="sub-total">
-																						<td colspan="3" >
-																						<td colspan="1" style="font-size: 1em;">{{ sale.invoices[0].shipping_carrier_name ||
-																							'Adjustment' }}
+																					<tr class="sub-total">
+																						<td colspan="3" class="shipment-detail" style="text-align:left !important"> 22 May 2018, Transfer Bank BCA</td>
+																						<td colspan="1" style="font-size: 1em;">
+                                              <span v-if="sale.invoices[0].shipping_rate > 0" class="kapspul">
+                                                {{ sale.invoices[0].shipping_carrier_name || 'Adjustment' }}
+                                              </span>&nbsp;
 																						</td>
 																						<td class="text-right" style="font-size: 1em;">
-																							<span class="pull-left">Rp.</span>
-																							{{Number(sale.invoices[0].shipping_rate) | moneyNoCurrency }}
+                                              <span v-if="sale.invoices[0].shipping_rate > 0" class="kapspul">
+                                                <span class="pull-left">Rp.</span>
+                                                {{Number(sale.invoices[0].shipping_rate) | moneyNoCurrency }}
+                                              </span>&nbsp;
 																						</td>
 																					</tr>
-																					<tr v-if="sale.invoices[0].adjustment_value > 0" class="sub-total">
-																						<td colspan="3" >
-																						<td colspan="1" style="font-size: 1em;">{{ sale.invoices[0].adjustment_name ||
-																							'Adjustment' }}
+																					<tr class="sub-total">
+																						<td colspan="3" style="text-align:left !important">25 May 2018, JNE - 98767696969</td>
+																						<td colspan="1" style="font-size: 1em;">
+                                              <span v-if="sale.invoices[0].adjustment_value > 0" class="kapspul">
+                                                {{ sale.invoices[0].adjustment_name || 'Adjustment' }}
+                                              </span>
 																						</td>
 																						<td class="text-right" style="font-size: 1em;">
-																							<span class="pull-left">Rp.</span>
-																							{{Number(sale.invoices[0].adjustment_value) | moneyNoCurrency }}
+                                              <span v-if="sale.invoices[0].adjustment_value > 0" class="kapspul">
+                                                <span class="pull-left">Rp.</span>
+                                                {{Number(sale.invoices[0].adjustment_value) | moneyNoCurrency }}
+                                              </span>&nbsp;
 																						</td>
 																					</tr>
 																					<tr v-if="overview.tax > 0" class="sub-total">
