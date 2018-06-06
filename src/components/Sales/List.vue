@@ -419,7 +419,7 @@
 																						</td>
 																					</tr>
 																					<tr class="sub-total">
-																						<td colspan="3" style="text-align:left !important">25 May 2018, JNE - 98767696969</td>
+																						<td colspan="3" style="text-align:left !important">{{overview.shipment_date | showShortDate}} - 98767696969</td>
 																						<td colspan="1" style="font-size: 1em;">
                                               <span v-if="sale.invoices[0].adjustment_value > 0" class="kapspul">
                                                 {{ sale.invoices[0].adjustment_name || 'Adjustment' }}
