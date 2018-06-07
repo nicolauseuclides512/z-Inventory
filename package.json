@@ -13,8 +13,8 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "build": "node build/build.js",
-    "build-prod": "NODE_ENV=production && node build/build.js"
+    "build": "cross-env NODE_ENV=development node build/build.js",
+    "build-dev": "cross-env NODE_ENV=development node build/build.js"
   },
   "dependencies": {
     "accounting": "^0.4.1",
@@ -59,6 +59,7 @@
     "chalk": "^2.0.1",
     "chromedriver": "^2.27.2",
     "copy-webpack-plugin": "^4.0.1",
+    "cross-env": "^5.1.6",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.0",
     "eslint": "^3.19.0",

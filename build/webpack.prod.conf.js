@@ -36,8 +36,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].[hash:6].js?d=' + timeStamp),
-    chunkFilename: utils.assetsPath('js/[name].[hash:6].js?d=' + timeStamp)
+    filename: utils.assetsPath('js/[name].[hash:5]'+timeStamp+'.js'),
+    chunkFilename: utils.assetsPath('js/[name].[hash:5]'+timeStamp+'.js')
   },
   plugins: [
     new workboxPlugin.GenerateSW({
@@ -96,10 +96,10 @@ const webpackConfig = merge(baseWebpackConfig, {
       : { safe: true }
     }),
 
-    new PurifyCSSPlugin({
-      // Give paths to parse for rules. These should be absolute!
-      paths: glob.sync(path.join(__dirname, 'app/*.html')),
-    }),
+    // new PurifyCSSPlugin({
+    //   // Give paths to parse for rules. These should be absolute!
+    //   paths: glob.sync(path.join(__dirname, 'app/*.html')),
+    // }),
 
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
