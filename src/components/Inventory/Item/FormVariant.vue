@@ -188,7 +188,7 @@
 									</div>
 								</div>
 								<div class="only-variant" v-else>
-                                <Variant
+                  <Variant
 										v-if="!$route.params.id"
 										:item="form"
 										@remove="deleteChildrenItem"
@@ -585,9 +585,10 @@
 					this.form.weight = parseInt(this.form.weight)
 
 					let res
+          let newChildrenWeight = _.map(this.form.children, child => {child.weight = this.form.weight; return child})
 
 					if (this.$route.params.id) {
-						res = await Axios.post(`items/${this.$route.params.id}/update`, this.form)
+						res = await Axios.post(`items/${this.$route.params.id}/update`, {...this.form, children: newChildrenWeight})
 					} else {
 						res = await Axios.post(`items`, this.form)
 					}
