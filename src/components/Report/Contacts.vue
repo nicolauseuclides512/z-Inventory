@@ -16,11 +16,11 @@
 																		<tbody class="content-table">
 																				<tr v-for="(item, idx) in items" :key="idx">
 																						<td style=" width: 80%;" lass="text-left display-name">{{ item.customer_name }}</td>
-																						<td class="amount  text-right"><span class="pull-left">Rp.</span>{{ item.sales_amount | moneyNoCurrency }}</td>
+																						<td class="amount  text-right"><span class="pull-left">Rp</span>{{ item.sales_amount | moneyNoCurrency }}</td>
 																				</tr>
 																				<tr>
 																						<td style=" width: 80%;" class="text-left row-total">Total</td>
-																						<td class="row-total  text-right"><span class="pull-left">Rp.</span>{{ total | moneyNoCurrency }}</td>
+																						<td class="row-total  text-right"><span class="pull-left">Rp</span>{{ total | moneyNoCurrency }}</td>
 																				</tr>
 																		</tbody>
 																</table>
