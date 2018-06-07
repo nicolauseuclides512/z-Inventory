@@ -432,7 +432,7 @@
 					query: {
 						...this.$route.query,
 						page: 1,
-						filter: this.filter,
+						// filter: this.filter,
 						sort: sort+'.'+ascendingSort,
 					},
 				})
@@ -459,7 +459,14 @@
 
 
 			filterContact(filter) {
-				this.getList({filter: filter})
+				// this.getList({filter: filter})
+				this.$router.push({
+					query: {
+						...this.$route.query,
+						page: 1,
+						filter: filter,
+					},
+				})
 				this.currentFilter = filter
 			},
 
