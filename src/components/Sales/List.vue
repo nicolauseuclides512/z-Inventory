@@ -269,10 +269,10 @@
 																					</thead>
 																					<tbody>
 																					<tr>
-																						<td class="text-left" style="font-size: 1em;">Payment</td>
+																						<td class="text-left" style="font-size: 1em;"></td>
 																					</tr>
 																					<tr>
-																						<td class="text-left" style="font-size: 1em;">Shipment</td>
+																						<td class="text-left" style="font-size: 1em;"></td>
 																					</tr>
 																					</tbody>
                                         </table>
@@ -316,7 +316,12 @@
 																						</td>
 																					</tr>
 																					<tr class="sub-total">
-																						<td colspan="3" class="shipment-detail" style="text-align:left !important"> 22 May 2018, Transfer Bank BCA(static, waiting data from backend)</td>
+																						<td colspan="3" class="payments-detail" style="text-align:left !important">
+                                              <span v-if="overview.payments[0]">
+                                                Payment:
+                                                {{overview.payments[0].date | showShortDate}}, {{overview.payments[0].payment_mode_name}} {{overview.payments[0].payment_account_name}}
+                                              </span>&nbsp;
+                                            </td>
 																						<td colspan="1" style="font-size: 1em;">
                                               <span v-if="sale.invoices[0].shipping_rate > 0" class="kapspul">
                                                 {{ sale.invoices[0].shipping_carrier_name || 'Adjustment' }}
@@ -330,7 +335,13 @@
 																						</td>
 																					</tr>
 																					<tr class="sub-total">
-																						<td colspan="3" style="text-align:left !important">{{overview.shipment_date | showShortDate}} - 98767696969</td>
+																						<td colspan="3" class="shipments-detail" style="text-align:left !important">
+                                              <span v-if="overview.shipments[0]">
+                                                Shipments:
+                                                {{overview.shipment_date | showShortDate}},
+                                                <span class="text-uppercase">{{overview.shipments[0].carrier.code}}</span> - #{{overview.shipments[0].tracking_number}}
+                                              </span> &nbsp;
+                                            </td>
 																						<td colspan="1" style="font-size: 1em;">
                                               <span v-if="sale.invoices[0].adjustment_value > 0" class="kapspul">
                                                 {{ sale.invoices[0].adjustment_name || 'Adjustment' }}
