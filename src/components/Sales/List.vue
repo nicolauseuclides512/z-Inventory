@@ -85,7 +85,7 @@
 											</a>
 										</li>
 										<li class="divider"></li>
-										<li><a href="javascript:void(0);" @click="getList"><i class="md-refresh"></i> Refresh List</a></li>
+										<li><a href="javascript:void(0);" @click="refresh"><i class="md-refresh"></i> Refresh List</a></li>
 									</ul>
 								</div>
 							</div>
@@ -517,7 +517,16 @@
 				markitemAsUnChecked:'sales/markitemAsUnChecked',
 				clearAllCheckedItems:'sales/clearAllCheckedItems',
 			}),
-
+      refresh(){
+				this.$router.push({
+					query:{
+						filter: 'all',
+						sort: 'created_at.desc',
+						page: '1',
+						per_page: '60'
+					}
+				})
+      },
 			changeFilter(options = {}) {
 				this.$router.push({
 					query: {

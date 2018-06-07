@@ -2,10 +2,10 @@
 	<div class="sales-order-list-left-side">
 		<div class="clearfix" v-if="!checkedList.length > 0">
 			<div class="pull-left">
-            <span class="box-selectAll checkbox">
-               <input type="checkbox" name="selectAll" id="selectAll" @click="selectAll"/>
-               <label for="selectAll"></label>
-            </span>
+						<span class="box-selectAll checkbox">
+							 <input type="checkbox" name="selectAll" id="selectAll" @click="selectAll"/>
+							 <label for="selectAll"></label>
+						</span>
 				<a href="javascript:void(0);" class="dropdown-toggle page-title" data-toggle="dropdown">
 					<h4 class="text-capitalize">{{ displayedActiveFilter }} <span class="caret"></span></h4>
 				</a>
@@ -56,7 +56,7 @@
 					<li :class="{ active: sort.startsWith('invoice_number') }">
 						<a href="javascript:void(0);" @click="changeSorter('invoice_number.asc')">Invoice#</a></li>
 					<li class="divider"></li>
-					<li><a href="javascript:void(0);"><i class="md-refresh"></i> Refresh List</a></li>
+					<li><span @click="refresh" class="clickable"><i class="md-refresh"></i> Refresh List</span></li>
 				</ul>
 			</div>
 		</div>
@@ -201,9 +201,19 @@
 		},
 
 		methods: {
-         selectAll(){
-            this.checkedList = _.map(this.salesOrderList, 'sales_order_id')
-         },
+			refresh(){
+				this.$router.push({
+					query:{
+						filter: 'all',
+						sort: 'created_at.desc',
+						page: '1',
+						per_page: '60'
+					}
+				})
+			},
+			selectAll(){
+				this.checkedList = _.map(this.salesOrderList, 'sales_order_id')
+			},
 			changeFilter(filter){
 				this.$router.push({
 					query: {
@@ -336,13 +346,13 @@
 	}
 }
 .box-selectAll {
-   display: inline-block;
-   float: left;
-   margin-left: 11px;
-   margin-right: 0;
-   margin-top: 15px;
+	 display: inline-block;
+	 float: left;
+	 margin-left: 11px;
+	 margin-right: 0;
+	 margin-top: 15px;
 }
 h4.text-capitalize{
-   display: inline-block;
+	 display: inline-block;
 }
 </style>

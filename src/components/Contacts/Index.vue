@@ -294,14 +294,11 @@
 					this.clearCheckedContacts()
 				}
 			},
-
 			clearCheckedContacts() {
 				document.querySelector('#checkAll').checked = false
 				this.checkedAll = false
 				this.checkedContacts = []
 			},
-
-
 			/**
 			 * Get contacts
 			 * @param  {Object} options  Custom options
@@ -309,7 +306,7 @@
 			getList(options = {}) {
 				const defaultOptions = {
 					page: 1,
-					per_page: 20,
+					per_page: 60,
 					sort: 'display_name.asc',
 					filter: 'all',
 					q: getParameterByName('q'),
@@ -327,15 +324,16 @@
 					return swal_error(res)
 				})
 			},
-
-
 			refresh() {
 				this.$router.push({
-					query: {},
+					query: {
+            page: 1,
+            per_page: 60,
+            sort: 'display_name.asc',
+            filter: 'all',
+          }
 				})
 			},
-
-
 			/**
 			 * Delete multiple contacts
 			 * @param  {string|number} ids  Separate id by comma (e.g ids=2,4,5)

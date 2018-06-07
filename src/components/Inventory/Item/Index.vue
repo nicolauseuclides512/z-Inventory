@@ -442,11 +442,14 @@
       },
 
       refreshList() {
-        this.list.items = [];
-        this.getList({
-          currentFilter: this.currentFilter,
-          sort: `${this.currentSortColumn}.${this.ascendingSort ? "asc" : "desc"}`
-        });
+        this.$router.push({
+          query: {
+            page: 1,
+            per_page: 60,
+            sort: "item_name.asc",
+            filter_by: "status_all",
+          }
+        })
       },
 
       /**
@@ -457,7 +460,7 @@
         try {
           const defaultParams = {
             page: 1,
-            per_page: 20,
+            per_page: 60,
             sort: "item_name.asc",
             filter_by: "status_all",
             q: getParameterByName("q")

@@ -203,7 +203,7 @@ async getList(params = {}) {
 			try {
 				const defaultParams = {
 					page: 1,
-					per_page: 20,
+					per_page: 60,
 					sort: "created_at.asc",
 					filter_by: "all",
 					q: getParameterByName("q")
@@ -228,16 +228,15 @@ async getList(params = {}) {
 		},
 
 		refreshList() {
-			this.list.items = [];
-			this.getList({
-				// currentFilter: this.currentFilter,
-				sort: `${this.currentSortColumn}.${this.ascendingSort ? "asc" : "desc"}`
+			this.$router.push({
+				query: {
+					page: 1,
+					per_page: 60,
+					sort: "created_at.asc",
+					filter_by: "all",
+        }
 			});
 		},
-		// async updatePagination(data) {
-		// 	this.paginate = data.paginate;
-		// 	this.list.items = data.data;
-		// },
 		sortItemsBy(sort) {
 			this.currentSortColumn = sort
 			this.ascendingSort = !this.ascendingSort
