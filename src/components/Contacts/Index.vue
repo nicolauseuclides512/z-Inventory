@@ -170,9 +170,9 @@
 											</div>
 										</th>
 										<th style="font-size:1.1em; font-weight:normal; width:20%">
-											<a href="#" id="sort-title-name" @click="sortContactsBy('display_name')" style="color:#000">Name</a>
-											<i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'display_name'"></i>
-											<i class="fa fa-sort-desc" v-if="! ascendingSort && currentSortColumn === 'display_name'"></i>
+											<a href="#" id="sort-title-name" @click="sortContactsBy('first_name')" style="color:#000">Name</a>
+											<i class="fa fa-sort-asc" v-if="ascendingSort && currentSortColumn === 'first_name'"></i>
+											<i class="fa fa-sort-desc" v-if="!ascendingSort && currentSortColumn === 'first_name'"></i>
 										</th>
 										<th style="font-size:1.1em; font-weight:normal; width:35%">
 											<a href="#" id="sort-title-company" @click="sortContactsBy('company_name')" style="color:#000">Company Name</a>

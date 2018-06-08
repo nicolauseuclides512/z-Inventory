@@ -13,6 +13,7 @@ import { Alert, swal_success, swal_error, swal_mapError } from './helpers'
 import VeeValidate from 'vee-validate'
 // import 'vue-multiselect/dist/vue-multiselect.min.css'
 // import './registerServiceWorker'
+// import '/dist/vue-multiselect.min.css'
 
 // import Select2 from './directives'
 // Vue.use(Select2)
