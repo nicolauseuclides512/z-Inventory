@@ -73,8 +73,8 @@
 									</button>
 									<ul class="dropdown-menu" role="menu" style="top: 125px;position:  fixed;right: 40px;">
 										<li class="dropdown-header">SORT BY</li>
-										<li :class="{ active: currentSortColumn === 'display_name' }">
-											<a href="javascript:void(0);" id="sort-by-name" @click="sortContactsBy('display_name')">Name</a>
+										<li :class="{ active: currentSortColumn === 'first_name' }">
+											<a href="javascript:void(0);" id="sort-by-name" @click="sortContactsBy('first_name')">Name</a>
 										</li>
 										<li :class="{ active: currentSortColumn === 'company_name' }">
 											<a href="javascript:void(0);" id="sort-by-company" @click="sortContactsBy('company_name')">Company
@@ -260,7 +260,7 @@
 				selectedContact: {},
 				checkedContacts: [],
 				checkedAll: false,
-				currentSortColumn: 'display_name',
+				currentSortColumn: 'first_name',
 				ascendingSort: true,
 				currentFilter: 'all',
 			}
@@ -307,7 +307,7 @@
 				const defaultOptions = {
 					page: 1,
 					per_page: 60,
-					sort: 'display_name.asc',
+					sort: 'first_name.asc',
 					filter: 'all',
 					q: getParameterByName('q'),
 				}
@@ -329,7 +329,7 @@
 					query: {
             page: 1,
             per_page: 60,
-            sort: 'display_name.asc',
+            sort: 'first_name.asc',
             filter: 'all',
           }
 				})
